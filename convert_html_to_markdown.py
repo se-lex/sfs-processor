@@ -163,11 +163,23 @@ def process_html_files(input_dir: str, output_dir: str, api_key: str, model: str
     
     successful_conversions = 0
     failed_conversions = 0
+    skipped_conversions = 0
     
     for i, html_file in enumerate(html_files, 1):
         filename = os.path.basename(html_file)
-        print(f"[{i}/{len(html_files)}] Bearbetar {filename}...")
         
+        # Skapa output-filnamn (byt ut .html med .md)
+        markdown_filename = Path(filename).stem + ".md"
+        output_path = os.path.join(output_dir, markdown_filename)
+
+        # Kontrollera om Markdown-filen redan finns
+        if os.path.exists(output_path):
+            print(f"↷ Skippar {markdown_filename} (finns redan)")
+            skipped_conversions += 1
+            continue
+
+        print(f"[{i}/{len(html_files)}] Bearbetar {filename}...")
+
         # Läs HTML-fil
         html_content = read_html_file(html_file)
         if html_content is None:
@@ -180,10 +192,6 @@ def process_html_files(input_dir: str, output_dir: str, api_key: str, model: str
             failed_conversions += 1
             continue
         
-        # Skapa output-filnamn (byt ut .html med .md)
-        markdown_filename = Path(filename).stem + ".md"
-        output_path = os.path.join(output_dir, markdown_filename)
-        
         # Spara Markdown-fil
         if save_markdown_file(markdown_content, output_path):
             print(f"✓ Sparade {markdown_filename}")
@@ -192,13 +200,14 @@ def process_html_files(input_dir: str, output_dir: str, api_key: str, model: str
             failed_conversions += 1
         
         # Kort paus mellan API-anrop för att undvika rate limiting
-        time.sleep(1)
+        time.sleep(5)
     
     # Sammanfattning
     print("\n=== Sammanfattning ===")
     print(f"Totalt HTML-filer: {len(html_files)}")
     print(f"Lyckade konverteringar: {successful_conversions}")
     print(f"Misslyckade konverteringar: {failed_conversions}")
+    print(f"Skippade filer (finns redan): {skipped_conversions}")
     
     if successful_conversions > 0:
         print(f"Markdown-filer sparade i katalogen: {os.path.abspath(output_dir)}")
