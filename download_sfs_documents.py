@@ -52,6 +52,11 @@ def download_document(document_id: str, output_dir: str = "documents") -> bool:
     filename = f"{document_id}.txt"
     filepath = os.path.join(output_dir, filename)
     
+    # Kontrollera om filen redan finns
+    if os.path.exists(filepath):
+        print(f"⚠ {filename} finns redan, hoppar över")
+        return True
+
     try:
         response = requests.get(url, timeout=30)
         response.raise_for_status()
@@ -107,7 +112,7 @@ def main():
         time.sleep(0.5)
     
     # Sammanfattning
-    print(f"\n=== Sammanfattning ===")
+    print("\n=== Sammanfattning ===")
     print(f"Totalt dokument-ID:n: {len(document_ids)}")
     print(f"Lyckade nedladdningar: {successful_downloads}")
     print(f"Misslyckade nedladdningar: {failed_downloads}")
