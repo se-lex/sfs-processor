@@ -1,4 +1,16 @@
-# Ladda ner SFS som textfiler från Riksdagens öppna API
+# # Svensk författningssamling (SFS) - från Riksdagens öppna API till Markdown-filer
+
+Detta repository innehåller Python-script för att ladda ner och konvertera SFS-dokument (Svensk författningssamling) från Riksdagens öppna data. Konvertering till Markdown sker med LLM-anrop.
+
+## Script
+
+### 1. download_sfs_documents.py
+
+Laddar ner SFS-dokument från Riksdagens öppna API som HTML-filer.
+
+### 2. convert_html_to_markdown.py
+
+Detta script konverterar HTML-filer till Markdown-format med hjälp av OpenAI API.
 
 Skapades med följande prompt mot Claude Sonnet 4 agent mode:
 
@@ -104,3 +116,74 @@ python download_sfs_documents.py --ids "sfs-2017-900,sfs-2009-400,sfs-2009-641,s
 
 - **Dokument-lista**: `https://data.riksdagen.se/dokumentlista/?sok=&doktyp=SFS&utformat=iddump&a=s#soktraff`
 - **Dokument-text**: `https://data.riksdagen.se/dokument/[DOKUMENT-ID].text`
+
+## Konvertera HTML till Markdown
+
+### convert_html_to_markdown.py
+
+Detta script konverterar HTML-filer till Markdown-format med hjälp av OpenAI API.
+
+#### Installation
+
+Installera nödvändiga beroenden (inklusive OpenAI):
+
+```bash
+pip install -r requirements.txt
+```
+
+#### Användning
+
+##### Grundläggande användning
+
+```bash
+python convert_html_to_markdown.py --in sfs_html --apikey YOUR_OPENAI_API_KEY
+```
+
+##### Alla parametrar
+
+```bash
+python convert_html_to_markdown.py --in INPUT_MAPP --out OUTPUT_MAPP --apikey YOUR_OPENAI_API_KEY --model MODELL
+```
+
+#### Parametrar
+
+- `--in`: **Obligatorisk**. Mapp med HTML-filer att konvertera
+- `--out`: Output-mapp för Markdown-filer (default: `md_output`)
+- `--apikey`: **Obligatorisk**. Din OpenAI API-nyckel
+- `--model`: OpenAI-modell att använda (default: `o3`)
+
+#### Exempel
+
+Konvertera alla HTML-filer i `sfs_html` mappen till Markdown:
+
+```bash
+python convert_html_to_markdown.py --in sfs_html --apikey sk-your-api-key-here
+```
+
+Använda en specifik modell och output-mapp:
+
+```bash
+python convert_html_to_markdown.py --in sfs_html --out markdown_documents --apikey sk-your-api-key-here --model gpt-4
+```
+
+#### Funktionalitet
+
+- Läser alla HTML-filer från input-mappen
+- Skapar en prompt som instruerar OpenAI att konvertera HTML till Markdown
+- Bevarar allt innehåll och konverterar metadata till front matter
+- Sparar resultatet som .md-filer med samma namn som de ursprungliga HTML-filerna
+- Visar progress och sammanfattning
+
+#### Komplett arbetsflöde
+
+1. Ladda ner SFS-dokument som HTML:
+```bash
+python download_sfs_documents.py --out sfs_html
+```
+
+2. Konvertera HTML till Markdown:
+```bash
+python convert_html_to_markdown.py --in sfs_html --apikey YOUR_API_KEY
+```
+
+Detta skapar en komplett pipeline från Riksdagens öppna data till Markdown-filer redo för vidare bearbetning.
