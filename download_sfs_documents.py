@@ -7,6 +7,7 @@ Hämtar först en lista med dokument-ID:n och laddar sedan ner textinnehållet f
 import requests
 import os
 import time
+import argparse
 from typing import List
 
 
@@ -48,8 +49,8 @@ def download_document(document_id: str, output_dir: str = "documents") -> bool:
     Returns:
         bool: True om nedladdningen lyckades, False annars
     """
-    url = f"https://data.riksdagen.se/dokument/{document_id}.text"
-    filename = f"{document_id}.txt"
+    url = f"https://data.riksdagen.se/dokument/{document_id}.html"
+    filename = f"{document_id}.html"
     filepath = os.path.join(output_dir, filename)
     
     # Kontrollera om filen redan finns
@@ -83,17 +84,30 @@ def main():
     """
     Huvudfunktion som koordinerar hämtning av dokument-ID:n och nedladdning av dokument.
     """
+    parser = argparse.ArgumentParser(description='Ladda ner SFS-dokument från Riksdagens öppna data')
+    parser.add_argument('--ids', default='all',
+                        help='Kommaseparerad lista med dokument-ID:n att ladda ner, eller "all" för att hämta alla från Riksdagen (default: all)')
+    parser.add_argument('--out', default='sfs_html',
+                        help='Mapp att spara nedladdade dokument i (default: sfs_html)')
+
+    args = parser.parse_args()
+
     print("=== SFS Dokument Nedladdare ===")
     
     # Hämta dokument-ID:n
-    document_ids = fetch_document_ids()
+    if args.ids == 'all':
+        document_ids = fetch_document_ids()
+    else:
+        # Parsa kommaseparerade dokument-ID:n
+        document_ids = [doc_id.strip() for doc_id in args.ids.split(',') if doc_id.strip()]
+        print(f"Använder {len(document_ids)} dokument-ID:n från parameter")
     
     if not document_ids:
         print("Inga dokument-ID:n hittades. Avslutar.")
         return
     
     # Skapa katalog för nedladdade dokument
-    output_dir = "documents"
+    output_dir = args.out
     print(f"\nLaddar ner dokument till katalogen: {output_dir}")
     
     # Ladda ner varje dokument
