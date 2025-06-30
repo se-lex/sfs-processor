@@ -6,7 +6,7 @@ Detta repository innehåller Python-script för att ladda ner och konvertera SFS
 
 ### 1. download_sfs_documents.py
 
-Laddar ner SFS-dokument från Riksdagens öppna API som HTML-filer.
+Laddar ner SFS-dokument från antingen Riksdagens öppna API (som HTML-filer) eller Regeringskansliets Elasticsearch API (som strukturerad JSON-data).
 
 Skapades med följande prompt mot Claude Sonnet 4 agent mode:
 
@@ -26,12 +26,20 @@ https://data.riksdagen.se/dokument/%DOKUMENTID%.text
 Markdown-filen som sparas ska heta samma som Dokument-ID och ha filändelsen .txt
 ```
 
-Scriptet gör följande:
+Scriptet har senare utökats med stöd för Regeringskansliets API och gör följande:
+
+**För Riksdagens API (standard):**
 
 1. Hämtar en lista med dokument-ID:n från Riksdagens dokumentlista
 2. Parsar kommaseparerade värden och trimmar mellanslag
-3. För varje dokument-ID, hämtar textinnehållet från Riksdagens API
-4. Sparar varje dokument som en .txt-fil med dokument-ID som filnamn
+3. För varje dokument-ID, hämtar HTML-innehållet från Riksdagens API
+4. Sparar varje dokument som en .html-fil med dokument-ID som filnamn
+
+**För Regeringskansliets API:**
+
+1. Använder specifika dokument-ID:n (automatisk hämtning av alla ID:n stöds ej)
+2. Hämtar strukturerad data via Elasticsearch API
+3. Sparar varje dokument som en .json-fil med fullständig metadata
 
 ### 2. convert_html_to_markdown.py
 
@@ -48,7 +56,16 @@ pip install -r requirements.txt
 
 ## Användning
 
-### Ladda ner alla SFS-dokument (standard)
+### Välj källa för nedladdning
+
+Scriptet stöder två olika källor:
+
+- **riksdagen** (standard): Hämtar HTML-filer från Riksdagens öppna data
+- **rkrattsbaser**: Hämtar strukturerad JSON-data från Regeringskansliets Elasticsearch API
+
+### Ladda ner från Riksdagen (standard)
+
+#### Ladda ner alla SFS-dokument
 
 ```bash
 python download_sfs_documents.py
@@ -57,15 +74,29 @@ python download_sfs_documents.py
 eller explicit:
 
 ```bash
-python download_sfs_documents.py --ids all
+python download_sfs_documents.py --ids all --source riksdagen
 ```
 
-### Ladda ner specifika dokument
-
-Du kan också ange en kommaseparerad lista med specifika dokument-ID:n:
+#### Ladda ner specifika dokument från Riksdagen
 
 ```bash
-python download_sfs_documents.py --ids "sfs-2017-900,sfs-2009-400,sfs-2011-791"
+python download_sfs_documents.py --ids "sfs-2017-900,sfs-2009-400,sfs-2011-791" --source riksdagen
+```
+
+### Ladda ner från Regeringskansliets API
+
+**Observera:** Automatisk hämtning av alla dokument-ID:n (`--ids all`) stöds inte för rkrattsbaser. Du måste ange specifika dokument-ID:n.
+
+#### Ladda ner specifika dokument från rkrattsbaser
+
+```bash
+python download_sfs_documents.py --source rkrattsbaser --ids "2025:764,2025:765"
+```
+
+#### Med anpassad output-mapp
+
+```bash
+python download_sfs_documents.py --source rkrattsbaser --ids "2025:764" --out "sfs_json"
 ```
 
 ### Ange output-mapp
@@ -90,21 +121,45 @@ För att ladda ner alla lagar som styr Swedac till en specifik mapp:
 python download_sfs_documents.py --ids "sfs-2017-900,sfs-2009-400,sfs-2009-641,sfs-2021-1252,sfs-2011-791,sfs-2011-811,sfs-2019-16,sfs-1991-93,sfs-1993-1634,sfs-2014-864,sfs-2002-574,sfs-2009-211,sfs-2006-985,sfs-2006-1592,sfs-2016-1128,sfs-2009-1079,sfs-2009-1078,sfs-2010-900,sfs-2011-338,sfs-2011-1244,sfs-2011-1261,sfs-1992-1514,sfs-1993-1066,sfs-1994-99,sfs-1997-857,sfs-1999-716,sfs-2005-403,sfs-2006-1043,sfs-2011-318,sfs-2011-345,sfs-2011-1200,sfs-2011-1480,sfs-2012-211,sfs-2012-238,sfs-1975-49,sfs-1999-779,sfs-1999-780" --out "swedac_lagar"
 ```
 
-## Output
-
-- Dokument sparas i den angivna katalogen (default: `sfs_html/`)
-- Varje fil får namnet `[DOKUMENT-ID].html`
-- Scriptet visar progress och en sammanfattning när det är klart
-
 ## Funktioner
 
-- **Flexibel input**: Kan ladda ner antingen alla SFS-dokument eller en specificerad lista
+- **Två datakällor**: Välj mellan Riksdagens HTML-data eller Regeringskansliets strukturerade JSON-data
+- **Flexibel input**: Kan ladda ner antingen alla SFS-dokument (endast Riksdagen) eller en specificerad lista
 - **Konfigurerbar output**: Ange vilken mapp dokumenten ska sparas i med `--out` parametern
-- **Kommandoradsparametrar**: Använd `--ids` för att ange specifika dokument-ID:n
+- **Kommandoradsparametrar**:
+  - `--ids`: Ange specifika dokument-ID:n eller "all" för alla (endast Riksdagen)
+  - `--source`: Välj mellan "riksdagen" (HTML) eller "rkrattsbaser" (JSON)
+  - `--out`: Ange output-mapp
 - **Felhantering**: Hanterar nätverksfel och filfel gracefullt
 - **Progress-indikator**: Visar framsteg under nedladdning
 - **Throttling**: Kort paus mellan nedladdningar för att vara snäll mot servern
 - **UTF-8 encoding**: Korrekt hantering av svenska tecken
+
+## Kommandoradsalternativ
+
+```bash
+python download_sfs_documents.py [--ids IDS] [--out MAPP] [--source KÄLLA]
+```
+
+### Parametrar
+
+- `--ids`: Kommaseparerad lista med dokument-ID:n att ladda ner, eller "all" för att hämta alla från Riksdagen (default: "all")
+- `--out`: Mapp att spara nedladdade dokument i (default: "sfs_docs")
+- `--source`: Välj källa - "riksdagen" för HTML-format eller "rkrattsbaser" för JSON-format (default: "riksdagen")
+
+## Output
+
+### Riksdagen (HTML)
+
+- Dokument sparas i den angivna katalogen (default: `sfs_docs/`)
+- Varje fil får namnet `[DOKUMENT-ID].html`
+- Innehåller HTML-formaterat lagtext
+
+### Regeringskansliet (JSON)
+
+- Dokument sparas i den angivna katalogen (default: `sfs_docs/`)
+- Varje fil får namnet `[DOKUMENT-ID].json`
+- Innehåller strukturerad metadata och lagtext i JSON-format
 
 ## Konvertera HTML till Markdown
 
@@ -125,7 +180,7 @@ pip install -r requirements.txt
 ##### Grundläggande användning
 
 ```bash
-python convert_html_to_markdown.py --in sfs_html --apikey YOUR_OPENAI_API_KEY
+python convert_html_to_markdown.py --in sfs_docs --apikey YOUR_OPENAI_API_KEY
 ```
 
 ##### Alla parametrar
@@ -143,28 +198,28 @@ python convert_html_to_markdown.py --in INPUT_MAPP --out OUTPUT_MAPP --apikey YO
 
 #### Exempel
 
-Konvertera alla HTML-filer i `sfs_html` mappen till Markdown:
+Konvertera alla HTML-filer i `sfs_docs` mappen till Markdown:
 
 ```bash
-python convert_html_to_markdown.py --in sfs_html --apikey sk-your-api-key-here
+python convert_html_to_markdown.py --in sfs_docs --apikey sk-your-api-key-here
 ```
 
 Använda en specifik modell och output-mapp:
 
 ```bash
-python convert_html_to_markdown.py --in sfs_html --out markdown_documents --apikey sk-your-api-key-here --model gpt-4
+python convert_html_to_markdown.py --in sfs_docs --out markdown_documents --apikey sk-your-api-key-here --model gpt-4
 ```
 
 #### Komplett arbetsflöde
 
 1. Ladda ner SFS-dokument som HTML:
 ```bash
-python download_sfs_documents.py --out sfs_html
+python download_sfs_documents.py --out sfs_docs
 ```
 
 2. Konvertera HTML till Markdown:
 ```bash
-python convert_html_to_markdown.py --in sfs_html --apikey YOUR_API_KEY
+python convert_html_to_markdown.py --in sfs_docs --apikey YOUR_API_KEY
 ```
 
 Detta skapar en komplett pipeline från Riksdagens öppna data till Markdown-filer redo för vidare bearbetning.
