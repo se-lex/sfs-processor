@@ -18,7 +18,7 @@ Skriver: markdown/sfs-2024-11.formatted.md
 
 import re
 
-def format_sfs_md(input_path, output_path):
+def format_sfs_text_to_md(input_path, output_path):
     """
     Formattera ett SFS-dokument enligt specificerade regler.
     
@@ -78,5 +78,5 @@ def format_sfs_md(input_path, output_path):
 
 if __name__ == '__main__':
     # Kör formateringen på SFS 2024:11
-    format_sfs_md('markdown/sfs-2024-11.md', 'markdown/sfs-2024-11.formatted.md')
+    format_sfs_text_to_md('markdown/sfs-2024-11.md', 'markdown/sfs-2024-11.formatted.md')
     print("Formatering klar! Resultat sparat i markdown/sfs-2024-11.formatted.md")

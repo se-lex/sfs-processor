@@ -45,6 +45,27 @@ Scriptet har senare utökats med stöd för Regeringskansliets API och gör föl
 
 Detta script konverterar HTML-filer till Markdown-format med hjälp av OpenAI API.
 
+### 3. convert_json_to_markdown.py
+
+Detta script konverterar JSON-filer (från Regeringskansliets API) till Markdown-format med strukturerad YAML front matter.
+
+**Funktioner:**
+
+- Extraherar relevant metadata från JSON-strukturen
+- Skapar strukturerad YAML front matter med alla viktiga fält
+- Formaterar innehållet som läsbar Markdown
+- Hanterar ändringsförfattningar i strukturerat format
+- Rensar och normaliserar textinnehåll
+- Konverterar datum till ISO-format
+
+**Användning:**
+
+```bash
+python convert_json_to_markdown.py
+```
+
+Scriptet läser alla .json-filer från `json/`-mappen och skapar motsvarande .md-filer i `markdown/`-mappen.
+
 ## Installation
 
 1. Se till att du har Python 3.6+ installerat
@@ -213,11 +234,13 @@ python convert_html_to_markdown.py --in sfs_docs --out markdown_documents --apik
 #### Komplett arbetsflöde
 
 1. Ladda ner SFS-dokument som HTML:
+
 ```bash
 python download_sfs_documents.py --out sfs_docs
 ```
 
 2. Konvertera HTML till Markdown:
+
 ```bash
 python convert_html_to_markdown.py --in sfs_docs --apikey YOUR_API_KEY
 ```
