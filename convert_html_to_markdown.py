@@ -31,6 +31,26 @@ def read_html_file(file_path: str) -> Optional[str]:
         return None
 
 
+def get_folder_name(filename: str) -> str:
+    """
+    Bestämmer mappnamn baserat på filnamn genom att ta bort allt före första bindestrecket.
+
+    Args:
+        filename (str): Filnamnet (utan extension)
+
+    Returns:
+        str: Mappnamn utan delen före första bindestrecket
+    """
+    # Hitta första bindestreck
+    dash_index = filename.find('-')
+    if dash_index != -1:
+        # Returnera delen efter första bindestrecket
+        return filename[dash_index + 1:]
+    else:
+        # Om inget bindestreck finns, returnera hela filnamnet
+        return filename
+
+
 def create_prompt(html_content: str) -> str:
     """
     Skapar prompt för OpenAI API-anropet.
@@ -167,18 +187,23 @@ def process_html_files(input_dir: str, output_dir: str, api_key: str, model: str
     
     for i, html_file in enumerate(html_files, 1):
         filename = os.path.basename(html_file)
+
+        # Skapa mappnamn och output-filnamn
+        file_stem = Path(filename).stem
+        folder_name = get_folder_name(file_stem)
+        markdown_filename = file_stem + ".md"
         
-        # Skapa output-filnamn (byt ut .html med .md)
-        markdown_filename = Path(filename).stem + ".md"
-        output_path = os.path.join(output_dir, markdown_filename)
+        # Skapa sökväg med undermapp
+        folder_path = os.path.join(output_dir, folder_name)
+        output_path = os.path.join(folder_path, markdown_filename)
 
         # Kontrollera om Markdown-filen redan finns
         if os.path.exists(output_path):
-            print(f"↷ Skippar {markdown_filename} (finns redan)")
+            print(f"↷ Skippar {markdown_filename} i mapp {folder_name} (finns redan)")
             skipped_conversions += 1
             continue
 
-        print(f"[{i}/{len(html_files)}] Bearbetar {filename}...")
+        print(f"[{i}/{len(html_files)}] Bearbetar {filename} → mapp: {folder_name}...")
 
         # Läs HTML-fil
         html_content = read_html_file(html_file)
@@ -194,7 +219,7 @@ def process_html_files(input_dir: str, output_dir: str, api_key: str, model: str
         
         # Spara Markdown-fil
         if save_markdown_file(markdown_content, output_path):
-            print(f"✓ Sparade {markdown_filename}")
+            print(f"✓ Sparade {markdown_filename} i mapp {folder_name}")
             successful_conversions += 1
         else:
             failed_conversions += 1
