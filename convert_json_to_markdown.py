@@ -449,7 +449,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
             processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum, verbose)
 
             # Debug output: show diff if enabled
-            show_diff = False
+            show_diff = True
             if show_diff:
                 # Create unified diff
                 diff_lines = list(difflib.unified_diff(

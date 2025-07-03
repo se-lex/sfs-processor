@@ -67,7 +67,7 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                 next_paragraph = raw_paragraphs[i + 1]
                 next_paragraph_lines = next_paragraph.split('\n')
                 consolidated_next = ' '.join(line.strip() for line in next_paragraph_lines if line.strip())
-                
+
                 # Om nästa stycke också är en rubrik, behandla denna rubrik som egen paragraf
                 if re.match(r'^#{2,4}\s+', consolidated_next.strip()):
                     logical_paragraphs.append(consolidated_paragraph)
@@ -147,7 +147,7 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                 changes_applied += 1
                 if verbose:
                     print(f"Regel 3 tillämpas: Tar bort '/Rubriken träder i kraft I:{date_in_text}/' markering från paragraf {i+1}")
-                    print(f"Före: \033[91m{old_paragraph}\033[0m")
+                    print(f"Före: \033[33m{old_paragraph}\033[0m")  # Gul text för före (närmare orange)
                     print(f"Efter: \033[32m{paragraph}\033[0m")  # Grön text för efter
                     print("-" * 80)
 
@@ -158,16 +158,48 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
 
             # Om target_date är angivet, kontrollera att det matchar
             if target_date is None or date_in_text == target_date:
-                # Kontrollera om det föregås av en underrubrik (börjar med ###)
-                if re.search(r'###\s+', paragraph):
-                    # Ta bort hela stycket
+                # Hitta rubriknivån för den rubrik som ska upphöra
+                header_match = re.search(r'^(#{2,4})\s+', paragraph)
+                if header_match:
+                    header_level = len(header_match.group(1))  # Antal # tecken
+
+                    # Markera denna paragraf för borttagning
                     changes_applied += 1
                     paragraph_removed = True
+
                     if verbose:
-                        print(f"Regel 4 tillämpas: Tar bort paragraf {i+1} med '/Rubriken upphör att gälla U:{date_in_text}/' före underrubrik")
+                        print(f"Regel 4 tillämpas: Tar bort rubrik nivå {header_level} med '/Rubriken upphör att gälla U:{date_in_text}/' från paragraf {i+1}")
                         print(f"\033[91m{paragraph}\033[0m")  # Röd text
                         print("-" * 80)
+
+                    # Ta även bort alla efterföljande paragrafer tills nästa rubrik på samma eller högre nivå
+                    j = i + 1
+                    while j < len(paragraphs):
+                        next_paragraph = paragraphs[j]
+                        next_header_match = re.search(r'^(#{2,4})\s+', next_paragraph)
+
+                        if next_header_match:
+                            next_header_level = len(next_header_match.group(1))
+                            # Om vi hittar en rubrik på samma eller högre nivå (färre #), sluta ta bort
+                            if next_header_level <= header_level:
+                                break
+
+                        # Markera denna paragraf för borttagning också
+                        changes_applied += 1
+                        if verbose:
+                            print(f"Regel 4 tillämpas: Tar bort underordnad paragraf {j+1} under upphörd rubrik")
+                            print(f"\033[91m{next_paragraph}\033[0m")  # Röd text
+                            print("-" * 80)
+
+                        # Sätt en markering så vi vet att hoppa över denna paragraf i huvudloopen
+                        paragraphs[j] = "___REMOVE_THIS_PARAGRAPH___"
+                        j += 1
+
                     continue
+
+        # Skippa paragrafer som markerats för borttagning av regel 4
+        if paragraph == "___REMOVE_THIS_PARAGRAPH___":
+            continue
 
         # Om inget av ovanstående matchar, behåll stycket
         if not paragraph_removed:
