@@ -102,11 +102,11 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None) -> str:
             filtered_paragraphs.append(paragraph)
 
     # Kontrollera om inga regler kunde tillämpas
-    if changes_applied == 0:
-        if target_date:
-            raise ValueError(f"Inga regler kunde tillämpas för datum {target_date}. Kontrollera att texten innehåller relevanta ändringsmarkeringar med detta datum. Innehållet: " + text)
-        else:
-            raise ValueError("Inga regler kunde tillämpas. Kontrollera att texten innehåller relevanta ändringsmarkeringar (/Ny beteckning, /Upphör att gälla, /Rubriken träder i kraft, /Rubriken upphör att gälla).")
+    # if changes_applied == 0:
+    #     if target_date:
+    #         raise ValueError(f"Inga regler kunde tillämpas för datum {target_date}. Kontrollera att texten innehåller relevanta ändringsmarkeringar med detta datum. Innehållet: " + text)
+    #     else:
+    #         raise ValueError("Inga regler kunde tillämpas. Kontrollera att texten innehåller relevanta ändringsmarkeringar (/Ny beteckning, /Upphör att gälla, /Rubriken träder i kraft, /Rubriken upphör att gälla).")
 
     # Sätt ihop styckena igen
     return '\n\n'.join(filtered_paragraphs)
@@ -218,11 +218,25 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
             if potential_headers[i] and not next_is_list_start:
                 # Kontrollera om det är ett kapitel (börjar med "X kap.") - använd rensad rad för analys
                 if re.match(r'^\d+\s+kap\.', cleaned_line.strip()):
-                    formatted.append(f'## {original_line}')
+                    # Extrahera eventuella markeringar från början av raden
+                    marker_match = re.match(r'^(/[^/]+/)\s*(.*)', original_line)
+                    if marker_match:
+                        marker = marker_match.group(1)
+                        content = marker_match.group(2)
+                        formatted.append(f'{marker} ## {content}')
+                    else:
+                        formatted.append(f'## {original_line}')
                 # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de andra kriterierna
                 elif (len(cleaned_line.split()) <= 2 and '.' not in cleaned_line) or (len(cleaned_line) < 300 and not cleaned_line.strip().endswith(('.', ':'))):
-                    # Använd H3-rubrik för rubriker
-                    formatted.append(f'### {original_line}')
+                    # Extrahera eventuella markeringar från början av raden
+                    marker_match = re.match(r'^(/[^/]+/)\s*(.*)', original_line)
+                    if marker_match:
+                        marker = marker_match.group(1)
+                        content = marker_match.group(2)
+                        formatted.append(f'{marker} ### {content}')
+                    else:
+                        # Använd H3-rubrik för rubriker
+                        formatted.append(f'### {original_line}')
                 else:
                     # Hantera paragrafnummer baserat på parameter
                     if previous_line_empty and paragraph_as_header:
@@ -247,7 +261,14 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
             else:
                 # Kontrollera om det är ett kapitel (börjar med "X kap.") även utanför potential_headers
                 if re.match(r'^\d+\s+kap\.', cleaned_line.strip()):
-                    formatted.append(f'## {original_line}')
+                    # Extrahera eventuella markeringar från början av raden
+                    marker_match = re.match(r'^(/[^/]+/)\s*(.*)', original_line)
+                    if marker_match:
+                        marker = marker_match.group(1)
+                        content = marker_match.group(2)
+                        formatted.append(f'{marker} ## {content}')
+                    else:
+                        formatted.append(f'## {original_line}')
                 # Hantera paragrafnummer baserat på parameter
                 elif previous_line_empty and paragraph_as_header:
                     # Kontrollera om raden börjar med paragrafnummer (använd original rad)
@@ -270,4 +291,6 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
             previous_line_empty = False
 
     # Returnera den formaterade texten
-    return '\n'.join(formatted)
+    final_text = '\n'.join(formatted)
+
+    return final_text.strip()  # Ta bort eventuella inledande eller avslutande tomma rader

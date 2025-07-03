@@ -468,6 +468,7 @@ def main():
     parser = argparse.ArgumentParser(description='Convert SFS JSON files to Markdown.')
     parser.add_argument('--input', '-i', help='Input directory containing JSON files')
     parser.add_argument('--output', '-o', help='Output directory for Markdown files')
+    parser.add_argument('--filter', help='Filter files by year (YYYY) or specific beteckning (YYYY:NNN). Can be comma-separated list.')
     parser.add_argument('--no-year-folder', dest='year_folder', action='store_false',
                         help='Do not create year-based subdirectories for documents')
     parser.add_argument('--enable-git', action='store_true',
@@ -510,6 +511,16 @@ def main():
         print(f"No JSON files found in {json_dir}")
         return
     
+    # Apply filter if specified
+    if args.filter:
+        original_count = len(json_files)
+        json_files = filter_json_files(json_files, args.filter)
+        print(f"Filter '{args.filter}' applied: {len(json_files)} of {original_count} files selected")
+
+        if not json_files:
+            print("No files match the filter criteria")
+            return
+
     print(f"Found {len(json_files)} JSON file(s) to convert from {json_dir}")
     print(f"Output will be saved to {output_dir}")
     
@@ -518,6 +529,43 @@ def main():
         convert_json_to_markdown(json_file, output_dir, args.year_folder, True, args.enable_git, args.verbose)
     
     print(f"\nConversion complete! Markdown files saved to {output_dir}")
+
+
+def filter_json_files(json_files: List[Path], filter_criteria: str) -> List[Path]:
+    """
+    Filter JSON files based on filename containing year or ID patterns.
+
+    Args:
+        json_files: List of JSON file paths
+        filter_criteria: Filter string containing years (YYYY) or IDs (YYYY:NNN)
+                        Can be comma-separated for multiple criteria
+
+    Returns:
+        List[Path]: Filtered list of JSON files
+    """
+    if not filter_criteria:
+        return json_files
+
+    # Parse filter criteria - split by comma and strip whitespace
+    criteria = [c.strip() for c in filter_criteria.split(',') if c.strip()]
+
+    filtered_files = []
+
+    for json_file in json_files:
+        filename = json_file.stem  # Get filename without extension
+
+        # Check if filename matches any of the criteria
+        for criterion in criteria:
+            # Check for exact beteckning match (YYYY:NNN format)
+            if ':' in criterion and criterion.replace(':', '-') in filename:
+                filtered_files.append(json_file)
+                break
+            # Check for year match (YYYY format)
+            elif ':' not in criterion and f"{criterion}-" in filename:
+                filtered_files.append(json_file)
+                break
+
+    return filtered_files
 
 
 if __name__ == "__main__":
