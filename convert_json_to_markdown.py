@@ -148,10 +148,6 @@ departement: {organisation}
                 yaml_front_matter += f"    anteckningar: \"{amendment['anteckningar']}\"\n"
             if amendment['ikraft_datum']:
                 yaml_front_matter += f"    ikraft_datum: {amendment['ikraft_datum']}\n"
-            if amendment['publicerings_ar']:
-                yaml_front_matter += f"    publicerings_ar: \"{amendment['publicerings_ar']}\"\n"
-            if amendment['lopnummer']:
-                yaml_front_matter += f"    lopnummer: \"{amendment['lopnummer']}\"\n"
     
     yaml_front_matter += "---\n\n"
     
