@@ -24,7 +24,7 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
 
     Regler:
     1. Om "/Ny beteckning" förekommer efter en paragraf (ex. **13 §**) ska hela stycket tas bort
-    2. Om "/Upphör att gälla U:YYYY-MM-DD/" förekommer efter en paragraf ska hela stycket tas bort
+    2. Om "/Upphör att gälla" med datum förekommer efter en paragraf ska hela stycket tas bort
     3. Om "/Rubriken träder i kraft I:YYYY-MM-DD/" förekommer efter en paragraf ska hela stycket tas bort
     4. Om "/Rubriken upphör att gälla U:YYYY-MM-DD/" förekommer före en underrubrik ska hela stycket tas bort
 
@@ -45,6 +45,7 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
         """
         Dela upp texten i logiska paragrafer baserat på dubbla radbrytningar,
         men se till att rubriker inkluderas tillsammans med sitt innehåll.
+        Slår också ihop rader inom varje paragraf så att markeringar hamnar på samma rad.
         """
         # Dela på dubbla radbrytningar först
         raw_paragraphs = text.split('\n\n')
@@ -55,16 +56,23 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
         while i < len(raw_paragraphs):
             current_paragraph = raw_paragraphs[i]
 
+            # Slå ihop alla rader inom paragrafen med mellanslag (för att hantera markeringar på separata rader)
+            paragraph_lines = current_paragraph.split('\n')
+            consolidated_paragraph = ' '.join(line.strip() for line in paragraph_lines if line.strip())
+
             # Om detta stycke är bara en rubrik, slå ihop med nästa stycke
-            if (re.match(r'^#{2,4}\s+', current_paragraph.strip()) and
+            if (re.match(r'^#{2,4}\s+', consolidated_paragraph.strip()) and
                 i + 1 < len(raw_paragraphs)):
                 # Slå ihop rubriken med nästa stycke
                 next_paragraph = raw_paragraphs[i + 1]
-                combined = current_paragraph + '\n\n' + next_paragraph
+                # Konsolidera även nästa paragraf
+                next_paragraph_lines = next_paragraph.split('\n')
+                consolidated_next = ' '.join(line.strip() for line in next_paragraph_lines if line.strip())
+                combined = consolidated_paragraph + '\n\n' + consolidated_next
                 logical_paragraphs.append(combined)
                 i += 2  # Hoppa över nästa stycke eftersom vi redan behandlat det
             else:
-                logical_paragraphs.append(current_paragraph)
+                logical_paragraphs.append(consolidated_paragraph)
                 i += 1
 
         return logical_paragraphs
@@ -84,16 +92,15 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
 
         # Kontrollera om stycket innehåller "/Ny beteckning"
         if '/Ny beteckning' in paragraph:
-            # Kontrollera om det föregås av en paragraf (innehåller ####)
-            if re.search(r'####\s+', paragraph):
-                # Ta bort hela stycket
-                changes_applied += 1
-                paragraph_removed = True
-                if verbose:
-                    print(f"Regel 1 tillämpas: Tar bort paragraf {i+1} med '/Ny beteckning' efter paragraf")
-                    print(f"\033[91m{paragraph}\033[0m")  # Röd text
-                    print("-" * 80)
-                continue
+            # Ta bort bara markeringen och trimma extra mellanslag
+            old_paragraph = paragraph
+            paragraph = re.sub(r'\s*/Ny beteckning\s*', ' ', paragraph)
+            paragraph = re.sub(r'\s+', ' ', paragraph).strip()  # Normalisera mellanslag
+            changes_applied += 1
+            if verbose:
+                print(f"Regel 1 tillämpas: Tar bort '/Ny beteckning' markering från paragraf {i+1}")
+                print(f"\033[32m{paragraph}\033[0m")  # Grön text för det nya resultatet
+                print("-" * 80)
 
         # Kontrollera om stycket innehåller "/Upphör att gälla" med datum
         upphör_match = re.search(r'/Upphör att gälla U:(\d{4}-\d{2}-\d{2})/', paragraph)
@@ -111,6 +118,15 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                         print(f"\033[91m{paragraph}\033[0m")  # Röd text
                         print("-" * 80)
                     continue
+                else:
+                    # Varna om att det inte föregås av en paragraf
+                    if verbose:
+                        print(f"Regel 2 varning: '/Upphör att gälla U:{date_in_text}/' i paragraf {i+1} utan föregående paragraf")
+                        print(f"\033[93m{paragraph}\033[0m")  # Gul text för varning
+                        print("-" * 80)
+            else:
+                if verbose:
+                    print(f"Regel 2 varning: '/Upphör att gälla U:{date_in_text}/' i paragraf {i+1} inte matchar target_date {target_date}")
 
         # Kontrollera om det står "/Rubriken träder i kraft" med datum
         rubrik_träder_match = re.search(r'/Rubriken träder i kraft I:(\d{4}-\d{2}-\d{2})/', paragraph)
@@ -126,7 +142,7 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                 if verbose:
                     print(f"Regel 3 tillämpas: Tar bort '/Rubriken träder i kraft I:{date_in_text}/' markering från paragraf {i+1}")
                     print(f"Före: \033[91m{old_paragraph}\033[0m")
-                    print(f"Efter: \033[92m{paragraph}\033[0m")  # Grön text för efter
+                    print(f"Efter: \033[32m{paragraph}\033[0m")  # Grön text för efter
                     print("-" * 80)
 
         # Kontrollera om det står "/Rubriken upphör att gälla" med datum
@@ -237,11 +253,11 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
             if is_potential_header and not next_is_list_start:
                 # Kontrollera om det är ett kapitel (börjar med "X kap.") - använd rensad rad för analys
                 if re.match(r'^\d+\s+kap\.', cleaned_line.strip()):
-                    formatted.append(f'## {original_line}')
+                    formatted.append(format_header_with_markings('##', original_line))
                 # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de andra kriterierna
                 elif (len(cleaned_line.split()) <= 2 and '.' not in cleaned_line) or (len(cleaned_line) < 300 and not cleaned_line.strip().endswith(('.', ':'))):
                     # Använd H3-rubrik för rubriker
-                    formatted.append(f'### {original_line}')
+                    formatted.append(format_header_with_markings('###', original_line))
                 else:
                     # Hantera paragrafnummer baserat på parameter
                     if previous_line_empty and paragraph_as_header:
@@ -250,11 +266,11 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                         if paragraph_match:
                             paragraph_num = paragraph_match.group(1)
                             rest_of_line = paragraph_match.group(2).strip()
-                            # Använd H4-rubrik för paragrafnummer, eftersom H2 är kapital och H3 är för rubriker
-                            formatted.append(f'#### {paragraph_num}')
+                            # Slå ihop paragrafnummer med resten för att hantera markeringar korrekt
+                            full_paragraph_text = paragraph_num + ' ' + rest_of_line if rest_of_line else paragraph_num
+                            # Använd H4-rubrik för paragrafnummer
+                            formatted.append(format_header_with_markings('####', full_paragraph_text))
                             formatted.append('')  # Tom rad efter rubriken
-                            if rest_of_line:
-                                formatted.append(rest_of_line)
                         else:
                             formatted.append(original_line)
                     elif previous_line_empty:
@@ -266,7 +282,7 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
             else:
                 # Kontrollera om det är ett kapitel (börjar med "X kap.") även utanför potential_headers
                 if re.match(r'^\d+\s+kap\.', cleaned_line.strip()):
-                    formatted.append(f'## {original_line}')
+                    formatted.append(format_header_with_markings('##', original_line))
                 # Hantera paragrafnummer baserat på parameter
                 elif previous_line_empty and paragraph_as_header:
                     # Kontrollera om raden börjar med paragrafnummer (använd original rad)
@@ -274,10 +290,10 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                     if paragraph_match:
                         paragraph_num = paragraph_match.group(1)
                         rest_of_line = paragraph_match.group(2).strip()
-                        formatted.append(f'#### {paragraph_num}')
+                        # Slå ihop paragrafnummer med resten för att hantera markeringar korrekt
+                        full_paragraph_text = paragraph_num + ' ' + rest_of_line if rest_of_line else paragraph_num
+                        formatted.append(format_header_with_markings('####', full_paragraph_text))
                         formatted.append('')  # Tom rad efter rubriken
-                        if rest_of_line:
-                            formatted.append(rest_of_line)
                     else:
                         formatted.append(original_line)
                 elif previous_line_empty:
@@ -292,3 +308,31 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
     final_text = '\n'.join(formatted)
 
     return final_text.strip()  # Ta bort eventuella inledande eller avslutande tomma rader
+
+
+def format_header_with_markings(header_level: str, text: str) -> str:
+    """
+    Formattera en rubrik och flytta eventuella markeringar (ex. /Ny beteckning/)
+    till direkt efter rubrikmarkören men före rubriktexten.
+
+    Args:
+        header_level (str): Rubriknivå som "##" eller "###" eller "####"
+        text (str): Texten som kan innehålla markeringar
+
+    Returns:
+        str: Formaterad rubrik med markeringar i rätt position
+    """
+    # Hitta alla markeringar i texten
+    markings = re.findall(r'/[^/]+/', text)
+
+    if markings:
+        # Ta bort alla markeringar från texten
+        cleaned_text = re.sub(r'\s*/[^/]+/\s*', ' ', text)
+        cleaned_text = re.sub(r'\s+', ' ', cleaned_text).strip()
+
+        # Skapa rubriken med markeringar direkt efter rubrikmarkören
+        markings_str = ' '.join(markings)
+        return f"{header_level} {markings_str} {cleaned_text}"
+    else:
+        # Ingen markering hittad, returnera som vanligt
+        return f"{header_level} {text}"

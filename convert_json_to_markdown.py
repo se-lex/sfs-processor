@@ -424,9 +424,23 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
         key=lambda x: x['ikraft_datum']
     )
 
+    # Print number of amendments found
+    if verbose:
+        print(f"Found {len(sorted_amendments)} amendments to process.")
+
+    # Kolla så det är lika många amenedments som ikraft_datum
+    if len(sorted_amendments) != len(set(a['ikraft_datum'] for a in sorted_amendments)):
+        print("Warning: Duplicate ikraft_datum found in amendments. This may cause unexpected behavior.")
+
     for amendment in sorted_amendments:
         ikraft_datum = amendment.get('ikraft_datum')
         rubrik = amendment.get('rubrik', 'Ändringsförfattning')
+
+        if verbose:
+            print(f"\n{'='*60}")
+            print(f"Processing ÄNDRINGSFÖRFATTNING: {rubrik} ({ikraft_datum})")
+            print(f"{'='*60}")
+            print('')
 
         if ikraft_datum:
             # Store text before changes for debug comparison
@@ -435,12 +449,8 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
             processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum, verbose)
 
             # Debug output: show diff if enabled
-            verbose = False
-            if verbose:
-                print(f"\n{'='*60}")
-                print(f"ÄNDRINGSFÖRFATTNING: {rubrik} ({ikraft_datum})")
-                print(f"{'='*60}")
-
+            show_diff = False
+            if show_diff:
                 # Create unified diff
                 diff_lines = list(difflib.unified_diff(
                     text_before_changes.splitlines(keepends=True),
