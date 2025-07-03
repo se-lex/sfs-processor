@@ -126,39 +126,7 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
     # Dela upp texten i rader
     original_lines = text.splitlines()
 
-    # Steg 0: Skapa rensade rader för rubrikidentifiering (ta bort markeringar inom snedstreck)
-    # Detta inkluderar markeringar som "/Träder i kraft/", "/Upphör att gälla/", "/Ny beteckning/" etc.
-    temp_cleaned_lines = []
-    for line in original_lines:
-        # Ta bort alla texter inom snedstreck temporärt för rubrikanalys
-        cleaned_line = re.sub(r'/[^/]+/', '', line).strip()
-        temp_cleaned_lines.append(cleaned_line)
-
-    # Steg 1: Bearbeta de rensade raderna för att slå ihop brutna meningar och identifiera struktur
-    # Varje paragraf avgränsas av tomma rader
-    cleaned_result_lines = []
-    current_paragraph = []
-
-    for line in temp_cleaned_lines:
-        line = line.rstrip()
-
-        # Om tom rad, avsluta nuvarande paragraf
-        if not line.strip():
-            if current_paragraph:
-                # Slå ihop rader i paragrafen med mellanslag (ta bort radbrytningar)
-                paragraph_text = ' '.join(current_paragraph)
-                cleaned_result_lines.append(paragraph_text)
-                current_paragraph = []
-            cleaned_result_lines.append('')  # Behåll tom rad för struktur
-        else:
-            current_paragraph.append(line.strip())
-
-    # Glöm inte sista paragrafen
-    if current_paragraph:
-        paragraph_text = ' '.join(current_paragraph)
-        cleaned_result_lines.append(paragraph_text)
-
-    # Steg 1b: Bearbeta originalraderna på samma sätt för att bevara markeringar
+    # Undvik radbrytningar utan låt dokumentet bli flytande text
     original_result_lines = []
     current_paragraph = []
 
@@ -168,7 +136,7 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
         # Om tom rad, avsluta nuvarande paragraf
         if not line.strip():
             if current_paragraph:
-                # Slå ihop rader i paragrafen med mellanslag (ta bort radbrytningar)
+                # Slå ihop rader i paragrafen med mellanslag (behåll markeringar)
                 paragraph_text = ' '.join(current_paragraph)
                 original_result_lines.append(paragraph_text)
                 current_paragraph = []
@@ -185,58 +153,41 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
     formatted = []
     previous_line_empty = True  # Första raden räknas som början av nytt stycke
 
-    # Kontrollera om rader är potentiella rubriker baserat på de rensade raderna
-    potential_headers = []
-    for i, line in enumerate(cleaned_result_lines):
-        is_potential_header = (
-            line.strip() and
-            len(line) < 300 and
-            # Krav på stor bokstav i början av raden (efter eventuella inledande specialtecken)
-            re.match(r'^[A-ZÅÄÖ]', line.strip()) and
-            # Grundläggande uteslutningar
-            not line.strip().endswith(('.', ':')) and
-            not line.strip().startswith('-') and  # Uteslut rader som börjar med bindestreck
-            not re.match(r'^\d+\.', line.strip())  # Uteslut rader som börjar med siffra följt av punkt
-        )
-        potential_headers.append(is_potential_header)
-
     # Använd originalraderna för formatering men tillämpa rubriklogik baserat på rensade rader
     for i, original_line in enumerate(original_result_lines):
         if not original_line.strip():
             formatted.append('')  # Behåll tomma rader
             previous_line_empty = True
         else:
-            # Hämta motsvarande rensad rad för rubrikanalys
-            cleaned_line = cleaned_result_lines[i] if i < len(cleaned_result_lines) else ''
+            # Rensa raden för rubrikanalys (ta bort /-markeringar)
+            cleaned_line = re.sub(r'/[^/]+/', '', original_line).strip()
 
             # Kontrollera om nästnästa rad börjar med "1." för att undvika att göra en rad till rubrik
             next_is_list_start = False
-            if i + 2 < len(cleaned_result_lines) and cleaned_result_lines[i + 2].strip().startswith("1."):
+            if i + 2 < len(original_result_lines) and original_result_lines[i + 2].strip().startswith("1."):
                 next_is_list_start = True
 
+            # Kontrollera om det är en potentiell rubrik (direkt kontroll istället för förberäknad lista)
+            is_potential_header = (
+                cleaned_line.strip() and
+                len(cleaned_line) < 300 and
+                # Krav på stor bokstav i början av raden (efter eventuella inledande specialtecken)
+                re.match(r'^[A-ZÅÄÖ]', cleaned_line.strip()) and
+                # Grundläggande uteslutningar
+                not cleaned_line.strip().endswith(('.', ':')) and
+                not cleaned_line.strip().startswith('-') and  # Uteslut rader som börjar med bindestreck
+                not re.match(r'^\d+\.', cleaned_line.strip())  # Uteslut rader som börjar med siffra följt av punkt
+            )
+
             # Kontrollera om det är en rubrik (baserat på rensad rad men använd original för output)
-            if potential_headers[i] and not next_is_list_start:
+            if is_potential_header and not next_is_list_start:
                 # Kontrollera om det är ett kapitel (börjar med "X kap.") - använd rensad rad för analys
                 if re.match(r'^\d+\s+kap\.', cleaned_line.strip()):
-                    # Extrahera eventuella markeringar från början av raden
-                    marker_match = re.match(r'^(/[^/]+/)\s*(.*)', original_line)
-                    if marker_match:
-                        marker = marker_match.group(1)
-                        content = marker_match.group(2)
-                        formatted.append(f'{marker} ## {content}')
-                    else:
-                        formatted.append(f'## {original_line}')
+                    formatted.append(f'## {original_line}')
                 # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de andra kriterierna
                 elif (len(cleaned_line.split()) <= 2 and '.' not in cleaned_line) or (len(cleaned_line) < 300 and not cleaned_line.strip().endswith(('.', ':'))):
-                    # Extrahera eventuella markeringar från början av raden
-                    marker_match = re.match(r'^(/[^/]+/)\s*(.*)', original_line)
-                    if marker_match:
-                        marker = marker_match.group(1)
-                        content = marker_match.group(2)
-                        formatted.append(f'{marker} ### {content}')
-                    else:
-                        # Använd H3-rubrik för rubriker
-                        formatted.append(f'### {original_line}')
+                    # Använd H3-rubrik för rubriker
+                    formatted.append(f'### {original_line}')
                 else:
                     # Hantera paragrafnummer baserat på parameter
                     if previous_line_empty and paragraph_as_header:
@@ -261,14 +212,7 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
             else:
                 # Kontrollera om det är ett kapitel (börjar med "X kap.") även utanför potential_headers
                 if re.match(r'^\d+\s+kap\.', cleaned_line.strip()):
-                    # Extrahera eventuella markeringar från början av raden
-                    marker_match = re.match(r'^(/[^/]+/)\s*(.*)', original_line)
-                    if marker_match:
-                        marker = marker_match.group(1)
-                        content = marker_match.group(2)
-                        formatted.append(f'{marker} ## {content}')
-                    else:
-                        formatted.append(f'## {original_line}')
+                    formatted.append(f'## {original_line}')
                 # Hantera paragrafnummer baserat på parameter
                 elif previous_line_empty and paragraph_as_header:
                     # Kontrollera om raden börjar med paragrafnummer (använd original rad)

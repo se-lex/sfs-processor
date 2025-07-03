@@ -285,8 +285,8 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_fol
     # Debug: Check final markdown content length
     print(f"Debug: Final markdown content length for {data.get('beteckning', 'unknown')}: {len(markdown_content)}")
     if len(markdown_content) < 1000:  # If suspiciously short, show preview
-        print(f"Debug: Content preview:\n{markdown_content[:500]}...")
-    
+        print(f"Debug: Content preview because suspiciously short:\n{markdown_content[:500]}...")
+
     # Create output filename based on beteckning
     beteckning = data.get('beteckning', json_file_path.stem)
 
