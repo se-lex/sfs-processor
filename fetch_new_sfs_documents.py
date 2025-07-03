@@ -189,7 +189,7 @@ Exempel:
     
     args = parser.parse_args()
 
-    print("=== SFS Dokument Hämtare (Nya/Uppdaterade) ===")
+    print("=== Dokumenthämtare (nya/uppdaterade) ===")
     
     # Bestäm datum att söka från
     if args.date:
