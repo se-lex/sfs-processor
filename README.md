@@ -1,4 +1,4 @@
-# Svensk författningssamling (SFS) till Markdown-filer
+# Svensk författningssamling (SFS) som Markdown-filer
 
 Detta repository innehåller Python-script för att ladda ner och konvertera SFS-författningar (Svensk författningssamling) från antingen Regeringskansliets publika söktjänst eller Riksdagens öppna API. Konvertering till Markdown sker med en uppsättning regler.
 
@@ -83,19 +83,6 @@ För att ladda ner alla lagar som styr Swedac till en specifik mapp:
 ```bash
 python download_sfs_documents.py --ids "sfs-2017-900,sfs-2009-400,sfs-2009-641,sfs-2021-1252,sfs-2011-791,sfs-2011-811,sfs-2019-16,sfs-1991-93,sfs-1993-1634,sfs-2014-864,sfs-2002-574,sfs-2009-211,sfs-2006-985,sfs-2006-1592,sfs-2016-1128,sfs-2009-1079,sfs-2009-1078,sfs-2010-900,sfs-2011-338,sfs-2011-1244,sfs-2011-1261,sfs-1992-1514,sfs-1993-1066,sfs-1994-99,sfs-1997-857,sfs-1999-716,sfs-2005-403,sfs-2006-1043,sfs-2011-318,sfs-2011-345,sfs-2011-1200,sfs-2011-1480,sfs-2012-211,sfs-2012-238,sfs-1975-49,sfs-1999-779,sfs-1999-780" --out "swedac_lagar"
 ```
-
-## Funktioner
-
-- **Två datakällor**: Välj mellan Regeringskansliets strukturerade JSON-data eller Riksdagens HTML-data
-- **Konfigurerbar output**: Ange vilken mapp dokumenten ska sparas i med `--out` parametern
-- **Kommandoradsparametrar**:
-  - `--ids`: Ange specifika dokument-ID:n eller "all" för alla (endast Riksdagen)
-  - `--source`: Välj mellan "riksdagen" (HTML) eller "rkrattsbaser" (JSON)
-  - `--out`: Ange output-mapp
-- **Felhantering**: Hanterar nätverksfel och filfel gracefullt
-- **Progress-indikator**: Visar framsteg under nedladdning
-- **Throttling**: Kort paus mellan nedladdningar för att vara snäll mot servern
-- **UTF-8 encoding**: Korrekt hantering av svenska tecken
 
 ## Kommandoradsalternativ
 
