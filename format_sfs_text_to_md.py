@@ -63,10 +63,12 @@ def format_sfs_text_to_md(input_path, output_path):
         is_potential_header = (
             line.strip() and
             len(line) < 300 and
+            # Krav på stor bokstav i början av raden (efter eventuella inledande specialtecken)
+            re.match(r'^[A-ZÅÄÖ]', line.strip()) and
+            # Grundläggande uteslutningar
             not line.strip().endswith(('.', ':')) and
-            not re.match(r'^\d+\.', line.strip()) and  # Uteslut rader som börjar med siffra följt av punkt
-            # Kontrollera om det är max två ord eller om det uppfyller de andra kriterierna
-            (len(line.split()) <= 2 or True)
+            not line.strip().startswith('-') and  # Uteslut rader som börjar med bindestreck
+            not re.match(r'^\d+\.', line.strip())  # Uteslut rader som börjar med siffra följt av punkt
         )
         potential_headers.append(is_potential_header)
 
@@ -114,6 +116,12 @@ def format_sfs_text(text: str) -> str:
     # Dela upp texten i rader
     lines = text.splitlines()
 
+    # Steg 0: Ta bort text som börjar med "/Träder i kraft" upp till nästa "/" och mellanslaget efter, inklusive båda slash-tecknen
+    text = re.sub(r'/Träder i kraft[^/]*/\s*', '', text)
+
+    # Dela upp texten i rader igen efter att ha rensat Träder i kraft-text
+    lines = text.splitlines()
+
     # Steg 1: Bearbeta rader för att slå ihop brutna meningar
     # Varje paragraf avgränsas av tomma rader
     result_lines = []
@@ -148,10 +156,12 @@ def format_sfs_text(text: str) -> str:
         is_potential_header = (
             line.strip() and
             len(line) < 300 and
+            # Krav på stor bokstav i början av raden (efter eventuella inledande specialtecken)
+            re.match(r'^[A-ZÅÄÖ]', line.strip()) and
+            # Grundläggande uteslutningar
             not line.strip().endswith(('.', ':')) and
-            not re.match(r'^\d+\.', line.strip()) and  # Uteslut rader som börjar med siffra följt av punkt
-            # Kontrollera om det är max två ord eller om det uppfyller de andra kriterierna
-            (len(line.split()) <= 2 or True)
+            not line.strip().startswith('-') and  # Uteslut rader som börjar med bindestreck
+            not re.match(r'^\d+\.', line.strip())  # Uteslut rader som börjar med siffra följt av punkt
         )
         potential_headers.append(is_potential_header)
 
@@ -182,9 +192,5 @@ def format_sfs_text(text: str) -> str:
                 formatted.append(line)
             previous_line_empty = False
 
-    # Steg 3: Ta bort text som börjar med "/Träder i kraft" upp till nästa "/" och mellanslaget efter
-    formatted_text = '\n'.join(formatted)
-    formatted_text = re.sub(r'/Träder i kraft[^/]*/\s*', '/', formatted_text)
-
     # Returnera den formaterade texten
-    return formatted_text
+    return '\n'.join(formatted)
