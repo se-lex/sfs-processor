@@ -85,7 +85,6 @@ def create_markdown_content(data: Dict[str, Any]) -> str:
     forarbeten = clean_text(data.get('forarbeten', ''))
     celex_nummer = data.get('celexnummer')
     eu_direktiv = data.get('eUdirektiv', False)
-    dokumenttyp = data.get('dokumenttyp', 'SFS')
 
     # Extract organization information
     organisation_data = data.get('organisation', {})
@@ -104,11 +103,9 @@ def create_markdown_content(data: Dict[str, Any]) -> str:
 
     # Create YAML front matter
     yaml_front_matter = f"""---
-beteckning: "{beteckning}"
-rubrik: "{rubrik}"
-departement: "{organisation}"
-organisation: "{organisation}"
-dokumenttyp: "{dokumenttyp}"
+beteckning: {beteckning}
+rubrik: {rubrik}
+departement: {organisation}
 """
 
     # Add dates if they exist
