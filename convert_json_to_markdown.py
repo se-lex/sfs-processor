@@ -85,7 +85,6 @@ def create_markdown_content(data: Dict[str, Any]) -> str:
     rubrik = clean_rubrik(data.get('rubrik', ''))
 
     # Extract dates
-    beslutad_datum = format_datetime(data.get('beslutadDateTime'))
     publicerad_datum = format_datetime(data.get('publiceradDateTime'))
     ikraft_datum = format_datetime(data.get('ikraftDateTime'))
 
@@ -117,21 +116,16 @@ departement: {organisation}
 """
 
     # Add dates if they exist
-    if beslutad_datum:
-        yaml_front_matter += f"beslutad_datum: {beslutad_datum}\n"
-        # TODO: räcker det med enbart "beslutad"? Vore snyggare.
     if publicerad_datum:
         yaml_front_matter += f"publicerad_datum: {publicerad_datum}\n"
-        # TODO: räcker det med enbart "publicerad"? Vore snyggare.
     if ikraft_datum:
         yaml_front_matter += f"ikraft_datum: {ikraft_datum}\n"
-        # TODO: räcker det med enbart "ikraft"? Vore snyggare. Finns dock andra regler än datum om kan bestämma när en lag träder i kraft.
 
     # Add other metadata
     if forarbeten:
-        yaml_front_matter += f"forarbeten: \"{forarbeten}\"\n"
+        yaml_front_matter += f"forarbeten: {forarbeten}\n"
     if celex_nummer:
-        yaml_front_matter += f"celex: \"{celex_nummer}\"\n"
+        yaml_front_matter += f"celex: {celex_nummer}\n"
 
     # Add eu_direktiv only if it's true
     if eu_direktiv:
@@ -141,13 +135,13 @@ departement: {organisation}
     if amendments:
         yaml_front_matter += "andringsforfattningar:\n"
         for amendment in amendments:
-            yaml_front_matter += f"  - beteckning: \"{amendment['beteckning']}\"\n"
+            yaml_front_matter += f"  - beteckning: {amendment['beteckning']}\n"
             if amendment['rubrik']:
-                yaml_front_matter += f"    rubrik: \"{amendment['rubrik']}\"\n"
-            if amendment['anteckningar']:
-                yaml_front_matter += f"    anteckningar: \"{amendment['anteckningar']}\"\n"
+                yaml_front_matter += f"    rubrik: {amendment['rubrik']}\n"
             if amendment['ikraft_datum']:
                 yaml_front_matter += f"    ikraft_datum: {amendment['ikraft_datum']}\n"
+            if amendment['anteckningar']:
+                yaml_front_matter += f"    anteckningar: \"{amendment['anteckningar']}\n"
     
     yaml_front_matter += "---\n\n"
     
