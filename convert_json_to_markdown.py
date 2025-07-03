@@ -193,7 +193,8 @@ departement: {format_yaml_value(organisation)}
     if amendments:
         yaml_front_matter += "andringsforfattningar:\n"
         for amendment in amendments:
-            yaml_front_matter += f"  - beteckning: {format_yaml_value(amendment['beteckning'])}\n"
+            # beteckning should not be quoted (it's in YYYY:NNN format)
+            yaml_front_matter += f"  - beteckning: {amendment['beteckning']}\n"
             if amendment['rubrik']:
                 yaml_front_matter += f"    rubrik: {format_yaml_value(amendment['rubrik'])}\n"
             if amendment['ikraft_datum']:
