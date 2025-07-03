@@ -144,12 +144,13 @@ def format_sfs_with_changes(text: str) -> str:
     return '\n\n'.join(filtered_paragraphs)
 
 
-def format_sfs_text(text: str) -> str:
+def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
     """
     Formattera texten för ett SFS-dokument enligt specificerade regler.
 
     Args:
         text (str): Texten som ska formateras
+        paragraph_as_header (bool): Om True, gör paragrafnummer till H3-rubriker istället för fetstil
 
     Returns:
         str: Den formaterade texten
@@ -222,15 +223,45 @@ def format_sfs_text(text: str) -> str:
                 if (len(line.split()) <= 2 and '.' not in line) or (len(line) < 300 and not line.strip().endswith(('.', ':'))):
                     formatted.append(f'## {line}')
                 else:
-                    # Fetstila endast (NUMMER) § som inleder ett nytt stycke (efter tom rad)
-                    if previous_line_empty:
+                    # Hantera paragrafnummer baserat på parameter
+                    if previous_line_empty and paragraph_as_header:
+                        # Kontrollera om raden börjar med paragrafnummer
+                        paragraph_match = re.match(r'^(\d+ ?§)(.*)', line)
+                        if paragraph_match:
+                            paragraph_num = paragraph_match.group(1)
+                            rest_of_line = paragraph_match.group(2).strip()
+                            formatted.append(f'### {paragraph_num}')
+                            formatted.append('')  # Tom rad efter rubriken
+                            if rest_of_line:
+                                formatted.append(rest_of_line)
+                        else:
+                            formatted.append(line)
+                    elif previous_line_empty:
+                        # Fetstila paragrafnummer som vanligt
                         line = re.sub(r'^(\d+ ?§)', r'**\1**', line)
-                    formatted.append(line)
+                        formatted.append(line)
+                    else:
+                        formatted.append(line)
             else:
-                # Fetstila endast (NUMMER) § som inleder ett nytt stycke (efter tom rad)
-                if previous_line_empty:
+                # Hantera paragrafnummer baserat på parameter
+                if previous_line_empty and paragraph_as_header:
+                    # Kontrollera om raden börjar med paragrafnummer
+                    paragraph_match = re.match(r'^(\d+ ?§)(.*)', line)
+                    if paragraph_match:
+                        paragraph_num = paragraph_match.group(1)
+                        rest_of_line = paragraph_match.group(2).strip()
+                        formatted.append(f'### {paragraph_num}')
+                        formatted.append('')  # Tom rad efter rubriken
+                        if rest_of_line:
+                            formatted.append(rest_of_line)
+                    else:
+                        formatted.append(line)
+                elif previous_line_empty:
+                    # Fetstila paragrafnummer som vanligt
                     line = re.sub(r'^(\d+ ?§)', r'**\1**', line)
-                formatted.append(line)
+                    formatted.append(line)
+                else:
+                    formatted.append(line)
             previous_line_empty = False
 
     # Returnera den formaterade texten

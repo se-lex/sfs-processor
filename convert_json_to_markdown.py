@@ -130,7 +130,7 @@ def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict
     return amendments
 
 
-def create_markdown_content(data: Dict[str, Any]) -> str:
+def create_markdown_content(data: Dict[str, Any], paragraph_as_header: bool = True) -> str:
     """Create Markdown content with YAML front matter from JSON data."""
 
     # Extract main document information
@@ -220,14 +220,14 @@ departement: {format_yaml_value(organisation)}
         print(f"Warning: Could not sort front matter: {e}")
 
     # Format the content text before creating the markdown body
-    formatted_text = format_sfs_text(innehall_text)
+    formatted_text = format_sfs_text(innehall_text, paragraph_as_header)
 
     # Create Markdown body
     markdown_body = f"# {rubrik}\n\n" + formatted_text
 
     return yaml_front_matter + markdown_body
 
-def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_folder: bool) -> None:
+def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_folder: bool, paragraph_as_header: bool = True) -> None:
     """Convert a single JSON file to Markdown format."""
     
     # Read JSON file
@@ -239,7 +239,7 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_fol
         return
     
     # Create Markdown content
-    markdown_content = create_markdown_content(data)
+    markdown_content = create_markdown_content(data, paragraph_as_header)
     
     # Create output filename based on beteckning
     beteckning = data.get('beteckning', json_file_path.stem)
