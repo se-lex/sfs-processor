@@ -6,7 +6,7 @@ Regler som tillämpas:
 2. Identifiera och formattera olika typer av rubriker:
    - Kapitel (ex. "1 kap.") blir H2-rubriker (##)
    - Vanliga rubriker (max två ord, ingen punkt) blir H3-rubriker (###)
-   - Paragrafnummer (ex. "13 §") kan bli antingen:
+   - Paragrafnummer (ex. "13 §", "3 a §") kan bli antingen:
      * H3-rubriker (###) när paragraph_as_header=True (standard)
      * H4-rubriker (####) inom potential_headers-sektionen
      * Fetstil (**text**) när paragraph_as_header=False
@@ -60,17 +60,23 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
             paragraph_lines = current_paragraph.split('\n')
             consolidated_paragraph = ' '.join(line.strip() for line in paragraph_lines if line.strip())
 
-            # Om detta stycke är bara en rubrik, slå ihop med nästa stycke
+            # Om detta stycke är bara en rubrik, kontrollera vad som kommer härnäst
             if (re.match(r'^#{2,4}\s+', consolidated_paragraph.strip()) and
                 i + 1 < len(raw_paragraphs)):
-                # Slå ihop rubriken med nästa stycke
+                # Konsolidera nästa paragraf för att kontrollera om det också är en rubrik
                 next_paragraph = raw_paragraphs[i + 1]
-                # Konsolidera även nästa paragraf
                 next_paragraph_lines = next_paragraph.split('\n')
                 consolidated_next = ' '.join(line.strip() for line in next_paragraph_lines if line.strip())
-                combined = consolidated_paragraph + '\n\n' + consolidated_next
-                logical_paragraphs.append(combined)
-                i += 2  # Hoppa över nästa stycke eftersom vi redan behandlat det
+                
+                # Om nästa stycke också är en rubrik, behandla denna rubrik som egen paragraf
+                if re.match(r'^#{2,4}\s+', consolidated_next.strip()):
+                    logical_paragraphs.append(consolidated_paragraph)
+                    i += 1  # Gå vidare till nästa stycke utan att slå ihop
+                else:
+                    # Slå ihop rubriken med nästa stycke som tidigare
+                    combined = consolidated_paragraph + '\n\n' + consolidated_next
+                    logical_paragraphs.append(combined)
+                    i += 2  # Hoppa över nästa stycke eftersom vi redan behandlat det
             else:
                 logical_paragraphs.append(consolidated_paragraph)
                 i += 1
@@ -262,7 +268,7 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                     # Hantera paragrafnummer baserat på parameter
                     if previous_line_empty and paragraph_as_header:
                         # Kontrollera om raden börjar med paragrafnummer (använd original rad)
-                        paragraph_match = re.match(r'^(\d+ ?§)(.*)', original_line)
+                        paragraph_match = re.match(r'^(\d+\s*[a-z]?\s*§)(.*)', original_line)
                         if paragraph_match:
                             paragraph_num = paragraph_match.group(1)
                             rest_of_line = paragraph_match.group(2).strip()
@@ -275,7 +281,7 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                             formatted.append(original_line)
                     elif previous_line_empty:
                         # Fetstila paragrafnummer som vanligt
-                        modified_line = re.sub(r'^(\d+ ?§)', r'**\1**', original_line)
+                        modified_line = re.sub(r'^(\d+\s*[a-z]?\s*§)', r'**\1**', original_line)
                         formatted.append(modified_line)
                     else:
                         formatted.append(original_line)
@@ -286,7 +292,7 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                 # Hantera paragrafnummer baserat på parameter
                 elif previous_line_empty and paragraph_as_header:
                     # Kontrollera om raden börjar med paragrafnummer (använd original rad)
-                    paragraph_match = re.match(r'^(\d+ ?§)(.*)', original_line)
+                    paragraph_match = re.match(r'^(\d+\s*[a-z]?\s*§)(.*)', original_line)
                     if paragraph_match:
                         paragraph_num = paragraph_match.group(1)
                         rest_of_line = paragraph_match.group(2).strip()
@@ -298,7 +304,7 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                         formatted.append(original_line)
                 elif previous_line_empty:
                     # Fetstila paragrafnummer som vanligt
-                    modified_line = re.sub(r'^(\d+ ?§)', r'**\1**', original_line)
+                    modified_line = re.sub(r'^(\d+\s*[a-z]?\s*§)', r'**\1**', original_line)
                     formatted.append(modified_line)
                 else:
                     formatted.append(original_line)
