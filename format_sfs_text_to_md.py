@@ -5,6 +5,7 @@ Regler som tillämpas:
 1. Ta bort alla radbrytningar så att dokumentet blir flytande text (inte "wrappat")
 2. Identifiera och formattera olika typer av rubriker:
    - Kapitel (ex. "1 kap.") blir H2-rubriker (##)
+   - Bilagor (ex. "Bilaga A") blir H2-rubriker (##)
    - Vanliga rubriker (max två ord, ingen punkt) blir H3-rubriker (###)
    - Paragrafnummer (ex. "13 §", "3 a §") kan bli antingen:
      * H3-rubriker (###) när paragraph_as_header=True (standard)
@@ -292,6 +293,9 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                 # Kontrollera om det är ett kapitel (börjar med "X kap.") - använd rensad rad för analys
                 if re.match(r'^\d+\s+kap\.', cleaned_line.strip()):
                     formatted.append(format_header_with_markings('##', original_line))
+                # Kontrollera om det är en bilaga (börjar med "Bilaga ") - använd rensad rad för analys
+                elif cleaned_line.strip().startswith('Bilaga '):
+                    formatted.append(format_header_with_markings('##', original_line))
                 # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de andra kriterierna
                 elif (len(cleaned_line.split()) <= 2 and '.' not in cleaned_line) or (len(cleaned_line) < 300 and not cleaned_line.strip().endswith(('.', ':'))):
                     # Använd H3-rubrik för rubriker
@@ -320,6 +324,9 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
             else:
                 # Kontrollera om det är ett kapitel (börjar med "X kap.") även utanför potential_headers
                 if re.match(r'^\d+\s+kap\.', cleaned_line.strip()):
+                    formatted.append(format_header_with_markings('##', original_line))
+                # Kontrollera om det är en bilaga (börjar med "Bilaga ") även utanför potential_headers
+                elif cleaned_line.strip().startswith('Bilaga '):
                     formatted.append(format_header_with_markings('##', original_line))
                 # Hantera paragrafnummer baserat på parameter
                 elif previous_line_empty and paragraph_as_header:
