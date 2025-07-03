@@ -45,5 +45,10 @@ jobs:
           echo "Inga nya filer att committa"
         else
           git commit -m "Automatisk uppdatering av SFS-författningar $(date +'%Y-%m-%d')"
-          git push
+          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+          if [ "$CURRENT_BRANCH" = "main" ]; then
+            echo "Hoppar över push eftersom vi är på main-branchen"
+          else
+            git push
+          fi
         fi
