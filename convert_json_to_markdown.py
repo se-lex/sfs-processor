@@ -21,6 +21,52 @@ from typing import Dict, Any, List, Optional
 from format_sfs_text_to_md import format_sfs_text
 
 
+def format_yaml_value(value: Any) -> str:
+    """Format a value for YAML output, only adding quotes when necessary according to YAML rules."""
+    if value is None:
+        return 'null'
+
+    if isinstance(value, bool):
+        return 'true' if value else 'false'
+
+    if isinstance(value, (int, float)):
+        return str(value)
+
+    # Convert to string if not already
+    if not isinstance(value, str):
+        value = str(value)
+
+    # Empty string needs quotes
+    if not value:
+        return '""'
+
+    # Check if value needs quotes according to YAML rules
+    needs_quotes = (
+        # Starts with special YAML characters
+        value[0] in '!&*|>@`#%{}[]' or
+        # Contains special characters that could be interpreted as YAML syntax (but not simple dates)
+        (any(char in value for char in ['[', ']', '{', '}', ',', '#', '`', '"', "'", '|', '>', '*', '&', '!', '%', '@']) or
+         (':' in value and not re.match(r'^\d{4}:\d+$', value))) or  # Allow YYYY:NNN format and dates
+        # Looks like a number, boolean, or null
+        value.lower() in ['true', 'false', 'null', 'yes', 'no', 'on', 'off'] or
+        re.match(r'^-?\d+\.?\d*$', value) or  # Numbers
+        re.match(r'^-?\d+\.?\d*e[+-]?\d+$', value.lower()) or  # Scientific notation
+        # Starts or ends with whitespace
+        value != value.strip() or
+        # Contains newlines
+        '\n' in value or '\r' in value or
+        # Starts with special sequences
+        value.startswith(('<<', '---', '...', '- '))
+    )
+
+    if needs_quotes:
+        # Use double quotes and escape any double quotes inside
+        escaped_value = value.replace('\\', '\\\\').replace('"', '\\"')
+        return f'"{escaped_value}"'
+
+    return value
+
+
 def clean_text(text: Optional[str]) -> str:
     """Clean and format text content."""
     if not text:
@@ -49,8 +95,11 @@ def format_datetime(dt_str: Optional[str]) -> Optional[str]:
         return None
     
     try:
-        # Parse the datetime and format it without timezone info
-        dt = datetime.fromisoformat(dt_str.replace('T00:00:00', ''))
+        # Parse the datetime and format it as date only
+        if 'T' in dt_str:
+            dt = datetime.fromisoformat(dt_str.split('T')[0])
+        else:
+            dt = datetime.fromisoformat(dt_str)
         return dt.strftime('%Y-%m-%d')
     except (ValueError, AttributeError):
         return dt_str
@@ -110,38 +159,38 @@ def create_markdown_content(data: Dict[str, Any]) -> str:
 
     # Create YAML front matter
     yaml_front_matter = f"""---
-beteckning: {beteckning}
-rubrik: {rubrik}
-departement: {organisation}
+beteckning: {format_yaml_value(beteckning)}
+rubrik: {format_yaml_value(rubrik)}
+departement: {format_yaml_value(organisation)}
 """
 
     # Add dates if they exist
     if publicerad_datum:
-        yaml_front_matter += f"publicerad_datum: {publicerad_datum}\n"
+        yaml_front_matter += f"publicerad_datum: {format_yaml_value(publicerad_datum)}\n"
     if ikraft_datum:
-        yaml_front_matter += f"ikraft_datum: {ikraft_datum}\n"
+        yaml_front_matter += f"ikraft_datum: {format_yaml_value(ikraft_datum)}\n"
 
     # Add other metadata
     if forarbeten:
-        yaml_front_matter += f"forarbeten: {forarbeten}\n"
+        yaml_front_matter += f"forarbeten: {format_yaml_value(forarbeten)}\n"
     if celex_nummer:
-        yaml_front_matter += f"celex: {celex_nummer}\n"
+        yaml_front_matter += f"celex: {format_yaml_value(celex_nummer)}\n"
 
     # Add eu_direktiv only if it's true
     if eu_direktiv:
-        yaml_front_matter += f"eu_direktiv: {str(eu_direktiv).lower()}\n"
+        yaml_front_matter += f"eu_direktiv: {format_yaml_value(eu_direktiv)}\n"
 
     # Add amendments if they exist
     if amendments:
         yaml_front_matter += "andringsforfattningar:\n"
         for amendment in amendments:
-            yaml_front_matter += f"  - beteckning: {amendment['beteckning']}\n"
+            yaml_front_matter += f"  - beteckning: {format_yaml_value(amendment['beteckning'])}\n"
             if amendment['rubrik']:
-                yaml_front_matter += f"    rubrik: {amendment['rubrik']}\n"
+                yaml_front_matter += f"    rubrik: {format_yaml_value(amendment['rubrik'])}\n"
             if amendment['ikraft_datum']:
-                yaml_front_matter += f"    ikraft_datum: {amendment['ikraft_datum']}\n"
+                yaml_front_matter += f"    ikraft_datum: {format_yaml_value(amendment['ikraft_datum'])}\n"
             if amendment['anteckningar']:
-                yaml_front_matter += f"    anteckningar: \"{amendment['anteckningar']}\n"
+                yaml_front_matter += f"    anteckningar: {format_yaml_value(amendment['anteckningar'])}\n"
     
     yaml_front_matter += "---\n\n"
     
