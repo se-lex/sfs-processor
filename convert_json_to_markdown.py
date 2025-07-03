@@ -139,7 +139,6 @@ def create_markdown_content(data: Dict[str, Any], paragraph_as_header: bool = Tr
 
     # Extract dates
     publicerad_datum = format_datetime(data.get('publiceradDateTime'))
-    ikraft_datum = format_datetime(data.get('ikraftDateTime'))
 
     # Extract utfardad_datum from fulltext
     fulltext_data = data.get('fulltext', {})
@@ -171,13 +170,11 @@ rubrik: {format_yaml_value(rubrik)}
 departement: {format_yaml_value(organisation)}
 """
 
-    # Add dates if they exist
+    # Add dates if they exist (ikraft_datum will be added separately if needed)
     if publicerad_datum:
         yaml_front_matter += f"publicerad_datum: {format_yaml_value(publicerad_datum)}\n"
     if utfardad_datum:
         yaml_front_matter += f"utfardad_datum: {format_yaml_value(utfardad_datum)}\n"
-    if ikraft_datum:
-        yaml_front_matter += f"ikraft_datum: {format_yaml_value(ikraft_datum)}\n"
 
     # Add other metadata
     if forarbeten:
@@ -245,6 +242,13 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_fol
     
     # Create Markdown content
     markdown_content = create_markdown_content(data, paragraph_as_header, enable_git)
+
+    # Add ikraft_datum to front matter if not in Git mode (Git mode handles this separately)
+    if not enable_git:
+        ikraft_datum = format_datetime(data.get('ikraftDateTime'))
+        if ikraft_datum:
+            markdown_content = add_ikraft_datum_to_markdown(markdown_content, ikraft_datum)
+            markdown_content = sort_frontmatter_properties(markdown_content)
     
     # Create output filename based on beteckning
     beteckning = data.get('beteckning', json_file_path.stem)
@@ -272,6 +276,66 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_fol
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(markdown_content)
         print(f"Converted {json_file_path.name} -> {output_file}")
+
+        # Create Git commit if enabled and no amendments were processed
+        if enable_git:
+            import subprocess
+
+            # Get main document metadata
+            rubrik = data.get('rubrik', '')
+            if rubrik:
+                # Clean rubrik by removing beteckning in parentheses
+                rubrik = re.sub(r'\s*\(\d{4}:\d+\)\s*', '', rubrik).strip()
+
+            ikraft_datum = format_datetime(data.get('ikraftDateTime'))
+            utfardad_datum = format_datetime(data.get('fulltext', {}).get('utfardadDateTime'))
+            amendments = data.get('andringsforfattningar', [])
+
+            # Only create main commits if there are no amendments (they handle their own commits)
+            if not amendments and utfardad_datum:
+                try:
+                    # First commit: without ikraft_datum in front matter, dated utfardad_datum
+                    commit_message = rubrik if rubrik else f"SFS {beteckning}"
+
+                    # Stage the current file (which doesn't have ikraft_datum yet)
+                    subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
+
+                    # Create first commit with utfardad_datum as date
+                    subprocess.run([
+                        'git', 'commit',
+                        '-m', commit_message,
+                        '--date', utfardad_datum
+                    ], check=True, capture_output=True)
+
+                    print(f"Git commit created: '{commit_message}' dated {utfardad_datum}")
+
+                    # Second commit: add ikraft_datum to front matter if it exists
+                    if ikraft_datum:
+                        # Add ikraft_datum to the existing markdown content
+                        markdown_content_with_ikraft = add_ikraft_datum_to_markdown(markdown_content, ikraft_datum)
+                        markdown_content_with_ikraft = sort_frontmatter_properties(markdown_content_with_ikraft)
+
+                        # Write updated file with ikraft_datum
+                        with open(output_file, 'w', encoding='utf-8') as f:
+                            f.write(markdown_content_with_ikraft)
+
+                        # Stage the updated file
+                        subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
+
+                        # Create second commit with ikraft_datum as date
+                        subprocess.run([
+                            'git', 'commit',
+                            '-m', f"{beteckning} träder i kraft",
+                            '--date', ikraft_datum
+                        ], check=True, capture_output=True)
+
+                        print(f"Git commit created: '{beteckning} träder i kraft' dated {ikraft_datum}")
+
+                except subprocess.CalledProcessError as e:
+                    print(f"Warning: Git commit failed for {beteckning}: {e}")
+                except FileNotFoundError:
+                    print("Warning: Git not found. Skipping Git commits.")
+
     except IOError as e:
         print(f"Error writing {output_file}: {e}")
 
@@ -337,6 +401,21 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
 
     return processed_text
 
+
+def add_ikraft_datum_to_markdown(markdown_content: str, ikraft_datum: str) -> str:
+    """
+    Add ikraft_datum to the YAML front matter of existing markdown content.
+    Simply inserts the field before the closing --- of the front matter.
+    """
+    # Find the position of the closing --- and insert before it
+    closing_marker = '\n---\n'
+    if closing_marker in markdown_content:
+        before_closing, after_closing = markdown_content.split(closing_marker, 1)
+        ikraft_line = f"ikraft_datum: {format_yaml_value(ikraft_datum)}"
+        return f"{before_closing}\n{ikraft_line}\n---\n{after_closing}"
+
+    # Fallback: return original content if no proper front matter found
+    return markdown_content
 
 def main():
     """Main function to process all JSON files in the json directory."""
