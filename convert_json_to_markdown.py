@@ -18,7 +18,7 @@ import re
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from format_sfs_text_to_md import format_sfs_text, format_sfs_with_changes
+from format_sfs_text_to_md import format_sfs_text, apply_changes_to_sfs_text
 from sort_frontmatter import sort_frontmatter_properties
 from add_pdf_url_to_frontmatter import generate_pdf_url
 
@@ -221,8 +221,9 @@ departement: {format_yaml_value(organisation)}
         print(f"Warning: Could not sort front matter: {e}")
 
     # Format the content text before creating the markdown body
-    # First apply changes handling (remove certain paragraphs)
-    processed_text = format_sfs_with_changes(innehall_text)
+    # First apply changes handling based on amendments
+    processed_text = apply_amendments_to_text(innehall_text, amendments)
+
     # Then apply general SFS formatting
     formatted_text = format_sfs_text(processed_text, paragraph_as_header)
 
@@ -273,6 +274,38 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_fol
         print(f"Converted {json_file_path.name} -> {output_file}")
     except IOError as e:
         print(f"Error writing {output_file}: {e}")
+
+
+def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]]) -> str:
+    """
+    Apply changes to SFS text based on amendment dates.
+
+    This function processes each amendment in chronological order and applies
+    changes using apply_changes_to_sfs_text with the amendment's ikraft_datum
+    as the target date.
+
+    Args:
+        text (str): The original SFS text
+        amendments (List[Dict[str, Any]]): List of amendments with ikraft_datum
+
+    Returns:
+        str: The text with changes applied
+    """
+    processed_text = text
+
+    # Sort amendments by ikraft_datum to apply changes in chronological order
+    sorted_amendments = sorted(
+        [a for a in amendments if a.get('ikraft_datum')],
+        key=lambda x: x['ikraft_datum']
+    )
+
+    for amendment in sorted_amendments:
+        ikraft_datum = amendment.get('ikraft_datum')
+
+        if ikraft_datum:
+            processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum)
+
+    return processed_text
 
 
 def main():

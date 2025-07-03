@@ -189,25 +189,22 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
         str: Den formaterade texten
     """
     # Dela upp texten i rader
-    lines = text.splitlines()
+    original_lines = text.splitlines()
 
-    # Steg 0: Ta bort tillfälligt alla texter inom snedstreck (/ /) för att inte påverka rubrikidentifiering
+    # Steg 0: Skapa rensade rader för rubrikidentifiering (ta bort markeringar inom snedstreck)
     # Detta inkluderar markeringar som "/Träder i kraft/", "/Upphör att gälla/", "/Ny beteckning/" etc.
     temp_cleaned_lines = []
-    for line in lines:
-        # Ta bort alla texter inom snedstreck temporärt
+    for line in original_lines:
+        # Ta bort alla texter inom snedstreck temporärt för rubrikanalys
         cleaned_line = re.sub(r'/[^/]+/', '', line).strip()
         temp_cleaned_lines.append(cleaned_line)
 
-    # Dela upp texten i rader igen efter att ha rensat markeringar
-    lines = temp_cleaned_lines
-
-    # Steg 1: Bearbeta rader för att slå ihop brutna meningar
+    # Steg 1: Bearbeta de rensade raderna för att slå ihop brutna meningar och identifiera struktur
     # Varje paragraf avgränsas av tomma rader
-    result_lines = []
+    cleaned_result_lines = []
     current_paragraph = []
 
-    for line in lines:
+    for line in temp_cleaned_lines:
         line = line.rstrip()
 
         # Om tom rad, avsluta nuvarande paragraf
@@ -215,24 +212,47 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
             if current_paragraph:
                 # Slå ihop rader i paragrafen med mellanslag (ta bort radbrytningar)
                 paragraph_text = ' '.join(current_paragraph)
-                result_lines.append(paragraph_text)
+                cleaned_result_lines.append(paragraph_text)
                 current_paragraph = []
-            result_lines.append('')  # Behåll tom rad för struktur
+            cleaned_result_lines.append('')  # Behåll tom rad för struktur
         else:
             current_paragraph.append(line.strip())
 
     # Glöm inte sista paragrafen
     if current_paragraph:
         paragraph_text = ' '.join(current_paragraph)
-        result_lines.append(paragraph_text)
+        cleaned_result_lines.append(paragraph_text)
+
+    # Steg 1b: Bearbeta originalraderna på samma sätt för att bevara markeringar
+    original_result_lines = []
+    current_paragraph = []
+
+    for line in original_lines:
+        line = line.rstrip()
+
+        # Om tom rad, avsluta nuvarande paragraf
+        if not line.strip():
+            if current_paragraph:
+                # Slå ihop rader i paragrafen med mellanslag (ta bort radbrytningar)
+                paragraph_text = ' '.join(current_paragraph)
+                original_result_lines.append(paragraph_text)
+                current_paragraph = []
+            original_result_lines.append('')  # Behåll tom rad för struktur
+        else:
+            current_paragraph.append(line.strip())
+
+    # Glöm inte sista paragrafen
+    if current_paragraph:
+        paragraph_text = ' '.join(current_paragraph)
+        original_result_lines.append(paragraph_text)
 
     # Steg 2: Bearbeta resultatet för rubriker och fetstil-formatering
     formatted = []
     previous_line_empty = True  # Första raden räknas som början av nytt stycke
 
-    # Kontrollera om rader är potentiella rubriker
+    # Kontrollera om rader är potentiella rubriker baserat på de rensade raderna
     potential_headers = []
-    for i, line in enumerate(result_lines):
+    for i, line in enumerate(cleaned_result_lines):
         is_potential_header = (
             line.strip() and
             len(line) < 300 and
@@ -245,30 +265,34 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
         )
         potential_headers.append(is_potential_header)
 
-    for i, line in enumerate(result_lines):
-        if not line.strip():
+    # Använd originalraderna för formatering men tillämpa rubriklogik baserat på rensade rader
+    for i, original_line in enumerate(original_result_lines):
+        if not original_line.strip():
             formatted.append('')  # Behåll tomma rader
             previous_line_empty = True
         else:
+            # Hämta motsvarande rensad rad för rubrikanalys
+            cleaned_line = cleaned_result_lines[i] if i < len(cleaned_result_lines) else ''
+
             # Kontrollera om nästnästa rad börjar med "1." för att undvika att göra en rad till rubrik
             next_is_list_start = False
-            if i + 2 < len(result_lines) and result_lines[i + 2].strip().startswith("1."):
+            if i + 2 < len(cleaned_result_lines) and cleaned_result_lines[i + 2].strip().startswith("1."):
                 next_is_list_start = True
 
-            # Kontrollera om det är en rubrik
+            # Kontrollera om det är en rubrik (baserat på rensad rad men använd original för output)
             if potential_headers[i] and not next_is_list_start:
-                # Kontrollera om det är ett kapitel (börjar med "X kap.")
-                if re.match(r'^\d+\s+kap\.', line.strip()):
-                    formatted.append(f'## {line}')
+                # Kontrollera om det är ett kapitel (börjar med "X kap.") - använd rensad rad för analys
+                if re.match(r'^\d+\s+kap\.', cleaned_line.strip()):
+                    formatted.append(f'## {original_line}')
                 # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de andra kriterierna
-                elif (len(line.split()) <= 2 and '.' not in line) or (len(line) < 300 and not line.strip().endswith(('.', ':'))):
+                elif (len(cleaned_line.split()) <= 2 and '.' not in cleaned_line) or (len(cleaned_line) < 300 and not cleaned_line.strip().endswith(('.', ':'))):
                     # Använd H3-rubrik för rubriker
-                    formatted.append(f'### {line}')
+                    formatted.append(f'### {original_line}')
                 else:
                     # Hantera paragrafnummer baserat på parameter
                     if previous_line_empty and paragraph_as_header:
-                        # Kontrollera om raden börjar med paragrafnummer
-                        paragraph_match = re.match(r'^(\d+ ?§)(.*)', line)
+                        # Kontrollera om raden börjar med paragrafnummer (använd original rad)
+                        paragraph_match = re.match(r'^(\d+ ?§)(.*)', original_line)
                         if paragraph_match:
                             paragraph_num = paragraph_match.group(1)
                             rest_of_line = paragraph_match.group(2).strip()
@@ -278,21 +302,21 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                             if rest_of_line:
                                 formatted.append(rest_of_line)
                         else:
-                            formatted.append(line)
+                            formatted.append(original_line)
                     elif previous_line_empty:
                         # Fetstila paragrafnummer som vanligt
-                        line = re.sub(r'^(\d+ ?§)', r'**\1**', line)
-                        formatted.append(line)
+                        modified_line = re.sub(r'^(\d+ ?§)', r'**\1**', original_line)
+                        formatted.append(modified_line)
                     else:
-                        formatted.append(line)
+                        formatted.append(original_line)
             else:
                 # Kontrollera om det är ett kapitel (börjar med "X kap.") även utanför potential_headers
-                if re.match(r'^\d+\s+kap\.', line.strip()):
-                    formatted.append(f'## {line}')
+                if re.match(r'^\d+\s+kap\.', cleaned_line.strip()):
+                    formatted.append(f'## {original_line}')
                 # Hantera paragrafnummer baserat på parameter
                 elif previous_line_empty and paragraph_as_header:
-                    # Kontrollera om raden börjar med paragrafnummer
-                    paragraph_match = re.match(r'^(\d+ ?§)(.*)', line)
+                    # Kontrollera om raden börjar med paragrafnummer (använd original rad)
+                    paragraph_match = re.match(r'^(\d+ ?§)(.*)', original_line)
                     if paragraph_match:
                         paragraph_num = paragraph_match.group(1)
                         rest_of_line = paragraph_match.group(2).strip()
@@ -301,13 +325,13 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                         if rest_of_line:
                             formatted.append(rest_of_line)
                     else:
-                        formatted.append(line)
+                        formatted.append(original_line)
                 elif previous_line_empty:
                     # Fetstila paragrafnummer som vanligt
-                    line = re.sub(r'^(\d+ ?§)', r'**\1**', line)
-                    formatted.append(line)
+                    modified_line = re.sub(r'^(\d+ ?§)', r'**\1**', original_line)
+                    formatted.append(modified_line)
                 else:
-                    formatted.append(line)
+                    formatted.append(original_line)
             previous_line_empty = False
 
     # Returnera den formaterade texten
