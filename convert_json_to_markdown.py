@@ -219,14 +219,14 @@ departement: {format_yaml_value(organisation)}
         print(f"Warning: Could not sort front matter: {e}")
 
     # Format the content text before creating the markdown body
-    # First apply changes handling based on amendments
-    processed_text = apply_amendments_to_text(innehall_text, amendments, enable_git, verbose)
+    # First apply general SFS formatting
+    formatted_text = format_sfs_text(innehall_text, paragraph_as_header)
 
-    # Then apply general SFS formatting
-    formatted_text = format_sfs_text(processed_text, paragraph_as_header)
+    # Then apply changes handling based on amendments
+    processed_text = apply_amendments_to_text(formatted_text, amendments, enable_git, verbose)
 
     # Create Markdown body
-    markdown_body = f"# {rubrik}\n\n" + formatted_text
+    markdown_body = f"# {rubrik}\n\n" + processed_text
 
     return yaml_front_matter + markdown_body
 
