@@ -475,6 +475,15 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
     # Parse övergångsbestämmelser early to have it available
     overgangs_dict = parse_overgangsbestammelser(processed_text, amendments)
 
+    # Clear content under Övergångsbestämmelser heading but keep the heading itself
+    overgangs_match = re.search(r'(### Övergångsbestämmelser\s*\n\n).*?(?=\n### |\n## |\Z)', processed_text, re.DOTALL)
+    if overgangs_match:
+        # Keep the heading but remove all content after it
+        heading_with_newlines = overgangs_match.group(1)
+        processed_text = processed_text[:overgangs_match.start()] + heading_with_newlines + processed_text[overgangs_match.end():]
+        if verbose:
+            print("Cleared content under 'Övergångsbestämmelser' heading")
+
     # Sort amendments by ikraft_datum to apply changes in chronological order
     sorted_amendments = sorted(
         [a for a in amendments if a.get('ikraft_datum')],
@@ -508,6 +517,38 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
             text_before_changes = processed_text
 
             processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum, verbose)
+
+            # Add relevant Övergångsbestämmelser content under the existing heading
+            if beteckning in overgangs_dict and overgangs_dict[beteckning]:
+                # Find the existing Övergångsbestämmelser heading and any existing content
+                overgangs_section_match = re.search(r'(### Övergångsbestämmelser\s*\n\n)(.*?)(?=\n### |\n## |\Z)', processed_text, re.DOTALL)
+                if overgangs_section_match:
+                    heading_part = overgangs_section_match.group(1)
+                    existing_content = overgangs_section_match.group(2).strip()
+
+                    if existing_content:
+                        # There's already content under the heading, add after it
+                        content_to_insert = f"\n\n{overgangs_dict[beteckning]}"
+                        insert_pos = overgangs_section_match.end() - len(overgangs_section_match.group(0)) + len(heading_part) + len(existing_content)
+                        processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
+
+                        if verbose:
+                            print(f"Added Övergångsbestämmelser content for {beteckning} after existing content")
+                    else:
+                        # No existing content, add directly after heading
+                        insert_pos = overgangs_section_match.start() + len(heading_part)
+                        content_to_insert = f"{overgangs_dict[beteckning]}\n\n"
+                        processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
+
+                        if verbose:
+                            print(f"Added Övergångsbestämmelser content for {beteckning} under heading (no existing content)")
+                else:
+                    # Fallback: add the section at the end if heading doesn't exist
+                    overgangs_section = f"\n\n### Övergångsbestämmelser\n\n{overgangs_dict[beteckning]}\n"
+                    processed_text = processed_text.rstrip() + overgangs_section
+
+                    if verbose:
+                        print(f"Created new Övergångsbestämmelser section for {beteckning} (heading not found)")
 
             # ...existing diff code...
             show_diff = True
