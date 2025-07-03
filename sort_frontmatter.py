@@ -135,10 +135,14 @@ def sort_frontmatter_properties(frontmatter_content: str) -> str:
     ]
     
     # Extrahera front matter innehåll
-    match = re.match(r'^---\s*\n(.*?)\n---\s*$', frontmatter_content, re.DOTALL)
+    # Försök först med front matter + innehåll, sedan bara front matter
+    match = re.match(r'^---\s*\n([\s\S]*?)\n---\s*(?:\n[\s\S]*)?$', frontmatter_content, re.DOTALL)
+    if not match:
+        # Försök med bara front matter block
+        match = re.match(r'^---\s*\n([\s\S]*?)\n---\s*$', frontmatter_content, re.DOTALL)
     if not match:
         raise ValueError("Ogiltigt front matter format. Måste börja och sluta med ---")
-    
+
     yaml_content = match.group(1)
     
     # Parsa YAML-liknande innehåll manuellt (förbättrad implementation)
@@ -276,7 +280,7 @@ def sort_frontmatter_in_file(filepath: str, backup: bool = True) -> bool:
             content = f.read()
         
         # Hitta front matter
-        match = re.match(r'^(---.*?---)\s*\n(.*)$', content, re.DOTALL)
+        match = re.match(r'^(---\s*\n[\s\S]*?\n---)\s*\n(.*)$', content, re.DOTALL)
         if not match:
             warnings.warn(f"Ingen front matter hittades i {filepath}")
             return False

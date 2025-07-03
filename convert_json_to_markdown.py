@@ -18,6 +18,7 @@ import re
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
+import difflib
 from format_sfs_text_to_md import format_sfs_text, apply_changes_to_sfs_text
 from sort_frontmatter import sort_frontmatter_properties
 from add_pdf_url_to_frontmatter import generate_pdf_url
@@ -91,7 +92,7 @@ def clean_rubrik(rubrik: Optional[str]) -> str:
 
     # Remove beteckning pattern in parentheses (e.g., "(1987:1185)")
     # Pattern matches parentheses containing year:number format
-    cleaned = re.sub(r'\s*\(\d{4}:\d+\)\s*', '', rubrik)
+    cleaned = re.sub(r'\s*\(\d{4}:\d+\)\s*', ' ', rubrik)
     return clean_text(cleaned)
 
 
@@ -130,7 +131,7 @@ def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict
     return amendments
 
 
-def create_markdown_content(data: Dict[str, Any], paragraph_as_header: bool = True, enable_git: bool = False) -> str:
+def create_markdown_content(data: Dict[str, Any], paragraph_as_header: bool = True, enable_git: bool = False, verbose: bool = False) -> str:
     """Create Markdown content with YAML front matter from JSON data."""
 
     # Extract main document information
@@ -219,7 +220,7 @@ departement: {format_yaml_value(organisation)}
 
     # Format the content text before creating the markdown body
     # First apply changes handling based on amendments
-    processed_text = apply_amendments_to_text(innehall_text, amendments, enable_git)
+    processed_text = apply_amendments_to_text(innehall_text, amendments, enable_git, verbose)
 
     # Then apply general SFS formatting
     formatted_text = format_sfs_text(processed_text, paragraph_as_header)
@@ -229,7 +230,7 @@ departement: {format_yaml_value(organisation)}
 
     return yaml_front_matter + markdown_body
 
-def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_folder: bool, paragraph_as_header: bool = True, enable_git: bool = False) -> None:
+def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_folder: bool, paragraph_as_header: bool = True, enable_git: bool = False, verbose: bool = False) -> None:
     """Convert a single JSON file to Markdown format."""
     
     # Read JSON file
@@ -241,7 +242,7 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_fol
         return
     
     # Create Markdown content
-    markdown_content = create_markdown_content(data, paragraph_as_header, enable_git)
+    markdown_content = create_markdown_content(data, paragraph_as_header, enable_git, verbose)
 
     # Add ikraft_datum to front matter if not in Git mode (Git mode handles this separately)
     if not enable_git:
@@ -340,7 +341,7 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_fol
         print(f"Error writing {output_file}: {e}")
 
 
-def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable_git: bool = False) -> str:
+def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable_git: bool = False, verbose: bool = False) -> str:
     """
     Apply changes to SFS text based on amendment dates.
 
@@ -352,6 +353,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
         text (str): The original SFS text
         amendments (List[Dict[str, Any]]): List of amendments with ikraft_datum
         enable_git (bool): If True, create Git commits for each amendment
+        verbose (bool): If True, print smart diff output to console for each amendment
 
     Returns:
         str: The text with changes applied
@@ -369,9 +371,48 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
     for amendment in sorted_amendments:
         ikraft_datum = amendment.get('ikraft_datum')
         rubrik = amendment.get('rubrik', 'Ändringsförfattning')
+        beteckning = amendment.get('beteckning', 'Okänt')
 
         if ikraft_datum:
+            # Store text before changes for debug comparison
+            text_before_changes = processed_text
+
             processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum)
+
+            # Debug output: show diff if enabled
+            if verbose:
+                print(f"\n{'='*60}")
+                print(f"ÄNDRINGSFÖRFATTNING: {beteckning} ({ikraft_datum})")
+                print(f"{'='*60}")
+
+                # Create unified diff
+                diff_lines = list(difflib.unified_diff(
+                    text_before_changes.splitlines(keepends=True),
+                    processed_text.splitlines(keepends=True),
+                    fromfile=f"Före ändring {beteckning}",
+                    tofile=f"Efter ändring {beteckning}",
+                    lineterm=""
+                ))
+
+                if diff_lines:
+                    print("TEXTÄNDRINGAR:")
+                    for line in diff_lines:
+                        # Color coding for different types of changes
+                        line = line.rstrip()
+                        if line.startswith('+++') or line.startswith('---'):
+                            print(f"\033[1m{line}\033[0m")  # Bold
+                        elif line.startswith('@@'):
+                            print(f"\033[36m{line}\033[0m")  # Cyan
+                        elif line.startswith('+'):
+                            print(f"\033[32m{line}\033[0m")  # Green
+                        elif line.startswith('-'):
+                            print(f"\033[31m{line}\033[0m")  # Red
+                        else:
+                            print(line)
+                else:
+                    print("INGA TEXTÄNDRINGAR FUNNA.")
+
+                print(f"{'='*60}\n")
 
             if enable_git:
                 try:
@@ -431,6 +472,8 @@ def main():
                         help='Do not create year-based subdirectories for documents')
     parser.add_argument('--enable-git', action='store_true',
                         help='Create Git commits for each amendment with their ikraft_datum as commit date')
+    parser.add_argument('--verbose', action='store_true',
+                        help='Show detailed diff output for each amendment processing')
     parser.set_defaults(year_folder=True)
     args = parser.parse_args()
 
@@ -472,7 +515,7 @@ def main():
     
     # Convert each JSON file
     for json_file in json_files:
-        convert_json_to_markdown(json_file, output_dir, args.year_folder, True, args.enable_git)
+        convert_json_to_markdown(json_file, output_dir, args.year_folder, True, args.enable_git, args.verbose)
     
     print(f"\nConversion complete! Markdown files saved to {output_dir}")
 
