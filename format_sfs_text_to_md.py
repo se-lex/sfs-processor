@@ -57,14 +57,39 @@ def format_sfs_text_to_md(input_path, output_path):
     formatted = []
     previous_line_empty = True  # Första raden räknas som början av nytt stycke
     
-    for line in result_lines:
+    # Kontrollera om rader är potentiella rubriker
+    potential_headers = []
+    for i, line in enumerate(result_lines):
+        is_potential_header = (
+            line.strip() and
+            len(line) < 300 and
+            not line.strip().endswith(('.', ':')) and
+            not re.match(r'^\d+\.', line.strip()) and  # Uteslut rader som börjar med siffra följt av punkt
+            # Kontrollera om det är max två ord eller om det uppfyller de andra kriterierna
+            (len(line.split()) <= 2 or True)
+        )
+        potential_headers.append(is_potential_header)
+
+    for i, line in enumerate(result_lines):
         if not line.strip():
             formatted.append('')  # Behåll tomma rader
             previous_line_empty = True
         else:
-            # Om raden har max två ord OCH inte innehåller punkt, gör till rubrik
-            if len(line.split()) <= 2 and '.' not in line:
-                formatted.append(f'## {line}')
+            # Kontrollera om nästnästa rad börjar med "1." för att undvika att göra en rad till rubrik
+            next_is_list_start = False
+            if i + 2 < len(result_lines) and result_lines[i + 2].strip().startswith("1."):
+                next_is_list_start = True
+
+            # Kontrollera om det är en rubrik
+            if potential_headers[i] and not next_is_list_start:
+                # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de andra kriterierna
+                if (len(line.split()) <= 2 and '.' not in line) or (len(line) < 300 and not line.strip().endswith(('.', ':'))):
+                    formatted.append(f'## {line}')
+                else:
+                    # Fetstila endast (NUMMER) § som inleder ett nytt stycke (efter tom rad)
+                    if previous_line_empty:
+                        line = re.sub(r'^(\d+ ?§)', r'**\1**', line)
+                    formatted.append(line)
             else:
                 # Fetstila endast (NUMMER) § som inleder ett nytt stycke (efter tom rad)
                 if previous_line_empty:
@@ -107,7 +132,7 @@ def format_sfs_text(text: str) -> str:
             result_lines.append('')  # Behåll tom rad för struktur
         else:
             current_paragraph.append(line.strip())
-    
+
     # Glöm inte sista paragrafen
     if current_paragraph:
         paragraph_text = ' '.join(current_paragraph)
@@ -117,14 +142,39 @@ def format_sfs_text(text: str) -> str:
     formatted = []
     previous_line_empty = True  # Första raden räknas som början av nytt stycke
 
-    for line in result_lines:
+    # Kontrollera om rader är potentiella rubriker
+    potential_headers = []
+    for i, line in enumerate(result_lines):
+        is_potential_header = (
+            line.strip() and
+            len(line) < 300 and
+            not line.strip().endswith(('.', ':')) and
+            not re.match(r'^\d+\.', line.strip()) and  # Uteslut rader som börjar med siffra följt av punkt
+            # Kontrollera om det är max två ord eller om det uppfyller de andra kriterierna
+            (len(line.split()) <= 2 or True)
+        )
+        potential_headers.append(is_potential_header)
+
+    for i, line in enumerate(result_lines):
         if not line.strip():
             formatted.append('')  # Behåll tomma rader
             previous_line_empty = True
         else:
-            # Om raden har max två ord OCH inte innehåller punkt, gör till rubrik
-            if len(line.split()) <= 2 and '.' not in line:
-                formatted.append(f'## {line}')
+            # Kontrollera om nästnästa rad börjar med "1." för att undvika att göra en rad till rubrik
+            next_is_list_start = False
+            if i + 2 < len(result_lines) and result_lines[i + 2].strip().startswith("1."):
+                next_is_list_start = True
+
+            # Kontrollera om det är en rubrik
+            if potential_headers[i] and not next_is_list_start:
+                # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de andra kriterierna
+                if (len(line.split()) <= 2 and '.' not in line) or (len(line) < 300 and not line.strip().endswith(('.', ':'))):
+                    formatted.append(f'## {line}')
+                else:
+                    # Fetstila endast (NUMMER) § som inleder ett nytt stycke (efter tom rad)
+                    if previous_line_empty:
+                        line = re.sub(r'^(\d+ ?§)', r'**\1**', line)
+                    formatted.append(line)
             else:
                 # Fetstila endast (NUMMER) § som inleder ett nytt stycke (efter tom rad)
                 if previous_line_empty:
@@ -138,8 +188,3 @@ def format_sfs_text(text: str) -> str:
 
     # Returnera den formaterade texten
     return formatted_text
-
-if __name__ == '__main__':
-    # Kör formateringen på SFS 2024:11
-    format_sfs_text_to_md('markdown/sfs-2024-11.md', 'markdown/sfs-2024-11.formatted.md')
-    print("Formatering klar! Resultat sparat i markdown/sfs-2024-11.formatted.md")
