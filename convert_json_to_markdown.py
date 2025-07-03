@@ -427,7 +427,6 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
     for amendment in sorted_amendments:
         ikraft_datum = amendment.get('ikraft_datum')
         rubrik = amendment.get('rubrik', 'Ändringsförfattning')
-        beteckning = amendment.get('beteckning', 'Okänt')
 
         if ikraft_datum:
             # Store text before changes for debug comparison

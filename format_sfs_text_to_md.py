@@ -43,52 +43,31 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
     """
     def parse_logical_paragraphs(text: str) -> list:
         """
-        Dela upp texten i logiska paragrafer som inkluderar rubriker och deras innehåll.
-        En paragraf börjar med en rubrik (##, ###, ####) eller fristående text och
-        inkluderar allt innehåll fram till nästa rubrik eller dubbla radbrytningar.
+        Dela upp texten i logiska paragrafer baserat på dubbla radbrytningar,
+        men se till att rubriker inkluderas tillsammans med sitt innehåll.
         """
-        lines = text.split('\n')
-        paragraphs = []
-        current_paragraph = []
+        # Dela på dubbla radbrytningar först
+        raw_paragraphs = text.split('\n\n')
 
+        logical_paragraphs = []
         i = 0
-        while i < len(lines):
-            line = lines[i]
 
-            # Om detta är en rubrik, starta en ny paragraf
-            if re.match(r'^#{2,4}\s+', line.strip()):
-                # Avsluta föregående paragraf om den finns
-                if current_paragraph:
-                    paragraphs.append('\n'.join(current_paragraph))
-                # Starta ny paragraf med rubriken
-                current_paragraph = ["-- NY PARAGRAF -- " + line]
-            # Om tom rad
-            elif not line.strip():
-                if current_paragraph:
-                    # Kontrollera om nästa icke-tomma rad är en rubrik
-                    next_non_empty_idx = i + 1
-                    while next_non_empty_idx < len(lines) and not lines[next_non_empty_idx].strip():
-                        next_non_empty_idx += 1
+        while i < len(raw_paragraphs):
+            current_paragraph = raw_paragraphs[i]
 
-                    # Om nästa rad är en rubrik eller vi är i slutet, avsluta paragrafen
-                    if (next_non_empty_idx >= len(lines) or
-                        re.match(r'^#{2,4}\s+', lines[next_non_empty_idx].strip())):
-                        paragraphs.append('\n'.join(current_paragraph))
-                        current_paragraph = []
-                    else:
-                        # Annars lägg till den tomma raden och fortsätt
-                        current_paragraph.append(line)
+            # Om detta stycke är bara en rubrik, slå ihop med nästa stycke
+            if (re.match(r'^#{2,4}\s+', current_paragraph.strip()) and
+                i + 1 < len(raw_paragraphs)):
+                # Slå ihop rubriken med nästa stycke
+                next_paragraph = raw_paragraphs[i + 1]
+                combined = current_paragraph + '\n\n' + next_paragraph
+                logical_paragraphs.append(combined)
+                i += 2  # Hoppa över nästa stycke eftersom vi redan behandlat det
             else:
-                # Vanlig textrad - lägg till i nuvarande paragraf
-                current_paragraph.append(line)
+                logical_paragraphs.append(current_paragraph)
+                i += 1
 
-            i += 1
-
-        # Lägg till sista paragrafen om den finns
-        if current_paragraph:
-            paragraphs.append('\n'.join(current_paragraph))
-
-        return paragraphs
+        return logical_paragraphs
 
     # Dela upp texten i logiska paragrafer
     paragraphs = parse_logical_paragraphs(text)
@@ -112,7 +91,8 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                 paragraph_removed = True
                 if verbose:
                     print(f"Regel 1 tillämpas: Tar bort paragraf {i+1} med '/Ny beteckning' efter paragraf")
-                    print(f"  Paragraf: {paragraph[:100]}...")
+                    print(f"\033[91m{paragraph}\033[0m")  # Röd text
+                    print("-" * 80)
                 continue
 
         # Kontrollera om stycket innehåller "/Upphör att gälla" med datum
@@ -128,7 +108,8 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                     paragraph_removed = True
                     if verbose:
                         print(f"Regel 2 tillämpas: Tar bort paragraf {i+1} med '/Upphör att gälla U:{date_in_text}/' efter paragraf")
-                        print(f"  Paragraf: {paragraph[:100]}...")
+                        print(f"\033[91m{paragraph}\033[0m")  # Röd text
+                        print("-" * 80)
                     continue
 
         # Kontrollera om det står "/Rubriken träder i kraft" med datum
@@ -137,13 +118,16 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
             date_in_text = rubrik_träder_match.group(1)
             # Om target_date är angivet, kontrollera att det matchar
             if target_date is None or date_in_text == target_date:
-                # Ta bort hela stycket
+                # Ta bort bara markeringen och trimma extra mellanslag
+                old_paragraph = paragraph
+                paragraph = re.sub(r'\s*/Rubriken träder i kraft I:\d{4}-\d{2}-\d{2}/\s*', ' ', paragraph)
+                paragraph = re.sub(r'\s+', ' ', paragraph).strip()  # Normalisera mellanslag
                 changes_applied += 1
-                paragraph_removed = True
                 if verbose:
-                    print(f"Regel 3 tillämpas: Tar bort paragraf {i+1} med '/Rubriken träder i kraft I:{date_in_text}/' efter paragraf")
-                    print(f"  Paragraf: {paragraph[:100]}...")
-                continue
+                    print(f"Regel 3 tillämpas: Tar bort '/Rubriken träder i kraft I:{date_in_text}/' markering från paragraf {i+1}")
+                    print(f"Före: \033[91m{old_paragraph}\033[0m")
+                    print(f"Efter: \033[92m{paragraph}\033[0m")  # Grön text för efter
+                    print("-" * 80)
 
         # Kontrollera om det står "/Rubriken upphör att gälla" med datum
         rubrik_upphör_match = re.search(r'/Rubriken upphör att gälla U:(\d{4}-\d{2}-\d{2})/', paragraph)
@@ -159,7 +143,8 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                     paragraph_removed = True
                     if verbose:
                         print(f"Regel 4 tillämpas: Tar bort paragraf {i+1} med '/Rubriken upphör att gälla U:{date_in_text}/' före underrubrik")
-                        print(f"  Paragraf: {paragraph[:100]}...")
+                        print(f"\033[91m{paragraph}\033[0m")  # Röd text
+                        print("-" * 80)
                     continue
 
         # Om inget av ovanstående matchar, behåll stycket
