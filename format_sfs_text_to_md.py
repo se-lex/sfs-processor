@@ -18,7 +18,7 @@ Regler som tillämpas:
 
 import re
 
-def apply_changes_to_sfs_text(text: str, target_date: str = None) -> str:
+def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool = False) -> str:
     """
     Formattera SFS-text med hantering av ändringar och upphöranden.
 
@@ -33,6 +33,7 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None) -> str:
     Args:
         text (str): Texten som ska formateras
         target_date (str, optional): Datum i format YYYY-MM-DD som ska matchas mot I: eller U: datum
+        verbose (bool): Om True, skriv ut information när regler tillämpas
 
     Returns:
         str: Den formaterade texten med ändringar borttagna
@@ -46,16 +47,23 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None) -> str:
     filtered_paragraphs = []
     changes_applied = 0  # Räkna antal tillämpade ändringar
 
-    for paragraph in paragraphs:
+    if verbose:
+        print(f"Tillämpar ändringsregler för datum: {target_date if target_date else 'alla datum'}")
+        print(f"Antal stycken att analysera: {len(paragraphs)}")
+
+    for i, paragraph in enumerate(paragraphs):
         paragraph_removed = False
 
         # Kontrollera om stycket innehåller "/Ny beteckning"
         if '/Ny beteckning' in paragraph:
-            # Kontrollera om det föregås av en paragraf (innehåller **X §**)
-            if re.search(r'\*\*\d+\s*§\*\*', paragraph):
+            # Kontrollera om det föregås av en paragraf (innehåller ####)
+            if re.search(r'####\s+', paragraph):
                 # Ta bort hela stycket
                 changes_applied += 1
                 paragraph_removed = True
+                if verbose:
+                    print(f"Regel 1 tillämpas: Tar bort stycke {i+1} med '/Ny beteckning' efter paragraf")
+                    print(f"  Stycke: {paragraph[:100]}...")
                 continue
 
         # Kontrollera om stycket innehåller "/Upphör att gälla" med datum
@@ -64,49 +72,61 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None) -> str:
             date_in_text = upphör_match.group(1)
             # Om target_date är angivet, kontrollera att det matchar
             if target_date is None or date_in_text == target_date:
-                # Kontrollera om det föregås av en paragraf (innehåller **X §**)
-                if re.search(r'\*\*\d+\s*§\*\*', paragraph):
+                # Kontrollera om det föregås av en paragraf (####)
+                if re.search(r'####\s+', paragraph):
                     # Ta bort hela stycket
                     changes_applied += 1
                     paragraph_removed = True
+                    if verbose:
+                        print(f"Regel 2 tillämpas: Tar bort stycke {i+1} med '/Upphör att gälla U:{date_in_text}/' efter paragraf")
+                        print(f"  Stycke: {paragraph[:100]}...")
                     continue
 
         # Kontrollera om det står "/Rubriken träder i kraft" med datum
-        träder_match = re.search(r'/Rubriken träder i kraft I:(\d{4}-\d{2}-\d{2})/', paragraph)
-        if träder_match:
-            date_in_text = träder_match.group(1)
+        rubrik_träder_match = re.search(r'/Rubriken träder i kraft I:(\d{4}-\d{2}-\d{2})/', paragraph)
+        if rubrik_träder_match:
+            date_in_text = rubrik_träder_match.group(1)
             # Om target_date är angivet, kontrollera att det matchar
             if target_date is None or date_in_text == target_date:
-                # Kontrollera om det föregås av en paragraf (innehåller **X §**)
-                if re.search(r'\*\*\d+\s*§\*\*', paragraph):
-                    # Ta bort hela stycket
-                    changes_applied += 1
-                    paragraph_removed = True
-                    continue
+                # Ta bort hela stycket
+                changes_applied += 1
+                paragraph_removed = True
+                if verbose:
+                    print(f"Regel 3 tillämpas: Tar bort stycke {i+1} med '/Rubriken träder i kraft I:{date_in_text}/' efter paragraf")
+                    print(f"  Stycke: {paragraph[:100]}...")
+                continue
 
         # Kontrollera om det står "/Rubriken upphör att gälla" med datum
         rubrik_upphör_match = re.search(r'/Rubriken upphör att gälla U:(\d{4}-\d{2}-\d{2})/', paragraph)
         if rubrik_upphör_match:
             date_in_text = rubrik_upphör_match.group(1)
+
             # Om target_date är angivet, kontrollera att det matchar
             if target_date is None or date_in_text == target_date:
-                # Kontrollera om det följs av en underrubrik (innehåller ### )
+                # Kontrollera om det föregås av en underrubrik (börjar med ###)
                 if re.search(r'###\s+', paragraph):
                     # Ta bort hela stycket
                     changes_applied += 1
                     paragraph_removed = True
+                    if verbose:
+                        print(f"Regel 4 tillämpas: Tar bort stycke {i+1} med '/Rubriken upphör att gälla U:{date_in_text}/' före underrubrik")
+                        print(f"  Stycke: {paragraph[:100]}...")
                     continue
 
         # Om inget av ovanstående matchar, behåll stycket
         if not paragraph_removed:
             filtered_paragraphs.append(paragraph)
 
+    if verbose:
+        print(f"Totalt antal tillämpade regler: {changes_applied}")
+        print(f"Antal stycken kvar efter filtrering: {len(filtered_paragraphs)}")
+
     # Kontrollera om inga regler kunde tillämpas
     # if changes_applied == 0:
-    #     if target_date:
-    #         raise ValueError(f"Inga regler kunde tillämpas för datum {target_date}. Kontrollera att texten innehåller relevanta ändringsmarkeringar med detta datum. Innehållet: " + text)
-    #     else:
-    #         raise ValueError("Inga regler kunde tillämpas. Kontrollera att texten innehåller relevanta ändringsmarkeringar (/Ny beteckning, /Upphör att gälla, /Rubriken träder i kraft, /Rubriken upphör att gälla).")
+    #      if target_date:
+    #          raise ValueError(f"Inga regler kunde tillämpas för datum {target_date}. Kontrollera att texten innehåller relevanta ändringsmarkeringar med detta datum.")
+    #      else:
+    #          raise ValueError("Inga regler kunde tillämpas. Kontrollera att texten innehåller relevanta ändringsmarkeringar (/Ny beteckning, /Upphör att gälla, /Rubriken träder i kraft, /Rubriken upphör att gälla).")
 
     # Sätt ihop styckena igen
     return '\n\n'.join(filtered_paragraphs)

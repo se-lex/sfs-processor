@@ -222,8 +222,13 @@ departement: {format_yaml_value(organisation)}
         # If sorting fails, keep the original format
         print(f"Warning: Could not sort front matter for {beteckning}: {e}")
 
+    has_amendment_markers = re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', innehall_text)
+    if verbose and amendments and not has_amendment_markers:
+        print(f"Warning: No change markers found in {beteckning} but amendments exist.")
+        print(f"Content preview (first 200 chars): {innehall_text[:200]}...")
+        raise ValueError(f"No change markers found in the {beteckning}. Skipping amendments processing.")
+
     # Format the content text before creating the markdown body
-    # First apply general SFS formatting
     formatted_text = format_sfs_text(innehall_text, paragraph_as_header)
 
     # Debug: Check if formatting resulted in empty text
@@ -235,9 +240,13 @@ departement: {format_yaml_value(organisation)}
         print(f"Debug: Formatted text length for {beteckning}: {len(formatted_text)}")
 
     # Then apply changes handling based on amendments
-    processed_text = apply_amendments_to_text(formatted_text, amendments, enable_git, verbose)
+    if has_amendment_markers:
+        processed_text = apply_amendments_to_text(formatted_text, amendments, enable_git, verbose)
+        print(f"Debug: Processed amendments text length for {beteckning}: {len(processed_text)}")
+    else:
+        processed_text = formatted_text
 
-    print(f"Debug: Processed amendments text length for {beteckning}: {len(processed_text)}")
+    processed_text = apply_changes_to_sfs_text(processed_text, utfardad_datum, verbose)
 
     # Create Markdown body
     markdown_body = f"# {rubrik}\n\n" + processed_text
@@ -406,6 +415,11 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
 
     processed_text = text
 
+    # Check if there are any markers for the amendments in the text
+    if not re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', processed_text):
+        print("Warning: No change markers found in the text. Skipping amendments processing.")
+        return text
+
     # Sort amendments by ikraft_datum to apply changes in chronological order
     sorted_amendments = sorted(
         [a for a in amendments if a.get('ikraft_datum')],
@@ -421,20 +435,20 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
             # Store text before changes for debug comparison
             text_before_changes = processed_text
 
-            processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum)
+            processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum, verbose)
 
             # Debug output: show diff if enabled
             if verbose:
                 print(f"\n{'='*60}")
-                print(f"ÄNDRINGSFÖRFATTNING: {beteckning} ({ikraft_datum})")
+                print(f"ÄNDRINGSFÖRFATTNING: {rubrik} ({ikraft_datum})")
                 print(f"{'='*60}")
 
                 # Create unified diff
                 diff_lines = list(difflib.unified_diff(
                     text_before_changes.splitlines(keepends=True),
                     processed_text.splitlines(keepends=True),
-                    fromfile=f"Före ändring {beteckning}",
-                    tofile=f"Efter ändring {beteckning}",
+                    #fromfile=f"Före ändring {beteckning}",
+                    #tofile=f"Efter ändring {beteckning}",
                     lineterm=""
                 ))
 
