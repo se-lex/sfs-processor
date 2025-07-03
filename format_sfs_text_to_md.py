@@ -121,18 +121,26 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None) -> str:
 
     Returns:
         str: Den formaterade texten med ändringar borttagna
+
+    Raises:
+        ValueError: Om inga regler kunde tillämpas (inga ändringar gjordes)
     """
     # Dela upp texten i stycken (avgränsade av dubbla radbrytningar)
     paragraphs = text.split('\n\n')
 
     filtered_paragraphs = []
+    changes_applied = 0  # Räkna antal tillämpade ändringar
 
     for paragraph in paragraphs:
+        paragraph_removed = False
+
         # Kontrollera om stycket innehåller "/Ny beteckning"
         if '/Ny beteckning' in paragraph:
             # Kontrollera om det föregås av en paragraf (innehåller **X §**)
             if re.search(r'\*\*\d+\s*§\*\*', paragraph):
                 # Ta bort hela stycket
+                changes_applied += 1
+                paragraph_removed = True
                 continue
 
         # Kontrollera om stycket innehåller "/Upphör att gälla" med datum
@@ -144,6 +152,8 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None) -> str:
                 # Kontrollera om det föregås av en paragraf (innehåller **X §**)
                 if re.search(r'\*\*\d+\s*§\*\*', paragraph):
                     # Ta bort hela stycket
+                    changes_applied += 1
+                    paragraph_removed = True
                     continue
 
         # Kontrollera om det står "/Rubriken träder i kraft" med datum
@@ -155,6 +165,8 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None) -> str:
                 # Kontrollera om det föregås av en paragraf (innehåller **X §**)
                 if re.search(r'\*\*\d+\s*§\*\*', paragraph):
                     # Ta bort hela stycket
+                    changes_applied += 1
+                    paragraph_removed = True
                     continue
 
         # Kontrollera om det står "/Rubriken upphör att gälla" med datum
@@ -166,10 +178,20 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None) -> str:
                 # Kontrollera om det följs av en underrubrik (innehåller ### )
                 if re.search(r'###\s+', paragraph):
                     # Ta bort hela stycket
+                    changes_applied += 1
+                    paragraph_removed = True
                     continue
 
         # Om inget av ovanstående matchar, behåll stycket
-        filtered_paragraphs.append(paragraph)
+        if not paragraph_removed:
+            filtered_paragraphs.append(paragraph)
+
+    # Kontrollera om inga regler kunde tillämpas
+    if changes_applied == 0:
+        if target_date:
+            raise ValueError(f"Inga regler kunde tillämpas för datum {target_date}. Kontrollera att texten innehåller relevanta ändringsmarkeringar med detta datum.")
+        else:
+            raise ValueError("Inga regler kunde tillämpas. Kontrollera att texten innehåller relevanta ändringsmarkeringar (/Ny beteckning, /Upphör att gälla, /Rubriken träder i kraft, /Rubriken upphör att gälla).")
 
     # Sätt ihop styckena igen
     return '\n\n'.join(filtered_paragraphs)
