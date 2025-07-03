@@ -105,7 +105,7 @@ def format_sfs_text_to_md(input_path, output_path):
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write('\n'.join(formatted) + '\n')
 
-def format_sfs_with_changes(text: str) -> str:
+def apply_changes_to_sfs_text(text: str, target_date: str = None) -> str:
     """
     Formattera SFS-text med hantering av ändringar och upphöranden.
 
@@ -115,8 +115,11 @@ def format_sfs_with_changes(text: str) -> str:
     3. Om "/Rubriken träder i kraft I:YYYY-MM-DD/" förekommer efter en paragraf ska hela stycket tas bort
     4. Om "/Rubriken upphör att gälla U:YYYY-MM-DD/" förekommer före en underrubrik ska hela stycket tas bort
 
+    Om target_date anges, tillämpas reglerna endast om datumet i I: eller U: matchar target_date.
+
     Args:
         text (str): Texten som ska formateras
+        target_date (str, optional): Datum i format YYYY-MM-DD som ska matchas mot I: eller U: datum
 
     Returns:
         str: Den formaterade texten med ändringar borttagna
@@ -135,25 +138,37 @@ def format_sfs_with_changes(text: str) -> str:
                 continue
 
         # Kontrollera om stycket innehåller "/Upphör att gälla" med datum
-        if re.search(r'/Upphör att gälla U:\d{4}-\d{2}-\d{2}/', paragraph):
-            # Kontrollera om det föregås av en paragraf (innehåller **X §**)
-            if re.search(r'\*\*\d+\s*§\*\*', paragraph):
-                # Ta bort hela stycket
-                continue
+        upphör_match = re.search(r'/Upphör att gälla U:(\d{4}-\d{2}-\d{2})/', paragraph)
+        if upphör_match:
+            date_in_text = upphör_match.group(1)
+            # Om target_date är angivet, kontrollera att det matchar
+            if target_date is None or date_in_text == target_date:
+                # Kontrollera om det föregås av en paragraf (innehåller **X §**)
+                if re.search(r'\*\*\d+\s*§\*\*', paragraph):
+                    # Ta bort hela stycket
+                    continue
 
         # Kontrollera om det står "/Rubriken träder i kraft" med datum
-        if re.search(r'/Rubriken träder i kraft I:\d{4}-\d{2}-\d{2}/', paragraph):
-            # Kontrollera om det föregås av en paragraf (innehåller **X §**)
-            if re.search(r'\*\*\d+\s*§\*\*', paragraph):
-                # Ta bort hela stycket
-                continue
+        träder_match = re.search(r'/Rubriken träder i kraft I:(\d{4}-\d{2}-\d{2})/', paragraph)
+        if träder_match:
+            date_in_text = träder_match.group(1)
+            # Om target_date är angivet, kontrollera att det matchar
+            if target_date is None or date_in_text == target_date:
+                # Kontrollera om det föregås av en paragraf (innehåller **X §**)
+                if re.search(r'\*\*\d+\s*§\*\*', paragraph):
+                    # Ta bort hela stycket
+                    continue
 
         # Kontrollera om det står "/Rubriken upphör att gälla" med datum
-        if re.search(r'/Rubriken upphör att gälla U:\d{4}-\d{2}-\d{2}/', paragraph):
-            # Kontrollera om det följs av en underrubrik (innehåller ### )
-            if re.search(r'###\s+', paragraph):
-                # Ta bort hela stycket
-                continue
+        rubrik_upphör_match = re.search(r'/Rubriken upphör att gälla U:(\d{4}-\d{2}-\d{2})/', paragraph)
+        if rubrik_upphör_match:
+            date_in_text = rubrik_upphör_match.group(1)
+            # Om target_date är angivet, kontrollera att det matchar
+            if target_date is None or date_in_text == target_date:
+                # Kontrollera om det följs av en underrubrik (innehåller ### )
+                if re.search(r'###\s+', paragraph):
+                    # Ta bort hela stycket
+                    continue
 
         # Om inget av ovanstående matchar, behåll stycket
         filtered_paragraphs.append(paragraph)
