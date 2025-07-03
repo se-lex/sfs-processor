@@ -42,6 +42,10 @@ def format_yaml_value(value: Any) -> str:
     if not value:
         return '""'
 
+    # Check if value is a URL - URLs should not be quoted
+    if re.match(r'^https?://', value):
+        return value
+
     # Check if value needs quotes according to YAML rules
     needs_quotes = (
         # Starts with special YAML characters
