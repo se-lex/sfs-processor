@@ -3,17 +3,19 @@ Script för att formattera SFS-dokument (Svensk Författningssamling) i Markdown
 
 Regler som tillämpas:
 1. Ta bort alla radbrytningar så att dokumentet blir flytande text (inte "wrappat")
-2. Identifiera rader som bara har max två ord och radbryt före och efter som rubriker
-   - Rubriker ska ha ## framför (underrubriker i Markdown)
-   - Undvik att göra rader till rubriker om de innehåller punkt
-3. Paragrafer i formatet "(NUMMER) §" som inleder ett nytt stycke ska fetstilas i Markdown (**text**)
-   - Endast paragrafnummer i början av rader efter tomma rader fetstilas
+2. Identifiera och formattera olika typer av rubriker:
+   - Kapitel (ex. "1 kap.") blir H2-rubriker (##)
+   - Vanliga rubriker (max två ord, ingen punkt) blir H3-rubriker (###)
+   - Paragrafnummer (ex. "13 §") kan bli antingen:
+     * H3-rubriker (###) när paragraph_as_header=True (standard)
+     * H4-rubriker (####) inom potential_headers-sektionen
+     * Fetstil (**text**) när paragraph_as_header=False
+3. Hantering av ändringar och upphöranden:
+   - Stycken med "/Ny beteckning" efter paragrafer tas bort
+   - Stycken med "/Upphör att gälla U:YYYY-MM-DD/" efter paragrafer tas bort
 
 Användning:
     python format_sfs_md.py
-
-Läser: markdown/sfs-2024-11.md
-Skriver: markdown/sfs-2024-11.formatted.md
 """
 
 import re
@@ -219,9 +221,13 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
 
             # Kontrollera om det är en rubrik
             if potential_headers[i] and not next_is_list_start:
-                # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de andra kriterierna
-                if (len(line.split()) <= 2 and '.' not in line) or (len(line) < 300 and not line.strip().endswith(('.', ':'))):
+                # Kontrollera om det är ett kapitel (börjar med "X kap.")
+                if re.match(r'^\d+\s+kap\.', line.strip()):
                     formatted.append(f'## {line}')
+                # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de andra kriterierna
+                elif (len(line.split()) <= 2 and '.' not in line) or (len(line) < 300 and not line.strip().endswith(('.', ':'))):
+                    # Använd H3-rubrik för rubriker
+                    formatted.append(f'### {line}')
                 else:
                     # Hantera paragrafnummer baserat på parameter
                     if previous_line_empty and paragraph_as_header:
@@ -230,7 +236,8 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                         if paragraph_match:
                             paragraph_num = paragraph_match.group(1)
                             rest_of_line = paragraph_match.group(2).strip()
-                            formatted.append(f'### {paragraph_num}')
+                            # Använd H4-rubrik för paragrafnummer, eftersom H2 är kapital och H3 är för rubriker
+                            formatted.append(f'#### {paragraph_num}')
                             formatted.append('')  # Tom rad efter rubriken
                             if rest_of_line:
                                 formatted.append(rest_of_line)
@@ -243,8 +250,11 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                     else:
                         formatted.append(line)
             else:
+                # Kontrollera om det är ett kapitel (börjar med "X kap.") även utanför potential_headers
+                if re.match(r'^\d+\s+kap\.', line.strip()):
+                    formatted.append(f'## {line}')
                 # Hantera paragrafnummer baserat på parameter
-                if previous_line_empty and paragraph_as_header:
+                elif previous_line_empty and paragraph_as_header:
                     # Kontrollera om raden börjar med paragrafnummer
                     paragraph_match = re.match(r'^(\d+ ?§)(.*)', line)
                     if paragraph_match:
