@@ -14,8 +14,6 @@ Regler som tillämpas:
    - Stycken med "/Ny beteckning" efter paragrafer tas bort
    - Stycken med "/Upphör att gälla U:YYYY-MM-DD/" efter paragrafer tas bort
 
-Användning:
-    python format_sfs_md.py
 """
 
 import re

@@ -130,7 +130,7 @@ def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict
     return amendments
 
 
-def create_markdown_content(data: Dict[str, Any], paragraph_as_header: bool = True) -> str:
+def create_markdown_content(data: Dict[str, Any], paragraph_as_header: bool = True, enable_git: bool = False) -> str:
     """Create Markdown content with YAML front matter from JSON data."""
 
     # Extract main document information
@@ -222,7 +222,7 @@ departement: {format_yaml_value(organisation)}
 
     # Format the content text before creating the markdown body
     # First apply changes handling based on amendments
-    processed_text = apply_amendments_to_text(innehall_text, amendments)
+    processed_text = apply_amendments_to_text(innehall_text, amendments, enable_git)
 
     # Then apply general SFS formatting
     formatted_text = format_sfs_text(processed_text, paragraph_as_header)
@@ -232,7 +232,7 @@ departement: {format_yaml_value(organisation)}
 
     return yaml_front_matter + markdown_body
 
-def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_folder: bool, paragraph_as_header: bool = True) -> None:
+def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_folder: bool, paragraph_as_header: bool = True, enable_git: bool = False) -> None:
     """Convert a single JSON file to Markdown format."""
     
     # Read JSON file
@@ -244,7 +244,7 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_fol
         return
     
     # Create Markdown content
-    markdown_content = create_markdown_content(data, paragraph_as_header)
+    markdown_content = create_markdown_content(data, paragraph_as_header, enable_git)
     
     # Create output filename based on beteckning
     beteckning = data.get('beteckning', json_file_path.stem)
@@ -276,21 +276,24 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_fol
         print(f"Error writing {output_file}: {e}")
 
 
-def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]]) -> str:
+def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable_git: bool = False) -> str:
     """
     Apply changes to SFS text based on amendment dates.
 
     This function processes each amendment in chronological order and applies
     changes using apply_changes_to_sfs_text with the amendment's ikraft_datum
-    as the target date.
+    as the target date. Optionally creates Git commits for each amendment.
 
     Args:
         text (str): The original SFS text
         amendments (List[Dict[str, Any]]): List of amendments with ikraft_datum
+        enable_git (bool): If True, create Git commits for each amendment
 
     Returns:
         str: The text with changes applied
     """
+    import subprocess
+
     processed_text = text
 
     # Sort amendments by ikraft_datum to apply changes in chronological order
@@ -301,9 +304,36 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]]) -> str
 
     for amendment in sorted_amendments:
         ikraft_datum = amendment.get('ikraft_datum')
+        rubrik = amendment.get('rubrik', 'Ändringsförfattning')
 
         if ikraft_datum:
             processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum)
+
+            if enable_git:
+                try:
+                    # Throw error if rubrik is empty
+                    if not rubrik:
+                        raise ValueError("Rubrik cannot be empty for Git commit")
+
+                    # Create Git commit with amendment rubrik and ikraft_datum as date
+                    commit_message = rubrik
+
+                    # Stage all changes
+                    subprocess.run(['git', 'add', '.'], check=True, capture_output=True)
+
+                    # Create commit with specific date
+                    subprocess.run([
+                        'git', 'commit',
+                        '-m', commit_message,
+                        '--date', ikraft_datum
+                    ], check=True, capture_output=True)
+
+                    print(f"Git commit created: '{commit_message}' dated {ikraft_datum}")
+
+                except subprocess.CalledProcessError as e:
+                    print(f"Warning: Git commit failed for amendment dated {ikraft_datum}: {e}")
+                except FileNotFoundError:
+                    print("Warning: Git not found. Skipping Git commits.")
 
     return processed_text
 
@@ -320,6 +350,8 @@ def main():
     parser.add_argument('--output', '-o', help='Output directory for Markdown files')
     parser.add_argument('--no-year-folder', dest='year_folder', action='store_false',
                         help='Do not create year-based subdirectories for documents')
+    parser.add_argument('--enable-git', action='store_true',
+                        help='Create Git commits for each amendment with their ikraft_datum as commit date')
     parser.set_defaults(year_folder=True)
     args = parser.parse_args()
 
@@ -361,7 +393,7 @@ def main():
     
     # Convert each JSON file
     for json_file in json_files:
-        convert_json_to_markdown(json_file, output_dir, args.year_folder)
+        convert_json_to_markdown(json_file, output_dir, args.year_folder, True, args.enable_git)
     
     print(f"\nConversion complete! Markdown files saved to {output_dir}")
 
