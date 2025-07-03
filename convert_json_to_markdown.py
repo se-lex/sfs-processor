@@ -161,6 +161,10 @@ def create_markdown_content(data: Dict[str, Any], paragraph_as_header: bool = Tr
     if innehall_text is None:
         innehall_text = 'No content available'
 
+    # Debug: Check if content is empty
+    if not innehall_text.strip():
+        print(f"Warning: Empty content for {beteckning}")
+
     # Extract amendments
     amendments = extract_amendments(data.get('andringsforfattningar', []))
 
@@ -212,23 +216,37 @@ departement: {format_yaml_value(organisation)}
     
     # Sort the front matter properties
     try:
-        yaml_front_matter = sort_frontmatter_properties(yaml_front_matter.rstrip() + '\n')
-        yaml_front_matter += "\n\n"
+        sorted_yaml = sort_frontmatter_properties(yaml_front_matter.rstrip() + '\n')
+        yaml_front_matter = sorted_yaml + "\n\n"
     except ValueError as e:
         # If sorting fails, keep the original format
-        print(f"Warning: Could not sort front matter: {e}")
+        print(f"Warning: Could not sort front matter for {beteckning}: {e}")
 
     # Format the content text before creating the markdown body
     # First apply general SFS formatting
     formatted_text = format_sfs_text(innehall_text, paragraph_as_header)
 
+    # Debug: Check if formatting resulted in empty text
+    if not formatted_text.strip():
+        print(f"Warning: Formatting resulted in empty text for {beteckning}")
+        print(f"Original content length: {len(innehall_text)}")
+        print(f"Original content preview: {innehall_text[:200]}...")
+    else:
+        print(f"Debug: Formatted text length for {beteckning}: {len(formatted_text)}")
+
     # Then apply changes handling based on amendments
     processed_text = apply_amendments_to_text(formatted_text, amendments, enable_git, verbose)
+
+    print(f"Debug: Processed amendments text length for {beteckning}: {len(processed_text)}")
 
     # Create Markdown body
     markdown_body = f"# {rubrik}\n\n" + processed_text
 
-    return yaml_front_matter + markdown_body
+    # Final debug check
+    final_content = yaml_front_matter + markdown_body
+    print(f"Debug: Final content length for {beteckning}: {len(final_content)}")
+
+    return final_content
 
 def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_folder: bool, paragraph_as_header: bool = True, enable_git: bool = False, verbose: bool = False) -> None:
     """Convert a single JSON file to Markdown format."""
@@ -249,7 +267,25 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_fol
         ikraft_datum = format_datetime(data.get('ikraftDateTime'))
         if ikraft_datum:
             markdown_content = add_ikraft_datum_to_markdown(markdown_content, ikraft_datum)
-            markdown_content = sort_frontmatter_properties(markdown_content)
+            try:
+                # Extract just the front matter part for sorting
+                if markdown_content.startswith('---'):
+                    # Find the end of the front matter
+                    front_matter_end = markdown_content.find('\n---\n', 3)
+                    if front_matter_end != -1:
+                        front_matter = markdown_content[:front_matter_end + 5]  # Include the closing ---\n
+                        rest_of_content = markdown_content[front_matter_end + 5:]
+
+                        # Sort only the front matter
+                        sorted_front_matter = sort_frontmatter_properties(front_matter)
+                        markdown_content = sorted_front_matter + rest_of_content
+            except ValueError as e:
+                print(f"Warning: Could not sort front matter after adding ikraft_datum for {data.get('beteckning', 'unknown')}: {e}")
+
+    # Debug: Check final markdown content length
+    print(f"Debug: Final markdown content length for {data.get('beteckning', 'unknown')}: {len(markdown_content)}")
+    if len(markdown_content) < 1000:  # If suspiciously short, show preview
+        print(f"Debug: Content preview:\n{markdown_content[:500]}...")
     
     # Create output filename based on beteckning
     beteckning = data.get('beteckning', json_file_path.stem)
@@ -314,7 +350,15 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_fol
                     if ikraft_datum:
                         # Add ikraft_datum to the existing markdown content
                         markdown_content_with_ikraft = add_ikraft_datum_to_markdown(markdown_content, ikraft_datum)
-                        markdown_content_with_ikraft = sort_frontmatter_properties(markdown_content_with_ikraft)
+
+                        # Sort front matter only
+                        if markdown_content_with_ikraft.startswith('---'):
+                            front_matter_end = markdown_content_with_ikraft.find('\n---\n', 3)
+                            if front_matter_end != -1:
+                                front_matter = markdown_content_with_ikraft[:front_matter_end + 5]
+                                rest_of_content = markdown_content_with_ikraft[front_matter_end + 5:]
+                                sorted_front_matter = sort_frontmatter_properties(front_matter)
+                                markdown_content_with_ikraft = sorted_front_matter + rest_of_content
 
                         # Write updated file with ikraft_datum
                         with open(output_file, 'w', encoding='utf-8') as f:
@@ -562,6 +606,10 @@ def filter_json_files(json_files: List[Path], filter_criteria: str) -> List[Path
                 break
             # Check for year match (YYYY format)
             elif ':' not in criterion and f"{criterion}-" in filename:
+                filtered_files.append(json_file)
+                break
+            # Check for partial filename match (e.g., "sfs-2024-925" matches "sfs-2024-925.json")
+            elif criterion in filename:
                 filtered_files.append(json_file)
                 break
 
