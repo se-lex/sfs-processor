@@ -246,8 +246,6 @@ departement: {format_yaml_value(organisation)}
     else:
         processed_text = formatted_text
 
-    processed_text = apply_changes_to_sfs_text(processed_text, utfardad_datum, verbose)
-
     # Create Markdown body
     markdown_body = f"# {rubrik}\n\n" + processed_text
 
@@ -438,6 +436,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
             processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum, verbose)
 
             # Debug output: show diff if enabled
+            verbose = False
             if verbose:
                 print(f"\n{'='*60}")
                 print(f"ÄNDRINGSFÖRFATTNING: {rubrik} ({ikraft_datum})")

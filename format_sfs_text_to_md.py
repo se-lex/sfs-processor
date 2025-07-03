@@ -41,15 +41,64 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
     Raises:
         ValueError: Om inga regler kunde tillämpas (inga ändringar gjordes)
     """
-    # Dela upp texten i stycken (avgränsade av dubbla radbrytningar)
-    paragraphs = text.split('\n\n')
+    def parse_logical_paragraphs(text: str) -> list:
+        """
+        Dela upp texten i logiska paragrafer som inkluderar rubriker och deras innehåll.
+        En paragraf börjar med en rubrik (##, ###, ####) eller fristående text och
+        inkluderar allt innehåll fram till nästa rubrik eller dubbla radbrytningar.
+        """
+        lines = text.split('\n')
+        paragraphs = []
+        current_paragraph = []
+
+        i = 0
+        while i < len(lines):
+            line = lines[i]
+
+            # Om detta är en rubrik, starta en ny paragraf
+            if re.match(r'^#{2,4}\s+', line.strip()):
+                # Avsluta föregående paragraf om den finns
+                if current_paragraph:
+                    paragraphs.append('\n'.join(current_paragraph))
+                # Starta ny paragraf med rubriken
+                current_paragraph = ["-- NY PARAGRAF -- " + line]
+            # Om tom rad
+            elif not line.strip():
+                if current_paragraph:
+                    # Kontrollera om nästa icke-tomma rad är en rubrik
+                    next_non_empty_idx = i + 1
+                    while next_non_empty_idx < len(lines) and not lines[next_non_empty_idx].strip():
+                        next_non_empty_idx += 1
+
+                    # Om nästa rad är en rubrik eller vi är i slutet, avsluta paragrafen
+                    if (next_non_empty_idx >= len(lines) or
+                        re.match(r'^#{2,4}\s+', lines[next_non_empty_idx].strip())):
+                        paragraphs.append('\n'.join(current_paragraph))
+                        current_paragraph = []
+                    else:
+                        # Annars lägg till den tomma raden och fortsätt
+                        current_paragraph.append(line)
+            else:
+                # Vanlig textrad - lägg till i nuvarande paragraf
+                current_paragraph.append(line)
+
+            i += 1
+
+        # Lägg till sista paragrafen om den finns
+        if current_paragraph:
+            paragraphs.append('\n'.join(current_paragraph))
+
+        return paragraphs
+
+    # Dela upp texten i logiska paragrafer
+    paragraphs = parse_logical_paragraphs(text)
 
     filtered_paragraphs = []
     changes_applied = 0  # Räkna antal tillämpade ändringar
 
     if verbose:
         print(f"Tillämpar ändringsregler för datum: {target_date if target_date else 'alla datum'}")
-        print(f"Antal stycken att analysera: {len(paragraphs)}")
+        print(f"Antal logiska paragrafer att analysera: {len(paragraphs)}")
 
     for i, paragraph in enumerate(paragraphs):
         paragraph_removed = False
@@ -62,8 +111,8 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                 changes_applied += 1
                 paragraph_removed = True
                 if verbose:
-                    print(f"Regel 1 tillämpas: Tar bort stycke {i+1} med '/Ny beteckning' efter paragraf")
-                    print(f"  Stycke: {paragraph[:100]}...")
+                    print(f"Regel 1 tillämpas: Tar bort paragraf {i+1} med '/Ny beteckning' efter paragraf")
+                    print(f"  Paragraf: {paragraph[:100]}...")
                 continue
 
         # Kontrollera om stycket innehåller "/Upphör att gälla" med datum
@@ -78,8 +127,8 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                     changes_applied += 1
                     paragraph_removed = True
                     if verbose:
-                        print(f"Regel 2 tillämpas: Tar bort stycke {i+1} med '/Upphör att gälla U:{date_in_text}/' efter paragraf")
-                        print(f"  Stycke: {paragraph[:100]}...")
+                        print(f"Regel 2 tillämpas: Tar bort paragraf {i+1} med '/Upphör att gälla U:{date_in_text}/' efter paragraf")
+                        print(f"  Paragraf: {paragraph[:100]}...")
                     continue
 
         # Kontrollera om det står "/Rubriken träder i kraft" med datum
@@ -92,8 +141,8 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                 changes_applied += 1
                 paragraph_removed = True
                 if verbose:
-                    print(f"Regel 3 tillämpas: Tar bort stycke {i+1} med '/Rubriken träder i kraft I:{date_in_text}/' efter paragraf")
-                    print(f"  Stycke: {paragraph[:100]}...")
+                    print(f"Regel 3 tillämpas: Tar bort paragraf {i+1} med '/Rubriken träder i kraft I:{date_in_text}/' efter paragraf")
+                    print(f"  Paragraf: {paragraph[:100]}...")
                 continue
 
         # Kontrollera om det står "/Rubriken upphör att gälla" med datum
@@ -109,8 +158,8 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                     changes_applied += 1
                     paragraph_removed = True
                     if verbose:
-                        print(f"Regel 4 tillämpas: Tar bort stycke {i+1} med '/Rubriken upphör att gälla U:{date_in_text}/' före underrubrik")
-                        print(f"  Stycke: {paragraph[:100]}...")
+                        print(f"Regel 4 tillämpas: Tar bort paragraf {i+1} med '/Rubriken upphör att gälla U:{date_in_text}/' före underrubrik")
+                        print(f"  Paragraf: {paragraph[:100]}...")
                     continue
 
         # Om inget av ovanstående matchar, behåll stycket
@@ -119,7 +168,7 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
 
     if verbose:
         print(f"Totalt antal tillämpade regler: {changes_applied}")
-        print(f"Antal stycken kvar efter filtrering: {len(filtered_paragraphs)}")
+        print(f"Antal paragrafer kvar efter filtrering: {len(filtered_paragraphs)}")
 
     # Kontrollera om inga regler kunde tillämpas
     # if changes_applied == 0:
@@ -128,7 +177,7 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
     #      else:
     #          raise ValueError("Inga regler kunde tillämpas. Kontrollera att texten innehåller relevanta ändringsmarkeringar (/Ny beteckning, /Upphör att gälla, /Rubriken träder i kraft, /Rubriken upphör att gälla).")
 
-    # Sätt ihop styckena igen
+    # Sätt ihop paragraferna igen med dubbla radbrytningar
     return '\n\n'.join(filtered_paragraphs)
 
 
