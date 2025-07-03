@@ -4,6 +4,13 @@ Convert Swedish legal documents from JSON to Markdown with YAML front matter.
 
 This script processes JSON files containing Swedish legal documents (SFS) and
 converts them to Markdown format with structured YAML front matter.
+
+Usage:
+    python convert_json_to_markdown.py [--input INPUT_DIR] [--output OUTPUT_DIR] [--subfolder]
+    
+    By default, all Markdown files are saved directly in the output directory.
+    Use the --subfolder flag to create a subdirectory for each document in the output 
+    directory, based on the document's beteckning.
 """
 
 import json
@@ -11,6 +18,7 @@ import re
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
+from format_sfs_text_to_md import format_sfs_text
 
 
 def clean_text(text: Optional[str]) -> str:
@@ -145,12 +153,15 @@ departement: {organisation}
     
     yaml_front_matter += "---\n\n"
     
+    # Format the content text before creating the markdown body
+    formatted_text = format_sfs_text(innehall_text)
+
     # Create Markdown body
-    markdown_body = f"# {rubrik}\n\n" + innehall_text
+    markdown_body = f"# {rubrik}\n\n" + formatted_text
 
     return yaml_front_matter + markdown_body
 
-def convert_json_to_markdown(json_file_path: Path, output_dir: Path) -> None:
+def convert_json_to_markdown(json_file_path: Path, output_dir: Path, create_subfolder: bool) -> None:
     """Convert a single JSON file to Markdown format."""
     
     # Read JSON file
@@ -166,14 +177,22 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path) -> None:
     
     # Create output filename based on beteckning
     beteckning = data.get('beteckning', json_file_path.stem)
+
+    if create_subfolder:
+        # Create a subdirectory for each document based on beteckning
+        document_dir = output_dir / beteckning
+        document_dir.mkdir(exist_ok=True)
+    else:
+        document_dir = output_dir
+
     safe_filename = re.sub(r'[^\w\-]', '-', beteckning) + '.md'
-    output_file = output_dir / safe_filename
+    output_file = document_dir / safe_filename
     
     # Write Markdown file
     try:
         with open(output_file, 'w', encoding='utf-8') as f:
             f.write(markdown_content)
-        print(f"Converted {json_file_path.name} -> {output_file.name}")
+        print(f"Converted {json_file_path.name} -> {output_file}")
     except IOError as e:
         print(f"Error writing {output_file}: {e}")
 
@@ -182,17 +201,32 @@ def main():
     """Main function to process all JSON files in the json directory."""
     
     import sys
+    import argparse
+
+    # Set up argument parser
+    parser = argparse.ArgumentParser(description='Convert SFS JSON files to Markdown.')
+    parser.add_argument('--input', '-i', help='Input directory containing JSON files')
+    parser.add_argument('--output', '-o', help='Output directory for Markdown files')
+    parser.add_argument('--subfolder', action='store_true', help='Create subdirectories for each document')
+    args = parser.parse_args()
 
     # Define paths
     script_dir = Path(__file__).parent
 
     # Check if custom input directory is provided as argument
-    if len(sys.argv) > 1:
+    if args.input:
+        json_dir = Path(args.input)
+    elif len(sys.argv) > 1 and not sys.argv[1].startswith('-'):
+        # For backward compatibility
         json_dir = Path(sys.argv[1])
     else:
         json_dir = script_dir / 'json'
 
-    output_dir = script_dir / 'markdown'
+    # Check if custom output directory is provided
+    if args.output:
+        output_dir = Path(args.output)
+    else:
+        output_dir = script_dir / 'markdown'
     
     # Create output directory if it doesn't exist
     output_dir.mkdir(exist_ok=True)
@@ -210,10 +244,11 @@ def main():
         return
     
     print(f"Found {len(json_files)} JSON file(s) to convert from {json_dir}")
+    print(f"Output will be saved to {output_dir}")
     
     # Convert each JSON file
     for json_file in json_files:
-        convert_json_to_markdown(json_file, output_dir)
+        convert_json_to_markdown(json_file, output_dir, args.subfolder)
     
     print(f"\nConversion complete! Markdown files saved to {output_dir}")
 
