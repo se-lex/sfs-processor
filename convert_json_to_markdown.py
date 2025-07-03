@@ -18,7 +18,7 @@ import re
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from format_sfs_text_to_md import format_sfs_text
+from format_sfs_text_to_md import format_sfs_text, format_sfs_with_changes
 from sort_frontmatter import sort_frontmatter_properties
 from add_pdf_url_to_frontmatter import generate_pdf_url
 
@@ -220,7 +220,10 @@ departement: {format_yaml_value(organisation)}
         print(f"Warning: Could not sort front matter: {e}")
 
     # Format the content text before creating the markdown body
-    formatted_text = format_sfs_text(innehall_text, paragraph_as_header)
+    # First apply changes handling (remove certain paragraphs)
+    processed_text = format_sfs_with_changes(innehall_text)
+    # Then apply general SFS formatting
+    formatted_text = format_sfs_text(processed_text, paragraph_as_header)
 
     # Create Markdown body
     markdown_body = f"# {rubrik}\n\n" + formatted_text

@@ -112,6 +112,8 @@ def format_sfs_with_changes(text: str) -> str:
     Regler:
     1. Om "/Ny beteckning" förekommer efter en paragraf (ex. **13 §**) ska hela stycket tas bort
     2. Om "/Upphör att gälla U:YYYY-MM-DD/" förekommer efter en paragraf ska hela stycket tas bort
+    3. Om "/Rubriken träder i kraft I:YYYY-MM-DD/" förekommer efter en paragraf ska hela stycket tas bort
+    4. Om "/Rubriken upphör att gälla U:YYYY-MM-DD/" förekommer före en underrubrik ska hela stycket tas bort
 
     Args:
         text (str): Texten som ska formateras
@@ -139,6 +141,20 @@ def format_sfs_with_changes(text: str) -> str:
                 # Ta bort hela stycket
                 continue
 
+        # Kontrollera om det står "/Rubriken träder i kraft" med datum
+        if re.search(r'/Rubriken träder i kraft I:\d{4}-\d{2}-\d{2}/', paragraph):
+            # Kontrollera om det föregås av en paragraf (innehåller **X §**)
+            if re.search(r'\*\*\d+\s*§\*\*', paragraph):
+                # Ta bort hela stycket
+                continue
+
+        # Kontrollera om det står "/Rubriken upphör att gälla" med datum
+        if re.search(r'/Rubriken upphör att gälla U:\d{4}-\d{2}-\d{2}/', paragraph):
+            # Kontrollera om det följs av en underrubrik (innehåller ### )
+            if re.search(r'###\s+', paragraph):
+                # Ta bort hela stycket
+                continue
+
         # Om inget av ovanstående matchar, behåll stycket
         filtered_paragraphs.append(paragraph)
 
@@ -160,11 +176,16 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
     # Dela upp texten i rader
     lines = text.splitlines()
 
-    # Steg 0: Ta bort text som börjar med "/Träder i kraft" upp till nästa "/" och mellanslaget efter, inklusive båda slash-tecknen
-    # text = re.sub(r'/Träder i kraft[^/]*/\s*', '', text)
+    # Steg 0: Ta bort tillfälligt alla texter inom snedstreck (/ /) för att inte påverka rubrikidentifiering
+    # Detta inkluderar markeringar som "/Träder i kraft/", "/Upphör att gälla/", "/Ny beteckning/" etc.
+    temp_cleaned_lines = []
+    for line in lines:
+        # Ta bort alla texter inom snedstreck temporärt
+        cleaned_line = re.sub(r'/[^/]+/', '', line).strip()
+        temp_cleaned_lines.append(cleaned_line)
 
-    # Dela upp texten i rader igen efter att ha rensat Träder i kraft-text
-    lines = text.splitlines()
+    # Dela upp texten i rader igen efter att ha rensat markeringar
+    lines = temp_cleaned_lines
 
     # Steg 1: Bearbeta rader för att slå ihop brutna meningar
     # Varje paragraf avgränsas av tomma rader
@@ -260,7 +281,7 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                     if paragraph_match:
                         paragraph_num = paragraph_match.group(1)
                         rest_of_line = paragraph_match.group(2).strip()
-                        formatted.append(f'### {paragraph_num}')
+                        formatted.append(f'#### {paragraph_num}')
                         formatted.append('')  # Tom rad efter rubriken
                         if rest_of_line:
                             formatted.append(rest_of_line)
