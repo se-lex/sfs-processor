@@ -133,7 +133,9 @@ departement: {organisation}
     if celex_nummer:
         yaml_front_matter += f"celex: \"{celex_nummer}\"\n"
 
-    yaml_front_matter += f"eu_direktiv: {str(eu_direktiv).lower()}\n"
+    # Add eu_direktiv only if it's true
+    if eu_direktiv:
+        yaml_front_matter += f"eu_direktiv: {str(eu_direktiv).lower()}\n"
 
     # Add amendments if they exist
     if amendments:
