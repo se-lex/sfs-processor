@@ -6,11 +6,11 @@ This script processes JSON files containing Swedish legal documents (SFS) and
 converts them to Markdown format with structured YAML front matter.
 
 Usage:
-    python convert_json_to_markdown.py [--input INPUT_DIR] [--output OUTPUT_DIR] [--subfolder]
+    python convert_json_to_markdown.py [--input INPUT_DIR] [--output OUTPUT_DIR] [--no-year-folder]
     
-    By default, all Markdown files are saved directly in the output directory.
-    Use the --subfolder flag to create a subdirectory for each document in the output 
-    directory, based on the document's beteckning.
+    By default, all Markdown files are saved in year-based subdirectories in the output directory.
+    Use the --no-year-folder flag to save all files directly in the output directory without creating
+    year-based subdirectories.
 """
 
 import json
@@ -163,7 +163,7 @@ departement: {organisation}
 
     return yaml_front_matter + markdown_body
 
-def convert_json_to_markdown(json_file_path: Path, output_dir: Path, create_subfolder: bool) -> None:
+def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_folder: bool) -> None:
     """Convert a single JSON file to Markdown format."""
     
     # Read JSON file
@@ -180,14 +180,22 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path, create_subf
     # Create output filename based on beteckning
     beteckning = data.get('beteckning', json_file_path.stem)
 
-    if create_subfolder:
-        # Create a subdirectory for each document based on beteckning
-        document_dir = output_dir / beteckning
+    # Extract year from beteckning (format is typically YYYY:NNN)
+    year_match = re.search(r'(\d{4}):', beteckning)
+    if not year_match:
+        print(f"Error: Could not extract year from beteckning: {beteckning}")
+        return
+
+    year = year_match.group(1)
+
+    if year_as_folder:
+        # Create a subdirectory for each document based on year
+        document_dir = output_dir / year
         document_dir.mkdir(exist_ok=True)
     else:
         document_dir = output_dir
 
-    safe_filename = re.sub(r'[^\w\-]', '-', beteckning) + '.md'
+    safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.md'
     output_file = document_dir / safe_filename
     
     # Write Markdown file
@@ -209,7 +217,9 @@ def main():
     parser = argparse.ArgumentParser(description='Convert SFS JSON files to Markdown.')
     parser.add_argument('--input', '-i', help='Input directory containing JSON files')
     parser.add_argument('--output', '-o', help='Output directory for Markdown files')
-    parser.add_argument('--subfolder', action='store_true', help='Create subdirectories for each document')
+    parser.add_argument('--no-year-folder', dest='year_folder', action='store_false',
+                        help='Do not create year-based subdirectories for documents')
+    parser.set_defaults(year_folder=True)
     args = parser.parse_args()
 
     # Define paths
@@ -250,7 +260,7 @@ def main():
     
     # Convert each JSON file
     for json_file in json_files:
-        convert_json_to_markdown(json_file, output_dir, args.subfolder)
+        convert_json_to_markdown(json_file, output_dir, args.year_folder)
     
     print(f"\nConversion complete! Markdown files saved to {output_dir}")
 
