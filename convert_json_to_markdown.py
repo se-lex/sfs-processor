@@ -19,6 +19,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 from format_sfs_text_to_md import format_sfs_text
+from sort_frontmatter import sort_frontmatter_properties
 
 
 def format_yaml_value(value: Any) -> str:
@@ -197,6 +198,14 @@ departement: {format_yaml_value(organisation)}
     
     yaml_front_matter += "---\n\n"
     
+    # Sort the front matter properties
+    try:
+        yaml_front_matter = sort_frontmatter_properties(yaml_front_matter.rstrip() + '\n')
+        yaml_front_matter += "\n\n"
+    except ValueError as e:
+        # If sorting fails, keep the original format
+        print(f"Warning: Could not sort front matter: {e}")
+
     # Format the content text before creating the markdown body
     formatted_text = format_sfs_text(innehall_text)
 

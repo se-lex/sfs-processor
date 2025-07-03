@@ -10,6 +10,7 @@ import requests
 from pathlib import Path
 from typing import Optional, Dict, Any
 import yaml
+from sort_frontmatter import sort_frontmatter_properties
 
 
 def check_pdf_exists(url: str) -> bool:
@@ -169,7 +170,16 @@ def create_frontmatter_content(frontmatter: Dict[Any, Any]) -> str:
         return ""
     
     yaml_content = yaml.dump(frontmatter, default_flow_style=False, allow_unicode=True)
-    return f"---\n{yaml_content}---\n"
+    frontmatter_text = f"---\n{yaml_content}---\n"
+
+    # Sortera front matter properties
+    try:
+        sorted_frontmatter = sort_frontmatter_properties(frontmatter_text.rstrip() + '\n')
+        return sorted_frontmatter + '\n'
+    except ValueError as e:
+        # If sorting fails, keep the original format
+        print(f"Warning: Could not sort front matter: {e}")
+        return frontmatter_text
 
 
 def add_pdf_url_to_file(file_path: Path, force_update: bool = False, check_exists: bool = True) -> bool:
