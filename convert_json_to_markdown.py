@@ -411,12 +411,69 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
     """
     import subprocess
 
+    def parse_overgangsbestammelser(text: str, amendments: List[Dict[str, Any]]) -> Dict[str, str]:
+        """
+        Parse 'Övergångsbestämmelser' section and organize by amendment beteckning.
+
+        Returns:
+            Dict mapping beteckning to its övergångsbestämmelser content
+        """
+        overgangs_dict = {}
+
+        # Find the Övergångsbestämmelser section
+        overgangs_match = re.search(r'### Övergångsbestämmelser\s*\n\n(.*?)(?=\n### |\n## |\Z)', text, re.DOTALL)
+        if not overgangs_match:
+            if verbose:
+                print("No 'Övergångsbestämmelser' section found")
+            return overgangs_dict
+
+        overgangs_content = overgangs_match.group(1).strip()
+
+        # Get all betecknings from amendments
+        betecknings = [a.get('beteckning') for a in amendments if a.get('beteckning')]
+
+        if not betecknings:
+            return overgangs_dict
+
+        # Create regex pattern to match any beteckning
+        betecknings_pattern = '|'.join(re.escape(b) for b in betecknings)
+
+        # Split content by betecknings
+        split_pattern = f'({betecknings_pattern})'
+        parts = re.split(split_pattern, overgangs_content)
+
+        current_beteckning = None
+        for i, part in enumerate(parts):
+            part = part.strip()
+            if not part:
+                continue
+
+            if part in betecknings:
+                current_beteckning = part
+                overgangs_dict[current_beteckning] = ""
+            elif current_beteckning and part:
+                # Add content to current beteckning
+                if overgangs_dict[current_beteckning]:
+                    overgangs_dict[current_beteckning] += "\n\n" + part
+                else:
+                    overgangs_dict[current_beteckning] = part
+
+        if verbose:
+            print(f"Found Övergångsbestämmelser for betecknings: {list(overgangs_dict.keys())}")
+            for beteckning, content in overgangs_dict.items():
+                print(f"  {beteckning}: {len(content)} characters")
+
+        return overgangs_dict
+
     processed_text = text
 
     # Check if there are any markers for the amendments in the text
     if not re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', processed_text):
         print("Warning: No change markers found in the text. Skipping amendments processing.")
         return text
+
+    # Parse övergångsbestämmelser early to have it available
+    overgangs_dict = parse_overgangsbestammelser(processed_text, amendments)
 
     # Sort amendments by ikraft_datum to apply changes in chronological order
     sorted_amendments = sorted(
@@ -434,11 +491,15 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
 
     for amendment in sorted_amendments:
         ikraft_datum = amendment.get('ikraft_datum')
+        beteckning = amendment.get('beteckning', '')
         rubrik = amendment.get('rubrik', 'Ändringsförfattning')
 
         if verbose:
             print(f"\n{'='*60}")
             print(f"Processing ÄNDRINGSFÖRFATTNING: {rubrik} ({ikraft_datum})")
+            if beteckning in overgangs_dict:
+                print(f"Övergångsbestämmelser för {beteckning}:")
+                print(f"\033[94m{overgangs_dict[beteckning]}\033[0m")  # Blue text for övergångsbestämmelser
             print(f"{'='*60}")
             print('')
 
@@ -448,7 +509,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
 
             processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum, verbose)
 
-            # Debug output: show diff if enabled
+            # ...existing diff code...
             show_diff = True
             if show_diff:
                 # Create unified diff
