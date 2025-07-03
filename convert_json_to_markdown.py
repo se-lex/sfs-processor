@@ -135,6 +135,10 @@ def create_markdown_content(data: Dict[str, Any]) -> str:
     publicerad_datum = format_datetime(data.get('publiceradDateTime'))
     ikraft_datum = format_datetime(data.get('ikraftDateTime'))
 
+    # Extract utfardad_datum from fulltext
+    fulltext_data = data.get('fulltext', {})
+    utfardad_datum = format_datetime(fulltext_data.get('utfardadDateTime'))
+
     # Extract other metadata
     forarbeten = clean_text(data.get('forarbeten', ''))
     celex_nummer = data.get('celexnummer')
@@ -145,7 +149,6 @@ def create_markdown_content(data: Dict[str, Any]) -> str:
     organisation = organisation_data.get('namn', '') if organisation_data else ''
 
     # Extract the main text content from nested structure
-    fulltext_data = data.get('fulltext', {})
     innehall_text = fulltext_data.get('forfattningstext', 'No content available')
 
     # Ensure innehall_text is a string
@@ -165,6 +168,8 @@ departement: {format_yaml_value(organisation)}
     # Add dates if they exist
     if publicerad_datum:
         yaml_front_matter += f"publicerad_datum: {format_yaml_value(publicerad_datum)}\n"
+    if utfardad_datum:
+        yaml_front_matter += f"utfardad_datum: {format_yaml_value(utfardad_datum)}\n"
     if ikraft_datum:
         yaml_front_matter += f"ikraft_datum: {format_yaml_value(ikraft_datum)}\n"
 

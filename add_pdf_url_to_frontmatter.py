@@ -80,36 +80,32 @@ def generate_pdf_url(file_path: str, frontmatter: Dict[Any, Any], check_exists: 
             print(f"Använder gamla databasen för {file_path}: {year_2digits}:{seq_padded}")
             url = f"{OLD_DOMAIN}/SFSdoc/{year_2digits}/{year_2digits}{seq_padded}.pdf"
         else:
-            # Nya databasen kräver publicerad_datum
-            publicerad_datum = frontmatter.get('publicerad_datum', '')
+            # Nya databasen kräver utfardad_datum
+            utfardad_datum = frontmatter.get('utfardad_datum', '')
 
-            # Konvertera till sträng om det är en integer
-            if isinstance(publicerad_datum, int):
-                publicerad_datum = str(publicerad_datum)
-
-            if not publicerad_datum:
-                print(f"Saknar publicerad_datum i {file_path}, hoppar över")
+            if not utfardad_datum:
+                print(f"Saknar utfardad_datum i {file_path}, hoppar över")
                 return None
 
             # Hantera olika datumformat (ISO 8601 eller andra format)
             try:
                 # Försök att parsa som ISO 8601 datum (YYYY-MM-DD)
-                if isinstance(publicerad_datum, str):
-                    if 'T' in publicerad_datum:
+                if isinstance(utfardad_datum, str):
+                    if 'T' in utfardad_datum:
                         # Datum med tid: 2023-12-15T10:30:00
-                        pub_date = datetime.datetime.fromisoformat(publicerad_datum.replace('Z', '+00:00'))
+                        pub_date = datetime.datetime.fromisoformat(utfardad_datum.replace('Z', '+00:00'))
                     else:
                         # Endast datum: 2023-12-15
-                        pub_date = datetime.datetime.strptime(publicerad_datum, '%Y-%m-%d')
+                        pub_date = datetime.datetime.strptime(utfardad_datum, '%Y-%m-%d')
                 else:
                     # Om det redan är ett datetime-objekt
-                    pub_date = publicerad_datum
+                    pub_date = utfardad_datum
 
                 published_year = str(pub_date.year)
                 published_month = f"{pub_date.month:02d}"  # Nollpaddat månadsnummer
                 
             except (ValueError, TypeError):
-                print(f"Kunde inte parsa publicerad_datum '{publicerad_datum}' i {file_path}, hoppar över")
+                print(f"Kunde inte parsa utfardad_datum '{utfardad_datum}' i {file_path}, hoppar över")
                 return None
             
             # Nya databasen: https://svenskforfattningssamling.se/sites/default/files/sfs/{PUBLISHED_YEAR}-{PUBLISHED_MONTH}/SFS{YEAR}-{SEQNUMBER}.pdf
