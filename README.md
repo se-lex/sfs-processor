@@ -1,6 +1,6 @@
 # Svensk författningssamling (SFS) till Markdown-filer
 
-Detta repository innehåller Python-script för att ladda ner och konvertera SFS-dokument (Svensk författningssamling) från antingen Regeringskansliets publika söktjänst eller Riksdagens öppna API. Konvertering till Markdown sker med en uppsättning regler.
+Detta repository innehåller Python-script för att ladda ner och konvertera SFS-författningar (Svensk författningssamling) från antingen Regeringskansliets publika söktjänst eller Riksdagens öppna API. Konvertering till Markdown sker med en uppsättning regler.
 
 ## Installation
 
@@ -22,7 +22,7 @@ Scriptet stöder två olika källor:
 
 ### Ladda ner från Regeringskansliet (standard)
 
-#### Ladda ner alla SFS-dokument
+#### Ladda ner alla SFS-författningar
 
 ```bash
 python download_sfs_documents.py
@@ -34,9 +34,9 @@ eller explicit:
 python download_sfs_documents.py --source rkrattsbaser
 ```
 
-**Observera:** För rkrattsbaser måste du ange specifika dokument-ID:n med `--ids` parametern.
+**Observera:** För rkrattsbaser måste du ange specifika författnings-ID:n med `--ids` parametern.
 
-#### Ladda ner specifika dokument från Regeringskansliet
+#### Ladda ner specifika författningar från Regeringskansliet
 
 ```bash
 python download_sfs_documents.py --ids "2025:764,2025:765"
@@ -44,13 +44,13 @@ python download_sfs_documents.py --ids "2025:764,2025:765"
 
 ### Ladda ner från Riksdagen
 
-#### Ladda ner alla SFS-dokument från Riksdagen
+#### Ladda ner alla SFS-författningar från Riksdagen
 
 ```bash
 python download_sfs_documents.py --ids all --source riksdagen
 ```
 
-#### Ladda ner specifika dokument från Riksdagen
+#### Ladda ner specifika författningar från Riksdagen
 
 ```bash
 python download_sfs_documents.py --ids "sfs-2017-900,sfs-2009-400,sfs-2011-791" --source riksdagen
@@ -64,13 +64,13 @@ python download_sfs_documents.py --source rkrattsbaser --ids "2025:764" --out "s
 
 ### Ange output-mapp
 
-Du kan ange vilken mapp dokumenten ska sparas i med `--out` parametern:
+Du kan ange vilken mapp författningarna ska sparas i med `--out` parametern:
 
 ```bash
-python download_sfs_documents.py --out "mina_dokument"
+python download_sfs_documents.py --out "sfs_docs"
 ```
 
-Eller kombinera med specifika dokument-ID:n:
+Eller kombinera med specifika författnings-ID:n:
 
 ```bash
 python download_sfs_documents.py --ids "sfs-2017-900,sfs-2009-400" --out "mina_favorit_lagar"
