@@ -28,7 +28,7 @@ jobs:
 
     - name: Run fetch script
       run: |
-        python fetch_new_sfs_documents.py --days 1 --output SFS
+        python fetch_new_sfs_documents.py --days 30 --output SFS
       env:
         # Lägg till API-nycklar eller andra secrets här om behövs
         PYTHONPATH: ${{ github.workspace }}
