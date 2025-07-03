@@ -20,6 +20,7 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional
 from format_sfs_text_to_md import format_sfs_text
 from sort_frontmatter import sort_frontmatter_properties
+from add_pdf_url_to_frontmatter import generate_pdf_url
 
 
 def format_yaml_value(value: Any) -> str:
@@ -196,6 +197,14 @@ departement: {format_yaml_value(organisation)}
             if amendment['anteckningar']:
                 yaml_front_matter += f"    anteckningar: {format_yaml_value(amendment['anteckningar'])}\n"
     
+    # Generate PDF URL
+    try:
+        pdf_url = generate_pdf_url(beteckning, utfardad_datum, check_exists=False)
+        if pdf_url:
+            yaml_front_matter += f"pdf_url: {format_yaml_value(pdf_url)}\n"
+    except (ValueError, TypeError, AttributeError) as e:
+        print(f"Warning: Could not generate PDF URL for {beteckning}: {e}")
+
     yaml_front_matter += "---\n\n"
     
     # Sort the front matter properties

@@ -131,7 +131,7 @@ def sort_frontmatter_properties(frontmatter_content: str) -> str:
         'celex',
         'eu_direktiv',
         'pdf_url',
-        'andringsforfattningar'  # Lägg till denna
+        'andringsforfattningar'
     ]
     
     # Extrahera front matter innehåll

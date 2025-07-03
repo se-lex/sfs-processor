@@ -30,16 +30,17 @@ def check_pdf_exists(url: str) -> bool:
         return False
 
 
-def generate_pdf_url(file_path: str, frontmatter: Dict[Any, Any], check_exists: bool = True) -> str:
+def generate_pdf_url(beteckning: str, utfardad_datum: str = None, check_exists: bool = True) -> str:
     """
-    Genererar PDF URL baserat på front matter-data.
+    Genererar PDF URL baserat på beteckning och utfardad_datum.
     
     Args:
-        file_path: Sökvägen till markdown-filen
-        frontmatter: Front matter dictionary med beteckning och publicerad_datum
+        beteckning: Dokument beteckning (format: YEAR:SEQNUMBER)
+        utfardad_datum: Utfärdandedatum (ISO format: YYYY-MM-DD)
+        check_exists: Om True, kontrollera att PDF:en faktiskt finns
         
     Returns:
-        str: Genererad PDF URL
+        str: Genererad PDF URL eller None om URL inte kan genereras
     """
 
     # URL-konstanter
@@ -47,16 +48,13 @@ def generate_pdf_url(file_path: str, frontmatter: Dict[Any, Any], check_exists: 
     NEW_DOMAIN = "https://svenskforfattningssamling.se"
     
     try:
-        # Hämta beteckning (format: YEAR:SEQNUMBER)
-        beteckning = frontmatter.get('beteckning', '')
-        
         # Konvertera till sträng om det är en integer
         if isinstance(beteckning, int):
             beteckning = str(beteckning)
         
         if ':' not in beteckning:
             print(f"Felaktig beteckning format: {beteckning}")
-            return f"{NEW_DOMAIN}/sites/default/files/sfs/[INVALID_BETECKNING_{beteckning}]"
+            return None
         
         year, seq_number = beteckning.split(':', 1)
         
@@ -78,14 +76,11 @@ def generate_pdf_url(file_path: str, frontmatter: Dict[Any, Any], check_exists: 
             # YY ska vara de två sista siffrorna från året (t.ex. 98 för 1998) och SEQNUMBER ska vara 4 siffror (04d)
             year_2digits = str(year_int)[-2:]  # Ta de två sista siffrorna
             seq_padded = f"{seq_int:04d}"
-            print(f"Använder gamla databasen för {file_path}: {year_2digits}:{seq_padded}")
             url = f"{OLD_DOMAIN}/SFSdoc/{year_2digits}/{year_2digits}{seq_padded}.pdf"
         else:
             # Nya databasen kräver utfardad_datum
-            utfardad_datum = frontmatter.get('utfardad_datum', '')
-
             if not utfardad_datum:
-                print(f"Saknar utfardad_datum i {file_path}, hoppar över")
+                print(f"Saknar utfardad_datum för {beteckning}, hoppar över")
                 return None
 
             # Hantera olika datumformat (ISO 8601 eller andra format)
@@ -106,7 +101,7 @@ def generate_pdf_url(file_path: str, frontmatter: Dict[Any, Any], check_exists: 
                 published_month = f"{pub_date.month:02d}"  # Nollpaddat månadsnummer
                 
             except (ValueError, TypeError):
-                print(f"Kunde inte parsa utfardad_datum '{utfardad_datum}' i {file_path}, hoppar över")
+                print(f"Kunde inte parsa utfardad_datum '{utfardad_datum}' för {beteckning}, hoppar över")
                 return None
             
             # Nya databasen: https://svenskforfattningssamling.se/sites/default/files/sfs/{PUBLISHED_YEAR}-{PUBLISHED_MONTH}/SFS{YEAR}-{SEQNUMBER}.pdf
@@ -115,7 +110,7 @@ def generate_pdf_url(file_path: str, frontmatter: Dict[Any, Any], check_exists: 
         # Kontrollera om PDF:en faktiskt finns (om aktiverat)
         if check_exists and not check_pdf_exists(url):
             database_type = "gamla databasen" if is_old_database else "nya databasen"
-            print(f"VARNING: PDF:en finns inte på {url} ({database_type}) för {file_path}")
+            print(f"VARNING: PDF:en finns inte på {url} ({database_type}) för {beteckning}")
             return None
 
         return url
@@ -126,6 +121,7 @@ def generate_pdf_url(file_path: str, frontmatter: Dict[Any, Any], check_exists: 
     except Exception as e:
         print(f"Fel vid generering av PDF URL: {e}")
         return None
+
 
 
 def extract_frontmatter(content: str) -> tuple[Optional[Dict[Any, Any]], str]:
@@ -204,7 +200,9 @@ def add_pdf_url_to_file(file_path: Path, force_update: bool = False, check_exist
             return False
         
         # Generera PDF URL
-        pdf_url = generate_pdf_url(str(file_path), frontmatter, check_exists)
+        beteckning = frontmatter.get('beteckning', '')
+        utfardad_datum = frontmatter.get('utfardad_datum', '')
+        pdf_url = generate_pdf_url(beteckning, utfardad_datum, check_exists)
         
         # Om PDF URL inte kunde genereras (t.ex. PDF:en finns inte), hoppa över
         if pdf_url is None:
