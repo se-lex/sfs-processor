@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
-Script för att ladda ner SFS-dokument från Riksdagens öppna data.
-Hämtar först en lista med dokument-ID:n och laddar sedan ner textinnehållet för varje dokument.
+Script för att ladda ner SFS-författningar från Riksdagens öppna data.
+Hämtar först en lista med författnings-ID:n och laddar sedan ner textinnehållet för varje författning.
 """
 
 import requests
@@ -14,17 +14,17 @@ from typing import List, Optional, Dict
 
 def fetch_document_ids(year: Optional[int] = None) -> List[str]:
     """
-    Hämtar dokument-ID:n från Riksdagens dokumentlista.
+    Hämtar författnings-ID:n från Riksdagens dokumentlista.
     
     Args:
-        year (Optional[int]): Filtrera dokument för specifikt årtal (t.ex. 2025 för sfs-2025-xxx)
+        year (Optional[int]): Filtrera författningar för specifikt årtal (t.ex. 2025 för sfs-2025-xxx)
 
     Returns:
-        List[str]: Lista med dokument-ID:n
+        List[str]: Lista med författnings-ID:n
     """
     url = "https://data.riksdagen.se/dokumentlista/?sok=&doktyp=SFS&utformat=iddump&a=s#soktraff"
     
-    print(f"Hämtar dokument-ID:n från: {url}")
+    print(f"Hämtar författnings-ID:n från: {url}")
     
     try:
         response = requests.get(url, timeout=30)
@@ -38,22 +38,22 @@ def fetch_document_ids(year: Optional[int] = None) -> List[str]:
         if year is not None:
             original_count = len(document_ids)
             document_ids = [doc_id for doc_id in document_ids if doc_id.startswith(f"sfs-{year}-")]
-            print(f"Filtrerade för år {year}: {len(document_ids)} av {original_count} dokument")
+            print(f"Filtrerade för år {year}: {len(document_ids)} av {original_count} författningar")
 
-        print(f"Hittade {len(document_ids)} dokument-ID:n")
+        print(f"Hittade {len(document_ids)} författnings-ID:n")
         return document_ids
         
     except requests.RequestException as e:
-        print(f"Fel vid hämtning av dokument-ID:n: {e}")
+        print(f"Fel vid hämtning av författnings-ID:n: {e}")
         return []
 
 
 def download_document(document_id: str, output_dir: str = "documents") -> bool:
     """
-    Laddar ner textinnehållet för ett specifikt dokument-ID.
+    Laddar ner textinnehållet för en specifik författning.
     
     Args:
-        document_id (str): Dokument-ID att ladda ner
+        document_id (str): Författnings-ID att ladda ner
         output_dir (str): Katalog att spara filen i
         
     Returns:
@@ -92,13 +92,13 @@ def download_document(document_id: str, output_dir: str = "documents") -> bool:
 
 def fetch_document_by_rkrattsbaser(doc_id: str) -> Optional[Dict]:
     """
-    Hämtar ett SFS-dokument via Regeringskansliets Elasticsearch API baserat på dokument-ID.
+    Hämtar en SFS-författning via Regeringskansliets Elasticsearch API baserat på författnings-ID.
 
     Args:
-        doc_id (str): Dokument-ID i Regeringskansliets format som "2009:907"
+        doc_id (str): Författnings-ID i Regeringskansliets format som "2009:907"
 
     Returns:
-        Optional[Dict]: Dokumentdata om det hittas, None annars
+        Optional[Dict]: Författningsdata om den hittas, None annars
     """
     url = "https://beta.rkrattsbaser.gov.se/elasticsearch/SearchEsByRawJson"
 

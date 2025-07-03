@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 """
-Script för att hämta SFS-dokument som uppdaterats efter ett visst datum från Regeringskansliets API
+Script för att hämta SFS-författningar som uppdaterats efter ett visst datum från Regeringskansliets API
 och konvertera dem direkt till Markdown-format.
 
-Använder Regeringskansliets Elasticsearch API för att hämta dokument som uppdaterats efter
+Använder Regeringskansliets Elasticsearch API för att hämta författningar som uppdaterats efter
 ett specificerat datum och konverterar dem automatiskt till Markdown med YAML front matter.
 """
 
@@ -47,13 +47,13 @@ def _post(payload_dict: Dict[str, Any]) -> Optional[Dict]:
 
 def get_newer_items(date: str) -> Optional[Dict]:
     """
-    Hämtar SFS-dokument som uppdaterats efter ett specificerat datum.
-    
+    Hämtar SFS-författningar som uppdaterats efter ett specificerat datum.
+
     Args:
         date (str): Datum i ISO-format (YYYY-MM-DD eller YYYY-MM-DDTHH:MM:SS)
         
     Returns:
-        Optional[Dict]: API-svar med dokument eller None vid fel
+        Optional[Dict]: API-svar med författningar eller None vid fel
     """
     payload_dict = {
         "searchIndexes": ["Sfs"],
@@ -78,10 +78,10 @@ def get_newer_items(date: str) -> Optional[Dict]:
 
 def save_document_as_markdown(document: Dict[str, Any], output_dir: Path, year_as_folder: bool = True) -> bool:
     """
-    Konverterar ett dokument till Markdown och sparar det.
-    
+    Konverterar ett författning till Markdown och sparar det.
+
     Args:
-        document (Dict[str, Any]): Dokumentdata från API:et
+        document (Dict[str, Any]): Författningsdata från API:et
         output_dir (Path): Katalog att spara filen i
         year_as_folder (bool): Om True, skapa årsmappar
         
@@ -125,7 +125,7 @@ def save_document_as_markdown(document: Dict[str, Any], output_dir: Path, year_a
         return True
         
     except (IOError, ValueError, KeyError) as e:
-        print(f"✗ Fel vid sparning av dokument {document.get('beteckning', 'unknown')}: {e}")
+        print(f"✗ Fel vid sparning av författning {document.get('beteckning', 'unknown')}: {e}")
         return False
 
 
@@ -161,10 +161,10 @@ def parse_date(date_str: str) -> str:
 
 def main():
     """
-    Huvudfunktion som koordinerar hämtning och konvertering av dokument.
+    Huvudfunktion som koordinerar hämtning och konvertering av författning.
     """
     parser = argparse.ArgumentParser(
-        description='Hämta SFS-dokument uppdaterade efter ett visst datum och konvertera till Markdown',
+        description='Hämta SFS-författning uppdaterade efter ett visst datum och konvertera till Markdown',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Exempel:
@@ -177,14 +177,14 @@ Exempel:
     # Datum-alternativ (antingen --date eller --days)
     date_group = parser.add_mutually_exclusive_group(required=True)
     date_group.add_argument('--date', 
-                           help='Hämta dokument uppdaterade efter detta datum (YYYY-MM-DD eller YYYY-MM-DDTHH:MM:SS)')
+                           help='Hämta författningar uppdaterade efter detta datum (YYYY-MM-DD eller YYYY-MM-DDTHH:MM:SS)')
     date_group.add_argument('--days', type=int,
-                           help='Hämta dokument uppdaterade de senaste X dagarna')
-    
+                           help='Hämta författningar uppdaterade de senaste X dagarna')
+
     parser.add_argument('--output', '-o', default='markdown',
                         help='Mapp att spara Markdown-filer i (default: markdown)')
     parser.add_argument('--no-year-folder', dest='year_folder', action='store_false',
-                        help='Skapa inte årsmappar för dokument')
+                        help='Skapa inte årsmappar för författningar')
     parser.set_defaults(year_folder=True)
     
     args = parser.parse_args()
@@ -195,32 +195,32 @@ Exempel:
     if args.date:
         try:
             search_date = parse_date(args.date)
-            print(f"Hämtar dokument uppdaterade efter: {search_date}")
+            print(f"Hämtar författningar uppdaterade efter: {search_date}")
         except ValueError as e:
             print(f"✗ {e}")
             return
     else:  # args.days
         cutoff_date = datetime.now() - timedelta(days=args.days)
         search_date = cutoff_date.isoformat()
-        print(f"Hämtar dokument uppdaterade de senaste {args.days} dagarna (efter {search_date})")
-    
-    # Hämta dokument från API:et
-    print("\nSöker efter dokument i Regeringskansliets databas...")
+        print(f"Hämtar författningar uppdaterade de senaste {args.days} dagarna (efter {search_date})")
+
+    # Hämta författningar från API:et
+    print("\nSöker efter författningar i Regeringskansliets databas...")
     api_response = get_newer_items(search_date)
     
     if not api_response:
         print("✗ Kunde inte hämta data från API:et")
         return
-    
-    # Extrahera dokument från API-svaret
+
+    # Extrahera författningar från API-svaret
     try:
         hits = api_response.get('hits', {}).get('hits', [])
         documents = [hit['_source'] for hit in hits]
-        
-        print(f"✓ Hittade {len(documents)} dokument")
+
+        print(f"✓ Hittade {len(documents)} författningar uppdaterade efter {search_date}")
         
         if not documents:
-            print("Inga nya dokument hittades för det angivna datumet.")
+            print("Inga nya författningar hittades för det angivna datumet.")
             return
             
     except (KeyError, TypeError) as e:
@@ -230,9 +230,9 @@ Exempel:
     # Skapa output-katalog
     output_dir = Path(args.output)
     output_dir.mkdir(exist_ok=True)
-    print(f"Sparar dokument till: {output_dir.absolute()}")
-    
-    # Konvertera och spara varje dokument
+    print(f"Sparar författningar till: {output_dir.absolute()}")
+
+    # Konvertera och spara varje författning
     successful_conversions = 0
     failed_conversions = 0
     
@@ -247,7 +247,7 @@ Exempel:
     
     # Sammanfattning
     print("\n=== Sammanfattning ===")
-    print(f"Totalt dokument: {len(documents)}")
+    print(f"Totalt författningar: {len(documents)}")
     print(f"Lyckade konverteringar: {successful_conversions}")
     print(f"Misslyckade konverteringar: {failed_conversions}")
     
