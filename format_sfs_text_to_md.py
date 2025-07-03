@@ -103,6 +103,47 @@ def format_sfs_text_to_md(input_path, output_path):
     with open(output_path, 'w', encoding='utf-8') as f:
         f.write('\n'.join(formatted) + '\n')
 
+def format_sfs_with_changes(text: str) -> str:
+    """
+    Formattera SFS-text med hantering av ändringar och upphöranden.
+
+    Regler:
+    1. Om "/Ny beteckning" förekommer efter en paragraf (ex. **13 §**) ska hela stycket tas bort
+    2. Om "/Upphör att gälla U:YYYY-MM-DD/" förekommer efter en paragraf ska hela stycket tas bort
+
+    Args:
+        text (str): Texten som ska formateras
+
+    Returns:
+        str: Den formaterade texten med ändringar borttagna
+    """
+    # Dela upp texten i stycken (avgränsade av dubbla radbrytningar)
+    paragraphs = text.split('\n\n')
+
+    filtered_paragraphs = []
+
+    for paragraph in paragraphs:
+        # Kontrollera om stycket innehåller "/Ny beteckning"
+        if '/Ny beteckning' in paragraph:
+            # Kontrollera om det föregås av en paragraf (innehåller **X §**)
+            if re.search(r'\*\*\d+\s*§\*\*', paragraph):
+                # Ta bort hela stycket
+                continue
+
+        # Kontrollera om stycket innehåller "/Upphör att gälla" med datum
+        if re.search(r'/Upphör att gälla U:\d{4}-\d{2}-\d{2}/', paragraph):
+            # Kontrollera om det föregås av en paragraf (innehåller **X §**)
+            if re.search(r'\*\*\d+\s*§\*\*', paragraph):
+                # Ta bort hela stycket
+                continue
+
+        # Om inget av ovanstående matchar, behåll stycket
+        filtered_paragraphs.append(paragraph)
+
+    # Sätt ihop styckena igen
+    return '\n\n'.join(filtered_paragraphs)
+
+
 def format_sfs_text(text: str) -> str:
     """
     Formattera texten för ett SFS-dokument enligt specificerade regler.
@@ -117,7 +158,7 @@ def format_sfs_text(text: str) -> str:
     lines = text.splitlines()
 
     # Steg 0: Ta bort text som börjar med "/Träder i kraft" upp till nästa "/" och mellanslaget efter, inklusive båda slash-tecknen
-    text = re.sub(r'/Träder i kraft[^/]*/\s*', '', text)
+    # text = re.sub(r'/Träder i kraft[^/]*/\s*', '', text)
 
     # Dela upp texten i rader igen efter att ha rensat Träder i kraft-text
     lines = text.splitlines()
