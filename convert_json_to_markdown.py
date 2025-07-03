@@ -24,6 +24,17 @@ def clean_text(text: Optional[str]) -> str:
     return text
 
 
+def clean_rubrik(rubrik: Optional[str]) -> str:
+    """Clean rubrik by removing beteckning in parentheses."""
+    if not rubrik:
+        return ""
+
+    # Remove beteckning pattern in parentheses (e.g., "(1987:1185)")
+    # Pattern matches parentheses containing year:number format
+    cleaned = re.sub(r'\s*\(\d{4}:\d+\)\s*', '', rubrik)
+    return clean_text(cleaned)
+
+
 def format_datetime(dt_str: Optional[str]) -> Optional[str]:
     """Format datetime string to ISO format without timezone."""
     if not dt_str:
@@ -63,8 +74,7 @@ def create_markdown_content(data: Dict[str, Any]) -> str:
 
     # Extract main document information
     beteckning = data.get('beteckning', '')
-    rubrik = clean_text(data.get('rubrik', ''))
-    departement = clean_text(data.get('departement', ''))
+    rubrik = clean_rubrik(data.get('rubrik', ''))
 
     # Extract dates
     beslutad_datum = format_datetime(data.get('beslutadDateTime'))
@@ -77,9 +87,17 @@ def create_markdown_content(data: Dict[str, Any]) -> str:
     eu_direktiv = data.get('eUdirektiv', False)
     dokumenttyp = data.get('dokumenttyp', 'SFS')
 
+    # Extract organization information
+    organisation_data = data.get('organisation', {})
+    organisation = organisation_data.get('namn', '') if organisation_data else ''
+
     # Extract the main text content from nested structure
     fulltext_data = data.get('fulltext', {})
     innehall_text = fulltext_data.get('forfattningstext', 'No content available')
+
+    # Ensure innehall_text is a string
+    if innehall_text is None:
+        innehall_text = 'No content available'
 
     # Extract amendments
     amendments = extract_amendments(data.get('andringsforfattningar', []))
@@ -88,17 +106,21 @@ def create_markdown_content(data: Dict[str, Any]) -> str:
     yaml_front_matter = f"""---
 beteckning: "{beteckning}"
 rubrik: "{rubrik}"
-departement: "{departement}"
+departement: "{organisation}"
+organisation: "{organisation}"
 dokumenttyp: "{dokumenttyp}"
 """
 
     # Add dates if they exist
     if beslutad_datum:
         yaml_front_matter += f"beslutad_datum: {beslutad_datum}\n"
+        # TODO: räcker det med enbart "beslutad"? Vore snyggare.
     if publicerad_datum:
         yaml_front_matter += f"publicerad_datum: {publicerad_datum}\n"
+        # TODO: räcker det med enbart "publicerad"? Vore snyggare.
     if ikraft_datum:
         yaml_front_matter += f"ikraft_datum: {ikraft_datum}\n"
+        # TODO: räcker det med enbart "ikraft"? Vore snyggare. Finns dock andra regler än datum om kan bestämma när en lag träder i kraft.
 
     # Add other metadata
     if forarbeten:
@@ -162,9 +184,17 @@ def convert_json_to_markdown(json_file_path: Path, output_dir: Path) -> None:
 def main():
     """Main function to process all JSON files in the json directory."""
     
+    import sys
+
     # Define paths
     script_dir = Path(__file__).parent
-    json_dir = script_dir / 'json'
+
+    # Check if custom input directory is provided as argument
+    if len(sys.argv) > 1:
+        json_dir = Path(sys.argv[1])
+    else:
+        json_dir = script_dir / 'json'
+
     output_dir = script_dir / 'markdown'
     
     # Create output directory if it doesn't exist
@@ -182,7 +212,7 @@ def main():
         print(f"No JSON files found in {json_dir}")
         return
     
-    print(f"Found {len(json_files)} JSON file(s) to convert")
+    print(f"Found {len(json_files)} JSON file(s) to convert from {json_dir}")
     
     # Convert each JSON file
     for json_file in json_files:
