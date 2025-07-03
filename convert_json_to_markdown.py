@@ -113,10 +113,8 @@ def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict
         amendment_data = {
             'beteckning': amendment.get('beteckning'),
             'rubrik': clean_text(amendment.get('rubrik')),
-            'anteckningar': clean_text(amendment.get('anteckningar')),
             'ikraft_datum': format_datetime(amendment.get('ikraftDateTime')),
-            'publicerings_ar': amendment.get('publiceringsar'),
-            'lopnummer': amendment.get('lopnummer')
+            'anteckningar': clean_text(amendment.get('anteckningar'))
         }
         
         # Only include non-empty amendments
