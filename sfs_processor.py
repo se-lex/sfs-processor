@@ -37,7 +37,8 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     - Coordination of different output formats and modes:
       * "md": Generate markdown files (required for other modes)
       * "git": Enable Git commits with historical dates during markdown generation
-      * "html": Generate HTML files (base document plus amendment versions)
+      * "html": Generate HTML files (base document only)
+      * "htmldiff": Generate HTML files (base document plus amendment versions)
       * "eli": Generate HTML files in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer})
     - Delegates actual file creation to format-specific internal functions
 
@@ -50,6 +51,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
         output_dir: Directory where output files should be saved
         output_modes: List of formats/modes to use (e.g., ["md", "git"]). If None, defaults to ["md"]
                      Note: "git" mode requires "md" mode to be included as it modifies markdown processing
+                     "html" generates base document only, "htmldiff" includes amendment versions
         year_as_folder: Whether to create year-based subdirectories (default: True)
         verbose: Whether to show verbose output (default: False)
     """
@@ -97,7 +99,12 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     # Process HTML format if requested
     if "html" in output_modes:
         from sfs_html_export import create_html_documents
-        create_html_documents(data, document_dir)
+        create_html_documents(data, document_dir, include_amendments=False)
+
+    # Process HTML diff format if requested
+    if "htmldiff" in output_modes:
+        from sfs_html_export import create_html_documents
+        create_html_documents(data, document_dir, include_amendments=True)
 
     # Process ELI format if requested
     if "eli" in output_modes:
@@ -846,7 +853,7 @@ def main():
     parser.add_argument('--verbose', action='store_true',
                         help='Show detailed diff output for each amendment processing')
     parser.add_argument('--formats', dest='output_modes', default='md',
-                        help='Output formats to generate (comma-separated). Currently supported: md, git, html, eli. Default: md. Use "git" to enable Git commits with historical dates. HTML creates base document plus amendment versions. ELI creates HTML documents in European Legislation Identifier directory structure (/eli/sfs/{YEAR}/{lopnummer}).')
+                        help='Output formats to generate (comma-separated). Currently supported: md, git, html, htmldiff, eli. Default: md. Use "git" to enable Git commits with historical dates. HTML creates base document only. HTMLDIFF creates base document plus amendment versions. ELI creates HTML documents in European Legislation Identifier directory structure (/eli/sfs/{YEAR}/{lopnummer}).')
     parser.set_defaults(year_folder=True)
     args = parser.parse_args()
 
@@ -856,7 +863,7 @@ def main():
         output_modes = ['md']  # Default to markdown
 
     # Validate output modes
-    supported_formats = ['md', 'git', 'html', 'eli']
+    supported_formats = ['md', 'git', 'html', 'htmldiff', 'eli']
     invalid_formats = [mode for mode in output_modes if mode not in supported_formats]
     if invalid_formats:
         print(f"Error: Unsupported output formats: {', '.join(invalid_formats)}")

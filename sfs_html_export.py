@@ -17,14 +17,15 @@ from format_sfs_text_to_md import format_sfs_text, apply_changes_to_sfs_text
 from add_pdf_url_to_frontmatter import generate_pdf_url
 
 
-def create_html_documents(data: Dict[str, Any], output_path: Path) -> None:
+def create_html_documents(data: Dict[str, Any], output_path: Path, include_amendments: bool = False) -> None:
     """Create HTML documents from JSON data.
 
-    Creates base document and separate documents for each amendment.
+    Creates base document and optionally separate documents for each amendment.
 
     Args:
         data: JSON data containing document information
         output_path: Path to the output directory (folder)
+        include_amendments: Whether to generate amendment versions (default: False)
     """
     # Import required functions (avoiding circular imports)
     from sfs_processor import extract_amendments, save_to_disk
@@ -46,7 +47,7 @@ def create_html_documents(data: Dict[str, Any], output_path: Path) -> None:
     print(f"Created HTML base document: {base_file}")
 
     # Create HTML documents for each amendment stage
-    if amendments:
+    if include_amendments and amendments:
         # Filter amendments that have ikraft_datum (already sorted by extract_amendments)
         sorted_amendments = [a for a in amendments if a.get('ikraft_datum')]
 
