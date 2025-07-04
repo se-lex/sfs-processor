@@ -169,12 +169,17 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
                     # Find the end of the front matter
                     front_matter_end = markdown_content.find('\n---\n', 3)
                     if front_matter_end != -1:
-                        front_matter = markdown_content[:front_matter_end + 5]  # Include the closing ---\n
-                        rest_of_content = markdown_content[front_matter_end + 5:]
+                        # Extract front matter and content, preserving spacing
+                        end_of_frontmatter = front_matter_end + 4  # Position after \n---
+                        while end_of_frontmatter < len(markdown_content) and markdown_content[end_of_frontmatter] == '\n':
+                            end_of_frontmatter += 1
 
-                        # Sort only the front matter
-                        sorted_front_matter = sort_frontmatter_properties(front_matter)
-                        markdown_content = sorted_front_matter + rest_of_content
+                        front_matter = markdown_content[:front_matter_end + 4]  # Include up to \n---
+                        rest_of_content = markdown_content[end_of_frontmatter:]
+
+                        # Sort only the front matter and ensure proper spacing
+                        sorted_front_matter = sort_frontmatter_properties(front_matter + '\n')
+                        markdown_content = sorted_front_matter + '\n' + rest_of_content
             except ValueError as e:
                 print(f"Warning: Could not sort front matter after adding ikraft_datum for {beteckning}: {e}")
 
@@ -190,9 +195,6 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
 
         # Get main document metadata
         rubrik = data.get('rubrik', '')
-        if rubrik:
-            # Clean rubrik by removing beteckning in parentheses
-            rubrik = re.sub(r'\s*\(\d{4}:\d+\)\s*', '', rubrik).strip()
 
         ikraft_datum = format_datetime(data.get('ikraftDateTime'))
         utfardad_datum = format_datetime(data.get('fulltext', {}).get('utfardadDateTime'))
@@ -227,10 +229,17 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
                     if markdown_content_with_ikraft.startswith('---'):
                         front_matter_end = markdown_content_with_ikraft.find('\n---\n', 3)
                         if front_matter_end != -1:
-                            front_matter = markdown_content_with_ikraft[:front_matter_end + 5]
-                            rest_of_content = markdown_content_with_ikraft[front_matter_end + 5:]
-                            sorted_front_matter = sort_frontmatter_properties(front_matter)
-                            markdown_content_with_ikraft = sorted_front_matter + rest_of_content
+                            # Include the complete front matter block with proper spacing
+                            # Find where the actual content starts (after potential newlines following ---)
+                            end_of_frontmatter = front_matter_end + 4  # Position after \n---
+                            while end_of_frontmatter < len(markdown_content_with_ikraft) and markdown_content_with_ikraft[end_of_frontmatter] == '\n':
+                                end_of_frontmatter += 1
+
+                            front_matter = markdown_content_with_ikraft[:front_matter_end + 4]  # Include up to \n---
+                            rest_of_content = markdown_content_with_ikraft[end_of_frontmatter:]
+                            sorted_front_matter = sort_frontmatter_properties(front_matter + '\n')  # Add the closing newline
+                            # Ensure there's always exactly one empty line between front matter and content
+                            markdown_content_with_ikraft = sorted_front_matter + '\n' + rest_of_content
 
                     # Write updated file with ikraft_datum
                     save_to_disk(output_file, markdown_content_with_ikraft)
@@ -471,8 +480,11 @@ def clean_title(rubrik: Optional[str]) -> str:
 
     # Remove beteckning pattern in parentheses (e.g., "(1987:1185)")
     # Pattern matches parentheses containing year:number format
+    # First remove the parentheses and their content, then clean up extra whitespace
     cleaned = re.sub(r'\s*\(\d{4}:\d+\)\s*', ' ', rubrik)
-    return clean_text(cleaned)
+    # Clean up any multiple spaces that might have been created
+    cleaned = re.sub(r'\s+', ' ', cleaned).strip()
+    return cleaned
 
 
 def format_datetime(dt_str: Optional[str]) -> Optional[str]:
@@ -524,6 +536,7 @@ def add_ikraft_datum_to_markdown(markdown_content: str, ikraft_datum: str) -> st
     if closing_marker in markdown_content:
         before_closing, after_closing = markdown_content.split(closing_marker, 1)
         ikraft_line = f"ikraft_datum: {format_yaml_value(ikraft_datum)}"
+        # Preserve the original spacing after the front matter
         return f"{before_closing}\n{ikraft_line}\n---\n{after_closing}"
 
     # Fallback: return original content if no proper front matter found
