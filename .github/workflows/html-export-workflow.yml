@@ -55,6 +55,13 @@ jobs:
       env:
         PYTHONPATH: ${{ github.workspace }}
 
+    - name: Regenerate index pages for HTML export
+      run: |
+        python populate_index_pages.py --input sfs_json --output index.html --limit 30
+        python populate_index_pages.py --input sfs_json --output latest.html --limit 10
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+
     - name: Check required secrets
       run: |
         if [ -z "${{ secrets.CLOUDFLARE_R2_ACCESS_KEY_ID }}" ]; then
@@ -94,9 +101,23 @@ jobs:
       env:
         AWS_DEFAULT_REGION: us-east-1
 
+    - name: Upload index pages to Cloudflare R2
+      run: |
+        aws s3 cp index.html s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/index.html \
+          --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+          --cache-control "public, max-age=1800" \
+          --content-type "text/html"
+        aws s3 cp latest.html s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/latest.html \
+          --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+          --cache-control "public, max-age=1800" \
+          --content-type "text/html"
+      env:
+        AWS_DEFAULT_REGION: us-east-1
+
     - name: Upload summary
       run: |
         echo "HTML export completed at $(date)" > upload-summary.txt
         echo "Files uploaded to Cloudflare R2 bucket: ${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs/" >> upload-summary.txt
+        echo "Index pages uploaded: index.html (30 senaste), latest.html (10 senaste)" >> upload-summary.txt
         aws s3 cp upload-summary.txt s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs/last-update.txt \
           --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
