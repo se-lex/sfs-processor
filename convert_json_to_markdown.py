@@ -136,7 +136,8 @@ def create_markdown_content(data: Dict[str, Any], paragraph_as_header: bool = Tr
 
     # Extract main document information
     beteckning = data.get('beteckning', '')
-    rubrik = clean_rubrik(data.get('rubrik', ''))
+    rubrik_original = data.get('rubrik', '')  # Keep original for main heading
+    rubrik = clean_rubrik(rubrik_original)    # Clean for front matter
 
     # Extract dates
     publicerad_datum = format_datetime(data.get('publiceradDateTime'))
@@ -252,7 +253,7 @@ departement: {format_yaml_value(organisation)}
         processed_text = formatted_text
 
     # Create Markdown body
-    markdown_body = f"# {rubrik}\n\n" + processed_text
+    markdown_body = f"# {rubrik_original}\n\n" + processed_text
 
     # Final debug check
     final_content = yaml_front_matter + markdown_body
@@ -780,7 +781,8 @@ def create_ignored_markdown_content(data: Dict[str, Any], reason: str) -> str:
     """
     # Extract basic document information
     beteckning = data.get('beteckning', '')
-    rubrik = clean_rubrik(data.get('rubrik', ''))
+    rubrik_original = data.get('rubrik', '')  # Keep original for main heading
+    rubrik = clean_rubrik(rubrik_original)    # Clean for front matter
 
     # Extract dates
     publicerad_datum = format_datetime(data.get('publiceradDateTime'))
@@ -852,7 +854,7 @@ departement: {format_yaml_value(organisation)}
         print(f"Warning: Could not sort front matter for {beteckning}: {e}")
 
     # Create simplified body with main heading and explanation
-    markdown_body = f"# {rubrik}\n\n"
+    markdown_body = f"# {rubrik_original}\n\n"
     markdown_body += f"**Automatisk konvertering inte tillgänglig**\n\n"
     markdown_body += f"{reason}\n\n"
     markdown_body += f"För att läsa det fullständiga dokumentet, besök den officiella versionen på "
