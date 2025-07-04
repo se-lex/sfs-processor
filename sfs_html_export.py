@@ -710,6 +710,9 @@ def create_html_head(title: str, beteckning: str, eli_format: bool = False, addi
     Returns:
         str: Complete HTML head section
     """
+    # Import ELI utility functions
+    from eli_utils import generate_eli_metadata_html, generate_eli_canonical_url
+
     # Only handle the html tag and doctype here
     if eli_format:
         head_start = """<!DOCTYPE html>\n<html lang=\"sv\"\n      prefix=\"og: http://ogp.me/ns# eli: http://data.europa.eu/eli/ontology# iana: http://www.iana.org/\">\n"""
@@ -747,7 +750,21 @@ def create_html_head(title: str, beteckning: str, eli_format: bool = False, addi
     navbar_script += """
     </script>"""
 
+    # Generate ELI canonical URL and metadata
+    eli_metadata = ""
+    if beteckning:  # Only generate if we have a valid beteckning
+        if eli_format:
+            # For ELI format, include both canonical link and ELI metadata (default 'html' format)
+            eli_metadata_html = generate_eli_metadata_html(beteckning)
+            if eli_metadata_html:
+                eli_metadata = '\n    ' + eli_metadata_html.replace('\n', '\n    ')
+        else:
+            # For regular format, only include canonical link (default 'html' format)
+            eli_canonical_url = generate_eli_canonical_url(beteckning)
+            if eli_canonical_url:
+                eli_metadata = f'\n    <link rel="canonical" href="{eli_canonical_url}" />'
+
     # Build the head section
-    head = f"<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>{html.escape(title)}</title>\n{navbar_script}\n{base_styles}\n</head>"
+    head = f"<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>{html.escape(title)}</title>{eli_metadata}\n{navbar_script}\n{base_styles}\n</head>"
 
     return head_start + head
