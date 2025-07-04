@@ -27,6 +27,7 @@ permissions:
 jobs:
   html-export:
     runs-on: ubuntu-latest
+    environment: Test
     
     steps:
     - name: Checkout repository
