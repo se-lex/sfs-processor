@@ -64,7 +64,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     if "git" in output_modes and "md" not in output_modes:
         output_modes.append("md")
         if verbose:
-            print("Info: Added 'md' mode because 'git' mode requires markdown generation")
+            print("Info: Lade till 'md'-läge eftersom 'git'-läge kräver markdown-generering")
 
     # Extract beteckning for output file naming
     beteckning = data.get('beteckning', '')
@@ -78,7 +78,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     year_match = re.search(r'(\d{4}):', beteckning)
     if not year_match:
         if "md" in output_modes:
-            print(f"Error: Could not extract year from beteckning: {beteckning}")
+            print(f"Fel: Kunde inte extrahera år från beteckning: {beteckning}")
         return
 
     year = year_match.group(1)
@@ -142,9 +142,9 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
     # Check for amendment markers and process amendments if they exist
     has_amendment_markers = re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', innehall_text)
     if verbose and amendments and not has_amendment_markers:
-        print(f"Warning: No change markers found in {beteckning} but amendments exist.")
-        print(f"Content preview (first 200 chars): {innehall_text[:200]}...")
-        raise ValueError(f"No change markers found in the {beteckning}. Skipping amendments processing.")
+        print(f"Varning: Inga ändringsmarkeringar hittades i {beteckning} men ändringar finns.")
+        print(f"Innehållsförhandsvisning (första 200 tecken): {innehall_text[:200]}...")
+        raise ValueError(f"Inga ändringsmarkeringar hittades i {beteckning}. Hoppar över ändringsbearbetning.")
 
     # Apply amendments if they exist
     if has_amendment_markers and amendments:
@@ -166,7 +166,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
 
                     # Reconstruct the full content
                     markdown_content = front_matter + "\n\n" + heading + processed_text
-                    print(f"Debug: Processed amendments text length for {beteckning}: {len(processed_text)}")
+                    print(f"Debug: Bearbetad textlängd för {beteckning}: {len(processed_text)}")
 
     # Add ikraft_datum to front matter if not in Git mode
     if not enable_git:
@@ -191,12 +191,12 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
                         sorted_front_matter = sort_frontmatter_properties(front_matter + '\n')
                         markdown_content = sorted_front_matter + '\n' + rest_of_content
             except ValueError as e:
-                print(f"Warning: Could not sort front matter after adding ikraft_datum for {beteckning}: {e}")
+                print(f"Varning: Kunde inte sortera front matter efter att ha lagt till ikraft_datum för {beteckning}: {e}")
 
     # Debug: Check final markdown content length
-    print(f"Debug: Final markdown content length for {beteckning}: {len(markdown_content)}")
+    print(f"Debug: Slutlig markdown-innehållslängd för {beteckning}: {len(markdown_content)}")
     if len(markdown_content) < 1000:  # If suspiciously short, show preview
-        print(f"Debug: Content preview because suspiciously short:\n{markdown_content[:500]}...")
+        print(f"Debug: Innehållsförhandsvisning eftersom misstänkt kort:\n{markdown_content[:500]}...")
 
     # Handle git commits if enabled
     final_content = markdown_content
@@ -230,9 +230,9 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
                         '-m', commit_message,
                         '--date', utfardad_datum
                     ], check=True, capture_output=True)
-                    print(f"Git commit created: '{commit_message}' dated {utfardad_datum}")
+                    print(f"Git-commit skapad: '{commit_message}' daterad {utfardad_datum}")
                 else:
-                    print(f"No changes to commit for first commit of {beteckning}")
+                    print(f"Inga ändringar att commita för första commit av {beteckning}")
 
                 # Second commit: add ikraft_datum to front matter if it exists
                 if ikraft_datum:
@@ -270,19 +270,19 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
                             '-m', f"{beteckning} träder i kraft",
                             '--date', ikraft_datum
                         ], check=True, capture_output=True)
-                        print(f"Git commit created: '{beteckning} träder i kraft' dated {ikraft_datum}")
+                        print(f"Git-commit skapad: '{beteckning} träder i kraft' daterad {ikraft_datum}")
                     else:
-                        print(f"No changes to commit for ikraft_datum of {beteckning}")
+                        print(f"Inga ändringar att commita för ikraft_datum av {beteckning}")
 
                     # Use the content with ikraft_datum as final content
                     final_content = markdown_content_with_ikraft
 
             except subprocess.CalledProcessError as e:
-                print(f"Warning: Git commit failed for {beteckning}: {e}")
+                print(f"Varning: Git-commit misslyckades för {beteckning}: {e}")
                 # Write the file anyway, without git commits
                 save_to_disk(output_file, markdown_content)
             except FileNotFoundError:
-                print("Warning: Git not found. Skipping Git commits.")
+                print("Varning: Git hittades inte. Hoppar över Git-commits.")
                 # Write the file anyway, without git commits
                 save_to_disk(output_file, markdown_content)
         else:
@@ -291,7 +291,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
     else:
         # No git mode - write the file normally
         save_to_disk(output_file, markdown_content)
-        print(f"Created document: {output_file}")
+        print(f"Skapade dokument: {output_file}")
 
     return final_content
 
@@ -340,13 +340,13 @@ def convert_to_markdown(data: Dict[str, Any]) -> str:
 
     # Debug: Check if content is empty
     if not innehall_text.strip():
-        print(f"Warning: Empty content for {beteckning}")
+        print(f"Varning: Tomt innehåll för {beteckning}")
 
     # Check ignore rules first
     should_ignore, ignore_reason = ignore_rules(innehall_text)
     ignored_body = None  # Ensure variable is always defined
     if should_ignore:
-        print(f"Ignoring {beteckning}: {ignore_reason}")
+        print(f"Ignorerar {beteckning}: {ignore_reason}")
         # Generate normal front matter but use ignored content body
         ignored_body = create_ignored_markdown_content(data, ignore_reason)
         # Continue with normal front matter generation and use ignored body at the end
@@ -401,7 +401,7 @@ departement: {format_yaml_value(organisation)}
         if pdf_url:
             yaml_front_matter += f"pdf_url: {format_yaml_value(pdf_url)}\n"
     except (ValueError, TypeError, AttributeError) as e:
-        print(f"Warning: Could not generate PDF URL for {beteckning}: {e}")
+        print(f"Varning: Kunde inte generera PDF-URL för {beteckning}: {e}")
 
     yaml_front_matter += "---\n\n"
 
@@ -410,7 +410,7 @@ departement: {format_yaml_value(organisation)}
         sorted_yaml = sort_frontmatter_properties(yaml_front_matter.rstrip() + '\n')
         yaml_front_matter = sorted_yaml + "\n\n"
     except ValueError as e:
-        print(f"Warning: Could not sort front matter for {beteckning}: {e}")
+        print(f"Varning: Kunde inte sortera front matter för {beteckning}: {e}")
 
     # Create Markdown body
     if should_use_ignored_body and ignored_body is not None:
@@ -422,9 +422,9 @@ departement: {format_yaml_value(organisation)}
 
         # Debug: Check if formatting resulted in empty text
         if not formatted_text.strip():
-            print(f"Warning: Formatting resulted in empty text for {beteckning}")
-            print(f"Original content length: {len(innehall_text)}")
-            print(f"Original content preview: {innehall_text[:200]}...")
+            print(f"Varning: Formatering resulterade i tom text för {beteckning}")
+            print(f"Ursprunglig innehållslängd: {len(innehall_text)}")
+            print(f"Ursprunglig innehållsförhandsvisning: {innehall_text[:200]}...")
 
         # Create Markdown body
         markdown_body = f"# {rubrik_original}\n\n" + formatted_text
@@ -646,7 +646,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
         overgangs_match = re.search(r'### Övergångsbestämmelser\s*\n\n(.*?)(?=\n### |\n## |\Z)', text, re.DOTALL)
         if not overgangs_match:
             if verbose:
-                print("No 'Övergångsbestämmelser' section found")
+                print("Ingen 'Övergångsbestämmelser'-sektion hittades")
             return overgangs_dict
 
         overgangs_content = overgangs_match.group(1).strip()
@@ -681,9 +681,9 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
                     overgangs_dict[current_beteckning] = part
 
         if verbose:
-            print(f"Found Övergångsbestämmelser for betecknings: {list(overgangs_dict.keys())}")
+            print(f"Hittade övergångsbestämmelser för dessa författningar: {list(overgangs_dict.keys())}")
             for beteckning, content in overgangs_dict.items():
-                print(f"  {beteckning}: {len(content)} characters")
+                print(f"  {beteckning}: {len(content)} tecken")
 
         return overgangs_dict
 
@@ -691,7 +691,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
 
     # Check if there are any markers for the amendments in the text
     if not re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', processed_text):
-        print("Warning: No change markers found in the text. Skipping amendments processing.")
+        print("Varning: Inga ändringsmarkeringar hittades i texten. Hoppar över bearbetning av ändringar.")
         return text
 
     # Parse övergångsbestämmelser early to have it available
@@ -704,18 +704,18 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
         heading_with_newlines = overgangs_match.group(1)
         processed_text = processed_text[:overgangs_match.start()] + heading_with_newlines + processed_text[overgangs_match.end():]
         if verbose:
-            print("Cleared content under 'Övergångsbestämmelser' heading")
+            print("Rensade innehåll under rubriken 'Övergångsbestämmelser'")
 
     # Filter amendments that have ikraft_datum (already sorted by extract_amendments)
     sorted_amendments = [a for a in amendments if a.get('ikraft_datum')]
 
     # Print number of amendments found
     if verbose:
-        print(f"Found {len(sorted_amendments)} amendments to process.")
+        print(f"Hittade {len(sorted_amendments)} ändringar att bearbeta.")
 
     # Kolla så det är lika många amenedments som ikraft_datum
     if len(sorted_amendments) != len(set(a['ikraft_datum'] for a in sorted_amendments)):
-        print("Warning: Duplicate ikraft_datum found in amendments. This may cause unexpected behavior.")
+        print("Varning: Duplicerade ikraft_datum hittades i ändringar. Detta kan orsaka oväntat beteende.")
 
     for amendment in sorted_amendments:
         ikraft_datum = amendment.get('ikraft_datum')
@@ -724,7 +724,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
 
         if verbose:
             print(f"\n{'='*60}")
-            print(f"Processing ÄNDRINGSFÖRFATTNING: {rubrik} ({ikraft_datum})")
+            print(f"Bearbetar ÄNDRINGSFÖRFATTNING: {rubrik} ({ikraft_datum})")
             if beteckning in overgangs_dict:
                 print(f"Övergångsbestämmelser för {beteckning}:")
                 print(f"\033[94m{overgangs_dict[beteckning]}\033[0m")  # Blue text for övergångsbestämmelser
@@ -752,7 +752,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
                         processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
 
                         if verbose:
-                            print(f"Added Övergångsbestämmelser content for {beteckning} after existing content")
+                            print(f"Lade till övergångsbestämmelser för {beteckning} efter befintligt innehåll")
                     else:
                         # No existing content, add directly after heading
                         insert_pos = overgangs_section_match.start() + len(heading_part)
@@ -760,14 +760,14 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
                         processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
 
                         if verbose:
-                            print(f"Added Övergångsbestämmelser content for {beteckning} under heading (no existing content)")
+                            print(f"Lade till övergångsbestämmelser för {beteckning} under rubrik (inget befintligt innehåll)")
                 else:
                     # Fallback: add the section at the end if heading doesn't exist
                     overgangs_section = f"\n\n### Övergångsbestämmelser\n\n{overgangs_dict[beteckning]}\n"
                     processed_text = processed_text.rstrip() + overgangs_section
 
                     if verbose:
-                        print(f"Created new Övergångsbestämmelser section for {beteckning} (heading not found)")
+                        print(f"Skapade ny övergångsbestämmelser-sektion för {beteckning} (rubrik hittades inte)")
 
             # ...existing diff code...
             show_diff = True
@@ -826,14 +826,14 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
                             '--date', ikraft_datum
                         ], check=True, capture_output=True)
 
-                        print(f"Git commit created: '{commit_message}' dated {ikraft_datum}")
+                        print(f"Git-commit skapad: '{commit_message}' daterad {ikraft_datum}")
                     else:
-                        print(f"No changes to commit for amendment '{rubrik}' dated {ikraft_datum}")
+                        print(f"Inga ändringar att commita för ändring '{rubrik}' daterad {ikraft_datum}")
 
                 except subprocess.CalledProcessError as e:
-                    print(f"Warning: Git commit failed for amendment dated {ikraft_datum}: {e}")
+                    print(f"Varning: Git-commit misslyckades för ändring daterad {ikraft_datum}: {e}")
                 except FileNotFoundError:
-                    print("Warning: Git not found. Skipping Git commits.")
+                    print("Varning: Git hittades inte. Hoppar över Git-commits.")
 
     return processed_text
 
@@ -866,8 +866,8 @@ def main():
     supported_formats = ['md', 'git', 'html', 'htmldiff', 'eli']
     invalid_formats = [mode for mode in output_modes if mode not in supported_formats]
     if invalid_formats:
-        print(f"Error: Unsupported output formats: {', '.join(invalid_formats)}")
-        print(f"Supported formats: {', '.join(supported_formats)}")
+        print(f"Fel: Ej stödda utdataformat: {', '.join(invalid_formats)}")
+        print(f"Stödda format: {', '.join(supported_formats)}")
         return
 
     # Define paths
@@ -893,28 +893,28 @@ def main():
     
     # Check if json directory exists
     if not json_dir.exists():
-        print(f"Error: JSON directory {json_dir} does not exist")
+        print(f"Fel: JSON-katalog {json_dir} finns inte")
         return
     
     # Find all JSON files
     json_files = list(json_dir.glob('*.json'))
     
     if not json_files:
-        print(f"No JSON files found in {json_dir}")
+        print(f"Inga JSON-filer hittades i {json_dir}")
         return
     
     # Apply filter if specified
     if args.filter:
         original_count = len(json_files)
         json_files = filter_json_files(json_files, args.filter)
-        print(f"Filter '{args.filter}' applied: {len(json_files)} of {original_count} files selected")
+        print(f"Filter '{args.filter}' tillämpad: {len(json_files)} av {original_count} filer valda")
 
         if not json_files:
-            print("No files match the filter criteria")
+            print("Inga filer matchar filterkriterier")
             return
 
-    print(f"Found {len(json_files)} JSON file(s) to convert from {json_dir}")
-    print(f"Output will be saved to {output_dir}")
+    print(f"Hittade {len(json_files)} JSON-fil(er) att konvertera från {json_dir}")
+    print(f"Utdata kommer att sparas i {output_dir}")
     
     # Convert each JSON file
     for json_file in json_files:
@@ -923,13 +923,13 @@ def main():
             with open(json_file, 'r', encoding='utf-8') as f:
                 data = json.load(f)
         except (json.JSONDecodeError, FileNotFoundError) as e:
-            print(f"Error reading {json_file}: {e}")
+            print(f"Fel vid läsning av {json_file}: {e}")
             continue
 
         # Use make_document to create documents in specified formats
         make_document(data, output_dir, output_modes, args.year_folder, args.verbose)
     
-    print(f"\nProcessing complete! Files saved to {output_dir} in formats: {', '.join(output_modes)}")
+    print(f"\nBearbetning klar! Filer sparade i {output_dir} i format: {', '.join(output_modes)}")
 
 
 def filter_json_files(json_files: List[Path], filter_criteria: str) -> List[Path]:
@@ -984,7 +984,7 @@ def save_to_disk(file_path: Path, content: str) -> None:
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(content)
     except IOError as e:
-        print(f"Error writing {file_path}: {e}")
+        print(f"Fel vid skrivning av {file_path}: {e}")
 
 
 if __name__ == "__main__":
