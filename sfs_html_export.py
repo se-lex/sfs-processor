@@ -474,19 +474,13 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{html.escape(title)} - Med ändringar</title>
     <script src="https://swebar.netlify.app/navbar.js"></script>
-    <style>
-        body {{ font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; line-height: 1.6; }}
-        .metadata {{ background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; }}
-        .metadata dt {{ font-weight: bold; }}
-        .metadata dd {{ margin-left: 20px; margin-bottom: 5px; }}
-        h1 {{ color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }}
-        h2 {{ color: #34495e; border-bottom: 1px solid #bdc3c7; padding-bottom: 5px; }}
-        h3 {{ color: #34495e; }}
-        h4 {{ color: #34495e; }}
+    <style>{get_common_styles()}
+        /* Override max-width for diff view */
+        body {{ max-width: 1200px; }}
 
         .amendment-info {{
             background-color: #e8f4fd;
-            border: 1px solid #3498db;
+            border: 1px solid var(--navbar-middle-blue);
             border-radius: 5px;
             padding: 15px;
             margin: 20px 0;
@@ -610,8 +604,8 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
         }}
         
         .tab-button.active {{
-            border-bottom-color: #3498db;
-            color: #3498db;
+            border-bottom-color: var(--navbar-light-blue);
+            color: var(--navbar-light-blue);
             font-weight: bold;
         }}
         
@@ -716,21 +710,20 @@ def create_html_head(title: str, beteckning: str, eli_format: bool = False, addi
 
     # Only handle the html tag and doctype here
     if eli_format:
-        head_start = """<!DOCTYPE html>\n<html lang=\"sv\"\n      prefix=\"og: http://ogp.me/ns# eli: http://data.europa.eu/eli/ontology# iana: http://www.iana.org/\">\n"""
+        head_start = """<!DOCTYPE html>
+<html lang="sv"
+      prefix="og: http://ogp.me/ns#
+      eli: http://data.europa.eu/eli/ontology#
+      iana: http://www.iana.org/">
+"""
     else:
-        head_start = """<!DOCTYPE html>\n<html lang=\"sv\">\n"""
+        head_start = """<!DOCTYPE html>
+<html lang="sv">
+"""
 
     # Common base styles
-    base_styles = """
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
-        .metadata { background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
-        .metadata dt { font-weight: bold; }
-        .metadata dd { margin-left: 20px; margin-bottom: 5px; }
-        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-        h2 { color: #34495e; border-bottom: 1px solid #bdc3c7; padding-bottom: 5px; }
-        h3 { color: #34495e; }
-        h4 { color: #34495e; }"""
+    base_styles = f"""
+    <style>{get_common_styles()}"""
     if additional_styles:
         base_styles += additional_styles
     base_styles += """
@@ -766,6 +759,69 @@ def create_html_head(title: str, beteckning: str, eli_format: bool = False, addi
                 eli_metadata = f'\n    <link rel="canonical" href="{eli_canonical_url}" />'
 
     # Build the head section
-    head = f"<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>{html.escape(title)}</title>{eli_metadata}\n{navbar_script}\n{base_styles}\n</head>"
+    head = f"""<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{html.escape(title)}</title>{eli_metadata}
+{navbar_script}
+{base_styles}
+</head>"""
 
     return head_start + head
+
+
+def get_common_styles() -> str:
+    """Get common CSS styles for SFS HTML documents.
+
+    Returns:
+        str: CSS styles with color variables and common formatting
+    """
+    return """
+        :root {
+            --selex-dark-blue: #002147;
+            --selex-middle-blue: #0056a0;
+            --selex-light-blue: #0072c6;
+            --selex-yellow: #f1c40f;
+            --selex-white: #ffffff;
+            --selex-light-grey: #f5f5f5;
+            --selex-dark-grey: #bdc3c7;
+
+            --navbar-dark-blue: var(--selex-dark-blue);
+            --navbar-middle-blue: var(--selex-middle-blue);
+            --navbar-light-blue: var(--selex-light-blue);
+            --navbar-yellow: var(--selex-yellow);
+            --navbar-white: var(--selex-white);
+        }
+
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        .metadata {
+            background-color: var(--selex-light-grey);
+            padding: 15px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+        }
+
+        .metadata dt { font-weight: bold; }
+        .metadata dd { margin-left: 20px; margin-bottom: 5px; }
+
+        h1 {
+            color: var(--selex-dark-blue);
+            border-bottom: 2px solid var(--selex-middle-blue);
+            padding-bottom: 10px;
+        }
+
+        h2 {
+            color: var(--selex-middle-blue);
+            border-bottom: 1px solid var(--selex-dark-grey);
+            padding-bottom: 5px;
+        }
+
+        h3 { color: var(--selex-middle-blue); }
+        h4 { color: var(--selex-middle-blue); }"""
