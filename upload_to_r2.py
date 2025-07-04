@@ -60,7 +60,7 @@ def configure_aws_cli():
     print("✓ AWS CLI konfigurerad")
     return True
 
-def upload_sfs_folder(output_base_dir="sfs"):
+def upload_sfs_folder(output_base_dir=""):
     """Ladda upp SFS-mappen till Cloudflare R2"""
     bucket_name = os.getenv('CLOUDFLARE_R2_BUCKET_NAME')
     account_id = os.getenv('CLOUDFLARE_R2_ACCOUNT_ID')
