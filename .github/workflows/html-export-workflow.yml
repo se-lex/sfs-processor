@@ -7,12 +7,19 @@ on:
         description: 'Git ref att bygga från'
         required: false
         default: 'main'
+      filter:
+        description: 'Filtrera filer efter år (YYYY) eller specifik beteckning (YYYY:NNN). Kommaseparerad lista.'
+        required: false
+        type: string
   workflow_call:  # Tillåter anrop från andra workflows
     inputs:
       source_ref:
         required: false
         type: string
         default: 'main'
+      filter:
+        required: false
+        type: string
 
 permissions:
   contents: read
@@ -39,11 +46,15 @@ jobs:
 
     - name: Generate HTML export
       run: |
-        python sfs_processor.py --input sfs_json --output SFS --formats html
+        if [ -n "${{ inputs.filter }}" ]; then
+          python sfs_processor.py --input sfs_json --output SFS --formats html --filter "${{ inputs.filter }}"
+        else
+          python sfs_processor.py --input sfs_json --output SFS --formats html
+        fi
       env:
         PYTHONPATH: ${{ github.workspace }}
 
-    - name: Configure AWS credentials for Cloudflare R2
+    - name: Configure credentials for Cloudflare R2
       uses: aws-actions/configure-aws-credentials@v4
       with:
         aws-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
