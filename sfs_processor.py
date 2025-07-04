@@ -97,12 +97,12 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     # Process HTML format if requested
     if "html" in output_modes:
         from sfs_html_export import create_html_documents
-        create_html_documents(data, document_dir, verbose)
+        create_html_documents(data, document_dir)
 
     # Process ELI format if requested
     if "eli" in output_modes:
         from sfs_html_export import create_eli_html_documents
-        create_eli_html_documents(data, output_dir, verbose)  # Use base output_dir for ELI structure
+        create_eli_html_documents(data, output_dir)  # Use base output_dir for ELI structure
 
 
 def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_git: bool = False, verbose: bool = False) -> str:

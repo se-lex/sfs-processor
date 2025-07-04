@@ -5,6 +5,12 @@ on:
     # Kör varje natt kl 02:00 UTC (03:00/04:00 svensk tid beroende på säsong)
     - cron: '0 2 * * *'
   workflow_dispatch:  # Tillåter manuell körning
+    inputs:
+      days:
+        description: 'Antal dagar bakåt att hämta dokument för (vid manuell körning)'
+        required: false
+        default: '30'
+        type: string
 
 permissions:
   contents: write
@@ -31,7 +37,7 @@ jobs:
 
     - name: Fetch JSON from from beta.rkrattsbaser.gov.se
       run: |
-        python fetch_new_sfs_docs.py --days 30 --output sfs_json
+        python fetch_new_sfs_docs.py --days ${{ inputs.days }} --output sfs_json
       env:
         # Lägg till API-nycklar eller andra secrets här om behövs
         PYTHONPATH: ${{ github.workspace }}
