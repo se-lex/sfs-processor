@@ -1,10 +1,10 @@
 #!/usr/bin/env python3
 """
 Script för att hämta SFS-författningar som uppdaterats efter ett visst datum från Regeringskansliets API
-och konvertera dem direkt till Markdown-format.
+och spara dem som JSON-filer.
 
 Använder Regeringskansliets Elasticsearch API för att hämta författningar som uppdaterats efter
-ett specificerat datum och konverterar dem automatiskt till Markdown med YAML front matter.
+ett specificerat datum och sparar dem som JSON-filer som sedan kan bearbetas med sfs_processor.py.
 """
 
 import requests
@@ -13,7 +13,6 @@ import argparse
 from datetime import datetime, timedelta
 from pathlib import Path
 from typing import Dict, Optional, Any
-from convert_json_to_markdown import create_markdown_content
 import re
 
 
@@ -76,56 +75,47 @@ def get_newer_items(date: str) -> Optional[Dict]:
     return _post(payload_dict)
 
 
-def save_document_as_markdown(document: Dict[str, Any], output_dir: Path, year_as_folder: bool = True) -> bool:
+def save_document_as_json(document: Dict[str, Any], output_dir: Path) -> bool:
     """
-    Konverterar ett författning till Markdown och sparar det.
+    Sparar ett författningsdokument som JSON-fil.
 
     Args:
         document (Dict[str, Any]): Författningsdata från API:et
         output_dir (Path): Katalog att spara filen i
-        year_as_folder (bool): Om True, skapa årsmappar
         
     Returns:
         bool: True om sparningen lyckades, False annars
+        
+    Raises:
+        ValueError: Om beteckning saknas eller är tom
     """
     try:
-        # Konvertera dokumentet till Markdown
-        markdown_content = create_markdown_content(document)
-        
         # Skapa filnamn baserat på beteckning
-        beteckning = document.get('beteckning', 'unknown')
+        beteckning = document.get('beteckning')
+        if not beteckning:
+            raise ValueError("Beteckning saknas eller är tom i dokumentet")
         
-        # Extrahera år från beteckning (format är typiskt YYYY:NNN)
-        year_match = re.search(r'(\d{4}):', beteckning)
-        if not year_match:
-            print(f"⚠ Kunde inte extrahera år från beteckning: {beteckning}")
-            year = 'unknown'
-        else:
-            year = year_match.group(1)
-
-        if year_as_folder and year != 'unknown':
-            # Skapa en undermapp för varje år
-            document_dir = output_dir / year
-            document_dir.mkdir(exist_ok=True)
-        else:
-            document_dir = output_dir
-
-        safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.md'
-        output_file = document_dir / safe_filename
+        # Konvertera beteckning till filnamn (t.ex. "2024:123" -> "sfs-2024-123.json")
+        safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.json'
+        output_file = output_dir / safe_filename
         
         # Kontrollera om filen redan finns
         if output_file.exists():
             print(f"⚠ {output_file.name} finns redan, skriver över")
         
-        # Skriv Markdown-filen
+        # Skriv JSON-filen
         with open(output_file, 'w', encoding='utf-8') as f:
-            f.write(markdown_content)
+            json.dump(document, f, ensure_ascii=False, indent=2)
         
         print(f"✓ Sparade {beteckning} -> {output_file}")
         return True
         
-    except (IOError, ValueError, KeyError) as e:
-        print(f"✗ Fel vid sparning av författning {document.get('beteckning', 'unknown')}: {e}")
+    except ValueError as e:
+        print(f"✗ Fel vid sparning av författning: {e}")
+        return False
+    except (IOError, KeyError) as e:
+        beteckning = document.get('beteckning', 'okänt dokument')
+        print(f"✗ Fel vid sparning av författning {beteckning}: {e}")
         return False
 
 
@@ -161,16 +151,19 @@ def parse_date(date_str: str) -> str:
 
 def main():
     """
-    Huvudfunktion som koordinerar hämtning och konvertering av författning.
+    Huvudfunktion som koordinerar hämtning av författningar och sparning som JSON.
     """
     parser = argparse.ArgumentParser(
-        description='Hämta SFS-författning uppdaterade efter ett visst datum och konvertera till Markdown',
+        description='Hämta SFS-författningar uppdaterade efter ett visst datum och spara som JSON-filer',
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Exempel:
   %(prog)s --date 2024-01-01
-  %(prog)s --date "2024-12-01T10:00:00" --output /path/to/markdown
-  %(prog)s --days 7 --no-year-folder
+  %(prog)s --date "2024-12-01T10:00:00" --output /path/to/json
+  %(prog)s --days 7
+
+Efter att JSON-filerna sparats kan de bearbetas med sfs_processor.py:
+  python sfs_processor.py --input /path/to/json --output /path/to/markdown
         """
     )
     
@@ -181,11 +174,9 @@ Exempel:
     date_group.add_argument('--days', type=int,
                            help='Hämta författningar uppdaterade de senaste X dagarna')
 
-    parser.add_argument('--output', '-o', default='markdown',
-                        help='Mapp att spara Markdown-filer i (default: markdown)')
-    parser.add_argument('--no-year-folder', dest='year_folder', action='store_false',
-                        help='Skapa inte årsmappar för författningar')
-    parser.set_defaults(year_folder=True)
+    parser.add_argument('--output', '-o', default='sfs_json',
+                        help='Mapp att spara JSON-filer i (default: sfs_json)')
+    # Remove year folder option since we're saving JSON files directly
     
     args = parser.parse_args()
 
@@ -230,29 +221,36 @@ Exempel:
     # Skapa output-katalog
     output_dir = Path(args.output)
     output_dir.mkdir(exist_ok=True)
-    print(f"Sparar författningar till: {output_dir.absolute()}")
+    print(f"Sparar JSON-filer till: {output_dir.absolute()}")
 
-    # Konvertera och spara varje författning
-    successful_conversions = 0
-    failed_conversions = 0
+    # Konvertera och spara varje författning som JSON
+    successful_saves = 0
+    failed_saves = 0
     
     for i, document in enumerate(documents, 1):
-        beteckning = document.get('beteckning', f'dokument-{i}')
+        beteckning = document.get('beteckning')
+        if not beteckning:
+            print(f"\n[{i}/{len(documents)}] ⚠ Hoppar över dokument {i} - saknar beteckning")
+            failed_saves += 1
+            continue
+
         print(f"\n[{i}/{len(documents)}] Bearbetar {beteckning}...")
         
-        if save_document_as_markdown(document, output_dir, args.year_folder):
-            successful_conversions += 1
+        if save_document_as_json(document, output_dir):
+            successful_saves += 1
         else:
-            failed_conversions += 1
+            failed_saves += 1
     
     # Sammanfattning
     print("\n=== Sammanfattning ===")
     print(f"Totalt författningar: {len(documents)}")
-    print(f"Lyckade konverteringar: {successful_conversions}")
-    print(f"Misslyckade konverteringar: {failed_conversions}")
+    print(f"Lyckade sparningar: {successful_saves}")
+    print(f"Misslyckade sparningar: {failed_saves}")
     
-    if successful_conversions > 0:
-        print(f"Markdown-filer sparade i: {output_dir.absolute()}")
+    if successful_saves > 0:
+        print(f"JSON-filer sparade i: {output_dir.absolute()}")
+        print("\nFör att konvertera JSON-filerna till Markdown, kör:")
+        print(f"python sfs_processor.py --input {output_dir} --output markdown")
 
 
 if __name__ == "__main__":
