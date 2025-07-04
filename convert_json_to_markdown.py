@@ -165,6 +165,12 @@ def create_markdown_content(data: Dict[str, Any], paragraph_as_header: bool = Tr
     if not innehall_text.strip():
         print(f"Warning: Empty content for {beteckning}")
 
+    # Check ignore rules first
+    should_ignore, ignore_reason = ignore_rules(innehall_text)
+    if should_ignore:
+        print(f"Ignoring {beteckning}: {ignore_reason}")
+        return create_ignored_markdown_content(data, ignore_reason)
+
     # Extract amendments
     amendments = extract_amendments(data.get('andringsforfattningar', []))
 
@@ -219,7 +225,6 @@ departement: {format_yaml_value(organisation)}
         sorted_yaml = sort_frontmatter_properties(yaml_front_matter.rstrip() + '\n')
         yaml_front_matter = sorted_yaml + "\n\n"
     except ValueError as e:
-        # If sorting fails, keep the original format
         print(f"Warning: Could not sort front matter for {beteckning}: {e}")
 
     has_amendment_markers = re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', innehall_text)
@@ -740,5 +745,118 @@ def filter_json_files(json_files: List[Path], filter_criteria: str) -> List[Path
     return filtered_files
 
 
-if __name__ == "__main__":
-    main()
+def ignore_rules(innehall_text: str) -> tuple[bool, str]:
+    """
+    Kontrollera om dokumentet ska ignoreras baserat på specifika regler.
+
+    Args:
+        data: JSON-data för dokumentet
+        innehall_text: Textinnehållet från dokumentet
+
+    Returns:
+        tuple: (should_ignore: bool, reason: str)
+               - should_ignore: True om dokumentet ska ignoreras
+               - reason: Förklaring till varför dokumentet ignorerades
+    """
+    # Regel 1: Kontrollera om texten innehåller "AVDELNING"
+    if "AVDELNING" in innehall_text.upper():
+        return True, "Dokumentet innehåller AVDELNING-struktur som inte stöds för automatisk konvertering."
+
+    # Lägg till fler regler här vid behov
+
+    return False, ""
+
+
+def create_ignored_markdown_content(data: Dict[str, Any], reason: str) -> str:
+    """
+    Skapa förenklad markdown för ignorerade dokument med endast front matter och förklaring.
+
+    Args:
+        data: JSON-data för dokumentet
+        reason: Förklaring till varför dokumentet ignorerades
+
+    Returns:
+        str: Förenklad markdown-innehåll
+    """
+    # Extract basic document information
+    beteckning = data.get('beteckning', '')
+    rubrik = clean_rubrik(data.get('rubrik', ''))
+
+    # Extract dates
+    publicerad_datum = format_datetime(data.get('publiceradDateTime'))
+    fulltext_data = data.get('fulltext', {})
+    utfardad_datum = format_datetime(fulltext_data.get('utfardadDateTime'))
+
+    # Extract other metadata
+    forarbeten = clean_text(data.get('forarbeten', ''))
+    celex_nummer = data.get('celexnummer')
+    eu_direktiv = data.get('eUdirektiv', False)
+
+    # Extract organization information
+    organisation_data = data.get('organisation', {})
+    organisation = organisation_data.get('namn', '') if organisation_data else ''
+
+    # Extract amendments
+    amendments = extract_amendments(data.get('andringsforfattningar', []))
+
+    # Create YAML front matter (same as regular processing)
+    yaml_front_matter = f"""---
+beteckning: {format_yaml_value(beteckning)}
+rubrik: {format_yaml_value(rubrik)}
+departement: {format_yaml_value(organisation)}
+"""
+
+    # Add dates if they exist
+    if publicerad_datum:
+        yaml_front_matter += f"publicerad_datum: {format_yaml_value(publicerad_datum)}\n"
+    if utfardad_datum:
+        yaml_front_matter += f"utfardad_datum: {format_yaml_value(utfardad_datum)}\n"
+
+    # Add other metadata
+    if forarbeten:
+        yaml_front_matter += f"forarbeten: {format_yaml_value(forarbeten)}\n"
+    if celex_nummer:
+        yaml_front_matter += f"celex: {format_yaml_value(celex_nummer)}\n"
+
+    # Add eu_direktiv only if it's true
+    if eu_direktiv:
+        yaml_front_matter += f"eu_direktiv: {format_yaml_value(eu_direktiv)}\n"
+
+    # Add amendments if they exist
+    if amendments:
+        yaml_front_matter += "andringsforfattningar:\n"
+        for amendment in amendments:
+            yaml_front_matter += f"  - beteckning: {amendment['beteckning']}\n"
+            if amendment['rubrik']:
+                yaml_front_matter += f"    rubrik: {format_yaml_value(amendment['rubrik'])}\n"
+            if amendment['ikraft_datum']:
+                yaml_front_matter += f"    ikraft_datum: {format_yaml_value(amendment['ikraft_datum'])}\n"
+            if amendment['anteckningar']:
+                yaml_front_matter += f"    anteckningar: {format_yaml_value(amendment['anteckningar'])}\n"
+
+    # Generate PDF URL
+    try:
+        pdf_url = generate_pdf_url(beteckning, utfardad_datum, check_exists=False)
+        if pdf_url:
+            yaml_front_matter += f"pdf_url: {format_yaml_value(pdf_url)}\n"
+    except (ValueError, TypeError, AttributeError) as e:
+        print(f"Warning: Could not generate PDF URL for {beteckning}: {e}")
+
+    yaml_front_matter += "---\n\n"
+
+    # Sort the front matter properties
+    try:
+        sorted_yaml = sort_frontmatter_properties(yaml_front_matter.rstrip() + '\n')
+        yaml_front_matter = sorted_yaml + "\n\n"
+    except ValueError as e:
+        print(f"Warning: Could not sort front matter for {beteckning}: {e}")
+
+    # Create simplified body with main heading and explanation
+    markdown_body = f"# {rubrik}\n\n"
+    markdown_body += f"**Automatisk konvertering inte tillgänglig**\n\n"
+    markdown_body += f"{reason}\n\n"
+    markdown_body += f"För att läsa det fullständiga dokumentet, besök den officiella versionen på "
+    markdown_body += f"[svenskforfattningssamling.se](https://svenskforfattningssamling.se/) "
+    markdown_body += f"eller ladda ner PDF:en från länken i front matter ovan.\n"
+
+    return yaml_front_matter + markdown_body
