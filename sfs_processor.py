@@ -481,7 +481,7 @@ def format_datetime(dt_str: Optional[str]) -> Optional[str]:
 
 
 def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """Extract and format amendment information."""
+    """Extract and format amendment information, sorted chronologically by ikraft_datum."""
     amendments = []
 
     for amendment in andringsforfattningar:
@@ -496,6 +496,10 @@ def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict
         if amendment_data['beteckning']:
             amendments.append(amendment_data)
     
+    # Sort amendments chronologically by ikraft_datum
+    # Amendments without ikraft_datum will be sorted to the end
+    amendments.sort(key=lambda x: x['ikraft_datum'] or '9999-12-31')
+
     return amendments
 
 
@@ -665,11 +669,8 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
         if verbose:
             print("Cleared content under 'Övergångsbestämmelser' heading")
 
-    # Sort amendments by ikraft_datum to apply changes in chronological order
-    sorted_amendments = sorted(
-        [a for a in amendments if a.get('ikraft_datum')],
-        key=lambda x: x['ikraft_datum']
-    )
+    # Filter amendments that have ikraft_datum (already sorted by extract_amendments)
+    sorted_amendments = [a for a in amendments if a.get('ikraft_datum')]
 
     # Print number of amendments found
     if verbose:
@@ -970,11 +971,8 @@ def _create_html_documents(data: Dict[str, Any], output_path: Path) -> None:
 
     # Create HTML documents for each amendment stage
     if amendments:
-        # Sort amendments chronologically
-        sorted_amendments = sorted(
-            [a for a in amendments if a.get('ikraft_datum')],
-            key=lambda x: x['ikraft_datum']
-        )
+        # Filter amendments that have ikraft_datum (already sorted by extract_amendments)
+        sorted_amendments = [a for a in amendments if a.get('ikraft_datum')]
 
         for i, amendment in enumerate(sorted_amendments):
             amendment_beteckning = amendment.get('beteckning', '')
@@ -1037,11 +1035,8 @@ def _convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to
     if apply_amendments and up_to_amendment:
         amendments = extract_amendments(data.get('andringsforfattningar', []))
         if amendments:
-            # Sort amendments chronologically
-            sorted_amendments = sorted(
-                [a for a in amendments if a.get('ikraft_datum')],
-                key=lambda x: x['ikraft_datum']
-            )
+            # Filter amendments that have ikraft_datum (already sorted by extract_amendments)
+            sorted_amendments = [a for a in amendments if a.get('ikraft_datum')]
 
             # Apply amendments up to the specified index
             amendments_to_apply = sorted_amendments[:up_to_amendment]
