@@ -71,13 +71,83 @@ def create_html_documents(data: Dict[str, Any], output_path: Path, verbose: bool
             print(f"Created HTML amendment document with diff: {amendment_file}")
 
 
-def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_amendment: int = None) -> str:
+def create_eli_html_documents(data: Dict[str, Any], output_path: Path, verbose: bool = False) -> None:
+    """Create ELI-formatted HTML documents for SFS documents.
+
+    Creates HTML documents in ELI directory structure: /eli/sfs/{YEAR}/{lopnummer}
+
+    Args:
+        data: JSON data containing document information
+        output_path: Base path for ELI output (e.g., /eli)
+        verbose: Whether to show verbose output (default: False) - currently unused
+    """
+    # Import required functions (avoiding circular imports)
+    from sfs_processor import extract_amendments, save_to_disk
+
+    # Extract beteckning and parse year and löpnummer
+    beteckning = data.get('beteckning', '')
+    if ':' not in beteckning:
+        print(f"Warning: Invalid beteckning format '{beteckning}', expected YYYY:NNN")
+        return
+
+    try:
+        year, lopnummer = beteckning.split(':', 1)
+    except ValueError:
+        print(f"Warning: Could not parse beteckning '{beteckning}'")
+        return
+
+    # Create ELI directory structure: /eli/sfs/{YEAR}/{lopnummer}
+    eli_dir = output_path / "eli" / "sfs" / year / lopnummer
+    eli_dir.mkdir(parents=True, exist_ok=True)
+
+    # Generate base HTML content (without amendments applied)
+    base_html_content = convert_to_html(data, apply_amendments=False, eli_format=True)
+    base_file = eli_dir / "index.html"
+    save_to_disk(base_file, base_html_content)
+    print(f"Created ELI HTML document: {base_file}")
+
+    # Create HTML documents for each amendment stage
+    amendments = extract_amendments(data.get('andringsforfattningar', []))
+    if amendments:
+        # Filter amendments that have ikraft_datum (already sorted by extract_amendments)
+        sorted_amendments = [a for a in amendments if a.get('ikraft_datum')]
+
+        for i, amendment in enumerate(sorted_amendments):
+            amendment_beteckning = amendment.get('beteckning', '')
+            if ':' not in amendment_beteckning:
+                continue
+
+            try:
+                amend_year, amend_lopnummer = amendment_beteckning.split(':', 1)
+            except ValueError:
+                continue
+
+            # Create amendment directory: /eli/sfs/{AMEND_YEAR}/{amend_lopnummer}
+            amend_eli_dir = output_path / "eli" / "sfs" / amend_year / amend_lopnummer
+            amend_eli_dir.mkdir(parents=True, exist_ok=True)
+
+            # Generate HTML content with amendments applied up to this point
+            amendment_html_content = convert_to_html(data, apply_amendments=True, up_to_amendment=i+1, eli_format=True)
+
+            # Create HTML with diff view comparing base and amended content
+            amendment_html_with_diff = create_amendment_html_with_diff(
+                base_html_content, amendment_html_content, amendment_beteckning, amendment.get('rubrik', ''),
+                amendment.get('ikraft_datum', '')
+            )
+
+            amendment_file = amend_eli_dir / "index.html"
+            save_to_disk(amendment_file, amendment_html_with_diff)
+            print(f"Created ELI amendment HTML document: {amendment_file}")
+
+
+def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_amendment: int = None, eli_format: bool = False) -> str:
     """Convert JSON data to HTML format.
 
     Args:
         data: JSON data for the document
         apply_amendments: Whether to apply amendments
         up_to_amendment: If applying amendments, apply only up to this amendment index (1-based)
+        eli_format: Whether to generate ELI-compliant HTML with RDFa prefixes
 
     Returns:
         str: HTML content
@@ -135,24 +205,89 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     html_content = markdown_to_html(formatted_text)
 
     # Create HTML document
-    html_doc = f"""<!DOCTYPE html>
+    if eli_format:
+        html_doc = f"""<!DOCTYPE html>
+<html lang="sv"
+      prefix="og: http://ogp.me/ns# eli: http://data.europa.eu/eli/ontology# iana: http://www.iana.org/">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{html.escape(rubrik_original)}</title>"""
+    else:
+        html_doc = f"""<!DOCTYPE html>
 <html lang="sv">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{html.escape(rubrik_original)}</title>
+    <title>{html.escape(rubrik_original)}</title>"""
+
+    # Continue with common styles
+    html_doc += """
     <style>
-        body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }}
-        .metadata {{ background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; }}
-        .metadata dt {{ font-weight: bold; }}
-        .metadata dd {{ margin-left: 20px; margin-bottom: 5px; }}
-        h1 {{ color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }}
-        h2 {{ color: #34495e; border-bottom: 1px solid #bdc3c7; padding-bottom: 5px; }}
-        h3 {{ color: #34495e; }}
-        h4 {{ color: #34495e; }}
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        .metadata { background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+        .metadata dt { font-weight: bold; }
+        .metadata dd { margin-left: 20px; margin-bottom: 5px; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; border-bottom: 1px solid #bdc3c7; padding-bottom: 5px; }
+        h3 { color: #34495e; }
+        h4 { color: #34495e; }
     </style>
 </head>
-<body>
+<body>"""
+
+    # Use different metadata format for ELI vs regular HTML
+    if eli_format:
+        # ELI format uses RDFa properties in definition list structure
+        html_doc += f"""
+    <div class="metadata">
+        <dl>
+            <dt>Beteckning:</dt>
+            <dd property="eli:id_local" datatype="xsd:string">{html.escape(beteckning)}</dd>
+            <dt>Rubrik:</dt>
+            <dd property="eli:title" datatype="xsd:string">{html.escape(rubrik_original)}</dd>"""
+
+        if organisation:
+            html_doc += f"""
+            <dt>Departement:</dt>
+            <dd property="eli:passed_by" datatype="xsd:string">{html.escape(organisation)}</dd>"""
+
+        if publicerad_datum:
+            html_doc += f"""
+            <dt>Publicerad:</dt>
+            <dd property="eli:date_publication" datatype="xsd:date">{html.escape(publicerad_datum)}</dd>"""
+
+        if utfardad_datum:
+            html_doc += f"""
+            <dt>Utfärdad:</dt>
+            <dd property="eli:date_document" datatype="xsd:date">{html.escape(utfardad_datum)}</dd>"""
+
+        if ikraft_datum:
+            html_doc += f"""
+            <dt>Ikraft:</dt>
+            <dd property="eli:date_entry-into-force" datatype="xsd:date">{html.escape(ikraft_datum)}</dd>"""
+
+        if forarbeten:
+            html_doc += f"""
+            <dt>Förarbeten:</dt>
+            <dd property="eli:preparatory_act" datatype="xsd:string">{html.escape(forarbeten)}</dd>"""
+
+        if celex_nummer:
+            html_doc += f"""
+            <dt>CELEX:</dt>
+            <dd property="eli:related_to" resource="{html.escape(celex_nummer)}" datatype="xsd:string">{html.escape(celex_nummer)}</dd>"""
+
+        if eu_direktiv:
+            html_doc += """
+            <dt>EU-direktiv:</dt>
+            <dd property="eli:type_document" resource="http://data.europa.eu/eli/ontology#directive" datatype="xsd:boolean">Ja</dd>"""
+
+        html_doc += """
+        </dl>
+    </div>"""
+    else:
+        # Regular format uses definition list
+        html_doc += f"""
     <div class="metadata">
         <dl>
             <dt>Beteckning:</dt>
@@ -160,45 +295,47 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
             <dt>Rubrik:</dt>
             <dd>{html.escape(rubrik_original)}</dd>"""
 
-    if organisation:
-        html_doc += f"""
+        if organisation:
+            html_doc += f"""
             <dt>Departement:</dt>
             <dd>{html.escape(organisation)}</dd>"""
 
-    if publicerad_datum:
-        html_doc += f"""
+        if publicerad_datum:
+            html_doc += f"""
             <dt>Publicerad:</dt>
             <dd>{html.escape(publicerad_datum)}</dd>"""
 
-    if utfardad_datum:
-        html_doc += f"""
+        if utfardad_datum:
+            html_doc += f"""
             <dt>Utfärdad:</dt>
             <dd>{html.escape(utfardad_datum)}</dd>"""
 
-    if ikraft_datum:
-        html_doc += f"""
+        if ikraft_datum:
+            html_doc += f"""
             <dt>Ikraft:</dt>
             <dd>{html.escape(ikraft_datum)}</dd>"""
 
-    if forarbeten:
-        html_doc += f"""
+        if forarbeten:
+            html_doc += f"""
             <dt>Förarbeten:</dt>
             <dd>{html.escape(forarbeten)}</dd>"""
 
-    if celex_nummer:
-        html_doc += f"""
+        if celex_nummer:
+            html_doc += f"""
             <dt>CELEX:</dt>
             <dd>{html.escape(celex_nummer)}</dd>"""
 
-    if eu_direktiv:
-        html_doc += """
+        if eu_direktiv:
+            html_doc += """
             <dt>EU-direktiv:</dt>
             <dd>Ja</dd>"""
 
-    html_doc += f"""
+        html_doc += """
         </dl>
-    </div>
+    </div>"""
 
+    # Add the rest of the HTML document
+    html_doc += f"""
     <h1>{html.escape(rubrik_original)}</h1>
 
     {html_content}
