@@ -155,18 +155,14 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
                 front_matter = markdown_content[:front_matter_end + 5]  # Include the closing ---\n
                 markdown_body = markdown_content[front_matter_end + 5:]
 
-                # Apply amendments to the body text only (skip the heading)
-                heading_match = re.match(r'^# [^\n]+\n\n', markdown_body)
-                if heading_match:
-                    heading = heading_match.group(0)
-                    body_text = markdown_body[len(heading):]
+                # Process amendments on the entire markdown body (including heading)
+                processed_text = apply_amendments_to_text(markdown_body, amendments, enable_git, verbose, output_file)
 
-                    # Process amendments
-                    processed_text = apply_amendments_to_text(body_text, amendments, enable_git, verbose, output_file)
-
-                    # Reconstruct the full content
-                    markdown_content = front_matter + "\n\n" + heading + processed_text
-                    print(f"Debug: Bearbetad textlängd för {beteckning}: {len(processed_text)}")
+                # Reconstruct the full content
+                markdown_content = front_matter + "\n\n" + processed_text
+                print(f"Debug: Bearbetad textlängd för {beteckning}: {len(processed_text)}")
+    else:
+        print(f"Info: Inga ändringsmarkeringar eller ändringar att bearbeta för {beteckning}")
 
     # Add ikraft_datum to front matter if not in Git mode
     if not enable_git:

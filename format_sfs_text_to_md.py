@@ -121,7 +121,7 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                     changes_applied += 1
                     paragraph_removed = True
                     if verbose:
-                        print(f"Regel 2 tillämpas: Tar bort paragraf {i+1} med '/Upphör att gälla U:{date_in_text}/' efter paragraf")
+                        print(f"Regel 2 tillämpas: Tar bort paragraf {i+1} med '/Upphör att gälla U:{date_in_text}/'")
                         print(f"\033[91m{paragraph}\033[0m")  # Röd text
                         print("-" * 80)
                     continue
@@ -169,7 +169,7 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                     paragraph_removed = True
 
                     if verbose:
-                        print(f"Regel 4 tillämpas: Tar bort rubrik nivå {header_level} med '/Rubriken upphör att gälla U:{date_in_text}/' från paragraf {i+1}")
+                        print(f"Regel 4 tillämpas: Tar bort rubriknivå {header_level} med '/Rubriken upphör att gälla U:{date_in_text}/' från paragraf {i+1}")
                         print(f"\033[91m{paragraph}\033[0m")  # Röd text
                         print("-" * 80)
 
