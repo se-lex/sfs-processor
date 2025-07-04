@@ -304,15 +304,15 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                     # Hantera paragrafnummer baserat på parameter
                     if previous_line_empty and paragraph_as_header:
                         # Kontrollera om raden börjar med paragrafnummer (använd original rad)
-                        paragraph_match = re.match(r'^(\d+\s*[a-z]?\s*§)(.*)', original_line)
+                        paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', original_line)
                         if paragraph_match:
-                            paragraph_num = paragraph_match.group(1)
-                            rest_of_line = paragraph_match.group(2).strip()
-                            # Slå ihop paragrafnummer med resten för att hantera markeringar korrekt
-                            full_paragraph_text = paragraph_num + ' ' + rest_of_line if rest_of_line else paragraph_num
-                            # Använd H4-rubrik för paragrafnummer
-                            formatted.append(format_header_with_markings('####', full_paragraph_text))
+                            paragraph_num = paragraph_match.group(0)
+                            # Placera paragrafnummer på egen rad
+                            formatted.append(f'#### {paragraph_num}')
                             formatted.append('')  # Tom rad efter rubriken
+                            rest_of_line = original_line[len(paragraph_num):].strip()
+                            if rest_of_line:
+                                formatted.append(rest_of_line)
                         else:
                             formatted.append(original_line)
                     elif previous_line_empty:
@@ -331,14 +331,15 @@ def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
                 # Hantera paragrafnummer baserat på parameter
                 elif previous_line_empty and paragraph_as_header:
                     # Kontrollera om raden börjar med paragrafnummer (använd original rad)
-                    paragraph_match = re.match(r'^(\d+\s*[a-z]?\s*§)(.*)', original_line)
+                    paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', original_line)
                     if paragraph_match:
-                        paragraph_num = paragraph_match.group(1)
-                        rest_of_line = paragraph_match.group(2).strip()
-                        # Slå ihop paragrafnummer med resten för att hantera markeringar korrekt
-                        full_paragraph_text = paragraph_num + ' ' + rest_of_line if rest_of_line else paragraph_num
-                        formatted.append(format_header_with_markings('####', full_paragraph_text))
+                        paragraph_num = paragraph_match.group(0)
+                        # Placera paragrafnummer på egen rad
+                        formatted.append(f'#### {paragraph_num}')
                         formatted.append('')  # Tom rad efter rubriken
+                        rest_of_line = original_line[len(paragraph_num):].strip()
+                        if rest_of_line:
+                            formatted.append(rest_of_line)
                     else:
                         formatted.append(original_line)
                 elif previous_line_empty:
