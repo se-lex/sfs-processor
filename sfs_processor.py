@@ -296,6 +296,7 @@ def convert_to_markdown(data: Dict[str, Any]) -> str:
 
     # Extract dates
     publicerad_datum = format_datetime(data.get('publiceradDateTime'))
+    utgar_datum = format_datetime(data.get('tidsbegransadDateTime'))
 
     # Extract utfardad_datum from fulltext
     fulltext_data = data.get('fulltext', {})
@@ -348,6 +349,8 @@ departement: {format_yaml_value(organisation)}
         yaml_front_matter += f"publicerad_datum: {format_yaml_value(publicerad_datum)}\n"
     if utfardad_datum:
         yaml_front_matter += f"utfardad_datum: {format_yaml_value(utfardad_datum)}\n"
+    if utgar_datum:
+        yaml_front_matter += f"utgar_datum: {format_yaml_value(utgar_datum)}\n"
 
     # Add other metadata
     if forarbeten:
