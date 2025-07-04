@@ -67,6 +67,11 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     # Extract beteckning for output file naming
     beteckning = data.get('beteckning', '')
 
+    # Skip documents with beteckning starting with 'N' (notifications etc.)
+    if beteckning and beteckning.startswith('N'):
+        print(f"Varning: Hoppar över beteckning som börjar med 'N': {beteckning}")
+        return
+
     # Extract year from beteckning (format is typically YYYY:NNN)
     year_match = re.search(r'(\d{4}):', beteckning)
     if not year_match:
