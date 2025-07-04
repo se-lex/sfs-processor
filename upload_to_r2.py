@@ -77,7 +77,7 @@ def upload_sfs_folder(output_base_dir="sfs"):
     print(f"Laddar upp {output_base_dir}-mappen ({file_count} HTML-filer)...")
     
     cmd = [
-        'aws', 's3', 'sync', f'{output_base_dir}/', f's3://{bucket_name}/',
+        'aws', 's3', 'sync', f'{output_base_dir}/', f's3://{bucket_name}/sfs/',
         '--endpoint-url', endpoint_url,
         '--delete',
         '--cache-control', 'public, max-age=3600',
@@ -88,9 +88,6 @@ def upload_sfs_folder(output_base_dir="sfs"):
         '--cli-read-timeout', '0',
         '--cli-connect-timeout', '60'
     ]
-    
-    # Lägg alltid till debug-flaggor för detaljerad output
-    cmd.extend(['--debug'])
 
     env = os.environ.copy()
     env['AWS_DEFAULT_REGION'] = 'us-east-1'
