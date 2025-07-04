@@ -1,16 +1,17 @@
 #!/usr/bin/env python3
 """
-Convert Swedish legal documents from JSON to Markdown with YAML front matter.
+Process Swedish legal documents (SFS) from JSON to various output formats.
 
-This script processes JSON files containing Swedish legal documents (SFS) and
-converts them to Markdown format with structured YAML front matter.
+This script processes JSON files containing Swedish legal documents from the
+Swedish Code of Statutes (SFS) and converts them to various output formats
+including Markdown with YAML front matter, with optional Git history recreation.
 
 Usage:
-    python convert_json_to_markdown.py [--input INPUT_DIR] [--output OUTPUT_DIR] [--no-year-folder]
+    python sfs_processor.py [--input INPUT_DIR] [--output OUTPUT_DIR] [--formats FORMATS] [--no-year-folder]
     
-    By default, all Markdown files are saved in year-based subdirectories in the output directory.
-    Use the --no-year-folder flag to save all files directly in the output directory without creating
-    year-based subdirectories.
+    By default, documents are saved as Markdown files in year-based subdirectories.
+    Use --formats to specify output modes (e.g., "md,git" for Markdown with Git commits).
+    Use --no-year-folder to save files directly in output directory without year subdirectories.
 """
 
 import json
@@ -784,9 +785,9 @@ def main():
     import argparse
 
     # Set up argument parser
-    parser = argparse.ArgumentParser(description='Convert SFS JSON files to Markdown.')
+    parser = argparse.ArgumentParser(description='Process SFS documents from JSON to various output formats.')
     parser.add_argument('--input', '-i', help='Input directory containing JSON files')
-    parser.add_argument('--output', '-o', help='Output directory for Markdown files')
+    parser.add_argument('--output', '-o', help='Output directory for processed files')
     parser.add_argument('--filter', help='Filter files by year (YYYY) or specific beteckning (YYYY:NNN). Can be comma-separated list.')
     parser.add_argument('--no-year-folder', dest='year_folder', action='store_false',
                         help='Do not create year-based subdirectories for documents')
@@ -869,7 +870,7 @@ def main():
         # Use make_document to create documents in specified formats
         make_document(data, output_dir, output_modes, args.year_folder, args.verbose)
     
-    print(f"\nConversion complete! Files saved to {output_dir} in formats: {', '.join(output_modes)}")
+    print(f"\nProcessing complete! Files saved to {output_dir} in formats: {', '.join(output_modes)}")
 
 
 def filter_json_files(json_files: List[Path], filter_criteria: str) -> List[Path]:
