@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """
-Process Swedish legal documents (SFS) from JSON to various output formats.
+Process Swedish legal documents (SFS) from JSON to         # Create markdown document (git mode is enabled if "git" is in output_modes)
+        enable_git = "git" in output_modes
+        _create_markdown_document(data, document_dir, enable_git, verbose) output formats.
 
 This script processes JSON files containing Swedish legal documents from the
 Swedish Code of Statutes (SFS) and converts them to various output formats
@@ -10,7 +12,8 @@ Usage:
     python sfs_processor.py [--input INPUT_DIR] [--output OUTPUT_DIR] [--formats FORMATS] [--no-year-folder]
     
     By default, documents are saved as Markdown files in year-based subdirectories.
-    Use --formats to specify output modes (e.g., "md,git" for Markdown with Git commits).
+    Use --formats to specify output modes (e.g., "md,git,html" for multiple formats).
+    HTML format creates base document plus separate files for each amendment stage.
     Use --no-year-folder to save files directly in output directory without year subdirectories.
 """
 
@@ -30,11 +33,16 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     """Create documents by converting JSON to specified output formats and applying amendments.
 
     This is the main function for document creation that handles:
-    - File naming and directory structure based on beteckning and year
-    - Different output formats and modes:
+    - Output directory structure based on beteckning year and year_as_folder setting
+    - Coordination of different output formats and modes:
       * "md": Generate markdown files (required for other modes)
       * "git": Enable Git commits with historical dates during markdown generation
-    - Amendment processing and Git commit creation
+      * "html": Generate HTML files (base document plus amendment versions)
+    - Delegates actual file creation to format-specific internal functions
+
+    The function extracts the year from the beteckning and creates appropriate directory
+    structure, then calls internal creation functions that handle the actual content
+    generation and file writing for each requested format.
 
     Args:
         data: JSON data for the document
@@ -76,33 +84,32 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
 
     # Process markdown format if requested
     if "md" in output_modes:
-        # Create safe filename for markdown
-        safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.md'
-        output_file = document_dir / safe_filename
-
         # Create markdown document (git mode is enabled if "git" is in output_modes)
         enable_git = "git" in output_modes
-        _create_markdown_document(data, output_file, enable_git, verbose)
+        markdown_content = _create_markdown_document(data, document_dir, enable_git, verbose)
 
-    # TODO: Add support for additional formats here
-    # Example for JSON format:
-    # if "json" in output_modes:
-    #     json_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.json'
-    #     json_file = document_dir / json_filename
-    #     _create_json_document(data, json_file)
-    #
-    # Example for HTML format:
-    # if "html" in output_modes:
-    #     html_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.html'
-    #     html_file = document_dir / html_filename
-    #     _create_html_document(data, html_file)
-    #
-    # Note: "git" is a special output mode that affects markdown generation,
-    # not a separate file format. It controls git commit creation during markdown processing.
+    # Process HTML format if requested
+    if "html" in output_modes:
+        _create_html_documents(data, document_dir, verbose)
 
 
-def _create_markdown_document(data: Dict[str, Any], output_file: Path, enable_git: bool = False, verbose: bool = False) -> None:
-    """Internal function to create a markdown document from JSON data."""
+def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_git: bool = False, verbose: bool = False) -> str:
+    """Internal function to create a markdown document from JSON data.
+
+    Args:
+        data: JSON data containing document information
+        output_path: Path to the output directory (folder)
+        enable_git: Whether to create git commits during processing
+        verbose: Whether to print verbose output
+
+    Returns:
+        str: The final markdown content that was written to file
+    """
+
+    # Extract beteckning to create safe filename
+    beteckning = data.get('beteckning', '')
+    safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.md'
+    output_file = output_path / safe_filename
 
     # Get basic markdown content
     markdown_content = convert_to_markdown(data)
@@ -115,11 +122,10 @@ def _create_markdown_document(data: Dict[str, Any], output_file: Path, enable_gi
 
     # Check if document was ignored (create_ignored_markdown_content returns different structure)
     if "**Automatisk konvertering inte tillgänglig**" in markdown_content:
-        # For ignored documents, just write the content as-is
-        with open(output_file, 'w', encoding='utf-8') as f:
-            f.write(markdown_content)
+        # For ignored documents, write the content and return it
+        save_to_disk(output_file, markdown_content)
         print(f"Created ignored document: {output_file}")
-        return
+        return markdown_content
 
     # Check for amendment markers and process amendments if they exist
     has_amendment_markers = re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', innehall_text)
@@ -175,80 +181,90 @@ def _create_markdown_document(data: Dict[str, Any], output_file: Path, enable_gi
     if len(markdown_content) < 1000:  # If suspiciously short, show preview
         print(f"Debug: Content preview because suspiciously short:\n{markdown_content[:500]}...")
 
-    # Write the file
-    try:
-        with open(output_file, 'w', encoding='utf-8') as f:
-            f.write(markdown_content)
-        print(f"Created document: {output_file}")
+    # Handle git commits if enabled
+    final_content = markdown_content
+    if enable_git:
+        import subprocess
 
-        # Create Git commit if enabled and no amendments were processed
-        if enable_git:
-            import subprocess
+        # Get main document metadata
+        rubrik = data.get('rubrik', '')
+        if rubrik:
+            # Clean rubrik by removing beteckning in parentheses
+            rubrik = re.sub(r'\s*\(\d{4}:\d+\)\s*', '', rubrik).strip()
 
-            # Get main document metadata
-            rubrik = data.get('rubrik', '')
-            if rubrik:
-                # Clean rubrik by removing beteckning in parentheses
-                rubrik = re.sub(r'\s*\(\d{4}:\d+\)\s*', '', rubrik).strip()
+        ikraft_datum = format_datetime(data.get('ikraftDateTime'))
+        utfardad_datum = format_datetime(data.get('fulltext', {}).get('utfardadDateTime'))
 
-            ikraft_datum = format_datetime(data.get('ikraftDateTime'))
-            utfardad_datum = format_datetime(data.get('fulltext', {}).get('utfardadDateTime'))
+        # Only create main commits if there are no amendments (they handle their own commits)
+        if not amendments and utfardad_datum:
+            try:
+                # First commit: without ikraft_datum in front matter, dated utfardad_datum
+                commit_message = rubrik if rubrik else f"SFS {beteckning}"
 
-            # Only create main commits if there are no amendments (they handle their own commits)
-            if not amendments and utfardad_datum:
-                try:
-                    # First commit: without ikraft_datum in front matter, dated utfardad_datum
-                    commit_message = rubrik if rubrik else f"SFS {beteckning}"
+                # Write file for first commit (without ikraft_datum)
+                save_to_disk(output_file, markdown_content)
 
-                    # Stage the current file (which doesn't have ikraft_datum yet)
+                # Stage the current file (which doesn't have ikraft_datum yet)
+                subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
+
+                # Create first commit with utfardad_datum as date
+                subprocess.run([
+                    'git', 'commit',
+                    '-m', commit_message,
+                    '--date', utfardad_datum
+                ], check=True, capture_output=True)
+
+                print(f"Git commit created: '{commit_message}' dated {utfardad_datum}")
+
+                # Second commit: add ikraft_datum to front matter if it exists
+                if ikraft_datum:
+                    # Add ikraft_datum to the existing markdown content
+                    markdown_content_with_ikraft = add_ikraft_datum_to_markdown(markdown_content, ikraft_datum)
+
+                    # Sort front matter only
+                    if markdown_content_with_ikraft.startswith('---'):
+                        front_matter_end = markdown_content_with_ikraft.find('\n---\n', 3)
+                        if front_matter_end != -1:
+                            front_matter = markdown_content_with_ikraft[:front_matter_end + 5]
+                            rest_of_content = markdown_content_with_ikraft[front_matter_end + 5:]
+                            sorted_front_matter = sort_frontmatter_properties(front_matter)
+                            markdown_content_with_ikraft = sorted_front_matter + rest_of_content
+
+                    # Write updated file with ikraft_datum
+                    save_to_disk(output_file, markdown_content_with_ikraft)
+
+                    # Stage the updated file
                     subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
 
-                    # Create first commit with utfardad_datum as date
+                    # Create second commit with ikraft_datum as date
                     subprocess.run([
                         'git', 'commit',
-                        '-m', commit_message,
-                        '--date', utfardad_datum
+                        '-m', f"{beteckning} träder i kraft",
+                        '--date', ikraft_datum
                     ], check=True, capture_output=True)
 
-                    print(f"Git commit created: '{commit_message}' dated {utfardad_datum}")
+                    print(f"Git commit created: '{beteckning} träder i kraft' dated {ikraft_datum}")
 
-                    # Second commit: add ikraft_datum to front matter if it exists
-                    if ikraft_datum:
-                        # Add ikraft_datum to the existing markdown content
-                        markdown_content_with_ikraft = add_ikraft_datum_to_markdown(markdown_content, ikraft_datum)
+                    # Use the content with ikraft_datum as final content
+                    final_content = markdown_content_with_ikraft
 
-                        # Sort front matter only
-                        if markdown_content_with_ikraft.startswith('---'):
-                            front_matter_end = markdown_content_with_ikraft.find('\n---\n', 3)
-                            if front_matter_end != -1:
-                                front_matter = markdown_content_with_ikraft[:front_matter_end + 5]
-                                rest_of_content = markdown_content_with_ikraft[front_matter_end + 5:]
-                                sorted_front_matter = sort_frontmatter_properties(front_matter)
-                                markdown_content_with_ikraft = sorted_front_matter + rest_of_content
+            except subprocess.CalledProcessError as e:
+                print(f"Warning: Git commit failed for {beteckning}: {e}")
+                # Write the file anyway, without git commits
+                save_to_disk(output_file, markdown_content)
+            except FileNotFoundError:
+                print("Warning: Git not found. Skipping Git commits.")
+                # Write the file anyway, without git commits
+                save_to_disk(output_file, markdown_content)
+        else:
+            # Write file if git is enabled but no commits needed
+            save_to_disk(output_file, markdown_content)
+    else:
+        # No git mode - write the file normally
+        save_to_disk(output_file, markdown_content)
+        print(f"Created document: {output_file}")
 
-                        # Write updated file with ikraft_datum
-                        with open(output_file, 'w', encoding='utf-8') as f:
-                            f.write(markdown_content_with_ikraft)
-
-                        # Stage the updated file
-                        subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
-
-                        # Create second commit with ikraft_datum as date
-                        subprocess.run([
-                            'git', 'commit',
-                            '-m', f"{beteckning} träder i kraft",
-                            '--date', ikraft_datum
-                        ], check=True, capture_output=True)
-
-                        print(f"Git commit created: '{beteckning} träder i kraft' dated {ikraft_datum}")
-
-                except subprocess.CalledProcessError as e:
-                    print(f"Warning: Git commit failed for {beteckning}: {e}")
-                except FileNotFoundError:
-                    print("Warning: Git not found. Skipping Git commits.")
-
-    except IOError as e:
-        print(f"Error writing {output_file}: {e}")
+    return final_content
 
 
 def convert_to_markdown(data: Dict[str, Any]) -> str:
@@ -374,9 +390,6 @@ departement: {format_yaml_value(organisation)}
 
     # Return the complete markdown content
     return yaml_front_matter + markdown_body
-
-
-# --- Helper Functions ---
 
 
 def format_yaml_value(value: Any) -> str:
@@ -794,7 +807,7 @@ def main():
     parser.add_argument('--verbose', action='store_true',
                         help='Show detailed diff output for each amendment processing')
     parser.add_argument('--formats', dest='output_modes', default='md',
-                        help='Output formats to generate (comma-separated). Currently supported: md, git. Default: md. Use "git" to enable Git commits with historical dates.')
+                        help='Output formats to generate (comma-separated). Currently supported: md, git, html. Default: md. Use "git" to enable Git commits with historical dates. HTML creates base document plus amendment versions.')
     parser.set_defaults(year_folder=True)
     args = parser.parse_args()
 
@@ -804,7 +817,7 @@ def main():
         output_modes = ['md']  # Default to markdown
 
     # Validate output modes
-    supported_formats = ['md', 'git']
+    supported_formats = ['md', 'git', 'html']
     invalid_formats = [mode for mode in output_modes if mode not in supported_formats]
     if invalid_formats:
         print(f"Error: Unsupported output formats: {', '.join(invalid_formats)}")
@@ -914,5 +927,277 @@ def filter_json_files(json_files: List[Path], filter_criteria: str) -> List[Path
     return filtered_files
 
 
-if __name__ == "__main__":
-    main()
+def save_to_disk(file_path: Path, content: str) -> None:
+    """Save content to disk with proper error handling.
+
+    Args:
+        file_path: Path where to save the file
+        content: Content to write to the file
+    """
+    try:
+        with open(file_path, 'w', encoding='utf-8') as f:
+            f.write(content)
+    except IOError as e:
+        print(f"Error writing {file_path}: {e}")
+
+
+def _create_html_documents(data: Dict[str, Any], output_path: Path) -> None:
+    """Internal function to create HTML documents from JSON data.
+
+    Creates base document and separate documents for each amendment.
+
+    Args:
+        data: JSON data containing document information
+        output_path: Path to the output directory (folder)
+    """
+    import html
+
+    # Extract basic metadata
+    beteckning = data.get('beteckning', '')
+    amendments = extract_amendments(data.get('andringsforfattningar', []))
+
+    # Clean beteckning for filename
+    safe_beteckning = re.sub(r'[^\w\-]', '-', beteckning)
+
+    # Create base filename (grunddokument)
+    base_filename = f"{safe_beteckning}_grund.html"
+    base_file = output_path / base_filename
+
+    # Generate base HTML content (without amendments applied)
+    base_html_content = _convert_to_html(data, apply_amendments=False)
+    save_to_disk(base_file, base_html_content)
+    print(f"Created HTML base document: {base_file}")
+
+    # Create HTML documents for each amendment stage
+    if amendments:
+        # Sort amendments chronologically
+        sorted_amendments = sorted(
+            [a for a in amendments if a.get('ikraft_datum')],
+            key=lambda x: x['ikraft_datum']
+        )
+
+        for i, amendment in enumerate(sorted_amendments):
+            amendment_beteckning = amendment.get('beteckning', '')
+            safe_amendment_beteckning = re.sub(r'[^\w\-]', '-', amendment_beteckning)
+
+            # Create filename with amendment suffix
+            amendment_filename = f"{safe_beteckning}_{safe_amendment_beteckning}.html"
+            amendment_file = output_path / amendment_filename
+
+            # Generate HTML content with amendments applied up to this point
+            amendment_html_content = _convert_to_html(data, apply_amendments=True, up_to_amendment=i+1)
+            save_to_disk(amendment_file, amendment_html_content)
+            print(f"Created HTML amendment document: {amendment_file}")
+
+
+def _convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_amendment: int = None) -> str:
+    """Convert JSON data to HTML format.
+
+    Args:
+        data: JSON data for the document
+        apply_amendments: Whether to apply amendments
+        up_to_amendment: If applying amendments, apply only up to this amendment index (1-based)
+
+    Returns:
+        str: HTML content
+    """
+    import html
+
+    # Extract main document information
+    beteckning = data.get('beteckning', '')
+    rubrik_original = data.get('rubrik', '')
+
+    # Extract dates
+    publicerad_datum = format_datetime(data.get('publiceradDateTime'))
+    fulltext_data = data.get('fulltext', {})
+    utfardad_datum = format_datetime(fulltext_data.get('utfardadDateTime'))
+    ikraft_datum = format_datetime(data.get('ikraftDateTime'))
+
+    # Extract other metadata
+    forarbeten = clean_text(data.get('forarbeten', ''))
+    celex_nummer = data.get('celexnummer')
+    eu_direktiv = data.get('eUdirektiv', False)
+    organisation_data = data.get('organisation', {})
+    organisation = organisation_data.get('namn', '') if organisation_data else ''
+
+    # Extract the main text content
+    innehall_text = fulltext_data.get('forfattningstext', 'No content available')
+    if innehall_text is None:
+        innehall_text = 'No content available'
+
+    # Check ignore rules
+    should_ignore, ignore_reason = ignore_rules(innehall_text)
+    if should_ignore:
+        return _create_ignored_html_content(data, ignore_reason)
+
+    # Format the content text
+    formatted_text = format_sfs_text(innehall_text)
+
+    # Apply amendments if requested
+    if apply_amendments and up_to_amendment:
+        amendments = extract_amendments(data.get('andringsforfattningar', []))
+        if amendments:
+            # Sort amendments chronologically
+            sorted_amendments = sorted(
+                [a for a in amendments if a.get('ikraft_datum')],
+                key=lambda x: x['ikraft_datum']
+            )
+
+            # Apply amendments up to the specified index
+            amendments_to_apply = sorted_amendments[:up_to_amendment]
+            for amendment in amendments_to_apply:
+                ikraft_datum_amendment = amendment.get('ikraft_datum')
+                if ikraft_datum_amendment:
+                    formatted_text = apply_changes_to_sfs_text(formatted_text, ikraft_datum_amendment, False)
+
+    # Convert markdown-formatted text to HTML
+    html_content = _markdown_to_html(formatted_text)
+
+    # Create HTML document
+    html_doc = f"""<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{html.escape(rubrik_original)}</title>
+    <style>
+        body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }}
+        .metadata {{ background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; }}
+        .metadata dt {{ font-weight: bold; }}
+        .metadata dd {{ margin-left: 20px; margin-bottom: 5px; }}
+        h1 {{ color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }}
+        h2 {{ color: #34495e; border-bottom: 1px solid #bdc3c7; padding-bottom: 5px; }}
+        h3 {{ color: #34495e; }}
+    </style>
+</head>
+<body>
+    <div class="metadata">
+        <dl>
+            <dt>Beteckning:</dt>
+            <dd>{html.escape(beteckning)}</dd>
+            <dt>Rubrik:</dt>
+            <dd>{html.escape(rubrik_original)}</dd>"""
+
+    if organisation:
+        html_doc += f"""
+            <dt>Departement:</dt>
+            <dd>{html.escape(organisation)}</dd>"""
+
+    if publicerad_datum:
+        html_doc += f"""
+            <dt>Publicerad:</dt>
+            <dd>{html.escape(publicerad_datum)}</dd>"""
+
+    if utfardad_datum:
+        html_doc += f"""
+            <dt>Utfärdad:</dt>
+            <dd>{html.escape(utfardad_datum)}</dd>"""
+
+    if ikraft_datum:
+        html_doc += f"""
+            <dt>Ikraft:</dt>
+            <dd>{html.escape(ikraft_datum)}</dd>"""
+
+    if forarbeten:
+        html_doc += f"""
+            <dt>Förarbeten:</dt>
+            <dd>{html.escape(forarbeten)}</dd>"""
+
+    if celex_nummer:
+        html_doc += f"""
+            <dt>CELEX:</dt>
+            <dd>{html.escape(celex_nummer)}</dd>"""
+
+    if eu_direktiv:
+        html_doc += f"""
+            <dt>EU-direktiv:</dt>
+            <dd>Ja</dd>"""
+
+    html_doc += f"""
+        </dl>
+    </div>
+
+    <h1>{html.escape(rubrik_original)}</h1>
+
+    {html_content}
+</body>
+</html>"""
+
+    return html_doc
+
+
+def _markdown_to_html(markdown_text: str) -> str:
+    """Convert basic markdown formatting to HTML.
+
+    Args:
+        markdown_text: Text with markdown formatting
+
+    Returns:
+        str: HTML formatted text
+    """
+    import html
+
+    # Escape HTML entities first
+    text = html.escape(markdown_text)
+
+    # Convert markdown headers
+    text = re.sub(r'^### (.+)$', r'<h3>\1</h3>', text, flags=re.MULTILINE)
+    text = re.sub(r'^## (.+)$', r'<h2>\1</h2>', text, flags=re.MULTILINE)
+    text = re.sub(r'^# (.+)$', r'<h1>\1</h1>', text, flags=re.MULTILINE)
+
+    # Convert paragraphs (double newlines)
+    paragraphs = text.split('\n\n')
+    html_paragraphs = []
+
+    for para in paragraphs:
+        para = para.strip()
+        if para:
+            # Skip if it's already a header
+            if para.startswith('<h') and para.endswith('>'):
+                html_paragraphs.append(para)
+            else:
+                # Convert single newlines to <br> within paragraphs
+                para = para.replace('\n', '<br>')
+                html_paragraphs.append(f'<p>{para}</p>')
+
+    return '\n\n'.join(html_paragraphs)
+
+
+def _create_ignored_html_content(data: Dict[str, Any], reason: str) -> str:
+    """Create simplified HTML for ignored documents.
+
+    Args:
+        data: JSON data for the document
+        reason: Reason why document was ignored
+
+    Returns:
+        str: HTML content for ignored document
+    """
+    import html
+
+    beteckning = data.get('beteckning', '')
+    rubrik_original = data.get('rubrik', '')
+
+    return f"""<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{html.escape(rubrik_original)}</title>
+    <style>
+        body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }}
+        .warning {{ background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 5px; margin-bottom: 20px; }}
+        h1 {{ color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }}
+    </style>
+</head>
+<body>
+    <h1>{html.escape(rubrik_original)}</h1>
+
+    <div class="warning">
+        <h2>Automatisk konvertering inte tillgänglig</h2>
+        <p>{html.escape(reason)}</p>
+        <p>För att läsa det fullständiga dokumentet, besök den officiella versionen på
+        <a href="https://svenskforfattningssamling.se/">svenskforfattningssamling.se</a>.</p>
+    </div>
+</body>
+</html>"""
