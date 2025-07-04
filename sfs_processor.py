@@ -57,7 +57,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     # Default to markdown output if no modes specified
     if output_modes is None:
         output_modes = ["md"]
-    
+
     # Git mode requires markdown mode to be active
     if "git" in output_modes and "md" not in output_modes:
         output_modes.append("md")

@@ -7,8 +7,10 @@ including support for amendments and ignored documents.
 """
 import html
 import re
+import difflib
 from pathlib import Path
 from typing import Dict, Any
+from datetime import datetime
 
 # Import required functions from other modules
 from format_sfs_text_to_md import format_sfs_text, apply_changes_to_sfs_text
@@ -58,8 +60,15 @@ def create_html_documents(data: Dict[str, Any], output_path: Path, verbose: bool
 
             # Generate HTML content with amendments applied up to this point
             amendment_html_content = convert_to_html(data, apply_amendments=True, up_to_amendment=i+1)
-            save_to_disk(amendment_file, amendment_html_content)
-            print(f"Created HTML amendment document: {amendment_file}")
+
+            # Create HTML with diff view comparing base and amended content
+            amendment_html_with_diff = create_amendment_html_with_diff(
+                base_html_content, amendment_html_content, amendment_beteckning, amendment.get('rubrik', ''),
+                amendment.get('ikraft_datum', '')
+            )
+
+            save_to_disk(amendment_file, amendment_html_with_diff)
+            print(f"Created HTML amendment document with diff: {amendment_file}")
 
 
 def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_amendment: int = None) -> str:
@@ -140,6 +149,7 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
         h1 {{ color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }}
         h2 {{ color: #34495e; border-bottom: 1px solid #bdc3c7; padding-bottom: 5px; }}
         h3 {{ color: #34495e; }}
+        h4 {{ color: #34495e; }}
     </style>
 </head>
 <body>
@@ -211,6 +221,7 @@ def markdown_to_html(markdown_text: str) -> str:
     text = html.escape(markdown_text)
 
     # Convert markdown headers
+    text = re.sub(r'^#### (.+)$', r'<h4>\1</h4>', text, flags=re.MULTILINE)  # Added support for H4
     text = re.sub(r'^### (.+)$', r'<h3>\1</h3>', text, flags=re.MULTILINE)
     text = re.sub(r'^## (.+)$', r'<h2>\1</h2>', text, flags=re.MULTILINE)
     text = re.sub(r'^# (.+)$', r'<h1>\1</h1>', text, flags=re.MULTILINE)
@@ -268,3 +279,289 @@ def create_ignored_html_content(data: Dict[str, Any], reason: str) -> str:
     </div>
 </body>
 </html>"""
+
+
+def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendment_beteckning: str, amendment_rubrik: str, ikraft_datum: str) -> str:
+    """Create HTML document with diff view between base and amended content.
+
+    Args:
+        base_html: HTML content of the base document
+        amendment_html: HTML content of the amended document
+        amendment_beteckning: Amendment designation
+        amendment_rubrik: Amendment title
+        ikraft_datum: Date when amendment takes effect
+
+    Returns:
+        str: HTML content with diff view
+    """
+    # Extract the content part from both HTML documents (everything after <h1> tag)
+    def extract_content_from_html(html_content: str) -> str:
+        # Find the main content after the first <h1> tag
+        h1_match = re.search(r'<h1[^>]*>.*?</h1>\s*', html_content, re.DOTALL)
+        if h1_match:
+            return html_content[h1_match.end():]
+        return html_content
+
+    base_content = extract_content_from_html(base_html)
+    amendment_content = extract_content_from_html(amendment_html)
+
+    # Create HTML diff using difflib
+    differ = difflib.HtmlDiff(wrapcolumn=80)
+
+    # Split content into lines for comparison
+    base_lines = base_content.splitlines()
+    amendment_lines = amendment_content.splitlines()
+
+    # Generate HTML diff
+    html_diff = differ.make_file(
+        base_lines,
+        amendment_lines,
+        fromdesc="Före ändringsförfattning",
+        todesc="Efter ändringsförfattning",
+        context=True,
+        numlines=3
+    )
+
+    # Extract the diff table from the generated HTML
+    start_marker = '<table class="diff"'
+    end_marker = '</table>'
+
+    start_index = html_diff.find(start_marker)
+    end_index = html_diff.find(end_marker) + len(end_marker)
+
+    diff_table = ""
+    if start_index != -1 and end_index != -1:
+        diff_table = html_diff[start_index:end_index]
+    else:
+        diff_table = '<p>Kunde inte generera diff-tabell.</p>'
+    
+    # Extract metadata from the amendment HTML
+    metadata_match = re.search(r'<div class="metadata">.*?</div>', amendment_html, re.DOTALL)
+    metadata_section = metadata_match.group(0) if metadata_match else ""
+
+    # Extract title from amendment HTML
+    title_match = re.search(r'<title>(.*?)</title>', amendment_html)
+    title = title_match.group(1) if title_match else "Ändringsförfattning"
+
+    # Create the combined HTML document
+    combined_html = f"""<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{html.escape(title)} - Med ändringar</title>
+    <style>
+        body {{ font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; line-height: 1.6; }}
+        .metadata {{ background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; }}
+        .metadata dt {{ font-weight: bold; }}
+        .metadata dd {{ margin-left: 20px; margin-bottom: 5px; }}
+        h1 {{ color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }}
+        h2 {{ color: #34495e; border-bottom: 1px solid #bdc3c7; padding-bottom: 5px; }}
+        h3 {{ color: #34495e; }}
+        h4 {{ color: #34495e; }}
+
+        .amendment-info {{
+            background-color: #e8f4fd;
+            border: 1px solid #3498db;
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }}
+
+        .content-section {{
+            margin: 30px 0;
+        }}
+
+        .diff-container {{
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin: 20px 0;
+        }}
+
+        table.diff {{
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }}
+
+        .diff_header {{
+            background-color: #34495e !important;
+            color: white !important;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+        }}
+
+        .diff_next {{
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            padding: 5px;
+        }}
+
+        .diff_next:hover {{
+            background-color: #2980b9;
+        }}
+
+        .diff_add {{
+            background-color: #d4edda !important;
+            border-left: 4px solid #28a745;
+        }}
+        
+        .diff_chg {{
+            background-color: #fff3cd !important;
+            border-left: 4px solid #ffc107;
+        }}
+        
+        .diff_sub {{
+            background-color: #f8d7da !important;
+            border-left: 4px solid #dc3545;
+        }}
+        
+        td.diff_header {{
+            padding: 8px 12px;
+        }}
+        
+        td {{
+            padding: 4px 8px;
+            vertical-align: top;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }}
+        
+        .legend {{
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }}
+        
+        .legend h3 {{
+            margin-top: 0;
+            color: #2c3e50;
+        }}
+        
+        .legend-item {{
+            display: inline-block;
+            margin-right: 20px;
+            margin-bottom: 5px;
+        }}
+        
+        .legend-color {{
+            display: inline-block;
+            width: 20px;
+            height: 15px;
+            margin-right: 5px;
+            vertical-align: middle;
+            border-radius: 3px;
+        }}
+        
+        .added {{ background-color: #d4edda; border-left: 4px solid #28a745; }}
+        .removed {{ background-color: #f8d7da; border-left: 4px solid #dc3545; }}
+        .changed {{ background-color: #fff3cd; border-left: 4px solid #ffc107; }}
+        
+        .tab-container {{
+            margin: 20px 0;
+        }}
+        
+        .tab-buttons {{
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 20px;
+        }}
+        
+        .tab-button {{
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-size: 16px;
+            margin-right: 10px;
+        }}
+        
+        .tab-button.active {{
+            border-bottom-color: #3498db;
+            color: #3498db;
+            font-weight: bold;
+        }}
+        
+        .tab-content {{
+            display: none;
+        }}
+        
+        .tab-content.active {{
+            display: block;
+        }}
+    </style>
+    <script>
+        function showTab(tabName) {{
+            // Hide all tab contents
+            const contents = document.querySelectorAll('.tab-content');
+            contents.forEach(content => content.classList.remove('active'));
+
+            // Remove active class from all buttons
+            const buttons = document.querySelectorAll('.tab-button');
+            buttons.forEach(button => button.classList.remove('active'));
+
+            // Show selected tab content
+            document.getElementById(tabName).classList.add('active');
+
+            // Mark button as active
+            document.querySelector(`[onclick="showTab('${{tabName}}')"]`).classList.add('active');
+        }}
+    </script>
+</head>
+<body>
+    {metadata_section}
+
+    <h1>{html.escape(title)}</h1>
+
+    <div class="amendment-info">
+        <h3>Ändringsförfattning {html.escape(amendment_beteckning)}</h3>
+        <p><strong>Rubrik:</strong> {html.escape(amendment_rubrik)}</p>
+        <p><strong>Ikraft datum:</strong> {html.escape(ikraft_datum)}</p>
+        <p><strong>Genererad:</strong> {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}</p>
+    </div>
+
+    <div class="tab-container">
+        <div class="tab-buttons">
+            <button class="tab-button active" onclick="showTab('diff')">Visa ändringar</button>
+            <button class="tab-button" onclick="showTab('final')">Slutlig version</button>
+        </div>
+
+        <div id="diff" class="tab-content active">
+            <div class="legend">
+                <h3>Förklaring av ändringar</h3>
+                <div class="legend-item">
+                    <span class="legend-color added"></span>
+                    <span>Tillagd text</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color removed"></span>
+                    <span>Borttagen text</span>
+                </div>
+                <div class="legend-item">
+                    <span class="legend-color changed"></span>
+                    <span>Ändrad text</span>
+                </div>
+            </div>
+
+            <div class="diff-container">
+                {diff_table}
+            </div>
+        </div>
+
+        <div id="final" class="tab-content">
+            {amendment_content}
+        </div>
+    </div>
+</body>
+</html>"""
+
+    return combined_html
