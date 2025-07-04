@@ -68,8 +68,8 @@ jobs:
 
     - name: Upload SFS folder to Cloudflare R2
       run: |
-        aws s3 sync SFS/ s3://${{ secrets.R2_BUCKET_NAME }}/sfs/ \
-          --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+        aws s3 sync SFS/ s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs/ \
+          --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
           --delete \
           --cache-control "public, max-age=3600" \
           --content-type "text/html" \
@@ -81,6 +81,6 @@ jobs:
     - name: Upload summary
       run: |
         echo "HTML export completed at $(date)" > upload-summary.txt
-        echo "Files uploaded to Cloudflare R2 bucket: ${{ secrets.R2_BUCKET_NAME }}/sfs/" >> upload-summary.txt
-        aws s3 cp upload-summary.txt s3://${{ secrets.R2_BUCKET_NAME }}/sfs/last-update.txt \
-          --endpoint-url https://${{ secrets.R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
+        echo "Files uploaded to Cloudflare R2 bucket: ${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs/" >> upload-summary.txt
+        aws s3 cp upload-summary.txt s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs/last-update.txt \
+          --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
