@@ -27,8 +27,6 @@ import difflib
 from format_sfs_text_to_md import format_sfs_text, apply_changes_to_sfs_text
 from sort_frontmatter import sort_frontmatter_properties
 from add_pdf_url_to_frontmatter import generate_pdf_url
-from sfs_html_export import create_html_documents
-
 
 
 def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False) -> None:
@@ -959,4 +957,5 @@ def save_to_disk(file_path: Path, content: str) -> None:
 
 
 if __name__ == "__main__":
+    main()
     main()

@@ -14,6 +14,7 @@ from datetime import datetime
 
 # Import required functions from other modules
 from format_sfs_text_to_md import format_sfs_text, apply_changes_to_sfs_text
+from add_pdf_url_to_frontmatter import generate_pdf_url
 
 
 def create_html_documents(data: Dict[str, Any], output_path: Path, verbose: bool = False) -> None:
@@ -174,6 +175,9 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     organisation_data = data.get('organisation', {})
     organisation = organisation_data.get('namn', '') if organisation_data else ''
 
+    # Generate PDF URL
+    pdf_url = generate_pdf_url(beteckning, utfardad_datum, check_exists=False)
+
     # Extract the main text content
     innehall_text = fulltext_data.get('forfattningstext', 'No content available')
     if innehall_text is None:
@@ -254,6 +258,11 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
             <dt>EU-direktiv:</dt>
             <dd property="eli:type_document" resource="http://data.europa.eu/eli/ontology#directive" datatype="xsd:boolean">Ja</dd>"""
 
+        if pdf_url:
+            html_doc += f"""
+            <dt>PDF-fil:</dt>
+            <dd><a href="{html.escape(pdf_url)}" property="eli:is_realized_by" datatype="xsd:anyURI">PDF-fil</a></dd>"""
+
         html_doc += """
         </dl>
     </div>"""
@@ -301,6 +310,11 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
             html_doc += """
             <dt>EU-direktiv:</dt>
             <dd>Ja</dd>"""
+
+        if pdf_url:
+            html_doc += f"""
+            <dt>PDF-fil:</dt>
+            <dd><a href="{html.escape(pdf_url)}">PDF-fil</a></dd>"""
 
         html_doc += """
         </dl>
