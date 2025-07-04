@@ -54,12 +54,32 @@ jobs:
       env:
         PYTHONPATH: ${{ github.workspace }}
 
+    - name: Check required secrets
+      run: |
+        if [ -z "${{ secrets.CLOUDFLARE_R2_ACCESS_KEY_ID }}" ]; then
+          echo "Error: CLOUDFLARE_R2_ACCESS_KEY_ID secret is not set"
+          exit 1
+        fi
+        if [ -z "${{ secrets.CLOUDFLARE_R2_SECRET_ACCESS_KEY }}" ]; then
+          echo "Error: CLOUDFLARE_R2_SECRET_ACCESS_KEY secret is not set"
+          exit 1
+        fi
+        if [ -z "${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}" ]; then
+          echo "Error: CLOUDFLARE_R2_BUCKET_NAME secret is not set"
+          exit 1
+        fi
+        if [ -z "${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}" ]; then
+          echo "Error: CLOUDFLARE_R2_ACCOUNT_ID secret is not set"
+          exit 1
+        fi
+        echo "All required secrets are configured"
+
     - name: Configure credentials for Cloudflare R2
       uses: aws-actions/configure-aws-credentials@v4
       with:
-        aws-access-key-id: ${{ secrets.R2_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.R2_SECRET_ACCESS_KEY }}
-        aws-region: auto
+        aws-access-key-id: ${{ secrets.CLOUDFLARE_R2_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.CLOUDFLARE_R2_SECRET_ACCESS_KEY }}
+        aws-region: auto  # Cloudflare R2 använder auto
 
     - name: Upload SFS folder to Cloudflare R2
       run: |
