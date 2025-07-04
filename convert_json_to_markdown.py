@@ -24,120 +24,249 @@ from sort_frontmatter import sort_frontmatter_properties
 from add_pdf_url_to_frontmatter import generate_pdf_url
 
 
-def format_yaml_value(value: Any) -> str:
-    """Format a value for YAML output, only adding quotes when necessary according to YAML rules."""
-    if value is None:
-        return 'null'
 
-    if isinstance(value, bool):
-        return 'true' if value else 'false'
+def make_document(data: Dict[str, Any], output_dir: Path, year_as_folder: bool = True, output_modes: List[str] = None, verbose: bool = False) -> None:
+    """Create documents by converting JSON to specified output formats and applying amendments.
 
-    if isinstance(value, (int, float)):
-        return str(value)
+    This is the main function for document creation that handles:
+    - File naming and directory structure based on beteckning and year
+    - Different output formats and modes:
+      * "md": Generate markdown files (required for other modes)
+      * "git": Enable Git commits with historical dates during markdown generation
+    - Amendment processing and Git commit creation
 
-    # Convert to string if not already
-    if not isinstance(value, str):
-        value = str(value)
+    Args:
+        data: JSON data for the document
+        output_dir: Directory where output files should be saved
+        year_as_folder: Whether to create year-based subdirectories (default: True)
+        output_modes: List of formats/modes to use (e.g., ["md", "git"]). If None, defaults to ["md"]
+                     Note: "git" mode requires "md" mode to be included as it modifies markdown processing
+        verbose: Whether to show verbose output (default: False)
+    """
 
-    # Empty string needs quotes
-    if not value:
-        return '""'
-
-    # Check if value is a URL - URLs should not be quoted
-    if re.match(r'^https?://', value):
-        return value
-
-    # Check if value needs quotes according to YAML rules
-    needs_quotes = (
-        # Starts with special YAML characters
-        value[0] in '!&*|>@`#%{}[]' or
-        # Contains special characters that could be interpreted as YAML syntax (but not simple dates)
-        (any(char in value for char in ['[', ']', '{', '}', ',', '#', '`', '"', "'", '|', '>', '*', '&', '!', '%', '@']) or
-         (':' in value and not re.match(r'^\d{4}:\d+$', value))) or  # Allow YYYY:NNN format and dates
-        # Looks like a number, boolean, or null
-        value.lower() in ['true', 'false', 'null', 'yes', 'no', 'on', 'off'] or
-        re.match(r'^-?\d+\.?\d*$', value) or  # Numbers
-        re.match(r'^-?\d+\.?\d*e[+-]?\d+$', value.lower()) or  # Scientific notation
-        # Starts or ends with whitespace
-        value != value.strip() or
-        # Contains newlines
-        '\n' in value or '\r' in value or
-        # Starts with special sequences
-        value.startswith(('<<', '---', '...', '- '))
-    )
-
-    if needs_quotes:
-        # Use double quotes and escape any double quotes inside
-        escaped_value = value.replace('\\', '\\\\').replace('"', '\\"')
-        return f'"{escaped_value}"'
-
-    return value
-
-
-def clean_text(text: Optional[str]) -> str:
-    """Clean and format text content."""
-    if not text:
-        return ""
+    # Default to markdown output if no modes specified
+    if output_modes is None:
+        output_modes = ["md"]
     
-    # Remove extra whitespace and normalize line breaks
-    text = re.sub(r'\r\n', '\n', text)
-    text = re.sub(r'\s+', ' ', text).strip()
-    return text
+    # Git mode requires markdown mode to be active
+    if "git" in output_modes and "md" not in output_modes:
+        output_modes.append("md")
+        if verbose:
+            print("Info: Added 'md' mode because 'git' mode requires markdown generation")
+
+    # Extract beteckning for output file naming
+    beteckning = data.get('beteckning', '')
+
+    # Extract year from beteckning (format is typically YYYY:NNN)
+    year_match = re.search(r'(\d{4}):', beteckning)
+    if not year_match:
+        if "md" in output_modes:
+            print(f"Error: Could not extract year from beteckning: {beteckning}")
+        return
+
+    year = year_match.group(1)
+
+    # Determine output directory based on year_as_folder setting
+    if year_as_folder:
+        document_dir = output_dir / year
+        document_dir.mkdir(exist_ok=True)
+    else:
+        document_dir = output_dir
+
+    # Process markdown format if requested
+    if "md" in output_modes:
+        # Create safe filename for markdown
+        safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.md'
+        output_file = document_dir / safe_filename
+
+        # Create markdown document (git mode is enabled if "git" is in output_modes)
+        enable_git = "git" in output_modes
+        _create_markdown_document(data, output_file, enable_git, verbose)
+
+    # TODO: Add support for additional formats here
+    # Example for JSON format:
+    # if "json" in output_modes:
+    #     json_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.json'
+    #     json_file = document_dir / json_filename
+    #     _create_json_document(data, json_file)
+    #
+    # Example for HTML format:
+    # if "html" in output_modes:
+    #     html_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.html'
+    #     html_file = document_dir / html_filename
+    #     _create_html_document(data, html_file)
+    #
+    # Note: "git" is a special output mode that affects markdown generation,
+    # not a separate file format. It controls git commit creation during markdown processing.
 
 
-def clean_rubrik(rubrik: Optional[str]) -> str:
-    """Clean rubrik by removing beteckning in parentheses."""
-    if not rubrik:
-        return ""
+def _create_markdown_document(data: Dict[str, Any], output_file: Path, enable_git: bool = False, verbose: bool = False) -> None:
+    """Internal function to create a markdown document from JSON data."""
 
-    # Remove beteckning pattern in parentheses (e.g., "(1987:1185)")
-    # Pattern matches parentheses containing year:number format
-    cleaned = re.sub(r'\s*\(\d{4}:\d+\)\s*', ' ', rubrik)
-    return clean_text(cleaned)
+    # Get basic markdown content
+    markdown_content = convert_to_markdown(data)
 
+    # Extract metadata for processing
+    beteckning = data.get('beteckning', '')
+    fulltext_data = data.get('fulltext', {})
+    innehall_text = fulltext_data.get('forfattningstext', '')
+    amendments = extract_amendments(data.get('andringsforfattningar', []))
 
-def format_datetime(dt_str: Optional[str]) -> Optional[str]:
-    """Format datetime string to ISO format without timezone."""
-    if not dt_str:
-        return None
-    
+    # Check if document was ignored (create_ignored_markdown_content returns different structure)
+    if "**Automatisk konvertering inte tillgänglig**" in markdown_content:
+        # For ignored documents, just write the content as-is
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(markdown_content)
+        print(f"Created ignored document: {output_file}")
+        return
+
+    # Check for amendment markers and process amendments if they exist
+    has_amendment_markers = re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', innehall_text)
+    if verbose and amendments and not has_amendment_markers:
+        print(f"Warning: No change markers found in {beteckning} but amendments exist.")
+        print(f"Content preview (first 200 chars): {innehall_text[:200]}...")
+        raise ValueError(f"No change markers found in the {beteckning}. Skipping amendments processing.")
+
+    # Apply amendments if they exist
+    if has_amendment_markers and amendments:
+        # Extract the markdown body (everything after the front matter)
+        if markdown_content.startswith('---'):
+            front_matter_end = markdown_content.find('\n---\n', 3)
+            if front_matter_end != -1:
+                front_matter = markdown_content[:front_matter_end + 5]  # Include the closing ---\n
+                markdown_body = markdown_content[front_matter_end + 5:]
+
+                # Apply amendments to the body text only (skip the heading)
+                heading_match = re.match(r'^# [^\n]+\n\n', markdown_body)
+                if heading_match:
+                    heading = heading_match.group(0)
+                    body_text = markdown_body[len(heading):]
+
+                    # Process amendments
+                    processed_text = apply_amendments_to_text(body_text, amendments, enable_git, verbose, output_file)
+
+                    # Reconstruct the full content
+                    markdown_content = front_matter + "\n\n" + heading + processed_text
+                    print(f"Debug: Processed amendments text length for {beteckning}: {len(processed_text)}")
+
+    # Add ikraft_datum to front matter if not in Git mode
+    if not enable_git:
+        ikraft_datum = format_datetime(data.get('ikraftDateTime'))
+        if ikraft_datum:
+            markdown_content = add_ikraft_datum_to_markdown(markdown_content, ikraft_datum)
+            try:
+                # Extract just the front matter part for sorting
+                if markdown_content.startswith('---'):
+                    # Find the end of the front matter
+                    front_matter_end = markdown_content.find('\n---\n', 3)
+                    if front_matter_end != -1:
+                        front_matter = markdown_content[:front_matter_end + 5]  # Include the closing ---\n
+                        rest_of_content = markdown_content[front_matter_end + 5:]
+
+                        # Sort only the front matter
+                        sorted_front_matter = sort_frontmatter_properties(front_matter)
+                        markdown_content = sorted_front_matter + rest_of_content
+            except ValueError as e:
+                print(f"Warning: Could not sort front matter after adding ikraft_datum for {beteckning}: {e}")
+
+    # Debug: Check final markdown content length
+    print(f"Debug: Final markdown content length for {beteckning}: {len(markdown_content)}")
+    if len(markdown_content) < 1000:  # If suspiciously short, show preview
+        print(f"Debug: Content preview because suspiciously short:\n{markdown_content[:500]}...")
+
+    # Write the file
     try:
-        # Parse the datetime and format it as date only
-        if 'T' in dt_str:
-            dt = datetime.fromisoformat(dt_str.split('T')[0])
-        else:
-            dt = datetime.fromisoformat(dt_str)
-        return dt.strftime('%Y-%m-%d')
-    except (ValueError, AttributeError):
-        return dt_str
+        with open(output_file, 'w', encoding='utf-8') as f:
+            f.write(markdown_content)
+        print(f"Created document: {output_file}")
+
+        # Create Git commit if enabled and no amendments were processed
+        if enable_git:
+            import subprocess
+
+            # Get main document metadata
+            rubrik = data.get('rubrik', '')
+            if rubrik:
+                # Clean rubrik by removing beteckning in parentheses
+                rubrik = re.sub(r'\s*\(\d{4}:\d+\)\s*', '', rubrik).strip()
+
+            ikraft_datum = format_datetime(data.get('ikraftDateTime'))
+            utfardad_datum = format_datetime(data.get('fulltext', {}).get('utfardadDateTime'))
+
+            # Only create main commits if there are no amendments (they handle their own commits)
+            if not amendments and utfardad_datum:
+                try:
+                    # First commit: without ikraft_datum in front matter, dated utfardad_datum
+                    commit_message = rubrik if rubrik else f"SFS {beteckning}"
+
+                    # Stage the current file (which doesn't have ikraft_datum yet)
+                    subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
+
+                    # Create first commit with utfardad_datum as date
+                    subprocess.run([
+                        'git', 'commit',
+                        '-m', commit_message,
+                        '--date', utfardad_datum
+                    ], check=True, capture_output=True)
+
+                    print(f"Git commit created: '{commit_message}' dated {utfardad_datum}")
+
+                    # Second commit: add ikraft_datum to front matter if it exists
+                    if ikraft_datum:
+                        # Add ikraft_datum to the existing markdown content
+                        markdown_content_with_ikraft = add_ikraft_datum_to_markdown(markdown_content, ikraft_datum)
+
+                        # Sort front matter only
+                        if markdown_content_with_ikraft.startswith('---'):
+                            front_matter_end = markdown_content_with_ikraft.find('\n---\n', 3)
+                            if front_matter_end != -1:
+                                front_matter = markdown_content_with_ikraft[:front_matter_end + 5]
+                                rest_of_content = markdown_content_with_ikraft[front_matter_end + 5:]
+                                sorted_front_matter = sort_frontmatter_properties(front_matter)
+                                markdown_content_with_ikraft = sorted_front_matter + rest_of_content
+
+                        # Write updated file with ikraft_datum
+                        with open(output_file, 'w', encoding='utf-8') as f:
+                            f.write(markdown_content_with_ikraft)
+
+                        # Stage the updated file
+                        subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
+
+                        # Create second commit with ikraft_datum as date
+                        subprocess.run([
+                            'git', 'commit',
+                            '-m', f"{beteckning} träder i kraft",
+                            '--date', ikraft_datum
+                        ], check=True, capture_output=True)
+
+                        print(f"Git commit created: '{beteckning} träder i kraft' dated {ikraft_datum}")
+
+                except subprocess.CalledProcessError as e:
+                    print(f"Warning: Git commit failed for {beteckning}: {e}")
+                except FileNotFoundError:
+                    print("Warning: Git not found. Skipping Git commits.")
+
+    except IOError as e:
+        print(f"Error writing {output_file}: {e}")
 
 
-def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """Extract and format amendment information."""
-    amendments = []
-    
-    for amendment in andringsforfattningar:
-        amendment_data = {
-            'beteckning': amendment.get('beteckning'),
-            'rubrik': clean_text(amendment.get('rubrik')),
-            'ikraft_datum': format_datetime(amendment.get('ikraftDateTime')),
-            'anteckningar': clean_text(amendment.get('anteckningar'))
-        }
-        
-        # Only include non-empty amendments
-        if amendment_data['beteckning']:
-            amendments.append(amendment_data)
-    
-    return amendments
+def convert_to_markdown(data: Dict[str, Any]) -> str:
+    """Convert JSON data to Markdown content with YAML front matter.
 
+    This function only handles the conversion from JSON to markdown string format.
+    It does NOT apply amendments or handle file operations - use make_document() for that.
 
-def create_markdown_content(data: Dict[str, Any], paragraph_as_header: bool = True, enable_git: bool = False, verbose: bool = False) -> str:
-    """Create Markdown content with YAML front matter from JSON data."""
+    Args:
+        data: JSON data for the document
+
+    Returns:
+        str: Markdown content with YAML front matter
+    """
 
     # Extract main document information
     beteckning = data.get('beteckning', '')
     rubrik_original = data.get('rubrik', '')  # Keep original for main heading
-    rubrik = clean_rubrik(rubrik_original)    # Clean for front matter
+    rubrik = clean_title(rubrik_original)    # Clean for front matter
 
     # Extract dates
     publicerad_datum = format_datetime(data.get('publiceradDateTime'))
@@ -210,7 +339,7 @@ departement: {format_yaml_value(organisation)}
                 yaml_front_matter += f"    ikraft_datum: {format_yaml_value(amendment['ikraft_datum'])}\n"
             if amendment['anteckningar']:
                 yaml_front_matter += f"    anteckningar: {format_yaml_value(amendment['anteckningar'])}\n"
-    
+
     # Generate PDF URL
     try:
         pdf_url = generate_pdf_url(beteckning, utfardad_datum, check_exists=False)
@@ -220,7 +349,7 @@ departement: {format_yaml_value(organisation)}
         print(f"Warning: Could not generate PDF URL for {beteckning}: {e}")
 
     yaml_front_matter += "---\n\n"
-    
+
     # Sort the front matter properties
     try:
         sorted_yaml = sort_frontmatter_properties(yaml_front_matter.rstrip() + '\n')
@@ -228,14 +357,8 @@ departement: {format_yaml_value(organisation)}
     except ValueError as e:
         print(f"Warning: Could not sort front matter for {beteckning}: {e}")
 
-    has_amendment_markers = re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', innehall_text)
-    if verbose and amendments and not has_amendment_markers:
-        print(f"Warning: No change markers found in {beteckning} but amendments exist.")
-        print(f"Content preview (first 200 chars): {innehall_text[:200]}...")
-        raise ValueError(f"No change markers found in the {beteckning}. Skipping amendments processing.")
-
-    # Format the content text before creating the markdown body
-    formatted_text = format_sfs_text(innehall_text, paragraph_as_header)
+    # Format the content text to markdown
+    formatted_text = format_sfs_text(innehall_text)
 
     # Debug: Check if formatting resulted in empty text
     if not formatted_text.strip():
@@ -245,160 +368,198 @@ departement: {format_yaml_value(organisation)}
     else:
         print(f"Debug: Formatted text length for {beteckning}: {len(formatted_text)}")
 
-    # Then apply changes handling based on amendments
-    if has_amendment_markers:
-        processed_text = apply_amendments_to_text(formatted_text, amendments, enable_git, verbose)
-        print(f"Debug: Processed amendments text length for {beteckning}: {len(processed_text)}")
-    else:
-        processed_text = formatted_text
-
     # Create Markdown body
-    markdown_body = f"# {rubrik_original}\n\n" + processed_text
+    markdown_body = f"# {rubrik_original}\n\n" + formatted_text
 
-    # Final debug check
-    final_content = yaml_front_matter + markdown_body
-    print(f"Debug: Final content length for {beteckning}: {len(final_content)}")
+    # Return the complete markdown content
+    return yaml_front_matter + markdown_body
 
-    return final_content
 
-def convert_json_to_markdown(json_file_path: Path, output_dir: Path, year_as_folder: bool, paragraph_as_header: bool = True, enable_git: bool = False, verbose: bool = False) -> None:
-    """Convert a single JSON file to Markdown format."""
+# --- Helper Functions ---
+
+
+def format_yaml_value(value: Any) -> str:
+    """Format a value for YAML output, only adding quotes when necessary according to YAML rules."""
+    if value is None:
+        return 'null'
+
+    if isinstance(value, bool):
+        return 'true' if value else 'false'
+
+    if isinstance(value, (int, float)):
+        return str(value)
+
+    # Convert to string if not already
+    if not isinstance(value, str):
+        value = str(value)
+
+    # Empty string needs quotes
+    if not value:
+        return '""'
+
+    # Check if value is a URL - URLs should not be quoted
+    if re.match(r'^https?://', value):
+        return value
+
+    # Check if value needs quotes according to YAML rules
+    needs_quotes = (
+        # Starts with special YAML characters
+        value[0] in '!&*|>@`#%{}[]' or
+        # Contains special characters that could be interpreted as YAML syntax (but not simple dates)
+        (any(char in value for char in ['[', ']', '{', '}', ',', '#', '`', '"', "'", '|', '>', '*', '&', '!', '%', '@']) or
+         (':' in value and not re.match(r'^\d{4}:\d+$', value))) or  # Allow YYYY:NNN format and dates
+        # Looks like a number, boolean, or null
+        value.lower() in ['true', 'false', 'null', 'yes', 'no', 'on', 'off'] or
+        re.match(r'^-?\d+\.?\d*$', value) or  # Numbers
+        re.match(r'^-?\d+\.?\d*e[+-]?\d+$', value.lower()) or  # Scientific notation
+        # Starts or ends with whitespace
+        value != value.strip() or
+        # Contains newlines
+        '\n' in value or '\r' in value or
+        # Starts with special sequences
+        value.startswith(('<<', '---', '...', '- '))
+    )
+
+    if needs_quotes:
+        # Use double quotes and escape any double quotes inside
+        escaped_value = value.replace('\\', '\\\\').replace('"', '\\"')
+        return f'"{escaped_value}"'
+
+    return value
+
+
+def clean_text(text: Optional[str]) -> str:
+    """Clean and format text content."""
+    if not text:
+        return ""
+
+    # Remove extra whitespace and normalize line breaks
+    text = re.sub(r'\r\n', '\n', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text
+
+
+def clean_title(rubrik: Optional[str]) -> str:
+    """Clean rubrik by removing beteckning in parentheses."""
+    if not rubrik:
+        return ""
+
+    # Remove beteckning pattern in parentheses (e.g., "(1987:1185)")
+    # Pattern matches parentheses containing year:number format
+    cleaned = re.sub(r'\s*\(\d{4}:\d+\)\s*', ' ', rubrik)
+    return clean_text(cleaned)
+
+
+def format_datetime(dt_str: Optional[str]) -> Optional[str]:
+    """Format datetime string to ISO format without timezone."""
+    if not dt_str:
+        return None
     
-    # Read JSON file
     try:
-        with open(json_file_path, 'r', encoding='utf-8') as f:
-            data = json.load(f)
-    except (json.JSONDecodeError, FileNotFoundError) as e:
-        print(f"Error reading {json_file_path}: {e}")
-        return
+        # Parse the datetime and format it as date only
+        if 'T' in dt_str:
+            dt = datetime.fromisoformat(dt_str.split('T')[0])
+        else:
+            dt = datetime.fromisoformat(dt_str)
+        return dt.strftime('%Y-%m-%d')
+    except (ValueError, AttributeError):
+        return dt_str
+
+
+def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Extract and format amendment information."""
+    amendments = []
+
+    for amendment in andringsforfattningar:
+        amendment_data = {
+            'beteckning': amendment.get('beteckning'),
+            'rubrik': clean_text(amendment.get('rubrik')),
+            'ikraft_datum': format_datetime(amendment.get('ikraftDateTime')),
+            'anteckningar': clean_text(amendment.get('anteckningar'))
+        }
+
+        # Only include non-empty amendments
+        if amendment_data['beteckning']:
+            amendments.append(amendment_data)
     
-    # Create Markdown content
-    markdown_content = create_markdown_content(data, paragraph_as_header, enable_git, verbose)
+    return amendments
 
-    # Add ikraft_datum to front matter if not in Git mode (Git mode handles this separately)
-    if not enable_git:
-        ikraft_datum = format_datetime(data.get('ikraftDateTime'))
-        if ikraft_datum:
-            markdown_content = add_ikraft_datum_to_markdown(markdown_content, ikraft_datum)
-            try:
-                # Extract just the front matter part for sorting
-                if markdown_content.startswith('---'):
-                    # Find the end of the front matter
-                    front_matter_end = markdown_content.find('\n---\n', 3)
-                    if front_matter_end != -1:
-                        front_matter = markdown_content[:front_matter_end + 5]  # Include the closing ---\n
-                        rest_of_content = markdown_content[front_matter_end + 5:]
 
-                        # Sort only the front matter
-                        sorted_front_matter = sort_frontmatter_properties(front_matter)
-                        markdown_content = sorted_front_matter + rest_of_content
-            except ValueError as e:
-                print(f"Warning: Could not sort front matter after adding ikraft_datum for {data.get('beteckning', 'unknown')}: {e}")
+def add_ikraft_datum_to_markdown(markdown_content: str, ikraft_datum: str) -> str:
+    """
+    Add ikraft_datum to the YAML front matter of existing markdown content.
+    Simply inserts the field before the closing --- of the front matter.
+    """
+    # Find the position of the closing --- and insert before it
+    closing_marker = '\n---\n'
+    if closing_marker in markdown_content:
+        before_closing, after_closing = markdown_content.split(closing_marker, 1)
+        ikraft_line = f"ikraft_datum: {format_yaml_value(ikraft_datum)}"
+        return f"{before_closing}\n{ikraft_line}\n---\n{after_closing}"
 
-    # Debug: Check final markdown content length
-    print(f"Debug: Final markdown content length for {data.get('beteckning', 'unknown')}: {len(markdown_content)}")
-    if len(markdown_content) < 1000:  # If suspiciously short, show preview
-        print(f"Debug: Content preview because suspiciously short:\n{markdown_content[:500]}...")
+    # Fallback: return original content if no proper front matter found
+    return markdown_content
 
-    # Create output filename based on beteckning
-    beteckning = data.get('beteckning', json_file_path.stem)
 
-    # Extract year from beteckning (format is typically YYYY:NNN)
-    year_match = re.search(r'(\d{4}):', beteckning)
-    if not year_match:
-        print(f"Error: Could not extract year from beteckning: {beteckning}")
-        return
+def ignore_rules(innehall_text: str) -> tuple[bool, str]:
+    """
+    Kontrollera om dokumentet ska ignoreras baserat på specifika regler.
 
-    year = year_match.group(1)
+    Args:
+        data: JSON-data för dokumentet
+        innehall_text: Textinnehållet från dokumentet
 
-    if year_as_folder:
-        # Create a subdirectory for each document based on year
-        document_dir = output_dir / year
-        document_dir.mkdir(exist_ok=True)
+    Returns:
+        tuple: (should_ignore: bool, reason: str)
+               - should_ignore: True om dokumentet ska ignoreras
+               - reason: Förklaring till varför dokumentet ignorerades
+    """
+    # Regel 1: Kontrollera om texten innehåller "AVDELNING"
+    if "AVDELNING" in innehall_text.upper():
+        return True, "Dokumentet innehåller AVDELNING-struktur som inte stöds för automatisk konvertering."
+
+    # Lägg till fler regler här vid behov
+
+    return False, ""
+
+
+def create_ignored_markdown_content(data: Dict[str, Any], reason: str) -> str:
+    """
+    Skapa förenklad markdown för ignorerade dokument genom att återanvända YAML-generering.
+
+    Args:
+        data: JSON-data för dokumentet
+        reason: Förklaring till varför dokumentet ignorerades
+
+    Returns:
+        str: Förenklad markdown-innehåll med samma front matter som vanliga dokument
+    """
+    # Generate the normal markdown content to get the front matter
+    normal_markdown = convert_to_markdown(data)
+    
+    # Extract the front matter (everything up to and including the second ---)
+    front_matter_end = normal_markdown.find('\n---\n', 3)
+    if front_matter_end == -1:
+        # Fallback if no proper front matter found
+        front_matter = "---\n---\n\n"
     else:
-        document_dir = output_dir
+        front_matter = normal_markdown[:front_matter_end + 5]  # Include the closing ---\n
 
-    safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.md'
-    output_file = document_dir / safe_filename
-    
-    # Write Markdown file
-    try:
-        with open(output_file, 'w', encoding='utf-8') as f:
-            f.write(markdown_content)
-        print(f"Converted {json_file_path.name} -> {output_file}")
+    # Get the original rubrik for the heading
+    rubrik_original = data.get('rubrik', '')
 
-        # Create Git commit if enabled and no amendments were processed
-        if enable_git:
-            import subprocess
+    # Create simplified body with main heading and explanation
+    markdown_body = f"# {rubrik_original}\n\n"
+    markdown_body += "**Automatisk konvertering inte tillgänglig**\n\n"
+    markdown_body += f"{reason}\n\n"
+    markdown_body += "För att läsa det fullständiga dokumentet, besök den officiella versionen på "
+    markdown_body += "[svenskforfattningssamling.se](https://svenskforfattningssamling.se/) "
+    markdown_body += "eller ladda ner PDF:en från länken i front matter ovan.\n"
 
-            # Get main document metadata
-            rubrik = data.get('rubrik', '')
-            if rubrik:
-                # Clean rubrik by removing beteckning in parentheses
-                rubrik = re.sub(r'\s*\(\d{4}:\d+\)\s*', '', rubrik).strip()
-
-            ikraft_datum = format_datetime(data.get('ikraftDateTime'))
-            utfardad_datum = format_datetime(data.get('fulltext', {}).get('utfardadDateTime'))
-            amendments = data.get('andringsforfattningar', [])
-
-            # Only create main commits if there are no amendments (they handle their own commits)
-            if not amendments and utfardad_datum:
-                try:
-                    # First commit: without ikraft_datum in front matter, dated utfardad_datum
-                    commit_message = rubrik if rubrik else f"SFS {beteckning}"
-
-                    # Stage the current file (which doesn't have ikraft_datum yet)
-                    subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
-
-                    # Create first commit with utfardad_datum as date
-                    subprocess.run([
-                        'git', 'commit',
-                        '-m', commit_message,
-                        '--date', utfardad_datum
-                    ], check=True, capture_output=True)
-
-                    print(f"Git commit created: '{commit_message}' dated {utfardad_datum}")
-
-                    # Second commit: add ikraft_datum to front matter if it exists
-                    if ikraft_datum:
-                        # Add ikraft_datum to the existing markdown content
-                        markdown_content_with_ikraft = add_ikraft_datum_to_markdown(markdown_content, ikraft_datum)
-
-                        # Sort front matter only
-                        if markdown_content_with_ikraft.startswith('---'):
-                            front_matter_end = markdown_content_with_ikraft.find('\n---\n', 3)
-                            if front_matter_end != -1:
-                                front_matter = markdown_content_with_ikraft[:front_matter_end + 5]
-                                rest_of_content = markdown_content_with_ikraft[front_matter_end + 5:]
-                                sorted_front_matter = sort_frontmatter_properties(front_matter)
-                                markdown_content_with_ikraft = sorted_front_matter + rest_of_content
-
-                        # Write updated file with ikraft_datum
-                        with open(output_file, 'w', encoding='utf-8') as f:
-                            f.write(markdown_content_with_ikraft)
-
-                        # Stage the updated file
-                        subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
-
-                        # Create second commit with ikraft_datum as date
-                        subprocess.run([
-                            'git', 'commit',
-                            '-m', f"{beteckning} träder i kraft",
-                            '--date', ikraft_datum
-                        ], check=True, capture_output=True)
-
-                        print(f"Git commit created: '{beteckning} träder i kraft' dated {ikraft_datum}")
-
-                except subprocess.CalledProcessError as e:
-                    print(f"Warning: Git commit failed for {beteckning}: {e}")
-                except FileNotFoundError:
-                    print("Warning: Git not found. Skipping Git commits.")
-
-    except IOError as e:
-        print(f"Error writing {output_file}: {e}")
+    return front_matter + "\n" + markdown_body
 
 
-def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable_git: bool = False, verbose: bool = False) -> str:
+def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable_git: bool = False, verbose: bool = False, output_file: Path = None) -> str:
     """
     Apply changes to SFS text based on amendment dates.
 
@@ -449,7 +610,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
         parts = re.split(split_pattern, overgangs_content)
 
         current_beteckning = None
-        for i, part in enumerate(parts):
+        for part in parts:
             part = part.strip()
             if not part:
                 continue
@@ -588,7 +749,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
 
                 print(f"{'='*60}\n")
 
-            if enable_git:
+            if enable_git and output_file:
                 try:
                     # Throw error if rubrik is empty
                     if not rubrik:
@@ -597,8 +758,8 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
                     # Create Git commit with amendment rubrik and ikraft_datum as date
                     commit_message = rubrik
 
-                    # Stage all changes
-                    subprocess.run(['git', 'add', '.'], check=True, capture_output=True)
+                    # Stage the specific file
+                    subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
 
                     # Create commit with specific date
                     subprocess.run([
@@ -616,22 +777,6 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
 
     return processed_text
 
-
-def add_ikraft_datum_to_markdown(markdown_content: str, ikraft_datum: str) -> str:
-    """
-    Add ikraft_datum to the YAML front matter of existing markdown content.
-    Simply inserts the field before the closing --- of the front matter.
-    """
-    # Find the position of the closing --- and insert before it
-    closing_marker = '\n---\n'
-    if closing_marker in markdown_content:
-        before_closing, after_closing = markdown_content.split(closing_marker, 1)
-        ikraft_line = f"ikraft_datum: {format_yaml_value(ikraft_datum)}"
-        return f"{before_closing}\n{ikraft_line}\n---\n{after_closing}"
-
-    # Fallback: return original content if no proper front matter found
-    return markdown_content
-
 def main():
     """Main function to process all JSON files in the json directory."""
     
@@ -645,12 +790,25 @@ def main():
     parser.add_argument('--filter', help='Filter files by year (YYYY) or specific beteckning (YYYY:NNN). Can be comma-separated list.')
     parser.add_argument('--no-year-folder', dest='year_folder', action='store_false',
                         help='Do not create year-based subdirectories for documents')
-    parser.add_argument('--enable-git', action='store_true',
-                        help='Create Git commits for each amendment with their ikraft_datum as commit date')
     parser.add_argument('--verbose', action='store_true',
                         help='Show detailed diff output for each amendment processing')
+    parser.add_argument('--formats', dest='output_modes', default='md',
+                        help='Output formats to generate (comma-separated). Currently supported: md, git. Default: md. Use "git" to enable Git commits with historical dates.')
     parser.set_defaults(year_folder=True)
     args = parser.parse_args()
+
+    # Parse output modes
+    output_modes = [mode.strip() for mode in args.output_modes.split(',') if mode.strip()]
+    if not output_modes:
+        output_modes = ['md']  # Default to markdown
+
+    # Validate output modes
+    supported_formats = ['md', 'git']
+    invalid_formats = [mode for mode in output_modes if mode not in supported_formats]
+    if invalid_formats:
+        print(f"Error: Unsupported output formats: {', '.join(invalid_formats)}")
+        print(f"Supported formats: {', '.join(supported_formats)}")
+        return
 
     # Define paths
     script_dir = Path(__file__).parent
@@ -700,9 +858,18 @@ def main():
     
     # Convert each JSON file
     for json_file in json_files:
-        convert_json_to_markdown(json_file, output_dir, args.year_folder, True, args.enable_git, args.verbose)
+        # Read JSON file
+        try:
+            with open(json_file, 'r', encoding='utf-8') as f:
+                data = json.load(f)
+        except (json.JSONDecodeError, FileNotFoundError) as e:
+            print(f"Error reading {json_file}: {e}")
+            continue
+
+        # Use make_document to create documents in specified formats
+        make_document(data, output_dir, args.year_folder, output_modes, args.verbose)
     
-    print(f"\nConversion complete! Markdown files saved to {output_dir}")
+    print(f"\nConversion complete! Files saved to {output_dir} in formats: {', '.join(output_modes)}")
 
 
 def filter_json_files(json_files: List[Path], filter_criteria: str) -> List[Path]:
@@ -746,119 +913,5 @@ def filter_json_files(json_files: List[Path], filter_criteria: str) -> List[Path
     return filtered_files
 
 
-def ignore_rules(innehall_text: str) -> tuple[bool, str]:
-    """
-    Kontrollera om dokumentet ska ignoreras baserat på specifika regler.
-
-    Args:
-        data: JSON-data för dokumentet
-        innehall_text: Textinnehållet från dokumentet
-
-    Returns:
-        tuple: (should_ignore: bool, reason: str)
-               - should_ignore: True om dokumentet ska ignoreras
-               - reason: Förklaring till varför dokumentet ignorerades
-    """
-    # Regel 1: Kontrollera om texten innehåller "AVDELNING"
-    if "AVDELNING" in innehall_text.upper():
-        return True, "Dokumentet innehåller AVDELNING-struktur som inte stöds för automatisk konvertering."
-
-    # Lägg till fler regler här vid behov
-
-    return False, ""
-
-
-def create_ignored_markdown_content(data: Dict[str, Any], reason: str) -> str:
-    """
-    Skapa förenklad markdown för ignorerade dokument med endast front matter och förklaring.
-
-    Args:
-        data: JSON-data för dokumentet
-        reason: Förklaring till varför dokumentet ignorerades
-
-    Returns:
-        str: Förenklad markdown-innehåll
-    """
-    # Extract basic document information
-    beteckning = data.get('beteckning', '')
-    rubrik_original = data.get('rubrik', '')  # Keep original for main heading
-    rubrik = clean_rubrik(rubrik_original)    # Clean for front matter
-
-    # Extract dates
-    publicerad_datum = format_datetime(data.get('publiceradDateTime'))
-    fulltext_data = data.get('fulltext', {})
-    utfardad_datum = format_datetime(fulltext_data.get('utfardadDateTime'))
-
-    # Extract other metadata
-    forarbeten = clean_text(data.get('forarbeten', ''))
-    celex_nummer = data.get('celexnummer')
-    eu_direktiv = data.get('eUdirektiv', False)
-
-    # Extract organization information
-    organisation_data = data.get('organisation', {})
-    organisation = organisation_data.get('namn', '') if organisation_data else ''
-
-    # Extract amendments
-    amendments = extract_amendments(data.get('andringsforfattningar', []))
-
-    # Create YAML front matter (same as regular processing)
-    yaml_front_matter = f"""---
-beteckning: {format_yaml_value(beteckning)}
-rubrik: {format_yaml_value(rubrik)}
-departement: {format_yaml_value(organisation)}
-"""
-
-    # Add dates if they exist
-    if publicerad_datum:
-        yaml_front_matter += f"publicerad_datum: {format_yaml_value(publicerad_datum)}\n"
-    if utfardad_datum:
-        yaml_front_matter += f"utfardad_datum: {format_yaml_value(utfardad_datum)}\n"
-
-    # Add other metadata
-    if forarbeten:
-        yaml_front_matter += f"forarbeten: {format_yaml_value(forarbeten)}\n"
-    if celex_nummer:
-        yaml_front_matter += f"celex: {format_yaml_value(celex_nummer)}\n"
-
-    # Add eu_direktiv only if it's true
-    if eu_direktiv:
-        yaml_front_matter += f"eu_direktiv: {format_yaml_value(eu_direktiv)}\n"
-
-    # Add amendments if they exist
-    if amendments:
-        yaml_front_matter += "andringsforfattningar:\n"
-        for amendment in amendments:
-            yaml_front_matter += f"  - beteckning: {amendment['beteckning']}\n"
-            if amendment['rubrik']:
-                yaml_front_matter += f"    rubrik: {format_yaml_value(amendment['rubrik'])}\n"
-            if amendment['ikraft_datum']:
-                yaml_front_matter += f"    ikraft_datum: {format_yaml_value(amendment['ikraft_datum'])}\n"
-            if amendment['anteckningar']:
-                yaml_front_matter += f"    anteckningar: {format_yaml_value(amendment['anteckningar'])}\n"
-
-    # Generate PDF URL
-    try:
-        pdf_url = generate_pdf_url(beteckning, utfardad_datum, check_exists=False)
-        if pdf_url:
-            yaml_front_matter += f"pdf_url: {format_yaml_value(pdf_url)}\n"
-    except (ValueError, TypeError, AttributeError) as e:
-        print(f"Warning: Could not generate PDF URL for {beteckning}: {e}")
-
-    yaml_front_matter += "---\n\n"
-
-    # Sort the front matter properties
-    try:
-        sorted_yaml = sort_frontmatter_properties(yaml_front_matter.rstrip() + '\n')
-        yaml_front_matter = sorted_yaml + "\n\n"
-    except ValueError as e:
-        print(f"Warning: Could not sort front matter for {beteckning}: {e}")
-
-    # Create simplified body with main heading and explanation
-    markdown_body = f"# {rubrik_original}\n\n"
-    markdown_body += f"**Automatisk konvertering inte tillgänglig**\n\n"
-    markdown_body += f"{reason}\n\n"
-    markdown_body += f"För att läsa det fullständiga dokumentet, besök den officiella versionen på "
-    markdown_body += f"[svenskforfattningssamling.se](https://svenskforfattningssamling.se/) "
-    markdown_body += f"eller ladda ner PDF:en från länken i front matter ovan.\n"
-
-    return yaml_front_matter + markdown_body
+if __name__ == "__main__":
+    main()
