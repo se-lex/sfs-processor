@@ -246,7 +246,7 @@ Efter att JSON-filerna sparats kan de bearbetas med sfs_processor.py:
     print(f"Totalt författningar: {len(documents)}")
     print(f"Lyckade sparningar: {successful_saves}")
     print(f"Misslyckade sparningar: {failed_saves}")
-    
+
     if successful_saves > 0:
         print(f"JSON-filer sparade i: {output_dir.absolute()}")
         print("\nFör att konvertera JSON-filerna till Markdown, kör:")

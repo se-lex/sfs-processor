@@ -29,11 +29,17 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run fetch script
+    - name: Fetch JSON from from beta.rkrattsbaser.gov.se
       run: |
-        python fetch_new_sfs_documents.py --days 30 --output SFS
+        python fetch_new_sfs_documents.py --days 30 --output sfs_json
       env:
         # Lägg till API-nycklar eller andra secrets här om behövs
+        PYTHONPATH: ${{ github.workspace }}
+
+    - name: Process JSON files to Markdown files
+      run: |
+        python sfs_processor.py --input sfs_json --output SFS --formats md
+      env:
         PYTHONPATH: ${{ github.workspace }}
 
     - name: Configure Git
