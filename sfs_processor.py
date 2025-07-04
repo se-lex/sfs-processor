@@ -1201,3 +1201,7 @@ def _create_ignored_html_content(data: Dict[str, Any], reason: str) -> str:
     </div>
 </body>
 </html>"""
+
+
+if __name__ == "__main__":
+    main()
