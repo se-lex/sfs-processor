@@ -204,37 +204,9 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     # Convert markdown-formatted text to HTML
     html_content = markdown_to_html(formatted_text)
 
-    # Create HTML document
-    if eli_format:
-        html_doc = f"""<!DOCTYPE html>
-<html lang="sv"
-      prefix="og: http://ogp.me/ns# eli: http://data.europa.eu/eli/ontology# iana: http://www.iana.org/">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{html.escape(rubrik_original)}</title>"""
-    else:
-        html_doc = f"""<!DOCTYPE html>
-<html lang="sv">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{html.escape(rubrik_original)}</title>"""
-
-    # Continue with common styles
-    html_doc += """
-    <style>
-        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
-        .metadata { background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
-        .metadata dt { font-weight: bold; }
-        .metadata dd { margin-left: 20px; margin-bottom: 5px; }
-        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
-        h2 { color: #34495e; border-bottom: 1px solid #bdc3c7; padding-bottom: 5px; }
-        h3 { color: #34495e; }
-        h4 { color: #34495e; }
-    </style>
-</head>
-<body>"""
+    # Create HTML document with navbar integration
+    html_doc = create_html_head(rubrik_original, beteckning, eli_format)
+    html_doc += "\n<body>"
 
     # Use different metadata format for ELI vs regular HTML
     if eli_format:
@@ -392,19 +364,14 @@ def create_ignored_html_content(data: Dict[str, Any], reason: str) -> str:
         str: HTML content for ignored document
     """
     rubrik_original = data.get('rubrik', '')
+    beteckning = data.get('beteckning', '')
 
-    return f"""<!DOCTYPE html>
-<html lang="sv">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{html.escape(rubrik_original)}</title>
-    <style>
-        body {{ font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }}
-        .warning {{ background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 5px; margin-bottom: 20px; }}
-        h1 {{ color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }}
-    </style>
-</head>
+    # Additional styles for ignored documents
+    ignored_styles = """
+        .warning { background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 5px; margin-bottom: 20px; }"""
+
+    html_doc = create_html_head(rubrik_original, beteckning, additional_styles=ignored_styles)
+    html_doc += f"""
 <body>
     <h1>{html.escape(rubrik_original)}</h1>
 
@@ -416,6 +383,8 @@ def create_ignored_html_content(data: Dict[str, Any], reason: str) -> str:
     </div>
 </body>
 </html>"""
+
+    return html_doc
 
 
 def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendment_beteckning: str, amendment_rubrik: str, ikraft_datum: str) -> str:
@@ -480,6 +449,10 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
     title_match = re.search(r'<title>(.*?)</title>', amendment_html)
     title = title_match.group(1) if title_match else "Ändringsförfattning"
 
+    # Extract beteckning for navbar
+    beteckning_match = re.search(r'Beteckning:</dt>\s*<dd[^>]*>([^<]+)</dd>', amendment_html)
+    beteckning = beteckning_match.group(1) if beteckning_match else amendment_beteckning
+
     # Create the combined HTML document
     combined_html = f"""<!DOCTYPE html>
 <html lang="sv">
@@ -487,6 +460,7 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{html.escape(title)} - Med ändringar</title>
+    <script src="https://swebar.netlify.app/navbar.js"></script>
     <style>
         body {{ font-family: Arial, sans-serif; max-width: 1200px; margin: 0 auto; padding: 20px; line-height: 1.6; }}
         .metadata {{ background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; }}
@@ -652,6 +626,13 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
             // Mark button as active
             document.querySelector(`[onclick="showTab('${{tabName}}')"]`).classList.add('active');
         }}
+
+        document.addEventListener('DOMContentLoaded', function() {{
+            if (typeof SwedacNavbar !== 'undefined') {{
+                SwedacNavbar.setHeader("SFS");
+                SwedacNavbar.setHeaderChild("{html.escape(beteckning)}");
+            }}
+        }});
     </script>
 </head>
 <body>
@@ -702,3 +683,59 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
 </html>"""
 
     return combined_html
+
+
+def create_html_head(title: str, beteckning: str, eli_format: bool = False, additional_styles: str = "", additional_scripts: str = "") -> str:
+    """Create HTML head section with navbar integration.
+
+    Args:
+        title: Page title
+        beteckning: Document beteckning for navbar
+        eli_format: Whether to include ELI RDFa prefixes
+        additional_styles: Additional CSS styles to include
+        additional_scripts: Additional JavaScript to include
+
+    Returns:
+        str: Complete HTML head section
+    """
+    # Only handle the html tag and doctype here
+    if eli_format:
+        head_start = """<!DOCTYPE html>\n<html lang=\"sv\"\n      prefix=\"og: http://ogp.me/ns# eli: http://data.europa.eu/eli/ontology# iana: http://www.iana.org/\">\n"""
+    else:
+        head_start = """<!DOCTYPE html>\n<html lang=\"sv\">\n"""
+
+    # Common base styles
+    base_styles = """
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 800px; margin: 0 auto; padding: 20px; line-height: 1.6; }
+        .metadata { background-color: #f5f5f5; padding: 15px; border-radius: 5px; margin-bottom: 20px; }
+        .metadata dt { font-weight: bold; }
+        .metadata dd { margin-left: 20px; margin-bottom: 5px; }
+        h1 { color: #2c3e50; border-bottom: 2px solid #3498db; padding-bottom: 10px; }
+        h2 { color: #34495e; border-bottom: 1px solid #bdc3c7; padding-bottom: 5px; }
+        h3 { color: #34495e; }
+        h4 { color: #34495e; }"""
+    if additional_styles:
+        base_styles += additional_styles
+    base_styles += """
+    </style>"""
+
+    # Navbar initialization script
+    navbar_script = f"""
+    <script src=\"https://swebar.netlify.app/navbar.js\"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {{
+            if (typeof SwedacNavbar !== 'undefined') {{
+                SwedacNavbar.setHeader(\"SFS\");
+                SwedacNavbar.setHeaderChild(\"{html.escape(beteckning)}\");
+            }}
+        }});"""
+    if additional_scripts:
+        navbar_script += additional_scripts
+    navbar_script += """
+    </script>"""
+
+    # Build the head section
+    head = f"<head>\n    <meta charset=\"UTF-8\">\n    <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0\">\n    <title>{html.escape(title)}</title>\n{navbar_script}\n{base_styles}\n</head>"
+
+    return head_start + head
