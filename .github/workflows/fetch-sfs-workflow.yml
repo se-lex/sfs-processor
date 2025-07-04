@@ -48,12 +48,15 @@ jobs:
         git config --local user.name "GitHub Action"
 
     - name: Commit and push changes
+      id: commit_changes
       run: |
-        git add SFS/
+        git add SFS/ sfs_json/
         if git diff --staged --quiet; then
           echo "Inga nya filer att committa"
+          echo "has_changes=false" >> $GITHUB_OUTPUT
         else
           git commit -m "Automatisk uppdatering av SFS-författningar $(date +'%Y-%m-%d')"
+          echo "has_changes=true" >> $GITHUB_OUTPUT
           CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
           if [ "$CURRENT_BRANCH" = "main" ]; then
             echo "Hoppar över push eftersom vi är på main-branchen"
@@ -61,3 +64,15 @@ jobs:
             git push
           fi
         fi
+
+    - name: Trigger HTML export workflow
+      if: steps.commit_changes.outputs.has_changes == 'true'
+      uses: actions/github-script@v6
+      with:
+        script: |
+          github.rest.actions.createWorkflowDispatch({
+            owner: context.repo.owner,
+            repo: context.repo.repo,
+            workflow_id: 'html-export-workflow.yml',
+            ref: context.ref
+          })

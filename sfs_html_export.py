@@ -17,7 +17,7 @@ from format_sfs_text_to_md import format_sfs_text, apply_changes_to_sfs_text
 from add_pdf_url_to_frontmatter import generate_pdf_url
 
 
-def create_html_documents(data: Dict[str, Any], output_path: Path, verbose: bool = False) -> None:
+def create_html_documents(data: Dict[str, Any], output_path: Path) -> None:
     """Create HTML documents from JSON data.
 
     Creates base document and separate documents for each amendment.
@@ -25,7 +25,6 @@ def create_html_documents(data: Dict[str, Any], output_path: Path, verbose: bool
     Args:
         data: JSON data containing document information
         output_path: Path to the output directory (folder)
-        verbose: Whether to show verbose output (default: False) - currently unused
     """
     # Import required functions (avoiding circular imports)
     from sfs_processor import extract_amendments, save_to_disk
@@ -72,7 +71,7 @@ def create_html_documents(data: Dict[str, Any], output_path: Path, verbose: bool
             print(f"Created HTML amendment document with diff: {amendment_file}")
 
 
-def create_eli_html_documents(data: Dict[str, Any], output_path: Path, verbose: bool = False) -> None:
+def create_eli_html_documents(data: Dict[str, Any], output_path: Path) -> None:
     """Create ELI-formatted HTML documents for SFS documents.
 
     Creates HTML documents in ELI directory structure: /eli/sfs/{YEAR}/{lopnummer}
@@ -80,7 +79,6 @@ def create_eli_html_documents(data: Dict[str, Any], output_path: Path, verbose: 
     Args:
         data: JSON data containing document information
         output_path: Base path for ELI output (e.g., /eli)
-        verbose: Whether to show verbose output (default: False) - currently unused
     """
     # Import required functions (avoiding circular imports)
     from sfs_processor import extract_amendments, save_to_disk
