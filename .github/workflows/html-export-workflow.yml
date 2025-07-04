@@ -75,12 +75,12 @@ jobs:
         fi
         echo "All required secrets are configured"
 
-    - name: Configure credentials for Cloudflare R2
-      uses: aws-actions/configure-aws-credentials@v3
-      with:
-        aws-access-key-id: ${{ secrets.CLOUDFLARE_R2_ACCESS_KEY_ID }}
-        aws-secret-access-key: ${{ secrets.CLOUDFLARE_R2_SECRET_ACCESS_KEY }}
-        aws-region: auto  # Cloudflare R2 använder auto
+    - name: Configure AWS CLI for Cloudflare R2
+      run: |
+        aws configure set aws_access_key_id ${{ secrets.CLOUDFLARE_R2_ACCESS_KEY_ID }}
+        aws configure set aws_secret_access_key ${{ secrets.CLOUDFLARE_R2_SECRET_ACCESS_KEY }}
+        aws configure set region us-east-1
+        aws configure set output json
 
     - name: Upload SFS folder to Cloudflare R2
       run: |
@@ -92,7 +92,7 @@ jobs:
           --exclude "*.md" \
           --include "*.html"
       env:
-        AWS_DEFAULT_REGION: auto
+        AWS_DEFAULT_REGION: us-east-1
 
     - name: Upload summary
       run: |
