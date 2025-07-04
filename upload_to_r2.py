@@ -60,7 +60,7 @@ def configure_aws_cli():
     print("✓ AWS CLI konfigurerad")
     return True
 
-def upload_sfs_folder(output_base_dir="SFS"):
+def upload_sfs_folder(output_base_dir="sfs"):
     """Ladda upp SFS-mappen till Cloudflare R2"""
     bucket_name = os.getenv('CLOUDFLARE_R2_BUCKET_NAME')
     account_id = os.getenv('CLOUDFLARE_R2_ACCOUNT_ID')
@@ -77,12 +77,13 @@ def upload_sfs_folder(output_base_dir="SFS"):
     print(f"Laddar upp {output_base_dir}-mappen ({file_count} HTML-filer)...")
     
     cmd = [
-        'aws', 's3', 'sync', f'{output_base_dir}/', f's3://{bucket_name}/sfs/',
+        'aws', 's3', 'sync', f'{output_base_dir}/', f's3://{bucket_name}/',
         '--endpoint-url', endpoint_url,
         '--delete',
         '--cache-control', 'public, max-age=3600',
         '--content-type', 'text/html',
         '--exclude', '*.md',
+        '--exclude', '.DS_Store',
         '--include', '*.html',
         '--cli-read-timeout', '0',
         '--cli-connect-timeout', '60'
@@ -223,7 +224,7 @@ def upload_summary():
     
     # Skapa sammanfattning
     summary_content = f"""HTML export completed at {datetime.datetime.now().isoformat()}
-Files uploaded to Cloudflare R2 bucket: {bucket_name}/sfs/
+Files uploaded to Cloudflare R2 bucket: {bucket_name}/
 Index pages uploaded: index.html (30 senaste), latest.html (10 senaste)
 Upload performed locally via upload_to_r2.py script
 """
@@ -234,7 +235,7 @@ Upload performed locally via upload_to_r2.py script
     
     # Ladda upp sammanfattning
     cmd = [
-        'aws', 's3', 'cp', 'upload-summary.txt', f's3://{bucket_name}/sfs/last-update.txt',
+        'aws', 's3', 'cp', 'upload-summary.txt', f's3://{bucket_name}/last-update.txt',
         '--endpoint-url', endpoint_url
     ]
     
@@ -273,7 +274,6 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Exempel:
-  python upload_to_r2.py                                    # Ladda upp från SFS/ mappen
   python upload_to_r2.py --output-base-dir /path/to/export  # Ladda upp från specifik mapp
         """
     )
@@ -309,7 +309,10 @@ Exempel:
     print()
     success = True
     
-    if not upload_sfs_folder(args.output_base_dir):
+    # Skapa korrekt sökväg till sfs-mappen
+    sfs_path = str(Path(args.output_base_dir) / "sfs") if args.output_base_dir else "sfs"
+
+    if not upload_sfs_folder(sfs_path):
         success = False
     
     if not upload_index_pages(args.output_base_dir):
