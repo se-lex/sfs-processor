@@ -144,7 +144,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
     if verbose and amendments and not has_amendment_markers:
         print(f"Varning: Inga ändringsmarkeringar hittades i {beteckning} men ändringar finns.")
         print(f"Innehållsförhandsvisning (första 200 tecken): {innehall_text[:200]}...")
-        raise ValueError(f"Inga ändringsmarkeringar hittades i {beteckning}. Hoppar över ändringsbearbetning.")
+        print(f"Skapar dokument utan ändringsbearbetning (övergångsbestämmelser bevaras från originaltext).")
 
     # Apply amendments if they exist
     if has_amendment_markers and amendments:
@@ -685,13 +685,14 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
 
     processed_text = text
 
+    # Parse övergångsbestämmelser early to have it available
+    overgangs_dict = parse_overgangsbestammelser(processed_text, amendments)
+
     # Check if there are any markers for the amendments in the text
     if not re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', processed_text):
         print("Varning: Inga ändringsmarkeringar hittades i texten. Hoppar över bearbetning av ändringar.")
+        # Even without amendments, return the text as-is (övergångsbestämmelser already preserved in original text)
         return text
-
-    # Parse övergångsbestämmelser early to have it available
-    overgangs_dict = parse_overgangsbestammelser(processed_text, amendments)
 
     # Clear content under Övergångsbestämmelser heading but keep the heading itself
     overgangs_match = re.search(r'(### Övergångsbestämmelser\s*\n\n).*?(?=\n### |\n## |\Z)', processed_text, re.DOTALL)
