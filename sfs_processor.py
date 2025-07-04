@@ -214,14 +214,18 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
                 # Stage the current file (which doesn't have ikraft_datum yet)
                 subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
 
-                # Create first commit with utfardad_datum as date
-                subprocess.run([
-                    'git', 'commit',
-                    '-m', commit_message,
-                    '--date', utfardad_datum
-                ], check=True, capture_output=True)
-
-                print(f"Git commit created: '{commit_message}' dated {utfardad_datum}")
+                # Check if there are any changes to commit
+                result = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True)
+                if result.returncode != 0:  # Non-zero means there are changes
+                    # Create first commit with utfardad_datum as date
+                    subprocess.run([
+                        'git', 'commit',
+                        '-m', commit_message,
+                        '--date', utfardad_datum
+                    ], check=True, capture_output=True)
+                    print(f"Git commit created: '{commit_message}' dated {utfardad_datum}")
+                else:
+                    print(f"No changes to commit for first commit of {beteckning}")
 
                 # Second commit: add ikraft_datum to front matter if it exists
                 if ikraft_datum:
@@ -250,14 +254,18 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
                     # Stage the updated file
                     subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
 
-                    # Create second commit with ikraft_datum as date
-                    subprocess.run([
-                        'git', 'commit',
-                        '-m', f"{beteckning} träder i kraft",
-                        '--date', ikraft_datum
-                    ], check=True, capture_output=True)
-
-                    print(f"Git commit created: '{beteckning} träder i kraft' dated {ikraft_datum}")
+                    # Check if there are any changes to commit
+                    result = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True)
+                    if result.returncode != 0:  # Non-zero means there are changes
+                        # Create second commit with ikraft_datum as date
+                        subprocess.run([
+                            'git', 'commit',
+                            '-m', f"{beteckning} träder i kraft",
+                            '--date', ikraft_datum
+                        ], check=True, capture_output=True)
+                        print(f"Git commit created: '{beteckning} träder i kraft' dated {ikraft_datum}")
+                    else:
+                        print(f"No changes to commit for ikraft_datum of {beteckning}")
 
                     # Use the content with ikraft_datum as final content
                     final_content = markdown_content_with_ikraft
@@ -792,20 +800,28 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
                     if not rubrik:
                         raise ValueError("Rubrik cannot be empty for Git commit")
 
-                    # Create Git commit with amendment rubrik and ikraft_datum as date
-                    commit_message = rubrik
+                    # Write current state to file before staging
+                    save_to_disk(output_file, processed_text)
 
                     # Stage the specific file
                     subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
 
-                    # Create commit with specific date
-                    subprocess.run([
-                        'git', 'commit',
-                        '-m', commit_message,
-                        '--date', ikraft_datum
-                    ], check=True, capture_output=True)
+                    # Check if there are any changes to commit
+                    result = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True)
+                    if result.returncode != 0:  # Non-zero means there are changes
+                        # Create Git commit with amendment rubrik and ikraft_datum as date
+                        commit_message = rubrik
 
-                    print(f"Git commit created: '{commit_message}' dated {ikraft_datum}")
+                        # Create commit with specific date
+                        subprocess.run([
+                            'git', 'commit',
+                            '-m', commit_message,
+                            '--date', ikraft_datum
+                        ], check=True, capture_output=True)
+
+                        print(f"Git commit created: '{commit_message}' dated {ikraft_datum}")
+                    else:
+                        print(f"No changes to commit for amendment '{rubrik}' dated {ikraft_datum}")
 
                 except subprocess.CalledProcessError as e:
                     print(f"Warning: Git commit failed for amendment dated {ikraft_datum}: {e}")
