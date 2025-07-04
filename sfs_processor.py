@@ -308,6 +308,7 @@ def convert_to_markdown(data: Dict[str, Any]) -> str:
 
     # Check ignore rules first
     should_ignore, ignore_reason = ignore_rules(innehall_text)
+    ignored_body = None  # Ensure variable is always defined
     if should_ignore:
         print(f"Ignoring {beteckning}: {ignore_reason}")
         # Generate normal front matter but use ignored content body
@@ -374,7 +375,7 @@ departement: {format_yaml_value(organisation)}
         print(f"Warning: Could not sort front matter for {beteckning}: {e}")
 
     # Create Markdown body
-    if should_use_ignored_body:
+    if should_use_ignored_body and ignored_body is not None:
         # Use the ignored content body (already includes heading)
         markdown_body = ignored_body
     else:
@@ -386,8 +387,6 @@ departement: {format_yaml_value(organisation)}
             print(f"Warning: Formatting resulted in empty text for {beteckning}")
             print(f"Original content length: {len(innehall_text)}")
             print(f"Original content preview: {innehall_text[:200]}...")
-        else:
-            print(f"Debug: Formatted text length for {beteckning}: {len(formatted_text)}")
 
         # Create Markdown body
         markdown_body = f"# {rubrik_original}\n\n" + formatted_text
