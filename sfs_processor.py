@@ -121,13 +121,6 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
     innehall_text = fulltext_data.get('forfattningstext', '')
     amendments = extract_amendments(data.get('andringsforfattningar', []))
 
-    # Check if document was ignored (create_ignored_markdown_content returns different structure)
-    if "**Automatisk konvertering inte tillgänglig**" in markdown_content:
-        # For ignored documents, write the content and return it
-        save_to_disk(output_file, markdown_content)
-        print(f"Created ignored document: {output_file}")
-        return markdown_content
-
     # Check for amendment markers and process amendments if they exist
     has_amendment_markers = re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', innehall_text)
     if verbose and amendments and not has_amendment_markers:
@@ -317,7 +310,12 @@ def convert_to_markdown(data: Dict[str, Any]) -> str:
     should_ignore, ignore_reason = ignore_rules(innehall_text)
     if should_ignore:
         print(f"Ignoring {beteckning}: {ignore_reason}")
-        return create_ignored_markdown_content(data, ignore_reason)
+        # Generate normal front matter but use ignored content body
+        ignored_body = create_ignored_markdown_content(data, ignore_reason)
+        # Continue with normal front matter generation and use ignored body at the end
+        should_use_ignored_body = True
+    else:
+        should_use_ignored_body = False
 
     # Extract amendments
     amendments = extract_amendments(data.get('andringsforfattningar', []))
@@ -375,19 +373,24 @@ departement: {format_yaml_value(organisation)}
     except ValueError as e:
         print(f"Warning: Could not sort front matter for {beteckning}: {e}")
 
-    # Format the content text to markdown
-    formatted_text = format_sfs_text(innehall_text)
-
-    # Debug: Check if formatting resulted in empty text
-    if not formatted_text.strip():
-        print(f"Warning: Formatting resulted in empty text for {beteckning}")
-        print(f"Original content length: {len(innehall_text)}")
-        print(f"Original content preview: {innehall_text[:200]}...")
-    else:
-        print(f"Debug: Formatted text length for {beteckning}: {len(formatted_text)}")
-
     # Create Markdown body
-    markdown_body = f"# {rubrik_original}\n\n" + formatted_text
+    if should_use_ignored_body:
+        # Use the ignored content body (already includes heading)
+        markdown_body = ignored_body
+    else:
+        # Format the content text to markdown
+        formatted_text = format_sfs_text(innehall_text)
+
+        # Debug: Check if formatting resulted in empty text
+        if not formatted_text.strip():
+            print(f"Warning: Formatting resulted in empty text for {beteckning}")
+            print(f"Original content length: {len(innehall_text)}")
+            print(f"Original content preview: {innehall_text[:200]}...")
+        else:
+            print(f"Debug: Formatted text length for {beteckning}: {len(formatted_text)}")
+
+        # Create Markdown body
+        markdown_body = f"# {rubrik_original}\n\n" + formatted_text
 
     # Return the complete markdown content
     return yaml_front_matter + markdown_body
@@ -544,26 +547,17 @@ def ignore_rules(innehall_text: str) -> tuple[bool, str]:
 
 def create_ignored_markdown_content(data: Dict[str, Any], reason: str) -> str:
     """
-    Skapa förenklad markdown för ignorerade dokument genom att återanvända YAML-generering.
+    Skapa förenklad markdown-body för ignorerade dokument.
+
+    Returnerar endast huvudinnehållet - YAML front matter hanteras av _create_markdown_document.
 
     Args:
         data: JSON-data för dokumentet
         reason: Förklaring till varför dokumentet ignorerades
 
     Returns:
-        str: Förenklad markdown-innehåll med samma front matter som vanliga dokument
+        str: Förenklad markdown-body (utan front matter)
     """
-    # Generate the normal markdown content to get the front matter
-    normal_markdown = convert_to_markdown(data)
-    
-    # Extract the front matter (everything up to and including the second ---)
-    front_matter_end = normal_markdown.find('\n---\n', 3)
-    if front_matter_end == -1:
-        # Fallback if no proper front matter found
-        front_matter = "---\n---\n\n"
-    else:
-        front_matter = normal_markdown[:front_matter_end + 5]  # Include the closing ---\n
-
     # Get the original rubrik for the heading
     rubrik_original = data.get('rubrik', '')
 
@@ -575,7 +569,7 @@ def create_ignored_markdown_content(data: Dict[str, Any], reason: str) -> str:
     markdown_body += "[svenskforfattningssamling.se](https://svenskforfattningssamling.se/) "
     markdown_body += "eller ladda ner PDF:en från länken i front matter ovan.\n"
 
-    return front_matter + "\n" + markdown_body
+    return markdown_body
 
 
 def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable_git: bool = False, verbose: bool = False, output_file: Path = None) -> str:
