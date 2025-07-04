@@ -49,7 +49,7 @@ jobs:
     - name: Fetch JSON documents (if manual run)
       if: github.event_name == 'workflow_dispatch'
       run: |
-        python fetch_new_sfs_documents.py --days ${{ inputs.days }} --output sfs_json
+        python fetch_new_sfs_docs.py --days ${{ inputs.days }} --output sfs_json
       env:
         PYTHONPATH: ${{ github.workspace }}
 

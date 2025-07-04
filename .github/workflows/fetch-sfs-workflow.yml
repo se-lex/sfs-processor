@@ -31,7 +31,7 @@ jobs:
 
     - name: Fetch JSON from from beta.rkrattsbaser.gov.se
       run: |
-        python fetch_new_sfs_documents.py --days 30 --output sfs_json
+        python fetch_new_sfs_docs.py --days 30 --output sfs_json
       env:
         # Lägg till API-nycklar eller andra secrets här om behövs
         PYTHONPATH: ${{ github.workspace }}
