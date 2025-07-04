@@ -25,7 +25,7 @@ from add_pdf_url_to_frontmatter import generate_pdf_url
 
 
 
-def make_document(data: Dict[str, Any], output_dir: Path, year_as_folder: bool = True, output_modes: List[str] = None, verbose: bool = False) -> None:
+def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False) -> None:
     """Create documents by converting JSON to specified output formats and applying amendments.
 
     This is the main function for document creation that handles:
@@ -38,9 +38,9 @@ def make_document(data: Dict[str, Any], output_dir: Path, year_as_folder: bool =
     Args:
         data: JSON data for the document
         output_dir: Directory where output files should be saved
-        year_as_folder: Whether to create year-based subdirectories (default: True)
         output_modes: List of formats/modes to use (e.g., ["md", "git"]). If None, defaults to ["md"]
                      Note: "git" mode requires "md" mode to be included as it modifies markdown processing
+        year_as_folder: Whether to create year-based subdirectories (default: True)
         verbose: Whether to show verbose output (default: False)
     """
 
@@ -867,7 +867,7 @@ def main():
             continue
 
         # Use make_document to create documents in specified formats
-        make_document(data, output_dir, args.year_folder, output_modes, args.verbose)
+        make_document(data, output_dir, output_modes, args.year_folder, args.verbose)
     
     print(f"\nConversion complete! Files saved to {output_dir} in formats: {', '.join(output_modes)}")
 
