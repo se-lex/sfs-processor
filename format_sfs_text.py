@@ -1,8 +1,8 @@
 """
-Script för att formattera SFS-dokument (Svensk Författningssamling) i Markdown-format.
+Script för att formattera SFS-författningar (Svensk Författningssamling) i Markdown-format.
 
 Regler som tillämpas:
-1. Ta bort alla radbrytningar så att dokumentet blir flytande text (inte "wrappat")
+1. Ta bort alla radbrytningar så att författningar blir flytande text (inte "wrappat")
 2. Identifiera och formattera olika typer av rubriker:
    - Kapitel (ex. "1 kap.") blir H2-rubriker (##)
    - Bilagor (ex. "Bilaga A") blir H2-rubriker (##)
@@ -14,7 +14,7 @@ Regler som tillämpas:
 3. Dela in texten i logiska paragrafer och omringa dem med HTML-taggar <section>
    - Rubriker på nivå 2 (##) får CSS-klass "kapitel"
    - Rubriker på nivå 3-4 (###, ####) med § får CSS-klass "paragraf"
-   - Innehåll eller rubriker med "upphävd", "har upphävts" eller "har upphävs" (felstavning som förekommer i vissa SFS-dokument) får attributet status="upphavd"
+   - Innehåll eller rubriker med "upphävd", "har upphävts" eller "har upphävs" (felstavning som förekommer i vissa författningar) får attributet status="upphavd"
 4. Hantering av ändringar och upphöranden:
    - Stycken med "/Rubriken träder i kraft I:YYYY-MM-DD/" efter rubriker tas bort
    - Stycken med "/Rubriken upphör att gälla U:YYYY-MM-DD/" efter rubriker tas bort
@@ -433,7 +433,8 @@ def _is_section_upphavd(header_line: str, content: str) -> bool:
     """
     Kontrollera om en sektion ska markeras som upphävd baserat på rubrik och innehåll.
 
-    Söker efter "upphävd", "har upphävts" eller "har upphävs" (felstavning) i både
+    Söker efter "upphävd", "har upphävts", "har upphävs" (felstavning),
+    "/Rubriken upphör att gälla " eller "/Upphör att gälla " i både
     rubrikens text och det direkta innehållet. Sökningen är case-insensitive.
 
     Args:
@@ -447,14 +448,18 @@ def _is_section_upphavd(header_line: str, content: str) -> bool:
     header_lower = header_line.lower()
     content_lower = content.lower()
 
-    # Kontrollera både i rubrik och innehåll efter "upphävd", "har upphävts" eller "har upphävs"
+    # Kontrollera både i rubrik och innehåll efter olika upphävd-markeringar
     # Observera: "har upphävs" är en felstavning som förekommer i vissa SFS-dokument (ex. 2018:263)
     return ('upphävd' in header_lower or
             'har upphävts' in header_lower or
             'har upphävs' in header_lower or
+            '/rubriken upphör att gälla ' in header_lower or
+            '/upphör att gälla ' in header_lower or
             'upphävd' in content_lower or
             'har upphävts' in content_lower or
-            'har upphävs' in content_lower)
+            'har upphävs' in content_lower or
+            '/rubriken upphör att gälla ' in content_lower or
+            '/upphör att gälla ' in content_lower)
 
 
 def parse_logical_paragraphs_new(text: str) -> str:
@@ -467,8 +472,11 @@ def parse_logical_paragraphs_new(text: str) -> str:
     - Rubriknivå 3 eller 4 (### eller ####) med § i rubriken: class="paragraf"
 
     Om sektionens innehåll (exklusive underrubriker) eller rubrikens text innehåller "upphävd",
-    "har upphävts" eller "har upphävs" (felstavning som förekommer i SFS-dokument) läggs
+    "har upphävts" eller "har upphävs" (felstavning som förekommer i SFS-författningar) läggs
     attributet status="upphavd" till.
+
+    Om sektionens innehåll eller rubrik innehåller "/Upphör att gälla U:YYYY-MM-DD/"
+    parsas datumet ut och läggs till som attributet upphor_datum="YYYY-MM-DD".
 
     Args:
         text (str): Markdown-formaterad text med rubriker
@@ -542,6 +550,17 @@ def parse_logical_paragraphs_new(text: str) -> str:
             # Använd hjälpfunktion för att kontrollera upphävd-status
             has_upphavd = _is_section_upphavd(header_line, filtered_content)
 
+            # Sök efter "U:YYYY-MM-DD" i både rubrik och innehåll
+            upphor_datum = None
+            all_section_content = '\n'.join(current_section)
+            upphor_match = re.search(r'U:(\d{4}-\d{2}-\d{2})', all_section_content)
+            if upphor_match:
+                upphor_datum = upphor_match.group(1)
+
+                # Kontrollera konsistens: om vi hittar upphor_datum ska sektionen också vara upphävd
+                if not has_upphavd:
+                    raise ValueError(f"Inkonsistens upptäckt: Sektion har upphor_datum '{upphor_datum}' men är inte markerad som upphävd. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
+
             # Bestäm CSS-klass baserat på rubriknivå och innehåll
             css_classes = []
 
@@ -568,6 +587,8 @@ def parse_logical_paragraphs_new(text: str) -> str:
                 attributes.append(f'class="{" ".join(css_classes)}"')
             if has_upphavd:
                 attributes.append('status="upphavd"')
+            if upphor_datum:
+                attributes.append(f'upphor_datum="{upphor_datum}"')
 
             if attributes:
                 result.append(f'<section {" ".join(attributes)}>')
