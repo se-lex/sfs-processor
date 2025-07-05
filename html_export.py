@@ -380,8 +380,8 @@ def create_ignored_html_content(data: Dict[str, Any], reason: str) -> str:
     beteckning = data.get('beteckning', '')
 
     # Additional styles for ignored documents
-    ignored_styles = """
-        .warning { background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 5px; margin-bottom: 20px; }"""
+    ignored_styles = minify_css("""
+        .warning { background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 5px; margin-bottom: 20px; }""")
 
     html_doc = create_html_head(rubrik_original, beteckning, additional_styles=ignored_styles)
     html_doc += f"""
@@ -418,7 +418,10 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
         # Find the main content after the first <h1> tag
         h1_match = re.search(r'<h1[^>]*>.*?</h1>\s*', html_content, re.DOTALL)
         if h1_match:
-            return html_content[h1_match.end():]
+            content = html_content[h1_match.end():]
+            # Remove closing body and html tags
+            content = re.sub(r'</body>\s*</html>\s*$', '', content, flags=re.DOTALL)
+            return content
         return html_content
 
     base_content = extract_content_from_html(base_html)
@@ -475,147 +478,7 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
     <title>{html.escape(title)} - Med ändringar</title>
     <script src="https://swebar.netlify.app/navbar.js"></script>
     <style>{get_common_styles()}
-        /* Override max-width for diff view */
-        body {{ max-width: 1200px; }}
-
-        .amendment-info {{
-            background-color: #e8f4fd;
-            border: 1px solid var(--navbar-middle-blue);
-            border-radius: 5px;
-            padding: 15px;
-            margin: 20px 0;
-        }}
-
-        .content-section {{
-            margin: 30px 0;
-        }}
-
-        .diff-container {{
-            background-color: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-            overflow: hidden;
-            margin: 20px 0;
-        }}
-
-        table.diff {{
-            width: 100%;
-            border-collapse: collapse;
-            font-family: 'Courier New', monospace;
-            font-size: 13px;
-        }}
-
-        .diff_header {{
-            background-color: #34495e !important;
-            color: white !important;
-            font-weight: bold;
-            text-align: center;
-            padding: 10px;
-        }}
-
-        .diff_next {{
-            background-color: #3498db;
-            color: white;
-            font-weight: bold;
-            text-align: center;
-            cursor: pointer;
-            padding: 5px;
-        }}
-
-        .diff_next:hover {{
-            background-color: #2980b9;
-        }}
-
-        .diff_add {{
-            background-color: #d4edda !important;
-            border-left: 4px solid #28a745;
-        }}
-        
-        .diff_chg {{
-            background-color: #fff3cd !important;
-            border-left: 4px solid #ffc107;
-        }}
-        
-        .diff_sub {{
-            background-color: #f8d7da !important;
-            border-left: 4px solid #dc3545;
-        }}
-        
-        td.diff_header {{
-            padding: 8px 12px;
-        }}
-        
-        td {{
-            padding: 4px 8px;
-            vertical-align: top;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }}
-        
-        .legend {{
-            margin: 20px 0;
-            padding: 15px;
-            background-color: #f8f9fa;
-            border-radius: 8px;
-            border: 1px solid #dee2e6;
-        }}
-        
-        .legend h3 {{
-            margin-top: 0;
-            color: #2c3e50;
-        }}
-        
-        .legend-item {{
-            display: inline-block;
-            margin-right: 20px;
-            margin-bottom: 5px;
-        }}
-        
-        .legend-color {{
-            display: inline-block;
-            width: 20px;
-            height: 15px;
-            margin-right: 5px;
-            vertical-align: middle;
-            border-radius: 3px;
-        }}
-        
-        .added {{ background-color: #d4edda; border-left: 4px solid #28a745; }}
-        .removed {{ background-color: #f8d7da; border-left: 4px solid #dc3545; }}
-        .changed {{ background-color: #fff3cd; border-left: 4px solid #ffc107; }}
-        
-        .tab-container {{
-            margin: 20px 0;
-        }}
-        
-        .tab-buttons {{
-            border-bottom: 1px solid #dee2e6;
-            margin-bottom: 20px;
-        }}
-        
-        .tab-button {{
-            background: none;
-            border: none;
-            padding: 10px 20px;
-            cursor: pointer;
-            border-bottom: 3px solid transparent;
-            font-size: 16px;
-            margin-right: 10px;
-        }}
-        
-        .tab-button.active {{
-            border-bottom-color: var(--navbar-light-blue);
-            color: var(--navbar-light-blue);
-            font-weight: bold;
-        }}
-        
-        .tab-content {{
-            display: none;
-        }}
-        
-        .tab-content.active {{
-            display: block;
-        }}
+        {get_amendment_styles()}
     </style>
     <script>
         function showTab(tabName) {{
@@ -776,7 +639,7 @@ def get_common_styles() -> str:
     Returns:
         str: CSS styles with color variables and common formatting
     """
-    return """
+    styles = """
         :root {
             --selex-dark-blue: #002147;
             --selex-middle-blue: #0056a0;
@@ -791,6 +654,18 @@ def get_common_styles() -> str:
             --navbar-light-blue: var(--selex-light-blue);
             --navbar-yellow: var(--selex-yellow);
             --navbar-white: var(--selex-white);
+
+            --base-font-size: 14px;
+        }
+
+        html {
+            font-size: var(--base-font-size);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
@@ -825,3 +700,179 @@ def get_common_styles() -> str:
 
         h3 { color: var(--selex-middle-blue); }
         h4 { color: var(--selex-middle-blue); }"""
+
+    # Minify CSS: remove comments, extra whitespace, semicolons before }, etc.
+    minified = minify_css(styles)
+
+    return minified
+
+
+def minify_css(css_text: str) -> str:
+    """Minify CSS by removing comments, whitespace, and unnecessary characters.
+
+    Args:
+        css_text: Raw CSS text
+
+    Returns:
+        str: Minified CSS
+    """
+    # Remove CSS comments
+    minified = re.sub(r'/\*.*?\*/', '', css_text, flags=re.DOTALL)
+    # Remove all whitespace (spaces, tabs, newlines)
+    minified = re.sub(r'\s+', '', minified)
+    # Remove semicolons before closing braces
+    minified = re.sub(r';}', '}', minified)
+
+    return minified
+
+
+def get_amendment_styles() -> str:
+    """Get CSS styles specific to amendment/diff view pages.
+
+    Returns:
+        str: Minified CSS styles for amendment pages
+    """
+    styles = """
+        /* Override max-width for diff view */
+        body { max-width: 1200px; }
+
+        .amendment-info {
+            background-color: #e8f4fd;
+            border: 1px solid var(--navbar-middle-blue);
+            border-radius: 5px;
+            padding: 15px;
+            margin: 20px 0;
+        }
+
+        .content-section {
+            margin: 30px 0;
+        }
+
+        .diff-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+            overflow: hidden;
+            margin: 20px 0;
+        }
+
+        table.diff {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+        }
+
+        .diff_header {
+            background-color: #34495e !important;
+            color: white !important;
+            font-weight: bold;
+            text-align: center;
+            padding: 10px;
+        }
+
+        .diff_next {
+            background-color: #3498db;
+            color: white;
+            font-weight: bold;
+            text-align: center;
+            cursor: pointer;
+            padding: 5px;
+        }
+
+        .diff_next:hover {
+            background-color: #2980b9;
+        }
+
+        .diff_add {
+            background-color: #d4edda !important;
+            border-left: 4px solid #28a745;
+        }
+
+        .diff_chg {
+            background-color: #fff3cd !important;
+            border-left: 4px solid #ffc107;
+        }
+
+        .diff_sub {
+            background-color: #f8d7da !important;
+            border-left: 4px solid #dc3545;
+        }
+
+        td.diff_header {
+            padding: 8px 12px;
+        }
+
+        td {
+            padding: 4px 8px;
+            vertical-align: top;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .legend {
+            margin: 20px 0;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            border: 1px solid #dee2e6;
+        }
+
+        .legend h3 {
+            margin-top: 0;
+            color: #2c3e50;
+        }
+
+        .legend-item {
+            display: inline-block;
+            margin-right: 20px;
+            margin-bottom: 5px;
+        }
+
+        .legend-color {
+            display: inline-block;
+            width: 20px;
+            height: 15px;
+            margin-right: 5px;
+            vertical-align: middle;
+            border-radius: 3px;
+        }
+
+        .added { background-color: #d4edda; border-left: 4px solid #28a745; }
+        .removed { background-color: #f8d7da; border-left: 4px solid #dc3545; }
+        .changed { background-color: #fff3cd; border-left: 4px solid #ffc107; }
+
+        .tab-container {
+            margin: 20px 0;
+        }
+
+        .tab-buttons {
+            border-bottom: 1px solid #dee2e6;
+            margin-bottom: 20px;
+        }
+
+        .tab-button {
+            background: none;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            font-size: 16px;
+            margin-right: 10px;
+        }
+
+        .tab-button.active {
+            border-bottom-color: var(--navbar-light-blue);
+            color: var(--navbar-light-blue);
+            font-weight: bold;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }"""
+
+    return minify_css(styles)
