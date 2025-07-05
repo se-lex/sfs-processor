@@ -442,8 +442,9 @@ def _is_section_upphavd(header_line: str, content: str) -> bool:
     Kontrollera om en sektion ska markeras som upphävd baserat på rubrik och innehåll.
 
     Söker efter "upphävd", "har upphävts", "har upphävs" (felstavning),
-    "/Rubriken upphör att gälla " eller "/Upphör att gälla " eller "/Ny beteckning"
-    i både rubrikens text och det direkta innehållet. Sökningen är case-insensitive.
+    "/Rubriken upphör att gälla ", "/Upphör att gälla ", "/Kapitlet upphör att gälla ",
+    eller "/Ny beteckning" i både rubrikens text och det direkta innehållet.
+    Sökningen är case-insensitive.
 
     Args:
         header_line (str): Rubrikraden (med markdown-markeringar som ###)
@@ -463,12 +464,16 @@ def _is_section_upphavd(header_line: str, content: str) -> bool:
             'har upphävs' in header_lower or
             '/rubriken upphör att gälla ' in header_lower or
             '/upphör att gälla ' in header_lower or
+            '/kapitlet upphör att gälla ' in header_lower or
+            '/kapitelrubriken upphör att gälla ' in header_lower or
             '/ny beteckning' in header_lower or
             'upphävd' in content_lower or
             'har upphävts' in content_lower or
             'har upphävs' in content_lower or
             '/rubriken upphör att gälla ' in content_lower or
             '/upphör att gälla ' in content_lower or
+            '/kapitlet upphör att gälla ' in content_lower or
+            '/kapitelrubriken upphör att gälla ' in content_lower or
             '/ny beteckning' in content_lower)
 
 
@@ -476,10 +481,11 @@ def _is_section_ikraft(header_line: str, content: str) -> bool:
     """
     Kontrollera om en sektion ska markeras som "träder ikraft" baserat på rubrik och innehåll.
 
-    Söker efter "/Träder i kraft I:YYYY-MM-DD" eller "/Rubriken träder i kraft I:YYYY-MM-DD"
-    med giltigt datum, eller "/Träder i kraft I:villkor" eller "/Rubriken träder i kraft I:villkor"
-    med villkor istället för datum i både rubrikens text och det direkta innehållet.
-    Sökningen är case-insensitive.
+    Söker efter "/Träder i kraft I:YYYY-MM-DD", "/Rubriken träder i kraft I:YYYY-MM-DD",
+    "/Kapitlet träder i kraft I:YYYY-MM-DD" med giltigt datum, eller
+    "/Träder i kraft I:villkor", "/Rubriken träder i kraft I:villkor",
+    "/Kapitlet träder i kraft I:villkor" med villkor istället för datum i både
+    rubrikens text och det direkta innehållet. Sökningen är case-insensitive.
 
     Args:
         header_line (str): Rubrikraden (med markdown-markeringar som ###)
@@ -496,19 +502,25 @@ def _is_section_ikraft(header_line: str, content: str) -> bool:
     # Mönster för "/Träder i kraft I:YYYY-MM-DD" med giltigt datum
     ikraft_datum_pattern = r'/träder i kraft i:\d{4}-\d{2}-\d{2}'
     rubrik_ikraft_datum_pattern = r'/rubriken träder i kraft i:\d{4}-\d{2}-\d{2}'
+    kapitlet_ikraft_datum_pattern = r'/kapitlet träder i kraft i:\d{4}-\d{2}-\d{2}'
 
     # Mönster för "/Träder i kraft I:villkor" (inte datum)
     ikraft_villkor_pattern = r'/träder i kraft i:[^/]+'
     rubrik_ikraft_villkor_pattern = r'/rubriken träder i kraft i:[^/]+'
+    kapitlet_ikraft_villkor_pattern = r'/kapitlet träder i kraft i:[^/]+'
 
     return (re.search(ikraft_datum_pattern, header_lower) is not None or
             re.search(rubrik_ikraft_datum_pattern, header_lower) is not None or
+            re.search(kapitlet_ikraft_datum_pattern, header_lower) is not None or
             re.search(ikraft_datum_pattern, content_lower) is not None or
             re.search(rubrik_ikraft_datum_pattern, content_lower) is not None or
+            re.search(kapitlet_ikraft_datum_pattern, content_lower) is not None or
             re.search(ikraft_villkor_pattern, header_lower) is not None or
             re.search(rubrik_ikraft_villkor_pattern, header_lower) is not None or
+            re.search(kapitlet_ikraft_villkor_pattern, header_lower) is not None or
             re.search(ikraft_villkor_pattern, content_lower) is not None or
-            re.search(rubrik_ikraft_villkor_pattern, content_lower) is not None)
+            re.search(rubrik_ikraft_villkor_pattern, content_lower) is not None or
+            re.search(kapitlet_ikraft_villkor_pattern, content_lower) is not None)
 
 
 def parse_logical_sections(text: str) -> str:
@@ -638,8 +650,8 @@ def parse_logical_sections(text: str) -> str:
                     raise ValueError(f"Inkonsistens upptäckt: Sektion har ikraft_datum '{ikraft_datum}' men är inte markerad som ikraft. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
             else:
                 # Om inget datum hittas, sök efter villkor
-                # Mönster för "/Träder i kraft I:villkor/" eller "/Rubriken träder i kraft I:villkor/"
-                ikraft_villkor_match = re.search(r'/(?:rubriken )?träder i kraft i:([^/]+)/', all_section_content, re.IGNORECASE)
+                # Mönster för "/Träder i kraft I:villkor/" eller "/Rubriken träder i kraft I:villkor/" eller "/Kapitlet träder i kraft I:villkor/"
+                ikraft_villkor_match = re.search(r'/(?:rubriken |kapitlet )?träder i kraft i:([^/]+)/', all_section_content, re.IGNORECASE)
                 if ikraft_villkor_match:
                     ikraft_villkor = ikraft_villkor_match.group(1).strip()
 
