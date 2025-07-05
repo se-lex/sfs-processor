@@ -211,10 +211,8 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     html_doc = create_html_head(rubrik_original, beteckning, eli_format)
     html_doc += "\n<body>"
 
-    # Use different metadata format for ELI vs regular HTML
-    if eli_format:
-        # ELI format uses RDFa properties in definition list structure
-        html_doc += f"""
+    # Always use ELI format with RDFa properties for metadata
+    html_doc += f"""
     <div class="metadata">
         <dl>
             <dt>Beteckning:</dt>
@@ -222,100 +220,47 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
             <dt>Rubrik:</dt>
             <dd property="eli:title" datatype="xsd:string">{html.escape(rubrik_original)}</dd>"""
 
-        if organisation:
-            html_doc += f"""
+    if organisation:
+        html_doc += f"""
             <dt>Departement:</dt>
             <dd property="eli:passed_by" datatype="xsd:string">{html.escape(organisation)}</dd>"""
 
-        if publicerad_datum:
-            html_doc += f"""
+    if publicerad_datum:
+        html_doc += f"""
             <dt>Publicerad:</dt>
             <dd property="eli:date_publication" datatype="xsd:date">{html.escape(publicerad_datum)}</dd>"""
 
-        if utfardad_datum:
-            html_doc += f"""
+    if utfardad_datum:
+        html_doc += f"""
             <dt>Utfärdad:</dt>
             <dd property="eli:date_document" datatype="xsd:date">{html.escape(utfardad_datum)}</dd>"""
 
-        if ikraft_datum:
-            html_doc += f"""
+    if ikraft_datum:
+        html_doc += f"""
             <dt>Ikraft:</dt>
             <dd property="eli:date_entry-into-force" datatype="xsd:date">{html.escape(ikraft_datum)}</dd>"""
 
-        if forarbeten:
-            html_doc += f"""
+    if forarbeten:
+        html_doc += f"""
             <dt>Förarbeten:</dt>
             <dd property="eli:preparatory_act" datatype="xsd:string">{html.escape(forarbeten)}</dd>"""
 
-        if celex_nummer:
-            html_doc += f"""
+    if celex_nummer:
+        html_doc += f"""
             <dt>CELEX:</dt>
             <dd property="eli:related_to" resource="{html.escape(celex_nummer)}" datatype="xsd:string">{html.escape(celex_nummer)}</dd>"""
 
-        if eu_direktiv:
-            html_doc += """
+    if eu_direktiv:
+        html_doc += """
             <dt>EU-direktiv:</dt>
             <dd property="eli:type_document" resource="http://data.europa.eu/eli/ontology#directive" datatype="xsd:boolean">Ja</dd>"""
 
-        if pdf_url:
-            html_doc += f"""
+    if pdf_url:
+        html_doc += f"""
             <dt>PDF-fil:</dt>
             <dd><a href="{html.escape(pdf_url)}" property="eli:is_realized_by" datatype="xsd:anyURI">PDF-fil</a></dd>"""
 
-        html_doc += """
-        </dl>
-    </div>"""
-    else:
-        # Regular format uses definition list
-        html_doc += f"""
-    <div class="metadata">
-        <dl>
-            <dt>Beteckning:</dt>
-            <dd>{html.escape(beteckning)}</dd>
-            <dt>Rubrik:</dt>
-            <dd>{html.escape(rubrik_original)}</dd>"""
-
-        if organisation:
-            html_doc += f"""
-            <dt>Departement:</dt>
-            <dd>{html.escape(organisation)}</dd>"""
-
-        if publicerad_datum:
-            html_doc += f"""
-            <dt>Publicerad:</dt>
-            <dd>{html.escape(publicerad_datum)}</dd>"""
-
-        if utfardad_datum:
-            html_doc += f"""
-            <dt>Utfärdad:</dt>
-            <dd>{html.escape(utfardad_datum)}</dd>"""
-
-        if ikraft_datum:
-            html_doc += f"""
-            <dt>Ikraft:</dt>
-            <dd>{html.escape(ikraft_datum)}</dd>"""
-
-        if forarbeten:
-            html_doc += f"""
-            <dt>Förarbeten:</dt>
-            <dd>{html.escape(forarbeten)}</dd>"""
-
-        if celex_nummer:
-            html_doc += f"""
-            <dt>CELEX:</dt>
-            <dd>{html.escape(celex_nummer)}</dd>"""
-
-        if eu_direktiv:
-            html_doc += """
-            <dt>EU-direktiv:</dt>
-            <dd>Ja</dd>"""
-
-        if pdf_url:
-            html_doc += f"""
-            <dt>PDF-fil:</dt>
-            <dd><a href="{html.escape(pdf_url)}">PDF-fil</a></dd>"""
-
-        html_doc += """
+    html_doc += """
         </dl>
     </div>"""
 
@@ -571,17 +516,11 @@ def create_html_head(title: str, beteckning: str, eli_format: bool = False, addi
     # Import ELI utility functions
     from eli_utils import generate_eli_metadata_html, generate_eli_canonical_url
 
-    # Only handle the html tag and doctype here
-    if eli_format:
-        head_start = """<!DOCTYPE html>
+    head_start = """<!DOCTYPE html>
 <html lang="sv"
       prefix="og: http://ogp.me/ns#
       eli: http://data.europa.eu/eli/ontology#
       iana: http://www.iana.org/">
-"""
-    else:
-        head_start = """<!DOCTYPE html>
-<html lang="sv">
 """
 
     # Common base styles
