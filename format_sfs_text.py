@@ -503,24 +503,30 @@ def _is_section_ikraft(header_line: str, content: str) -> bool:
     ikraft_datum_pattern = r'/träder i kraft i:\d{4}-\d{2}-\d{2}'
     rubrik_ikraft_datum_pattern = r'/rubriken träder i kraft i:\d{4}-\d{2}-\d{2}'
     kapitlet_ikraft_datum_pattern = r'/kapitlet träder i kraft i:\d{4}-\d{2}-\d{2}'
+    kapitelrubriken_ikraft_datum_pattern = r'/kapitelrubriken träder i kraft i:\d{4}-\d{2}-\d{2}'
 
     # Mönster för "/Träder i kraft I:villkor" (inte datum)
     ikraft_villkor_pattern = r'/träder i kraft i:[^/]+'
     rubrik_ikraft_villkor_pattern = r'/rubriken träder i kraft i:[^/]+'
     kapitlet_ikraft_villkor_pattern = r'/kapitlet träder i kraft i:[^/]+'
+    kapitelrubriken_ikraft_villkor_pattern = r'/kapitelrubriken träder i kraft i:[^/]+'
 
     return (re.search(ikraft_datum_pattern, header_lower) is not None or
             re.search(rubrik_ikraft_datum_pattern, header_lower) is not None or
             re.search(kapitlet_ikraft_datum_pattern, header_lower) is not None or
+            re.search(kapitelrubriken_ikraft_datum_pattern, header_lower) is not None or
             re.search(ikraft_datum_pattern, content_lower) is not None or
             re.search(rubrik_ikraft_datum_pattern, content_lower) is not None or
             re.search(kapitlet_ikraft_datum_pattern, content_lower) is not None or
+            re.search(kapitelrubriken_ikraft_datum_pattern, content_lower) is not None or
             re.search(ikraft_villkor_pattern, header_lower) is not None or
             re.search(rubrik_ikraft_villkor_pattern, header_lower) is not None or
             re.search(kapitlet_ikraft_villkor_pattern, header_lower) is not None or
+            re.search(kapitelrubriken_ikraft_villkor_pattern, header_lower) is not None or
             re.search(ikraft_villkor_pattern, content_lower) is not None or
             re.search(rubrik_ikraft_villkor_pattern, content_lower) is not None or
-            re.search(kapitlet_ikraft_villkor_pattern, content_lower) is not None)
+            re.search(kapitlet_ikraft_villkor_pattern, content_lower) is not None or
+            re.search(kapitelrubriken_ikraft_villkor_pattern, content_lower) is not None)
 
 
 def parse_logical_sections(text: str) -> str:
