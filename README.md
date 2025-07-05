@@ -2,8 +2,6 @@
 
 Detta repository innehåller Python-script för att ladda ner och konvertera SFS-författningar (Svensk författningssamling) från antingen Regeringskansliets publika söktjänst eller Riksdagens öppna API. Konvertering till Markdown sker med en uppsättning regler.
 
-## Installation
-
 1. Se till att du har Python 3.6+ installerat
 2. Installera nödvändiga beroenden:
 
@@ -84,14 +82,65 @@ För att ladda ner alla lagar som styr Swedac till en specifik mapp:
 python download_sfs_docs.py --ids "sfs-2017-900,sfs-2009-400,sfs-2009-641,sfs-2021-1252,sfs-2011-791,sfs-2011-811,sfs-2019-16,sfs-1991-93,sfs-1993-1634,sfs-2014-864,sfs-2002-574,sfs-2009-211,sfs-2006-985,sfs-2006-1592,sfs-2016-1128,sfs-2009-1079,sfs-2009-1078,sfs-2010-900,sfs-2011-338,sfs-2011-1244,sfs-2011-1261,sfs-1992-1514,sfs-1993-1066,sfs-1994-99,sfs-1997-857,sfs-1999-716,sfs-2005-403,sfs-2006-1043,sfs-2011-318,sfs-2011-345,sfs-2011-1200,sfs-2011-1480,sfs-2012-211,sfs-2012-238,sfs-1975-49,sfs-1999-779,sfs-1999-780" --out "swedac_lagar"
 ```
 
-## Kommandoradsalternativ
+## Konvertering till olika format
+
+Efter nedladdning kan du konvertera JSON-filerna till olika format:
+
+### Konvertering till Markdown
+
+```bash
+python sfs_processor.py --input sfs_json --output SFS --formats md
+```
+
+### Konvertering till HTML med ELI-struktur
+
+```bash
+python sfs_processor.py --input sfs_json --output output --formats html
+```
+
+Detta skapar HTML-filer i ELI-strukturen: `/eli/sfs/{artal}/{lopnummer}/index.html`
+
+### HTML med ändringsversioner
+
+För att inkludera separata versioner för varje ändringsförfattning:
+
+```bash
+python sfs_processor.py --input sfs_json --output output --formats htmldiff
+```
+
+### Kombinera flera format
+
+```bash
+python sfs_processor.py --input sfs_json --output output --formats md,html,htmldiff
+```
+
+## Kommandoradsalternativ för nedladdning
 
 ```bash
 python download_sfs_docs.py [--ids IDS] [--out MAPP] [--source KÄLLA]
 ```
 
-### Parametrar
+### Parametrar för nedladdning
 
 - `--ids`: Kommaseparerad lista med dokument-ID:n att ladda ner, eller "all" för att hämta alla från Riksdagen (default: "all")
 - `--out`: Mapp att spara nedladdade dokument i (default: "sfs_docs")
 - `--source`: Välj källa - "riksdagen" för HTML-format eller "rkrattsbaser" för JSON-format (default: "riksdagen")
+
+## Kommandoradsalternativ för konvertering
+
+```bash
+python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [--filter FILTER] [--no-year-folder] [--verbose]
+```
+
+### Parametrar för konvertering
+
+- `--input`: Input-katalog med JSON-filer (default: "sfs_json")
+- `--output`: Output-katalog för konverterade filer (default: "SFS")
+- `--formats`: Utdataformat att generera, kommaseparerat. Stödda: md, git, html, htmldiff (default: "md")
+  - `md`: Generera markdown-filer
+  - `git`: Aktivera Git-commits med historiska datum (kräver md)
+  - `html`: Generera HTML-filer i ELI-struktur (endast grunddokument)
+  - `htmldiff`: Generera HTML-filer i ELI-struktur med ändringsversioner
+- `--filter`: Filtrera filer efter år (YYYY) eller specifik beteckning (YYYY:NNN). Kan vara kommaseparerad lista.
+- `--no-year-folder`: Skapa inte årbaserade undermappar för dokument
+- `--verbose`: Visa detaljerad diff-utdata för varje ändringsbearbetning

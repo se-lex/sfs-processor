@@ -18,68 +18,15 @@ from add_pdf_url_to_frontmatter import generate_pdf_url
 
 
 def create_html_documents(data: Dict[str, Any], output_path: Path, include_amendments: bool = False) -> None:
-    """Create HTML documents from JSON data.
+    """Create HTML documents from JSON data using ELI directory structure.
 
-    Creates base document and optionally separate documents for each amendment.
+    Creates documents in ELI directory structure: /eli/sfs/{YEAR}/{lopnummer}
+    and optionally separate documents for each amendment.
 
     Args:
         data: JSON data containing document information
-        output_path: Path to the output directory (folder)
+        output_path: Base path for output (will create eli/sfs/{YEAR}/{lopnummer} subdirectory)
         include_amendments: Whether to generate amendment versions (default: False)
-    """
-    # Import required functions (avoiding circular imports)
-    from sfs_processor import extract_amendments, save_to_disk
-
-    # Extract basic metadata
-    beteckning = data.get('beteckning', '')
-    amendments = extract_amendments(data.get('andringsforfattningar', []))
-
-    # Clean beteckning for filename
-    safe_beteckning = re.sub(r'[^\w\-]', '-', beteckning)
-
-    # Create base filename (grunddokument)
-    base_filename = f"{safe_beteckning}_grund.html"
-    base_file = output_path / base_filename
-
-    # Generate base HTML content (without amendments applied)
-    base_html_content = convert_to_html(data, apply_amendments=False)
-    save_to_disk(base_file, base_html_content)
-    print(f"Created HTML base document: {base_file}")
-
-    # Create HTML documents for each amendment stage
-    if include_amendments and amendments:
-        # Filter amendments that have ikraft_datum (already sorted by extract_amendments)
-        sorted_amendments = [a for a in amendments if a.get('ikraft_datum')]
-
-        for i, amendment in enumerate(sorted_amendments):
-            amendment_beteckning = amendment.get('beteckning', '')
-            safe_amendment_beteckning = re.sub(r'[^\w\-]', '-', amendment_beteckning)
-
-            # Create filename with amendment suffix
-            amendment_filename = f"{safe_beteckning}_{safe_amendment_beteckning}.html"
-            amendment_file = output_path / amendment_filename
-
-            # Generate HTML content with amendments applied up to this point
-            amendment_html_content = convert_to_html(data, apply_amendments=True, up_to_amendment=i+1)
-
-            # Create HTML with diff view comparing base and amended content
-            amendment_html_with_diff = create_amendment_html_with_diff(
-                base_html_content, amendment_html_content, amendment_beteckning, amendment.get('rubrik', ''),
-                amendment.get('ikraft_datum', '')
-            )
-
-            save_to_disk(amendment_file, amendment_html_with_diff)
-            print(f"Created HTML amendment document with diff: {amendment_file}")
-
-
-def create_eli_html_documents(data: Dict[str, Any], output_path: Path) -> None:
-    """Create ELI-formatted HTML documents for SFS documents.
-
-    Creates HTML documents in ELI directory structure: /eli/sfs/{YEAR}/{lopnummer}
-
-    Args:
-        data: JSON data containing document information
-        output_path: Base path for ELI output (e.g., /eli)
     """
     # Import required functions (avoiding circular imports)
     from sfs_processor import extract_amendments, save_to_disk
@@ -96,58 +43,58 @@ def create_eli_html_documents(data: Dict[str, Any], output_path: Path) -> None:
         print(f"Warning: Could not parse beteckning '{beteckning}'")
         return
 
-    # Create ELI directory structure: /eli/sfs/{YEAR}/{lopnummer}
+    # Create directory structure: /eli/sfs/{YEAR}/{lopnummer}
     eli_dir = output_path / "eli" / "sfs" / year / lopnummer
     eli_dir.mkdir(parents=True, exist_ok=True)
 
     # Generate base HTML content (without amendments applied)
-    base_html_content = convert_to_html(data, apply_amendments=False, eli_format=True)
+    base_html_content = convert_to_html(data, apply_amendments=False)
     base_file = eli_dir / "index.html"
     save_to_disk(base_file, base_html_content)
-    print(f"Created ELI HTML document: {base_file}")
+    print(f"Created HTML document: {base_file}")
 
     # Create HTML documents for each amendment stage
-    amendments = extract_amendments(data.get('andringsforfattningar', []))
-    if amendments:
-        # Filter amendments that have ikraft_datum (already sorted by extract_amendments)
-        sorted_amendments = [a for a in amendments if a.get('ikraft_datum')]
+    if include_amendments:
+        amendments = extract_amendments(data.get('andringsforfattningar', []))
+        if amendments:
+            # Filter amendments that have ikraft_datum (already sorted by extract_amendments)
+            sorted_amendments = [a for a in amendments if a.get('ikraft_datum')]
 
-        for i, amendment in enumerate(sorted_amendments):
-            amendment_beteckning = amendment.get('beteckning', '')
-            if ':' not in amendment_beteckning:
-                continue
+            for i, amendment in enumerate(sorted_amendments):
+                amendment_beteckning = amendment.get('beteckning', '')
+                if ':' not in amendment_beteckning:
+                    continue
 
-            try:
-                amend_year, amend_lopnummer = amendment_beteckning.split(':', 1)
-            except ValueError:
-                continue
+                try:
+                    amend_year, amend_lopnummer = amendment_beteckning.split(':', 1)
+                except ValueError:
+                    continue
 
-            # Create amendment directory: /eli/sfs/{AMEND_YEAR}/{amend_lopnummer}
-            amend_eli_dir = output_path / "eli" / "sfs" / amend_year / amend_lopnummer
-            amend_eli_dir.mkdir(parents=True, exist_ok=True)
+                # Create amendment directory: /eli/sfs/{AMEND_YEAR}/{amend_lopnummer}
+                amend_eli_dir = output_path / "eli" / "sfs" / amend_year / amend_lopnummer
+                amend_eli_dir.mkdir(parents=True, exist_ok=True)
 
-            # Generate HTML content with amendments applied up to this point
-            amendment_html_content = convert_to_html(data, apply_amendments=True, up_to_amendment=i+1, eli_format=True)
+                # Generate HTML content with amendments applied up to this point
+                amendment_html_content = convert_to_html(data, apply_amendments=True, up_to_amendment=i+1)
 
-            # Create HTML with diff view comparing base and amended content
-            amendment_html_with_diff = create_amendment_html_with_diff(
-                base_html_content, amendment_html_content, amendment_beteckning, amendment.get('rubrik', ''),
-                amendment.get('ikraft_datum', '')
-            )
+                # Create HTML with diff view comparing base and amended content
+                amendment_html_with_diff = create_amendment_html_with_diff(
+                    base_html_content, amendment_html_content, amendment_beteckning, amendment.get('rubrik', ''),
+                    amendment.get('ikraft_datum', '')
+                )
 
-            amendment_file = amend_eli_dir / "index.html"
-            save_to_disk(amendment_file, amendment_html_with_diff)
-            print(f"Created ELI amendment HTML document: {amendment_file}")
+                amendment_file = amend_eli_dir / "index.html"
+                save_to_disk(amendment_file, amendment_html_with_diff)
+                print(f"Created amendment HTML document: {amendment_file}")
 
 
-def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_amendment: int = None, eli_format: bool = False) -> str:
-    """Convert JSON data to HTML format.
+def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_amendment: int = None) -> str:
+    """Convert JSON data to HTML format with ELI structure.
 
     Args:
         data: JSON data for the document
         apply_amendments: Whether to apply amendments
         up_to_amendment: If applying amendments, apply only up to this amendment index (1-based)
-        eli_format: Whether to generate ELI-compliant HTML with RDFa prefixes
 
     Returns:
         str: HTML content
@@ -207,11 +154,10 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     # Convert markdown-formatted text to HTML
     html_content = markdown_to_html(formatted_text)
 
-    # Create HTML document with navbar integration
-    html_doc = create_html_head(rubrik_original, beteckning, eli_format)
+    # Create HTML document with navbar integration and ELI format
+    html_doc = create_html_head(rubrik_original, beteckning)
     html_doc += "\n<body>"
 
-    # Always use ELI format with RDFa properties for metadata
     html_doc += f"""
     <div class="metadata">
         <dl>
@@ -500,13 +446,12 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
     return combined_html
 
 
-def create_html_head(title: str, beteckning: str, eli_format: bool = False, additional_styles: str = "", additional_scripts: str = "") -> str:
+def create_html_head(title: str, beteckning: str, additional_styles: str = "", additional_scripts: str = "") -> str:
     """Create HTML head section with navbar integration.
 
     Args:
         title: Page title
         beteckning: Document beteckning for navbar
-        eli_format: Whether to include ELI RDFa prefixes
         additional_styles: Additional CSS styles to include
         additional_scripts: Additional JavaScript to include
 
@@ -553,17 +498,14 @@ def create_html_head(title: str, beteckning: str, eli_format: bool = False, addi
 
     # Generate ELI canonical URL and metadata
     eli_metadata = ""
-    if beteckning:  # Only generate if we have a valid beteckning
-        if eli_format:
-            # For ELI format, include both canonical link and ELI metadata (default 'html' format)
-            eli_metadata_html = generate_eli_metadata_html(beteckning)
-            if eli_metadata_html:
-                eli_metadata = '\n    ' + eli_metadata_html.replace('\n', '\n    ')
-        else:
-            # For regular format, only include canonical link (default 'html' format)
-            eli_canonical_url = generate_eli_canonical_url(beteckning)
-            if eli_canonical_url:
-                eli_metadata = f'\n    <link rel="canonical" href="{eli_canonical_url}" />'
+    # For ELI format, include both canonical link and ELI metadata (default 'html' format)
+    eli_metadata_html = generate_eli_metadata_html(beteckning)
+    if eli_metadata_html:
+        eli_metadata = '\n    ' + eli_metadata_html.replace('\n', '\n    ')
+    # Generate canonical URL for ELI
+    eli_canonical_url = generate_eli_canonical_url(beteckning)
+    if eli_canonical_url:
+        eli_metadata = f'\n    <link rel="canonical" href="{eli_canonical_url}" />'
 
     # Build the head section
     head = f"""<head>

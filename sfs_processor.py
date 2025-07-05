@@ -12,9 +12,8 @@ Usage:
     python sfs_processor.py [--input INPUT_DIR] [--output OUTPUT_DIR] [--formats FORMATS] [--no-year-folder]
     
     By default, documents are saved as Markdown files in year-based subdirectories.
-    Use --formats to specify output modes (e.g., "md,git,html,eli" for multiple formats).
-    HTML format creates base document plus separate files for each amendment stage.
-    ELI format creates HTML documents in European Legislation Identifier directory structure.
+    Use --formats to specify output modes (e.g., "md,git,html,htmldiff" for multiple formats).
+    HTML format creates documents in ELI directory structure with year-based folders.
     Use --no-year-folder to save files directly in output directory without year subdirectories.
 """
 
@@ -37,9 +36,8 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     - Coordination of different output formats and modes:
       * "md": Generate markdown files (required for other modes)
       * "git": Enable Git commits with historical dates during markdown generation
-      * "html": Generate HTML files (base document only)
-      * "htmldiff": Generate HTML files (base document plus amendment versions)
-      * "eli": Generate HTML files in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer})
+      * "html": Generate HTML files in ELI structure (base document only)
+      * "htmldiff": Generate HTML files in ELI structure (base document plus amendment versions)
     - Delegates actual file creation to format-specific internal functions
 
     The function extracts the year from the beteckning and creates appropriate directory
@@ -52,6 +50,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
         output_modes: List of formats/modes to use (e.g., ["md", "git"]). If None, defaults to ["md"]
                      Note: "git" mode requires "md" mode to be included as it modifies markdown processing
                      "html" generates base document only, "htmldiff" includes amendment versions
+                     All HTML output uses ELI directory structure with year-based folders
         year_as_folder: Whether to create year-based subdirectories (default: True)
         verbose: Whether to show verbose output (default: False)
     """
@@ -99,17 +98,12 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     # Process HTML format if requested
     if "html" in output_modes:
         from html_export import create_html_documents
-        create_html_documents(data, document_dir, include_amendments=False)
+        create_html_documents(data, output_dir, include_amendments=False)
 
     # Process HTML diff format if requested
     if "htmldiff" in output_modes:
         from html_export import create_html_documents
-        create_html_documents(data, document_dir, include_amendments=True)
-
-    # Process ELI format if requested
-    if "eli" in output_modes:
-        from html_export import create_eli_html_documents
-        create_eli_html_documents(data, output_dir)  # Use base output_dir for ELI structure
+        create_html_documents(data, output_dir, include_amendments=True)
 
 
 def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_git: bool = False, verbose: bool = False) -> str:
@@ -854,7 +848,7 @@ def main():
     parser.add_argument('--verbose', action='store_true',
                         help='Show detailed diff output for each amendment processing')
     parser.add_argument('--formats', dest='output_modes', default='md',
-                        help='Output formats to generate (comma-separated). Currently supported: md, git, html, htmldiff, eli. Default: md. Use "git" to enable Git commits with historical dates. HTML creates base document only. HTMLDIFF creates base document plus amendment versions. ELI creates HTML documents in European Legislation Identifier directory structure (/eli/sfs/{YEAR}/{lopnummer}).')
+                        help='Output formats to generate (comma-separated). Currently supported: md, git, html, htmldiff. Default: md. Use "git" to enable Git commits with historical dates. HTML creates documents in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer}). HTMLDIFF includes amendment versions with diff view.')
     parser.set_defaults(year_folder=True)
     args = parser.parse_args()
 
@@ -864,7 +858,7 @@ def main():
         output_modes = ['md']  # Default to markdown
 
     # Validate output modes
-    supported_formats = ['md', 'git', 'html', 'htmldiff', 'eli']
+    supported_formats = ['md', 'git', 'html', 'htmldiff']
     invalid_formats = [mode for mode in output_modes if mode not in supported_formats]
     if invalid_formats:
         print(f"Fel: Ej stödda utdataformat: {', '.join(invalid_formats)}")
@@ -989,5 +983,4 @@ def save_to_disk(file_path: Path, content: str) -> None:
 
 
 if __name__ == "__main__":
-    main()
     main()
