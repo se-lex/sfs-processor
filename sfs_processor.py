@@ -736,6 +736,9 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
 
             # Add relevant Övergångsbestämmelser content under the existing heading
             if beteckning in overgangs_dict and overgangs_dict[beteckning]:
+                # Format the content with the beteckning as a bold heading
+                formatted_overgangs_content = f"**{beteckning}**\n\n{overgangs_dict[beteckning]}"
+
                 # Find the existing Övergångsbestämmelser heading and any existing content
                 overgangs_section_match = re.search(r'(### Övergångsbestämmelser\s*\n\n)(.*?)(?=\n### |\n## |\Z)', processed_text, re.DOTALL)
                 if overgangs_section_match:
@@ -744,7 +747,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
 
                     if existing_content:
                         # There's already content under the heading, add after it
-                        content_to_insert = f"\n\n{overgangs_dict[beteckning]}"
+                        content_to_insert = f"\n\n{formatted_overgangs_content}"
                         insert_pos = overgangs_section_match.end() - len(overgangs_section_match.group(0)) + len(heading_part) + len(existing_content)
                         processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
 
@@ -753,14 +756,14 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
                     else:
                         # No existing content, add directly after heading
                         insert_pos = overgangs_section_match.start() + len(heading_part)
-                        content_to_insert = f"{overgangs_dict[beteckning]}\n\n"
+                        content_to_insert = f"{formatted_overgangs_content}\n\n"
                         processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
 
                         if verbose:
                             print(f"Lade till övergångsbestämmelser för {beteckning} under rubrik (inget befintligt innehåll)")
                 else:
                     # Fallback: add the section at the end if heading doesn't exist
-                    overgangs_section = f"\n\n### Övergångsbestämmelser\n\n{overgangs_dict[beteckning]}\n"
+                    overgangs_section = f"\n\n### Övergångsbestämmelser\n\n{formatted_overgangs_content}\n"
                     processed_text = processed_text.rstrip() + overgangs_section
 
                     if verbose:
