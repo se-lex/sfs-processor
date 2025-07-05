@@ -212,26 +212,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
     if not enable_git:
         ikraft_datum = format_datetime(data.get('ikraftDateTime'))
         if ikraft_datum:
-            markdown_content = add_ikraft_datum_to_markdown(markdown_content, ikraft_datum)
-            try:
-                # Extract just the front matter part for sorting
-                if markdown_content.startswith('---'):
-                    # Find the end of the front matter
-                    front_matter_end = markdown_content.find('\n---\n', 3)
-                    if front_matter_end != -1:
-                        # Extract front matter and content, preserving spacing
-                        end_of_frontmatter = front_matter_end + 4  # Position after \n---
-                        while end_of_frontmatter < len(markdown_content) and markdown_content[end_of_frontmatter] == '\n':
-                            end_of_frontmatter += 1
-
-                        front_matter = markdown_content[:front_matter_end + 4]  # Include up to \n---
-                        rest_of_content = markdown_content[end_of_frontmatter:]
-
-                        # Sort only the front matter and ensure proper spacing
-                        sorted_front_matter = sort_frontmatter_properties(front_matter + '\n')
-                        markdown_content = sorted_front_matter + '\n' + rest_of_content
-            except ValueError as e:
-                print(f"Varning: Kunde inte sortera front matter efter att ha lagt till ikraft_datum för {beteckning}: {e}")
+            markdown_content = add_ikraft_datum_to_frontmatter(markdown_content, ikraft_datum, beteckning)
 
     # Debug: Check final markdown content length
     print(f"Debug: Slutlig markdown-innehållslängd för {beteckning}: {len(markdown_content)}")
@@ -253,7 +234,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
         if not amendments and utfardad_datum:
             # Ensure commits are made in a different branch
             original_branch = ensure_git_branch_for_commits()
-            
+
             try:
                 # First commit: without ikraft_datum in front matter, dated utfardad_datum
                 commit_message = rubrik if rubrik else f"SFS {beteckning}"
@@ -279,24 +260,8 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
 
                 # Second commit: add ikraft_datum to front matter if it exists
                 if ikraft_datum:
-                    # Add ikraft_datum to the existing markdown content
-                    markdown_content_with_ikraft = add_ikraft_datum_to_markdown(markdown_content, ikraft_datum)
-
-                    # Sort front matter only
-                    if markdown_content_with_ikraft.startswith('---'):
-                        front_matter_end = markdown_content_with_ikraft.find('\n---\n', 3)
-                        if front_matter_end != -1:
-                            # Include the complete front matter block with proper spacing
-                            # Find where the actual content starts (after potential newlines following ---)
-                            end_of_frontmatter = front_matter_end + 4  # Position after \n---
-                            while end_of_frontmatter < len(markdown_content_with_ikraft) and markdown_content_with_ikraft[end_of_frontmatter] == '\n':
-                                end_of_frontmatter += 1
-
-                            front_matter = markdown_content_with_ikraft[:front_matter_end + 4]  # Include up to \n---
-                            rest_of_content = markdown_content_with_ikraft[end_of_frontmatter:]
-                            sorted_front_matter = sort_frontmatter_properties(front_matter + '\n')  # Add the closing newline
-                            # Ensure there's always exactly one empty line between front matter and content
-                            markdown_content_with_ikraft = sorted_front_matter + '\n' + rest_of_content
+                    # Add ikraft_datum and sort front matter
+                    markdown_content_with_ikraft = add_ikraft_datum_to_frontmatter(markdown_content, ikraft_datum, beteckning)
 
                     # Write updated file with ikraft_datum
                     save_to_disk(output_file, markdown_content_with_ikraft)
@@ -592,22 +557,6 @@ def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict
     return amendments
 
 
-def add_ikraft_datum_to_markdown(markdown_content: str, ikraft_datum: str) -> str:
-    """
-    Add ikraft_datum to the YAML front matter of existing markdown content.
-    Simply inserts the field before the closing --- of the front matter.
-    """
-    # Find the position of the closing --- and insert before it
-    closing_marker = '\n---\n'
-    if closing_marker in markdown_content:
-        before_closing, after_closing = markdown_content.split(closing_marker, 1)
-        ikraft_line = f"ikraft_datum: {format_yaml_value(ikraft_datum)}"
-        # Preserve the original spacing after the front matter
-        return f"{before_closing}\n{ikraft_line}\n---\n{after_closing}"
-
-    # Fallback: return original content if no proper front matter found
-    return markdown_content
-
 
 def ignore_rules(innehall_text: str) -> tuple[bool, str]:
     """
@@ -676,7 +625,6 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
     Returns:
         str: The text with changes applied
     """
-    import subprocess
 
     def parse_overgangsbestammelser(text: str, amendments: List[Dict[str, Any]]) -> Dict[str, str]:
         """
@@ -763,100 +711,141 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
     if len(sorted_amendments) != len(set(a['ikraft_datum'] for a in sorted_amendments)):
         print("Varning: Duplicerade ikraft_datum hittades i ändringar. Detta kan orsaka oväntat beteende.")
 
-    try:
-        for amendment in sorted_amendments:
-            ikraft_datum = amendment.get('ikraft_datum')
-            beteckning = amendment.get('beteckning', '')
-            rubrik = amendment.get('rubrik', 'Ändringsförfattning')
+    for amendment in sorted_amendments:
+        ikraft_datum = amendment.get('ikraft_datum')
+        beteckning = amendment.get('beteckning', '')
+        rubrik = amendment.get('rubrik', 'Ändringsförfattning')
 
-            if verbose:
-                print(f"\n{'='*60}")
-                print(f"Bearbetar ÄNDRINGSFÖRFATTNING: {rubrik} ({ikraft_datum})")
-                if beteckning in overgangs_dict:
-                    print(f"Övergångsbestämmelser för {beteckning}:")
-                    print(f"\033[94m{overgangs_dict[beteckning]}\033[0m")  # Blue text for övergångsbestämmelser
-                print(f"{'='*60}")
-                print('')
+        if verbose:
+            print(f"\n{'='*60}")
+            print(f"Bearbetar ÄNDRINGSFÖRFATTNING: {rubrik} ({ikraft_datum})")
+            if beteckning in overgangs_dict:
+                print(f"Övergångsbestämmelser för {beteckning}:")
+                print(f"\033[94m{overgangs_dict[beteckning]}\033[0m")  # Blue text for övergångsbestämmelser
+            print(f"{'='*60}")
+            print('')
 
-            if ikraft_datum:
-                # Store text before changes for debug comparison
-                text_before_changes = processed_text
+        if ikraft_datum:
+            # Store text before changes for debug comparison
+            text_before_changes = processed_text
 
-                processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum, verbose)
+            processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum, verbose)
 
-                # Add relevant Övergångsbestämmelser content under the existing heading
-                if beteckning in overgangs_dict and overgangs_dict[beteckning]:
-                    # Format the content with the beteckning as a bold heading
-                    formatted_overgangs_content = f"**{beteckning}**\n\n{overgangs_dict[beteckning]}"
+            # Add relevant Övergångsbestämmelser content under the existing heading
+            if beteckning in overgangs_dict and overgangs_dict[beteckning]:
+                # Format the content with the beteckning as a bold heading
+                formatted_overgangs_content = f"**{beteckning}**\n\n{overgangs_dict[beteckning]}"
 
-                    # Find the existing Övergångsbestämmelser heading and any existing content
-                    overgangs_section_match = re.search(r'(### Övergångsbestämmelser\s*\n\n)(.*?)(?=\n### |\n## |\Z)', processed_text, re.DOTALL)
-                    if overgangs_section_match:
-                        heading_part = overgangs_section_match.group(1)
-                        existing_content = overgangs_section_match.group(2).strip()
+                # Find the existing Övergångsbestämmelser heading and any existing content
+                overgangs_section_match = re.search(r'(### Övergångsbestämmelser\s*\n\n)(.*?)(?=\n### |\n## |\Z)', processed_text, re.DOTALL)
+                if overgangs_section_match:
+                    heading_part = overgangs_section_match.group(1)
+                    existing_content = overgangs_section_match.group(2).strip()
 
-                        if existing_content:
-                            # There's already content under the heading, add after it
-                            content_to_insert = f"\n\n{formatted_overgangs_content}"
-                            insert_pos = overgangs_section_match.end() - len(overgangs_section_match.group(0)) + len(heading_part) + len(existing_content)
-                            processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
-
-                            if verbose:
-                                print(f"Lade till övergångsbestämmelser för {beteckning} efter befintligt innehåll")
-                        else:
-                            # No existing content, add directly after heading
-                            insert_pos = overgangs_section_match.start() + len(heading_part)
-                            content_to_insert = f"{formatted_overgangs_content}\n\n"
-                            processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
-
-                            if verbose:
-                                print(f"Lade till övergångsbestämmelser för {beteckning} under rubrik (inget befintligt innehåll)")
-                    else:
-                        # Fallback: add the section at the end if heading doesn't exist
-                        overgangs_section = f"\n\n### Övergångsbestämmelser\n\n{formatted_overgangs_content}\n"
-                        processed_text = processed_text.rstrip() + overgangs_section
+                    if existing_content:
+                        # There's already content under the heading, add after it
+                        content_to_insert = f"\n\n{formatted_overgangs_content}"
+                        insert_pos = overgangs_section_match.end() - len(overgangs_section_match.group(0)) + len(heading_part) + len(existing_content)
+                        processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
 
                         if verbose:
-                            print(f"Skapade ny övergångsbestämmelser-sektion för {beteckning} (rubrik hittades inte)")
-
-                # ...existing diff code...
-                show_diff = True
-                if show_diff:
-                    # Create unified diff
-                    diff_lines = list(difflib.unified_diff(
-                        text_before_changes.splitlines(keepends=True),
-                        processed_text.splitlines(keepends=True),
-                        #fromfile=f"Före ändring {beteckning}",
-                        #tofile=f"Efter ändring {beteckning}",
-                        lineterm=""
-                    ))
-
-                    if diff_lines:
-                        print("TEXTÄNDRINGAR:")
-                        for line in diff_lines:
-                            # Color coding for different types of changes
-                            line = line.rstrip()
-                            if line.startswith('+++') or line.startswith('---'):
-                                print(f"\033[1m{line}\033[0m")  # Bold
-                            elif line.startswith('@@'):
-                                print(f"\033[36m{line}\033[0m")  # Cyan
-                            elif line.startswith('+'):
-                                print(f"\033[32m{line}\033[0m")  # Green
-                            elif line.startswith('-'):
-                                print(f"\033[31m{line}\033[0m")  # Red
-                            else:
-                                print(line)
+                            print(f"Lade till övergångsbestämmelser för {beteckning} efter befintligt innehåll")
                     else:
-                        print("INGA TEXTÄNDRINGAR FUNNA.")
+                        # No existing content, add directly after heading
+                        insert_pos = overgangs_section_match.start() + len(heading_part)
+                        content_to_insert = f"{formatted_overgangs_content}\n\n"
+                        processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
 
-                    print(f"{'='*60}\n")
+                        if verbose:
+                            print(f"Lade till övergångsbestämmelser för {beteckning} under rubrik (inget befintligt innehåll)")
+                else:
+                    # Fallback: add the section at the end if heading doesn't exist
+                    overgangs_section = f"\n\n### Övergångsbestämmelser\n\n{formatted_overgangs_content}\n"
+                    processed_text = processed_text.rstrip() + overgangs_section
 
-    finally:
-        # Always restore original branch if we switched
-        if original_branch:
-            restore_original_branch(original_branch)
+                    if verbose:
+                        print(f"Skapade ny övergångsbestämmelser-sektion för {beteckning} (rubrik hittades inte)")
+
+            # ...existing diff code...
+            show_diff = True
+            if show_diff:
+                # Create unified diff
+                diff_lines = list(difflib.unified_diff(
+                    text_before_changes.splitlines(keepends=True),
+                    processed_text.splitlines(keepends=True),
+                    #fromfile=f"Före ändring {beteckning}",
+                    #tofile=f"Efter ändring {beteckning}",
+                    lineterm=""
+                ))
+
+                if diff_lines:
+                    print("TEXTÄNDRINGAR:")
+                    for line in diff_lines:
+                        # Color coding for different types of changes
+                        line = line.rstrip()
+                        if line.startswith('+++') or line.startswith('---'):
+                            print(f"\033[1m{line}\033[0m")  # Bold
+                        elif line.startswith('@@'):
+                            print(f"\033[36m{line}\033[0m")  # Cyan
+                        elif line.startswith('+'):
+                            print(f"\033[32m{line}\033[0m")  # Green
+                        elif line.startswith('-'):
+                            print(f"\033[31m{line}\033[0m")  # Red
+                        else:
+                            print(line)
+                else:
+                    print("INGA TEXTÄNDRINGAR FUNNA.")
+
+                print(f"{'='*60}\n")
 
     return processed_text
+
+def add_ikraft_datum_to_frontmatter(markdown_content: str, ikraft_datum: str, beteckning: str = "") -> str:
+    """
+    Add ikraft_datum to the YAML front matter and sort it.
+    
+    Args:
+        markdown_content: The markdown content with YAML front matter
+        ikraft_datum: The ikraft_datum value to add
+        beteckning: Document identifier for error messages (optional)
+    
+    Returns:
+        str: Updated markdown content with ikraft_datum added and front matter sorted
+    """
+    # Add ikraft_datum to front matter
+    # Find the position of the closing --- and insert before it
+    closing_marker = '\n---\n'
+    if closing_marker in markdown_content:
+        before_closing, after_closing = markdown_content.split(closing_marker, 1)
+        ikraft_line = f"ikraft_datum: {format_yaml_value(ikraft_datum)}"
+        # Preserve the original spacing after the front matter
+        updated_content = f"{before_closing}\n{ikraft_line}\n---\n{after_closing}"
+    else:
+        # Fallback: return original content if no proper front matter found
+        updated_content = markdown_content
+
+    try:
+        # Extract and sort front matter if it exists
+        if updated_content.startswith('---'):
+            # Find the end of the front matter
+            front_matter_end = updated_content.find('\n---\n', 3)
+            if front_matter_end != -1:
+                # Extract front matter and content, preserving spacing
+                end_of_frontmatter = front_matter_end + 4  # Position after \n---
+                while end_of_frontmatter < len(updated_content) and updated_content[end_of_frontmatter] == '\n':
+                    end_of_frontmatter += 1
+
+                front_matter = updated_content[:front_matter_end + 4]  # Include up to \n---
+                rest_of_content = updated_content[end_of_frontmatter:]
+
+                # Sort only the front matter and ensure proper spacing
+                sorted_front_matter = sort_frontmatter_properties(front_matter + '\n')
+                updated_content = sorted_front_matter + '\n' + rest_of_content
+    except ValueError as e:
+        error_context = f" för {beteckning}" if beteckning else ""
+        print(f"Varning: Kunde inte sortera front matter efter att ha lagt till ikraft_datum{error_context}: {e}")
+
+    return updated_content
 
 def main():
     """Main function to process all JSON files in the json directory."""
