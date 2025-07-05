@@ -673,14 +673,14 @@ def parse_logical_paragraphs_new(text: str) -> str:
                 status_values.append('ikraft')
             
             if status_values:
-                attributes.append(f'status="{" ".join(status_values)}"')
+                attributes.append(f'selex:status="{" ".join(status_values)}"')
             
             if upphor_datum:
-                attributes.append(f'upphor_datum="{upphor_datum}"')
+                attributes.append(f'selex:upphor_datum="{upphor_datum}"')
             if ikraft_datum:
-                attributes.append(f'ikraft_datum="{ikraft_datum}"')
+                attributes.append(f'selex:ikraft_datum="{ikraft_datum}"')
             if ikraft_villkor:
-                attributes.append(f'ikraft_villkor="{ikraft_villkor}"')
+                attributes.append(f'selex:ikraft_villkor="{ikraft_villkor}"')
 
             if attributes:
                 result.append(f'<section {" ".join(attributes)}>')
