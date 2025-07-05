@@ -10,7 +10,6 @@ Regler som tillämpas:
    - Paragrafnummer (ex. "13 §", "3 a §") kan bli antingen:
      * H3-rubriker (###) när paragraph_as_header=True (standard)
      * H4-rubriker (####) inom potential_headers-sektionen
-     * Fetstil (**text**) när paragraph_as_header=False
 3. Dela in texten i logiska paragrafer och omringa dem med HTML-taggar <section>
    - Rubriker på nivå 2 (##) får CSS-klass "kapitel"
    - Rubriker på nivå 3-4 (###, ####) med § får CSS-klass "paragraf"
@@ -471,7 +470,8 @@ def _is_section_ikraft(header_line: str, content: str) -> bool:
     Kontrollera om en sektion ska markeras som "träder ikraft" baserat på rubrik och innehåll.
 
     Söker efter "/Träder i kraft I:YYYY-MM-DD" eller "/Rubriken träder i kraft I:YYYY-MM-DD"
-    med giltigt datum i både rubrikens text och det direkta innehållet.
+    med giltigt datum, eller "/Träder i kraft I:villkor" eller "/Rubriken träder i kraft I:villkor"
+    med villkor istället för datum i både rubrikens text och det direkta innehållet.
     Sökningen är case-insensitive.
 
     Args:
@@ -487,13 +487,21 @@ def _is_section_ikraft(header_line: str, content: str) -> bool:
 
     # Kontrollera både i rubrik och innehåll efter ikraft-markeringar med giltigt datum
     # Mönster för "/Träder i kraft I:YYYY-MM-DD" med giltigt datum
-    ikraft_pattern = r'/träder i kraft i:\d{4}-\d{2}-\d{2}'
-    rubrik_ikraft_pattern = r'/rubriken träder i kraft i:\d{4}-\d{2}-\d{2}'
+    ikraft_datum_pattern = r'/träder i kraft i:\d{4}-\d{2}-\d{2}'
+    rubrik_ikraft_datum_pattern = r'/rubriken träder i kraft i:\d{4}-\d{2}-\d{2}'
 
-    return (re.search(ikraft_pattern, header_lower) is not None or
-            re.search(rubrik_ikraft_pattern, header_lower) is not None or
-            re.search(ikraft_pattern, content_lower) is not None or
-            re.search(rubrik_ikraft_pattern, content_lower) is not None)
+    # Mönster för "/Träder i kraft I:villkor" (inte datum)
+    ikraft_villkor_pattern = r'/träder i kraft i:[^/]+'
+    rubrik_ikraft_villkor_pattern = r'/rubriken träder i kraft i:[^/]+'
+
+    return (re.search(ikraft_datum_pattern, header_lower) is not None or
+            re.search(rubrik_ikraft_datum_pattern, header_lower) is not None or
+            re.search(ikraft_datum_pattern, content_lower) is not None or
+            re.search(rubrik_ikraft_datum_pattern, content_lower) is not None or
+            re.search(ikraft_villkor_pattern, header_lower) is not None or
+            re.search(rubrik_ikraft_villkor_pattern, header_lower) is not None or
+            re.search(ikraft_villkor_pattern, content_lower) is not None or
+            re.search(rubrik_ikraft_villkor_pattern, content_lower) is not None)
 
 
 def parse_logical_paragraphs_new(text: str) -> str:
@@ -611,6 +619,9 @@ def parse_logical_paragraphs_new(text: str) -> str:
 
             # Sök efter "I:YYYY-MM-DD" i både rubrik och innehåll
             ikraft_datum = None
+            ikraft_villkor = None
+
+            # Först, sök efter datum
             ikraft_match = re.search(r'I:(\d{4}-\d{2}-\d{2})', all_section_content)
             if ikraft_match:
                 ikraft_datum = ikraft_match.group(1)
@@ -618,6 +629,16 @@ def parse_logical_paragraphs_new(text: str) -> str:
                 # Kontrollera konsistens: om vi hittar ikraft_datum ska sektionen också vara ikraft
                 if not has_ikraft:
                     raise ValueError(f"Inkonsistens upptäckt: Sektion har ikraft_datum '{ikraft_datum}' men är inte markerad som ikraft. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
+            else:
+                # Om inget datum hittas, sök efter villkor
+                # Mönster för "/Träder i kraft I:villkor/" eller "/Rubriken träder i kraft I:villkor/"
+                ikraft_villkor_match = re.search(r'/(?:rubriken )?träder i kraft i:([^/]+)/', all_section_content, re.IGNORECASE)
+                if ikraft_villkor_match:
+                    ikraft_villkor = ikraft_villkor_match.group(1).strip()
+
+                    # Kontrollera konsistens: om vi hittar ikraft_villkor ska sektionen också vara ikraft
+                    if not has_ikraft:
+                        raise ValueError(f"Inkonsistens upptäckt: Sektion har ikraft_villkor '{ikraft_villkor}' men är inte markerad som ikraft. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
 
             # Bestäm CSS-klass baserat på rubriknivå och innehåll
             css_classes = []
@@ -658,6 +679,8 @@ def parse_logical_paragraphs_new(text: str) -> str:
                 attributes.append(f'upphor_datum="{upphor_datum}"')
             if ikraft_datum:
                 attributes.append(f'ikraft_datum="{ikraft_datum}"')
+            if ikraft_villkor:
+                attributes.append(f'ikraft_villkor="{ikraft_villkor}"')
 
             if attributes:
                 result.append(f'<section {" ".join(attributes)}>')
