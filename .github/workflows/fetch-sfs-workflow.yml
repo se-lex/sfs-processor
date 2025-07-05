@@ -40,7 +40,6 @@ jobs:
       run: |
         python fetch_new_sfs_docs.py --days ${{ inputs.days || '1' }} --output sfs_json
       env:
-        # Lägg till API-nycklar eller andra secrets här om behövs
         PYTHONPATH: ${{ github.workspace }}
 
     - name: Process JSON files to Markdown files
@@ -57,19 +56,33 @@ jobs:
     - name: Commit and push changes
       id: commit_changes
       run: |
+        # Get current branch
+        CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
+        
+        # Create a new branch for commits if we have changes
         git add SFS/ sfs_json/
         if git diff --staged --quiet; then
           echo "Inga nya filer att committa"
           echo "has_changes=false" >> $GITHUB_OUTPUT
         else
+          # Create a unique branch name for the commits
+          TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
+          COMMIT_BRANCH="sfs_updates_${TIMESTAMP}"
+          
+          # Create and switch to the new branch
+          git checkout -b "$COMMIT_BRANCH"
+          
           git commit -m "Automatisk uppdatering av SFS-författningar $(date +'%Y-%m-%d')"
           echo "has_changes=true" >> $GITHUB_OUTPUT
-          CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-          if [ "$CURRENT_BRANCH" = "main" ]; then
-            echo "Hoppar över push eftersom vi är på main-branchen"
-          else
-            git push
-          fi
+          echo "commit_branch=${COMMIT_BRANCH}" >> $GITHUB_OUTPUT
+          
+          # Push the new branch
+          git push origin "$COMMIT_BRANCH"
+          
+          # Switch back to original branch
+          git checkout "$CURRENT_BRANCH"
+          
+          echo "Commits gjorda i branch '${COMMIT_BRANCH}' istället för '${CURRENT_BRANCH}'"
         fi
 
     - name: Trigger HTML export workflow

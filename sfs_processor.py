@@ -28,6 +28,58 @@ from sort_frontmatter import sort_frontmatter_properties
 from add_pdf_url_to_frontmatter import generate_pdf_url
 
 
+def ensure_git_branch_for_commits():
+    """
+    Ensures that git commits are made in a different branch than the current one.
+    Creates a new branch if needed and switches to it.
+    Returns the original branch name to allow switching back later.
+    """
+    import subprocess
+
+    try:
+        # Get current branch name
+        result = subprocess.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], 
+                              capture_output=True, text=True, check=True)
+        current_branch = result.stdout.strip()
+
+        # Generate a unique branch name for commits
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        commit_branch = f"sfs_commits_{timestamp}"
+
+        # Create and switch to the new branch
+        subprocess.run(['git', 'checkout', '-b', commit_branch], 
+                      check=True, capture_output=True)
+
+        print(f"Skapade och bytte till branch '{commit_branch}' för git-commits")
+        return current_branch, commit_branch
+
+    except subprocess.CalledProcessError as e:
+        print(f"Varning: Kunde inte skapa ny branch för git-commits: {e}")
+        return None, None
+    except FileNotFoundError:
+        print("Varning: Git hittades inte.")
+        return None, None
+
+
+def restore_original_branch(original_branch):
+    """
+    Switches back to the original branch after commits are done.
+    """
+    import subprocess
+    
+    if not original_branch:
+        return
+        
+    try:
+        subprocess.run(['git', 'checkout', original_branch], 
+                      check=True, capture_output=True)
+        print(f"Bytte tillbaka till ursprunglig branch '{original_branch}'")
+    except subprocess.CalledProcessError as e:
+        print(f"Varning: Kunde inte byta tillbaka till ursprunglig branch: {e}")
+    except FileNotFoundError:
+        print("Varning: Git hittades inte.")
+
+
 def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False) -> None:
     """Create documents by converting JSON to specified output formats and applying amendments.
 
@@ -199,6 +251,9 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
 
         # Only create main commits if there are no amendments (they handle their own commits)
         if not amendments and utfardad_datum:
+            # Ensure commits are made in a different branch
+            original_branch = ensure_git_branch_for_commits()
+            
             try:
                 # First commit: without ikraft_datum in front matter, dated utfardad_datum
                 commit_message = rubrik if rubrik else f"SFS {beteckning}"
@@ -255,7 +310,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
                         # Create second commit with ikraft_datum as date
                         subprocess.run([
                             'git', 'commit',
-                            '-m', f"{beteckning} träder i kraft",
+                            '-m', f"{beteckning} träder i kraft", # TODO: Se till att committa förarbeten först
                             '--date', ikraft_datum
                         ], check=True, capture_output=True)
                         print(f"Git-commit skapad: '{beteckning} träder i kraft' daterad {ikraft_datum}")
@@ -273,6 +328,9 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
                 print("Varning: Git hittades inte. Hoppar över Git-commits.")
                 # Write the file anyway, without git commits
                 save_to_disk(output_file, markdown_content)
+            finally:
+                # Always restore original branch
+                restore_original_branch(original_branch)
         else:
             # Write file if git is enabled but no commits needed
             save_to_disk(output_file, markdown_content)
@@ -320,15 +378,11 @@ def convert_to_markdown(data: Dict[str, Any]) -> str:
     organisation = organisation_data.get('namn', '') if organisation_data else ''
 
     # Extract the main text content from nested structure
-    innehall_text = fulltext_data.get('forfattningstext', 'No content available')
-
-    # Ensure innehall_text is a string
-    if innehall_text is None:
-        innehall_text = 'No content available'
+    innehall_text = fulltext_data.get('forfattningstext')
 
     # Debug: Check if content is empty
     if not innehall_text.strip():
-        print(f"Varning: Tomt innehåll för {beteckning}")
+        raise ValueError(f"Varning: Tomt innehåll för {beteckning}")
 
     # Check ignore rules first
     should_ignore, ignore_reason = ignore_rules(innehall_text)
@@ -709,126 +763,98 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
     if len(sorted_amendments) != len(set(a['ikraft_datum'] for a in sorted_amendments)):
         print("Varning: Duplicerade ikraft_datum hittades i ändringar. Detta kan orsaka oväntat beteende.")
 
-    for amendment in sorted_amendments:
-        ikraft_datum = amendment.get('ikraft_datum')
-        beteckning = amendment.get('beteckning', '')
-        rubrik = amendment.get('rubrik', 'Ändringsförfattning')
+    try:
+        for amendment in sorted_amendments:
+            ikraft_datum = amendment.get('ikraft_datum')
+            beteckning = amendment.get('beteckning', '')
+            rubrik = amendment.get('rubrik', 'Ändringsförfattning')
 
-        if verbose:
-            print(f"\n{'='*60}")
-            print(f"Bearbetar ÄNDRINGSFÖRFATTNING: {rubrik} ({ikraft_datum})")
-            if beteckning in overgangs_dict:
-                print(f"Övergångsbestämmelser för {beteckning}:")
-                print(f"\033[94m{overgangs_dict[beteckning]}\033[0m")  # Blue text for övergångsbestämmelser
-            print(f"{'='*60}")
-            print('')
+            if verbose:
+                print(f"\n{'='*60}")
+                print(f"Bearbetar ÄNDRINGSFÖRFATTNING: {rubrik} ({ikraft_datum})")
+                if beteckning in overgangs_dict:
+                    print(f"Övergångsbestämmelser för {beteckning}:")
+                    print(f"\033[94m{overgangs_dict[beteckning]}\033[0m")  # Blue text for övergångsbestämmelser
+                print(f"{'='*60}")
+                print('')
 
-        if ikraft_datum:
-            # Store text before changes for debug comparison
-            text_before_changes = processed_text
+            if ikraft_datum:
+                # Store text before changes for debug comparison
+                text_before_changes = processed_text
 
-            processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum, verbose)
+                processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum, verbose)
 
-            # Add relevant Övergångsbestämmelser content under the existing heading
-            if beteckning in overgangs_dict and overgangs_dict[beteckning]:
-                # Format the content with the beteckning as a bold heading
-                formatted_overgangs_content = f"**{beteckning}**\n\n{overgangs_dict[beteckning]}"
+                # Add relevant Övergångsbestämmelser content under the existing heading
+                if beteckning in overgangs_dict and overgangs_dict[beteckning]:
+                    # Format the content with the beteckning as a bold heading
+                    formatted_overgangs_content = f"**{beteckning}**\n\n{overgangs_dict[beteckning]}"
 
-                # Find the existing Övergångsbestämmelser heading and any existing content
-                overgangs_section_match = re.search(r'(### Övergångsbestämmelser\s*\n\n)(.*?)(?=\n### |\n## |\Z)', processed_text, re.DOTALL)
-                if overgangs_section_match:
-                    heading_part = overgangs_section_match.group(1)
-                    existing_content = overgangs_section_match.group(2).strip()
+                    # Find the existing Övergångsbestämmelser heading and any existing content
+                    overgangs_section_match = re.search(r'(### Övergångsbestämmelser\s*\n\n)(.*?)(?=\n### |\n## |\Z)', processed_text, re.DOTALL)
+                    if overgangs_section_match:
+                        heading_part = overgangs_section_match.group(1)
+                        existing_content = overgangs_section_match.group(2).strip()
 
-                    if existing_content:
-                        # There's already content under the heading, add after it
-                        content_to_insert = f"\n\n{formatted_overgangs_content}"
-                        insert_pos = overgangs_section_match.end() - len(overgangs_section_match.group(0)) + len(heading_part) + len(existing_content)
-                        processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
+                        if existing_content:
+                            # There's already content under the heading, add after it
+                            content_to_insert = f"\n\n{formatted_overgangs_content}"
+                            insert_pos = overgangs_section_match.end() - len(overgangs_section_match.group(0)) + len(heading_part) + len(existing_content)
+                            processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
 
-                        if verbose:
-                            print(f"Lade till övergångsbestämmelser för {beteckning} efter befintligt innehåll")
-                    else:
-                        # No existing content, add directly after heading
-                        insert_pos = overgangs_section_match.start() + len(heading_part)
-                        content_to_insert = f"{formatted_overgangs_content}\n\n"
-                        processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
-
-                        if verbose:
-                            print(f"Lade till övergångsbestämmelser för {beteckning} under rubrik (inget befintligt innehåll)")
-                else:
-                    # Fallback: add the section at the end if heading doesn't exist
-                    overgangs_section = f"\n\n### Övergångsbestämmelser\n\n{formatted_overgangs_content}\n"
-                    processed_text = processed_text.rstrip() + overgangs_section
-
-                    if verbose:
-                        print(f"Skapade ny övergångsbestämmelser-sektion för {beteckning} (rubrik hittades inte)")
-
-            # ...existing diff code...
-            show_diff = True
-            if show_diff:
-                # Create unified diff
-                diff_lines = list(difflib.unified_diff(
-                    text_before_changes.splitlines(keepends=True),
-                    processed_text.splitlines(keepends=True),
-                    #fromfile=f"Före ändring {beteckning}",
-                    #tofile=f"Efter ändring {beteckning}",
-                    lineterm=""
-                ))
-
-                if diff_lines:
-                    print("TEXTÄNDRINGAR:")
-                    for line in diff_lines:
-                        # Color coding for different types of changes
-                        line = line.rstrip()
-                        if line.startswith('+++') or line.startswith('---'):
-                            print(f"\033[1m{line}\033[0m")  # Bold
-                        elif line.startswith('@@'):
-                            print(f"\033[36m{line}\033[0m")  # Cyan
-                        elif line.startswith('+'):
-                            print(f"\033[32m{line}\033[0m")  # Green
-                        elif line.startswith('-'):
-                            print(f"\033[31m{line}\033[0m")  # Red
+                            if verbose:
+                                print(f"Lade till övergångsbestämmelser för {beteckning} efter befintligt innehåll")
                         else:
-                            print(line)
-                else:
-                    print("INGA TEXTÄNDRINGAR FUNNA.")
+                            # No existing content, add directly after heading
+                            insert_pos = overgangs_section_match.start() + len(heading_part)
+                            content_to_insert = f"{formatted_overgangs_content}\n\n"
+                            processed_text = processed_text[:insert_pos] + content_to_insert + processed_text[insert_pos:]
 
-                print(f"{'='*60}\n")
-
-            if enable_git and output_file:
-                try:
-                    # Throw error if rubrik is empty
-                    if not rubrik:
-                        raise ValueError("Rubrik cannot be empty for Git commit")
-
-                    # Write current state to file before staging
-                    save_to_disk(output_file, processed_text)
-
-                    # Stage the specific file
-                    subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
-
-                    # Check if there are any changes to commit
-                    result = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True)
-                    if result.returncode != 0:  # Non-zero means there are changes
-                        # Create Git commit with amendment rubrik and ikraft_datum as date
-                        commit_message = rubrik
-
-                        # Create commit with specific date
-                        subprocess.run([
-                            'git', 'commit',
-                            '-m', commit_message,
-                            '--date', ikraft_datum
-                        ], check=True, capture_output=True)
-
-                        print(f"Git-commit skapad: '{commit_message}' daterad {ikraft_datum}")
+                            if verbose:
+                                print(f"Lade till övergångsbestämmelser för {beteckning} under rubrik (inget befintligt innehåll)")
                     else:
-                        print(f"Inga ändringar att commita för ändring '{rubrik}' daterad {ikraft_datum}")
+                        # Fallback: add the section at the end if heading doesn't exist
+                        overgangs_section = f"\n\n### Övergångsbestämmelser\n\n{formatted_overgangs_content}\n"
+                        processed_text = processed_text.rstrip() + overgangs_section
 
-                except subprocess.CalledProcessError as e:
-                    print(f"Varning: Git-commit misslyckades för ändring daterad {ikraft_datum}: {e}")
-                except FileNotFoundError:
-                    print("Varning: Git hittades inte. Hoppar över Git-commits.")
+                        if verbose:
+                            print(f"Skapade ny övergångsbestämmelser-sektion för {beteckning} (rubrik hittades inte)")
+
+                # ...existing diff code...
+                show_diff = True
+                if show_diff:
+                    # Create unified diff
+                    diff_lines = list(difflib.unified_diff(
+                        text_before_changes.splitlines(keepends=True),
+                        processed_text.splitlines(keepends=True),
+                        #fromfile=f"Före ändring {beteckning}",
+                        #tofile=f"Efter ändring {beteckning}",
+                        lineterm=""
+                    ))
+
+                    if diff_lines:
+                        print("TEXTÄNDRINGAR:")
+                        for line in diff_lines:
+                            # Color coding for different types of changes
+                            line = line.rstrip()
+                            if line.startswith('+++') or line.startswith('---'):
+                                print(f"\033[1m{line}\033[0m")  # Bold
+                            elif line.startswith('@@'):
+                                print(f"\033[36m{line}\033[0m")  # Cyan
+                            elif line.startswith('+'):
+                                print(f"\033[32m{line}\033[0m")  # Green
+                            elif line.startswith('-'):
+                                print(f"\033[31m{line}\033[0m")  # Red
+                            else:
+                                print(line)
+                    else:
+                        print("INGA TEXTÄNDRINGAR FUNNA.")
+
+                    print(f"{'='*60}\n")
+
+    finally:
+        # Always restore original branch if we switched
+        if original_branch:
+            restore_original_branch(original_branch)
 
     return processed_text
 
