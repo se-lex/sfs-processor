@@ -442,8 +442,8 @@ def _is_section_upphavd(header_line: str, content: str) -> bool:
     Kontrollera om en sektion ska markeras som upphävd baserat på rubrik och innehåll.
 
     Söker efter "upphävd", "har upphävts", "har upphävs" (felstavning),
-    "/Rubriken upphör att gälla " eller "/Upphör att gälla " i både
-    rubrikens text och det direkta innehållet. Sökningen är case-insensitive.
+    "/Rubriken upphör att gälla " eller "/Upphör att gälla " eller "/Ny beteckning"
+    i både rubrikens text och det direkta innehållet. Sökningen är case-insensitive.
 
     Args:
         header_line (str): Rubrikraden (med markdown-markeringar som ###)
@@ -463,11 +463,13 @@ def _is_section_upphavd(header_line: str, content: str) -> bool:
             'har upphävs' in header_lower or
             '/rubriken upphör att gälla ' in header_lower or
             '/upphör att gälla ' in header_lower or
+            '/ny beteckning' in header_lower or
             'upphävd' in content_lower or
             'har upphävts' in content_lower or
             'har upphävs' in content_lower or
             '/rubriken upphör att gälla ' in content_lower or
-            '/upphör att gälla ' in content_lower)
+            '/upphör att gälla ' in content_lower or
+            '/ny beteckning' in content_lower)
 
 
 def _is_section_ikraft(header_line: str, content: str) -> bool:
