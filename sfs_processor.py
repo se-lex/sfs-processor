@@ -346,8 +346,18 @@ def convert_to_markdown(data: Dict[str, Any]) -> str:
     innehall_text = fulltext_data.get('forfattningstext')
 
     # Debug: Check if content is empty
-    if not innehall_text.strip():
-        raise ValueError(f"Varning: Tomt innehåll för {beteckning}")
+    if not innehall_text or not innehall_text.strip():
+        print(f"Varning: Tomt innehåll för {beteckning}")
+        # Create a minimal valid document for empty content
+        yaml_frontmatter = f"""---
+beteckning: {beteckning}
+rubrik: {data.get('rubrik', 'Okänd rubrik')}
+---
+# {data.get('rubrik', 'Okänd rubrik')}
+
+*Detta dokument har inget innehåll i originalformatet.*
+"""
+        return yaml_frontmatter
 
     # Check ignore rules first
     should_ignore, ignore_reason = ignore_rules(innehall_text)
@@ -993,3 +1003,7 @@ def parse_overgangsbestammelser(text: str, amendments: List[Dict[str, Any]], ver
             print(f"  {beteckning}: {len(content)} tecken")
 
     return overgangs_dict
+
+
+if __name__ == "__main__":
+    main()
