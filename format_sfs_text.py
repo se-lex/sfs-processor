@@ -81,6 +81,11 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
     """
     Formattera SFS-text med hantering av ändringar och upphöranden.
 
+    .. deprecated::
+        Denna funktion är obsolet och kommer att tas bort i framtida versioner.
+        Använd istället parse_logical_paragraphs_new() som hanterar ändringar och
+        upphöranden direkt i section-taggarna med selex: attribut.
+
     Regler:
     1. Om "/Ny beteckning" förekommer efter en paragraf (ex. **13 §**) ska hela stycket tas bort
     2. Om "/Upphör att gälla" med datum förekommer efter en paragraf ska hela stycket tas bort
@@ -504,9 +509,9 @@ def _is_section_ikraft(header_line: str, content: str) -> bool:
             re.search(rubrik_ikraft_villkor_pattern, content_lower) is not None)
 
 
-def parse_logical_paragraphs_new(text: str) -> str:
+def parse_logical_sections(text: str) -> str:
     """
-    Dela upp texten i logiska paragrafer baserat på markdown-rubriker och omslut
+    Dela upp texten i logiska sektioner baserat på Markdown-rubriker och omslut
     varje rubrik och dess innehåll med <section>-taggar.
 
     CSS-klass läggs till baserat på sektionen:

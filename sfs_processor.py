@@ -24,7 +24,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 import difflib
-from format_sfs_text import format_sfs_text_as_markdown, apply_changes_to_sfs_text
+from format_sfs_text import format_sfs_text_as_markdown, apply_changes_to_sfs_text, parse_logical_sections
 from sort_frontmatter import sort_frontmatter_properties
 from add_pdf_url_to_frontmatter import generate_pdf_url
 
@@ -140,11 +140,9 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
     amendments = extract_amendments(data.get('andringsforfattningar', []))
 
     # Check for amendment markers and process amendments if they exist
-    has_amendment_markers = re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', innehall_text)
+    has_amendment_markers = False # re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', innehall_text)
     if verbose and amendments and not has_amendment_markers:
         print(f"Varning: Inga ändringsmarkeringar hittades i {beteckning} men ändringar finns.")
-        print(f"Innehållsförhandsvisning (första 200 tecken): {innehall_text[:200]}...")
-        print(f"Skapar dokument utan ändringsbearbetning (övergångsbestämmelser bevaras från originaltext).")
 
     # Apply amendments if they exist
     if has_amendment_markers and amendments:
@@ -415,6 +413,9 @@ departement: {format_yaml_value(organisation)}
     else:
         # Format the content text to markdown
         formatted_text = format_sfs_text_as_markdown(innehall_text)
+
+        # Apply section tags
+        formatted_text = parse_logical_sections(formatted_text)
 
         # Debug: Check if formatting resulted in empty text
         if not formatted_text.strip():
