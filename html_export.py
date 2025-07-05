@@ -533,6 +533,11 @@ def create_html_head(title: str, beteckning: str, eli_format: bool = False, addi
 
     # Navbar initialization script
     navbar_script = f"""
+    <script>
+        window.NAVBAR_CONFIG = {{
+            logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 70'><text x='0' y='60' font-family='Inter, sans-serif' font-size='70' fill='%23f1c40f'>SE-Lex</text></svg>"
+        }};
+    </script>
     <script src=\"https://swebar.netlify.app/navbar.js\"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {{
