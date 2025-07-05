@@ -14,7 +14,7 @@ Regler som tillämpas:
 3. Dela in texten i logiska paragrafer och omringa dem med HTML-taggar <section>
    - Rubriker på nivå 2 (##) får CSS-klass "kapitel"
    - Rubriker på nivå 3-4 (###, ####) med § får CSS-klass "paragraf"
-   - Innehåll eller rubriker med "upphävd" eller "har upphävts" får attributet status="upphavd"
+   - Innehåll eller rubriker med "upphävd", "har upphävts" eller "har upphävs" (felstavning som förekommer i vissa SFS-dokument) får attributet status="upphavd"
 4. Hantering av ändringar och upphöranden:
    - Stycken med "/Rubriken träder i kraft I:YYYY-MM-DD/" efter rubriker tas bort
    - Stycken med "/Rubriken upphör att gälla U:YYYY-MM-DD/" efter rubriker tas bort
@@ -429,6 +429,34 @@ def apply_sfs_links(text: str) -> str:
     return re.sub(sfs_pattern, replace_sfs_designation, text)
 
 
+def _is_section_upphavd(header_line: str, content: str) -> bool:
+    """
+    Kontrollera om en sektion ska markeras som upphävd baserat på rubrik och innehåll.
+
+    Söker efter "upphävd", "har upphävts" eller "har upphävs" (felstavning) i både
+    rubrikens text och det direkta innehållet. Sökningen är case-insensitive.
+
+    Args:
+        header_line (str): Rubrikraden (med markdown-markeringar som ###)
+        content (str): Det direkta innehållet under rubriken (exklusive underrubriker)
+
+    Returns:
+        bool: True om sektionen ska markeras som upphävd, False annars
+    """
+    # Konvertera till lowercase för case-insensitive sökning
+    header_lower = header_line.lower()
+    content_lower = content.lower()
+
+    # Kontrollera både i rubrik och innehåll efter "upphävd", "har upphävts" eller "har upphävs"
+    # Observera: "har upphävs" är en felstavning som förekommer i vissa SFS-dokument (ex. 2018:263)
+    return ('upphävd' in header_lower or
+            'har upphävts' in header_lower or
+            'har upphävs' in header_lower or
+            'upphävd' in content_lower or
+            'har upphävts' in content_lower or
+            'har upphävs' in content_lower)
+
+
 def parse_logical_paragraphs_new(text: str) -> str:
     """
     Dela upp texten i logiska paragrafer baserat på markdown-rubriker och omslut
@@ -438,8 +466,9 @@ def parse_logical_paragraphs_new(text: str) -> str:
     - Rubriknivå 2 (##): class="kapitel"
     - Rubriknivå 3 eller 4 (### eller ####) med § i rubriken: class="paragraf"
 
-    Om sektionens innehåll (exklusive underrubriker) eller rubrikens text innehåller "upphävd" eller
-    "har upphävts" läggs attributet status="upphavd" till.
+    Om sektionens innehåll (exklusive underrubriker) eller rubrikens text innehåller "upphävd",
+    "har upphävts" eller "har upphävs" (felstavning som förekommer i SFS-dokument) läggs
+    attributet status="upphavd" till.
 
     Args:
         text (str): Markdown-formaterad text med rubriker
@@ -510,11 +539,8 @@ def parse_logical_paragraphs_new(text: str) -> str:
             filtered_content = '\n'.join(direct_content)
             header_line = current_section[0] if current_section else ""
 
-            # Kontrollera både i innehållet och i rubrikens text
-            has_upphavd = ('upphävd' in filtered_content.lower() or
-                          'har upphävts' in filtered_content.lower() or
-                          'upphävd' in header_line.lower() or
-                          'har upphävts' in header_line.lower())
+            # Använd hjälpfunktion för att kontrollera upphävd-status
+            has_upphavd = _is_section_upphavd(header_line, filtered_content)
 
             # Bestäm CSS-klass baserat på rubriknivå och innehåll
             css_classes = []
