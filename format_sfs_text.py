@@ -14,7 +14,7 @@ Regler som tillämpas:
 3. Dela in texten i logiska paragrafer och omringa dem med HTML-taggar <section>
    - Rubriker på nivå 2 (##) får CSS-klass "kapitel"
    - Rubriker på nivå 3-4 (###, ####) med § får CSS-klass "paragraf"
-   - Innehåll med "upphävd" eller "har upphävts" får attributet status="upphavd"
+   - Innehåll eller rubriker med "upphävd" eller "har upphävts" får attributet status="upphavd"
 4. Hantering av ändringar och upphöranden:
    - Stycken med "/Rubriken träder i kraft I:YYYY-MM-DD/" efter rubriker tas bort
    - Stycken med "/Rubriken upphör att gälla U:YYYY-MM-DD/" efter rubriker tas bort
@@ -438,7 +438,7 @@ def parse_logical_paragraphs_new(text: str) -> str:
     - Rubriknivå 2 (##): class="kapitel"
     - Rubriknivå 3 eller 4 (### eller ####) med § i rubriken: class="paragraf"
 
-    Om sektionens innehåll (exklusive underrubriker) innehåller "upphävd" eller
+    Om sektionens innehåll (exklusive underrubriker) eller rubrikens text innehåller "upphävd" eller
     "har upphävts" läggs attributet status="upphavd" till.
 
     Args:
@@ -506,10 +506,15 @@ def parse_logical_paragraphs_new(text: str) -> str:
 
                 i += 1
 
-            # Kontrollera "upphävd" endast i det direkta innehållet
+            # Kontrollera "upphävd" i det direkta innehållet OCH i rubrikens text
             filtered_content = '\n'.join(direct_content)
+            header_line = current_section[0] if current_section else ""
+
+            # Kontrollera både i innehållet och i rubrikens text
             has_upphavd = ('upphävd' in filtered_content.lower() or
-                          'har upphävts' in filtered_content.lower())
+                          'har upphävts' in filtered_content.lower() or
+                          'upphävd' in header_line.lower() or
+                          'har upphävts' in header_line.lower())
 
             # Bestäm CSS-klass baserat på rubriknivå och innehåll
             css_classes = []
@@ -522,9 +527,12 @@ def parse_logical_paragraphs_new(text: str) -> str:
                 header_level = len(header_match.group(1))
                 header_text = header_match.group(2)
 
-                # Lägg till klasser baserat på rubriknivå
+                # Lägg till klasser baserat på rubriknivå och innehåll
                 if header_level == 2:
-                    css_classes.append('kapitel')
+                    if '§' in header_text:
+                        css_classes.append('paragraf')
+                    else:
+                        css_classes.append('kapitel')
                 elif (header_level == 3 or header_level == 4) and '§' in header_text:
                     css_classes.append('paragraf')
 
