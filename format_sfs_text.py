@@ -11,12 +11,17 @@ Regler som tillämpas:
      * H3-rubriker (###) när paragraph_as_header=True (standard)
      * H4-rubriker (####) inom potential_headers-sektionen
      * Fetstil (**text**) när paragraph_as_header=False
-3. Hantering av ändringar och upphöranden:
+3. Dela in texten i logiska paragrafer och omringa dem med HTML-taggar <section>
+   - Rubriker på nivå 2 (##) får CSS-klass "kapitel"
+   - Rubriker på nivå 3-4 (###, ####) med § får CSS-klass "paragraf"
+   - Innehåll med "upphävd" eller "har upphävts" får attributet status="upphavd"
+4. Hantering av ändringar och upphöranden:
+   - Stycken med "/Rubriken träder i kraft I:YYYY-MM-DD/" efter rubriker tas bort
+   - Stycken med "/Rubriken upphör att gälla U:YYYY-MM-DD/" efter rubriker tas bort
    - Stycken med "/Ny beteckning" efter paragrafer tas bort
    - Stycken med "/Upphör att gälla U:YYYY-MM-DD/" efter paragrafer tas bort
 
 Regler som inte utvecklats än:
-    - Hantera "(Upphävd)" och "har upphävts"
     - "Registrerings upphörande m.m." bör bli en rubrik (1970:485)
     - Avdelningar (ex. "Avdelning 1") kan bli H2-rubriker (##)
     - Interna länkar till andra paragrafer (ex. "[13 §](#13)") kan formateras som länkar
@@ -422,3 +427,152 @@ def apply_sfs_links(text: str) -> str:
 
     # Ersätt alla SFS-beteckningar med markdown-länkar
     return re.sub(sfs_pattern, replace_sfs_designation, text)
+
+
+def parse_logical_paragraphs_new(text: str) -> str:
+    """
+    Dela upp texten i logiska paragrafer baserat på markdown-rubriker och omslut
+    varje rubrik och dess innehåll med <section>-taggar.
+
+    CSS-klass läggs till baserat på sektionen:
+    - Rubriknivå 2 (##): class="kapitel"
+    - Rubriknivå 3 eller 4 (### eller ####) med § i rubriken: class="paragraf"
+
+    Om sektionens innehåll (exklusive underrubriker) innehåller "upphävd" eller
+    "har upphävts" läggs attributet status="upphavd" till.
+
+    Args:
+        text (str): Markdown-formaterad text med rubriker
+
+    Returns:
+        str: Text med <section>-taggar runt varje rubrik och dess innehåll
+    """
+    lines = text.split('\n')
+    result = []
+    current_section = []
+    section_stack = []  # Stack för att hålla koll på nestlade sektioner
+
+    def close_sections_to_level(target_level):
+        """Stäng alla sektioner ner till målnivån"""
+        nonlocal section_stack, result
+        while section_stack and section_stack[-1] >= target_level:
+            result.append('</section>')
+            section_stack.pop()
+
+    def process_current_section():
+        """Bearbeta och lägg till nuvarande sektion"""
+        nonlocal current_section, result
+        if current_section:
+            # Hitta rubriknivån för huvudrubriken i denna sektion
+            main_header_line = current_section[0] if current_section else ""
+            main_header_match = re.match(r'^(#{2,6})\s+(.+)', main_header_line)
+            main_header_level = len(main_header_match.group(1)) if main_header_match else 2
+
+            # Extrahera endast det direkta innehållet under huvudrubriken,
+            # exklusive alla underrubriker och deras innehåll
+            direct_content = []
+            i = 1  # Börja efter huvudrubriken
+
+            while i < len(current_section):
+                line = current_section[i]
+                subheader_match = re.match(r'^(#{2,6})\s+(.+)', line)
+
+                if subheader_match:
+                    # Detta är en underrubrik
+                    subheader_level = len(subheader_match.group(1))
+
+                    # Om det är en underrubrik (djupare nivå än huvudrubriken)
+                    if subheader_level > main_header_level:
+                        # Hoppa över denna underrubrik och allt dess innehåll
+                        # tills vi hittar nästa rubrik på samma eller högre nivå
+                        i += 1
+                        while i < len(current_section):
+                            next_line = current_section[i]
+                            next_header_match = re.match(r'^(#{2,6})\s+(.+)', next_line)
+
+                            if next_header_match:
+                                next_header_level = len(next_header_match.group(1))
+                                # Om vi hittar en rubrik på samma eller högre nivå, sluta hoppa över
+                                if next_header_level <= subheader_level:
+                                    break
+                            i += 1
+                        continue
+                    else:
+                        # Detta är en rubrik på samma eller högre nivå, så vi är klara
+                        break
+                else:
+                    # Detta är vanligt innehåll, lägg till det
+                    direct_content.append(line)
+
+                i += 1
+
+            # Kontrollera "upphävd" endast i det direkta innehållet
+            filtered_content = '\n'.join(direct_content)
+            has_upphavd = ('upphävd' in filtered_content.lower() or
+                          'har upphävts' in filtered_content.lower())
+
+            # Bestäm CSS-klass baserat på rubriknivå och innehåll
+            css_classes = []
+
+            # Hitta rubriken i sektionen för att bestämma nivå och innehåll
+            header_line = current_section[0] if current_section else ""
+            header_match = re.match(r'^(#{2,6})\s+(.+)', header_line)
+
+            if header_match:
+                header_level = len(header_match.group(1))
+                header_text = header_match.group(2)
+
+                # Lägg till klasser baserat på rubriknivå
+                if header_level == 2:
+                    css_classes.append('kapitel')
+                elif (header_level == 3 or header_level == 4) and '§' in header_text:
+                    css_classes.append('paragraf')
+
+            # Bygg section-tagg med attribut
+            attributes = []
+            if css_classes:
+                attributes.append(f'class="{" ".join(css_classes)}"')
+            if has_upphavd:
+                attributes.append('status="upphavd"')
+
+            if attributes:
+                result.append(f'<section {" ".join(attributes)}>')
+            else:
+                result.append('<section>')
+
+            # Lägg till innehållet
+            result.extend(current_section)
+
+            # Rensa nuvarande sektion
+            current_section = []
+
+    for line in lines:
+        # Kontrollera om raden är en markdown-rubrik
+        header_match = re.match(r'^(#{2,6})\s+(.+)', line)
+
+        if header_match:
+            header_level = len(header_match.group(1))  # Antal # tecken
+
+            # Om vi har en pågående sektion, bearbeta den först
+            if current_section:
+                process_current_section()
+
+            # Stäng sektioner som är på samma eller djupare nivå
+            close_sections_to_level(header_level)
+
+            # Starta ny sektion
+            current_section = [line]
+            section_stack.append(header_level)
+
+        else:
+            # Lägg till raden till nuvarande sektion
+            current_section.append(line)
+
+    # Bearbeta sista sektionen
+    if current_section:
+        process_current_section()
+
+    # Stäng alla återstående sektioner
+    close_sections_to_level(0)
+
+    return '\n'.join(result)
