@@ -15,6 +15,10 @@ Regler som tillämpas:
    - Rubriker på nivå 2 (##) får CSS-klass "kapitel"
    - Rubriker på nivå 3-4 (###, ####) med § får CSS-klass "paragraf"
    - Innehåll eller rubriker med "upphävd", "har upphävts" eller "har upphävs" (felstavning som förekommer i vissa författningar) får attributet status="upphavd"
+   - Innehåll eller rubriker med "/Träder i kraft I:YYYY-MM-DD" eller "/Rubriken träder i kraft I:YYYY-MM-DD" får attributet status="ikraft"
+   - Datum parsas från "/Upphör att gälla U:YYYY-MM-DD/" till attributet upphor_datum="YYYY-MM-DD"
+   - Datum parsas från "/Träder i kraft I:YYYY-MM-DD/" till attributet ikraft_datum="YYYY-MM-DD"
+   - En sektion kan ha både status="upphavd ikraft" om den både träder i kraft och upphör
 4. Hantering av ändringar och upphöranden:
    - Stycken med "/Rubriken träder i kraft I:YYYY-MM-DD/" efter rubriker tas bort
    - Stycken med "/Rubriken upphör att gälla U:YYYY-MM-DD/" efter rubriker tas bort
@@ -462,6 +466,36 @@ def _is_section_upphavd(header_line: str, content: str) -> bool:
             '/upphör att gälla ' in content_lower)
 
 
+def _is_section_ikraft(header_line: str, content: str) -> bool:
+    """
+    Kontrollera om en sektion ska markeras som "träder ikraft" baserat på rubrik och innehåll.
+
+    Söker efter "/Träder i kraft I:YYYY-MM-DD" eller "/Rubriken träder i kraft I:YYYY-MM-DD"
+    med giltigt datum i både rubrikens text och det direkta innehållet.
+    Sökningen är case-insensitive.
+
+    Args:
+        header_line (str): Rubrikraden (med markdown-markeringar som ###)
+        content (str): Det direkta innehållet under rubriken (exklusive underrubriker)
+
+    Returns:
+        bool: True om sektionen ska markeras som "träder ikraft", False annars
+    """
+    # Konvertera till lowercase för case-insensitive sökning
+    header_lower = header_line.lower()
+    content_lower = content.lower()
+
+    # Kontrollera både i rubrik och innehåll efter ikraft-markeringar med giltigt datum
+    # Mönster för "/Träder i kraft I:YYYY-MM-DD" med giltigt datum
+    ikraft_pattern = r'/träder i kraft i:\d{4}-\d{2}-\d{2}'
+    rubrik_ikraft_pattern = r'/rubriken träder i kraft i:\d{4}-\d{2}-\d{2}'
+
+    return (re.search(ikraft_pattern, header_lower) is not None or
+            re.search(rubrik_ikraft_pattern, header_lower) is not None or
+            re.search(ikraft_pattern, content_lower) is not None or
+            re.search(rubrik_ikraft_pattern, content_lower) is not None)
+
+
 def parse_logical_paragraphs_new(text: str) -> str:
     """
     Dela upp texten i logiska paragrafer baserat på markdown-rubriker och omslut
@@ -471,12 +505,23 @@ def parse_logical_paragraphs_new(text: str) -> str:
     - Rubriknivå 2 (##): class="kapitel"
     - Rubriknivå 3 eller 4 (### eller ####) med § i rubriken: class="paragraf"
 
-    Om sektionens innehåll (exklusive underrubriker) eller rubrikens text innehåller "upphävd",
-    "har upphävts" eller "har upphävs" (felstavning som förekommer i SFS-författningar) läggs
-    attributet status="upphavd" till.
+    Status-attribut läggs till baserat på sektionens innehåll:
+    - Om sektionens innehåll (exklusive underrubriker) eller rubrikens text innehåller "upphävd",
+      "har upphävts" eller "har upphävs" (felstavning som förekommer i vissa författningar) läggs
+      attributet status="upphavd" till.
+    - Om sektionens innehåll eller rubrik innehåller "/Träder i kraft I:YYYY-MM-DD" eller
+      "/Rubriken träder i kraft I:YYYY-MM-DD" läggs attributet status="ikraft" till.
 
-    Om sektionens innehåll eller rubrik innehåller "/Upphör att gälla U:YYYY-MM-DD/"
-    parsas datumet ut och läggs till som attributet upphor_datum="YYYY-MM-DD".
+    Datum-attribut läggs till baserat på sektionens innehåll:
+    - Om sektionens innehåll eller rubrik innehåller "/Upphör att gälla U:YYYY-MM-DD/"
+      parsas datumet ut och läggs till som attributet upphor_datum="YYYY-MM-DD".
+    - Om sektionens innehåll eller rubrik innehåller "/Träder i kraft I:YYYY-MM-DD/"
+      parsas datumet ut och läggs till som attributet ikraft_datum="YYYY-MM-DD".
+
+    Konsistenskontroll:
+    - Om upphor_datum hittas men sektionen inte är markerad som upphävd kastas ValueError.
+    - Om ikraft_datum hittas men sektionen inte är markerad som ikraft kastas ValueError.
+    - En sektion kan ha både status="upphavd ikraft" om den både träder i kraft och upphör.
 
     Args:
         text (str): Markdown-formaterad text med rubriker
@@ -561,6 +606,19 @@ def parse_logical_paragraphs_new(text: str) -> str:
                 if not has_upphavd:
                     raise ValueError(f"Inkonsistens upptäckt: Sektion har upphor_datum '{upphor_datum}' men är inte markerad som upphävd. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
 
+            # Kontrollera "ikraft" i det direkta innehållet OCH i rubrikens text
+            has_ikraft = _is_section_ikraft(header_line, filtered_content)
+
+            # Sök efter "I:YYYY-MM-DD" i både rubrik och innehåll
+            ikraft_datum = None
+            ikraft_match = re.search(r'I:(\d{4}-\d{2}-\d{2})', all_section_content)
+            if ikraft_match:
+                ikraft_datum = ikraft_match.group(1)
+
+                # Kontrollera konsistens: om vi hittar ikraft_datum ska sektionen också vara ikraft
+                if not has_ikraft:
+                    raise ValueError(f"Inkonsistens upptäckt: Sektion har ikraft_datum '{ikraft_datum}' men är inte markerad som ikraft. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
+
             # Bestäm CSS-klass baserat på rubriknivå och innehåll
             css_classes = []
 
@@ -585,10 +643,21 @@ def parse_logical_paragraphs_new(text: str) -> str:
             attributes = []
             if css_classes:
                 attributes.append(f'class="{" ".join(css_classes)}"')
+            
+            # Hantera status attribut - en sektion kan ha både upphävd och ikraft
+            status_values = []
             if has_upphavd:
-                attributes.append('status="upphavd"')
+                status_values.append('upphavd')
+            if has_ikraft:
+                status_values.append('ikraft')
+            
+            if status_values:
+                attributes.append(f'status="{" ".join(status_values)}"')
+            
             if upphor_datum:
                 attributes.append(f'upphor_datum="{upphor_datum}"')
+            if ikraft_datum:
+                attributes.append(f'ikraft_datum="{ikraft_datum}"')
 
             if attributes:
                 result.append(f'<section {" ".join(attributes)}>')
