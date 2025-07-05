@@ -486,9 +486,9 @@ def create_html_head(title: str, beteckning: str, additional_styles: str = "", a
     <script src=\"https://swebar.netlify.app/navbar.js\"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {{
-            if (typeof SwedacNavbar !== 'undefined') {{
-                SwedacNavbar.setHeader(\"SFS\");
-                SwedacNavbar.setHeaderChild(\"{html.escape(beteckning)}\");
+            if (typeof SweNavbar !== 'undefined') {{
+                SweNavbar.setHeader(\"SFS\");
+                SweNavbar.setHeaderChild(\"{html.escape(beteckning)}\");
             }}
         }});"""
     if additional_scripts:
