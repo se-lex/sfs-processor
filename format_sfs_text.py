@@ -16,6 +16,8 @@ Regler som tillämpas:
    - Stycken med "/Upphör att gälla U:YYYY-MM-DD/" efter paragrafer tas bort
 
 Regler som inte utvecklats än:
+    - Hantera "(Upphävd)" och "har upphävts"
+    - "Registrerings upphörande m.m." bör bli en rubrik (1970:485)
     - Avdelningar (ex. "Avdelning 1") kan bli H2-rubriker (##)
     - Interna länkar till andra paragrafer (ex. "[13 §](#13)") kan formateras som länkar
     - Interna länkar till andra författningar (ex. "[SFS 2020:123](#sfs-2020-123)") kan formateras som länkar

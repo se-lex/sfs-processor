@@ -24,7 +24,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 import difflib
-from format_sfs_text_to_md import format_sfs_text, apply_changes_to_sfs_text
+from format_sfs_text import format_sfs_text, apply_changes_to_sfs_text
 from sort_frontmatter import sort_frontmatter_properties
 from add_pdf_url_to_frontmatter import generate_pdf_url
 
