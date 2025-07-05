@@ -26,6 +26,49 @@ Regler som inte utvecklats än:
 
 import re
 
+def parse_logical_paragraphs(text: str) -> list:
+    """
+    Dela upp texten i logiska paragrafer baserat på dubbla radbrytningar,
+    men se till att rubriker inkluderas tillsammans med sitt innehåll.
+    Slår också ihop rader inom varje paragraf så att markeringar hamnar på samma rad.
+    """
+    # Dela på dubbla radbrytningar först
+    raw_paragraphs = text.split('\n\n')
+
+    logical_paragraphs = []
+    i = 0
+
+    while i < len(raw_paragraphs):
+        current_paragraph = raw_paragraphs[i]
+
+        # Slå ihop alla rader inom paragrafen med mellanslag (för att hantera markeringar på separata rader)
+        paragraph_lines = current_paragraph.split('\n')
+        consolidated_paragraph = ' '.join(line.strip() for line in paragraph_lines if line.strip())
+
+        # Om detta stycke är bara en rubrik, kontrollera vad som kommer härnäst
+        if (re.match(r'^#{2,4}\s+', consolidated_paragraph.strip()) and
+            i + 1 < len(raw_paragraphs)):
+            # Konsolidera nästa paragraf för att kontrollera om det också är en rubrik
+            next_paragraph = raw_paragraphs[i + 1]
+            next_paragraph_lines = next_paragraph.split('\n')
+            consolidated_next = ' '.join(line.strip() for line in next_paragraph_lines if line.strip())
+
+            # Om nästa stycke också är en rubrik, behandla denna rubrik som egen paragraf
+            if re.match(r'^#{2,4}\s+', consolidated_next.strip()):
+                logical_paragraphs.append(consolidated_paragraph)
+                i += 1  # Gå vidare till nästa stycke utan att slå ihop
+            else:
+                # Slå ihop rubriken med nästa stycke som tidigare
+                combined = consolidated_paragraph + '\n\n' + consolidated_next
+                logical_paragraphs.append(combined)
+                i += 2  # Hoppa över nästa stycke eftersom vi redan behandlat det
+        else:
+            logical_paragraphs.append(consolidated_paragraph)
+            i += 1
+
+    return logical_paragraphs
+
+
 def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool = False) -> str:
     """
     Formattera SFS-text med hantering av ändringar och upphöranden.
@@ -49,48 +92,6 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
     Raises:
         ValueError: Om inga regler kunde tillämpas (inga ändringar gjordes)
     """
-    def parse_logical_paragraphs(text: str) -> list:
-        """
-        Dela upp texten i logiska paragrafer baserat på dubbla radbrytningar,
-        men se till att rubriker inkluderas tillsammans med sitt innehåll.
-        Slår också ihop rader inom varje paragraf så att markeringar hamnar på samma rad.
-        """
-        # Dela på dubbla radbrytningar först
-        raw_paragraphs = text.split('\n\n')
-
-        logical_paragraphs = []
-        i = 0
-
-        while i < len(raw_paragraphs):
-            current_paragraph = raw_paragraphs[i]
-
-            # Slå ihop alla rader inom paragrafen med mellanslag (för att hantera markeringar på separata rader)
-            paragraph_lines = current_paragraph.split('\n')
-            consolidated_paragraph = ' '.join(line.strip() for line in paragraph_lines if line.strip())
-
-            # Om detta stycke är bara en rubrik, kontrollera vad som kommer härnäst
-            if (re.match(r'^#{2,4}\s+', consolidated_paragraph.strip()) and
-                i + 1 < len(raw_paragraphs)):
-                # Konsolidera nästa paragraf för att kontrollera om det också är en rubrik
-                next_paragraph = raw_paragraphs[i + 1]
-                next_paragraph_lines = next_paragraph.split('\n')
-                consolidated_next = ' '.join(line.strip() for line in next_paragraph_lines if line.strip())
-
-                # Om nästa stycke också är en rubrik, behandla denna rubrik som egen paragraf
-                if re.match(r'^#{2,4}\s+', consolidated_next.strip()):
-                    logical_paragraphs.append(consolidated_paragraph)
-                    i += 1  # Gå vidare till nästa stycke utan att slå ihop
-                else:
-                    # Slå ihop rubriken med nästa stycke som tidigare
-                    combined = consolidated_paragraph + '\n\n' + consolidated_next
-                    logical_paragraphs.append(combined)
-                    i += 2  # Hoppa över nästa stycke eftersom vi redan behandlat det
-            else:
-                logical_paragraphs.append(consolidated_paragraph)
-                i += 1
-
-        return logical_paragraphs
-
     # Dela upp texten i logiska paragrafer
     paragraphs = parse_logical_paragraphs(text)
 
@@ -223,9 +224,12 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
     return '\n\n'.join(filtered_paragraphs)
 
 
-def format_sfs_text(text: str, paragraph_as_header: bool = True) -> str:
+def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True) -> str:
     """
-    Formattera texten för ett SFS-dokument enligt specificerade regler.
+    Formattera texten från en författningstext importerad från
+    Regeringskansliets rättsdatabas till Markdown-format.
+
+    TODO: Prova att gör motsvarande med Riksdagens HTML-version som input.
 
     Args:
         text (str): Texten som ska formateras

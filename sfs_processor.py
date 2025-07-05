@@ -24,7 +24,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 import difflib
-from format_sfs_text import format_sfs_text, apply_changes_to_sfs_text
+from format_sfs_text import format_sfs_text_as_markdown, apply_changes_to_sfs_text
 from sort_frontmatter import sort_frontmatter_properties
 from add_pdf_url_to_frontmatter import generate_pdf_url
 
@@ -414,7 +414,7 @@ departement: {format_yaml_value(organisation)}
         markdown_body = ignored_body
     else:
         # Format the content text to markdown
-        formatted_text = format_sfs_text(innehall_text)
+        formatted_text = format_sfs_text_as_markdown(innehall_text)
 
         # Debug: Check if formatting resulted in empty text
         if not formatted_text.strip():

@@ -13,7 +13,7 @@ from typing import Dict, Any
 from datetime import datetime
 
 # Import required functions from other modules
-from format_sfs_text import format_sfs_text, apply_changes_to_sfs_text
+from format_sfs_text import format_sfs_text_as_markdown, apply_changes_to_sfs_text
 from add_pdf_url_to_frontmatter import generate_pdf_url
 
 
@@ -188,7 +188,7 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
         return create_ignored_html_content(data, ignore_reason)
 
     # Format the content text
-    formatted_text = format_sfs_text(innehall_text)
+    formatted_text = format_sfs_text_as_markdown(innehall_text)
 
     # Apply amendments if requested
     if apply_amendments and up_to_amendment:
