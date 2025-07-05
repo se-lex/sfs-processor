@@ -25,10 +25,9 @@ Regler som tillämpas:
    - Stycken med "/Upphör att gälla U:YYYY-MM-DD/" efter paragrafer tas bort
 
 Regler som inte utvecklats än:
-    - "Registrerings upphörande m.m." bör bli en rubrik (1970:485)
-    - Avdelningar (ex. "Avdelning 1") kan bli H2-rubriker (##)
-    - Interna länkar till andra paragrafer (ex. "[13 §](#13)") kan formateras som länkar
-    - Interna länkar till andra författningar (ex. "[SFS 2020:123](#sfs-2020-123)") kan formateras som länkar
+    - "Registrerings upphörande m.m." bör bli en rubrik (1970:485)   - Avdelningar (ex. "Avdelning 1") kan bli H2-rubriker (##)
+   - Interna länkar till andra paragrafer (ex. "5 §" blir "[5 §](#5§)") formateras som interna markdown-länkar
+   - Externa länkar till andra författningar (ex. "2020:123" blir "[2020:123](/sfs/2020:123)") formateras som externa markdown-länkar
 
 """
 
@@ -247,7 +246,7 @@ def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True, app
     Args:
         text (str): Texten som ska formateras
         paragraph_as_header (bool): Om True, gör paragrafnummer till H3-rubriker istället för fetstil
-        apply_links (bool): Om True, konvertera SFS-beteckningar till markdown-länkar
+        apply_links (bool): Om True, konvertera både interna paragrafnummer och SFS-beteckningar till markdown-länkar
 
     Returns:
         str: Den formaterade texten
@@ -373,8 +372,9 @@ def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True, app
     # Returnera den formaterade texten
     final_text = '\n'.join(formatted)
     
-    # Tillämpa SFS-länkar om det begärs
+    # Tillämpa interna paragraf-länkar och SFS-länkar om det begärs
     if apply_links:
+        final_text = apply_internal_links(final_text)
         final_text = apply_sfs_links(final_text)
 
     return final_text.strip()  # Ta bort eventuella inledande eller avslutande tomma rader
@@ -748,3 +748,48 @@ def parse_logical_sections(text: str) -> str:
     close_sections_to_level(0)
 
     return '\n'.join(result)
+
+
+def apply_internal_links(text: str) -> str:
+    """
+    Letar efter paragrafnummer i löpande text (inte i rubriker) och konverterar dem till interna länkar.
+
+    Söker efter mönster som "9 §", "13 a §", "2 b §" etc. och skapar interna länkar
+    till [9 §](#9§), [13 a §](#13a§), [2 b §](#2b§).
+
+    Args:
+        text (str): Texten som ska bearbetas
+
+    Returns:
+        str: Texten med paragrafnummer konverterade till interna markdown-länkar
+    """
+    lines = text.split('\n')
+    processed_lines = []
+
+    for line in lines:
+        # Skippa rubriker (börjar med #)
+        if line.strip().startswith('#'):
+            processed_lines.append(line)
+            continue
+
+        # Regex för att hitta paragrafnummer: siffra, eventuell bokstav, följt av §
+        # Matchar mönster som "9 §", "13 a §", "2 b §", "145 c §", etc.
+        paragraph_pattern = r'(\d+)(?:\s+([a-z]))?\s*§'
+
+        def replace_paragraph_reference(match):
+            """Ersätter en paragrafnummer med en intern markdown-länk"""
+            number = match.group(1)
+            letter = match.group(2) if match.group(2) else ''
+
+            # Skapa länktext och anchor
+            link_text = f"{number}{' ' + letter if letter else ''} §"
+            # Anchor utan mellanslag för URL-kompatibilitet
+            anchor = f"{number}{letter if letter else ''}§"
+
+            return f"[{link_text}](#{anchor})"
+
+        # Ersätt alla paragrafnummer med interna länkar
+        processed_line = re.sub(paragraph_pattern, replace_paragraph_reference, line)
+        processed_lines.append(processed_line)
+
+    return '\n'.join(processed_lines)
