@@ -224,7 +224,7 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
     return '\n\n'.join(filtered_paragraphs)
 
 
-def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True) -> str:
+def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True, apply_links: bool = True) -> str:
     """
     Formattera texten från en författningstext importerad från
     Regeringskansliets rättsdatabas till Markdown-format.
@@ -234,6 +234,7 @@ def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True) -> 
     Args:
         text (str): Texten som ska formateras
         paragraph_as_header (bool): Om True, gör paragrafnummer till H3-rubriker istället för fetstil
+        apply_links (bool): Om True, konvertera SFS-beteckningar till markdown-länkar
 
     Returns:
         str: Den formaterade texten
@@ -358,6 +359,10 @@ def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True) -> 
 
     # Returnera den formaterade texten
     final_text = '\n'.join(formatted)
+    
+    # Tillämpa SFS-länkar om det begärs
+    if apply_links:
+        final_text = apply_sfs_links(final_text)
 
     return final_text.strip()  # Ta bort eventuella inledande eller avslutande tomma rader
 
@@ -388,3 +393,32 @@ def format_header_with_markings(header_level: str, text: str) -> str:
     else:
         # Ingen markering hittad, returnera som vanligt
         return f"{header_level} {text}"
+
+
+def apply_sfs_links(text: str) -> str:
+    """
+    Letar efter SFS-beteckningar i texten och konverterar dem till markdown-länkar.
+
+    Söker efter mönster som "YYYY:NNN" (år:löpnummer) och skapar länkar till /sfs/(beteckning).
+
+    Args:
+        text (str): Texten som ska bearbetas
+
+    Returns:
+        str: Texten med SFS-beteckningar konverterade till markdown-länkar
+    """
+    # Regex för att hitta SFS-beteckningar: år (4 siffror) följt av kolon och löpnummer
+    # Matchar mönster som "2002:43", "1970:485", etc.
+    sfs_pattern = r'\b(\d{4}):(\d+)\b'
+
+    # TODO: Slå upp SFS-beteckning mot JSON-fil för att verifiera giltighet
+
+    def replace_sfs_designation(match):
+        """Ersätter en SFS-beteckning med en markdown-länk"""
+        year = match.group(1)
+        number = match.group(2)
+        designation = f"{year}:{number}"
+        return f"[{designation}](/sfs/{designation})"
+
+    # Ersätt alla SFS-beteckningar med markdown-länkar
+    return re.sub(sfs_pattern, replace_sfs_designation, text)
