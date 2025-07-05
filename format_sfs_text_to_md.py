@@ -15,6 +15,11 @@ Regler som tillämpas:
    - Stycken med "/Ny beteckning" efter paragrafer tas bort
    - Stycken med "/Upphör att gälla U:YYYY-MM-DD/" efter paragrafer tas bort
 
+Regler som inte utvecklats än:
+    - Avdelningar (ex. "Avdelning 1") kan bli H2-rubriker (##)
+    - Interna länkar till andra paragrafer (ex. "[13 §](#13)") kan formateras som länkar
+    - Interna länkar till andra författningar (ex. "[SFS 2020:123](#sfs-2020-123)") kan formateras som länkar
+
 """
 
 import re
@@ -137,6 +142,7 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
 
         # Kontrollera om det står "/Rubriken träder i kraft" med datum
         rubrik_träder_match = re.search(r'/Rubriken träder i kraft I:(\d{4}-\d{2}-\d{2})/', paragraph)
+        # TODO: Ska tas bort om target_date är tidigare än det datumet i texten
         if rubrik_träder_match:
             date_in_text = rubrik_träder_match.group(1)
             # Om target_date är angivet, kontrollera att det matchar
@@ -153,6 +159,7 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
                     print("-" * 80)
 
         # Kontrollera om det står "/Rubriken upphör att gälla" med datum
+        # TODO: Ska vara kvar så länge som target_date är senare än det datumet i texten
         rubrik_upphör_match = re.search(r'/Rubriken upphör att gälla U:(\d{4}-\d{2}-\d{2})/', paragraph)
         if rubrik_upphör_match:
             date_in_text = rubrik_upphör_match.group(1)
@@ -209,13 +216,6 @@ def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool 
     if verbose:
         print(f"Totalt antal tillämpade regler: {changes_applied}")
         print(f"Antal paragrafer kvar efter filtrering: {len(filtered_paragraphs)}")
-
-    # Kontrollera om inga regler kunde tillämpas
-    # if changes_applied == 0:
-    #      if target_date:
-    #          raise ValueError(f"Inga regler kunde tillämpas för datum {target_date}. Kontrollera att texten innehåller relevanta ändringsmarkeringar med detta datum.")
-    #      else:
-    #          raise ValueError("Inga regler kunde tillämpas. Kontrollera att texten innehåller relevanta ändringsmarkeringar (/Ny beteckning, /Upphör att gälla, /Rubriken träder i kraft, /Rubriken upphör att gälla).")
 
     # Sätt ihop paragraferna igen med dubbla radbrytningar
     return '\n\n'.join(filtered_paragraphs)
