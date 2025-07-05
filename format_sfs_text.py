@@ -76,164 +76,7 @@ def parse_logical_paragraphs(text: str) -> list:
     return logical_paragraphs
 
 
-def apply_changes_to_sfs_text(text: str, target_date: str = None, verbose: bool = False) -> str:
-    """
-    Formattera SFS-text med hantering av ändringar och upphöranden.
 
-    .. deprecated::
-        Denna funktion är obsolet och kommer att tas bort i framtida versioner.
-        Använd istället parse_logical_paragraphs_new() som hanterar ändringar och
-        upphöranden direkt i section-taggarna med selex: attribut.
-
-    Regler:
-    1. Om "/Ny beteckning" förekommer efter en paragraf (ex. **13 §**) ska hela stycket tas bort
-    2. Om "/Upphör att gälla" med datum förekommer efter en paragraf ska hela stycket tas bort
-    3. Om "/Rubriken träder i kraft I:YYYY-MM-DD/" förekommer efter en paragraf ska hela stycket tas bort
-    4. Om "/Rubriken upphör att gälla U:YYYY-MM-DD/" förekommer före en underrubrik ska hela stycket tas bort
-
-    Om target_date anges, tillämpas reglerna endast om datumet i I: eller U: matchar target_date.
-
-    Args:
-        text (str): Texten som ska formateras
-        target_date (str, optional): Datum i format YYYY-MM-DD som ska matchas mot I: eller U: datum
-        verbose (bool): Om True, skriv ut information när regler tillämpas
-
-    Returns:
-        str: Den formaterade texten med ändringar borttagna
-
-    Raises:
-        ValueError: Om inga regler kunde tillämpas (inga ändringar gjordes)
-    """
-    # Dela upp texten i logiska paragrafer
-    paragraphs = parse_logical_paragraphs(text)
-
-    filtered_paragraphs = []
-    changes_applied = 0  # Räkna antal tillämpade ändringar
-
-    if verbose:
-        print(f"Tillämpar ändringsregler för datum: {target_date if target_date else 'alla datum'}")
-        print(f"Antal logiska paragrafer att analysera: {len(paragraphs)}")
-
-    for i, paragraph in enumerate(paragraphs):
-        paragraph_removed = False
-
-        # Kontrollera om stycket innehåller "/Ny beteckning"
-        if '/Ny beteckning' in paragraph:
-            # Ta bort bara markeringen och trimma extra mellanslag
-            old_paragraph = paragraph
-            paragraph = re.sub(r'\s*/Ny beteckning\s*', ' ', paragraph)
-            paragraph = re.sub(r'\s+', ' ', paragraph).strip()  # Normalisera mellanslag
-            changes_applied += 1
-            if verbose:
-                print(f"Regel 1 tillämpas: Tar bort '/Ny beteckning' markering från paragraf {i+1}")
-                print(f"\033[32m{paragraph}\033[0m")  # Grön text för det nya resultatet
-                print("-" * 80)
-
-        # Kontrollera om stycket innehåller "/Upphör att gälla" med datum
-        upphör_match = re.search(r'/Upphör att gälla U:(\d{4}-\d{2}-\d{2})/', paragraph)
-        if upphör_match:
-            date_in_text = upphör_match.group(1)
-            # Om target_date är angivet, kontrollera att det matchar
-            if target_date is None or date_in_text == target_date:
-                # Kontrollera om det föregås av en paragraf (####)
-                if re.search(r'####\s+', paragraph):
-                    # Ta bort hela stycket
-                    changes_applied += 1
-                    paragraph_removed = True
-                    if verbose:
-                        print(f"Regel 2 tillämpas: Tar bort paragraf {i+1} med '/Upphör att gälla U:{date_in_text}/'")
-                        print(f"\033[91m{paragraph}\033[0m")  # Röd text
-                        print("-" * 80)
-                    continue
-                else:
-                    # Varna om att det inte föregås av en paragraf
-                    if verbose:
-                        print(f"Regel 2 varning: '/Upphör att gälla U:{date_in_text}/' i paragraf {i+1} utan föregående paragraf")
-                        print(f"\033[93m{paragraph}\033[0m")  # Gul text för varning
-                        print("-" * 80)
-            else:
-                if verbose:
-                    print(f"Regel 2 varning: '/Upphör att gälla U:{date_in_text}/' i paragraf {i+1} inte matchar target_date {target_date}")
-
-        # Kontrollera om det står "/Rubriken träder i kraft" med datum
-        rubrik_träder_match = re.search(r'/Rubriken träder i kraft I:(\d{4}-\d{2}-\d{2})/', paragraph)
-        # TODO: Ska tas bort om target_date är tidigare än det datumet i texten
-        if rubrik_träder_match:
-            date_in_text = rubrik_träder_match.group(1)
-            # Om target_date är angivet, kontrollera att det matchar
-            if target_date is None or date_in_text == target_date:
-                # Ta bort bara markeringen och trimma extra mellanslag
-                old_paragraph = paragraph
-                paragraph = re.sub(r'\s*/Rubriken träder i kraft I:\d{4}-\d{2}-\d{2}/\s*', ' ', paragraph)
-                paragraph = re.sub(r'\s+', ' ', paragraph).strip()  # Normalisera mellanslag
-                changes_applied += 1
-                if verbose:
-                    print(f"Regel 3 tillämpas: Tar bort '/Rubriken träder i kraft I:{date_in_text}/' markering från paragraf {i+1}")
-                    print(f"Före: \033[33m{old_paragraph}\033[0m")  # Gul text för före (närmare orange)
-                    print(f"Efter: \033[32m{paragraph}\033[0m")  # Grön text för efter
-                    print("-" * 80)
-
-        # Kontrollera om det står "/Rubriken upphör att gälla" med datum
-        # TODO: Ska vara kvar så länge som target_date är senare än det datumet i texten
-        rubrik_upphör_match = re.search(r'/Rubriken upphör att gälla U:(\d{4}-\d{2}-\d{2})/', paragraph)
-        if rubrik_upphör_match:
-            date_in_text = rubrik_upphör_match.group(1)
-
-            # Om target_date är angivet, kontrollera att det matchar
-            if target_date is None or date_in_text == target_date:
-                # Hitta rubriknivån för den rubrik som ska upphöra
-                header_match = re.search(r'^(#{2,4})\s+', paragraph)
-                if header_match:
-                    header_level = len(header_match.group(1))  # Antal # tecken
-
-                    # Markera denna paragraf för borttagning
-                    changes_applied += 1
-                    paragraph_removed = True
-
-                    if verbose:
-                        print(f"Regel 4 tillämpas: Tar bort rubriknivå {header_level} med '/Rubriken upphör att gälla U:{date_in_text}/' från paragraf {i+1}")
-                        print(f"\033[91m{paragraph}\033[0m")  # Röd text
-                        print("-" * 80)
-
-                    # Ta även bort alla efterföljande paragrafer tills nästa rubrik på samma eller högre nivå
-                    j = i + 1
-                    while j < len(paragraphs):
-                        next_paragraph = paragraphs[j]
-                        next_header_match = re.search(r'^(#{2,4})\s+', next_paragraph)
-
-                        if next_header_match:
-                            next_header_level = len(next_header_match.group(1))
-                            # Om vi hittar en rubrik på samma eller högre nivå (färre #), sluta ta bort
-                            if next_header_level <= header_level:
-                                break
-
-                        # Markera denna paragraf för borttagning också
-                        changes_applied += 1
-                        if verbose:
-                            print(f"Regel 4 tillämpas: Tar bort underordnad paragraf {j+1} under upphörd rubrik")
-                            print(f"\033[91m{next_paragraph}\033[0m")  # Röd text
-                            print("-" * 80)
-
-                        # Sätt en markering så vi vet att hoppa över denna paragraf i huvudloopen
-                        paragraphs[j] = "___REMOVE_THIS_PARAGRAPH___"
-                        j += 1
-
-                    continue
-
-        # Skippa paragrafer som markerats för borttagning av regel 4
-        if paragraph == "___REMOVE_THIS_PARAGRAPH___":
-            continue
-
-        # Om inget av ovanstående matchar, behåll stycket
-        if not paragraph_removed:
-            filtered_paragraphs.append(paragraph)
-
-    if verbose:
-        print(f"Totalt antal tillämpade regler: {changes_applied}")
-        print(f"Antal paragrafer kvar efter filtrering: {len(filtered_paragraphs)}")
-
-    # Sätt ihop paragraferna igen med dubbla radbrytningar
-    return '\n\n'.join(filtered_paragraphs)
 
 
 def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True, apply_links: bool = True) -> str:
@@ -793,3 +636,127 @@ def apply_internal_links(text: str) -> str:
         processed_lines.append(processed_line)
 
     return '\n'.join(processed_lines)
+
+
+def apply_changes_to_sfs_text(text: str, target_date: str, verbose: bool = False) -> str:
+    """
+    Formattera SFS-text med hantering av ändringar och upphöranden baserat på datum.
+    
+    Arbetar med text som redan har section-taggar med selex-attribut för datum.
+
+    Regler:
+    1. Sektioner med selex:upphor_datum som är <= target_date tas bort helt
+    2. Sektioner med selex:ikraft_datum som är > target_date tas bort helt
+    3. Nestlade sektioner hanteras korrekt - om en överordnad sektion tas bort, 
+       tas alla underordnade sektioner också bort
+
+    Args:
+        text (str): Texten med section-taggar och selex-attribut
+        target_date (str): Datum i format YYYY-MM-DD som ska jämföras mot
+        verbose (bool): Om True, skriv ut information när regler tillämpas
+
+    Returns:
+        str: Den filtrerade texten med borttagna sektioner
+
+    Raises:
+        ValueError: Om target_date inte är i rätt format (YYYY-MM-DD)
+    """
+    from datetime import datetime
+    
+    # Validera target_date format
+    try:
+        target_datetime = datetime.strptime(target_date, '%Y-%m-%d')
+    except ValueError as exc:
+        raise ValueError(f"target_date måste vara i format YYYY-MM-DD, fick: {target_date}") from exc
+    
+    if verbose:
+        print(f"Tillämpar datum-baserade ändringsregler för datum: {target_date}")
+    
+    lines = text.split('\n')
+    result = []
+    i = 0
+    changes_applied = 0
+    sections_removed = 0
+    
+    while i < len(lines):
+        line = lines[i]
+        
+        # Kolla om raden är en section-öppning
+        section_match = re.match(r'<section(.*)>', line)
+        if section_match:
+            attributes = section_match.group(1)
+            
+            # Extrahera datum-attribut
+            upphor_match = re.search(r'selex:upphor_datum="(\d{4}-\d{2}-\d{2})"', attributes)
+            ikraft_match = re.search(r'selex:ikraft_datum="(\d{4}-\d{2}-\d{2})"', attributes)
+            
+            should_remove = False
+            remove_reason = ""
+            
+            # Kontrollera upphor_datum - ta bort om <= target_date
+            if upphor_match:
+                upphor_date = upphor_match.group(1)
+                upphor_datetime = datetime.strptime(upphor_date, '%Y-%m-%d')
+                if upphor_datetime <= target_datetime:
+                    should_remove = True
+                    remove_reason = f"upphor_datum {upphor_date} <= {target_date}"
+            
+            # Kontrollera ikraft_datum - ta bort om > target_date  
+            if ikraft_match and not should_remove:
+                ikraft_date = ikraft_match.group(1)
+                ikraft_datetime = datetime.strptime(ikraft_date, '%Y-%m-%d')
+                if ikraft_datetime > target_datetime:
+                    should_remove = True
+                    remove_reason = f"ikraft_datum {ikraft_date} > {target_date}"
+            
+            if should_remove:
+                # Hitta den matchande </section> taggen och skippa hela sektionen
+                section_depth = 1
+                start_i = i
+                i += 1  # Gå förbi öppningstaggen
+                
+                # Hitta rubriken för verbose output
+                section_header = ""
+                while i < len(lines) and not section_header.strip().startswith('#'):
+                    if lines[i].strip().startswith('#'):
+                        section_header = lines[i].strip()
+                        break
+                    i += 1
+                
+                # Gå tillbaka till rätt position och hitta slutet av sektionen
+                i = start_i + 1
+                
+                while i < len(lines) and section_depth > 0:
+                    current_line = lines[i]
+                    if current_line.strip().startswith('<section'):
+                        section_depth += 1
+                    elif current_line.strip() == '</section>':
+                        section_depth -= 1
+                    i += 1
+                
+                changes_applied += 1
+                sections_removed += 1
+                
+                if verbose:
+                    print(f"Regel tillämpas: Tar bort sektion med {remove_reason}")
+                    print(f"Rubrik: {section_header}")
+                    print(f"Attribut: {attributes}")
+                    print("-" * 80)
+                
+                # Fortsätt till nästa rad (i är redan rätt position efter while-loopen)
+                continue
+            else:
+                # Behåll sektionen
+                result.append(line)
+                i += 1
+        else:
+            # Vanlig rad, behåll den
+            result.append(line)
+            i += 1
+    
+    if verbose:
+        print(f"Totalt antal tillämpade regler: {changes_applied}")
+        print(f"Antal sektioner borttagna: {sections_removed}")
+        print(f"Antal rader kvar: {len(result)}")
+    
+    return '\n'.join(result)
