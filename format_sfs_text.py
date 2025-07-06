@@ -162,14 +162,25 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                 else:
                     # Hantera paragrafnummer som rubriker
                     if previous_line_empty:
-                        # Kontrollera om raden börjar med paragrafnummer (använd original rad)
-                        paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', original_line)
+                        # Kontrollera om raden börjar med paragrafnummer (använd rensad rad)
+                        paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', cleaned_line)
                         if paragraph_match:
                             paragraph_num = paragraph_match.group(0)
-                            # Placera paragrafnummer på egen rad
-                            formatted.append(f'#### {paragraph_num}')
+                            
+                            # Extrahera markeringar från originalraden
+                            markings = re.findall(r'/[^/]+/', original_line)
+                            
+                            # Skapa rubrik med bara markeringar och paragrafnummer
+                            if markings:
+                                markings_str = ' '.join(markings)
+                                formatted.append(f'#### {markings_str} {paragraph_num}')
+                            else:
+                                formatted.append(f'#### {paragraph_num}')
+                            
                             formatted.append('')  # Tom rad efter rubriken
-                            rest_of_line = original_line[len(paragraph_num):].strip()
+                            
+                            # Hitta resten av texten efter paragrafnumret i rensad rad
+                            rest_of_line = cleaned_line[len(paragraph_num):].strip()
                             if rest_of_line:
                                 formatted.append(rest_of_line)
                         else:
@@ -185,14 +196,25 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                     formatted.append(format_header_with_markings('##', original_line))
                 # Hantera paragrafnummer som rubriker
                 elif previous_line_empty:
-                    # Kontrollera om raden börjar med paragrafnummer (använd original rad)
-                    paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', original_line)
+                    # Kontrollera om raden börjar med paragrafnummer (använd rensad rad)
+                    paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', cleaned_line)
                     if paragraph_match:
                         paragraph_num = paragraph_match.group(0)
-                        # Placera paragrafnummer på egen rad
-                        formatted.append(f'#### {paragraph_num}')
+                        
+                        # Extrahera markeringar från originalraden
+                        markings = re.findall(r'/[^/]+/', original_line)
+                        
+                        # Skapa rubrik med bara markeringar och paragrafnummer
+                        if markings:
+                            markings_str = ' '.join(markings)
+                            formatted.append(f'#### {markings_str} {paragraph_num}')
+                        else:
+                            formatted.append(f'#### {paragraph_num}')
+                        
                         formatted.append('')  # Tom rad efter rubriken
-                        rest_of_line = original_line[len(paragraph_num):].strip()
+                        
+                        # Hitta resten av texten efter paragrafnumret i rensad rad
+                        rest_of_line = cleaned_line[len(paragraph_num):].strip()
                         if rest_of_line:
                             formatted.append(rest_of_line)
                     else:
@@ -415,7 +437,14 @@ def parse_logical_sections(text: str) -> str:
             # Hitta rubriknivån för huvudrubriken i denna sektion
             main_header_line = current_section[0] if current_section else ""
             main_header_match = re.match(r'^(#{2,6})\s+(.+)', main_header_line)
-            main_header_level = len(main_header_match.group(1)) if main_header_match else 2
+            
+            # Om det inte finns en rubrik i sektionen, lägg bara till innehållet utan section-taggar
+            if not main_header_match:
+                result.extend(current_section)
+                current_section = []
+                return
+                
+            main_header_level = len(main_header_match.group(1))
 
             # Extrahera endast det direkta innehållet under huvudrubriken,
             # exklusive alla underrubriker och deras innehåll
