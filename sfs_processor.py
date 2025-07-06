@@ -28,11 +28,15 @@ from sort_frontmatter import sort_frontmatter_properties
 from add_pdf_url_to_frontmatter import generate_pdf_url
 
 
-def ensure_git_branch_for_commits():
+def ensure_git_branch_for_commits(git_branch):
     """
     Ensures that git commits are made in a different branch than the current one.
     Creates a new branch if needed and switches to it.
-    Returns the original branch name to allow switching back later.
+    Returns the original branch name and the commit branch name.
+    
+    Args:
+        git_branch: The branch name to use. If it contains "(timestamp)", 
+                   that will be replaced with current timestamp.
     """
     import subprocess
 
@@ -42,9 +46,12 @@ def ensure_git_branch_for_commits():
                               capture_output=True, text=True, check=True)
         current_branch = result.stdout.strip()
 
-        # Generate a unique branch name for commits
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        commit_branch = f"sfs_commits_{timestamp}"
+        # Generate commit branch name
+        if "(timestamp)" in git_branch:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            commit_branch = git_branch.replace("(timestamp)", timestamp)
+        else:
+            commit_branch = git_branch
 
         # Create and switch to the new branch
         subprocess.run(['git', 'checkout', '-b', commit_branch], 
@@ -80,7 +87,7 @@ def restore_original_branch(original_branch):
         print("Varning: Git hittades inte.")
 
 
-def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False) -> None:
+def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_branch: str = None) -> None:
     """Create documents by converting JSON to specified output formats and applying amendments.
 
     This is the main function for document creation that handles:
@@ -107,6 +114,8 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
                      All HTML output uses ELI directory structure with year-based folders
         year_as_folder: Whether to create year-based subdirectories (default: True)
         verbose: Whether to show verbose output (default: False)
+        git_branch: Branch name to use for git commits. If contains "(timestamp)", it will be replaced
+                   with current timestamp. Only used when "git" is in output_modes.
     """
 
     # Default to markdown output if no modes specified
@@ -145,14 +154,14 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
 
     # Process markdown format if requested
     if "md" in output_modes:
-        # Create markdown document (git mode is enabled if "git" is in output_modes)
-        enable_git = "git" in output_modes
-        markdown_content = _create_markdown_document(data, document_dir, enable_git, False, verbose)
+        # Create markdown document (pass git_branch if "git" is in output_modes)
+        git_branch_param = git_branch if "git" in output_modes else None
+        markdown_content = _create_markdown_document(data, document_dir, git_branch_param, False, verbose)
 
     # Process markdown with section markers if requested
     if "md-markers" in output_modes:
         # Create markdown document with section tags preserved
-        markdown_content = _create_markdown_document(data, document_dir, False, True, verbose)
+        markdown_content = _create_markdown_document(data, document_dir, None, True, verbose)
 
     # Process HTML format if requested
     if "html" in output_modes:
@@ -165,13 +174,14 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
         create_html_documents(data, output_dir, include_amendments=True)
 
 
-def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_git: bool = False, preserve_section_tags: bool = False, verbose: bool = False) -> str:
+def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branch: str = None, preserve_section_tags: bool = False, verbose: bool = False) -> str:
     """Internal function to create a markdown document from JSON data.
 
     Args:
         data: JSON data containing document information
         output_path: Path to the output directory (folder)
-        enable_git: Whether to create git commits during processing
+        git_branch: Branch name to use for git commits. If None, no git commits are made.
+                   If contains "(timestamp)", it will be replaced with current timestamp.
         preserve_section_tags: Whether to preserve <section> tags in output (for md-markers mode)
         verbose: Whether to print verbose output
 
@@ -211,7 +221,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
                 markdown_body = markdown_content[front_matter_end + 5:]
 
                 # Process amendments on the entire markdown body (including heading)
-                processed_text = apply_amendments_to_text(markdown_body, amendments, enable_git, verbose, output_file)
+                processed_text = apply_amendments_to_text(markdown_body, amendments, git_branch, verbose, output_file)
 
                 # Reconstruct the full content
                 markdown_content = front_matter + "\n\n" + processed_text
@@ -219,8 +229,11 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
     else:
         print(f"Info: Inga ändringsmarkeringar eller ändringar att bearbeta för {beteckning}")
 
+    # Determine if git functionality is enabled
+    git_enabled = git_branch is not None
+
     # Add ikraft_datum to front matter if not in Git mode
-    if not enable_git:
+    if not git_enabled:
         ikraft_datum = format_datetime(data.get('ikraftDateTime'))
         if ikraft_datum:
             markdown_content = add_ikraft_datum_to_frontmatter(markdown_content, ikraft_datum, beteckning)
@@ -232,7 +245,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
 
     # Handle git commits if enabled
     final_content = markdown_content
-    if enable_git:
+    if git_enabled:
         import subprocess
 
         # Get main document metadata
@@ -244,7 +257,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
         # Only create main commits if there are no amendments (they handle their own commits)
         if not amendments and utfardad_datum:
             # Ensure commits are made in a different branch
-            original_branch, commit_branch = ensure_git_branch_for_commits()
+            original_branch, commit_branch = ensure_git_branch_for_commits(git_branch)
 
             # Only proceed with git commits if branch creation was successful
             if original_branch is not None and commit_branch is not None:
@@ -298,16 +311,24 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
                         # Use the content with ikraft_datum as final content
                         final_content = markdown_content_with_ikraft
 
+                    # Push the new branch to remote
+                    try:
+                        subprocess.run(['git', 'push', 'origin', commit_branch], check=True, capture_output=True)
+                        print(f"Pushade branch '{commit_branch}' till remote")
+                    except subprocess.CalledProcessError as e:
+                        print(f"Varning: Kunde inte pusha branch '{commit_branch}': {e}")
+
                 except subprocess.CalledProcessError as e:
                     print(f"Varning: Git-commit misslyckades för {beteckning}: {e}")
                     # Write the file anyway, without git commits
                     save_to_disk(output_file, markdown_content)
+                    # Restore original branch on error
+                    restore_original_branch(original_branch)
                 except FileNotFoundError:
                     print("Varning: Git hittades inte. Hoppar över Git-commits.")
                     # Write the file anyway, without git commits
                     save_to_disk(output_file, markdown_content)
-                finally:
-                    # Always restore original branch
+                    # Restore original branch on error
                     restore_original_branch(original_branch)
             else:
                 # Branch creation failed, write file without git commits
@@ -640,7 +661,7 @@ def create_ignored_markdown_content(data: Dict[str, Any], reason: str) -> str:
     return markdown_body
 
 
-def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable_git: bool = False, verbose: bool = False, output_file: Path = None) -> str:
+def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], git_branch: str = None, verbose: bool = False, output_file: Path = None) -> str:
     """
     Apply changes to SFS text based on amendment dates.
 
@@ -651,7 +672,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], enable
     Args:
         text (str): The original SFS text
         amendments (List[Dict[str, Any]]): List of amendments with ikraft_datum
-        enable_git (bool): If True, create Git commits for each amendment
+        git_branch (str): Branch name to use for git commits. If None, no git commits are made.
         verbose (bool): If True, print smart diff output to console for each amendment
 
     Returns:
@@ -786,6 +807,8 @@ def main():
                         help='Show detailed diff output for each amendment processing')
     parser.add_argument('--formats', dest='output_modes', default='md',
                         help='Output formats to generate (comma-separated). Currently supported: md, md-markers, git, html, htmldiff. Default: md. Use "md-markers" to preserve section tags. Use "git" to enable Git commits with historical dates. HTML creates documents in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer}). HTMLDIFF includes amendment versions with diff view.')
+    parser.add_argument('--git-branch', dest='git_branch', default='sfs-updates-(timestamp)',
+                        help='Branch name to use for git commits when "git" format is enabled. Use "(timestamp)" as placeholder for current timestamp. Default: sfs-updates-(timestamp)')
     parser.set_defaults(year_folder=True)
     args = parser.parse_args()
 
@@ -859,7 +882,7 @@ def main():
             continue
 
         # Use make_document to create documents in specified formats
-        make_document(data, output_dir, output_modes, args.year_folder, args.verbose)
+        make_document(data, output_dir, output_modes, args.year_folder, args.verbose, args.git_branch)
     
     print(f"\nBearbetning klar! Filer sparade i {output_dir} i format: {', '.join(output_modes)}")
 
