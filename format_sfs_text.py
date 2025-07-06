@@ -7,9 +7,7 @@ Regler som tillämpas:
    - Kapitel (ex. "1 kap.") blir H2-rubriker (##)
    - Bilagor (ex. "Bilaga A") blir H2-rubriker (##)
    - Vanliga rubriker (max två ord, ingen punkt) blir H3-rubriker (###)
-   - Paragrafnummer (ex. "13 §", "3 a §") kan bli antingen:
-     * H3-rubriker (###) när paragraph_as_header=True (standard)
-     * H4-rubriker (####) inom potential_headers-sektionen
+   - Paragrafnummer (ex. "13 §", "3 a §") blir H4-rubriker (####)
 3. Dela in texten i logiska paragrafer och omringa dem med HTML-taggar <section>
    - Rubriker på nivå 2 (##) får CSS-klass "kapitel"
    - Rubriker på nivå 3-4 (###, ####) med § får CSS-klass "paragraf"
@@ -79,7 +77,7 @@ def parse_logical_paragraphs(text: str) -> list:
 
 
 
-def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True, apply_links: bool = True) -> str:
+def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
     """
     Formattera texten från en författningstext importerad från
     Regeringskansliets rättsdatabas till Markdown-format.
@@ -88,7 +86,6 @@ def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True, app
 
     Args:
         text (str): Texten som ska formateras
-        paragraph_as_header (bool): Om True, gör paragrafnummer till H3-rubriker istället för fetstil
         apply_links (bool): Om True, konvertera både interna paragrafnummer och SFS-beteckningar till markdown-länkar
 
     Returns:
@@ -163,8 +160,8 @@ def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True, app
                     # Använd H3-rubrik för rubriker
                     formatted.append(format_header_with_markings('###', original_line))
                 else:
-                    # Hantera paragrafnummer baserat på parameter
-                    if previous_line_empty and paragraph_as_header:
+                    # Hantera paragrafnummer som rubriker
+                    if previous_line_empty:
                         # Kontrollera om raden börjar med paragrafnummer (använd original rad)
                         paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', original_line)
                         if paragraph_match:
@@ -177,10 +174,6 @@ def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True, app
                                 formatted.append(rest_of_line)
                         else:
                             formatted.append(original_line)
-                    elif previous_line_empty:
-                        # Fetstila paragrafnummer som vanligt
-                        modified_line = re.sub(r'^(\d+\s*[a-z]?\s*§)', r'**\1**', original_line)
-                        formatted.append(modified_line)
                     else:
                         formatted.append(original_line)
             else:
@@ -190,8 +183,8 @@ def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True, app
                 # Kontrollera om det är en bilaga (börjar med "Bilaga ") även utanför potential_headers
                 elif cleaned_line.strip().startswith('Bilaga '):
                     formatted.append(format_header_with_markings('##', original_line))
-                # Hantera paragrafnummer baserat på parameter
-                elif previous_line_empty and paragraph_as_header:
+                # Hantera paragrafnummer som rubriker
+                elif previous_line_empty:
                     # Kontrollera om raden börjar med paragrafnummer (använd original rad)
                     paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', original_line)
                     if paragraph_match:
@@ -204,10 +197,6 @@ def format_sfs_text_as_markdown(text: str, paragraph_as_header: bool = True, app
                             formatted.append(rest_of_line)
                     else:
                         formatted.append(original_line)
-                elif previous_line_empty:
-                    # Fetstila paragrafnummer som vanligt
-                    modified_line = re.sub(r'^(\d+\s*[a-z]?\s*§)', r'**\1**', original_line)
-                    formatted.append(modified_line)
                 else:
                     formatted.append(original_line)
             previous_line_empty = False
