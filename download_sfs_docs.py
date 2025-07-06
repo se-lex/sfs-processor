@@ -207,6 +207,101 @@ def convert_riksdagen_id_to_rkrattsbaser_format(doc_id: str) -> str:
     return doc_id
 
 
+def download_test_docs():
+    """
+    Laddar ner testdokument som specificeras i data/test-doc-ids.json.
+    Dokumenten sparas i katalogen data/testdocs.
+    """
+    test_docs_file = "data/test-doc-ids.json"
+    output_dir = "data/testdocs"
+    
+    print("=== Laddar ner testdokument ===")
+    
+    # Kontrollera att filen med test-dokument-ID:n finns
+    if not os.path.exists(test_docs_file):
+        print(f"✗ Filen {test_docs_file} hittades inte.")
+        return False
+    
+    try:
+        # Läs test-dokument-ID:n från JSON-filen (med kommentarstöd)
+        with open(test_docs_file, 'r', encoding='utf-8') as f:
+            content = f.read()
+        
+        # Enkel lösning: ta bort kommentarer med regex
+        import re
+        # Ta bort /* */ kommentarer
+        content = re.sub(r'/\*.*?\*/', '', content, flags=re.DOTALL)
+        # Ta bort // kommentarer (endast från början av rad eller efter whitespace)
+        content = re.sub(r'^\s*//.*$', '', content, flags=re.MULTILINE)
+        content = re.sub(r'\s+//.*$', '', content, flags=re.MULTILINE)
+        
+        test_docs = json.loads(content)
+        
+        if not test_docs:
+            print("Inga testdokument att ladda ner.")
+            return True
+        
+        print(f"Hittade {len(test_docs)} testdokument att ladda ner")
+        print(f"Sparar i katalog: {output_dir}")
+        
+        # Skapa katalog om den inte finns
+        os.makedirs(output_dir, exist_ok=True)
+        
+        successful_downloads = 0
+        failed_downloads = 0
+        
+        # Ladda ner varje testdokument
+        for i, doc_info in enumerate(test_docs, 1):
+            document_id = doc_info.get("document_id")
+            comment = doc_info.get("comment", "")
+            
+            if not document_id:
+                print(f"⚠ Dokument {i} saknar document_id, hoppar över")
+                failed_downloads += 1
+                continue
+            
+            print(f"[{i}/{len(test_docs)}] {document_id}")
+            if comment:
+                print(f"    Kommentar: {comment}")
+
+            # Konvertera dokument-ID till rätt format för Regeringskansliet
+            converted_id = convert_riksdagen_id_to_rkrattsbaser_format(document_id)
+            
+            # Ladda ner dokumentet från Regeringskansliet
+            document_data = fetch_document_by_rkrattsbaser(converted_id)
+            if document_data:
+                rkrattsbaser_dir = os.path.join(output_dir, "rkrattsbaser")
+                success = save_document_from_rkrattsbaser(document_id, document_data, rkrattsbaser_dir)
+            else:
+                success = False
+            
+            if success:
+                successful_downloads += 1
+            else:
+                failed_downloads += 1
+            
+            # Kort paus mellan nedladdningar
+            time.sleep(0.5)
+        
+        # Sammanfattning
+        print("\n=== Sammanfattning testdokument ===")
+        print(f"Totalt testdokument: {len(test_docs)}")
+        print(f"Lyckade nedladdningar: {successful_downloads}")
+        print(f"Misslyckade nedladdningar: {failed_downloads}")
+        
+        if successful_downloads > 0:
+            print(f"Testdokument sparade i: {os.path.abspath(output_dir)}")
+        
+        return failed_downloads == 0
+        
+    except json.JSONDecodeError as e:
+        print(f"✗ Fel vid parsing av {test_docs_file}: {e}")
+        return False
+    except IOError as e:
+        print(f"✗ Fel vid läsning av {test_docs_file}: {e}")
+        return False
+
+
 def main():
     """
     Huvudfunktion som koordinerar hämtning av dokument-ID:n och nedladdning av dokument.
@@ -220,8 +315,15 @@ def main():
                         help='Välj källa för nedladdning: riksdagen (HTML) eller rkrattsbaser (JSON via Elasticsearch) (default: riksdagen)')
     parser.add_argument('--year', type=int,
                         help='Filtrera dokument för specifikt årtal (t.ex. 2025 för sfs-2025-xxx). Fungerar endast med --ids all och --source riksdagen')
+    parser.add_argument('--test-docs', action='store_true',
+                        help='Ladda ner testdokument från data/test-doc-ids.json till data/testdocs')
 
     args = parser.parse_args()
+
+    # Om --test-docs flaggan är satt, kör download_test_docs och avsluta
+    if args.test_docs:
+        download_test_docs()
+        return
 
     print("=== SFS Dokument Nedladdare ===")
     print(f"Källa: {args.source}")

@@ -36,7 +36,8 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Fetch JSON from from beta.rkrattsbaser.gov.se
+    - name: Fetch JSON from beta.rkrattsbaser.gov.se
+      if: false  # Disabled
       run: |
         python fetch_new_sfs_docs.py --days ${{ inputs.days || '1' }} --output sfs_json
       env:
@@ -44,7 +45,7 @@ jobs:
 
     - name: Process JSON files to Markdown files
       run: |
-        python sfs_processor.py --input sfs_json --output SFS --formats md
+        python sfs_processor.py --input sfs_json --output SFS --formats md --enable-git
       env:
         PYTHONPATH: ${{ github.workspace }}
 
