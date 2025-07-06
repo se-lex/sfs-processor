@@ -9,6 +9,10 @@ Detta repository innehåller Python-script för att ladda ner och konvertera SFS
 pip install -r requirements.txt
 ```
 
+## Status
+
+[![Hämta nya SFS-författningar från Regeringskansliets publika söktjänst](https://github.com/marcarl/sfs-processor/actions/workflows/fetch-sfs-workflow.yml/badge.svg)](https://github.com/marcarl/sfs-processor/actions/workflows/fetch-sfs-workflow.yml)
+
 ## Användning
 
 ### Välj källa för nedladdning
