@@ -92,6 +92,63 @@ Efter nedladdning kan du konvertera JSON-filerna till olika format:
 python sfs_processor.py --input sfs_json --output SFS --formats md
 ```
 
+### Struktur av genererade Markdown-filer
+
+De genererade Markdown-filerna innehåller strukturerad markup med `<section>`-taggar:
+
+- **`<section class="kapitel">`**: Omsluter kapitel med underliggande paragrafer
+- **`<section class="paragraf">`**: Omsluter varje paragraf (§) med rubrik och innehåll
+
+Exempel på struktur:
+
+```html
+<section class="kapitel">
+### 1 kap. Inledande bestämmelser
+<section class="paragraf">
+#### 1 §
+Innehållet i paragrafen...
+</section>
+</section>
+```
+
+Denna struktur gör det möjligt att skapa avancerad CSS-styling och JavaScript-funktionalitet för navigation och presentation av författningstexten.
+
+### Selex-attribut för juridisk status och datum
+
+Förutom CSS-klasser använder `<section>`-taggarna även `selex:`-attribut för att hantera juridisk status och datum. Dessa attribut möjliggör filtrering av innehåll baserat på ikraftträdande- och upphörandedatum:
+
+- **`selex:status`**: Anger sektionens juridiska status
+  - `ikraft`: Sektionen innehåller ikraftträdanderegler (t.ex. "/Träder i kraft I:2024-01-01")
+  - `upphavd`: Sektionen är upphävd (t.ex. innehåller "upphävd" eller "/Upphör att gälla")
+
+- **`selex:ikraft_datum`**: Datum då sektionen träder ikraft (format: YYYY-MM-DD)
+- **`selex:upphor_datum`**: Datum då sektionen upphör att gälla (format: YYYY-MM-DD)  
+- **`selex:ikraft_villkor`**: Villkor för ikraftträdande (när inget specifikt datum anges)
+
+Exempel på selex-attribut:
+
+```html
+<section class="kapitel" selex:status="ikraft" selex:ikraft_datum="2024-01-01">
+### Övergångsbestämmelser
+/Träder i kraft I:2024-01-01/
+...
+</section>
+
+<section class="paragraf" selex:status="upphavd" selex:upphor_datum="2023-12-31">
+####  1 § En paragraf
+/Upphör att gälla U:2023-12-31/
+...
+</section>
+
+<section class="kapitel" selex:status="ikraft" selex:ikraft_villkor="den dag regeringen bestämmer">
+### Villkorad ikraftträdande
+/Träder i kraft I:bestämmelse om något/
+...
+</section>
+```
+
+Dessa attribut används automatiskt av systemets datumfiltrering för att skapa versioner av författningar som gäller vid specifika tidpunkter. Sektioner med `selex:upphor_datum` som har passerat tas bort, och sektioner med `selex:ikraft_datum` som ännu inte har kommit tas bort från den aktuella versionen.
+
 ### Konvertering till HTML med ELI-struktur
 
 ```bash
