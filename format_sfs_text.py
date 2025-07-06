@@ -550,6 +550,12 @@ def parse_logical_sections(text: str) -> str:
 
             # Bygg section-tagg med attribut
             attributes = []
+            
+            # Lägg till id-attribut baserat på rubriken
+            if header_match:
+                section_id = generate_section_id(header_text)
+                attributes.append(f'id="{section_id}"')
+            
             if css_classes:
                 attributes.append(f'class="{" ".join(css_classes)}"')
             
@@ -582,6 +588,7 @@ def parse_logical_sections(text: str) -> str:
             result.extend(current_section)
 
             # Rensa nuvarande sektion
+            current_section = []
             current_section = []
 
     for line in lines:
@@ -853,3 +860,44 @@ def clean_section_tags(text: str) -> str:
         cleaned_result.pop()
     
     return '\n'.join(cleaned_result)
+
+
+def generate_section_id(header_text: str) -> str:
+    """
+    Genererar ett id-attribut för section-taggar baserat på rubrik eller paragrafnummer.
+    
+    Regler:
+    - Om rubriken innehåller paragrafnummer (t.ex. "5 §", "13 a §"), använd bara paragrafnumret
+    - Annars skapa en slug från rubriken (max 15 tecken)
+    - Ta bort markeringar (text inom //) innan slug-generering
+    
+    Args:
+        header_text (str): Rubriktext (utan # tecken)
+        
+    Returns:
+        str: ID som kan användas som HTML id-attribut
+    """
+    # Ta bort markeringar (text inom //) från rubriken
+    clean_text = re.sub(r'/[^/]+/', '', header_text).strip()
+    
+    # Kontrollera om det finns paragrafnummer i rubriken
+    paragraph_match = re.search(r'(\d+(?:\s*[a-z])?)\s*§', clean_text)
+    if paragraph_match:
+        # Extrahera paragrafnumret utan mellanslag
+        paragraph_num = paragraph_match.group(1).replace(' ', '')
+        return f"{paragraph_num}§"
+    
+    # Om inget paragrafnummer, skapa slug från rubriken
+    # Ta bort alla icke-alfanumeriska tecken och ersätt med bindestreck
+    slug = re.sub(r'[^\w\s-]', '', clean_text)
+    slug = re.sub(r'\s+', '-', slug)
+    slug = slug.lower().strip('-')
+    
+    # Begränsa till max 15 tecken
+    if len(slug) > 15:
+        slug = slug[:15].rstrip('-')
+    
+    if not slug:
+        raise ValueError(f"Kan inte generera giltigt ID från rubriktext: '{header_text}'")
+    
+    return slug
