@@ -12,7 +12,7 @@ Usage:
     python sfs_processor.py [--input INPUT_DIR] [--output OUTPUT_DIR] [--formats FORMATS] [--no-year-folder]
     
     By default, documents are saved as Markdown files in year-based subdirectories.
-    Use --formats to specify output modes (e.g., "md,git,html,htmldiff" for multiple formats).
+    Use --formats to specify output modes (e.g., "md,git,html,htmldiff" or "md-markers" for multiple formats).
     HTML format creates documents in ELI directory structure with year-based folders.
     Use --no-year-folder to save files directly in output directory without year subdirectories.
 """
@@ -86,7 +86,8 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     This is the main function for document creation that handles:
     - Output directory structure based on beteckning year and year_as_folder setting
     - Coordination of different output formats and modes:
-      * "md": Generate markdown files (required for other modes)
+      * "md": Generate markdown files with clean output (section tags removed)
+      * "md-markers": Generate markdown files with section tags preserved
       * "git": Enable Git commits with historical dates during markdown generation
       * "html": Generate HTML files in ELI structure (base document only)
       * "htmldiff": Generate HTML files in ELI structure (base document plus amendment versions)
@@ -101,6 +102,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
         output_dir: Directory where output files should be saved
         output_modes: List of formats/modes to use (e.g., ["md", "git"]). If None, defaults to ["md"]
                      Note: "git" mode requires "md" mode to be included as it modifies markdown processing
+                     "md" generates clean markdown (section tags removed), "md-markers" preserves section tags
                      "html" generates base document only, "htmldiff" includes amendment versions
                      All HTML output uses ELI directory structure with year-based folders
         year_as_folder: Whether to create year-based subdirectories (default: True)
@@ -145,7 +147,12 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     if "md" in output_modes:
         # Create markdown document (git mode is enabled if "git" is in output_modes)
         enable_git = "git" in output_modes
-        markdown_content = _create_markdown_document(data, document_dir, enable_git, verbose)
+        markdown_content = _create_markdown_document(data, document_dir, enable_git, False, verbose)
+
+    # Process markdown with section markers if requested
+    if "md-markers" in output_modes:
+        # Create markdown document with section tags preserved
+        markdown_content = _create_markdown_document(data, document_dir, False, True, verbose)
 
     # Process HTML format if requested
     if "html" in output_modes:
@@ -158,13 +165,14 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
         create_html_documents(data, output_dir, include_amendments=True)
 
 
-def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_git: bool = False, verbose: bool = False) -> str:
+def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_git: bool = False, preserve_section_tags: bool = False, verbose: bool = False) -> str:
     """Internal function to create a markdown document from JSON data.
 
     Args:
         data: JSON data containing document information
         output_path: Path to the output directory (folder)
         enable_git: Whether to create git commits during processing
+        preserve_section_tags: Whether to preserve <section> tags in output (for md-markers mode)
         verbose: Whether to print verbose output
 
     Returns:
@@ -173,11 +181,14 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
 
     # Extract beteckning to create safe filename
     beteckning = data.get('beteckning', '')
-    safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.md'
+    if preserve_section_tags:
+        safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '-markers.md'
+    else:
+        safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.md'
     output_file = output_path / safe_filename
 
     # Get basic markdown content
-    markdown_content = convert_to_markdown(data)
+    markdown_content = convert_to_markdown(data, preserve_section_tags)
 
     # Extract metadata for processing
     beteckning = data.get('beteckning', '')
@@ -307,7 +318,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, enable_gi
     return final_content
 
 
-def convert_to_markdown(data: Dict[str, Any]) -> str:
+def convert_to_markdown(data: Dict[str, Any], preserve_section_tags: bool = False) -> str:
     """Convert JSON data to Markdown content with YAML front matter.
 
     This function only handles the conversion from JSON to markdown string format.
@@ -315,6 +326,7 @@ def convert_to_markdown(data: Dict[str, Any]) -> str:
 
     Args:
         data: JSON data for the document
+        preserve_section_tags: Whether to preserve <section> tags in output (for md-markers mode)
 
     Returns:
         str: Markdown content with YAML front matter
@@ -449,8 +461,9 @@ departement: {format_yaml_value(organisation)}
         # Create Markdown body
         markdown_body = f"# {rubrik_original}\n\n" + formatted_text
 
-    # Remove section tags from markdown body before returning
-    markdown_body = clean_section_tags(markdown_body)
+    # Remove section tags from markdown body before returning (unless preserving them)
+    if not preserve_section_tags:
+        markdown_body = clean_section_tags(markdown_body)
 
     # Return the complete markdown content
     return yaml_front_matter + markdown_body
@@ -766,7 +779,7 @@ def main():
     parser.add_argument('--verbose', action='store_true',
                         help='Show detailed diff output for each amendment processing')
     parser.add_argument('--formats', dest='output_modes', default='md',
-                        help='Output formats to generate (comma-separated). Currently supported: md, git, html, htmldiff. Default: md. Use "git" to enable Git commits with historical dates. HTML creates documents in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer}). HTMLDIFF includes amendment versions with diff view.')
+                        help='Output formats to generate (comma-separated). Currently supported: md, md-markers, git, html, htmldiff. Default: md. Use "md-markers" to preserve section tags. Use "git" to enable Git commits with historical dates. HTML creates documents in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer}). HTMLDIFF includes amendment versions with diff view.')
     parser.set_defaults(year_folder=True)
     args = parser.parse_args()
 
@@ -776,7 +789,7 @@ def main():
         output_modes = ['md']  # Default to markdown
 
     # Validate output modes
-    supported_formats = ['md', 'git', 'html', 'htmldiff']
+    supported_formats = ['md', 'md-markers', 'git', 'html', 'htmldiff']
     invalid_formats = [mode for mode in output_modes if mode not in supported_formats]
     if invalid_formats:
         print(f"Fel: Ej stödda utdataformat: {', '.join(invalid_formats)}")
