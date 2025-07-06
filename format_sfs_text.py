@@ -765,3 +765,73 @@ def apply_changes_to_sfs_text(text: str, target_date: str, verbose: bool = False
         print(f"Antal rader kvar: {len(result)}")
     
     return '\n'.join(result)
+
+
+def clean_section_tags(text: str) -> str:
+    """
+    Rensa bort alla section-taggar (<section> och </section>) och deras associerade tomma rader.
+    
+    Funktionen rensar:
+    1. Alla <section> taggar (med eller utan attribut)
+    2. Alla </section> taggar  
+    3. Tomma rader som kommer direkt efter <section> taggar
+    4. Tomma rader som kommer direkt före </section> taggar
+    5. Eventuella överflödiga dubletter av tomma rader
+    
+    Args:
+        text (str): Text med section-taggar och tomma rader
+        
+    Returns:
+        str: Rensat text utan section-taggar och deras associerade tomma rader
+    """
+    lines = text.split('\n')
+    result = []
+    i = 0
+    
+    while i < len(lines):
+        line = lines[i]
+        
+        # Kontrollera om raden är en <section> tagg
+        if re.match(r'^\s*<section[^>]*>\s*$', line):
+            # Hoppa över <section> taggen
+            i += 1
+            # Hoppa även över nästa rad om den är tom (eftersom vi lägger till tom rad efter <section>)
+            if i < len(lines) and lines[i].strip() == '':
+                i += 1
+            continue
+            
+        # Kontrollera om raden är en </section> tagg
+        elif re.match(r'^\s*</section>\s*$', line):
+            # Ta bort föregående tom rad om den finns (eftersom vi lägger till tom rad före </section>)
+            if result and result[-1].strip() == '':
+                result.pop()
+            # Hoppa över </section> taggen utan att lägga till den
+            i += 1
+            continue
+            
+        else:
+            # Vanlig rad - lägg till den
+            result.append(line)
+            i += 1
+    
+    # Ta bort eventuella dubletter av tomma rader och rensa slutresultatet
+    cleaned_result = []
+    prev_empty = False
+    
+    for line in result:
+        is_empty = line.strip() == ''
+        
+        # Lägg endast till tomma rader om föregående rad inte var tom
+        if is_empty and prev_empty:
+            continue  # Hoppa över dublett av tom rad
+        else:
+            cleaned_result.append(line)
+            prev_empty = is_empty
+    
+    # Ta bort inledande och avslutande tomma rader
+    while cleaned_result and cleaned_result[0].strip() == '':
+        cleaned_result.pop(0)
+    while cleaned_result and cleaned_result[-1].strip() == '':
+        cleaned_result.pop()
+    
+    return '\n'.join(cleaned_result)

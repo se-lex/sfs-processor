@@ -23,7 +23,7 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 import difflib
-from format_sfs_text import format_sfs_text_as_markdown, apply_changes_to_sfs_text, parse_logical_sections
+from format_sfs_text import format_sfs_text_as_markdown, apply_changes_to_sfs_text, parse_logical_sections, clean_section_tags
 from sort_frontmatter import sort_frontmatter_properties
 from add_pdf_url_to_frontmatter import generate_pdf_url
 
@@ -448,6 +448,9 @@ departement: {format_yaml_value(organisation)}
 
         # Create Markdown body
         markdown_body = f"# {rubrik_original}\n\n" + formatted_text
+
+    # Remove section tags from markdown body before returning
+    markdown_body = clean_section_tags(markdown_body)
 
     # Return the complete markdown content
     return yaml_front_matter + markdown_body
