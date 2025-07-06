@@ -45,7 +45,7 @@ jobs:
 
     - name: Process JSON files to Markdown files
       run: |
-        python sfs_processor.py --input sfs_json --output SFS --formats md --enable-git
+        python sfs_processor.py --input sfs_json --output SFS --formats md,git
       env:
         PYTHONPATH: ${{ github.workspace }}
 

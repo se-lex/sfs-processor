@@ -39,6 +39,6 @@ jobs:
 
     - name: Process test JSON files to Markdown files
       run: |
-        python sfs_processor.py --input data/testdocs/rkrattsbaser --output sfs-test --formats md,md-markers --enable-git
+        python sfs_processor.py --input data/testdocs/rkrattsbaser --output sfs-test --formats md,md-markers,git
       env:
         PYTHONPATH: ${{ github.workspace }}
