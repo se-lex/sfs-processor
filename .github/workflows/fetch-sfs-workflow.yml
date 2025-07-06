@@ -77,8 +77,35 @@ jobs:
           echo "has_changes=true" >> $GITHUB_OUTPUT
           echo "commit_branch=${COMMIT_BRANCH}" >> $GITHUB_OUTPUT
           
-          # Push the new branch
-          git push origin "$COMMIT_BRANCH"
+          # Push the new branch with error handling
+          echo "Försöker pusha branch '${COMMIT_BRANCH}' till origin..."
+          
+          if git push origin "$COMMIT_BRANCH" 2>&1; then
+            echo "✅ Git push lyckades för branch '${COMMIT_BRANCH}'"
+            echo "push_success=true" >> $GITHUB_OUTPUT
+            echo "push_error=" >> $GITHUB_OUTPUT
+          else
+            PUSH_EXIT_CODE=$?
+            PUSH_ERROR="Git push misslyckades med exit code: ${PUSH_EXIT_CODE}"
+            echo "❌ ${PUSH_ERROR}"
+            echo "push_success=false" >> $GITHUB_OUTPUT
+            echo "push_error=${PUSH_ERROR}" >> $GITHUB_OUTPUT
+            
+            # Logga mer detaljerad information för debugging
+            echo "Git status:"
+            git status
+            echo "Git remote info:"
+            git remote -v
+            echo "Git log (senaste commit):"
+            git log --oneline -1
+            
+            # Switch back to original branch even if push failed
+            git checkout "$CURRENT_BRANCH"
+            
+            # Fail the job if push failed
+            echo "::error::Git push misslyckades: ${PUSH_ERROR}"
+            exit 1
+          fi
           
           # Switch back to original branch
           git checkout "$CURRENT_BRANCH"
@@ -87,7 +114,7 @@ jobs:
         fi
 
     - name: Trigger HTML export workflow
-      if: steps.commit_changes.outputs.has_changes == 'true'
+      if: steps.commit_changes.outputs.has_changes == 'true' && steps.commit_changes.outputs.push_success == 'true'
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
@@ -98,3 +125,9 @@ jobs:
             workflow_id: 'html-export-workflow.yml',
             ref: context.ref
           })
+
+    - name: Report push failure
+      if: steps.commit_changes.outputs.has_changes == 'true' && steps.commit_changes.outputs.push_success == 'false'
+      run: |
+        echo "::warning::Git push misslyckades: ${{ steps.commit_changes.outputs.push_error }}"
+        echo "HTML export workflow kommer inte att triggas på grund av push-fel."
