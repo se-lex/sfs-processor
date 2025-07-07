@@ -16,7 +16,7 @@ from datetime import datetime
 from typing import List, Dict
 from pathlib import Path
 
-UPCOMING_CHANGES_FILE_NAME = "kommande.yaml"
+UPCOMING_CHANGES_FILE_PATH = "data/kommande.yaml"
 
 
 def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
@@ -172,7 +172,7 @@ def save_upcoming_file(doc_id: str, dates: List[str]) -> None:
         doc_id: The document ID (beteckning) to add
         dates: List of dates in YYYY-MM-DD format
     """
-    file_path = Path(UPCOMING_CHANGES_FILE_NAME)
+    file_path = Path(UPCOMING_CHANGES_FILE_PATH)
     
     # Read existing data if file exists
     existing_data = {}
@@ -183,7 +183,7 @@ def save_upcoming_file(doc_id: str, dates: List[str]) -> None:
                 if content:
                     existing_data = yaml.safe_load(content) or {}
         except (IOError, yaml.YAMLError) as e:
-            print(f"Varning: Kunde inte läsa befintlig fil {UPCOMING_CHANGES_FILE_NAME}: {e}")
+            print(f"Varning: Kunde inte läsa befintlig fil {UPCOMING_CHANGES_FILE_PATH}: {e}")
             existing_data = {}
     
     # Process each date
@@ -222,7 +222,7 @@ def save_upcoming_file(doc_id: str, dates: List[str]) -> None:
             yaml.dump(sorted_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
         
     except IOError as e:
-        print(f"Fel: Kunde inte skriva till fil {UPCOMING_CHANGES_FILE_NAME}: {e}")
+        print(f"Fel: Kunde inte skriva till fil {UPCOMING_CHANGES_FILE_PATH}: {e}")
 
 
 def get_doc_ids_for_date(date: str) -> List[str]:
@@ -241,7 +241,7 @@ def get_doc_ids_for_date(date: str) -> List[str]:
         >>> print(doc_ids)
         ['sfs-2024-1274', 'sfs-2024-1275']
     """
-    file_path = Path(UPCOMING_CHANGES_FILE_NAME)
+    file_path = Path(UPCOMING_CHANGES_FILE_PATH)
     
     # Validate date format
     if not (len(date) == 10 and date.count('-') == 2):
@@ -272,7 +272,7 @@ def get_doc_ids_for_date(date: str) -> List[str]:
                 return data[date] if isinstance(data[date], list) else []
             
     except (IOError, yaml.YAMLError) as e:
-        print(f"Fel: Kunde inte läsa fil {UPCOMING_CHANGES_FILE_NAME}: {e}")
+        print(f"Fel: Kunde inte läsa fil {UPCOMING_CHANGES_FILE_PATH}: {e}")
         return []
     
     # Date not found
@@ -369,7 +369,7 @@ def process_markdown_files(input_dir: str) -> None:
     print("\nSammanfattning:")
     print(f"Processade {processed_files} filer")
     print(f"Totalt {total_changes} kommande ändringar hittades")
-    print(f"Resultat sparade i {UPCOMING_CHANGES_FILE_NAME}")
+    print(f"Resultat sparade i {Path(UPCOMING_CHANGES_FILE_PATH).resolve()}")
 
 
 if __name__ == "__main__":

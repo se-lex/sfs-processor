@@ -4,5 +4,5 @@ ___pycache__
 .DS_Store
 
 # Ignore output files
-upcoming_changes.yml
+data/kommande.yaml
 sfs-test
