@@ -137,32 +137,80 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
             if i + 2 < len(original_result_lines) and original_result_lines[i + 2].strip().startswith("1."):
                 next_is_list_start = True
 
-            # Kontrollera om det är en potentiell rubrik (direkt kontroll istället för förberäknad lista)
+            # Kontrollera om det är en potentiell rubrik (kombinerad logik)
             is_potential_header = (
                 cleaned_line.strip() and
                 len(cleaned_line) < 300 and
-                # Krav på stor bokstav i början av raden (efter eventuella inledande specialtecken)
+                # Krav på stor bokstav i början av raden
                 re.match(r'^[A-ZÅÄÖ]', cleaned_line.strip()) and
-                # Grundläggande uteslutningar
+                # Uteslut definitionsfraser
+                not re.match(r'^I denna (förordning|lag) avses med$', cleaned_line.strip(), re.IGNORECASE) and
+                # Uteslut korta administrativa uttryck
+                not re.match(r'^(Lagen|Myndigheten|Utbildningen) (gäller|ska)$', cleaned_line.strip(), re.IGNORECASE) and
+                # Uteslut rader som börjar med siffra följt av punkt (listor)
+                not re.match(r'^\d+\.', cleaned_line.strip()) and
+                # Uteslut rader som börjar med bindestreck
+                not cleaned_line.strip().startswith('-') and
+                # Uteslut rader som slutar med punkt eller kolon (troligen mening/definition)
                 not cleaned_line.strip().endswith(('.', ':')) and
-                not cleaned_line.strip().startswith('-') and  # Uteslut rader som börjar med bindestreck
-                not re.match(r'^\d+\.', cleaned_line.strip())  # Uteslut rader som börjar med siffra följt av punkt
+                # Uteslut rader som är för långa för att vara rubriker (över 100 tecken)
+                len(cleaned_line.strip()) <= 100 and
+                # Uteslut rader som börjar med vanliga juridiska fraser
+                not re.match(r'^(Genom|Enligt|Om (?!det)|För att|Till böter|Vid|På begäran|När|Under|Efter|Med (?!det)|Av (?!det)|Till (?!det)|I (?:denna|detta|enlighet|den|det|fråga|samma)|Från|På grund av)', cleaned_line.strip(), re.IGNORECASE) and
+                # Uteslut specifika juridiska fraser som inte ska bli rubriker
+                not re.match(r'^(Denna lag gäller inte|Denna lag träder i kraft|Denna konvention tillämpas|Konventionen upphör)$', cleaned_line.strip(), re.IGNORECASE) and
+                # Uteslut rader som innehåller länder/geografiska platser (troligen inte rubriker)
+                not re.search(r'\b(Danmark|Finland|Island|Norge|Sverige|Färöarna|regering|landsstyre)\b', cleaned_line.strip(), re.IGNORECASE)
             )
 
             # Kontrollera om det är en rubrik (baserat på rensad rad men använd original för output)
-            if is_potential_header and not next_is_list_start:
-                # Kontrollera om det är ett kapitel (börjar med "X kap.") - använd rensad rad för analys
-                if re.match(r'^\d+\s+kap\.', cleaned_line.strip()):
+            # Specialfall som alltid ska bli rubriker (även utanför standardkriterier)
+            if not next_is_list_start:
+                # Kontrollera om det är ett kapitel (börjar med "X kap." eller "X Kap" eller "X A Kap")
+                if re.match(r'^\d+(\s+\w)?\s+[Kk]ap\.?', cleaned_line.strip()):
                     formatted.append(format_header_with_markings('##', original_line))
-                # Kontrollera om det är en bilaga (börjar med "Bilaga ") - använd rensad rad för analys
+                # Kontrollera om det är en bilaga (börjar med "Bilaga ")
                 elif cleaned_line.strip().startswith('Bilaga '):
                     formatted.append(format_header_with_markings('##', original_line))
-                # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de andra kriterierna
-                elif (len(cleaned_line.split()) <= 2 and '.' not in cleaned_line) or (len(cleaned_line) < 300 and not cleaned_line.strip().endswith(('.', ':'))):
-                    # Använd H3-rubrik för rubriker
+                # Kontrollera om det är en artikel (börjar med "Artikel X")
+                elif re.match(r'^Artikel\s+\d+$', cleaned_line.strip()):
                     formatted.append(format_header_with_markings('###', original_line))
+                # Potentiella rubriker enligt standardkriterier
+                elif is_potential_header:
+                    # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de andra kriterierna
+                    if (len(cleaned_line.split()) <= 2 and '.' not in cleaned_line) or (len(cleaned_line) < 300 and not cleaned_line.strip().endswith(('.', ':'))):
+                        # Använd H3-rubrik för rubriker
+                        formatted.append(format_header_with_markings('###', original_line))
+                    else:
+                        # Hantera paragrafnummer som rubriker
+                        if previous_line_empty:
+                            # Kontrollera om raden börjar med paragrafnummer (använd rensad rad)
+                            paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', cleaned_line)
+                            if paragraph_match:
+                                paragraph_num = paragraph_match.group(0)
+                                
+                                # Extrahera markeringar från originalraden
+                                markings = re.findall(r'/[^/]+/', original_line)
+                                
+                                # Skapa rubrik med bara markeringar och paragrafnummer
+                                if markings:
+                                    markings_str = ' '.join(markings)
+                                    formatted.append(f'#### {markings_str} {paragraph_num}')
+                                else:
+                                    formatted.append(f'#### {paragraph_num}')
+                                
+                                formatted.append('')  # Tom rad efter rubriken
+                                
+                                # Hitta resten av texten efter paragrafnumret i rensad rad
+                                rest_of_line = cleaned_line[len(paragraph_num):].strip()
+                                if rest_of_line:
+                                    formatted.append(rest_of_line)
+                            else:
+                                formatted.append(original_line)
+                        else:
+                            formatted.append(original_line)
                 else:
-                    # Hantera paragrafnummer som rubriker
+                    # Hantera paragrafnummer som rubriker även utanför potential_headers
                     if previous_line_empty:
                         # Kontrollera om raden börjar med paragrafnummer (använd rensad rad)
                         paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', cleaned_line)
@@ -190,14 +238,8 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                     else:
                         formatted.append(original_line)
             else:
-                # Kontrollera om det är ett kapitel (börjar med "X kap.") även utanför potential_headers
-                if re.match(r'^\d+\s+kap\.', cleaned_line.strip()):
-                    formatted.append(format_header_with_markings('##', original_line))
-                # Kontrollera om det är en bilaga (börjar med "Bilaga ") även utanför potential_headers
-                elif cleaned_line.strip().startswith('Bilaga '):
-                    formatted.append(format_header_with_markings('##', original_line))
-                # Hantera paragrafnummer som rubriker
-                elif previous_line_empty:
+                # Hantera paragrafnummer som rubriker även när övriga kriterier inte uppfylls
+                if previous_line_empty:
                     # Kontrollera om raden börjar med paragrafnummer (använd rensad rad)
                     paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', cleaned_line)
                     if paragraph_match:
