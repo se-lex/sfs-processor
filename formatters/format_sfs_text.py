@@ -53,12 +53,12 @@ SECTION_TAG_PATTERN = r'^\s*<section[^>]*>\s*$'
 SECTION_CLOSE_TAG_PATTERN = r'^\s*</section>\s*$'
 
 # Temporal patterns
-IKRAFT_ANY_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft I:[^/]+'
-IKRAFT_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft I:[^/]+/\s*'
-IKRAFT_DATE_EXTRACT_PATTERN = r'I:(\d{4}-\d{2}-\d{2})'
+IKRAFT_ANY_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft [Ii]:[^/]+'
+IKRAFT_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft [Ii]:[^/]+/\s*'
+IKRAFT_DATE_EXTRACT_PATTERN = r'[Ii]:(\d{4}-\d{2}-\d{2})'
 
-UPPHOR_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?upphör att gälla U:[^/]+/\s*'
-UPPHOR_DATE_EXTRACT_PATTERN = r'U:(\d{4}-\d{2}-\d{2})'
+UPPHOR_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?upphör att gälla [Uu]:[^/]+/\s*'
+UPPHOR_DATE_EXTRACT_PATTERN = r'[Uu]:(\d{4}-\d{2}-\d{2})'
 
 # Exclusion patterns
 DEFINITION_PATTERN = r'^I denna (förordning|lag) avses med$'
