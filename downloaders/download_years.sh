@@ -13,7 +13,7 @@ do
   echo "==================================="
   
   # Run the download script with the current year and rkrattsbaser as source
-  python3 download_sfs_docs.py --year "$year" --source rkrattsbaser --out "$OUTPUT_DIR"
+  python3 ./download_sfs_docs.py --year "$year" --source rkrattsbaser --out "$OUTPUT_DIR"
   
   # Add a pause between years to be nice to the server
   echo "Pausing for 3 seconds before next year..."

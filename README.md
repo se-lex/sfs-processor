@@ -27,13 +27,13 @@ Scriptet stöder två olika källor:
 #### Ladda ner alla SFS-författningar
 
 ```bash
-python download_sfs_docs.py
+python downloaders/download_sfs_docs.py
 ```
 
 eller explicit:
 
 ```bash
-python download_sfs_docs.py --source rkrattsbaser
+python downloaders/download_sfs_docs.py --source rkrattsbaser
 ```
 
 **Observera:** För rkrattsbaser måste du ange specifika författnings-ID:n med `--ids` parametern.
@@ -41,7 +41,7 @@ python download_sfs_docs.py --source rkrattsbaser
 #### Ladda ner specifika författningar från Regeringskansliet
 
 ```bash
-python download_sfs_docs.py --ids "2025:764,2025:765"
+python downloaders/download_sfs_docs.py --ids "2025:764,2025:765"
 ```
 
 ### Ladda ner från Riksdagen
@@ -49,19 +49,19 @@ python download_sfs_docs.py --ids "2025:764,2025:765"
 #### Ladda ner alla SFS-författningar från Riksdagen
 
 ```bash
-python download_sfs_docs.py --ids all --source riksdagen
+python downloaders/download_sfs_docs.py --ids all --source riksdagen
 ```
 
 #### Ladda ner specifika författningar från Riksdagen
 
 ```bash
-python download_sfs_docs.py --ids "sfs-2017-900,sfs-2009-400,sfs-2011-791" --source riksdagen
+python downloaders/download_sfs_docs.py --ids "sfs-2017-900,sfs-2009-400,sfs-2011-791" --source riksdagen
 ```
 
 #### Med anpassad output-mapp
 
 ```bash
-python download_sfs_docs.py --source rkrattsbaser --ids "2025:764" --out "sfs_json"
+python downloaders/download_sfs_docs.py --source rkrattsbaser --ids "2025:764" --out "sfs_json"
 ```
 
 ### Ange output-mapp
@@ -69,13 +69,13 @@ python download_sfs_docs.py --source rkrattsbaser --ids "2025:764" --out "sfs_js
 Du kan ange vilken mapp författningarna ska sparas i med `--out` parametern:
 
 ```bash
-python download_sfs_docs.py --out "sfs_docs"
+python downloaders/download_sfs_docs.py --out "sfs_docs"
 ```
 
 Eller kombinera med specifika författnings-ID:n:
 
 ```bash
-python download_sfs_docs.py --ids "sfs-2017-900,sfs-2009-400" --out "mina_favorit_lagar"
+python downloaders/download_sfs_docs.py --ids "sfs-2017-900,sfs-2009-400" --out "mina_favorit_lagar"
 ```
 
 ### Exempel med Swedac-lagar
@@ -83,7 +83,7 @@ python download_sfs_docs.py --ids "sfs-2017-900,sfs-2009-400" --out "mina_favori
 För att ladda ner alla lagar som styr Swedac till en specifik mapp:
 
 ```bash
-python download_sfs_docs.py --ids "sfs-2017-900,sfs-2009-400,sfs-2009-641,sfs-2021-1252,sfs-2011-791,sfs-2011-811,sfs-2019-16,sfs-1991-93,sfs-1993-1634,sfs-2014-864,sfs-2002-574,sfs-2009-211,sfs-2006-985,sfs-2006-1592,sfs-2016-1128,sfs-2009-1079,sfs-2009-1078,sfs-2010-900,sfs-2011-338,sfs-2011-1244,sfs-2011-1261,sfs-1992-1514,sfs-1993-1066,sfs-1994-99,sfs-1997-857,sfs-1999-716,sfs-2005-403,sfs-2006-1043,sfs-2011-318,sfs-2011-345,sfs-2011-1200,sfs-2011-1480,sfs-2012-211,sfs-2012-238,sfs-1975-49,sfs-1999-779,sfs-1999-780" --out "swedac_lagar"
+python downloaders/download_sfs_docs.py --ids "sfs-2017-900,sfs-2009-400,sfs-2009-641,sfs-2021-1252,sfs-2011-791,sfs-2011-811,sfs-2019-16,sfs-1991-93,sfs-1993-1634,sfs-2014-864,sfs-2002-574,sfs-2009-211,sfs-2006-985,sfs-2006-1592,sfs-2016-1128,sfs-2009-1079,sfs-2009-1078,sfs-2010-900,sfs-2011-338,sfs-2011-1244,sfs-2011-1261,sfs-1992-1514,sfs-1993-1066,sfs-1994-99,sfs-1997-857,sfs-1999-716,sfs-2005-403,sfs-2006-1043,sfs-2011-318,sfs-2011-345,sfs-2011-1200,sfs-2011-1480,sfs-2012-211,sfs-2012-238,sfs-1975-49,sfs-1999-779,sfs-1999-780" --out "swedac_lagar"
 ```
 
 ## Konvertering till olika format
@@ -178,7 +178,7 @@ python sfs_processor.py --input sfs_json --output output --formats md,html,htmld
 ## Kommandoradsalternativ för nedladdning
 
 ```bash
-python download_sfs_docs.py [--ids IDS] [--out MAPP] [--source KÄLLA]
+python downloaders/download_sfs_docs.py [--ids IDS] [--out MAPP] [--source KÄLLA]
 ```
 
 ### Parametrar för nedladdning

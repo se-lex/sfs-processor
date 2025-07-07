@@ -39,7 +39,7 @@ jobs:
     - name: Fetch JSON from beta.rkrattsbaser.gov.se
       if: false  # Disabled
       run: |
-        python fetch_new_sfs_docs.py --days ${{ inputs.days || '1' }} --output sfs_json
+        python downloaders/fetch_new_sfs_docs.py --days ${{ inputs.days || '1' }} --output sfs_json
       env:
         PYTHONPATH: ${{ github.workspace }}
 

@@ -2,7 +2,7 @@
 
 Lägg in i JSON-filen test-doc-ids.json och ladda ner med:
 
-`python download_sfs_docs.py --source rkrattsbaser --test`
+`python downloaders/download_sfs_docs.py --source rkrattsbaser --test`
 
 Generera med följande kommando:
 
