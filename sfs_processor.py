@@ -22,14 +22,14 @@ import re
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from formatters.format_sfs_text import format_sfs_text_as_markdown, parse_logical_sections, clean_section_tags
+from formatters.format_sfs_text import format_sfs_text_as_markdown, parse_logical_sections, clean_section_tags, clean_text
 from formatters.sort_frontmatter import sort_frontmatter_properties
 from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
 from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime
 from exporters.git import ensure_git_branch_for_commits, restore_original_branch
-from temporal.amendments import apply_amendments_to_text
+from temporal.amendments import process_markdown_amendments, extract_amendments
 
 
 def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_branch: str = None) -> None:
@@ -145,34 +145,14 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
     # Get basic markdown content
     markdown_content = convert_to_markdown(data, preserve_section_tags)
 
-    # Extract metadata for processing
+    # Extract beteckning for logging
     beteckning = data.get('beteckning', '')
-    fulltext_data = data.get('fulltext', {})
-    innehall_text = fulltext_data.get('forfattningstext', '')
+
+    # Process amendments using the temporal module
+    markdown_content = process_markdown_amendments(markdown_content, data, git_branch, verbose, output_file)
+    
+    # Extract amendments for git logic (if needed)
     amendments = extract_amendments(data.get('andringsforfattningar', []))
-
-    # Check for amendment markers and process amendments if they exist
-    has_amendment_markers = False # re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', innehall_text)
-    if verbose and amendments and not has_amendment_markers:
-        print(f"Varning: Inga ändringsmarkeringar hittades i {beteckning} men ändringar finns.")
-
-    # Apply amendments if they exist
-    if has_amendment_markers and amendments:
-        # Extract the markdown body (everything after the front matter)
-        if markdown_content.startswith('---'):
-            front_matter_end = markdown_content.find('\n---\n', 3)
-            if front_matter_end != -1:
-                front_matter = markdown_content[:front_matter_end + 5]  # Include the closing ---\n
-                markdown_body = markdown_content[front_matter_end + 5:]
-
-                # Process amendments on the entire markdown body (including heading)
-                processed_text = apply_amendments_to_text(markdown_body, amendments, git_branch, verbose, output_file)
-
-                # Reconstruct the full content
-                markdown_content = front_matter + "\n\n" + processed_text
-                print(f"Debug: Bearbetad textlängd för {beteckning}: {len(processed_text)}")
-    else:
-        print(f"Info: Inga ändringsmarkeringar eller ändringar att bearbeta för {beteckning}")
 
     # Determine if git functionality is enabled
     git_enabled = git_branch is not None
@@ -441,17 +421,6 @@ departement: {format_yaml_value(organisation)}
     return yaml_front_matter + markdown_body
 
 
-def clean_text(text: Optional[str]) -> str:
-    """Clean and format text content."""
-    if not text:
-        return ""
-
-    # Remove extra whitespace and normalize line breaks
-    text = re.sub(r'\r\n', '\n', text)
-    text = re.sub(r'\s+', ' ', text).strip()
-    return text
-
-
 def clean_title(rubrik: Optional[str]) -> str:
     """Clean rubrik by removing beteckning in parentheses."""
     if not rubrik:
@@ -464,30 +433,6 @@ def clean_title(rubrik: Optional[str]) -> str:
     # Clean up any multiple spaces that might have been created
     cleaned = re.sub(r'\s+', ' ', cleaned).strip()
     return cleaned
-
-
-def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
-    """Extract and format amendment information, sorted chronologically by ikraft_datum."""
-    amendments = []
-
-    for amendment in andringsforfattningar:
-        amendment_data = {
-            'beteckning': amendment.get('beteckning'),
-            'rubrik': clean_text(amendment.get('rubrik')),
-            'ikraft_datum': format_datetime(amendment.get('ikraftDateTime')),
-            'anteckningar': clean_text(amendment.get('anteckningar'))
-        }
-
-        # Only include non-empty amendments
-        if amendment_data['beteckning']:
-            amendments.append(amendment_data)
-    
-    # Sort amendments chronologically by ikraft_datum
-    # Amendments without ikraft_datum will be sorted to the end
-    amendments.sort(key=lambda x: x['ikraft_datum'] or '9999-12-31')
-
-    return amendments
-
 
 
 def ignore_rules(innehall_text: str) -> tuple[bool, str]:

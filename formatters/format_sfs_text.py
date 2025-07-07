@@ -30,6 +30,8 @@ Regler som inte utvecklats än:
 """
 
 import re
+from typing import Optional
+
 
 def parse_logical_paragraphs(text: str) -> list:
     """
@@ -887,10 +889,10 @@ def generate_section_id(header_text: str) -> str:
         str: ID som kan användas som HTML id-attribut
     """
     # Ta bort markeringar (text inom //) från rubriken
-    clean_text = re.sub(r'/[^/]+/', '', header_text).strip()
+    cleaned_header = re.sub(r'/[^/]+/', '', header_text).strip()
     
     # Kontrollera om det finns paragrafnummer i rubriken
-    paragraph_match = re.search(r'(\d+(?:\s*[a-z])?)\s*§', clean_text)
+    paragraph_match = re.search(r'(\d+(?:\s*[a-z])?)\s*§', cleaned_header)
     if paragraph_match:
         # Extrahera paragrafnumret utan mellanslag
         paragraph_num = paragraph_match.group(1).replace(' ', '')
@@ -898,7 +900,7 @@ def generate_section_id(header_text: str) -> str:
     
     # Om inget paragrafnummer, skapa slug från rubriken
     # Ta bort alla icke-alfanumeriska tecken och ersätt med bindestreck
-    slug = re.sub(r'[^\w\s-]', '', clean_text)
+    slug = re.sub(r'[^\w\s-]', '', cleaned_header)
     slug = re.sub(r'\s+', '-', slug)
     slug = slug.lower().strip('-')
     
@@ -910,3 +912,14 @@ def generate_section_id(header_text: str) -> str:
         raise ValueError(f"Kan inte generera giltigt ID från rubriktext: '{header_text}'")
     
     return slug
+
+
+def clean_text(text: Optional[str]) -> str:
+    """Clean and format text content."""
+    if not text:
+        return ""
+
+    # Remove extra whitespace and normalize line breaks
+    text = re.sub(r'\r\n', '\n', text)
+    text = re.sub(r'\s+', ' ', text).strip()
+    return text

@@ -3,7 +3,92 @@
 import difflib
 from typing import Dict, Any, List
 from pathlib import Path
-from formatters.format_sfs_text import apply_changes_to_sfs_text
+from formatters.format_sfs_text import apply_changes_to_sfs_text, clean_text
+
+
+def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+    """Extract and format amendment information, sorted chronologically by ikraft_datum."""
+    from util.datetime_utils import format_datetime  # Import to avoid circular imports
+    
+    amendments = []
+
+    for amendment in andringsforfattningar:
+        amendment_data = {
+            'beteckning': amendment.get('beteckning'),
+            'rubrik': clean_text(amendment.get('rubrik')),
+            'ikraft_datum': format_datetime(amendment.get('ikraftDateTime')),
+            'anteckningar': clean_text(amendment.get('anteckningar'))
+        }
+
+        # Only include non-empty amendments
+        if amendment_data['beteckning']:
+            amendments.append(amendment_data)
+    
+    # Sort amendments chronologically by ikraft_datum
+    # Amendments without ikraft_datum will be sorted to the end
+    amendments.sort(key=lambda x: x['ikraft_datum'] or '9999-12-31')
+
+    return amendments
+
+
+def process_markdown_amendments(markdown_content: str, data: Dict[str, Any], git_branch: str = None, verbose: bool = False, output_file: Path = None) -> str:
+    """
+    Process amendments on markdown content by checking for amendment markers and applying changes.
+
+    This function handles the complete workflow of:
+    1. Extracting amendments from document data
+    2. Checking for amendment markers in the original text
+    3. Splitting markdown content into front matter and body
+    4. Applying amendments to the markdown body
+    5. Reconstructing the full markdown content
+
+    Args:
+        markdown_content (str): The complete markdown content including front matter
+        data (Dict[str, Any]): Document data containing amendment information
+        git_branch (str): Branch name to use for git commits. If None, no git commits are made.
+        verbose (bool): If True, print detailed output during processing
+        output_file (Path): Output file path for potential git operations
+
+    Returns:
+        str: The processed markdown content with amendments applied, or original content if no processing needed
+    """
+    
+    # Extract beteckning for logging
+    beteckning = data.get('beteckning', '')
+    
+    # Extract the original text content to check for amendment markers
+    amendments = extract_amendments(data.get('andringsforfattningar', []))
+
+    # Check for amendment markers and process amendments if they exist
+    has_amendment_markers = False  # re.search(r'/.*?I:\d{4}-\d{2}-\d{2}/', innehall_text)
+    if verbose and amendments and not has_amendment_markers:
+        print(f"Varning: Inga ändringsmarkeringar hittades i {beteckning} men ändringar finns.")
+
+    # Apply amendments if they exist
+    if has_amendment_markers and amendments:
+        # Extract the markdown body (everything after the front matter)
+        if markdown_content.startswith('---'):
+            front_matter_end = markdown_content.find('\n---\n', 3)
+            if front_matter_end != -1:
+                front_matter = markdown_content[:front_matter_end + 5]  # Include the closing ---\n
+                markdown_body = markdown_content[front_matter_end + 5:]
+
+                # Process amendments on the entire markdown body (including heading)
+                processed_text = apply_amendments_to_text(markdown_body, amendments, git_branch, verbose, output_file)
+
+                # Reconstruct the full content
+                processed_markdown = front_matter + "\n\n" + processed_text
+                print(f"Debug: Bearbetad textlängd för {beteckning}: {len(processed_text)}")
+                return processed_markdown
+            else:
+                print(f"Varning: Kunde inte hitta slutet på front matter för {beteckning}")
+                return markdown_content
+        else:
+            print(f"Varning: Markdown-innehåll börjar inte med front matter för {beteckning}")
+            return markdown_content
+    else:
+        print(f"Info: Inga ändringsmarkeringar eller ändringar att bearbeta för {beteckning}")
+        return markdown_content
 
 
 def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], git_branch: str = None, verbose: bool = False, output_file: Path = None) -> str:
@@ -17,13 +102,16 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], git_br
     Args:
         text (str): The original SFS text
         amendments (List[Dict[str, Any]]): List of amendments with ikraft_datum
-        git_branch (str): Branch name to use for git commits. If None, no git commits are made.
+        git_branch (str): Branch name to use for git commits. Currently unused but kept for compatibility.
         verbose (bool): If True, print smart diff output to console for each amendment
-        output_file (Path): Output file path (currently unused but kept for compatibility)
+        output_file (Path): Output file path. Currently unused but kept for compatibility.
 
     Returns:
         str: The text with changes applied
     """
+    # Mark unused parameters as intentionally unused
+    _ = git_branch
+    _ = output_file
 
     processed_text = text
 
@@ -40,7 +128,6 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], git_br
 
     for amendment in sorted_amendments:
         ikraft_datum = amendment.get('ikraft_datum')
-        beteckning = amendment.get('beteckning', '')
         rubrik = amendment.get('rubrik', 'Ändringsförfattning')
 
         if verbose:
