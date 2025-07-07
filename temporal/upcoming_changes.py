@@ -350,7 +350,7 @@ def process_markdown_files(input_dir: str) -> None:
                 # Extract dates from changes
                 change_dates = [change['date'] for change in file_changes]
                 
-                # Save to TSV file
+                # Save to YAML file
                 save_upcoming_file(doc_id, change_dates)
                 
                 print(f"Processade {md_file.name}: {len(file_changes)} ändringar hittades")

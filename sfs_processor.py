@@ -193,6 +193,10 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
 
                     # Write file for first commit (without ikraft_datum)
                     save_to_disk(output_file, markdown_content)
+                    
+                    # Debug: Check if file exists
+                    if not output_file.exists():
+                        print(f"Varning: Filen {output_file} existerar inte efter save_to_disk")
 
                     # Stage the current file (which doesn't have ikraft_datum yet)
                     subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True)
@@ -246,6 +250,9 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
 
                 except subprocess.CalledProcessError as e:
                     print(f"Varning: Git-commit misslyckades för {beteckning}: {e}")
+                    # Print stderr output for debugging
+                    if hasattr(e, 'stderr') and e.stderr:
+                        print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
                     # Write the file anyway, without git commits
                     save_to_disk(output_file, markdown_content)
                     # Restore original branch on error

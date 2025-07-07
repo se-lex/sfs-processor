@@ -55,5 +55,6 @@ def save_to_disk(file_path: Path, content: str) -> None:
     try:
         with open(file_path, 'w', encoding='utf-8') as f:
             f.write(content)
+        print(f"Skrev till disk: {file_path}")
     except IOError as e:
         print(f"Fel vid skrivning av {file_path}: {e}")
