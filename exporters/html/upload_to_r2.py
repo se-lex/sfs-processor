@@ -137,14 +137,14 @@ def upload_index_pages(output_base_dir=""):
     try:
         # Kör populate_index_pages.py för att skapa index-sidor
         subprocess.run([
-            'python', 'populate_index_pages.py',
+            'python', 'exporters/html/populate_index_pages.py',
             '--input', json_input_dir,
             '--output', str(index_file),
             '--limit', '30'
         ], check=True, capture_output=True, text=True)
 
         subprocess.run([
-            'python', 'populate_index_pages.py',
+            'python', 'exporters/html/populate_index_pages.py',
             '--input', json_input_dir,
             '--output', str(latest_file),
             '--limit', '10'

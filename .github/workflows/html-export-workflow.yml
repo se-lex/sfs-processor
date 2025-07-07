@@ -57,8 +57,8 @@ jobs:
 
     - name: Regenerate index pages for HTML export
       run: |
-        python populate_index_pages.py --input sfs_json --output index.html --limit 30
-        python populate_index_pages.py --input sfs_json --output latest.html --limit 10
+        python exporters/html/populate_index_pages.py --input sfs_json --output index.html --limit 30
+        python exporters/html/populate_index_pages.py --input sfs_json --output latest.html --limit 10
       env:
         PYTHONPATH: ${{ github.workspace }}
 

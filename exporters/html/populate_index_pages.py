@@ -13,6 +13,11 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 import html
+import sys
+
+# Add the project root to the Python path
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
 
 # Import existing functions for consistency
 from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
