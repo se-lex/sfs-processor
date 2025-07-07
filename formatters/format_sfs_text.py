@@ -40,7 +40,7 @@ AVDELNING_PATTERN_2 = r'^(?:FÖRSTA|ANDRA|TREDJE|FJÄRDE|FEMTE|SJÄTTE|SJUNDE|Å
 ARTIKEL_PATTERN = r'^Artikel\s+\d+$'
 BILAGA_PREFIX = 'Bilaga '
 
-MARKDOWN_HEADER_PATTERN = r'^#{2,4}\s+'
+HEADER_LEVEL_PATTERN = r'^(#{2,6})\s+(.+)'
 LIST_NUMBERED_PATTERN = r'^\d+\.'
 LIST_BULLET_PREFIX = '-'
 TEMPORAL_MARKER_PATTERN = r'/[^/]+/'
@@ -52,26 +52,13 @@ CAPITALIZED_PATTERN = r'^[A-ZÅÄÖ]'
 SECTION_TAG_PATTERN = r'^\s*<section[^>]*>\s*$'
 SECTION_CLOSE_TAG_PATTERN = r'^\s*</section>\s*$'
 
-# Header patterns
-HEADER_LEVEL_PATTERN = r'^(#{2,6})\s+(.+)'
-
 # Temporal patterns
-IKRAFT_DATE_PATTERN = r'/träder i kraft I:\d{4}-\d{2}-\d{2}'
-RUBRIK_IKRAFT_DATE_PATTERN = r'/rubriken träder i kraft I:\d{4}-\d{2}-\d{2}'
-KAPITLET_IKRAFT_DATE_PATTERN = r'/kapitlet träder i kraft I:\d{4}-\d{2}-\d{2}'
-KAPITELRUBRIKEN_IKRAFT_DATE_PATTERN = r'/kapitelrubriken träder i kraft I:\d{4}-\d{2}-\d{2}'
-
-IKRAFT_VILLKOR_PATTERN = r'/träder i kraft I:[^/]+'
-RUBRIK_IKRAFT_VILLKOR_PATTERN = r'/rubriken träder i kraft I:[^/]+'
-KAPITLET_IKRAFT_VILLKOR_PATTERN = r'/kapitlet träder i kraft I:[^/]+'
-KAPITELRUBRIKEN_IKRAFT_VILLKOR_PATTERN = r'/kapitelrubriken träder i kraft I:[^/]+'
-
-UPPHOR_DATE_EXTRACT_PATTERN = r'U:(\d{4}-\d{2}-\d{2})'
+IKRAFT_ANY_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft I:[^/]+'
+IKRAFT_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft I:[^/]+/\s*'
 IKRAFT_DATE_EXTRACT_PATTERN = r'I:(\d{4}-\d{2}-\d{2})'
 
-# Full temporal tag removal patterns
-IKRAFT_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft I:[^/]+/\s*'
 UPPHOR_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?upphör att gälla U:[^/]+/\s*'
+UPPHOR_DATE_EXTRACT_PATTERN = r'U:(\d{4}-\d{2}-\d{2})'
 
 # Exclusion patterns
 DEFINITION_PATTERN = r'^I denna (förordning|lag) avses med$'
@@ -100,7 +87,7 @@ def parse_logical_paragraphs(text: str) -> list:
         consolidated_paragraph = ' '.join(line.strip() for line in paragraph_lines if line.strip())
 
         # Om detta stycke är bara en rubrik, kontrollera vad som kommer härnäst
-        if (re.match(MARKDOWN_HEADER_PATTERN, consolidated_paragraph.strip()) and
+        if (re.match(HEADER_LEVEL_PATTERN, consolidated_paragraph.strip()) and
             i + 1 < len(raw_paragraphs)):
             # Konsolidera nästa paragraf för att kontrollera om det också är en rubrik
             next_paragraph = raw_paragraphs[i + 1]
@@ -108,7 +95,7 @@ def parse_logical_paragraphs(text: str) -> list:
             consolidated_next = ' '.join(line.strip() for line in next_paragraph_lines if line.strip())
 
             # Om nästa stycke också är en rubrik, behandla denna rubrik som egen paragraf
-            if re.match(MARKDOWN_HEADER_PATTERN, consolidated_next.strip()):
+            if re.match(HEADER_LEVEL_PATTERN, consolidated_next.strip()):
                 logical_paragraphs.append(consolidated_paragraph)
                 i += 1  # Gå vidare till nästa stycke utan att slå ihop
             else:
@@ -448,23 +435,9 @@ def _is_section_ikraft(header_line: str, content: str) -> bool:
     header_lower = header_line.lower()
     content_lower = content.lower()
 
-    # Kontrollera både i rubrik och innehåll efter ikraft-markeringar med giltigt datum
-    return (re.search(IKRAFT_DATE_PATTERN, header_lower) is not None or
-            re.search(RUBRIK_IKRAFT_DATE_PATTERN, header_lower) is not None or
-            re.search(KAPITLET_IKRAFT_DATE_PATTERN, header_lower) is not None or
-            re.search(KAPITELRUBRIKEN_IKRAFT_DATE_PATTERN, header_lower) is not None or
-            re.search(IKRAFT_DATE_PATTERN, content_lower) is not None or
-            re.search(RUBRIK_IKRAFT_DATE_PATTERN, content_lower) is not None or
-            re.search(KAPITLET_IKRAFT_DATE_PATTERN, content_lower) is not None or
-            re.search(KAPITELRUBRIKEN_IKRAFT_DATE_PATTERN, content_lower) is not None or
-            re.search(IKRAFT_VILLKOR_PATTERN, header_lower) is not None or
-            re.search(RUBRIK_IKRAFT_VILLKOR_PATTERN, header_lower) is not None or
-            re.search(KAPITLET_IKRAFT_VILLKOR_PATTERN, header_lower) is not None or
-            re.search(KAPITELRUBRIKEN_IKRAFT_VILLKOR_PATTERN, header_lower) is not None or
-            re.search(IKRAFT_VILLKOR_PATTERN, content_lower) is not None or
-            re.search(RUBRIK_IKRAFT_VILLKOR_PATTERN, content_lower) is not None or
-            re.search(KAPITLET_IKRAFT_VILLKOR_PATTERN, content_lower) is not None or
-            re.search(KAPITELRUBRIKEN_IKRAFT_VILLKOR_PATTERN, content_lower) is not None)
+    # Kontrollera både i rubrik och innehåll efter ikraft-markeringar med giltigt datum eller villkor
+    return (re.search(IKRAFT_ANY_PATTERN, header_lower) is not None or
+            re.search(IKRAFT_ANY_PATTERN, content_lower) is not None)
 
 
 def parse_logical_sections(text: str) -> str:
