@@ -28,7 +28,7 @@ from formatters.sort_frontmatter import sort_frontmatter_properties
 from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
 from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
 from util.yaml_utils import format_yaml_value
-from util.datetime_utils import format_datetime
+from util.datetime_utils import format_datetime, format_datetime_for_git
 from util.file_utils import filter_json_files, save_to_disk
 from exporters.git import ensure_git_branch_for_commits, restore_original_branch
 from temporal.amendments import process_markdown_amendments, extract_amendments
@@ -178,8 +178,8 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
         # Get main document metadata
         rubrik = data.get('rubrik', '')
 
-        ikraft_datum = format_datetime(data.get('ikraftDateTime'))
-        utfardad_datum = format_datetime(data.get('fulltext', {}).get('utfardadDateTime'))
+        ikraft_datum = format_datetime_for_git(data.get('ikraftDateTime'))
+        utfardad_datum = format_datetime_for_git(data.get('fulltext', {}).get('utfardadDateTime'))
 
         # Only create main commits if there are no amendments (they handle their own commits)
         if not amendments and utfardad_datum:
