@@ -166,9 +166,10 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
             markdown_content = add_ikraft_datum_to_frontmatter(markdown_content, ikraft_datum, beteckning)
 
     # Debug: Check final markdown content length
-    print(f"Debug: Slutlig markdown-innehållslängd för {beteckning}: {len(markdown_content)}")
-    if len(markdown_content) < 1000:  # If suspiciously short, show preview
-        print(f"Debug: Innehållsförhandsvisning eftersom misstänkt kort:\n{markdown_content[:500]}...")
+    if verbose:
+        print(f"Debug: Slutlig markdown-innehållslängd för {beteckning}: {len(markdown_content)}")
+        if len(markdown_content) < 1000:  # If suspiciously short, show preview
+            print(f"Debug: Innehållsförhandsvisning eftersom misstänkt kort:\n{markdown_content[:500]}...")
 
     # Handle git commits if enabled
     final_content = markdown_content
@@ -178,8 +179,8 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
         # Get main document metadata
         rubrik = data.get('rubrik', '')
 
-        ikraft_datum = format_datetime_for_git(data.get('ikraftDateTime'))
-        utfardad_datum = format_datetime_for_git(data.get('fulltext', {}).get('utfardadDateTime'))
+        ikraft_datum = format_datetime(data.get('ikraftDateTime'))
+        utfardad_datum = format_datetime(data.get('fulltext', {}).get('utfardadDateTime'))
 
         # Only create main commit if there are no amendments (they handle their own commits)
         if not amendments and utfardad_datum:
@@ -201,7 +202,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                     save_to_disk(output_file, markdown_content)
                     
                     # Debug: Check if file exists
-                    if not output_file.exists():
+                    if verbose and not output_file.exists():
                         print(f"Varning: Filen {output_file} existerar inte efter save_to_disk")
 
                     # Stage the current file (which doesn't have ikraft_datum yet)
@@ -211,12 +212,13 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                     result = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True)
                     if result.returncode != 0:  # Non-zero means there are changes
                         # Create first commit with utfardad_datum as date for both author and committer
-                        env = {**os.environ, 'GIT_AUTHOR_DATE': utfardad_datum, 'GIT_COMMITTER_DATE': utfardad_datum}
+                        utfardad_datum_git = format_datetime_for_git(utfardad_datum) if utfardad_datum else None
+                        env = {**os.environ, 'GIT_AUTHOR_DATE': utfardad_datum_git, 'GIT_COMMITTER_DATE': utfardad_datum_git}
                         subprocess.run([
                             'git', 'commit',
                             '-m', commit_message
                         ], check=True, capture_output=True, env=env)
-                        print(f"Git-commit skapad: '{commit_message}' daterad {utfardad_datum}")
+                        print(f"Git-commit skapad: '{commit_message}' daterad {utfardad_datum_git}")
                     else:
                         print(f"Inga ändringar att commita för första commit av {beteckning}")
 
@@ -235,12 +237,13 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                         result = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True)
                         if result.returncode != 0:  # Non-zero means there are changes
                             # Create second commit with ikraft_datum as date for both author and committer
-                            env = {**os.environ, 'GIT_AUTHOR_DATE': ikraft_datum, 'GIT_COMMITTER_DATE': ikraft_datum}
+                            ikraft_datum_git = format_datetime_for_git(ikraft_datum) if ikraft_datum else None
+                            env = {**os.environ, 'GIT_AUTHOR_DATE': ikraft_datum_git, 'GIT_COMMITTER_DATE': ikraft_datum_git}
                             subprocess.run([
                                 'git', 'commit',
                                 '-m', f"{beteckning} träder i kraft" # TODO: Se till att committa förarbeten först
                             ], check=True, capture_output=True, env=env)
-                            print(f"Git-commit skapad: '{beteckning} träder i kraft' daterad {ikraft_datum}")
+                            print(f"Git-commit skapad: '{beteckning} träder i kraft' daterad {ikraft_datum_git}")
                         else:
                             print(f"Inga ändringar att commita för ikraft_datum av {beteckning}")
 
@@ -600,7 +603,7 @@ def main():
         # Use make_document to create documents in specified formats
         make_document(data, output_dir, output_modes, args.year_folder, args.verbose, args.git_branch)
     
-    print(f"\nBearbetning klar! Filer sparade i {output_dir} i format: {', '.join(output_modes)}")
+    print(f"\nBearbetning klar! {len(json_files)} filer sparade i {output_dir} i format: {', '.join(output_modes)}")
 
 
 if __name__ == "__main__":

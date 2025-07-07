@@ -79,7 +79,8 @@ def process_markdown_amendments(markdown_content: str, data: Dict[str, Any], git
 
                 # Reconstruct the full content
                 processed_markdown = front_matter + "\n\n" + processed_text
-                print(f"Debug: Bearbetad textlängd för {beteckning}: {len(processed_text)}")
+                if verbose:
+                    print(f"Debug: Bearbetad textlängd för {beteckning}: {len(processed_text)}")
                 return processed_markdown
             else:
                 print(f"Varning: Kunde inte hitta slutet på front matter för {beteckning}")
@@ -88,7 +89,8 @@ def process_markdown_amendments(markdown_content: str, data: Dict[str, Any], git
             print(f"Varning: Markdown-innehåll börjar inte med front matter för {beteckning}")
             return markdown_content
     else:
-        print(f"Info: Inga ändringsmarkeringar eller ändringar att bearbeta för {beteckning}")
+        if verbose:
+            print(f"Info: Inga ändringsmarkeringar eller ändringar att bearbeta för {beteckning}")
         return markdown_content
 
 
