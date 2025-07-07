@@ -815,6 +815,7 @@ def generate_section_id(header_text: str) -> str:
     
     Regler:
     - Om rubriken innehåller paragrafnummer (t.ex. "5 §", "13 a §"), använd bara paragrafnumret
+    - Om rubriken är ett kapitel (t.ex. "1 kap.", "2 a kap."), använd formatet "kap1", "kap2a"
     - Annars skapa en slug från rubriken (max 15 tecken)
     - Ta bort markeringar (text inom //) innan slug-generering
     
@@ -834,15 +835,23 @@ def generate_section_id(header_text: str) -> str:
         paragraph_num = paragraph_match.group(1).replace(' ', '')
         return f"{paragraph_num}§"
     
-    # Om inget paragrafnummer, skapa slug från rubriken
+    # Kontrollera om det är ett kapitel (använd samma mönster som i format_sfs_text_as_markdown)
+    kapitel_match = re.match(KAPITEL_PATTERN, cleaned_header)
+    if kapitel_match:
+        # Extrahera kapitelnummer och eventuell bokstav
+        kapitel_num = kapitel_match.group(1)
+        kapitel_letter = kapitel_match.group(2) if kapitel_match.group(2) else ''
+        return f"kap{kapitel_num}{kapitel_letter.lower()}"
+    
+    # Om inget paragrafnummer eller kapitel, skapa slug från rubriken
     # Ta bort alla icke-alfanumeriska tecken och ersätt med bindestreck
     slug = re.sub(r'[^\w\s-]', '', cleaned_header)
     slug = re.sub(r'\s+', '-', slug)
     slug = slug.lower().strip('-')
     
-    # Begränsa till max 15 tecken
-    if len(slug) > 15:
-        slug = slug[:15].rstrip('-')
+    # Begränsa till max 30 tecken
+    if len(slug) > 30:
+        slug = slug[:30].rstrip('-')
     
     if not slug:
         raise ValueError(f"Kan inte generera giltigt ID från rubriktext: '{header_text}'")
