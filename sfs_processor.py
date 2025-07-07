@@ -22,69 +22,14 @@ import re
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-import difflib
-from formatters.format_sfs_text import format_sfs_text_as_markdown, apply_changes_to_sfs_text, parse_logical_sections, clean_section_tags
+from formatters.format_sfs_text import format_sfs_text_as_markdown, parse_logical_sections, clean_section_tags
 from formatters.sort_frontmatter import sort_frontmatter_properties
 from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
-
-
-def ensure_git_branch_for_commits(git_branch):
-    """
-    Ensures that git commits are made in a different branch than the current one.
-    Creates a new branch if needed and switches to it.
-    Returns the original branch name and the commit branch name.
-    
-    Args:
-        git_branch: The branch name to use. If it contains "(timestamp)", 
-                   that will be replaced with current timestamp.
-    """
-    import subprocess
-
-    try:
-        # Get current branch name
-        result = subprocess.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], 
-                              capture_output=True, text=True, check=True)
-        current_branch = result.stdout.strip()
-
-        # Generate commit branch name
-        if "(timestamp)" in git_branch:
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-            commit_branch = git_branch.replace("(timestamp)", timestamp)
-        else:
-            commit_branch = git_branch
-
-        # Create and switch to the new branch
-        subprocess.run(['git', 'checkout', '-b', commit_branch], 
-                      check=True, capture_output=True)
-
-        print(f"Skapade och bytte till branch '{commit_branch}' för git-commits")
-        return current_branch, commit_branch
-
-    except subprocess.CalledProcessError as e:
-        print(f"Varning: Kunde inte skapa ny branch för git-commits: {e}")
-        return None, None
-    except FileNotFoundError:
-        print("Varning: Git hittades inte.")
-        return None, None
-
-
-def restore_original_branch(original_branch):
-    """
-    Switches back to the original branch after commits are done.
-    """
-    import subprocess
-    
-    if not original_branch:
-        return
-        
-    try:
-        subprocess.run(['git', 'checkout', original_branch], 
-                      check=True, capture_output=True)
-        print(f"Bytte tillbaka till ursprunglig branch '{original_branch}'")
-    except subprocess.CalledProcessError as e:
-        print(f"Varning: Kunde inte byta tillbaka till ursprunglig branch: {e}")
-    except FileNotFoundError:
-        print("Varning: Git hittades inte.")
+from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
+from util.yaml_utils import format_yaml_value
+from util.datetime_utils import format_datetime
+from exporters.git import ensure_git_branch_for_commits, restore_original_branch
+from temporal.amendments import apply_amendments_to_text
 
 
 def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_branch: str = None) -> None:
@@ -496,56 +441,6 @@ departement: {format_yaml_value(organisation)}
     return yaml_front_matter + markdown_body
 
 
-def format_yaml_value(value: Any) -> str:
-    """Format a value for YAML output, only adding quotes when necessary according to YAML rules."""
-    if value is None:
-        return 'null'
-
-    if isinstance(value, bool):
-        return 'true' if value else 'false'
-
-    if isinstance(value, (int, float)):
-        return str(value)
-
-    # Convert to string if not already
-    if not isinstance(value, str):
-        value = str(value)
-
-    # Empty string needs quotes
-    if not value:
-        return '""'
-
-    # Check if value is a URL - URLs should not be quoted
-    if re.match(r'^https?://', value):
-        return value
-
-    # Check if value needs quotes according to YAML rules
-    needs_quotes = (
-        # Starts with special YAML characters
-        value[0] in '!&*|>@`#%{}[]' or
-        # Contains special characters that could be interpreted as YAML syntax (but not simple dates)
-        (any(char in value for char in ['[', ']', '{', '}', ',', '#', '`', '"', "'", '|', '>', '*', '&', '!', '%', '@']) or
-         (':' in value and not re.match(r'^\d{4}:\d+$', value))) or  # Allow YYYY:NNN format and dates
-        # Looks like a number, boolean, or null
-        value.lower() in ['true', 'false', 'null', 'yes', 'no', 'on', 'off'] or
-        re.match(r'^-?\d+\.?\d*$', value) or  # Numbers
-        re.match(r'^-?\d+\.?\d*e[+-]?\d+$', value.lower()) or  # Scientific notation
-        # Starts or ends with whitespace
-        value != value.strip() or
-        # Contains newlines
-        '\n' in value or '\r' in value or
-        # Starts with special sequences
-        value.startswith(('<<', '---', '...', '- '))
-    )
-
-    if needs_quotes:
-        # Use double quotes and escape any double quotes inside
-        escaped_value = value.replace('\\', '\\\\').replace('"', '\\"')
-        return f'"{escaped_value}"'
-
-    return value
-
-
 def clean_text(text: Optional[str]) -> str:
     """Clean and format text content."""
     if not text:
@@ -569,22 +464,6 @@ def clean_title(rubrik: Optional[str]) -> str:
     # Clean up any multiple spaces that might have been created
     cleaned = re.sub(r'\s+', ' ', cleaned).strip()
     return cleaned
-
-
-def format_datetime(dt_str: Optional[str]) -> Optional[str]:
-    """Format datetime string to ISO format without timezone."""
-    if not dt_str:
-        return None
-    
-    try:
-        # Parse the datetime and format it as date only
-        if 'T' in dt_str:
-            dt = datetime.fromisoformat(dt_str.split('T')[0])
-        else:
-            dt = datetime.fromisoformat(dt_str)
-        return dt.strftime('%Y-%m-%d')
-    except (ValueError, AttributeError):
-        return dt_str
 
 
 def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -660,135 +539,6 @@ def create_ignored_markdown_content(data: Dict[str, Any], reason: str) -> str:
 
     return markdown_body
 
-
-def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], git_branch: str = None, verbose: bool = False, output_file: Path = None) -> str:
-    """
-    Apply changes to SFS text based on amendment dates.
-
-    This function processes each amendment in chronological order and applies
-    changes using apply_changes_to_sfs_text with the amendment's ikraft_datum
-    as the target date. Optionally creates Git commits for each amendment.
-
-    Args:
-        text (str): The original SFS text
-        amendments (List[Dict[str, Any]]): List of amendments with ikraft_datum
-        git_branch (str): Branch name to use for git commits. If None, no git commits are made.
-        verbose (bool): If True, print smart diff output to console for each amendment
-
-    Returns:
-        str: The text with changes applied
-    """
-
-    processed_text = text
-
-    # Filter amendments that have ikraft_datum (already sorted by extract_amendments)
-    sorted_amendments = [a for a in amendments if a.get('ikraft_datum')]
-
-    # Print number of amendments found
-    if verbose:
-        print(f"Hittade {len(sorted_amendments)} ändringar att bearbeta.")
-
-    # Kolla så det är lika många amenedments som ikraft_datum
-    if len(sorted_amendments) != len(set(a['ikraft_datum'] for a in sorted_amendments)):
-        print("Varning: Duplicerade ikraft_datum hittades i ändringar. Detta kan orsaka oväntat beteende.")
-
-    for amendment in sorted_amendments:
-        ikraft_datum = amendment.get('ikraft_datum')
-        beteckning = amendment.get('beteckning', '')
-        rubrik = amendment.get('rubrik', 'Ändringsförfattning')
-
-        if verbose:
-            print(f"\n{'='*60}")
-            print(f"Bearbetar ÄNDRINGSFÖRFATTNING: {rubrik} ({ikraft_datum})")
-            print(f"{'='*60}")
-            print('')
-
-        if ikraft_datum:
-            # Store text before changes for debug comparison
-            text_before_changes = processed_text
-
-            processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum, verbose)
-
-            # ...existing diff code...
-            show_diff = True
-            if show_diff:
-                # Create unified diff
-                diff_lines = list(difflib.unified_diff(
-                    text_before_changes.splitlines(keepends=True),
-                    processed_text.splitlines(keepends=True),
-                    #fromfile=f"Före ändring {beteckning}",
-                    #tofile=f"Efter ändring {beteckning}",
-                    lineterm=""
-                ))
-
-                if diff_lines:
-                    print("TEXTÄNDRINGAR:")
-                    for line in diff_lines:
-                        # Color coding for different types of changes
-                        line = line.rstrip()
-                        if line.startswith('+++') or line.startswith('---'):
-                            print(f"\033[1m{line}\033[0m")  # Bold
-                        elif line.startswith('@@'):
-                            print(f"\033[36m{line}\033[0m")  # Cyan
-                        elif line.startswith('+'):
-                            print(f"\033[32m{line}\033[0m")  # Green
-                        elif line.startswith('-'):
-                            print(f"\033[31m{line}\033[0m")  # Red
-                        else:
-                            print(line)
-                else:
-                    print("INGA TEXTÄNDRINGAR FUNNA.")
-
-                print(f"{'='*60}\n")
-
-    return processed_text
-
-def add_ikraft_datum_to_frontmatter(markdown_content: str, ikraft_datum: str, beteckning: str = "") -> str:
-    """
-    Add ikraft_datum to the YAML front matter and sort it.
-    
-    Args:
-        markdown_content: The markdown content with YAML front matter
-        ikraft_datum: The ikraft_datum value to add
-        beteckning: Document identifier for error messages (optional)
-    
-    Returns:
-        str: Updated markdown content with ikraft_datum added and front matter sorted
-    """
-    # Add ikraft_datum to front matter
-    # Find the position of the closing --- and insert before it
-    closing_marker = '\n---\n'
-    if closing_marker in markdown_content:
-        before_closing, after_closing = markdown_content.split(closing_marker, 1)
-        ikraft_line = f"ikraft_datum: {format_yaml_value(ikraft_datum)}"
-        # Preserve the original spacing after the front matter
-        updated_content = f"{before_closing}\n{ikraft_line}\n---\n{after_closing}"
-    else:
-        # Fallback: return original content if no proper front matter found
-        updated_content = markdown_content
-
-    try:
-        # Extract and sort front matter if it exists
-        if updated_content.startswith('---'):
-            # Find the end of the front matter
-            front_matter_end = updated_content.find('\n---\n', 3)
-            if front_matter_end != -1:
-                # Extract front matter and content, preserving spacing
-                end_of_frontmatter = front_matter_end + 4  # Position after \n---
-                while end_of_frontmatter < len(updated_content) and updated_content[end_of_frontmatter] == '\n':
-                    end_of_frontmatter += 1
-
-                front_matter = updated_content[:front_matter_end + 4]  # Include up to \n---
-                rest_of_content = updated_content[end_of_frontmatter:]
-
-                # Sort only the front matter and ensure proper spacing
-                sorted_front_matter = sort_frontmatter_properties(front_matter + '\n')
-                updated_content = sorted_front_matter + '\n' + rest_of_content
-    except ValueError as e:
-        error_context = f" för {beteckning}" if beteckning else ""
-        print(f"Varning: Kunde inte sortera front matter efter att ha lagt till ikraft_datum{error_context}: {e}")
-
-    return updated_content
 
 def main():
     """Main function to process all JSON files in the json directory."""
@@ -941,113 +691,6 @@ def save_to_disk(file_path: Path, content: str) -> None:
     except IOError as e:
         print(f"Fel vid skrivning av {file_path}: {e}")
 
-
-def add_overgangsbestammelser_for_amendment_to_text(text: str, beteckning: str, overgangs_content: str, verbose: bool = False) -> str:
-    """
-    Add Övergångsbestämmelser content for a specific beteckning to the text.
-    
-    Args:
-        text: The markdown text to modify
-        beteckning: The beteckning identifier
-        overgangs_content: The övergångsbestämmelser content to add
-        verbose: Whether to print verbose output
-    
-    Returns:
-        str: The text with övergångsbestämmelser content added
-    """
-    # Format the content with the beteckning as a bold heading
-    formatted_overgangs_content = f"**{beteckning}**\n\n{overgangs_content}"
-
-    # Find the existing Övergångsbestämmelser heading and any existing content
-    overgangs_section_match = re.search(r'(### Övergångsbestämmelser\s*\n\n)(.*?)(?=\n### |\n## |\Z)', text, re.DOTALL)
-    if overgangs_section_match:
-        heading_part = overgangs_section_match.group(1)
-        existing_content = overgangs_section_match.group(2).strip()
-
-        if existing_content:
-            # There's already content under the heading, add after it
-            content_to_insert = f"\n\n{formatted_overgangs_content}"
-            insert_pos = overgangs_section_match.end() - len(overgangs_section_match.group(0)) + len(heading_part) + len(existing_content)
-            text = text[:insert_pos] + content_to_insert + text[insert_pos:]
-
-            if verbose:
-                print(f"Lade till övergångsbestämmelser för {beteckning} efter befintligt innehåll")
-        else:
-            # No existing content, add directly after heading
-            insert_pos = overgangs_section_match.start() + len(heading_part)
-            content_to_insert = f"{formatted_overgangs_content}\n\n"
-            text = text[:insert_pos] + content_to_insert + text[insert_pos:]
-
-            if verbose:
-                print(f"Lade till övergångsbestämmelser för {beteckning} under rubrik (inget befintligt innehåll)")
-    else:
-        # Fallback: add the section at the end if heading doesn't exist
-        overgangs_section = f"\n\n### Övergångsbestämmelser\n\n{formatted_overgangs_content}\n"
-        text = text.rstrip() + overgangs_section
-
-        if verbose:
-            print(f"Skapade ny övergångsbestämmelser-sektion för {beteckning} (rubrik hittades inte)")
-    
-    return text
-
-def parse_overgangsbestammelser(text: str, amendments: List[Dict[str, Any]], verbose: bool = False) -> Dict[str, str]:
-    """
-    Parse 'Övergångsbestämmelser' section and organize by amendment beteckning.
-
-    Args:
-        text: The markdown text to parse
-        amendments: List of amendments with beteckning information
-        verbose: Whether to print verbose output
-
-    Returns:
-        Dict mapping beteckning to its övergångsbestämmelser content
-    """
-    overgangs_dict = {}
-
-    # Find the Övergångsbestämmelser section
-    overgangs_match = re.search(r'### Övergångsbestämmelser\s*\n\n(.*?)(?=\n### |\n## |\Z)', text, re.DOTALL)
-    if not overgangs_match:
-        if verbose:
-            print("Ingen 'Övergångsbestämmelser'-sektion hittades")
-        return overgangs_dict
-
-    overgangs_content = overgangs_match.group(1).strip()
-
-    # Get all betecknings from amendments
-    betecknings = [a.get('beteckning') for a in amendments if a.get('beteckning')]
-
-    if not betecknings:
-        return overgangs_dict
-
-    # Create regex pattern to match any beteckning
-    betecknings_pattern = '|'.join(re.escape(b) for b in betecknings)
-
-    # Split content by betecknings
-    split_pattern = f'({betecknings_pattern})'
-    parts = re.split(split_pattern, overgangs_content)
-
-    current_beteckning = None
-    for part in parts:
-        part = part.strip()
-        if not part:
-            continue
-
-        if part in betecknings:
-            current_beteckning = part
-            overgangs_dict[current_beteckning] = ""
-        elif current_beteckning and part:
-            # Add content to current beteckning
-            if overgangs_dict[current_beteckning]:
-                overgangs_dict[current_beteckning] += "\n\n" + part
-            else:
-                overgangs_dict[current_beteckning] = part
-
-    if verbose:
-        print(f"Hittade övergångsbestämmelser för dessa författningar: {list(overgangs_dict.keys())}")
-        for beteckning, content in overgangs_dict.items():
-            print(f"  {beteckning}: {len(content)} tecken")
-
-    return overgangs_dict
 
 
 if __name__ == "__main__":
