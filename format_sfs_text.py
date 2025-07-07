@@ -584,11 +584,19 @@ def parse_logical_sections(text: str) -> str:
             # Lägg alltid till en tom rad efter <section> taggen
             result.append('')
 
-            # Lägg till innehållet
-            result.extend(current_section)
+            # Ta bort ikraft- och upphör-markeringar från innehållet innan det läggs till resultatet
+            cleaned_section = []
+            for line in current_section:
+                # Ta bort ikraft-markeringar
+                cleaned_line = re.sub(r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft i:[^/]+/\s*', '', line, flags=re.IGNORECASE)
+                # Ta bort upphör-markeringar
+                cleaned_line = re.sub(r'/(?:rubriken |kapitlet |kapitelrubriken )?upphör att gälla u:[^/]+/\s*', '', cleaned_line, flags=re.IGNORECASE)
+                cleaned_section.append(cleaned_line)
+
+            # Lägg till det rensade innehållet
+            result.extend(cleaned_section)
 
             # Rensa nuvarande sektion
-            current_section = []
             current_section = []
 
     for line in lines:
