@@ -411,8 +411,10 @@ departement: {format_yaml_value(organisation)}
             print(f"Ursprunglig innehållslängd: {len(innehall_text)}")
             print(f"Ursprunglig innehållsförhandsvisning: {innehall_text[:200]}...")
 
-        # Create Markdown body
-        markdown_body = f"# {rubrik_original}\n\n" + formatted_text
+        # Create Markdown body (clean the original rubrik for heading)
+        clean_heading = re.sub(r'[\r\n]+', ' ', rubrik_original) if rubrik_original else ""
+        clean_heading = re.sub(r'\s+', ' ', clean_heading).strip()
+        markdown_body = f"# {clean_heading}\n\n" + formatted_text
 
     # Remove section tags from markdown body before returning (unless preserving them)
     if not preserve_section_tags:
@@ -423,14 +425,17 @@ departement: {format_yaml_value(organisation)}
 
 
 def clean_title(rubrik: Optional[str]) -> str:
-    """Clean rubrik by removing beteckning in parentheses."""
+    """Clean rubrik by removing beteckning in parentheses and line breaks."""
     if not rubrik:
         return ""
 
+    # Remove line breaks and carriage returns
+    cleaned = re.sub(r'[\r\n]+', ' ', rubrik)
+    
     # Remove beteckning pattern in parentheses (e.g., "(1987:1185)")
     # Pattern matches parentheses containing year:number format
     # First remove the parentheses and their content, then clean up extra whitespace
-    cleaned = re.sub(r'\s*\(\d{4}:\d+\)\s*', ' ', rubrik)
+    cleaned = re.sub(r'\s*\(\d{4}:\d+\)\s*', ' ', cleaned)
     # Clean up any multiple spaces that might have been created
     cleaned = re.sub(r'\s+', ' ', cleaned).strip()
     return cleaned
@@ -472,11 +477,13 @@ def create_ignored_markdown_content(data: Dict[str, Any], reason: str) -> str:
     Returns:
         str: Förenklad markdown-body (utan front matter)
     """
-    # Get the original rubrik for the heading
+    # Get the original rubrik for the heading and clean it
     rubrik_original = data.get('rubrik', '')
+    clean_heading = re.sub(r'[\r\n]+', ' ', rubrik_original) if rubrik_original else ""
+    clean_heading = re.sub(r'\s+', ' ', clean_heading).strip()
 
     # Create simplified body with main heading and explanation
-    markdown_body = f"# {rubrik_original}\n\n"
+    markdown_body = f"# {clean_heading}\n\n"
     markdown_body += "**Automatisk konvertering inte tillgänglig**\n\n"
     markdown_body += f"{reason}\n\n"
     markdown_body += "För att läsa det fullständiga dokumentet, besök den officiella versionen på "
