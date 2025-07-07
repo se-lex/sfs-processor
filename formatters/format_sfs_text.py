@@ -32,6 +32,53 @@ Regler som inte utvecklats än:
 import re
 from typing import Optional
 
+# Regex patterns as constants
+PARAGRAPH_PATTERN = r'(\d+(?:\s*[a-z])?)\s*§'
+KAPITEL_PATTERN = r'^(\d+)(?:\s*([a-zA-Z]))?\s*[Kk]ap\.?'  # t.ex. 1 kap., 2 a kap.
+AVDELNING_PATTERN_1 = r'^(?:AVDELNING|AVD\.)\s*[IVX]+(?:\.|$|\s)'
+AVDELNING_PATTERN_2 = r'^(?:FÖRSTA|ANDRA|TREDJE|FJÄRDE|FEMTE|SJÄTTE|SJUNDE|ÅTTONDE|NIONDE|TIONDE)\s+(?:AVDELNING|AVD\.)'
+ARTIKEL_PATTERN = r'^Artikel\s+\d+$'
+BILAGA_PREFIX = 'Bilaga '
+
+MARKDOWN_HEADER_PATTERN = r'^#{2,4}\s+'
+LIST_NUMBERED_PATTERN = r'^\d+\.'
+LIST_BULLET_PREFIX = '-'
+TEMPORAL_MARKER_PATTERN = r'/[^/]+/'
+SFS_PATTERN = r'\b(\d{4}):(\d+)\b'
+WHITESPACE_PATTERN = r'\s+'
+CAPITALIZED_PATTERN = r'^[A-ZÅÄÖ]'
+
+# Section tag patterns
+SECTION_TAG_PATTERN = r'^\s*<section[^>]*>\s*$'
+SECTION_CLOSE_TAG_PATTERN = r'^\s*</section>\s*$'
+
+# Header patterns
+HEADER_LEVEL_PATTERN = r'^(#{2,6})\s+(.+)'
+
+# Temporal patterns
+IKRAFT_DATE_PATTERN = r'/träder i kraft I:\d{4}-\d{2}-\d{2}'
+RUBRIK_IKRAFT_DATE_PATTERN = r'/rubriken träder i kraft I:\d{4}-\d{2}-\d{2}'
+KAPITLET_IKRAFT_DATE_PATTERN = r'/kapitlet träder i kraft I:\d{4}-\d{2}-\d{2}'
+KAPITELRUBRIKEN_IKRAFT_DATE_PATTERN = r'/kapitelrubriken träder i kraft I:\d{4}-\d{2}-\d{2}'
+
+IKRAFT_VILLKOR_PATTERN = r'/träder i kraft I:[^/]+'
+RUBRIK_IKRAFT_VILLKOR_PATTERN = r'/rubriken träder i kraft I:[^/]+'
+KAPITLET_IKRAFT_VILLKOR_PATTERN = r'/kapitlet träder i kraft I:[^/]+'
+KAPITELRUBRIKEN_IKRAFT_VILLKOR_PATTERN = r'/kapitelrubriken träder i kraft I:[^/]+'
+
+UPPHOR_DATE_EXTRACT_PATTERN = r'U:(\d{4}-\d{2}-\d{2})'
+IKRAFT_DATE_EXTRACT_PATTERN = r'I:(\d{4}-\d{2}-\d{2})'
+
+# Full temporal tag removal patterns
+IKRAFT_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft I:[^/]+/\s*'
+UPPHOR_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?upphör att gälla U:[^/]+/\s*'
+
+# Exclusion patterns
+DEFINITION_PATTERN = r'^I denna (förordning|lag) avses med$'
+ADMIN_PATTERN = r'^(Lagen|Myndigheten|Utbildningen) (gäller|ska)$'
+JURIDIC_PHRASE_PATTERN = r'^(Genom|Enligt|Om (?!det)|För att|Till böter|Vid|På begäran|När|Under|Efter|Med (?!det)|Av (?!det)|Till (?!det)|I (?:denna|detta|enlighet|den|det|fråga|samma)|Från|På grund av|Dessa )'
+SPECIFIC_JURIDIC_PATTERN = r'^(Denna lag gäller inte|Denna lag träder i kraft|Denna konvention tillämpas|Konventionen upphör)$'
+
 
 def parse_logical_paragraphs(text: str) -> list:
     """
@@ -53,7 +100,7 @@ def parse_logical_paragraphs(text: str) -> list:
         consolidated_paragraph = ' '.join(line.strip() for line in paragraph_lines if line.strip())
 
         # Om detta stycke är bara en rubrik, kontrollera vad som kommer härnäst
-        if (re.match(r'^#{2,4}\s+', consolidated_paragraph.strip()) and
+        if (re.match(MARKDOWN_HEADER_PATTERN, consolidated_paragraph.strip()) and
             i + 1 < len(raw_paragraphs)):
             # Konsolidera nästa paragraf för att kontrollera om det också är en rubrik
             next_paragraph = raw_paragraphs[i + 1]
@@ -61,7 +108,7 @@ def parse_logical_paragraphs(text: str) -> list:
             consolidated_next = ' '.join(line.strip() for line in next_paragraph_lines if line.strip())
 
             # Om nästa stycke också är en rubrik, behandla denna rubrik som egen paragraf
-            if re.match(r'^#{2,4}\s+', consolidated_next.strip()):
+            if re.match(MARKDOWN_HEADER_PATTERN, consolidated_next.strip()):
                 logical_paragraphs.append(consolidated_paragraph)
                 i += 1  # Gå vidare till nästa stycke utan att slå ihop
             else:
@@ -130,7 +177,7 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
             previous_line_empty = True
         else:
             # Rensa raden för rubrikanalys (ta bort /-markeringar)
-            cleaned_line = re.sub(r'/[^/]+/', '', original_line).strip()
+            cleaned_line = re.sub(TEMPORAL_MARKER_PATTERN, '', original_line).strip()
 
             # Kontrollera om nästnästa rad börjar med "1." för att undvika att göra en rad till rubrik
             next_is_list_start = False
@@ -142,25 +189,23 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                 cleaned_line.strip() and
                 len(cleaned_line) < 300 and
                 # Krav på stor bokstav i början av raden
-                re.match(r'^[A-ZÅÄÖ]', cleaned_line.strip()) and
+                re.match(CAPITALIZED_PATTERN, cleaned_line.strip()) and
                 # Uteslut definitionsfraser
-                not re.match(r'^I denna (förordning|lag) avses med$', cleaned_line.strip(), re.IGNORECASE) and
+                not re.match(DEFINITION_PATTERN, cleaned_line.strip(), re.IGNORECASE) and
                 # Uteslut korta administrativa uttryck
-                not re.match(r'^(Lagen|Myndigheten|Utbildningen) (gäller|ska)$', cleaned_line.strip(), re.IGNORECASE) and
+                not re.match(ADMIN_PATTERN, cleaned_line.strip(), re.IGNORECASE) and
                 # Uteslut rader som börjar med siffra följt av punkt (listor)
-                not re.match(r'^\d+\.', cleaned_line.strip()) and
+                not re.match(LIST_NUMBERED_PATTERN, cleaned_line.strip()) and
                 # Uteslut rader som börjar med bindestreck
-                not cleaned_line.strip().startswith('-') and
+                not cleaned_line.strip().startswith(LIST_BULLET_PREFIX) and
                 # Uteslut rader som slutar med punkt eller kolon (troligen mening/definition)
                 not cleaned_line.strip().endswith(('.', ':')) and
                 # Uteslut rader som är för långa för att vara rubriker (över 100 tecken)
                 len(cleaned_line.strip()) <= 100 and
                 # Uteslut rader som börjar med vanliga juridiska fraser
-                not re.match(r'^(Genom|Enligt|Om (?!det)|För att|Till böter|Vid|På begäran|När|Under|Efter|Med (?!det)|Av (?!det)|Till (?!det)|I (?:denna|detta|enlighet|den|det|fråga|samma)|Från|På grund av)', cleaned_line.strip(), re.IGNORECASE) and
+                not re.match(JURIDIC_PHRASE_PATTERN, cleaned_line.strip(), re.IGNORECASE) and
                 # Uteslut specifika juridiska fraser som inte ska bli rubriker
-                not re.match(r'^(Denna lag gäller inte|Denna lag träder i kraft|Denna konvention tillämpas|Konventionen upphör)$', cleaned_line.strip(), re.IGNORECASE) and
-                # Uteslut rader som innehåller länder/geografiska platser (troligen inte rubriker)
-                not re.search(r'\b(Danmark|Finland|Island|Norge|Sverige|Färöarna|regering|landsstyre)\b', cleaned_line.strip(), re.IGNORECASE)
+                not re.match(SPECIFIC_JURIDIC_PATTERN, cleaned_line.strip(), re.IGNORECASE)
             )
 
             # Kontrollera om det är en rubrik (baserat på rensad rad men använd original för output)
@@ -170,13 +215,13 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                 if is_chapter_header(cleaned_line.strip()):
                     formatted.append(format_header_with_markings('##', original_line))
                 # Kontrollera om det är ett kapitel (börjar med "X kap." eller "X Kap" eller "X A Kap")
-                elif re.match(r'^\d+(\s+\w)?\s+[Kk]ap\.?', cleaned_line.strip()):
+                elif re.match(KAPITEL_PATTERN, cleaned_line.strip()):
                     formatted.append(format_header_with_markings('##', original_line))
                 # Kontrollera om det är en bilaga (börjar med "Bilaga ")
-                elif cleaned_line.strip().startswith('Bilaga '):
+                elif cleaned_line.strip().startswith(BILAGA_PREFIX):
                     formatted.append(format_header_with_markings('##', original_line))
                 # Kontrollera om det är en artikel (börjar med "Artikel X")
-                elif re.match(r'^Artikel\s+\d+$', cleaned_line.strip()):
+                elif re.match(ARTIKEL_PATTERN, cleaned_line.strip()):
                     formatted.append(format_header_with_markings('###', original_line))
                 # Potentiella rubriker enligt standardkriterier
                 elif is_potential_header:
@@ -188,12 +233,12 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                         # Hantera paragrafnummer som rubriker
                         if previous_line_empty:
                             # Kontrollera om raden börjar med paragrafnummer (använd rensad rad)
-                            paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', cleaned_line)
+                            paragraph_match = re.match(r'^' + PARAGRAPH_PATTERN, cleaned_line)
                             if paragraph_match:
                                 paragraph_num = paragraph_match.group(0)
                                 
                                 # Extrahera markeringar från originalraden
-                                markings = re.findall(r'/[^/]+/', original_line)
+                                markings = re.findall(TEMPORAL_MARKER_PATTERN, original_line)
                                 
                                 # Skapa rubrik med bara markeringar och paragrafnummer
                                 if markings:
@@ -218,12 +263,12 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                         formatted.append(format_header_with_markings('##', original_line))
                     elif previous_line_empty:
                         # Kontrollera om raden börjar med paragrafnummer (använd rensad rad)
-                        paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', cleaned_line)
+                        paragraph_match = re.match(r'^' + PARAGRAPH_PATTERN, cleaned_line)
                         if paragraph_match:
                             paragraph_num = paragraph_match.group(0)
                             
                             # Extrahera markeringar från originalraden
-                            markings = re.findall(r'/[^/]+/', original_line)
+                            markings = re.findall(TEMPORAL_MARKER_PATTERN, original_line)
                             
                             # Skapa rubrik med bara markeringar och paragrafnummer
                             if markings:
@@ -248,12 +293,12 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                     formatted.append(format_header_with_markings('##', original_line))
                 elif previous_line_empty:
                     # Kontrollera om raden börjar med paragrafnummer (använd rensad rad)
-                    paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', cleaned_line)
+                    paragraph_match = re.match(r'^' + PARAGRAPH_PATTERN, cleaned_line)
                     if paragraph_match:
                         paragraph_num = paragraph_match.group(0)
                         
                         # Extrahera markeringar från originalraden
-                        markings = re.findall(r'/[^/]+/', original_line)
+                        markings = re.findall(TEMPORAL_MARKER_PATTERN, original_line)
                         
                         # Skapa rubrik med bara markeringar och paragrafnummer
                         if markings:
@@ -298,12 +343,12 @@ def format_header_with_markings(header_level: str, text: str) -> str:
         str: Formaterad rubrik med markeringar i rätt position
     """
     # Hitta alla markeringar i texten
-    markings = re.findall(r'/[^/]+/', text)
+    markings = re.findall(TEMPORAL_MARKER_PATTERN, text)
 
     if markings:
         # Ta bort alla markeringar från texten
-        cleaned_text = re.sub(r'\s*/[^/]+/\s*', ' ', text)
-        cleaned_text = re.sub(r'\s+', ' ', cleaned_text).strip()
+        cleaned_text = re.sub(r'\s*' + TEMPORAL_MARKER_PATTERN + r'\s*', ' ', text)
+        cleaned_text = re.sub(WHITESPACE_PATTERN, ' ', cleaned_text).strip()
 
         # Skapa rubriken med markeringar direkt efter rubrikmarkören
         markings_str = ' '.join(markings)
@@ -327,7 +372,7 @@ def apply_sfs_links(text: str) -> str:
     """
     # Regex för att hitta SFS-beteckningar: år (4 siffror) följt av kolon och löpnummer
     # Matchar mönster som "2002:43", "1970:485", etc.
-    sfs_pattern = r'\b(\d{4}):(\d+)\b'
+    sfs_pattern = SFS_PATTERN
 
     # TODO: Slå upp SFS-beteckning mot JSON-fil för att verifiera giltighet
 
@@ -404,34 +449,22 @@ def _is_section_ikraft(header_line: str, content: str) -> bool:
     content_lower = content.lower()
 
     # Kontrollera både i rubrik och innehåll efter ikraft-markeringar med giltigt datum
-    # Mönster för "/Träder i kraft I:YYYY-MM-DD" med giltigt datum
-    ikraft_datum_pattern = r'/träder i kraft i:\d{4}-\d{2}-\d{2}'
-    rubrik_ikraft_datum_pattern = r'/rubriken träder i kraft i:\d{4}-\d{2}-\d{2}'
-    kapitlet_ikraft_datum_pattern = r'/kapitlet träder i kraft i:\d{4}-\d{2}-\d{2}'
-    kapitelrubriken_ikraft_datum_pattern = r'/kapitelrubriken träder i kraft i:\d{4}-\d{2}-\d{2}'
-
-    # Mönster för "/Träder i kraft I:villkor" (inte datum)
-    ikraft_villkor_pattern = r'/träder i kraft i:[^/]+'
-    rubrik_ikraft_villkor_pattern = r'/rubriken träder i kraft i:[^/]+'
-    kapitlet_ikraft_villkor_pattern = r'/kapitlet träder i kraft i:[^/]+'
-    kapitelrubriken_ikraft_villkor_pattern = r'/kapitelrubriken träder i kraft i:[^/]+'
-
-    return (re.search(ikraft_datum_pattern, header_lower) is not None or
-            re.search(rubrik_ikraft_datum_pattern, header_lower) is not None or
-            re.search(kapitlet_ikraft_datum_pattern, header_lower) is not None or
-            re.search(kapitelrubriken_ikraft_datum_pattern, header_lower) is not None or
-            re.search(ikraft_datum_pattern, content_lower) is not None or
-            re.search(rubrik_ikraft_datum_pattern, content_lower) is not None or
-            re.search(kapitlet_ikraft_datum_pattern, content_lower) is not None or
-            re.search(kapitelrubriken_ikraft_datum_pattern, content_lower) is not None or
-            re.search(ikraft_villkor_pattern, header_lower) is not None or
-            re.search(rubrik_ikraft_villkor_pattern, header_lower) is not None or
-            re.search(kapitlet_ikraft_villkor_pattern, header_lower) is not None or
-            re.search(kapitelrubriken_ikraft_villkor_pattern, header_lower) is not None or
-            re.search(ikraft_villkor_pattern, content_lower) is not None or
-            re.search(rubrik_ikraft_villkor_pattern, content_lower) is not None or
-            re.search(kapitlet_ikraft_villkor_pattern, content_lower) is not None or
-            re.search(kapitelrubriken_ikraft_villkor_pattern, content_lower) is not None)
+    return (re.search(IKRAFT_DATE_PATTERN, header_lower) is not None or
+            re.search(RUBRIK_IKRAFT_DATE_PATTERN, header_lower) is not None or
+            re.search(KAPITLET_IKRAFT_DATE_PATTERN, header_lower) is not None or
+            re.search(KAPITELRUBRIKEN_IKRAFT_DATE_PATTERN, header_lower) is not None or
+            re.search(IKRAFT_DATE_PATTERN, content_lower) is not None or
+            re.search(RUBRIK_IKRAFT_DATE_PATTERN, content_lower) is not None or
+            re.search(KAPITLET_IKRAFT_DATE_PATTERN, content_lower) is not None or
+            re.search(KAPITELRUBRIKEN_IKRAFT_DATE_PATTERN, content_lower) is not None or
+            re.search(IKRAFT_VILLKOR_PATTERN, header_lower) is not None or
+            re.search(RUBRIK_IKRAFT_VILLKOR_PATTERN, header_lower) is not None or
+            re.search(KAPITLET_IKRAFT_VILLKOR_PATTERN, header_lower) is not None or
+            re.search(KAPITELRUBRIKEN_IKRAFT_VILLKOR_PATTERN, header_lower) is not None or
+            re.search(IKRAFT_VILLKOR_PATTERN, content_lower) is not None or
+            re.search(RUBRIK_IKRAFT_VILLKOR_PATTERN, content_lower) is not None or
+            re.search(KAPITLET_IKRAFT_VILLKOR_PATTERN, content_lower) is not None or
+            re.search(KAPITELRUBRIKEN_IKRAFT_VILLKOR_PATTERN, content_lower) is not None)
 
 
 def parse_logical_sections(text: str) -> str:
@@ -488,7 +521,7 @@ def parse_logical_sections(text: str) -> str:
         if current_section:
             # Hitta rubriknivån för huvudrubriken i denna sektion
             main_header_line = current_section[0] if current_section else ""
-            main_header_match = re.match(r'^(#{2,6})\s+(.+)', main_header_line)
+            main_header_match = re.match(HEADER_LEVEL_PATTERN, main_header_line)
             
             # Om det inte finns en rubrik i sektionen, lägg bara till innehållet utan section-taggar
             if not main_header_match:
@@ -505,7 +538,7 @@ def parse_logical_sections(text: str) -> str:
 
             while i < len(current_section):
                 line = current_section[i]
-                subheader_match = re.match(r'^(#{2,6})\s+(.+)', line)
+                subheader_match = re.match(HEADER_LEVEL_PATTERN, line)
 
                 if subheader_match:
                     # Detta är en underrubrik
@@ -518,7 +551,7 @@ def parse_logical_sections(text: str) -> str:
                         i += 1
                         while i < len(current_section):
                             next_line = current_section[i]
-                            next_header_match = re.match(r'^(#{2,6})\s+(.+)', next_line)
+                            next_header_match = re.match(HEADER_LEVEL_PATTERN, next_line)
 
                             if next_header_match:
                                 next_header_level = len(next_header_match.group(1))
@@ -546,7 +579,7 @@ def parse_logical_sections(text: str) -> str:
             # Sök efter "U:YYYY-MM-DD" i både rubrik och innehåll
             upphor_datum = None
             all_section_content = '\n'.join(current_section)
-            upphor_match = re.search(r'U:(\d{4}-\d{2}-\d{2})', all_section_content)
+            upphor_match = re.search(UPPHOR_DATE_EXTRACT_PATTERN, all_section_content)
             if upphor_match:
                 upphor_datum = upphor_match.group(1)
 
@@ -562,7 +595,7 @@ def parse_logical_sections(text: str) -> str:
             ikraft_villkor = None
 
             # Först, sök efter datum
-            ikraft_match = re.search(r'I:(\d{4}-\d{2}-\d{2})', all_section_content)
+            ikraft_match = re.search(IKRAFT_DATE_EXTRACT_PATTERN, all_section_content)
             if ikraft_match:
                 ikraft_datum = ikraft_match.group(1)
 
@@ -585,7 +618,7 @@ def parse_logical_sections(text: str) -> str:
 
             # Hitta rubriken i sektionen för att bestämma nivå och innehåll
             header_line = current_section[0] if current_section else ""
-            header_match = re.match(r'^(#{2,6})\s+(.+)', header_line)
+            header_match = re.match(HEADER_LEVEL_PATTERN, header_line)
 
             if header_match:
                 header_level = len(header_match.group(1))
@@ -645,9 +678,9 @@ def parse_logical_sections(text: str) -> str:
             cleaned_section = []
             for line in current_section:
                 # Ta bort ikraft-markeringar
-                cleaned_line = re.sub(r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft i:[^/]+/\s*', '', line, flags=re.IGNORECASE)
+                cleaned_line = re.sub(IKRAFT_FULL_TEMPORAL_TAG_PATTERN, '', line, flags=re.IGNORECASE)
                 # Ta bort upphör-markeringar
-                cleaned_line = re.sub(r'/(?:rubriken |kapitlet |kapitelrubriken )?upphör att gälla u:[^/]+/\s*', '', cleaned_line, flags=re.IGNORECASE)
+                cleaned_line = re.sub(UPPHOR_FULL_TEMPORAL_TAG_PATTERN, '', cleaned_line, flags=re.IGNORECASE)
                 cleaned_section.append(cleaned_line)
 
             # Lägg till det rensade innehållet
@@ -658,7 +691,7 @@ def parse_logical_sections(text: str) -> str:
 
     for line in lines:
         # Kontrollera om raden är en markdown-rubrik
-        header_match = re.match(r'^(#{2,6})\s+(.+)', line)
+        header_match = re.match(HEADER_LEVEL_PATTERN, line)
 
         if header_match:
             header_level = len(header_match.group(1))  # Antal # tecken
@@ -712,7 +745,7 @@ def apply_internal_links(text: str) -> str:
 
         # Regex för att hitta paragrafnummer: siffra, eventuell bokstav, följt av §
         # Matchar mönster som "9 §", "13 a §", "2 b §", "145 c §", etc.
-        paragraph_pattern = r'(\d+)(?:\s+([a-z]))?\s*§'
+        paragraph_pattern = PARAGRAPH_PATTERN
 
         def replace_paragraph_reference(match):
             """Ersätter en paragrafnummer med en intern markdown-länk"""
@@ -758,7 +791,7 @@ def clean_section_tags(text: str) -> str:
         line = lines[i]
         
         # Kontrollera om raden är en <section> tagg
-        if re.match(r'^\s*<section[^>]*>\s*$', line):
+        if re.match(SECTION_TAG_PATTERN, line):
             # Hoppa över <section> taggen
             i += 1
             # Hoppa även över nästa rad om den är tom (eftersom vi lägger till tom rad efter <section>)
@@ -767,7 +800,7 @@ def clean_section_tags(text: str) -> str:
             continue
             
         # Kontrollera om raden är en </section> tagg
-        elif re.match(r'^\s*</section>\s*$', line):
+        elif re.match(SECTION_CLOSE_TAG_PATTERN, line):
             # Ta bort föregående tom rad om den finns (eftersom vi lägger till tom rad före </section>)
             if result and result[-1].strip() == '':
                 result.pop()
@@ -819,10 +852,10 @@ def generate_section_id(header_text: str) -> str:
         str: ID som kan användas som HTML id-attribut
     """
     # Ta bort markeringar (text inom //) från rubriken
-    cleaned_header = re.sub(r'/[^/]+/', '', header_text).strip()
+    cleaned_header = re.sub(TEMPORAL_MARKER_PATTERN, '', header_text).strip()
     
     # Kontrollera om det finns paragrafnummer i rubriken
-    paragraph_match = re.search(r'(\d+(?:\s*[a-z])?)\s*§', cleaned_header)
+    paragraph_match = re.search(PARAGRAPH_PATTERN, cleaned_header)
     if paragraph_match:
         # Extrahera paragrafnumret utan mellanslag
         paragraph_num = paragraph_match.group(1).replace(' ', '')
@@ -851,7 +884,7 @@ def clean_text(text: Optional[str]) -> str:
 
     # Remove extra whitespace and normalize line breaks
     text = re.sub(r'\r\n', '\n', text)
-    text = re.sub(r'\s+', ' ', text).strip()
+    text = re.sub(WHITESPACE_PATTERN, ' ', text).strip()
     return text
 
 
@@ -882,10 +915,6 @@ def is_chapter_header(line: str) -> bool:
         return False
     
     # Mönster 1: AVDELNING/AVD. följt av romerska siffror
-    pattern1 = r'^(?:AVDELNING|AVD\.)\s*[IVX]+(?:\.|$|\s)'
-    
     # Mönster 2: Svenska ordningstal följt av AVDELNING/AVD.
-    pattern2 = r'^(?:FÖRSTA|ANDRA|TREDJE|FJÄRDE|FEMTE|SJÄTTE|SJUNDE|ÅTTONDE|NIONDE|TIONDE)\s+(?:AVDELNING|AVD\.)'
-    
-    return (re.match(pattern1, line, re.IGNORECASE) is not None or 
-            re.match(pattern2, line, re.IGNORECASE) is not None)
+    return (re.match(AVDELNING_PATTERN_1, line, re.IGNORECASE) is not None or 
+            re.match(AVDELNING_PATTERN_2, line, re.IGNORECASE) is not None)
