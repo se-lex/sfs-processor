@@ -477,16 +477,20 @@ def parse_logical_sections(text: str) -> str:
     result = []
     current_section = []
     section_stack = []  # Stack för att hålla koll på nestlade sektioner
+    parent_stack = []  # Stack för att hålla koll på föräldrasektioner: [(level, section_id), ...]
 
     def close_sections_to_level(target_level):
         """Stäng alla sektioner ner till målnivån"""
-        nonlocal section_stack, result
+        nonlocal section_stack, result, parent_stack
         while section_stack and section_stack[-1] >= target_level:
             # Lägg endast till en tom rad före </section> taggen om den sista raden inte redan är tom
             if result and result[-1].strip() != '':
                 result.append('')
             result.append('</section>')
             section_stack.pop()
+            # Ta även bort från parent_stack om den finns
+            if parent_stack and parent_stack[-1][0] >= target_level:
+                parent_stack.pop()
 
     def process_current_section():
         """Bearbeta och lägg till nuvarande sektion"""
@@ -616,7 +620,14 @@ def parse_logical_sections(text: str) -> str:
             
             # Lägg till id-attribut baserat på rubriken
             if header_match:
-                section_id = generate_section_id(header_text)
+                # Hitta lämplig förälder baserat på rubriknivå - endast kapitel kan vara föräldrar
+                parent_id = None
+                for level, pid in reversed(parent_stack):
+                    if level < main_header_level and pid.startswith('kap'):
+                        parent_id = pid
+                        break
+                
+                section_id = generate_section_id(header_text, parent_id)
                 attributes.append(f'id="{section_id}"')
             
             if css_classes:
@@ -658,6 +669,10 @@ def parse_logical_sections(text: str) -> str:
 
             # Lägg till det rensade innehållet
             result.extend(cleaned_section)
+
+            # Lägg till denna sektion i parent_stack för eventuella underliggande sektioner
+            if header_match:
+                parent_stack.append((main_header_level, section_id))
 
             # Rensa nuvarande sektion
             current_section = []
@@ -809,18 +824,20 @@ def clean_section_tags(text: str) -> str:
     return '\n'.join(cleaned_result)
 
 
-def generate_section_id(header_text: str) -> str:
+def generate_section_id(header_text: str, parent_id: str = None) -> str:
     """
     Genererar ett id-attribut för section-taggar baserat på rubrik eller paragrafnummer.
     
     Regler:
     - Om rubriken innehåller paragrafnummer (t.ex. "5 §", "13 a §"), använd bara paragrafnumret
     - Om rubriken är ett kapitel (t.ex. "1 kap.", "2 a kap."), använd formatet "kap1", "kap2a"
-    - Annars skapa en slug från rubriken (max 15 tecken)
+    - Om parent_id finns och rubriken är en paragraf, lägg till parent som prefix: "kap1.1§"
+    - Annars skapa en slug från rubriken (max 30 tecken)
     - Ta bort markeringar (text inom //) innan slug-generering
     
     Args:
         header_text (str): Rubriktext (utan # tecken)
+        parent_id (str, optional): ID för överordnad sektion
         
     Returns:
         str: ID som kan användas som HTML id-attribut
@@ -833,7 +850,10 @@ def generate_section_id(header_text: str) -> str:
     if paragraph_match:
         # Extrahera paragrafnumret utan mellanslag
         paragraph_num = paragraph_match.group(1).replace(' ', '')
-        return f"{paragraph_num}§"
+        if parent_id:
+            return f"{parent_id}.{paragraph_num}§"
+        else:
+            return f"{paragraph_num}§"
     
     # Kontrollera om det är ett kapitel (använd samma mönster som i format_sfs_text_as_markdown)
     kapitel_match = re.match(KAPITEL_PATTERN, cleaned_header)
@@ -856,7 +876,10 @@ def generate_section_id(header_text: str) -> str:
     if not slug:
         raise ValueError(f"Kan inte generera giltigt ID från rubriktext: '{header_text}'")
     
-    return slug
+    if parent_id:
+        return f"{parent_id}.{slug}"
+    else:
+        return slug
 
 
 def clean_text(text: Optional[str]) -> str:
