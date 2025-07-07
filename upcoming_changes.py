@@ -4,6 +4,10 @@ Module for identifying upcoming changes in Swedish legal documents in Selex mark
 
 This module provides functionality to extract effective dates (ikraft) and 
 expiration dates (upphor) from Markdown files with Selex section tags and YAML front matter.
+
+Will generate a YAML file called `kommande.yaml` in the current directory, which contains
+the upcoming changes. The YAML file will have dates as keys and lists of document IDs 
+(beteckningar) as values for documents that have changes on those dates.
 """
 
 import re
@@ -12,7 +16,7 @@ from datetime import datetime
 from typing import List, Dict
 from pathlib import Path
 
-UPCOMING_CHANGES_FILE_NAME = "kommande.tsv"
+UPCOMING_CHANGES_FILE_NAME = "kommande.yaml"
 
 
 def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
@@ -158,11 +162,11 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
 
 def save_upcoming_file(doc_id: str, dates: List[str]) -> None:
     """
-    Save upcoming changes to a TSV file with dates and document IDs.
+    Save upcoming changes to a YAML file with dates and document IDs.
     
-    The TSV format is:
-    - First column: Date (YYYY-MM-DD)
-    - Second column: Comma-separated list of document IDs (beteckningar) without quotes
+    The YAML format is:
+    date1: [doc_id1, doc_id2, ...]
+    date2: [doc_id3, doc_id4, ...]
     
     Args:
         doc_id: The document ID (beteckning) to add
@@ -175,17 +179,12 @@ def save_upcoming_file(doc_id: str, dates: List[str]) -> None:
     if file_path.exists():
         try:
             with open(file_path, 'r', encoding='utf-8') as f:
-                for line in f:
-                    line = line.strip()
-                    if line and '\t' in line:
-                        parts = line.split('\t', 1)  # Split on first tab only
-                        if len(parts) >= 2:
-                            date = parts[0].strip()
-                            # Parse doc_ids from second column (comma-separated)
-                            doc_ids = [id.strip() for id in parts[1].split(',') if id.strip()]
-                            existing_data[date] = doc_ids
-        except IOError as e:
+                content = f.read().strip()
+                if content:
+                    existing_data = yaml.safe_load(content) or {}
+        except (IOError, yaml.YAMLError) as e:
             print(f"Varning: Kunde inte läsa befintlig fil {UPCOMING_CHANGES_FILE_NAME}: {e}")
+            existing_data = {}
     
     # Process each date
     for date in dates:
@@ -212,15 +211,15 @@ def save_upcoming_file(doc_id: str, dates: List[str]) -> None:
             # Create new entry for this date
             existing_data[date] = [doc_id]
     
-    # Sort dates chronologically
-    sorted_dates = sorted(existing_data.keys())
+    # Sort dates chronologically and create ordered dict
+    sorted_data = {}
+    for date in sorted(existing_data.keys()):
+        sorted_data[date] = sorted(existing_data[date])  # Also sort doc_ids
     
     # Write the updated data back to file
     try:
         with open(file_path, 'w', encoding='utf-8') as f:
-            for date in sorted_dates:
-                doc_ids_str = ','.join(existing_data[date])
-                f.write(f"{date}\t{doc_ids_str}\n")
+            yaml.dump(sorted_data, f, default_flow_style=False, allow_unicode=True, sort_keys=False)
         
     except IOError as e:
         print(f"Fel: Kunde inte skriva till fil {UPCOMING_CHANGES_FILE_NAME}: {e}")
@@ -260,20 +259,19 @@ def get_doc_ids_for_date(date: str) -> List[str]:
     if not file_path.exists():
         return []
     
-    # Read file and look for the date
+    # Read YAML file and look for the date
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
-            for line in f:
-                line = line.strip()
-                if line and '\t' in line:
-                    parts = line.split('\t', 1)  # Split on first tab only
-                    if len(parts) >= 2:
-                        file_date = parts[0].strip()
-                        if file_date == date:
-                            # Parse doc_ids from second column (comma-separated)
-                            doc_ids = [id.strip() for id in parts[1].split(',') if id.strip()]
-                            return doc_ids
-    except IOError as e:
+            content = f.read().strip()
+            if not content:
+                return []
+            
+            data = yaml.safe_load(content) or {}
+            
+            if date in data:
+                return data[date] if isinstance(data[date], list) else []
+            
+    except (IOError, yaml.YAMLError) as e:
         print(f"Fel: Kunde inte läsa fil {UPCOMING_CHANGES_FILE_NAME}: {e}")
         return []
     

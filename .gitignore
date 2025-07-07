@@ -2,3 +2,7 @@
 ___pycache__
 *.pyc
 .DS_Store
+
+# Ignore output files
+upcoming_changes.yml
+sfs-test
