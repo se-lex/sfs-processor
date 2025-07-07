@@ -281,48 +281,106 @@ def get_doc_ids_for_date(date: str) -> List[str]:
     return []
 
 
+def extract_doc_id_from_filename(filename: str) -> str:
+    """
+    Extract document ID from filename.
+    
+    Args:
+        filename: The filename (e.g., 'sfs-2024-1274.md')
+        
+    Returns:
+        Document ID without extension (e.g., '2024:1274')
+    """
+    # Remove .md extension if present
+    name = filename
+    if name.endswith('.md'):
+        name = name[:-3]
+    
+    # Convert sfs-YYYY-NNNN format to YYYY:NNNN
+    if name.startswith('sfs-'):
+        parts = name.split('-')
+        if len(parts) >= 3:
+            year = parts[1]
+            number = parts[2]
+            return f"{year}:{number}"
+    
+    return name
+
+
+def process_markdown_files(input_dir: str) -> None:
+    """
+    Process all markdown files in the input directory and extract upcoming changes.
+    
+    Args:
+        input_dir: Path to directory containing markdown files
+    """
+    input_path = Path(input_dir)
+    
+    if not input_path.exists():
+        print(f"Fel: Katalogen {input_dir} finns inte.")
+        return
+    
+    if not input_path.is_dir():
+        print(f"Fel: {input_dir} är inte en katalog.")
+        return
+    
+    # Find all .md files recursively
+    md_files = list(input_path.rglob("*.md"))
+    
+    if not md_files:
+        print(f"Inga markdown-filer hittades i {input_dir}")
+        return
+    
+    print(f"Hittat {len(md_files)} markdown-filer i {input_dir}")
+    
+    total_changes = 0
+    processed_files = 0
+    
+    for md_file in md_files:
+        try:
+            # Read the markdown file
+            with open(md_file, 'r', encoding='utf-8') as file:
+                content = file.read()
+            
+            # Identify upcoming changes
+            file_changes = identify_upcoming_changes(content)
+            
+            if file_changes:
+                # Extract document ID from filename
+                doc_id = extract_doc_id_from_filename(md_file.name)
+                
+                # Extract dates from changes
+                change_dates = [change['date'] for change in file_changes]
+                
+                # Save to TSV file
+                save_upcoming_file(doc_id, change_dates)
+                
+                print(f"Processade {md_file.name}: {len(file_changes)} ändringar hittades")
+                for change in file_changes:
+                    print(f"  - {change['type']}: {change['date']} ({change['source']})")
+                
+                total_changes += len(file_changes)
+            else:
+                print(f"Processade {md_file.name}: inga kommande ändringar")
+            
+            processed_files += 1
+            
+        except (IOError, OSError, UnicodeDecodeError) as e:
+            print(f"Fel vid processning av {md_file}: {e}")
+    
+    print("\nSammanfattning:")
+    print(f"Processade {processed_files} filer")
+    print(f"Totalt {total_changes} kommande ändringar hittades")
+    print(f"Resultat sparade i {UPCOMING_CHANGES_FILE_NAME}")
+
+
 if __name__ == "__main__":
-    # Simple test when running the module directly
-    test_content = '''---
-beteckning: 2024:123
-ikraft_datum: 2025-01-01
----
-# Test document
-
-<section id="test1" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2025-02-01">
-Test section 1
-</section>
-
-<section id="test3" class="paragraf" selex:upphor_datum="2025-04-01">
-Test section 3
-</section>
-'''
-
-    print("Testing identify_upcoming_changes:")
-    changes = identify_upcoming_changes(test_content)
-    print(f'Found {len(changes)} changes:')
-    for change in changes:
-        print(f'  {change}')
+    import sys
     
-    print("\nTesting save_upcoming_file:")
-    dates = [change['date'] for change in changes]
-    save_upcoming_file('2024:123', dates)
+    if len(sys.argv) < 2:
+        print("Användning: python upcoming_changes.py <input_dir>")
+        print("Exempel: python upcoming_changes.py sfs-test/")
+        sys.exit(1)
     
-    # Show the TSV content
-    print("\nGenerated TSV content:")
-    try:
-        with open(UPCOMING_CHANGES_FILE_NAME, 'r', encoding='utf-8') as f:
-            print(f.read())
-    except FileNotFoundError:
-        print("TSV file not found")
-    
-    print("\nTesting get_doc_ids_for_date:")
-    # Test with a date that exists
-    test_date = '2025-01-01'
-    doc_ids = get_doc_ids_for_date(test_date)
-    print(f"Documents with changes on {test_date}: {doc_ids}")
-    
-    # Test with a date that doesn't exist
-    test_date_missing = '2025-12-31'
-    doc_ids_missing = get_doc_ids_for_date(test_date_missing)
-    print(f"Documents with changes on {test_date_missing}: {doc_ids_missing}")
+    input_directory = sys.argv[1]
+    process_markdown_files(input_directory)
