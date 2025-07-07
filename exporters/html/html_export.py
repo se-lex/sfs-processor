@@ -13,8 +13,9 @@ from typing import Dict, Any
 from datetime import datetime
 
 # Import required functions from other modules
-from formatters.format_sfs_text import format_sfs_text_as_markdown, apply_changes_to_sfs_text
+from formatters.format_sfs_text import format_sfs_text_as_markdown
 from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
+from temporal.apply_temporal import apply_temporal
 
 
 def create_html_documents(data: Dict[str, Any], output_path: Path, include_amendments: bool = False) -> None:
@@ -149,7 +150,7 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
             for amendment in amendments_to_apply:
                 ikraft_datum_amendment = amendment.get('ikraft_datum')
                 if ikraft_datum_amendment:
-                    formatted_text = apply_changes_to_sfs_text(formatted_text, ikraft_datum_amendment, False)
+                    formatted_text = apply_temporal(formatted_text, ikraft_datum_amendment, False)
 
     # Convert markdown-formatted text to HTML
     html_content = markdown_to_html(formatted_text)

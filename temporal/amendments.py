@@ -3,7 +3,8 @@
 import difflib
 from typing import Dict, Any, List
 from pathlib import Path
-from formatters.format_sfs_text import apply_changes_to_sfs_text, clean_text
+from .apply_temporal import apply_temporal
+from formatters.format_sfs_text import clean_text
 
 
 def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
@@ -96,7 +97,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], git_br
     Apply changes to SFS text based on amendment dates.
 
     This function processes each amendment in chronological order and applies
-    changes using apply_changes_to_sfs_text with the amendment's ikraft_datum
+    changes using apply_temporal with the amendment's ikraft_datum
     as the target date. Optionally creates Git commits for each amendment.
 
     Args:
@@ -140,7 +141,7 @@ def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], git_br
             # Store text before changes for debug comparison
             text_before_changes = processed_text
 
-            processed_text = apply_changes_to_sfs_text(processed_text, ikraft_datum, verbose)
+            processed_text = apply_temporal(processed_text, ikraft_datum, verbose)
 
             # ...existing diff code...
             show_diff = True
