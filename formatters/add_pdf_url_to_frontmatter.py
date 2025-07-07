@@ -10,7 +10,7 @@ import requests
 from pathlib import Path
 from typing import Optional, Dict, Any
 import yaml
-from sort_frontmatter import sort_frontmatter_properties
+from .sort_frontmatter import sort_frontmatter_properties
 
 
 def check_pdf_exists(url: str) -> bool:

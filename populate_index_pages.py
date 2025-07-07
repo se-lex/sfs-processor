@@ -15,7 +15,7 @@ from typing import Dict, Any, List, Optional
 import html
 
 # Import existing functions for consistency
-from add_pdf_url_to_frontmatter import generate_pdf_url
+from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
 
 
 def load_all_documents(json_dir: Path) -> List[Dict[str, Any]]:

@@ -23,9 +23,9 @@ from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
 import difflib
-from format_sfs_text import format_sfs_text_as_markdown, apply_changes_to_sfs_text, parse_logical_sections, clean_section_tags
-from sort_frontmatter import sort_frontmatter_properties
-from add_pdf_url_to_frontmatter import generate_pdf_url
+from formatters.format_sfs_text import format_sfs_text_as_markdown, apply_changes_to_sfs_text, parse_logical_sections, clean_section_tags
+from formatters.sort_frontmatter import sort_frontmatter_properties
+from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
 
 
 def ensure_git_branch_for_commits(git_branch):
