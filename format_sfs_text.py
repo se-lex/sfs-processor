@@ -425,8 +425,9 @@ def parse_logical_sections(text: str) -> str:
         """Stäng alla sektioner ner till målnivån"""
         nonlocal section_stack, result
         while section_stack and section_stack[-1] >= target_level:
-            # Lägg alltid till en tom rad före </section> taggen
-            result.append('')
+            # Lägg endast till en tom rad före </section> taggen om den sista raden inte redan är tom
+            if result and result[-1].strip() != '':
+                result.append('')
             result.append('</section>')
             section_stack.pop()
 
