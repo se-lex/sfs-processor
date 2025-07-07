@@ -166,8 +166,11 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
             # Kontrollera om det är en rubrik (baserat på rensad rad men använd original för output)
             # Specialfall som alltid ska bli rubriker (även utanför standardkriterier)
             if not next_is_list_start:
+                # Kontrollera först om det är en avdelningsrubrik (nivå 2 ##)
+                if is_chapter_header(cleaned_line.strip()):
+                    formatted.append(format_header_with_markings('##', original_line))
                 # Kontrollera om det är ett kapitel (börjar med "X kap." eller "X Kap" eller "X A Kap")
-                if re.match(r'^\d+(\s+\w)?\s+[Kk]ap\.?', cleaned_line.strip()):
+                elif re.match(r'^\d+(\s+\w)?\s+[Kk]ap\.?', cleaned_line.strip()):
                     formatted.append(format_header_with_markings('##', original_line))
                 # Kontrollera om det är en bilaga (börjar med "Bilaga ")
                 elif cleaned_line.strip().startswith('Bilaga '):
@@ -210,8 +213,10 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                         else:
                             formatted.append(original_line)
                 else:
-                    # Hantera paragrafnummer som rubriker även utanför potential_headers
-                    if previous_line_empty:
+                    if is_chapter_header(cleaned_line.strip()):
+                        # Hantera avdelningsrubriker
+                        formatted.append(format_header_with_markings('##', original_line))
+                    elif previous_line_empty:
                         # Kontrollera om raden börjar med paragrafnummer (använd rensad rad)
                         paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', cleaned_line)
                         if paragraph_match:
@@ -238,8 +243,10 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                     else:
                         formatted.append(original_line)
             else:
-                # Hantera paragrafnummer som rubriker även när övriga kriterier inte uppfylls
-                if previous_line_empty:
+                # Hantera AVDELNING-rubriker och paragrafnummer som rubriker även när övriga kriterier inte uppfylls
+                if is_chapter_header(cleaned_line.strip()):
+                    formatted.append(format_header_with_markings('##', original_line))
+                elif previous_line_empty:
                     # Kontrollera om raden börjar med paragrafnummer (använd rensad rad)
                     paragraph_match = re.match(r'^\d+\s*[a-z]?\s*§', cleaned_line)
                     if paragraph_match:
@@ -585,8 +592,13 @@ def parse_logical_sections(text: str) -> str:
                 header_text = header_match.group(2)
 
                 # Lägg till klasser baserat på rubriknivå och innehåll
-                if header_level == 2:
-                    if '§' in header_text:
+                if header_level == 1:
+                    css_classes.append('forfattning')
+                elif header_level == 2:
+                    # Kontrollera om det är en avdelningsrubrik
+                    if is_chapter_header(header_text):
+                        css_classes.append('avdelning')
+                    elif '§' in header_text:
                         css_classes.append('paragraf')
                     else:
                         css_classes.append('kapitel')
@@ -841,3 +853,39 @@ def clean_text(text: Optional[str]) -> str:
     text = re.sub(r'\r\n', '\n', text)
     text = re.sub(r'\s+', ' ', text).strip()
     return text
+
+
+def is_chapter_header(line: str) -> bool:
+    """
+    Kontrollera om en rad är en AVDELNING-rubrik som ska få nivå 2 (##).
+    
+    AVDELNING-rubriker identifieras med två mönster:
+    1. AVDELNING eller AVD. följt av romerska siffror (I, II, III, IV, V, X, etc.)
+    2. Svenska ordningstal (FÖRSTA, ANDRA, etc.) följt av AVDELNING eller AVD.
+    
+    Exempel:
+    - "AVDELNING I. INLEDANDE BESTÄMMELSER"
+    - "AVD. I SKATTEFRIA INKOMSTER OCH INTE AVDRAGSGILLA UTGIFTER"  
+    - "AVDELNING I"
+    - "FÖRSTA AVDELNINGEN"
+    - "ANDRA AVDELNINGEN"
+    - "AVD. II KAPITALVINSTER OCH KAPITALFÖRLUSTER"
+    
+    Args:
+        line (str): Raden som ska kontrolleras
+        
+    Returns:
+        bool: True om raden är en AVDELNING-rubrik, False annars
+    """
+    line = line.strip()
+    if not line:
+        return False
+    
+    # Mönster 1: AVDELNING/AVD. följt av romerska siffror
+    pattern1 = r'^(?:AVDELNING|AVD\.)\s*[IVX]+(?:\.|$|\s)'
+    
+    # Mönster 2: Svenska ordningstal följt av AVDELNING/AVD.
+    pattern2 = r'^(?:FÖRSTA|ANDRA|TREDJE|FJÄRDE|FEMTE|SJÄTTE|SJUNDE|ÅTTONDE|NIONDE|TIONDE)\s+(?:AVDELNING|AVD\.)'
+    
+    return (re.match(pattern1, line, re.IGNORECASE) is not None or 
+            re.match(pattern2, line, re.IGNORECASE) is not None)
