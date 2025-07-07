@@ -18,6 +18,7 @@ Usage:
 """
 
 import json
+import os
 import re
 from datetime import datetime
 from pathlib import Path
@@ -204,12 +205,12 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                     # Check if there are any changes to commit
                     result = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True)
                     if result.returncode != 0:  # Non-zero means there are changes
-                        # Create first commit with utfardad_datum as date
+                        # Create first commit with utfardad_datum as date for both author and committer
+                        env = {**os.environ, 'GIT_AUTHOR_DATE': utfardad_datum, 'GIT_COMMITTER_DATE': utfardad_datum}
                         subprocess.run([
                             'git', 'commit',
-                            '-m', commit_message,
-                            '--date', utfardad_datum
-                        ], check=True, capture_output=True)
+                            '-m', commit_message
+                        ], check=True, capture_output=True, env=env)
                         print(f"Git-commit skapad: '{commit_message}' daterad {utfardad_datum}")
                     else:
                         print(f"Inga ändringar att commita för första commit av {beteckning}")
@@ -228,12 +229,12 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                         # Check if there are any changes to commit
                         result = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True)
                         if result.returncode != 0:  # Non-zero means there are changes
-                            # Create second commit with ikraft_datum as date
+                            # Create second commit with ikraft_datum as date for both author and committer
+                            env = {**os.environ, 'GIT_AUTHOR_DATE': ikraft_datum, 'GIT_COMMITTER_DATE': ikraft_datum}
                             subprocess.run([
                                 'git', 'commit',
-                                '-m', f"{beteckning} träder i kraft", # TODO: Se till att committa förarbeten först
-                                '--date', ikraft_datum
-                            ], check=True, capture_output=True)
+                                '-m', f"{beteckning} träder i kraft" # TODO: Se till att committa förarbeten först
+                            ], check=True, capture_output=True, env=env)
                             print(f"Git-commit skapad: '{beteckning} träder i kraft' daterad {ikraft_datum}")
                         else:
                             print(f"Inga ändringar att commita för ikraft_datum av {beteckning}")
