@@ -191,6 +191,11 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                 try:
                     # First commit: without ikraft_datum in front matter, dated utfardad_datum
                     commit_message = rubrik if rubrik else f"SFS {beteckning}"
+                    
+                    # Add förarbeten if available
+                    forarbeten = data.get('forarbeten')
+                    if forarbeten:
+                        commit_message += f"\n\nHar tillkommit i Svensk författningssamling efter dessa förarbeten: {forarbeten}"
 
                     # Write file for first commit (without ikraft_datum)
                     save_to_disk(output_file, markdown_content)
