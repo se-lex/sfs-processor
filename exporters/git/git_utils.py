@@ -22,7 +22,7 @@ def ensure_git_branch_for_commits(git_branch):
 
         # Generate commit branch name
         if "(timestamp)" in git_branch:
-            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M")
             commit_branch = git_branch.replace("(timestamp)", timestamp)
         else:
             commit_branch = git_branch

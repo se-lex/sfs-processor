@@ -181,7 +181,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
         ikraft_datum = format_datetime_for_git(data.get('ikraftDateTime'))
         utfardad_datum = format_datetime_for_git(data.get('fulltext', {}).get('utfardadDateTime'))
 
-        # Only create main commits if there are no amendments (they handle their own commits)
+        # Only create main commit if there are no amendments (they handle their own commits)
         if not amendments and utfardad_datum:
             # Ensure commits are made in a different branch
             original_branch, commit_branch = ensure_git_branch_for_commits(git_branch)
