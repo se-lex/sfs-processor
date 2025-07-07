@@ -28,6 +28,7 @@ from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
 from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime
+from util.file_utils import filter_json_files, save_to_disk
 from exporters.git import ensure_git_branch_for_commits, restore_original_branch
 from temporal.amendments import process_markdown_amendments, extract_amendments
 
@@ -580,62 +581,6 @@ def main():
         make_document(data, output_dir, output_modes, args.year_folder, args.verbose, args.git_branch)
     
     print(f"\nBearbetning klar! Filer sparade i {output_dir} i format: {', '.join(output_modes)}")
-
-
-def filter_json_files(json_files: List[Path], filter_criteria: str) -> List[Path]:
-    """
-    Filter JSON files based on filename containing year or ID patterns.
-
-    Args:
-        json_files: List of JSON file paths
-        filter_criteria: Filter string containing years (YYYY) or IDs (YYYY:NNN)
-                        Can be comma-separated for multiple criteria
-
-    Returns:
-        List[Path]: Filtered list of JSON files
-    """
-    if not filter_criteria:
-        return json_files
-
-    # Parse filter criteria - split by comma and strip whitespace
-    criteria = [c.strip() for c in filter_criteria.split(',') if c.strip()]
-
-    filtered_files = []
-
-    for json_file in json_files:
-        filename = json_file.stem  # Get filename without extension
-
-        # Check if filename matches any of the criteria
-        for criterion in criteria:
-            # Check for exact beteckning match (YYYY:NNN format)
-            if ':' in criterion and criterion.replace(':', '-') in filename:
-                filtered_files.append(json_file)
-                break
-            # Check for year match (YYYY format)
-            elif ':' not in criterion and f"{criterion}-" in filename:
-                filtered_files.append(json_file)
-                break
-            # Check for partial filename match (e.g., "sfs-2024-925" matches "sfs-2024-925.json")
-            elif criterion in filename:
-                filtered_files.append(json_file)
-                break
-
-    return filtered_files
-
-
-def save_to_disk(file_path: Path, content: str) -> None:
-    """Save content to disk with proper error handling.
-
-    Args:
-        file_path: Path where to save the file
-        content: Content to write to the file
-    """
-    try:
-        with open(file_path, 'w', encoding='utf-8') as f:
-            f.write(content)
-    except IOError as e:
-        print(f"Fel vid skrivning av {file_path}: {e}")
-
 
 
 if __name__ == "__main__":
