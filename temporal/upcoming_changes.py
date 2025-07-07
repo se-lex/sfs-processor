@@ -376,8 +376,8 @@ if __name__ == "__main__":
     import sys
     
     if len(sys.argv) < 2:
-        print("Användning: python upcoming_changes.py <input_dir>")
-        print("Exempel: python upcoming_changes.py sfs-test/")
+        print("Användning: python temporal/upcoming_changes.py <input_dir>")
+        print("Exempel: python temporal/upcoming_changes.py sfs-test/")
         sys.exit(1)
     
     input_directory = sys.argv[1]

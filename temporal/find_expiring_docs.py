@@ -5,10 +5,10 @@ Söker igenom alla JSON-filer i en mapp som har ett värde (icke-null)
 i JSON-egenskapen "tidsbegransadDateTime".
 
 Användning:
-    python find_expiring_docs.py <input_mapp>
+    python temporal/find_expiring_docs.py <input_mapp>
 
 Exempel:
-    python find_expiring_docs.py sfs_json/
+    python temporal/find_expiring_docs.py sfs_json/
 """
 
 import json
@@ -126,8 +126,8 @@ def save_results_to_file(results: List[Dict[str, Any]], output_file: str = "tids
 def main():
     """Huvudfunktion som hanterar kommandoradsargument och kör sökningen."""
     if len(sys.argv) != 2:
-        print("Användning: python find_expiring_docs.py <input_mapp>")
-        print("Exempel: python find_expiring_docs.py sfs_json/")
+        print("Användning: python temporal/find_expiring_docs.py <input_mapp>")
+        print("Exempel: python temporal/find_expiring_docs.py sfs_json/")
         sys.exit(1)
     
     input_dir = Path(sys.argv[1])

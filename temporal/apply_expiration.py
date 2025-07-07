@@ -81,7 +81,7 @@ if __name__ == "__main__":
     import sys
     
     if len(sys.argv) != 2:
-        print("Användning: python apply_expiration.py <markdown_fil>")
+        print("Användning: python temporal/apply_expiration.py <markdown_fil>")
         sys.exit(1)
     
     try:
