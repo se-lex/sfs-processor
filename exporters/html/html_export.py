@@ -459,7 +459,7 @@ def create_html_head(title: str, beteckning: str, additional_styles: str = "", a
         str: Complete HTML head section
     """
     # Import ELI utility functions
-    from eli_utils import generate_eli_metadata_html, generate_eli_canonical_url
+    from exporters.html.eli_utils import generate_eli_metadata_html, generate_eli_canonical_url
 
     head_start = """<!DOCTYPE html>
 <html lang="sv"

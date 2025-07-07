@@ -165,12 +165,12 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
 
     # Process HTML format if requested
     if "html" in output_modes:
-        from html_export import create_html_documents
+        from exporters.html.html_export import create_html_documents
         create_html_documents(data, output_dir, include_amendments=False)
 
     # Process HTML diff format if requested
     if "htmldiff" in output_modes:
-        from html_export import create_html_documents
+        from exporters.html.html_export import create_html_documents
         create_html_documents(data, output_dir, include_amendments=True)
 
 
