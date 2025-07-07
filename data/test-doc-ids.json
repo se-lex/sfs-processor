@@ -15,5 +15,13 @@
     {
         "document_id": "sts-1972-128",
         "comment": "Verkar ha konstig radbrytning i rubriken. Finns inte hos RK-rättsdb."
+    },
+    {
+        "document_id": "2010:800",
+        "comment": "Skollagen"
+    },
+    {
+        "document_id": "1920:405",
+        "comment": "Väldigt gammal"
     }
 ]
