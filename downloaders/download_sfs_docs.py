@@ -12,8 +12,8 @@ import re
 from typing import List
 
 # Importera funktioner från de specifika nedladdningsmodulerna
-from download_riksdagen import fetch_document_ids, download_documents as download_riksdagen_documents
-from download_rkrattsbaser import (
+from riksdagen_api import fetch_document_ids, download_documents as download_riksdagen_documents
+from rkrattsbaser_api import (
     fetch_document_by_rkrattsbaser, 
     save_document_from_rkrattsbaser, 
     convert_riksdagen_id_to_rkrattsbaser_format,

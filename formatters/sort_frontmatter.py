@@ -247,6 +247,9 @@ def sort_frontmatter_properties(frontmatter_content: str) -> str:
                 if prop == 'andringsforfattningar':
                     # Specialhantering för andringsforfattningar
                     sorted_content.append(f"{prop}:{value}")
+                elif prop == 'forarbeten' and value.startswith('\n'):
+                    # Specialhantering för förarbeten som lista
+                    sorted_content.append(f"{prop}:{value}")
                 else:
                     sorted_content.append(f"{prop}: {value}")
             else:
