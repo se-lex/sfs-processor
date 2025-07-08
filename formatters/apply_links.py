@@ -16,8 +16,15 @@ from pathlib import Path
 SFS_PATTERN = r'\b(\d{4}):(\d+)\b'
 PARAGRAPH_PATTERN = r'(\d+(?:\s*[a-z])?)\s*§'
 
-# EU legislation pattern - enkel version som fångar (EU) följt av årtal och löpnummer
+# EU legislation patterns
+# Modern format: (EU) nr XXX/YYYY or (EU) YYYY/XXX
 EU_REGULATION_PATTERN = r'\(EU\)(?:\s*[Nn]r)?(?:\s*(\d+)/(\d{4})|\s*(\d{4})/(\d+))'
+
+# Older formats: XX/YY/EEG, XXX/YY/EEG, XX/YYY/EEG, XXX/YYY/EEG
+EU_EEG_PATTERN = r'(\d{2,3})/(\d{2,3})/EEG'
+
+# Older formats: XX/YY/EG, XXX/YY/EG, XX/YYY/EG, XXX/YYY/EG  
+EU_EG_PATTERN = r'(\d{2,3})/(\d{2,3})/EG'
 
 # Law name pattern - kapitel följt av eventuella paragrafer och lagnamn
 # Hanterar olika format som:
@@ -304,8 +311,9 @@ def apply_eu_links(text: str) -> str:
     """
     Letar efter EU-lagstiftningsreferenser i texten och konverterar dem till EUR-Lex länkar.
 
-    Söker efter mönster som "(EU) nr 651/2014", "(EU) 1234/2020" etc. och skapar 
-    länkar till EUR-Lex med korrekt CELEX-nummer.
+    Hanterar olika format:
+    - Modern: "(EU) nr 651/2014", "(EU) 1234/2020" 
+    - Äldre: "92/43/EEG", "95/46/EG"
 
     Args:
         text (str): Texten som ska bearbetas
@@ -335,5 +343,57 @@ def apply_eu_links(text: str) -> str:
         
         return f"[{full_match}]({url})"
 
-    # Apply EU regulation pattern replacement
-    return re.sub(EU_REGULATION_PATTERN, replace_eu_reference, text)
+    def replace_eeg_reference(match):
+        """Ersätter en EEG-referens med en markdown-länk till EUR-Lex"""
+        full_match = match.group(0)
+        year_part = match.group(1)
+        number_part = match.group(2)
+        
+        # Convert 2-digit year to 4-digit (assumes 19XX for years >= 50, 20XX for < 50)
+        if len(year_part) == 2:
+            year_int = int(year_part)
+            if year_int >= 50:
+                year = f"19{year_part}"
+            else:
+                year = f"20{year_part}"
+        else:
+            year = year_part
+        
+        # Create CELEX number: 3YYYYLNNNNN (L for directive)
+        celex = f"3{year}L{number_part.zfill(4)}"
+        
+        # Create EUR-Lex URL
+        url = f"https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A{celex}"
+        
+        return f"[{full_match}]({url})"
+
+    def replace_eg_reference(match):
+        """Ersätter en EG-referens med en markdown-länk till EUR-Lex"""
+        full_match = match.group(0)
+        year_part = match.group(1)
+        number_part = match.group(2)
+        
+        # Convert 2-digit year to 4-digit (assumes 19XX for years >= 50, 20XX for < 50)
+        if len(year_part) == 2:
+            year_int = int(year_part)
+            if year_int >= 50:
+                year = f"19{year_part}"
+            else:
+                year = f"20{year_part}"
+        else:
+            year = year_part
+        
+        # Create CELEX number: 3YYYYLNNNNN (L for directive)
+        celex = f"3{year}L{number_part.zfill(4)}"
+        
+        # Create EUR-Lex URL
+        url = f"https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A{celex}"
+        
+        return f"[{full_match}]({url})"
+
+    # Apply all EU patterns
+    text = re.sub(EU_REGULATION_PATTERN, replace_eu_reference, text)
+    text = re.sub(EU_EEG_PATTERN, replace_eeg_reference, text)
+    text = re.sub(EU_EG_PATTERN, replace_eg_reference, text)
+    
+    return text
