@@ -769,11 +769,59 @@ def apply_internal_links(text: str) -> str:
     return '\n'.join(processed_lines)
 
 
+def check_unprocessed_temporal_sections(text: str) -> None:
+    """
+    Kontrollera att inga sektioner med temporal status-attribut finns kvar.
+    
+    Denna funktion säkerställer att alla temporala sektioner har behandlats korrekt
+    av temporal processing innan section tags tas bort.
+    
+    Args:
+        text (str): Text som ska kontrolleras
+        
+    Raises:
+        ValueError: Om sektioner med obehandlade status-attribut hittas
+    """
+    # Sök efter section-taggar med temporal attribut som indikerar obehandlad status
+    temporal_patterns = [
+        r'<section[^>]*selex:ikraft_datum=',  # Ikraftträdandedatum
+        r'<section[^>]*selex:upphor_datum=',  # Upphörandedatum  
+        r'<section[^>]*selex:status=',        # Status attribut
+    ]
+    
+    found_issues = []
+    for pattern in temporal_patterns:
+        matches = re.finditer(pattern, text, re.IGNORECASE)
+        for match in matches:
+            # Extrahera sektionens början för felsökning
+            section_start = match.start()
+            section_end = text.find('</section>', section_start)
+            if section_end == -1:
+                section_content = text[section_start:section_start + 200] + "..."
+            else:
+                section_content = text[section_start:section_end + 10]
+            
+            found_issues.append(section_content)
+    
+    if found_issues:
+        error_msg = (
+            "Fel: Sektioner med obehandlade temporal attribut hittades. "
+            "Dessa borde ha behandlats av temporal processing före borttagning av section tags.\n\n"
+            "Hittade sektioner:\n" + 
+            "\n".join(f"- {issue}" for issue in found_issues[:5])  # Visa max 5 exempel
+        )
+        if len(found_issues) > 5:
+            error_msg += f"\n... och {len(found_issues) - 5} till"
+        
+        raise ValueError(error_msg)
+
+
 def clean_section_tags(text: str) -> str:
     """
     Rensa bort alla section-taggar (<section> och </section>) och deras associerade tomma rader.
     
-    Funktionen rensar:
+    Funktionen kontrollerar först att inga obehandlade temporal sektioner finns,
+    sedan rensar den:
     1. Alla <section> taggar (med eller utan attribut)
     2. Alla </section> taggar  
     3. Tomma rader som kommer direkt efter <section> taggar
@@ -785,7 +833,12 @@ def clean_section_tags(text: str) -> str:
         
     Returns:
         str: Rensat text utan section-taggar och deras associerade tomma rader
+        
+    Raises:
+        ValueError: Om obehandlade temporal sektioner hittas
     """
+    # Kontrollera först att inga obehandlade temporal sektioner finns
+    check_unprocessed_temporal_sections(text)
     lines = text.split('\n')
     result = []
     i = 0

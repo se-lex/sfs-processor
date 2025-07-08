@@ -2,13 +2,16 @@
 """
 Funktion för att tillämpa temporal filtrering på SFS markdown-text.
 
-Funktionen tar bort sektioner baserat på selex:upphor_datum och selex:ikraft_datum
+Funktionen tar bort sektioner baserat på selex:status, selex:upphor_datum och selex:ikraft_datum
 relativt till ett angivet target datum.
 
 Regler:
-1. Sektioner med selex:upphor_datum som är <= target_date tas bort helt
-2. Sektioner med selex:ikraft_datum som är > target_date tas bort helt
-3. Nestlade sektioner hanteras korrekt - om en överordnad sektion tas bort, 
+1. Sektioner med selex:status="upphavd" tas bort helt
+2. Sektioner med selex:status="ikraft" och selex:ikraft_datum > target_date tas bort helt
+3. Sektioner med selex:status="ikraft" och selex:ikraft_datum <= target_date får sina temporal attribut borttagna
+4. Sektioner med selex:upphor_datum som är <= target_date tas bort helt
+5. Sektioner med selex:ikraft_datum som är > target_date tas bort helt
+6. Nestlade sektioner hanteras korrekt - om en överordnad sektion tas bort, 
    tas alla underordnade sektioner också bort
 """
 
@@ -21,7 +24,7 @@ def apply_temporal(markdown_text: str, target_date: str, verbose: bool = False) 
     """
     Tillämpar temporal filtrering på markdown-text baserat på selex-attribut.
     
-    Tar bort sektioner som har utgått eller ännu inte trätt ikraft på target_date.
+    Tar bort sektioner som har upphävts, utgått eller ännu inte trätt ikraft på target_date.
 
     Args:
         markdown_text (str): Markdown-texten med section-taggar och selex-attribut
@@ -48,6 +51,7 @@ def apply_temporal(markdown_text: str, target_date: str, verbose: bool = False) 
     i = 0
     changes_applied = 0
     sections_removed = 0
+    attributes_cleaned = 0
     
     while i < len(lines):
         line = lines[i]
@@ -57,15 +61,30 @@ def apply_temporal(markdown_text: str, target_date: str, verbose: bool = False) 
         if section_match:
             attributes = section_match.group(1)
             
-            # Extrahera datum-attribut
+            # Extrahera datum-attribut och status-attribut
             upphor_match = re.search(r'selex:upphor_datum="(\d{4}-\d{2}-\d{2})"', attributes)
             ikraft_match = re.search(r'selex:ikraft_datum="(\d{4}-\d{2}-\d{2})"', attributes)
+            status_match = re.search(r'selex:status="([^"]+)"', attributes)
             
             should_remove = False
             remove_reason = ""
             
+            # Kontrollera status-attribut
+            if status_match:
+                status_value = status_match.group(1)
+                if status_value == "upphavd":
+                    should_remove = True
+                    remove_reason = f"status '{status_value}'"
+                elif status_value == "ikraft" and ikraft_match:
+                    # För status="ikraft" med ikraft_datum, använd datum-logiken
+                    ikraft_date = ikraft_match.group(1)
+                    ikraft_datetime = datetime.strptime(ikraft_date, '%Y-%m-%d')
+                    if ikraft_datetime > target_datetime:
+                        should_remove = True
+                        remove_reason = f"status '{status_value}' med ikraft_datum {ikraft_date} > {target_date}"
+            
             # Kontrollera upphor_datum - ta bort om <= target_date
-            if upphor_match:
+            if upphor_match and not should_remove:
                 upphor_date = upphor_match.group(1)
                 upphor_datetime = datetime.strptime(upphor_date, '%Y-%m-%d')
                 if upphor_datetime <= target_datetime:
@@ -116,8 +135,40 @@ def apply_temporal(markdown_text: str, target_date: str, verbose: bool = False) 
                 # Fortsätt till nästa rad (i är redan rätt position efter while-loopen)
                 continue
             else:
-                # Behåll sektionen
-                result.append(line)
+                # Behåll sektionen men kolla om vi ska ta bort temporal attribut
+                should_clean_attributes = False
+                clean_reason = ""
+                
+                # Om status="ikraft" och ikraft_datum <= target_date, ta bort temporal attribut
+                if status_match and status_match.group(1) == "ikraft" and ikraft_match:
+                    ikraft_date = ikraft_match.group(1)
+                    ikraft_datetime = datetime.strptime(ikraft_date, '%Y-%m-%d')
+                    if ikraft_datetime <= target_datetime:
+                        should_clean_attributes = True
+                        clean_reason = f"status 'ikraft' har trätt i kraft ({ikraft_date} <= {target_date})"
+                
+                if should_clean_attributes:
+                    # Ta bort temporal attribut från section-taggen
+                    cleaned_line = re.sub(r'\s*selex:status="[^"]*"', '', line)
+                    cleaned_line = re.sub(r'\s*selex:ikraft_datum="[^"]*"', '', cleaned_line)
+                    cleaned_line = re.sub(r'\s*selex:upphor_datum="[^"]*"', '', cleaned_line)
+                    # Rensa upp extra mellanslag
+                    cleaned_line = re.sub(r'\s+>', '>', cleaned_line)
+                    cleaned_line = re.sub(r'<section\s+>', '<section>', cleaned_line)
+                    
+                    result.append(cleaned_line)
+                    changes_applied += 1
+                    attributes_cleaned += 1
+                    
+                    if verbose:
+                        print(f"Regel tillämpas: Rensar temporal attribut - {clean_reason}")
+                        print(f"Original: {line}")
+                        print(f"Rensad: {cleaned_line}")
+                        print("-" * 80)
+                else:
+                    # Behåll raden som den är
+                    result.append(line)
+                
                 i += 1
         else:
             # Vanlig rad, behåll den
@@ -127,6 +178,7 @@ def apply_temporal(markdown_text: str, target_date: str, verbose: bool = False) 
     if verbose:
         print(f"Totalt antal tillämpade regler: {changes_applied}")
         print(f"Antal sektioner borttagna: {sections_removed}")
+        print(f"Antal attribut rensade: {attributes_cleaned}")
     
     return '\n'.join(result)
 

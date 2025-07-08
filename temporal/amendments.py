@@ -65,32 +65,35 @@ def process_markdown_amendments(markdown_content: str, data: Dict[str, Any], git
     if verbose and amendments and not has_amendment_markers:
         print(f"Varning: Inga ändringsmarkeringar hittades i {beteckning} men ändringar finns.")
 
-    # Apply amendments if they exist
-    if has_amendment_markers and amendments:
-        # Extract the markdown body (everything after the front matter)
-        if markdown_content.startswith('---'):
-            front_matter_end = markdown_content.find('\n---\n', 3)
-            if front_matter_end != -1:
-                front_matter = markdown_content[:front_matter_end + 5]  # Include the closing ---\n
-                markdown_body = markdown_content[front_matter_end + 5:]
+    # Always process temporal sections, even for documents without amendments
+    # Extract the markdown body (everything after the front matter)
+    if markdown_content.startswith('---'):
+        front_matter_end = markdown_content.find('\n---\n', 3)
+        if front_matter_end != -1:
+            front_matter = markdown_content[:front_matter_end + 5]  # Include the closing ---\n
+            markdown_body = markdown_content[front_matter_end + 5:]
 
-                # Process amendments on the entire markdown body (including heading)
+            # Apply amendments if they exist, otherwise just apply temporal processing
+            if has_amendment_markers and amendments:
                 processed_text = apply_amendments_to_text(markdown_body, amendments, git_branch, verbose, output_file)
-
-                # Reconstruct the full content
-                processed_markdown = front_matter + "\n\n" + processed_text
                 if verbose:
                     print(f"Debug: Bearbetad textlängd för {beteckning}: {len(processed_text)}")
-                return processed_markdown
             else:
-                print(f"Varning: Kunde inte hitta slutet på front matter för {beteckning}")
-                return markdown_content
+                # No amendments, but still apply temporal processing for current date
+                from datetime import date
+                current_date = date.today().strftime('%Y-%m-%d')
+                processed_text = apply_temporal(markdown_body, current_date)
+                if verbose:
+                    print(f"Info: Temporal processing tillämpat på {beteckning} utan ändringar för datum {current_date}")
+
+            # Reconstruct the full content
+            processed_markdown = front_matter + "\n\n" + processed_text
+            return processed_markdown
         else:
-            print(f"Varning: Markdown-innehåll börjar inte med front matter för {beteckning}")
+            print(f"Varning: Kunde inte hitta slutet på front matter för {beteckning}")
             return markdown_content
     else:
-        if verbose:
-            print(f"Info: Inga ändringsmarkeringar eller ändringar att bearbeta för {beteckning}")
+        print(f"Varning: Markdown-innehåll börjar inte med front matter för {beteckning}")
         return markdown_content
 
 
