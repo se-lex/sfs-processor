@@ -129,6 +129,7 @@ def sort_frontmatter_properties(frontmatter_content: str) -> str:
         'ikraft_datum',
         'publicerad_datum',
         'utgar_datum',
+        'forarbeten',
         'celex',
         'eu_direktiv',
         'pdf_url',

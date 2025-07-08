@@ -194,7 +194,8 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                     commit_message = rubrik if rubrik else f"SFS {beteckning}"
                     
                     # Add förarbeten if available
-                    forarbeten = data.get('forarbeten')
+                    register_data = data.get('register', {})
+                    forarbeten = register_data.get('forarbeten')
                     if forarbeten:
                         commit_message += f"\n\nHar tillkommit i Svensk författningssamling efter dessa förarbeten: {forarbeten}"
 
@@ -315,7 +316,8 @@ def convert_to_markdown(data: Dict[str, Any], preserve_section_tags: bool = Fals
     utfardad_datum = format_datetime(fulltext_data.get('utfardadDateTime'))
 
     # Extract other metadata
-    forarbeten = clean_text(data.get('forarbeten', ''))
+    register_data = data.get('register', {})
+    forarbeten = clean_text(register_data.get('forarbeten', ''))
     celex_nummer = data.get('celexnummer')
     eu_direktiv = data.get('eUdirektiv', False)
 
