@@ -31,6 +31,7 @@ Regler som inte utvecklats än:
 
 import re
 from typing import Optional
+from .apply_links import apply_sfs_links, apply_internal_links
 
 # Regex patterns as constants
 PARAGRAPH_PATTERN = r'(\d+(?:\s*[a-z])?)\s*§'
@@ -44,7 +45,7 @@ HEADER_LEVEL_PATTERN = r'^(#{2,6})\s+(.+)'
 LIST_NUMBERED_PATTERN = r'^\d+\.'
 LIST_BULLET_PREFIX = '-'
 TEMPORAL_MARKER_PATTERN = r'/[^/]+/'
-SFS_PATTERN = r'\b(\d{4}):(\d+)\b'
+# SFS_PATTERN moved to apply_links.py
 WHITESPACE_PATTERN = r'\s+'
 CAPITALIZED_PATTERN = r'^[A-ZÅÄÖ]'
 
@@ -360,33 +361,7 @@ def format_header_with_markings(header_level: str, text: str) -> str:
         return f"{header_level} {text}"
 
 
-def apply_sfs_links(text: str) -> str:
-    """
-    Letar efter SFS-beteckningar i texten och konverterar dem till markdown-länkar.
-
-    Söker efter mönster som "YYYY:NNN" (år:löpnummer) och skapar länkar till /sfs/(beteckning).
-
-    Args:
-        text (str): Texten som ska bearbetas
-
-    Returns:
-        str: Texten med SFS-beteckningar konverterade till markdown-länkar
-    """
-    # Regex för att hitta SFS-beteckningar: år (4 siffror) följt av kolon och löpnummer
-    # Matchar mönster som "2002:43", "1970:485", etc.
-    sfs_pattern = SFS_PATTERN
-
-    # TODO: Slå upp SFS-beteckning mot JSON-fil för att verifiera giltighet
-
-    def replace_sfs_designation(match):
-        """Ersätter en SFS-beteckning med en markdown-länk"""
-        year = match.group(1)
-        number = match.group(2)
-        designation = f"{year}:{number}"
-        return f"[{designation}](/sfs/{designation})"
-
-    # Ersätt alla SFS-beteckningar med markdown-länkar
-    return re.sub(sfs_pattern, replace_sfs_designation, text)
+# Moved to apply_links.py
 
 
 def _is_section_upphavd(header_line: str, content: str) -> bool:
@@ -724,49 +699,6 @@ def parse_logical_sections(text: str) -> str:
     return '\n'.join(result)
 
 
-def apply_internal_links(text: str) -> str:
-    """
-    Letar efter paragrafnummer i löpande text (inte i rubriker) och konverterar dem till interna länkar.
-
-    Söker efter mönster som "9 §", "13 a §", "2 b §" etc. och skapar interna länkar
-    till [9 §](#9§), [13 a §](#13a§), [2 b §](#2b§).
-
-    Args:
-        text (str): Texten som ska bearbetas
-
-    Returns:
-        str: Texten med paragrafnummer konverterade till interna markdown-länkar
-    """
-    lines = text.split('\n')
-    processed_lines = []
-
-    for line in lines:
-        # Skippa rubriker (börjar med #)
-        if line.strip().startswith('#'):
-            processed_lines.append(line)
-            continue
-
-        # Regex för att hitta paragrafnummer: siffra, eventuell bokstav, följt av §
-        # Matchar mönster som "9 §", "13 a §", "2 b §", "145 c §", etc.
-        paragraph_pattern = PARAGRAPH_PATTERN
-
-        def replace_paragraph_reference(match):
-            """Ersätter en paragrafnummer med en intern markdown-länk"""
-            number = match.group(1)
-            letter = match.group(2) if match.group(2) else ''
-
-            # Skapa länktext och anchor
-            link_text = f"{number}{' ' + letter if letter else ''} §"
-            # Anchor utan mellanslag för URL-kompatibilitet
-            anchor = f"{number}{letter if letter else ''}§"
-
-            return f"[{link_text}](#{anchor})"
-
-        # Ersätt alla paragrafnummer med interna länkar
-        processed_line = re.sub(paragraph_pattern, replace_paragraph_reference, line)
-        processed_lines.append(processed_line)
-
-    return '\n'.join(processed_lines)
 
 
 def check_unprocessed_temporal_sections(text: str) -> None:

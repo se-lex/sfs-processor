@@ -36,7 +36,7 @@ from exporters.git import ensure_git_branch_for_commits, restore_original_branch
 from temporal.amendments import process_markdown_amendments, extract_amendments
 
 
-def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_branch: str = None, fetch_predocs: bool = False) -> None:
+def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_branch: str = None, fetch_predocs: bool = False, apply_links: bool = False) -> None:
     """Create documents by converting JSON to specified output formats and applying amendments.
 
     This is the main function for document creation that handles:
@@ -106,12 +106,12 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     if "md" in output_modes:
         # Create markdown document (pass git_branch if "git" is in output_modes)
         git_branch_param = git_branch if "git" in output_modes else None
-        markdown_content = _create_markdown_document(data, document_dir, git_branch_param, False, verbose, fetch_predocs)
+        markdown_content = _create_markdown_document(data, document_dir, git_branch_param, False, verbose, fetch_predocs, apply_links)
 
     # Process markdown with section markers if requested
     if "md-markers" in output_modes:
         # Create markdown document with section tags preserved
-        markdown_content = _create_markdown_document(data, document_dir, None, True, verbose, fetch_predocs)
+        markdown_content = _create_markdown_document(data, document_dir, None, True, verbose, fetch_predocs, apply_links)
 
     # Process HTML format if requested
     if "html" in output_modes:
@@ -124,7 +124,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
         create_html_documents(data, output_dir, include_amendments=True)
 
 
-def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branch: str = None, preserve_section_tags: bool = False, verbose: bool = False, fetch_predocs: bool = False) -> str:
+def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branch: str = None, preserve_section_tags: bool = False, verbose: bool = False, fetch_predocs: bool = False, apply_links: bool = False) -> str:
     """Internal function to create a markdown document from JSON data.
 
     Args:
@@ -149,7 +149,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
     output_file = output_path / safe_filename
 
     # Get basic markdown content
-    markdown_content = convert_to_markdown(data, fetch_predocs)
+    markdown_content = convert_to_markdown(data, fetch_predocs, apply_links)
 
     # Extract beteckning for logging
     beteckning = data.get('beteckning', '')
@@ -312,7 +312,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
     return final_content
 
 
-def convert_to_markdown(data: Dict[str, Any], fetch_predocs: bool = False) -> str:
+def convert_to_markdown(data: Dict[str, Any], fetch_predocs: bool = False, apply_links: bool = False) -> str:
     """Convert JSON data to Markdown content with YAML front matter.
 
     This function only handles the conversion from JSON to markdown string format.
@@ -466,7 +466,7 @@ departement: {format_yaml_value(organisation)}
         markdown_body = ignored_body
     else:
         # Format the content text to markdown
-        formatted_text = format_sfs_text_as_markdown(innehall_text)
+        formatted_text = format_sfs_text_as_markdown(innehall_text, apply_links=apply_links)
 
         # Apply section tags
         formatted_text = parse_logical_sections(formatted_text)
@@ -578,6 +578,8 @@ def main():
                         help='Branch name to use for git commits when "git" format is enabled. Use "(date)" as placeholder for current date. Default: sfs-updates-(date)')
     parser.add_argument('--predocs', action='store_true',
                         help='Fetch detailed information about förarbeten from Riksdagen API. This will make processing slower.')
+    parser.add_argument('--apply-links', action='store_true',
+                        help='Apply internal paragraph links (e.g., [9 §](#9§)) and external SFS links (e.g., [2002:43](/sfs/2002:43)) to the document.')
     parser.set_defaults(year_folder=True)
     args = parser.parse_args()
 
@@ -651,7 +653,7 @@ def main():
             continue
 
         # Use make_document to create documents in specified formats
-        make_document(data, output_dir, output_modes, args.year_folder, args.verbose, args.git_branch, args.predocs)
+        make_document(data, output_dir, output_modes, args.year_folder, args.verbose, args.git_branch, args.predocs, args.apply_links)
     
     print(f"\nBearbetning klar! {len(json_files)} filer sparade i {output_dir} i format: {', '.join(output_modes)}")
 
