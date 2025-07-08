@@ -31,7 +31,7 @@ Regler som inte utvecklats än:
 
 import re
 from typing import Optional
-from .apply_links import apply_sfs_links, apply_internal_links, apply_eu_links
+from .apply_links import apply_sfs_links, apply_internal_links, apply_eu_links, apply_law_name_links
 
 # Regex patterns as constants
 PARAGRAPH_PATTERN = r'(\d+(?:\s*[a-z])?)\s*§'
@@ -325,8 +325,9 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
     # Returnera den formaterade texten
     final_text = '\n'.join(formatted)
     
-    # Tillämpa interna paragraf-länkar, SFS-länkar och EU-länkar om det begärs
+    # Tillämpa lagnamn-länkar först, sedan interna paragraf-länkar, SFS-länkar och EU-länkar
     if apply_links:
+        final_text = apply_law_name_links(final_text)
         final_text = apply_internal_links(final_text)
         final_text = apply_sfs_links(final_text)
         final_text = apply_eu_links(final_text)
