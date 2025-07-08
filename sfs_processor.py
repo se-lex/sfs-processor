@@ -149,7 +149,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
     output_file = output_path / safe_filename
 
     # Get basic markdown content
-    markdown_content = convert_to_markdown(data, preserve_section_tags, fetch_predocs)
+    markdown_content = convert_to_markdown(data, fetch_predocs)
 
     # Extract beteckning for logging
     beteckning = data.get('beteckning', '')
@@ -267,32 +267,52 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                     # Print stderr output for debugging
                     if hasattr(e, 'stderr') and e.stderr:
                         print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+                    # Clean section tags if not preserving them
+                    final_content = markdown_content
+                    if not preserve_section_tags:
+                        final_content = clean_section_tags(final_content)
                     # Write the file anyway, without git commits
-                    save_to_disk(output_file, markdown_content)
+                    save_to_disk(output_file, final_content)
                     # Restore original branch on error
                     restore_original_branch(original_branch)
                 except FileNotFoundError:
                     print("Varning: Git hittades inte. Hoppar över Git-commits.")
+                    # Clean section tags if not preserving them
+                    final_content = markdown_content
+                    if not preserve_section_tags:
+                        final_content = clean_section_tags(final_content)
                     # Write the file anyway, without git commits
-                    save_to_disk(output_file, markdown_content)
+                    save_to_disk(output_file, final_content)
                     # Restore original branch on error
                     restore_original_branch(original_branch)
             else:
+                # Clean section tags if not preserving them
+                final_content = markdown_content
+                if not preserve_section_tags:
+                    final_content = clean_section_tags(final_content)
                 # Branch creation failed, write file without git commits
                 print(f"Hoppar över Git-commits för {beteckning} på grund av branch-problem")
-                save_to_disk(output_file, markdown_content)
+                save_to_disk(output_file, final_content)
         else:
+            # Clean section tags if not preserving them
+            final_content = markdown_content
+            if not preserve_section_tags:
+                final_content = clean_section_tags(final_content)
             # Write file if git is enabled but no commits needed
-            save_to_disk(output_file, markdown_content)
+            save_to_disk(output_file, final_content)
     else:
+        # Clean section tags if not preserving them
+        final_content = markdown_content
+        if not preserve_section_tags:
+            final_content = clean_section_tags(final_content)
         # No git mode - write the file normally
-        save_to_disk(output_file, markdown_content)
+        save_to_disk(output_file, final_content)
         print(f"Skapade dokument: {output_file}")
 
     return final_content
 
 
-def convert_to_markdown(data: Dict[str, Any], preserve_section_tags: bool = False, fetch_predocs: bool = False) -> str:
+def convert_to_markdown(data: Dict[str, Any], fetch_predocs: bool = False) -> str:
     """Convert JSON data to Markdown content with YAML front matter.
 
     This function only handles the conversion from JSON to markdown string format.
@@ -300,7 +320,6 @@ def convert_to_markdown(data: Dict[str, Any], preserve_section_tags: bool = Fals
 
     Args:
         data: JSON data for the document
-        preserve_section_tags: Whether to preserve <section> tags in output (for md-markers mode)
         fetch_predocs: Whether to fetch detailed information about förarbeten from Riksdag API
 
     Returns:
@@ -463,9 +482,7 @@ departement: {format_yaml_value(organisation)}
         clean_heading = re.sub(r'\s+', ' ', clean_heading).strip()
         markdown_body = f"# {clean_heading}\n\n" + formatted_text
 
-    # Remove section tags from markdown body before returning (unless preserving them)
-    if not preserve_section_tags:
-        markdown_body = clean_section_tags(markdown_body)
+    # Section tags are preserved in markdown_body - they will be cleaned later if needed
 
     # Return the complete markdown content
     return yaml_front_matter + markdown_body
