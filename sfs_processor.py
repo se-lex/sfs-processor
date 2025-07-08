@@ -61,8 +61,8 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
                      All HTML output uses ELI directory structure with year-based folders
         year_as_folder: Whether to create year-based subdirectories (default: True)
         verbose: Whether to show verbose output (default: False)
-        git_branch: Branch name to use for git commits. If contains "(timestamp)", it will be replaced
-                   with current timestamp. Only used when "git" is in output_modes.
+        git_branch: Branch name to use for git commits. If contains "(date)", it will be replaced
+                   with current date. Only used when "git" is in output_modes.
     """
 
     # Default to markdown output if no modes specified
@@ -128,7 +128,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
         data: JSON data containing document information
         output_path: Path to the output directory (folder)
         git_branch: Branch name to use for git commits. If None, no git commits are made.
-                   If contains "(timestamp)", it will be replaced with current timestamp.
+                   If contains "(date)", it will be replaced with current date.
         preserve_section_tags: Whether to preserve <section> tags in output (for md-markers mode)
         verbose: Whether to print verbose output
 
@@ -185,7 +185,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
         # Only create main commit if there are no amendments (they handle their own commits)
         if not amendments and utfardad_datum:
             # Ensure commits are made in a different branch
-            original_branch, commit_branch = ensure_git_branch_for_commits(git_branch)
+            original_branch, commit_branch = ensure_git_branch_for_commits(git_branch, remove_all_commits_first=True, verbose=verbose)
 
             # Only proceed with git commits if branch creation was successful
             if original_branch is not None and commit_branch is not None:
@@ -526,8 +526,8 @@ def main():
                         help='Show detailed diff output for each amendment processing')
     parser.add_argument('--formats', dest='output_modes', default='md',
                         help='Output formats to generate (comma-separated). Currently supported: md, md-markers, git, html, htmldiff. Default: md. Use "md-markers" to preserve section tags. Use "git" to enable Git commits with historical dates. HTML creates documents in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer}). HTMLDIFF includes amendment versions with diff view.')
-    parser.add_argument('--git-branch', dest='git_branch', default='sfs-updates-(timestamp)',
-                        help='Branch name to use for git commits when "git" format is enabled. Use "(timestamp)" as placeholder for current timestamp. Default: sfs-updates-(timestamp)')
+    parser.add_argument('--git-branch', dest='git_branch', default='sfs-updates-(date)',
+                        help='Branch name to use for git commits when "git" format is enabled. Use "(date)" as placeholder for current date. Default: sfs-updates-(date)')
     parser.set_defaults(year_folder=True)
     args = parser.parse_args()
 
