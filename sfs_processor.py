@@ -579,7 +579,7 @@ def main():
     parser.add_argument('--predocs', action='store_true',
                         help='Fetch detailed information about förarbeten from Riksdagen API. This will make processing slower.')
     parser.add_argument('--apply-links', action='store_true',
-                        help='Apply internal paragraph links (e.g., [9 §](#9§)) and external SFS links (e.g., [2002:43](/sfs/2002:43)) to the document.')
+                        help='Apply internal paragraph links (e.g., [9 §](#9§)), external SFS links (e.g., [2002:43](/sfs/2002:43)), and EU legislation links (e.g., [(EU) nr 651/2014](https://eur-lex.europa.eu/...)) to the document.')
     parser.set_defaults(year_folder=True)
     args = parser.parse_args()
 

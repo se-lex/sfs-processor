@@ -4,6 +4,7 @@ Functions for applying internal and external links to SFS documents.
 This module contains functions to:
 1. Convert SFS references (e.g., "2002:43") to external markdown links
 2. Convert paragraph references (e.g., "9 §", "13 a §") to internal markdown links
+3. Convert EU legislation references (e.g., "(EU) nr 651/2014") to EUR-Lex links
 """
 
 import re
@@ -13,6 +14,9 @@ import os
 SFS_PATTERN = r'\b(\d{4}):(\d+)\b'
 PARAGRAPH_PATTERN = r'(\d+(?:\s*[a-z])?)\s*§'
 
+# EU legislation pattern - enkel version som fångar (EU) följt av årtal och löpnummer
+EU_REGULATION_PATTERN = r'\(EU\)(?:\s*[Nn]r)?(?:\s*(\d+)/(\d{4})|\s*(\d{4})/(\d+))'
+
 
 def apply_sfs_links(text: str) -> str:
     """
@@ -20,7 +24,7 @@ def apply_sfs_links(text: str) -> str:
 
     Söker efter mönster som "YYYY:NNN" (år:löpnummer) och skapar länkar till /sfs/(beteckning).
     
-    Använder miljövariabeln LINK_BASE_URL för att skapa absoluta länkar om den är satt,
+    Använder miljövariabeln INTERNAL_LINKS_BASE_URL för att skapa absoluta länkar om den är satt,
     annars skapas relativa länkar.
 
     Args:
@@ -34,7 +38,7 @@ def apply_sfs_links(text: str) -> str:
     sfs_pattern = SFS_PATTERN
 
     # Hämta bas-URL från miljövariabler (tom sträng som standard för relativa länkar)
-    base_url = os.getenv('LINK_BASE_URL', '')
+    base_url = os.getenv('INTERNAL_LINKS_BASE_URL', '')
 
     # TODO: Slå upp SFS-beteckning mot JSON-fil för att verifiera giltighet
 
@@ -95,6 +99,62 @@ def apply_internal_links(text: str) -> str:
 
         # Ersätt alla paragrafnummer med interna länkar
         processed_line = re.sub(paragraph_pattern, replace_paragraph_reference, line)
+        processed_lines.append(processed_line)
+
+    return '\n'.join(processed_lines)
+
+
+def apply_eu_links(text: str) -> str:
+    """
+    Letar efter EU-lagstiftningsreferenser i texten och konverterar dem till EUR-Lex markdown-länkar.
+
+    Söker efter mönster som "(EU) nr 651/2014", "Förordning (EU) nr 651/2014", etc.
+    och skapar länkar till EUR-Lex med korrekt CELEX-nummer.
+
+    EU-länkar går alltid till https://eur-lex.europa.eu/legal-content oberoende av INTERNAL_LINKS_BASE_URL.
+
+    Args:
+        text (str): Texten som ska bearbetas
+
+    Returns:
+        str: Texten med EU-lagstiftningsreferenser konverterade till markdown-länkar
+    """
+    # Processar texten rad för rad för att undvika att länka rubriker
+    lines = text.split('\n')
+    processed_lines = []
+
+    for line in lines:
+        # Skippa rubriker (börjar med #)
+        if line.strip().startswith('#'):
+            processed_lines.append(line)
+            continue
+
+        def replace_eu_regulation(match):
+            """Ersätter en EU-förordning med en markdown-länk"""
+            full_match = match.group(0)
+            
+            # Hantera båda formaten: 651/2014 och 2014/651
+            if match.group(1) and match.group(2):  # Format: nummer/år (t.ex. 651/2014)
+                number = match.group(1)
+                year = match.group(2)
+            elif match.group(3) and match.group(4):  # Format: år/nummer (t.ex. 2014/651)
+                year = match.group(3)
+                number = match.group(4)
+            else:
+                # Inget giltigt format hittades
+                return full_match
+            
+            # Skapa CELEX-nummer (sektor 3 för lagstiftning, typ R för förordning)
+            celex = f"3{year}R{number.zfill(4)}"
+            
+            # EU-länkar ska alltid gå till EUR-Lex, oavsett INTERNAL_LINKS_BASE_URL
+            url = f"https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A{celex}"
+            
+            return f"[{full_match}]({url})"
+
+        # Ersätt alla EU-förordningar med markdown-länkar
+        processed_line = re.sub(EU_REGULATION_PATTERN, replace_eu_regulation, line)
+        
         processed_lines.append(processed_line)
 
     return '\n'.join(processed_lines)
