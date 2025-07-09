@@ -653,7 +653,9 @@ def main():
     if args.output:
         output_dir = Path(args.output)
     else:
-        output_dir = script_dir / 'markdown'
+        # Default output directory based on primary output format
+        primary_format = output_modes[0] if output_modes else 'md'
+        output_dir = script_dir.parent / f'sfs-export-{primary_format}'
     
     # Create output directory if it doesn't exist
     output_dir.mkdir(exist_ok=True)
