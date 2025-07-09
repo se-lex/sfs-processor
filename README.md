@@ -96,6 +96,21 @@ Efter nedladdning kan du konvertera JSON-filerna till olika format:
 python sfs_processor.py --input sfs_json --output SFS --formats md
 ```
 
+### Automatisk tabellkonvertering
+
+Processorn konverterar automatiskt tabellstrukturer i juridiska dokument till proper Markdown-tabeller:
+
+- **Tab-separerade tabeller**: Vanliga i skattescheman och juridiska referenstabeller
+- **Mellanslag-separerade tabeller**: Ofta i regleringsspecifikationer och näringsdeklarationer
+- **Automatisk detektering**: Ingen manuell intervention krävs
+- **Rensning av tomma kolumner**: Städar upp inkonsekvent spacing
+
+Exempel på konverterade tabeller:
+- Skatte-/avgiftsscheman med produktkoder och satser
+- Internationella fördragstabeller med länder och reservationer
+- Juridiska referenstabeller med lagcitat och beskrivningar
+- Tekniska specifikationer med mätvärden
+
 ### Struktur av genererade Markdown-filer
 
 De genererade Markdown-filerna innehåller strukturerad markup med `<section>`-taggar:

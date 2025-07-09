@@ -32,9 +32,7 @@ from util.datetime_utils import format_datetime, format_datetime_for_git
 from util.file_utils import filter_json_files, save_to_disk
 from temporal.title_temporal import title_temporal
 from util.predocs_parser import parse_predocs_string
-from downloaders.riksdagen_api import fetch_predocs_details, format_predocs_for_frontmatter
-from exporters.git import ensure_git_branch_for_commits, restore_original_branch
-from temporal.amendments import process_markdown_amendments, extract_amendments
+from utils.table_converter import convert_tables_in_markdown
 
 
 def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_branch: str = None, fetch_predocs: bool = False, apply_links: bool = False, target_date: Optional[str] = None) -> None:
@@ -165,6 +163,12 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
 
     # Process amendments using the temporal module
     markdown_content = process_markdown_amendments(markdown_content, data, git_branch, verbose, output_file)
+    
+    # Convert table-like structures to proper Markdown tables
+    # TODO: markdown_content = convert_tables_in_markdown(markdown_content, verbose)
+    
+    # Apply temporal processing to handle selex attributes
+    # TODO: markdown_content = apply_temporal(markdown_content, today, verbose=verbose)
     
     # Extract amendments for git logic (if needed)
     amendments = extract_amendments(data.get('andringsforfattningar', []))
