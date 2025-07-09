@@ -6,10 +6,10 @@ Test script for förarbeten parsing and fetching functionality.
 import sys
 from pathlib import Path
 
-# Add the current directory to the path so we can import our modules
-sys.path.insert(0, str(Path(__file__).parent))
+# Add the parent directory to the path so we can import our modules
+sys.path.insert(0, str(Path(__file__).parent.parent))
 
-from util.predocs_parser import parse_predocs_string
+from formatters.predocs_parser import parse_predocs_string
 from downloaders.riksdagen_api import fetch_predocs_details, format_predocs_for_frontmatter
 
 

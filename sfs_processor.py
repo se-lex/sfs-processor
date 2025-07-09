@@ -1,8 +1,6 @@
 #!/usr/bin/env python3
 """
-Process Swedish legal documents (SFS) from JSON to         # Create markdown document (git mode is enabled if "git" is in output_modes)
-        enable_git = "git" in output_modes
-        _create_markdown_document(data, document_dir, enable_git, verbose) output formats.
+Process Swedish legal documents (SFS) from JSON to various output formats.
 
 This script processes JSON files containing Swedish legal documents from the
 Swedish Code of Statutes (SFS) and converts them to various output formats
@@ -41,8 +39,8 @@ from temporal.apply_temporal import apply_temporal
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime, format_datetime_for_git
 from util.file_utils import filter_json_files, save_to_disk
-from util.predocs_parser import parse_predocs_string
-from utils.table_converter import convert_tables_in_markdown
+from formatters.predocs_parser import parse_predocs_string
+from formatters.table_converter import convert_tables_in_markdown
 
 
 def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_branch: str = None, fetch_predocs: bool = False, apply_links: bool = False, target_date: Optional[str] = None) -> None:

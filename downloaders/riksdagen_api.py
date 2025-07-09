@@ -335,7 +335,7 @@ def download_documents(document_ids: List[str], output_dir: str = "documents") -
 
 if __name__ == "__main__":
     # Test the API functions
-    from util.predocs_parser import parse_predocs_string
+    from formatters.predocs_parser import parse_predocs_string
     
     test_string = "Prop. 2024/25:1, bet. 2024/25:FiU1"
     print(f"Testing with: {test_string}")
