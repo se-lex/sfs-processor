@@ -71,12 +71,40 @@ def apply_sfs_links(text: str) -> str:
     return re.sub(sfs_pattern, replace_sfs_designation, text)
 
 
+def find_chapter_context(text: str, position: int) -> str:
+    """
+    Hitta vilket kapitel en position i texten tillhör.
+    
+    Args:
+        text (str): Hela texten
+        position (int): Position i texten
+        
+    Returns:
+        str: Kapitel-ID (t.ex. "kap1") eller None om inget kapitel
+    """
+    # Hitta alla kapitelrubriker före denna position
+    # Söka efter markdown-rubriker som "1 kap.", "2 kap.", etc.
+    chapter_pattern = r'^#{1,2}\s*(\d+(?:\s*[a-z])?)\s*kap\.?'
+    chapters = []
+    
+    lines = text[:position].split('\n')
+    for line in lines:
+        match = re.match(chapter_pattern, line.strip(), re.IGNORECASE)
+        if match:
+            chapter_num = match.group(1).replace(' ', '')
+            chapters.append(f"kap{chapter_num}")
+    
+    # Returnera det senaste kapitlet som hittades före denna position
+    return chapters[-1] if chapters else None
+
+
 def apply_internal_links(text: str) -> str:
     """
     Letar efter paragrafnummer i löpande text (inte i rubriker) och konverterar dem till interna länkar.
 
     Söker efter mönster som "9 §", "13 a §", "2 b §" etc. och skapar interna länkar
-    till [9 §](#9§), [13 a §](#13a§), [2 b §](#2b§).
+    till [9 §](#9), [13 a §](#13a), [2 b §](#2b) eller med kapitelkontext som
+    [9 §](#kap1.9), [13 a §](#kap2.13a) i dokument med kapitelstruktur.
 
     Args:
         text (str): Texten som ska bearbetas
@@ -86,8 +114,16 @@ def apply_internal_links(text: str) -> str:
     """
     lines = text.split('\n')
     processed_lines = []
-
+    
+    # Bygg en positionsfördelning för att kunna hitta kapitelkontext
+    current_position = 0
+    line_positions = []
+    
     for line in lines:
+        line_positions.append(current_position)
+        current_position += len(line) + 1  # +1 för newline
+
+    for line_idx, line in enumerate(lines):
         # Skippa rubriker (börjar med #)
         if line.strip().startswith('#'):
             processed_lines.append(line)
@@ -136,10 +172,18 @@ def apply_internal_links(text: str) -> str:
             number = parts[0]
             letter = parts[1] if len(parts) > 1 else ''
 
-            # Skapa länktext och anchor
+            # Skapa länktext
             link_text = f"{number}{' ' + letter if letter else ''} §"
-            # Anchor utan mellanslag och § för URL-kompatibilitet
-            anchor = f"{number}{letter}"
+            
+            # Hitta kapitelkontext för denna position
+            absolute_pos = line_positions[line_idx] + start_pos
+            chapter_context = find_chapter_context(text, absolute_pos)
+            
+            # Skapa anchor med eller utan kapitelkontext
+            if chapter_context:
+                anchor = f"{chapter_context}.{number}{letter}"
+            else:
+                anchor = f"{number}{letter}"
 
             return f"[{link_text}](#{anchor})"
 

@@ -861,7 +861,7 @@ def generate_section_id(header_text: str, parent_id: str = None) -> str:
     Regler:
     - Om rubriken innehåller paragrafnummer (t.ex. "5 §", "13 a §"), använd bara paragrafnumret
     - Om rubriken är ett kapitel (t.ex. "1 kap.", "2 a kap."), använd formatet "kap1", "kap2a"
-    - Om parent_id finns och rubriken är en paragraf, lägg till parent som prefix: "kap1.1§"
+    - Om parent_id finns och rubriken är en paragraf, lägg till parent som prefix: "kap1.1"
     - Annars skapa en slug från rubriken (max 30 tecken)
     - Ta bort markeringar (text inom //) innan slug-generering
     
