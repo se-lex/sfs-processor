@@ -28,7 +28,8 @@ from formatters.format_sfs_text import (
     format_sfs_text_as_markdown,
     parse_logical_sections,
     clean_selex_tags,
-    clean_text
+    clean_text,
+    normalize_heading_levels
 )
 from formatters.sort_frontmatter import sort_frontmatter_properties
 from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
@@ -166,6 +167,9 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
 
     # Get basic markdown content
     markdown_content = convert_to_markdown(data, fetch_predocs, apply_links)
+    
+    # Always normalize heading levels, regardless of whether we keep section tags
+    markdown_content = normalize_heading_levels(markdown_content)
 
     # Extract beteckning for logging
     beteckning = data.get('beteckning', '')
@@ -317,6 +321,9 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
             save_to_disk(output_file, markdown_content)
     else:
         # No git mode - write the file normally
+        # Clean selex tags if not preserving them
+        if not preserve_section_tags:
+            markdown_content = clean_selex_tags(markdown_content)
         save_to_disk(output_file, markdown_content)
         print(f"Skapade dokument: {output_file}")
 
