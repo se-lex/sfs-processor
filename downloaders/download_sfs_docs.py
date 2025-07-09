@@ -118,13 +118,13 @@ def main():
     """
     Huvudfunktion som koordinerar hämtning av dokument-ID:n och nedladdning av dokument.
     """
-    parser = argparse.ArgumentParser(description='Ladda ner SFS-dokument från Riksdagens öppna data eller rkrattsbaser')
+    parser = argparse.ArgumentParser(description='Ladda ner SFS-dokument från Regeringskansliets söktjänst eller Riksdagens öppna API')
     parser.add_argument('--ids', default='all',
                         help='Kommaseparerad lista med dokument-ID:n att ladda ner, eller "all" för att hämta alla från Riksdagen (default: all)')
     parser.add_argument('--out', default='sfs_docs',
                         help='Mapp att spara nedladdade dokument i (default: sfs_docs)')
-    parser.add_argument('--source', choices=['riksdagen', 'rkrattsbaser'], default='riksdagen',
-                        help='Välj källa för nedladdning: riksdagen (HTML) eller rkrattsbaser (JSON via Elasticsearch) (default: riksdagen)')
+    parser.add_argument('--source', choices=['riksdagen', 'rkrattsbaser'], default='rkrattsbaser',
+                        help='Välj källa för nedladdning: riksdagen (HTML) eller rkrattsbaser (JSON via Elasticsearch) (default: rkrattsbaser)')
     parser.add_argument('--year', type=int,
                         help='Filtrera dokument för specifikt årtal (t.ex. 2025 för sfs-2025-xxx). Fungerar endast med --ids all och --source riksdagen')
     parser.add_argument('--test-docs', action='store_true',
