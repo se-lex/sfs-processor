@@ -49,9 +49,11 @@ TEMPORAL_MARKER_PATTERN = r'/[^/]+/'
 WHITESPACE_PATTERN = r'\s+'
 CAPITALIZED_PATTERN = r'^[A-ZÅÄÖ]'
 
-# Section tag patterns
+# Section and article tag patterns
 SECTION_TAG_PATTERN = r'^\s*<section[^>]*>\s*$'
 SECTION_CLOSE_TAG_PATTERN = r'^\s*</section>\s*$'
+ARTICLE_TAG_PATTERN = r'^\s*<article[^>]*>\s*$'
+ARTICLE_CLOSE_TAG_PATTERN = r'^\s*</article>\s*$'
 
 # Temporal patterns
 IKRAFT_ANY_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft [Ii]:[^/]+'
@@ -707,22 +709,25 @@ def parse_logical_sections(text: str) -> str:
 
 def check_unprocessed_temporal_sections(text: str) -> None:
     """
-    Kontrollera att inga sektioner med temporal status-attribut finns kvar.
+    Kontrollera att inga sektioner eller artiklar med temporal status-attribut finns kvar.
     
     Denna funktion säkerställer att alla temporala sektioner har behandlats korrekt
-    av temporal processing innan section tags tas bort.
+    av temporal processing innan selex tags tas bort.
     
     Args:
         text (str): Text som ska kontrolleras
         
     Raises:
-        ValueError: Om sektioner med obehandlade status-attribut hittas
+        ValueError: Om sektioner eller artiklar med obehandlade status-attribut hittas
     """
-    # Sök efter section-taggar med temporal attribut som indikerar obehandlad status
+    # Sök efter section- och article-taggar med temporal attribut som indikerar obehandlad status
     temporal_patterns = [
-        r'<section[^>]*selex:ikraft_datum=',  # Ikraftträdandedatum
-        r'<section[^>]*selex:upphor_datum=',  # Upphörandedatum  
-        r'<section[^>]*selex:status=',        # Status attribut
+        r'<section[^>]*selex:ikraft_datum=',  # Section ikraftträdandedatum
+        r'<section[^>]*selex:upphor_datum=',  # Section upphörandedatum  
+        r'<section[^>]*selex:status=',        # Section status attribut
+        r'<article[^>]*selex:ikraft_datum=',  # Article ikraftträdandedatum
+        r'<article[^>]*selex:upphor_datum=',  # Article upphörandedatum  
+        r'<article[^>]*selex:status=',        # Article status attribut
     ]
     
     found_issues = []
@@ -741,9 +746,9 @@ def check_unprocessed_temporal_sections(text: str) -> None:
     
     if found_issues:
         error_msg = (
-            "Fel: Sektioner med obehandlade temporal attribut hittades. "
-            "Dessa borde ha behandlats av temporal processing före borttagning av section tags.\n\n"
-            "Hittade sektioner:\n" + 
+            "Fel: Sektioner eller artiklar med obehandlade temporal attribut hittades. "
+            "Dessa borde ha behandlats av temporal processing före borttagning av selex tags.\n\n"
+            "Hittade element:\n" + 
             "\n".join(f"- {issue}" for issue in found_issues[:5])  # Visa max 5 exempel
         )
         if len(found_issues) > 5:
@@ -752,25 +757,27 @@ def check_unprocessed_temporal_sections(text: str) -> None:
         raise ValueError(error_msg)
 
 
-def clean_section_tags(text: str) -> str:
+def clean_selex_tags(text: str) -> str:
     """
-    Rensa bort alla section-taggar (<section> och </section>) och deras associerade tomma rader.
+    Rensa bort alla selex-taggar (<section>, </section>, <article>, </article>) och deras associerade tomma rader.
     Normaliserar också rubriknivåer så att de inte hoppar över nivåer.
     
     Funktionen kontrollerar först att inga obehandlade temporal sektioner finns,
     sedan rensar den:
     1. Alla <section> taggar (med eller utan attribut)
-    2. Alla </section> taggar  
-    3. Tomma rader som kommer direkt efter <section> taggar
-    4. Tomma rader som kommer direkt före </section> taggar
-    5. Eventuella överflödiga dubletter av tomma rader
-    6. Normaliserar rubriknivåer så att de följer en logisk hierarki (1, 2, 3, 4...)
+    2. Alla </section> taggar
+    3. Alla <article> taggar (med eller utan attribut)
+    4. Alla </article> taggar
+    5. Tomma rader som kommer direkt efter <section> eller <article> taggar
+    6. Tomma rader som kommer direkt före </section> eller </article> taggar
+    7. Eventuella överflödiga dubletter av tomma rader
+    8. Normaliserar rubriknivåer så att de följer en logisk hierarki (1, 2, 3, 4...)
     
     Args:
-        text (str): Text med section-taggar och tomma rader
+        text (str): Text med selex-taggar och tomma rader
         
     Returns:
-        str: Rensat text utan section-taggar och deras associerade tomma rader,
+        str: Rensat text utan selex-taggar och deras associerade tomma rader,
              med normaliserade rubriknivåer
         
     Raises:
@@ -785,11 +792,11 @@ def clean_section_tags(text: str) -> str:
     while i < len(lines):
         line = lines[i]
         
-        # Kontrollera om raden är en <section> tagg
-        if re.match(SECTION_TAG_PATTERN, line):
-            # Hoppa över <section> taggen
+        # Kontrollera om raden är en <section> eller <article> tagg
+        if re.match(SECTION_TAG_PATTERN, line) or re.match(ARTICLE_TAG_PATTERN, line):
+            # Hoppa över taggen
             i += 1
-            # Behåll den tomma raden efter <section> för markdown-standard om nästa rad är en rubrik
+            # Behåll den tomma raden efter taggen för markdown-standard om nästa rad är en rubrik
             if (i < len(lines) and lines[i].strip() == '' and 
                 i + 1 < len(lines) and re.match(r'#{1,6}\s', lines[i + 1].strip())):
                 # Den tomma raden följs av en rubrik, behåll den
@@ -800,12 +807,12 @@ def clean_section_tags(text: str) -> str:
                 i += 1
             continue
             
-        # Kontrollera om raden är en </section> tagg
-        elif re.match(SECTION_CLOSE_TAG_PATTERN, line):
-            # Ta bort föregående tom rad om den finns (eftersom vi lägger till tom rad före </section>)
+        # Kontrollera om raden är en </section> eller </article> tagg
+        elif re.match(SECTION_CLOSE_TAG_PATTERN, line) or re.match(ARTICLE_CLOSE_TAG_PATTERN, line):
+            # Ta bort föregående tom rad om den finns (eftersom vi lägger till tom rad före sluttaggen)
             if result and result[-1].strip() == '':
                 result.pop()
-            # Hoppa över </section> taggen utan att lägga till den
+            # Hoppa över sluttaggen utan att lägga till den
             i += 1
             continue
             

@@ -23,7 +23,7 @@ import re
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from formatters.format_sfs_text import format_sfs_text_as_markdown, parse_logical_sections, clean_section_tags, clean_text, check_unprocessed_temporal_sections
+from formatters.format_sfs_text import format_sfs_text_as_markdown, parse_logical_sections, clean_selex_tags, clean_text, check_unprocessed_temporal_sections
 from formatters.sort_frontmatter import sort_frontmatter_properties
 from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
 from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
@@ -270,7 +270,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                     # Clean section tags if not preserving them
                     final_content = markdown_content
                     if not preserve_section_tags:
-                        final_content = clean_section_tags(final_content)
+                        final_content = clean_selex_tags(final_content)
                     # Write the file anyway, without git commits
                     save_to_disk(output_file, final_content)
                     # Restore original branch on error
@@ -280,7 +280,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                     # Clean section tags if not preserving them
                     final_content = markdown_content
                     if not preserve_section_tags:
-                        final_content = clean_section_tags(final_content)
+                        final_content = clean_selex_tags(final_content)
                     # Write the file anyway, without git commits
                     save_to_disk(output_file, final_content)
                     # Restore original branch on error
@@ -289,7 +289,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                 # Clean section tags if not preserving them
                 final_content = markdown_content
                 if not preserve_section_tags:
-                    final_content = clean_section_tags(final_content)
+                    final_content = clean_selex_tags(final_content)
                 # Branch creation failed, write file without git commits
                 print(f"Hoppar över Git-commits för {beteckning} på grund av branch-problem")
                 save_to_disk(output_file, final_content)
@@ -297,14 +297,14 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
             # Clean section tags if not preserving them
             final_content = markdown_content
             if not preserve_section_tags:
-                final_content = clean_section_tags(final_content)
+                final_content = clean_selex_tags(final_content)
             # Write file if git is enabled but no commits needed
             save_to_disk(output_file, final_content)
     else:
-        # Clean section tags if not preserving them
+        # Clean selex tags if not preserving them
         final_content = markdown_content
         if not preserve_section_tags:
-            final_content = clean_section_tags(final_content)
+            final_content = clean_selex_tags(final_content)
         # No git mode - write the file normally
         save_to_disk(output_file, final_content)
         print(f"Skapade dokument: {output_file}")
@@ -480,7 +480,24 @@ departement: {format_yaml_value(organisation)}
         # Create Markdown body (clean the original rubrik for heading)
         clean_heading = re.sub(r'[\r\n]+', ' ', rubrik_original) if rubrik_original else ""
         clean_heading = re.sub(r'\s+', ' ', clean_heading).strip()
-        markdown_body = f"# {clean_heading}\n\n" + formatted_text
+        
+        # Create article tag with temporal attributes
+        article_attributes = []
+        ikraft_datum = format_datetime(data.get('ikraftDateTime'))
+        if ikraft_datum:
+            article_attributes.append(f'selex:ikraft_datum="{ikraft_datum}"')
+        
+        # Check for expiration date in both tidsbegransadDateTime and upphavdDateTime
+        upphor_datum = utgar_datum or format_datetime(data.get('upphavdDateTime'))
+        if upphor_datum:
+            article_attributes.append(f'selex:upphor_datum="{upphor_datum}"')
+        
+        if article_attributes:
+            article_tag = f'<article {" ".join(article_attributes)}>'
+        else:
+            article_tag = '<article>'
+        
+        markdown_body = f"{article_tag}\n\n# {clean_heading}\n\n" + formatted_text + "\n\n</article>"
 
     # Section tags are preserved in markdown_body - they will be cleaned later if needed
 
