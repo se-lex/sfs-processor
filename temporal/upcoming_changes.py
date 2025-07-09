@@ -1,13 +1,57 @@
 #!/usr/bin/env python3
 """
-Module for identifying upcoming changes in Swedish legal documents in Selex markup.
+Module for identifying upcoming changes in Swedish legal documents.
 
-This module provides functionality to extract effective dates (ikraft) and 
-expiration dates (upphor) from Markdown files with Selex section tags and YAML front matter.
+This module extracts temporal information from Markdown files containing Swedish legal 
+documents marked up with Selex attributes. It identifies dates when legal provisions 
+enter into force (ikraft) or expire (upphor).
 
-Will generate a YAML file called `kommande.yaml` in the current directory, which contains
-the upcoming changes. The YAML file will have dates as keys and lists of document IDs 
-(beteckningar) as values for documents that have changes on those dates.
+## Supported Date Sources
+
+The module searches for dates in the following Selex markup patterns:
+
+### Section Tags
+- `<section selex:ikraft_datum="YYYY-MM-DD">` - Entry into force date
+- `<section selex:upphor_datum="YYYY-MM-DD">` - Expiration date
+
+### Article Tags
+- `<article selex:ikraft_datum="YYYY-MM-DD">` - Entry into force date
+- `<article selex:upphor_datum="YYYY-MM-DD">` - Expiration date
+
+## Output Format
+
+The module generates a YAML file at `data/kommande.yaml` with the following structure:
+
+```yaml
+'2025-01-15':
+  - '2024:1274'
+  - '2024:1275'
+'2025-07-01':
+  - '2025:399'
+```
+
+Each date key contains a list of document IDs (beteckningar) that have changes on that date.
+Document IDs are extracted from filenames and converted from `sfs-YYYY-NNNN.md` format 
+to `YYYY:NNNN` format.
+
+## Usage
+
+```python
+from temporal.upcoming_changes import process_markdown_files
+
+# Process all .md files in a directory
+process_markdown_files('path/to/markdown/files')
+```
+
+Or run directly from command line:
+```bash
+python temporal/upcoming_changes.py sfs-test/
+```
+
+## Date Validation
+
+All dates must be in YYYY-MM-DD format and represent valid calendar dates.
+Invalid dates or malformed date strings are silently ignored.
 """
 
 import re
@@ -22,11 +66,11 @@ UPCOMING_CHANGES_FILE_PATH = "data/kommande.yaml"
 def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
     """
     Identify upcoming changes in a markdown document by extracting effective dates
-    and expiration dates from both front matter and section tags.
+    and expiration dates from section and article tags.
     
     This function searches for:
-    1. ikraft_datum in the YAML front matter
-    2. selex:ikraft_datum and selex:upphor_datum in section tags
+    1. selex:ikraft_datum and selex:upphor_datum in section tags
+    2. selex:ikraft_datum and selex:upphor_datum in article tags
     3. selex:status with corresponding date attributes
     
     Args:
@@ -36,14 +80,12 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
         List of dictionaries containing date information with keys:
         - 'type': 'ikraft' or 'upphor'
         - 'date': The date in YYYY-MM-DD format
-        - 'source': 'frontmatter' or 'section_tag'
-        - 'section_id': Section ID if available, None otherwise
+        - 'source': 'section_tag' or 'article_tag'
+        - 'section_id': Section/Article ID if available, None otherwise
         
     Example:
-        >>> content = '''---
-        ... ikraft_datum: 2025-01-01
-        ... ---
-        ... <section id="1§" selex:status="ikraft" selex:ikraft_datum="2025-02-01">
+        >>> content = '''<section id="1§" selex:ikraft_datum="2025-02-01">
+        ... <article id="2§" selex:upphor_datum="2025-12-31">
         ... '''
         >>> changes = identify_upcoming_changes(content)
         >>> len(changes)
@@ -51,30 +93,7 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
     """
     changes = []
     
-    # Extract front matter
-    if markdown_content.startswith('---'):
-        try:
-            # Find the end of front matter
-            end_marker = markdown_content.find('\n---\n', 4)
-            if end_marker != -1:
-                front_matter_text = markdown_content[4:end_marker]
-                front_matter = yaml.safe_load(front_matter_text)
-                
-                # Extract ikraft_datum from front matter
-                if 'ikraft_datum' in front_matter and front_matter['ikraft_datum']:
-                    ikraft_date = str(front_matter['ikraft_datum'])
-                    # Ensure date format is YYYY-MM-DD
-                    if len(ikraft_date) == 10 and ikraft_date.count('-') == 2:
-                        changes.append({
-                            'type': 'ikraft',
-                            'date': ikraft_date,
-                            'source': 'frontmatter',
-                            'section_id': None
-                        })
-        except yaml.YAMLError:
-            pass  # Ignore YAML parsing errors
-    
-    # Extract dates from section tags using regex
+    # Extract dates from section and article tags using regex
     
     # Pattern for section tags with selex attributes - ikraft_datum and upphor_datum
     section_pattern = r'<section[^>]*selex:(ikraft_datum|upphor_datum)="([^"]+)"[^>]*(?:id="([^"]*)")?[^>]*>'
@@ -107,14 +126,46 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
             except ValueError:
                 pass  # Skip invalid dates
     
+    # Pattern for article tags with selex attributes
+    article_pattern = r'<article[^>]*selex:(ikraft_datum|upphor_datum)="([^"]+)"[^>]*(?:id="([^"]*)")?[^>]*>'
+    article_matches = re.finditer(article_pattern, markdown_content)
+    
+    for match in article_matches:
+        attribute_name = match.group(1)
+        date_value = match.group(2)
+        article_id = match.group(3) if match.group(3) else None
+        
+        # Extract ikraft_datum and upphor_datum from article tags
+        if attribute_name == 'ikraft_datum':
+            date_type = 'ikraft'
+        elif attribute_name == 'upphor_datum':
+            date_type = 'upphor'
+        else:
+            continue  # Skip other date types
+            
+        # Validate date format
+        if len(date_value) == 10 and date_value.count('-') == 2:
+            try:
+                # Verify it's a valid date
+                datetime.strptime(date_value, '%Y-%m-%d')
+                changes.append({
+                    'type': date_type,
+                    'date': date_value,
+                    'source': 'article_tag',
+                    'section_id': article_id
+                })
+            except ValueError:
+                pass  # Skip invalid dates
+    
     # Also look for simpler selex:status patterns with dates in separate attributes
-    status_pattern = r'<section[^>]*selex:status="(ikraft|upphor)"[^>]*selex:(?:ikraft_datum|upphor_datum)="([^"]+)"[^>]*(?:id="([^"]*)")?[^>]*>'
+    status_pattern = r'<(section|article)[^>]*selex:status="(ikraft|upphor)"[^>]*selex:(?:ikraft_datum|upphor_datum)="([^"]+)"[^>]*(?:id="([^"]*)")?[^>]*>'
     status_matches = re.finditer(status_pattern, markdown_content)
     
     for match in status_matches:
-        status = match.group(1)
-        date_value = match.group(2)
-        section_id = match.group(3) if match.group(3) else None
+        tag_type = match.group(1)
+        status = match.group(2)
+        date_value = match.group(3)
+        element_id = match.group(4) if match.group(4) else None
         
         # Only process ikraft and upphor status
         if status not in ['ikraft', 'upphor']:
@@ -130,16 +181,17 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
                 for existing in changes:
                     if (existing['type'] == status and 
                         existing['date'] == date_value and 
-                        existing['section_id'] == section_id):
+                        existing['section_id'] == element_id):
                         duplicate = True
                         break
                 
                 if not duplicate:
+                    source_type = 'article_tag' if tag_type == 'article' else 'section_tag'
                     changes.append({
                         'type': status,
                         'date': date_value,
-                        'source': 'section_tag',
-                        'section_id': section_id
+                        'source': source_type,
+                        'section_id': element_id
                     })
             except ValueError:
                 pass  # Skip invalid dates
