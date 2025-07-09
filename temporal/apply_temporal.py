@@ -56,15 +56,18 @@ def apply_temporal(markdown_text: str, target_date: str, verbose: bool = False) 
     while i < len(lines):
         line = lines[i]
         
-        # Kolla om raden är en section-öppning
-        section_match = re.match(r'<section(.*)>', line)
+        # Kolla om raden är en section- eller article-öppning
+        section_match = re.match(r'<(section|article)(.*)>', line)
         if section_match:
-            attributes = section_match.group(1)
+            tag_type = section_match.group(1)
+            attributes = section_match.group(2)
             
             # Extrahera datum-attribut och status-attribut
             upphor_match = re.search(r'selex:upphor_datum="(\d{4}-\d{2}-\d{2})"', attributes)
             ikraft_match = re.search(r'selex:ikraft_datum="(\d{4}-\d{2}-\d{2})"', attributes)
             status_match = re.search(r'selex:status="([^"]+)"', attributes)
+            ikraft_villkor_match = re.search(r'selex:ikraft_villkor="([^"]+)"', attributes)
+            upphor_villkor_match = re.search(r'selex:upphor_villkor="([^"]+)"', attributes)
             
             should_remove = False
             remove_reason = ""
@@ -72,10 +75,10 @@ def apply_temporal(markdown_text: str, target_date: str, verbose: bool = False) 
             # Kontrollera status-attribut
             if status_match:
                 status_value = status_match.group(1)
-                if status_value == "upphavd":
+                if "upphavd" in status_value:
                     should_remove = True
                     remove_reason = f"status '{status_value}'"
-                elif status_value == "ikraft" and ikraft_match:
+                elif "ikraft" in status_value and ikraft_match:
                     # För status="ikraft" med ikraft_datum, använd datum-logiken
                     ikraft_date = ikraft_match.group(1)
                     ikraft_datetime = datetime.strptime(ikraft_date, '%Y-%m-%d')
@@ -113,12 +116,12 @@ def apply_temporal(markdown_text: str, target_date: str, verbose: bool = False) 
                         break
                     temp_i += 1
                 
-                # Hitta slutet av sektionen
+                # Hitta slutet av sektionen/artikeln
                 while i < len(lines) and section_depth > 0:
                     current_line = lines[i]
-                    if current_line.strip().startswith('<section'):
+                    if current_line.strip().startswith('<section') or current_line.strip().startswith('<article'):
                         section_depth += 1
-                    elif current_line.strip() == '</section>':
+                    elif current_line.strip() == '</section>' or current_line.strip() == '</article>':
                         section_depth -= 1
                     i += 1
                 
@@ -140,21 +143,37 @@ def apply_temporal(markdown_text: str, target_date: str, verbose: bool = False) 
                 clean_reason = ""
                 
                 # Om status="ikraft" och ikraft_datum <= target_date, ta bort temporal attribut
-                if status_match and status_match.group(1) == "ikraft" and ikraft_match:
+                if status_match and "ikraft" in status_match.group(1) and ikraft_match:
                     ikraft_date = ikraft_match.group(1)
                     ikraft_datetime = datetime.strptime(ikraft_date, '%Y-%m-%d')
                     if ikraft_datetime <= target_datetime:
                         should_clean_attributes = True
                         clean_reason = f"status 'ikraft' har trätt i kraft ({ikraft_date} <= {target_date})"
                 
+                # Om ikraft_datum <= target_date (utan status), ta bort temporal attribut
+                if ikraft_match and not should_clean_attributes and not status_match:
+                    ikraft_date = ikraft_match.group(1)
+                    ikraft_datetime = datetime.strptime(ikraft_date, '%Y-%m-%d')
+                    if ikraft_datetime <= target_datetime:
+                        should_clean_attributes = True
+                        clean_reason = f"ikraft_datum har trätt i kraft ({ikraft_date} <= {target_date})"
+                
+                # Om status="ikraft" med ikraft_villkor (utan specifikt datum), ta bort temporal attribut
+                if status_match and "ikraft" in status_match.group(1) and ikraft_villkor_match and not ikraft_match and not should_clean_attributes:
+                    should_clean_attributes = True
+                    clean_reason = f"status 'ikraft' med villkor är conditional, rensar temporal attribut"
+                
                 if should_clean_attributes:
-                    # Ta bort temporal attribut från section-taggen
+                    # Ta bort temporal attribut från section/article-taggen
                     cleaned_line = re.sub(r'\s*selex:status="[^"]*"', '', line)
                     cleaned_line = re.sub(r'\s*selex:ikraft_datum="[^"]*"', '', cleaned_line)
                     cleaned_line = re.sub(r'\s*selex:upphor_datum="[^"]*"', '', cleaned_line)
+                    cleaned_line = re.sub(r'\s*selex:ikraft_villkor="[^"]*"', '', cleaned_line)
+                    cleaned_line = re.sub(r'\s*selex:upphor_villkor="[^"]*"', '', cleaned_line)
                     # Rensa upp extra mellanslag
                     cleaned_line = re.sub(r'\s+>', '>', cleaned_line)
                     cleaned_line = re.sub(r'<section\s+>', '<section>', cleaned_line)
+                    cleaned_line = re.sub(r'<article\s+>', '<article>', cleaned_line)
                     
                     result.append(cleaned_line)
                     changes_applied += 1

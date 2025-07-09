@@ -23,14 +23,24 @@ import re
 from datetime import datetime
 from pathlib import Path
 from typing import Dict, Any, List, Optional
-from formatters.format_sfs_text import format_sfs_text_as_markdown, parse_logical_sections, clean_selex_tags, clean_text, check_unprocessed_temporal_sections
+
+from downloaders.riksdagen_api import fetch_predocs_details, format_predocs_for_frontmatter
+from exporters.git import ensure_git_branch_for_commits, restore_original_branch
+from formatters.format_sfs_text import (
+    format_sfs_text_as_markdown,
+    parse_logical_sections,
+    clean_selex_tags,
+    clean_text
+)
 from formatters.sort_frontmatter import sort_frontmatter_properties
 from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
 from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
+from temporal.title_temporal import title_temporal
+from temporal.amendments import process_markdown_amendments, extract_amendments
+from temporal.apply_temporal import apply_temporal
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime, format_datetime_for_git
 from util.file_utils import filter_json_files, save_to_disk
-from temporal.title_temporal import title_temporal
 from util.predocs_parser import parse_predocs_string
 from utils.table_converter import convert_tables_in_markdown
 
@@ -131,6 +141,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
         create_html_documents(data, output_dir, include_amendments=True)
 
 
+
 def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branch: str = None, preserve_section_tags: bool = False, verbose: bool = False, fetch_predocs: bool = False, apply_links: bool = False) -> str:
     """Internal function to create a markdown document from JSON data.
 
@@ -189,7 +200,6 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
             print(f"Debug: Innehållsförhandsvisning eftersom misstänkt kort:\n{markdown_content[:500]}...")
 
     # Handle git commits if enabled
-    final_content = markdown_content
     if git_enabled:
         import subprocess
 
@@ -216,6 +226,10 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                     if predocs:
                         commit_message += f"\n\nHar tillkommit i Svensk författningssamling efter dessa förarbeten: {predocs}"
 
+                    # Clean selex tags if not preserving them
+                    #if not preserve_section_tags:
+                        # TODO: markdown_content = clean_selex_tags(markdown_content)
+
                     # Write file for first commit (without ikraft_datum)
                     save_to_disk(output_file, markdown_content)
                     
@@ -240,10 +254,16 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                     else:
                         print(f"Inga ändringar att commita för första commit av {beteckning}")
 
-                    # Second commit: add ikraft_datum to front matter if it exists
+                    # Second commit: add "entry into force" (ikraft_datum) to front matter if it exists
                     if ikraft_datum:
-                        # Add ikraft_datum and sort front matter
+                        # Add "entry into force" date (ikraft_datum) and sort front matter
                         markdown_content_with_ikraft = add_ikraft_datum_to_frontmatter(markdown_content, ikraft_datum, beteckning)
+                        
+                        # Apply temporal rules as of the ikraft_datum (entry into force date)
+                        markdown_content_with_ikraft = apply_temporal(markdown_content_with_ikraft, ikraft_datum, verbose=verbose)
+
+                        if not preserve_section_tags:
+                            markdown_content_with_ikraft = clean_selex_tags(markdown_content_with_ikraft)
 
                         # Write updated file with ikraft_datum
                         save_to_disk(output_file, markdown_content_with_ikraft)
@@ -265,8 +285,8 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                         else:
                             print(f"Inga ändringar att commita för ikraft_datum av {beteckning}")
 
-                        # Use the content with ikraft_datum as final content
-                        final_content = markdown_content_with_ikraft
+                        # Use the content with ikraft_datum
+                        markdown_content = markdown_content_with_ikraft
 
                     # Push the new branch to remote
                     try:
@@ -280,49 +300,29 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
                     # Print stderr output for debugging
                     if hasattr(e, 'stderr') and e.stderr:
                         print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
-                    # Clean section tags if not preserving them
-                    final_content = markdown_content
-                    if not preserve_section_tags:
-                        final_content = clean_selex_tags(final_content)
                     # Write the file anyway, without git commits
-                    save_to_disk(output_file, final_content)
+                    save_to_disk(output_file, markdown_content)
                     # Restore original branch on error
                     restore_original_branch(original_branch)
                 except FileNotFoundError:
                     print("Varning: Git hittades inte. Hoppar över Git-commits.")
-                    # Clean section tags if not preserving them
-                    final_content = markdown_content
-                    if not preserve_section_tags:
-                        final_content = clean_selex_tags(final_content)
                     # Write the file anyway, without git commits
-                    save_to_disk(output_file, final_content)
+                    save_to_disk(output_file, markdown_content)
                     # Restore original branch on error
                     restore_original_branch(original_branch)
             else:
-                # Clean section tags if not preserving them
-                final_content = markdown_content
-                if not preserve_section_tags:
-                    final_content = clean_selex_tags(final_content)
                 # Branch creation failed, write file without git commits
                 print(f"Hoppar över Git-commits för {beteckning} på grund av branch-problem")
-                save_to_disk(output_file, final_content)
+                save_to_disk(output_file, markdown_content)
         else:
-            # Clean section tags if not preserving them
-            final_content = markdown_content
-            if not preserve_section_tags:
-                final_content = clean_selex_tags(final_content)
             # Write file if git is enabled but no commits needed
-            save_to_disk(output_file, final_content)
+            save_to_disk(output_file, markdown_content)
     else:
-        # Clean selex tags if not preserving them
-        final_content = markdown_content
-        if not preserve_section_tags:
-            final_content = clean_selex_tags(final_content)
         # No git mode - write the file normally
-        save_to_disk(output_file, final_content)
+        save_to_disk(output_file, markdown_content)
         print(f"Skapade dokument: {output_file}")
 
-    return final_content
+    return markdown_content
 
 
 def convert_to_markdown(data: Dict[str, Any], fetch_predocs: bool = False, apply_links: bool = False) -> str:
