@@ -755,6 +755,7 @@ def check_unprocessed_temporal_sections(text: str) -> None:
 def clean_section_tags(text: str) -> str:
     """
     Rensa bort alla section-taggar (<section> och </section>) och deras associerade tomma rader.
+    Normaliserar också rubriknivåer så att de inte hoppar över nivåer.
     
     Funktionen kontrollerar först att inga obehandlade temporal sektioner finns,
     sedan rensar den:
@@ -763,12 +764,14 @@ def clean_section_tags(text: str) -> str:
     3. Tomma rader som kommer direkt efter <section> taggar
     4. Tomma rader som kommer direkt före </section> taggar
     5. Eventuella överflödiga dubletter av tomma rader
+    6. Normaliserar rubriknivåer så att de följer en logisk hierarki (1, 2, 3, 4...)
     
     Args:
         text (str): Text med section-taggar och tomma rader
         
     Returns:
-        str: Rensat text utan section-taggar och deras associerade tomma rader
+        str: Rensat text utan section-taggar och deras associerade tomma rader,
+             med normaliserade rubriknivåer
         
     Raises:
         ValueError: Om obehandlade temporal sektioner hittas
@@ -831,7 +834,11 @@ def clean_section_tags(text: str) -> str:
     while cleaned_result and cleaned_result[-1].strip() == '':
         cleaned_result.pop()
     
-    return '\n'.join(cleaned_result)
+    # Normalisera rubriknivåer så att de inte hoppar över nivåer
+    final_text = '\n'.join(cleaned_result)
+    final_text = normalize_heading_levels(final_text)
+    
+    return final_text
 
 
 def generate_section_id(header_text: str, parent_id: str = None) -> str:
@@ -862,8 +869,7 @@ def generate_section_id(header_text: str, parent_id: str = None) -> str:
         paragraph_num = paragraph_match.group(1).replace(' ', '')
         if parent_id:
             return f"{parent_id}.{paragraph_num}"
-        else:
-            return f"{paragraph_num}"
+        return f"{paragraph_num}"
     
     # Kontrollera om det är ett kapitel (använd samma mönster som i format_sfs_text_as_markdown)
     kapitel_match = re.match(KAPITEL_PATTERN, cleaned_header)
@@ -890,6 +896,58 @@ def generate_section_id(header_text: str, parent_id: str = None) -> str:
         return f"{parent_id}.{slug}"
     else:
         return slug
+
+
+def normalize_heading_levels(text: str) -> str:
+    """
+    Normalisera rubriknivåer så att de inte hoppar över nivåer.
+    
+    Om det finns rubriker på nivå 1 och 3 men inte nivå 2, kommer nivå 3 att 
+    justeras till nivå 2. Detta säkerställer valid Markdown där rubriknivåer 
+    följer en logisk hierarki utan hopp.
+    
+    Args:
+        text (str): Markdown-text med rubriker
+        
+    Returns:
+        str: Text med normaliserade rubriknivåer
+    """
+    lines = text.split('\n')
+    
+    # Först, hitta alla rubriknivåer som används i dokumentet
+    used_levels = set()
+    for line in lines:
+        match = re.match(r'^(#{1,6})\s+', line)
+        if match:
+            level = len(match.group(1))
+            used_levels.add(level)
+    
+    if not used_levels:
+        return text  # Inga rubriker att normalisera
+    
+    # Skapa mappning från gamla nivåer till nya nivåer
+    sorted_levels = sorted(used_levels)
+    level_mapping = {}
+    
+    # Börja från nivå 1 och tilldela nya nivåer sekventiellt
+    new_level = 1
+    for old_level in sorted_levels:
+        level_mapping[old_level] = new_level
+        new_level += 1
+    
+    # Tillämpa den nya nivåmappningen
+    result_lines = []
+    for line in lines:
+        match = re.match(r'^(#{1,6})(\s+.*)$', line)
+        if match:
+            old_level = len(match.group(1))
+            new_level = level_mapping.get(old_level, old_level)
+            new_hashes = '#' * new_level
+            result_lines.append(new_hashes + match.group(2))
+        else:
+            result_lines.append(line)
+    
+    return '\n'.join(result_lines)
 
 
 def clean_text(text: Optional[str]) -> str:
