@@ -492,6 +492,14 @@ departement: {format_yaml_value(organisation)}
         if upphor_datum:
             article_attributes.append(f'selex:upphor_datum="{upphor_datum}"')
         
+        # Check for conditional entry into force
+        if data.get('ikraftDenDagenRegeringenBestammer'):
+            article_attributes.append(f'selex:ikraft_villkor="Denna lag träder i kraft den dag regeringen bestämmer."')
+        
+        # Check for conditional expiration
+        if data.get('upphavdDenDagenRegeringenBestammer'):
+            article_attributes.append(f'selex:upphor_villkor="Denna lag upphör att gälla den dag regeringen bestämmer."')
+        
         if article_attributes:
             article_tag = f'<article {" ".join(article_attributes)}>'
         else:

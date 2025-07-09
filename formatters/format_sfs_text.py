@@ -639,10 +639,10 @@ def parse_logical_sections(text: str) -> str:
             if status_values:
                 attributes.append(f'selex:status="{" ".join(status_values)}"')
             
-            if upphor_datum:
-                attributes.append(f'selex:upphor_datum="{upphor_datum}"')
             if ikraft_datum:
                 attributes.append(f'selex:ikraft_datum="{ikraft_datum}"')
+            if upphor_datum:
+                attributes.append(f'selex:upphor_datum="{upphor_datum}"')
             if ikraft_villkor:
                 attributes.append(f'selex:ikraft_villkor="{ikraft_villkor}"')
 
