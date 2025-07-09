@@ -709,25 +709,27 @@ def parse_logical_sections(text: str) -> str:
 
 def check_unprocessed_temporal_sections(text: str) -> None:
     """
-    Kontrollera att inga sektioner eller artiklar med temporal status-attribut finns kvar.
+    Kontrollera att inga sektioner med temporal status-attribut finns kvar.
     
     Denna funktion säkerställer att alla temporala sektioner har behandlats korrekt
     av temporal processing innan selex tags tas bort.
+    
+    Obs: Eftersom artikel-temporala attribut (selex:ikraft_datum, selex:upphor_datum, etc.)
+    läggs till i frontmatter och hanteras inte här, så kontrolleras endast
+    <section> och </section> taggar för obehandlade status-attribut.
     
     Args:
         text (str): Text som ska kontrolleras
         
     Raises:
-        ValueError: Om sektioner eller artiklar med obehandlade status-attribut hittas
+        ValueError: Om sektioner med obehandlade status-attribut hittas
     """
     # Sök efter section- och article-taggar med temporal attribut som indikerar obehandlad status
     temporal_patterns = [
         r'<section[^>]*selex:ikraft_datum=',  # Section ikraftträdandedatum
         r'<section[^>]*selex:upphor_datum=',  # Section upphörandedatum  
         r'<section[^>]*selex:status=',        # Section status attribut
-        r'<article[^>]*selex:ikraft_datum=',  # Article ikraftträdandedatum
-        r'<article[^>]*selex:upphor_datum=',  # Article upphörandedatum  
-        r'<article[^>]*selex:status=',        # Article status attribut
+        # Note: Article temporal attributes are handled in frontmatter, not in temporal processing
     ]
     
     found_issues = []
@@ -766,12 +768,16 @@ def clean_selex_tags(text: str) -> str:
     sedan rensar den:
     1. Alla <section> taggar (med eller utan attribut)
     2. Alla </section> taggar
-    3. Alla <article> taggar (med eller utan attribut)
+    3. Alla <article> taggar (med eller utan attribut) - artikelattribut hanteras i frontmatter
     4. Alla </article> taggar
     5. Tomma rader som kommer direkt efter <section> eller <article> taggar
     6. Tomma rader som kommer direkt före </section> eller </article> taggar
     7. Eventuella överflödiga dubletter av tomma rader
     8. Normaliserar rubriknivåer så att de följer en logisk hierarki (1, 2, 3, 4...)
+    
+    Obs: Artikel-temporala attribut (selex:ikraft_datum, selex:upphor_datum, etc.) läggas också
+    till i frontmatter och hanteras inte här. Därför tas <article>-taggen bort bort 
+    här utan att kontrollera dess attribut.
     
     Args:
         text (str): Text med selex-taggar och tomma rader
