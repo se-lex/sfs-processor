@@ -35,11 +35,11 @@ from .apply_links import apply_sfs_links, apply_internal_links, apply_eu_links, 
 
 # Regex patterns as constants
 PARAGRAPH_PATTERN = r'(\d+(?:\s*[a-z])?)\s*§'
-KAPITEL_PATTERN = r'^(\d+)(?:\s*([a-zA-Z]))?\s*[Kk]ap\.?'  # t.ex. 1 kap., 2 a kap.
-AVDELNING_PATTERN_1 = r'^(?:AVDELNING|AVD\.)\s*[IVX]+(?:\.|$|\s)'
-AVDELNING_PATTERN_2 = r'^(?:FÖRSTA|ANDRA|TREDJE|FJÄRDE|FEMTE|SJÄTTE|SJUNDE|ÅTTONDE|NIONDE|TIONDE)\s+(?:AVDELNING|AVD\.)'
+CHAPTER_PATTERN = r'^(\d+)(?:\s*([a-zA-Z]))?\s*[Kk]ap\.?'  # t.ex. 1 kap., 2 a kap.
+DIVISION_PATTERN_1 = r'^(?:AVDELNING|AVD\.)\s*[IVX]+(?:\.|$|\s)'
+DIVISION_PATTERN_2 = r'^(?:FÖRSTA|ANDRA|TREDJE|FJÄRDE|FEMTE|SJÄTTE|SJUNDE|ÅTTONDE|NIONDE|TIONDE)\s+(?:AVDELNING|AVD\.)'
 ARTIKEL_PATTERN = r'^Artikel\s+\d+$'
-BILAGA_PREFIX = 'Bilaga '
+ATTACHMENT_PREFIX = 'Bilaga '
 
 HEADER_LEVEL_PATTERN = r'^(#{2,6})\s+(.+)'
 LIST_NUMBERED_PATTERN = r'^\d+\.'
@@ -56,12 +56,12 @@ ARTICLE_TAG_PATTERN = r'^\s*<article[^>]*>\s*$'
 ARTICLE_CLOSE_TAG_PATTERN = r'^\s*</article>\s*$'
 
 # Temporal patterns
-IKRAFT_ANY_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft [Ii]:[^/]+'
-IKRAFT_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft [Ii]:[^/]+/\s*'
-IKRAFT_DATE_EXTRACT_PATTERN = r'[Ii]:(\d{4}-\d{2}-\d{2})'
+INTOFORCE_ANY_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft [Ii]:[^/]+'
+INTOFORCE_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft [Ii]:[^/]+/\s*'
+INTOFORCE_DATE_EXTRACT_PATTERN = r'[Ii]:(\d{4}-\d{2}-\d{2})'
 
-UPPHOR_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?upphör att gälla [Uu]:[^/]+/\s*'
-UPPHOR_DATE_EXTRACT_PATTERN = r'[Uu]:(\d{4}-\d{2}-\d{2})'
+REVOKE_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?upphör att gälla [Uu]:[^/]+/\s*'
+REVOKE_DATE_EXTRACT_PATTERN = r'[Uu]:(\d{4}-\d{2}-\d{2})'
 
 # Exclusion patterns
 DEFINITION_PATTERN = r'^I denna (förordning|lag) avses med$'
@@ -220,10 +220,10 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                 if is_chapter_header(cleaned_line.strip()):
                     _add_header_with_blank_line(formatted, '##', original_line)
                 # Kontrollera om det är ett kapitel (börjar med "X kap." eller "X Kap" eller "X A Kap")
-                elif re.match(KAPITEL_PATTERN, cleaned_line.strip()):
+                elif re.match(CHAPTER_PATTERN, cleaned_line.strip()):
                     _add_header_with_blank_line(formatted, '##', original_line)
                 # Kontrollera om det är en bilaga (börjar med "Bilaga ")
-                elif cleaned_line.strip().startswith(BILAGA_PREFIX):
+                elif cleaned_line.strip().startswith(ATTACHMENT_PREFIX):
                     _add_header_with_blank_line(formatted, '##', original_line)
                 # Kontrollera om det är en artikel (börjar med "Artikel X")
                 elif re.match(ARTIKEL_PATTERN, cleaned_line.strip()):
@@ -430,8 +430,8 @@ def _is_section_ikraft(header_line: str, content: str) -> bool:
     content_lower = content.lower()
 
     # Kontrollera både i rubrik och innehåll efter ikraft-markeringar med giltigt datum eller villkor
-    return (re.search(IKRAFT_ANY_PATTERN, header_lower) is not None or
-            re.search(IKRAFT_ANY_PATTERN, content_lower) is not None)
+    return (re.search(INTOFORCE_ANY_PATTERN, header_lower) is not None or
+            re.search(INTOFORCE_ANY_PATTERN, content_lower) is not None)
 
 
 def parse_logical_sections(text: str) -> str:
@@ -550,7 +550,7 @@ def parse_logical_sections(text: str) -> str:
             # Sök efter "U:YYYY-MM-DD" i både rubrik och innehåll
             upphor_datum = None
             all_section_content = '\n'.join(current_section)
-            upphor_match = re.search(UPPHOR_DATE_EXTRACT_PATTERN, all_section_content)
+            upphor_match = re.search(REVOKE_DATE_EXTRACT_PATTERN, all_section_content)
             if upphor_match:
                 upphor_datum = upphor_match.group(1)
 
@@ -566,7 +566,7 @@ def parse_logical_sections(text: str) -> str:
             ikraft_villkor = None
 
             # Först, sök efter datum
-            ikraft_match = re.search(IKRAFT_DATE_EXTRACT_PATTERN, all_section_content)
+            ikraft_match = re.search(INTOFORCE_DATE_EXTRACT_PATTERN, all_section_content)
             if ikraft_match:
                 ikraft_datum = ikraft_match.group(1)
 
@@ -658,9 +658,9 @@ def parse_logical_sections(text: str) -> str:
             cleaned_section = []
             for line in current_section:
                 # Ta bort ikraft-markeringar
-                cleaned_line = re.sub(IKRAFT_FULL_TEMPORAL_TAG_PATTERN, '', line, flags=re.IGNORECASE)
+                cleaned_line = re.sub(INTOFORCE_FULL_TEMPORAL_TAG_PATTERN, '', line, flags=re.IGNORECASE)
                 # Ta bort upphör-markeringar
-                cleaned_line = re.sub(UPPHOR_FULL_TEMPORAL_TAG_PATTERN, '', cleaned_line, flags=re.IGNORECASE)
+                cleaned_line = re.sub(REVOKE_FULL_TEMPORAL_TAG_PATTERN, '', cleaned_line, flags=re.IGNORECASE)
                 cleaned_section.append(cleaned_line)
 
             # Lägg till det rensade innehållet
@@ -879,7 +879,7 @@ def generate_section_id(header_text: str, parent_id: str = None) -> str:
         return f"{paragraph_num}"
     
     # Kontrollera om det är ett kapitel (använd samma mönster som i format_sfs_text_as_markdown)
-    kapitel_match = re.match(KAPITEL_PATTERN, cleaned_header)
+    kapitel_match = re.match(CHAPTER_PATTERN, cleaned_header)
     if kapitel_match:
         # Extrahera kapitelnummer och eventuell bokstav
         kapitel_num = kapitel_match.group(1)
@@ -996,5 +996,5 @@ def is_chapter_header(line: str) -> bool:
     
     # Mönster 1: AVDELNING/AVD. följt av romerska siffror
     # Mönster 2: Svenska ordningstal följt av AVDELNING/AVD.
-    return (re.match(AVDELNING_PATTERN_1, line, re.IGNORECASE) is not None or 
-            re.match(AVDELNING_PATTERN_2, line, re.IGNORECASE) is not None)
+    return (re.match(DIVISION_PATTERN_1, line, re.IGNORECASE) is not None or 
+            re.match(DIVISION_PATTERN_2, line, re.IGNORECASE) is not None)
