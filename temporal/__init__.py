@@ -8,6 +8,7 @@ from .overgangsbestammelser import (
     parse_overgangsbestammelser
 )
 from .amendments import apply_amendments_to_text
+from .title_temporal import title_temporal
 
 __all__ = [
     'apply_temporal',
@@ -16,5 +17,6 @@ __all__ = [
     'find_expiring_files',
     'add_overgangsbestammelser_for_amendment_to_text',
     'parse_overgangsbestammelser',
-    'apply_amendments_to_text'
+    'apply_amendments_to_text',
+    'title_temporal'
 ]

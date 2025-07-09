@@ -30,7 +30,7 @@ from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime, format_datetime_for_git
 from util.file_utils import filter_json_files, save_to_disk
-from util.title_temporal import title_temporal
+from temporal.title_temporal import title_temporal
 from util.predocs_parser import parse_predocs_string
 from downloaders.riksdagen_api import fetch_predocs_details, format_predocs_for_frontmatter
 from exporters.git import ensure_git_branch_for_commits, restore_original_branch
