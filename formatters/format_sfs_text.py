@@ -615,7 +615,9 @@ def parse_logical_sections(text: str) -> str:
                 # Hitta lämplig förälder baserat på rubriknivå - endast kapitel kan vara föräldrar
                 parent_id = None
                 for level, pid in reversed(parent_stack):
-                    if level < main_header_level and pid.startswith('kap'):
+                    # För paragrafer, endast kapitel (kap1, kap2, etc.) kan vara föräldrar
+                    # Inte underrubriker som kap1.inledande-bestämmelser
+                    if level < main_header_level and re.match(r'^kap\d+[a-z]?$', pid):
                         parent_id = pid
                         break
                 
@@ -859,9 +861,9 @@ def generate_section_id(header_text: str, parent_id: str = None) -> str:
         # Extrahera paragrafnumret utan mellanslag
         paragraph_num = paragraph_match.group(1).replace(' ', '')
         if parent_id:
-            return f"{parent_id}.{paragraph_num}§"
+            return f"{parent_id}.{paragraph_num}"
         else:
-            return f"{paragraph_num}§"
+            return f"{paragraph_num}"
     
     # Kontrollera om det är ett kapitel (använd samma mönster som i format_sfs_text_as_markdown)
     kapitel_match = re.match(KAPITEL_PATTERN, cleaned_header)
