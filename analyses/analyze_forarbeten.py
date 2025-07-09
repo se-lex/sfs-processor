@@ -1,198 +1,145 @@
 #!/usr/bin/env python3
 """
-Script to analyze JSON files in sfs-jsondata directory for 'forarbeten' content.
+Analyze processed SFS documents to find regulations with förarbeten (preparatory works).
 """
 
-import json
 import os
-from collections import defaultdict
 import re
+import yaml
+from pathlib import Path
 
-def analyze_forarbeten_field(json_data):
-    """Extract and analyze the forarbeten field from JSON data."""
-    try:
-        register = json_data.get('register', {})
-        forarbeten = register.get('forarbeten')
-        
-        if forarbeten is None:
-            return None, None
-        
-        if isinstance(forarbeten, str):
-            forarbeten = forarbeten.strip()
-            if not forarbeten:
-                return None, None
-            return forarbeten, len(forarbeten)
-        
-        return str(forarbeten), len(str(forarbeten)) if forarbeten else None
-    
-    except (KeyError, TypeError, ValueError) as e:
-        print(f"Error analyzing forarbeten field: {e}")
-        return None, None
-
-def analyze_forarbeten_content(forarbeten_text):
-    """Analyze the content of forarbeten field."""
-    if not forarbeten_text:
+def extract_frontmatter(content):
+    """Extract YAML frontmatter from markdown content."""
+    if not content.startswith('---'):
         return {}
     
-    analysis = {}
+    try:
+        # Find the end of frontmatter
+        end_marker = content.find('\n---\n', 3)
+        if end_marker == -1:
+            return {}
+        
+        frontmatter_content = content[3:end_marker]
+        
+        # Parse frontmatter manually due to YAML formatting issues
+        frontmatter = {}
+        lines = frontmatter_content.strip().split('\n')
+        current_key = None
+        current_value = []
+        
+        for line in lines:
+            line = line.strip()
+            if not line:
+                continue
+                
+            if ':' in line and not line.startswith('-'):
+                # New key-value pair
+                if current_key and current_value:
+                    if current_key == 'forarbeten':
+                        frontmatter[current_key] = current_value
+                    else:
+                        frontmatter[current_key] = ' '.join(current_value) if current_value else ''
+                
+                parts = line.split(':', 1)
+                current_key = parts[0].strip()
+                value = parts[1].strip() if len(parts) > 1 else ''
+                
+                if current_key == 'forarbeten':
+                    current_value = [value] if value else []
+                else:
+                    current_value = [value] if value else []
+            elif line.startswith('-') and current_key == 'forarbeten':
+                # List item for forarbeten
+                item = line[1:].strip()
+                if item:
+                    current_value.append(item)
+            elif current_key and current_value:
+                # Continuation of previous value
+                current_value.append(line)
+        
+        # Handle the last key-value pair
+        if current_key and current_value:
+            if current_key == 'forarbeten':
+                frontmatter[current_key] = current_value
+            else:
+                frontmatter[current_key] = ' '.join(current_value) if current_value else ''
+        
+        return frontmatter
+    except Exception as e:
+        print(f"Error parsing frontmatter: {e}")
+        return {}
+
+def analyze_forarbeten_files(output_dir):
+    """Analyze all markdown files and find those with förarbeten."""
+    regulations_with_forarbeten = []
     
-    # Count propositions (Prop.)
-    prop_matches = re.findall(r'Prop\.\s*\d+[:/]\d+', forarbeten_text, re.IGNORECASE)
-    analysis['propositioner'] = len(prop_matches)
+    for root, dirs, files in os.walk(output_dir):
+        for file in files:
+            if file.endswith('.md'):
+                filepath = os.path.join(root, file)
+                try:
+                    with open(filepath, 'r', encoding='utf-8') as f:
+                        content = f.read()
+                    
+                    frontmatter = extract_frontmatter(content)
+                    if frontmatter.get('förarbeten'):
+                        regulations_with_forarbeten.append({
+                            'beteckning': frontmatter.get('beteckning', 'Unknown'),
+                            'rubrik': frontmatter.get('rubrik', 'Unknown'),
+                            'förarbeten': frontmatter['förarbeten'],
+                            'file': filepath
+                        })
+                        
+                except Exception as e:
+                    print(f"Error reading {filepath}: {e}")
     
-    # Count committee reports (Bet., Rskr, etc.)
-    bet_matches = re.findall(r'Bet\.\s*\d+[:/]\d+', forarbeten_text, re.IGNORECASE)
-    analysis['betankanden'] = len(bet_matches)
+    return regulations_with_forarbeten
+
+def format_forarbeten_list(regulations, max_count=100):
+    """Format the list of regulations with förarbeten."""
+    # Sort by beteckning (year:number)
+    regulations.sort(key=lambda x: x['beteckning'])
     
-    # Count riksdag decisions (Rskr)
-    rskr_matches = re.findall(r'Rskr\s*\d+[:/]\d+', forarbeten_text, re.IGNORECASE)
-    analysis['riksdagsskrivelser'] = len(rskr_matches)
+    # Limit to max_count
+    if len(regulations) > max_count:
+        regulations = regulations[:max_count]
     
-    # Count legislative committee reports (LU, AU, etc.)
-    lu_matches = re.findall(r'\d+[A-Z]+\s*\d+[:/]\d+', forarbeten_text)
-    analysis['utskottsutlatanden'] = len(lu_matches)
+    print(f"Författningar med förarbeten (max {max_count} st):")
+    print("=" * 60)
     
-    # Check for EU references
-    eu_matches = re.findall(r'(EG|EU|EEG)', forarbeten_text, re.IGNORECASE)
-    analysis['eu_referenser'] = len(eu_matches) > 0
-    
-    return analysis
+    for i, reg in enumerate(regulations, 1):
+        print(f"\n{i}. {reg['beteckning']} - {reg['rubrik']}")
+        print(f"   Förarbeten:")
+        
+        forarbeten = reg['förarbeten']
+        if isinstance(forarbeten, list):
+            for fa in forarbeten:
+                if isinstance(fa, dict):
+                    typ = fa.get('typ', 'Unknown')
+                    beteckning = fa.get('beteckning', 'Unknown')
+                    titel = fa.get('titel', 'Ingen titel')
+                    print(f"     - {typ} {beteckning}: {titel}")
+                else:
+                    print(f"     - {fa}")
+        else:
+            print(f"     - {forarbeten}")
 
 def main():
-    directory_path = "/Users/martin/Code/sfs-jsondata"
+    output_dir = "sfs-output"
     
-    if not os.path.exists(directory_path):
-        print(f"Error: Directory {directory_path} does not exist.")
-        print("Please make sure the path is correct.")
+    if not os.path.exists(output_dir):
+        print(f"Output directory {output_dir} does not exist!")
         return
     
-    total_files = 0
-    files_with_forarbeten = 0
-    forarbeten_content_stats = defaultdict(int)
-    forarbeten_examples = []
-    content_analysis = defaultdict(int)
+    print("Analyzing processed SFS documents for förarbeten...")
+    regulations = analyze_forarbeten_files(output_dir)
     
-    print(f"Analyzing JSON files in {directory_path}...")
-    print("-" * 50)
+    print(f"\nFound {len(regulations)} regulations with förarbeten")
     
-    # Walk through all subdirectories
-    for root, _, files in os.walk(directory_path):
-        for file in files:
-            if file.endswith('.json'):
-                file_path = os.path.join(root, file)
-                total_files += 1
-                
-                try:
-                    with open(file_path, 'r', encoding='utf-8') as f:
-                        data = json.load(f)
-                    
-                    forarbeten_text, text_length = analyze_forarbeten_field(data)
-                    
-                    if forarbeten_text is not None:
-                        files_with_forarbeten += 1
-                        
-                        # Store examples (first 10)
-                        if len(forarbeten_examples) < 10:
-                            relative_path = os.path.relpath(file_path, directory_path)
-                            forarbeten_examples.append({
-                                'file': relative_path,
-                                'content': forarbeten_text[:200] + "..." if len(forarbeten_text) > 200 else forarbeten_text
-                            })
-                        
-                        # Analyze content
-                        analysis = analyze_forarbeten_content(forarbeten_text)
-                        for key, value in analysis.items():
-                            if isinstance(value, bool):
-                                if value:
-                                    content_analysis[key] += 1
-                            else:
-                                content_analysis[f"total_{key}"] += value
-                                if value > 0:
-                                    content_analysis[f"files_with_{key}"] += 1
-                        
-                        # Track length distribution
-                        if text_length:
-                            if text_length < 50:
-                                forarbeten_content_stats['kort (< 50 tecken)'] += 1
-                            elif text_length < 200:
-                                forarbeten_content_stats['medel (50-200 tecken)'] += 1
-                            else:
-                                forarbeten_content_stats['lång (> 200 tecken)'] += 1
-                
-                except (json.JSONDecodeError, KeyError, FileNotFoundError, UnicodeDecodeError) as e:
-                    print(f"Error processing {file_path}: {e}")
-                
-                # Progress indicator
-                if total_files % 1000 == 0:
-                    print(f"Processed {total_files} files...")
-    
-    # Calculate percentage
-    percentage = (files_with_forarbeten / total_files * 100) if total_files > 0 else 0
-    
-    print(f"\n{'='*60}")
-    print("RESULTAT - Analys av 'forarbeten' fält")
-    print(f"{'='*60}")
-    print(f"Totalt antal JSON-filer: {total_files:,}")
-    print(f"Filer med forarbeten-innehåll: {files_with_forarbeten:,}")
-    print(f"Procentsats: {percentage:.2f}%")
-    
-    if files_with_forarbeten > 0:
-        print(f"\n{'='*40}")
-        print("FÖRDELNING AV INNEHÅLLSLÄNGD")
-        print(f"{'='*40}")
-        for category, count in forarbeten_content_stats.items():
-            percent = (count / files_with_forarbeten * 100)
-            print(f"{category}: {count:,} ({percent:.1f}%)")
-        
-        print(f"\n{'='*40}")
-        print("INNEHÅLLSANALYS")
-        print(f"{'='*40}")
-        print(f"Filer med propositioner: {content_analysis.get('files_with_propositioner', 0):,}")
-        print(f"Totalt antal propositioner: {content_analysis.get('total_propositioner', 0):,}")
-        print(f"Filer med betänkanden: {content_analysis.get('files_with_betankanden', 0):,}")
-        print(f"Filer med riksdagsskrivelser: {content_analysis.get('files_with_riksdagsskrivelser', 0):,}")
-        print(f"Filer med utskottsutlåtanden: {content_analysis.get('files_with_utskottsutlatanden', 0):,}")
-        print(f"Filer med EU-referenser: {content_analysis.get('eu_referenser', 0):,}")
-        
-        print(f"\n{'='*40}")
-        print("EXEMPEL PÅ FORARBETEN-INNEHÅLL")
-        print(f"{'='*40}")
-        for i, example in enumerate(forarbeten_examples, 1):
-            print(f"{i}. {example['file']}")
-            print(f"   Innehåll: {example['content']}")
-            print()
-    
-    print(f"\n{'='*60}")
-    print("REFLEKTION ÖVER INNEHÅLLET")
-    print(f"{'='*60}")
-    
-    if percentage < 10:
-        print("📊 LÅGT TÄCKNING: Mycket få filer har forarbeten-information.")
-        print("   Detta kan indikera att:")
-        print("   - Många författningar saknar dokumenterade förarbeten")
-        print("   - Data kan vara ofullständig för äldre författningar")
-        print("   - Vissa typer av författningar (förordningar) har sällan förarbeten")
-    elif percentage < 30:
-        print("📊 MÅTTLIG TÄCKNING: En mindre del av filerna har forarbeten-information.")
-        print("   Detta är normalt eftersom:")
-        print("   - Inte alla författningar har explicita förarbeten")
-        print("   - Förordningar har ofta färre förarbeten än lagar")
-    elif percentage < 60:
-        print("📊 GOD TÄCKNING: En betydande del av filerna har forarbeten-information.")
-        print("   Detta indikerar god dokumentation av lagstiftningsprocessen.")
+    if regulations:
+        format_forarbeten_list(regulations)
     else:
-        print("📊 MYCKET GOD TÄCKNING: Majoriteten av filerna har forarbeten-information.")
-        print("   Detta visar på omfattande dokumentation av förarbeten.")
-    
-    if files_with_forarbeten > 0:
-        prop_coverage = content_analysis.get('files_with_propositioner', 0) / files_with_forarbeten * 100
-        print(f"\n📋 PROPOSITIONER: {prop_coverage:.1f}% av filerna med förarbeten innehåller propositioner")
-        print("   Propositioner är den vanligaste typen av förarbete för lagar.")
-        
-        if content_analysis.get('eu_referenser', 0) > 0:
-            eu_coverage = content_analysis.get('eu_referenser', 0) / files_with_forarbeten * 100
-            print(f"\n🇪🇺 EU-REFERENSER: {eu_coverage:.1f}% av filerna med förarbeten har EU-koppling")
-            print("   Detta visar på EU:s påverkan på svensk lagstiftning.")
+        print("No regulations with förarbeten found.")
 
 if __name__ == "__main__":
     main()

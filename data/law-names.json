@@ -1314,6 +1314,12 @@
         "alternativeNames": ["OSL"]
     },
     {
+        "id": "2009:400",
+        "name": "sekretesslagen",
+        "type": "law",
+        "alternativeNames": ["OSL"]
+    },
+    {
         "id": "2009:600",
         "name": "språklagen",
         "type": "law",
@@ -1384,5 +1390,11 @@
         "name": "förvaltningslagen",
         "type": "law",
         "alternativeNames": ["FL"]
+    },
+    {
+        "id": "2018:218",
+        "name": "dataskyddslagen",
+        "type": "law",
+        "alternativeNames": ["DSL"]
     }
 ]
