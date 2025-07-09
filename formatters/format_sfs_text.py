@@ -327,12 +327,12 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
     # Returnera den formaterade texten
     final_text = '\n'.join(formatted)
     
-    # Tillämpa lagnamn-länkar först, sedan interna paragraf-länkar, SFS-länkar och EU-länkar
+    # Tillämpa externa länkar först (lagnamn, SFS, EU), sedan interna paragraf-länkar
     if apply_links:
         final_text = apply_law_name_links(final_text)
-        final_text = apply_internal_links(final_text)
         final_text = apply_sfs_links(final_text)
         final_text = apply_eu_links(final_text)
+        final_text = apply_internal_links(final_text)
 
     return final_text.strip()  # Ta bort eventuella inledande eller avslutande tomma rader
 
