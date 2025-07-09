@@ -175,15 +175,25 @@ def apply_internal_links(text: str) -> str:
             # Skapa länktext
             link_text = f"{number}{' ' + letter if letter else ''} §"
             
-            # Hitta kapitelkontext för denna position
-            absolute_pos = line_positions[line_idx] + start_pos
-            chapter_context = find_chapter_context(text, absolute_pos)
+            # Kontrollera om det finns en explicit kapitelreferens före denna paragraf
+            # Mönster: "8 kap. 5 §", "2 kap. 22 §", etc.
+            preceding_text = line[:start_pos]
+            explicit_chapter_match = re.search(r'(\d+(?:\s*[a-z])?)\s+kap\.\s*$', preceding_text)
             
-            # Skapa anchor med eller utan kapitelkontext
-            if chapter_context:
+            if explicit_chapter_match:
+                # Explicit kapitelreferens hittad
+                chapter_num = explicit_chapter_match.group(1).replace(' ', '')
+                chapter_context = f"kap{chapter_num}"
                 anchor = f"{chapter_context}.{number}{letter}"
             else:
-                anchor = f"{number}{letter}"
+                # Ingen explicit referens, använd implicit kapitelkontext
+                absolute_pos = line_positions[line_idx] + start_pos
+                chapter_context = find_chapter_context(text, absolute_pos)
+                
+                if chapter_context:
+                    anchor = f"{chapter_context}.{number}{letter}"
+                else:
+                    anchor = f"{number}{letter}"
 
             return f"[{link_text}](#{anchor})"
 
