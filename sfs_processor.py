@@ -28,9 +28,9 @@ from formatters.format_sfs_text import (
     format_sfs_text_as_markdown,
     parse_logical_sections,
     clean_selex_tags,
-    clean_text,
     normalize_heading_levels
 )
+from util.text_utils import clean_text
 from formatters.sort_frontmatter import sort_frontmatter_properties
 from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
 from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter

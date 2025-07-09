@@ -32,6 +32,7 @@ Regler som inte utvecklats än:
 import re
 from typing import Optional
 from .apply_links import apply_sfs_links, apply_internal_links, apply_eu_links, apply_law_name_links
+from util.text_utils import WHITESPACE_PATTERN
 
 # Regex patterns as constants
 PARAGRAPH_PATTERN = r'(\d+(?:\s*[a-z])?)\s*§'
@@ -46,7 +47,6 @@ LIST_NUMBERED_PATTERN = r'^\d+\.'
 LIST_BULLET_PREFIX = '-'
 TEMPORAL_MARKER_PATTERN = r'/[^/]+/'
 # SFS_PATTERN moved to apply_links.py
-WHITESPACE_PATTERN = r'\s+'
 CAPITALIZED_PATTERN = r'^[A-ZÅÄÖ]'
 
 # Section and article tag patterns
@@ -962,16 +962,6 @@ def normalize_heading_levels(text: str) -> str:
     
     return '\n'.join(result_lines)
 
-
-def clean_text(text: Optional[str]) -> str:
-    """Clean and format text content."""
-    if not text:
-        return ""
-
-    # Remove extra whitespace and normalize line breaks
-    text = re.sub(r'\r\n', '\n', text)
-    text = re.sub(WHITESPACE_PATTERN, ' ', text).strip()
-    return text
 
 
 def is_chapter_header(line: str) -> bool:

@@ -4,7 +4,7 @@ import difflib
 from typing import Dict, Any, List
 from pathlib import Path
 from .apply_temporal import apply_temporal
-from formatters.format_sfs_text import clean_text
+from util.text_utils import clean_text
 
 
 def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict[str, Any]]:

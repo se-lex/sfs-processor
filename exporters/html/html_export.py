@@ -102,8 +102,9 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     """
     # Import required functions (avoiding circular imports)
     from sfs_processor import (
-        format_datetime, clean_text, ignore_rules, extract_amendments
+        format_datetime, ignore_rules, extract_amendments
     )
+    from util.text_utils import clean_text
 
     # Extract main document information
     beteckning = data.get('beteckning', '')
