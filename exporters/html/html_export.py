@@ -595,7 +595,7 @@ def get_common_styles() -> str:
 
         body {{
             font-family: var(--font-primary);
-            max-width: 1100px;
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
             line-height: 1.6;
@@ -629,41 +629,38 @@ def get_common_styles() -> str:
 
         h1 {{
             color: var(--selex-dark-blue);
-            padding: 20px 0 10px 0;
+            padding: 15px 0 8px 0;
         }}
 
         h2 {{
             color: var(--selex-dark-blue);
             border-bottom: 1px solid var(--selex-dark-grey);
-            padding: 15px 0 5px 0;
+            padding: 12px 0 4px 0;
         }}
 
         h3 {{ 
             color: var(--selex-dark-blue); 
-            padding: 12px 0 8px 0;
+            padding: 10px 0 6px 0;
         }}
         
         h4 {{ 
-            color: var(--selex-dark-blue); 
-            padding: 10px 0 6px 0;
+            color: #333; 
+            padding: 8px 0 4px 0;
         }}
 
         /* Selex section styling */
         article {{
             margin: 20px 0;
+            padding-bottom: 60px;
         }}
 
-        section {{
-            margin: 15px 0;
-        }}
-        
         section.kapitel {{
-            margin: 25px 0;
+            margin: 20px 0;
             padding: 10px 0;
         }}
         
         section.paragraf {{
-            margin: 15px 0;
+            margin: 0;
         }}
         
         section[status="upphavd"] {{
