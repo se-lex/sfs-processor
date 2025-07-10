@@ -143,6 +143,7 @@ def get_css_variables():
     # Add other utility variables
     css_vars.append("\n    /* Utility variables */")
     css_vars.append("    --base-font-size: 16px;")
+    css_vars.append("    --h1-font-size: 1.5em;")
     css_vars.append(f"    --font-primary: {FONT_FAMILIES['primary']};")
     css_vars.append(f"    --font-system: {FONT_FAMILIES['system']};")
     css_vars.append(f"    --font-modern: {FONT_FAMILIES['modern']};")

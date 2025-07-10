@@ -236,9 +236,11 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
 
     # Add the rest of the HTML document
     html_doc += f"""
+    <article>
     <h1>{html.escape(rubrik_original)}</h1>
 
     {html_content}
+    </article>
 </body>
 </html>"""
 
@@ -595,7 +597,7 @@ def get_common_styles() -> str:
 
         body {{
             font-family: var(--font-primary);
-            max-width: 1000px;
+            max-width: 700px;
             margin: 0 auto;
             padding: 20px;
             line-height: 1.6;
@@ -630,6 +632,7 @@ def get_common_styles() -> str:
         h1 {{
             color: var(--selex-dark-blue);
             padding: 15px 0 8px 0;
+            font-size: var(--h1-font-size);
         }}
 
         h2 {{
@@ -645,7 +648,20 @@ def get_common_styles() -> str:
         
         h4 {{ 
             color: #333; 
-            padding: 8px 0 4px 0;
+            display: inline;
+            padding-right: 20px;
+            margin: 0;
+            font-weight: bold;
+        }}
+        
+        /* Make p tags that follow h4 display inline */
+        h4 + p {{
+            display: inline;
+        }}
+        
+        /* Ensure proper spacing after inline paragraph */
+        section.paragraf p {{
+            margin-bottom: 1em;
         }}
 
         /* Selex section styling */
@@ -660,7 +676,7 @@ def get_common_styles() -> str:
         }}
         
         section.paragraf {{
-            margin: 0;
+            margin: 0 0 10px 0;
         }}
         
         section[status="upphavd"] {{
