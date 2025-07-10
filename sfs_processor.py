@@ -77,16 +77,21 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
         target_date: Optional target date (YYYY-MM-DD) for temporal title processing
     """
 
+    # Default to markdown output if no modes specified
+    if output_modes is None:
+        output_modes = ["md"]
+    
+    # Set default target_date to today for md format only
+    if target_date is None and 'md' in output_modes:
+        target_date = datetime.now().strftime('%Y-%m-%d')
+        print(f"Varning: Använder dagens datum ({target_date}) som target_date för 'md' som output format")
+    
     # Apply temporal title processing if target_date is provided
     if target_date and data.get('rubrik'):
         rubrik_after_temporal = title_temporal(data['rubrik'], target_date)
         # Create a copy of data with the processed title
         data = data.copy()
         data['rubrik_after_temporal'] = rubrik_after_temporal
-    
-    # Default to markdown output if no modes specified
-    if output_modes is None:
-        output_modes = ["md"]
 
     # Git mode requires markdown mode to be active
     if "git" in output_modes and "md" not in output_modes:
