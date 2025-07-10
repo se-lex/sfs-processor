@@ -4,6 +4,13 @@ import re
 from datetime import datetime
 from pathlib import Path
 
+# Add the project root to the Python path
+import sys
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+
+from exporters.html.styling_constants import get_css_variables, COLORS
+
 def create_html_diff(text_before: str, text_after: str, beteckning: str, rubrik: str, ikraft_datum: str, output_dir: Path = None) -> str:
     """
     Create an HTML diff file showing changes between before and after text.
@@ -40,6 +47,7 @@ def create_html_diff(text_before: str, text_after: str, beteckning: str, rubrik:
     )
 
     # Add custom styling and metadata
+    css_variables = get_css_variables()
     custom_html = f"""<!DOCTYPE html>
 <html lang="sv">
 <head>
@@ -47,13 +55,15 @@ def create_html_diff(text_before: str, text_after: str, beteckning: str, rubrik:
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Ändringsförfattning {beteckning} - Textändringar</title>
     <style>
+        {css_variables}
+        
         body {{
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             margin: 20px;
-            background-color: #f5f5f5;
+            background-color: var(--selex-light-grey);
         }}
         .header {{
-            background-color: #2c3e50;
+            background-color: var(--selex-dark-blue);
             color: white;
             padding: 20px;
             border-radius: 8px;
@@ -80,14 +90,14 @@ def create_html_diff(text_before: str, text_after: str, beteckning: str, rubrik:
             font-size: 13px;
         }}
         .diff_header {{
-            background-color: #34495e !important;
+            background-color: var(--selex-middle-blue) !important;
             color: white !important;
             font-weight: bold;
             text-align: center;
             padding: 10px;
         }}
         .diff_next {{
-            background-color: #3498db;
+            background-color: var(--selex-light-blue);
             color: white;
             font-weight: bold;
             text-align: center;
@@ -95,19 +105,19 @@ def create_html_diff(text_before: str, text_after: str, beteckning: str, rubrik:
             padding: 5px;
         }}
         .diff_next:hover {{
-            background-color: #2980b9;
+            background-color: var(--selex-light-blue-hover);
         }}
         .diff_add {{
-            background-color: #d4edda !important;
-            border-left: 4px solid #28a745;
+            background-color: var(--success-green-bg) !important;
+            border-left: 4px solid var(--success-green);
         }}
         .diff_chg {{
-            background-color: #fff3cd !important;
-            border-left: 4px solid #ffc107;
+            background-color: var(--warning-yellow-bg) !important;
+            border-left: 4px solid var(--warning-yellow);
         }}
         .diff_sub {{
-            background-color: #f8d7da !important;
-            border-left: 4px solid #dc3545;
+            background-color: var(--danger-red-bg) !important;
+            border-left: 4px solid var(--danger-red);
         }}
         td.diff_header {{
             padding: 8px 12px;
@@ -127,7 +137,7 @@ def create_html_diff(text_before: str, text_after: str, beteckning: str, rubrik:
         }}
         .legend h3 {{
             margin-top: 0;
-            color: #2c3e50;
+            color: var(--selex-dark-blue);
         }}
         .legend-item {{
             display: inline-block;
@@ -142,9 +152,9 @@ def create_html_diff(text_before: str, text_after: str, beteckning: str, rubrik:
             vertical-align: middle;
             border-radius: 3px;
         }}
-        .added {{ background-color: #d4edda; border-left: 4px solid #28a745; }}
-        .removed {{ background-color: #f8d7da; border-left: 4px solid #dc3545; }}
-        .changed {{ background-color: #fff3cd; border-left: 4px solid #ffc107; }}
+        .added {{ background-color: var(--success-green-bg); border-left: 4px solid var(--success-green); }}
+        .removed {{ background-color: var(--danger-red-bg); border-left: 4px solid var(--danger-red); }}
+        .changed {{ background-color: var(--warning-yellow-bg); border-left: 4px solid var(--warning-yellow); }}
     </style>
 </head>
 <body>

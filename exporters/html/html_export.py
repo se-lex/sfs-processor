@@ -16,6 +16,7 @@ from datetime import datetime
 from formatters.format_sfs_text import format_sfs_text_as_markdown
 from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
 from temporal.apply_temporal import apply_temporal
+from exporters.html.styling_constants import get_css_variables
 
 
 def create_html_documents(data: Dict[str, Any], output_path: Path, include_amendments: bool = False) -> None:
@@ -236,7 +237,7 @@ def markdown_to_html(markdown_text: str) -> str:
     text = html.escape(markdown_text)
 
     # Convert markdown headers
-    text = re.sub(r'^#### (.+)$', r'<h4>\1</h4>', text, flags=re.MULTILINE)  # Added support for H4
+    text = re.sub(r'^#### (.+)$', r'<h4>\1</h4>', text, flags=re.MULTILINE)
     text = re.sub(r'^### (.+)$', r'<h3>\1</h3>', text, flags=re.MULTILINE)
     text = re.sub(r'^## (.+)$', r'<h2>\1</h2>', text, flags=re.MULTILINE)
     text = re.sub(r'^# (.+)$', r'<h1>\1</h1>', text, flags=re.MULTILINE)
@@ -274,7 +275,7 @@ def create_ignored_html_content(data: Dict[str, Any], reason: str) -> str:
 
     # Additional styles for ignored documents
     ignored_styles = minify_css("""
-        .warning { background-color: #fff3cd; border: 1px solid #ffeaa7; padding: 15px; border-radius: 5px; margin-bottom: 20px; }""")
+        .warning { background-color: var(--warning-yellow-bg); border: 1px solid var(--warning-yellow); padding: 15px; border-radius: 5px; margin-bottom: 20px; }""")
 
     html_doc = create_html_head(rubrik_original, beteckning, additional_styles=ignored_styles)
     html_doc += f"""
@@ -527,24 +528,15 @@ def get_common_styles() -> str:
     Returns:
         str: CSS styles with color variables and common formatting
     """
-    styles = """
-        :root {
-            --selex-dark-blue: #002147;
-            --selex-middle-blue: #0056a0;
-            --selex-light-blue: #0072c6;
-            --selex-yellow: #f1c40f;
-            --selex-white: #ffffff;
-            --selex-light-grey: #f5f5f5;
-            --selex-dark-grey: #bdc3c7;
-
-            --navbar-dark-blue: var(--selex-dark-blue);
-            --navbar-middle-blue: var(--selex-middle-blue);
-            --navbar-light-blue: var(--selex-light-blue);
-            --navbar-yellow: var(--selex-yellow);
-            --navbar-white: var(--selex-white);
-
+    # Get CSS variables from styling constants
+    css_vars = get_css_variables()
+    
+    styles = f"""
+        {css_vars}
+        
+        :root {{
             --base-font-size: 14px;
-        }
+        }}
 
         html {
             font-size: var(--base-font-size);
@@ -625,7 +617,7 @@ def get_amendment_styles() -> str:
         body { max-width: 1200px; }
 
         .amendment-info {
-            background-color: #e8f4fd;
+            background-color: var(--selex-light-grey);
             border: 1px solid var(--navbar-middle-blue);
             border-radius: 5px;
             padding: 15px;
@@ -652,7 +644,7 @@ def get_amendment_styles() -> str:
         }
 
         .diff_header {
-            background-color: #34495e !important;
+            background-color: var(--selex-middle-blue) !important;
             color: white !important;
             font-weight: bold;
             text-align: center;
@@ -660,7 +652,7 @@ def get_amendment_styles() -> str:
         }
 
         .diff_next {
-            background-color: #3498db;
+            background-color: var(--selex-light-blue);
             color: white;
             font-weight: bold;
             text-align: center;
@@ -669,22 +661,22 @@ def get_amendment_styles() -> str:
         }
 
         .diff_next:hover {
-            background-color: #2980b9;
+            background-color: var(--selex-light-blue-hover);
         }
 
         .diff_add {
-            background-color: #d4edda !important;
-            border-left: 4px solid #28a745;
+            background-color: var(--success-green-bg) !important;
+            border-left: 4px solid var(--success-green);
         }
 
         .diff_chg {
-            background-color: #fff3cd !important;
-            border-left: 4px solid #ffc107;
+            background-color: var(--warning-yellow-bg) !important;
+            border-left: 4px solid var(--warning-yellow);
         }
 
         .diff_sub {
-            background-color: #f8d7da !important;
-            border-left: 4px solid #dc3545;
+            background-color: var(--danger-red-bg) !important;
+            border-left: 4px solid var(--danger-red);
         }
 
         td.diff_header {
@@ -701,14 +693,14 @@ def get_amendment_styles() -> str:
         .legend {
             margin: 20px 0;
             padding: 15px;
-            background-color: #f8f9fa;
+            background-color: var(--bg-light-grey);
             border-radius: 8px;
-            border: 1px solid #dee2e6;
+            border: 1px solid var(--border-light-grey);
         }
 
         .legend h3 {
             margin-top: 0;
-            color: #2c3e50;
+            color: var(--selex-dark-blue);
         }
 
         .legend-item {
@@ -726,16 +718,16 @@ def get_amendment_styles() -> str:
             border-radius: 3px;
         }
 
-        .added { background-color: #d4edda; border-left: 4px solid #28a745; }
-        .removed { background-color: #f8d7da; border-left: 4px solid #dc3545; }
-        .changed { background-color: #fff3cd; border-left: 4px solid #ffc107; }
+        .added { background-color: var(--success-green-bg); border-left: 4px solid var(--success-green); }
+        .removed { background-color: var(--danger-red-bg); border-left: 4px solid var(--danger-red); }
+        .changed { background-color: var(--warning-yellow-bg); border-left: 4px solid var(--warning-yellow); }
 
         .tab-container {
             margin: 20px 0;
         }
 
         .tab-buttons {
-            border-bottom: 1px solid #dee2e6;
+            border-bottom: 1px solid var(--border-light-grey);
             margin-bottom: 20px;
         }
 

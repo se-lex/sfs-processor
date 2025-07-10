@@ -19,9 +19,7 @@ import sys
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
-# Import existing functions for consistency
-from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
-
+from exporters.html.styling_constants import get_css_variables_escaped, COLORS
 
 def load_all_documents(json_dir: Path) -> List[Dict[str, Any]]:
     """Load all JSON documents from the specified directory.
@@ -133,42 +131,43 @@ def create_index_html(documents: List[Dict[str, Any]], output_file: Path) -> Non
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Aktuella SFS-författningar</title>
     <style>
+{get_css_variables_escaped()}
         body {{
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             max-width: 1200px;
             margin: 0 auto;
             padding: 20px;
             line-height: 1.6;
-            color: #333;
+            color: var(--text-primary);
         }}
         .header {{
-            border-bottom: 2px solid #0066cc;
+            border-bottom: 2px solid var(--selex-light-blue);
             margin-bottom: 30px;
             padding-bottom: 20px;
         }}
         .header h1 {{
-            color: #0066cc;
+            color: var(--selex-light-blue);
             margin: 0;
         }}
         .header p {{
             margin: 10px 0 0 0;
-            color: #666;
+            color: var(--text-secondary);
         }}
         .document {{
-            border: 1px solid #ddd;
+            border: 1px solid var(--border-grey);
             border-radius: 8px;
             margin-bottom: 20px;
             padding: 20px;
-            background: #fff;
+            background: var(--selex-white);
             box-shadow: 0 2px 4px rgba(0,0,0,0.1);
         }}
         .document h2 {{
             margin: 0 0 10px 0;
-            color: #333;
+            color: var(--text-primary);
         }}
         .document h2 a {{
             text-decoration: none;
-            color: #0066cc;
+            color: var(--selex-light-blue);
         }}
         .document h2 a:hover {{
             text-decoration: underline;
@@ -178,7 +177,7 @@ def create_index_html(documents: List[Dict[str, Any]], output_file: Path) -> Non
             gap: 20px;
             margin: 10px 0;
             font-size: 0.9em;
-            color: #666;
+            color: var(--text-secondary);
         }}
         .meta-item {{
             display: flex;
@@ -186,18 +185,18 @@ def create_index_html(documents: List[Dict[str, Any]], output_file: Path) -> Non
         }}
         .meta-label {{
             font-weight: bold;
-            color: #333;
+            color: var(--text-primary);
         }}
         .summary {{
             margin: 15px 0;
-            color: #555;
+            color: var(--text-muted);
         }}
         .links {{
             margin-top: 15px;
         }}
         .links a {{
             display: inline-block;
-            background: #0066cc;
+            background: var(--selex-light-blue);
             color: white;
             padding: 8px 16px;
             text-decoration: none;
@@ -206,14 +205,14 @@ def create_index_html(documents: List[Dict[str, Any]], output_file: Path) -> Non
             font-size: 0.9em;
         }}
         .links a:hover {{
-            background: #0052a3;
+            background: var(--selex-light-blue-hover);
         }}
         .footer {{
             margin-top: 40px;
             padding-top: 20px;
-            border-top: 1px solid #ddd;
+            border-top: 1px solid var(--border-grey);
             text-align: center;
-            color: #666;
+            color: var(--text-secondary);
             font-size: 0.9em;
         }}
     </style>
@@ -244,10 +243,7 @@ def create_index_html(documents: List[Dict[str, Any]], output_file: Path) -> Non
         
         organisation_data = doc.get('organisation', {})
         organisation = html.escape(organisation_data.get('namn', '')) if organisation_data else ''
-        
-        # Generate links
-        pdf_url = generate_pdf_url(beteckning, utfardad_datum, check_exists=False)
-        
+
         # Create HTML filename (similar to how it's done in sfs_processor.py)
         import re
         safe_beteckning = re.sub(r'[^\w\-]', '-', beteckning)
