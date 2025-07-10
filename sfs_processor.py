@@ -624,8 +624,8 @@ def main():
                         help='Branch name to use for git commits when "git" format is enabled. Use "(date)" as placeholder for current date. Default: sfs-updates-(date)')
     parser.add_argument('--predocs', action='store_true',
                         help='Fetch detailed information about förarbeten from Riksdagen API. This will make processing slower.')
-    parser.add_argument('--apply-links', action='store_true',
-                        help='Apply internal paragraph links (e.g., [9 §](#9§)), external SFS links (e.g., [2002:43](/sfs/2002:43)), EU legislation links (e.g., [(EU) nr 651/2014](https://eur-lex.europa.eu/...)), and law name links (e.g., [8 kap. 7 § regeringsformen](/sfs/1974/152)) to the document.')
+    parser.add_argument('--apply-links', action='store_true', default=True,
+                        help='Apply internal paragraph links (e.g., [9 §](#9§)), external SFS links (e.g., [2002:43](/sfs/2002:43)), EU legislation links (e.g., [(EU) nr 651/2014](https://eur-lex.europa.eu/...)), and law name links (e.g., [8 kap. 7 § regeringsformen](/sfs/1974/152)) to the document. Default: True')
     parser.set_defaults(year_folder=True)
     args = parser.parse_args()
 

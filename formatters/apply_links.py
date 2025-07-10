@@ -41,8 +41,7 @@ def apply_sfs_links(text: str) -> str:
 
     Söker efter mönster som "YYYY:NNN" (år:löpnummer) och skapar länkar till /sfs/(beteckning).
     
-    Använder miljövariabeln INTERNAL_LINKS_BASE_URL för att skapa absoluta länkar om den är satt,
-    annars skapas relativa länkar.
+    Använder alltid https://selex.se/eli som bas-URL om INTERNAL_LINKS_BASE_URL inte är satt.
 
     Args:
         text (str): Texten som ska bearbetas
@@ -54,8 +53,8 @@ def apply_sfs_links(text: str) -> str:
     # Matchar mönster som "2002:43", "1970:485", etc.
     sfs_pattern = SFS_PATTERN
 
-    # Hämta bas-URL från miljövariabler (tom sträng som standard för relativa länkar)
-    base_url = os.getenv('INTERNAL_LINKS_BASE_URL', '')
+    # Använd alltid https://selex.se/eli som default om env variabel inte finns
+    base_url = os.getenv('INTERNAL_LINKS_BASE_URL', 'https://selex.se/eli')
 
     # TODO: Slå upp SFS-beteckning mot JSON-fil för att verifiera giltighet
 
@@ -226,8 +225,8 @@ def apply_law_name_links(text: str) -> str:
     if not law_names_data:
         return text
 
-    # Hämta bas-URL från miljövariabler
-    base_url = os.getenv('INTERNAL_LINKS_BASE_URL', '')
+    # Hämta bas-URL från miljövariabler - använd alltid https://selex.se/eli som default
+    base_url = os.getenv('INTERNAL_LINKS_BASE_URL', 'https://selex.se/eli')
     
     # Processar texten rad för rad för att undvika att länka rubriker
     lines = text.split('\n')
@@ -262,10 +261,7 @@ def apply_law_name_links(text: str) -> str:
             year, number = id_parts
             
             # Skapa bas-URL
-            if base_url:
-                url = f"{base_url}/sfs/{year}/{number}"
-            else:
-                url = f"/sfs/{year}/{number}"
+            url = f"{base_url}/sfs/{year}/{number}"
             
             # Extrahera första paragrafnummer för anchor om det finns
             # För externa länkar (till annan författning) ska formatet vara: #kapX.Y

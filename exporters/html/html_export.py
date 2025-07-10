@@ -139,7 +139,7 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
         return create_ignored_html_content(data, ignore_reason)
 
     # Format the content text
-    formatted_text = format_sfs_text_as_markdown(innehall_text)
+    formatted_text = format_sfs_text_as_markdown(innehall_text, apply_links=True)
 
     # Apply amendments if requested
     if apply_amendments and up_to_amendment:
@@ -157,6 +157,9 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
 
     # Convert markdown-formatted text to HTML
     html_content = markdown_to_html(formatted_text)
+    
+    # Strip base URL from links to make them relative for HTML export
+    html_content = make_links_relative(html_content)
 
     # Create HTML document with navbar integration and ELI format
     html_doc = create_html_head(rubrik_original, beteckning)
@@ -166,9 +169,7 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     <div class="metadata">
         <dl>
             <dt>Beteckning:</dt>
-            <dd property="eli:id_local" datatype="xsd:string">{html.escape(beteckning)}</dd>
-            <dt>Rubrik:</dt>
-            <dd property="eli:title" datatype="xsd:string">{html.escape(rubrik_original)}</dd>"""
+            <dd property="eli:id_local" datatype="xsd:string">{html.escape(beteckning)}</dd>"""
 
     if organisation:
         html_doc += f"""
@@ -223,6 +224,25 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
 </html>"""
 
     return html_doc
+
+
+def make_links_relative(html_content: str) -> str:
+    """
+    Strip base URL from links to make them relative for HTML export.
+    
+    Removes https://selex.se/eli from links to make them relative.
+    
+    Args:
+        html_content (str): HTML content with potentially absolute links
+        
+    Returns:
+        str: HTML content with relative links
+    """
+    # Pattern to match https://selex.se/eli in href attributes
+    pattern = r'href="https://selex\.se/eli(/[^"]*)"'
+    replacement = r'href="\1"'
+    
+    return re.sub(pattern, replacement, html_content)
 
 
 def markdown_to_html(markdown_text: str) -> str:
@@ -472,7 +492,8 @@ def create_html_head(title: str, beteckning: str, additional_styles: str = "", a
     navbar_script = f"""
     <script>
         window.NAVBAR_CONFIG = {{
-            logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 70'><text x='0' y='60' font-family='Inter, sans-serif' font-size='70' fill='%23f1c40f'>SE-Lex</text></svg>"
+            logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 70'><text x='0' y='60' font-family='Inter, sans-serif' font-size='70' fill='%23f1c40f'>SE-Lex</text></svg>",
+            drawerEnabled: false,
         }};
     </script>
     <script src=\"https://swebar.netlify.app/navbar.js\"></script>
