@@ -119,7 +119,8 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     ikraft_datum = format_datetime(data.get('ikraftDateTime'))
 
     # Extract other metadata
-    forarbeten = clean_text(data.get('forarbeten', ''))
+    register_data = data.get('register', {})
+    forarbeten = clean_text(register_data.get('forarbeten', ''))
     celex_nummer = data.get('celexnummer')
     eu_direktiv = data.get('eUdirektiv', False)
     organisation_data = data.get('organisation', {})
@@ -169,54 +170,68 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     html_doc = create_html_head(rubrik_original, beteckning)
     html_doc += "\n<body>"
 
+    # Build metadata in two columns
+    column1_items = []
+    column2_items = []
+    
+    # Column 1: Basic document info
+    column1_items.append(f"""
+            <dt>Beteckning:</dt>
+            <dd property="eli:id_local" datatype="xsd:string">{html.escape(beteckning)}</dd>""")
+    
+    if organisation:
+        column1_items.append(f"""
+            <dt>Departement:</dt>
+            <dd property="eli:passed_by" datatype="xsd:string">{html.escape(organisation)}</dd>""")
+    
+    if pdf_url:
+        column1_items.append(f"""
+            <dt>PDF-fil:</dt>
+            <dd><a href="{html.escape(pdf_url)}" property="eli:is_realized_by" datatype="xsd:anyURI">PDF-fil</a></dd>""")
+    
+    if forarbeten:
+        column1_items.append(f"""
+            <dt>Förarbeten:</dt>
+            <dd property="eli:preparatory_act" datatype="xsd:string">{html.escape(forarbeten)}</dd>""")
+    
+    if celex_nummer:
+        column1_items.append(f"""
+            <dt>CELEX:</dt>
+            <dd property="eli:related_to" resource="{html.escape(celex_nummer)}" datatype="xsd:string">{html.escape(celex_nummer)}</dd>""")
+    
+    if eu_direktiv:
+        column1_items.append("""
+            <dt>EU-direktiv:</dt>
+            <dd property="eli:type_document" resource="http://data.europa.eu/eli/ontology#directive" datatype="xsd:boolean">Ja</dd>""")
+    
+    # Column 2: Dates and links
+    if publicerad_datum:
+        column2_items.append(f"""
+            <dt>Publicerad:</dt>
+            <dd property="eli:date_publication" datatype="xsd:date">{html.escape(publicerad_datum)}</dd>""")
+    
+    if utfardad_datum:
+        column2_items.append(f"""
+            <dt>Utfärdad:</dt>
+            <dd property="eli:date_document" datatype="xsd:date">{html.escape(utfardad_datum)}</dd>""")
+    
+    if ikraft_datum:
+        column2_items.append(f"""
+            <dt>Ikraft:</dt>
+            <dd property="eli:date_entry-into-force" datatype="xsd:date">{html.escape(ikraft_datum)}</dd>""")
+    
     html_doc += f"""
     <div class="metadata">
-        <dl>
-            <dt>Beteckning:</dt>
-            <dd property="eli:id_local" datatype="xsd:string">{html.escape(beteckning)}</dd>"""
-
-    if organisation:
-        html_doc += f"""
-            <dt>Departement:</dt>
-            <dd property="eli:passed_by" datatype="xsd:string">{html.escape(organisation)}</dd>"""
-
-    if publicerad_datum:
-        html_doc += f"""
-            <dt>Publicerad:</dt>
-            <dd property="eli:date_publication" datatype="xsd:date">{html.escape(publicerad_datum)}</dd>"""
-
-    if utfardad_datum:
-        html_doc += f"""
-            <dt>Utfärdad:</dt>
-            <dd property="eli:date_document" datatype="xsd:date">{html.escape(utfardad_datum)}</dd>"""
-
-    if ikraft_datum:
-        html_doc += f"""
-            <dt>Ikraft:</dt>
-            <dd property="eli:date_entry-into-force" datatype="xsd:date">{html.escape(ikraft_datum)}</dd>"""
-
-    if forarbeten:
-        html_doc += f"""
-            <dt>Förarbeten:</dt>
-            <dd property="eli:preparatory_act" datatype="xsd:string">{html.escape(forarbeten)}</dd>"""
-
-    if celex_nummer:
-        html_doc += f"""
-            <dt>CELEX:</dt>
-            <dd property="eli:related_to" resource="{html.escape(celex_nummer)}" datatype="xsd:string">{html.escape(celex_nummer)}</dd>"""
-
-    if eu_direktiv:
-        html_doc += """
-            <dt>EU-direktiv:</dt>
-            <dd property="eli:type_document" resource="http://data.europa.eu/eli/ontology#directive" datatype="xsd:boolean">Ja</dd>"""
-
-    if pdf_url:
-        html_doc += f"""
-            <dt>PDF-fil:</dt>
-            <dd><a href="{html.escape(pdf_url)}" property="eli:is_realized_by" datatype="xsd:anyURI">PDF-fil</a></dd>"""
-
-    html_doc += """
-        </dl>
+        <div class="metadata-column">
+            <dl>
+                {''.join(column1_items)}
+            </dl>
+        </div>
+        <div class="metadata-column">
+            <dl>
+                {''.join(column2_items)}
+            </dl>
+        </div>
     </div>"""
 
     # Add the rest of the HTML document
@@ -592,10 +607,25 @@ def get_common_styles() -> str:
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }}
+
+        .metadata-column {{
+            display: flex;
+            flex-direction: column;
         }}
 
         .metadata dt {{ font-weight: bold; }}
         .metadata dd {{ margin-left: 20px; margin-bottom: 5px; }}
+        
+        @media (max-width: 768px) {{
+            .metadata {{
+                grid-template-columns: 1fr;
+                gap: 10px;
+            }}
+        }}
 
         h1 {{
             color: var(--selex-dark-blue);
