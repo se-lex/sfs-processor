@@ -11,6 +11,7 @@ import difflib
 from pathlib import Path
 from typing import Dict, Any
 from datetime import datetime
+import markdown
 
 # Import required functions from other modules
 from formatters.format_sfs_text import format_sfs_text_as_markdown
@@ -225,7 +226,7 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
 
 
 def markdown_to_html(markdown_text: str) -> str:
-    """Convert basic markdown formatting to HTML.
+    """Convert markdown formatting to HTML using the markdown library.
 
     Args:
         markdown_text: Text with markdown formatting
@@ -233,31 +234,19 @@ def markdown_to_html(markdown_text: str) -> str:
     Returns:
         str: HTML formatted text
     """
-    # Escape HTML entities first
-    text = html.escape(markdown_text)
-
-    # Convert markdown headers
-    text = re.sub(r'^#### (.+)$', r'<h4>\1</h4>', text, flags=re.MULTILINE)
-    text = re.sub(r'^### (.+)$', r'<h3>\1</h3>', text, flags=re.MULTILINE)
-    text = re.sub(r'^## (.+)$', r'<h2>\1</h2>', text, flags=re.MULTILINE)
-    text = re.sub(r'^# (.+)$', r'<h1>\1</h1>', text, flags=re.MULTILINE)
-
-    # Convert paragraphs (double newlines)
-    paragraphs = text.split('\n\n')
-    html_paragraphs = []
-
-    for para in paragraphs:
-        para = para.strip()
-        if para:
-            # Skip if it's already a header
-            if para.startswith('<h') and para.endswith('>'):
-                html_paragraphs.append(para)
-            else:
-                # Convert single newlines to <br> within paragraphs
-                para = para.replace('\n', '<br>')
-                html_paragraphs.append(f'<p>{para}</p>')
-
-    return '\n\n'.join(html_paragraphs)
+    # Configure markdown with useful extensions
+    md = markdown.Markdown(
+        extensions=[
+            'tables',          # Support for tables
+            'nl2br',           # Convert newlines to <br>
+            'attr_list',       # Support for {: .class} attributes
+        ]
+    )
+    
+    # Convert markdown to HTML
+    html_content = md.convert(markdown_text)
+    
+    return html_content
 
 
 def create_ignored_html_content(data: Dict[str, Any], reason: str) -> str:
@@ -533,53 +522,107 @@ def get_common_styles() -> str:
     
     styles = f"""
         {css_vars}
-        
-        :root {{
-            --base-font-size: 14px;
+
+        html {{
+            font-size: var(--base-font-size);
         }}
 
-        html {
-            font-size: var(--base-font-size);
-        }
-
-        * {
+        * {{
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
+        }}
 
-        body {
-            font-family: Arial, sans-serif;
-            max-width: 800px;
+        body {{
+            font-family: var(--font-primary);
+            max-width: 1100px;
             margin: 0 auto;
             padding: 20px;
             line-height: 1.6;
-        }
+            background-color: var(--selex-white);
+        }}
 
-        .metadata {
+        .metadata {{
             background-color: var(--selex-light-grey);
             padding: 15px;
             border-radius: 5px;
             margin-bottom: 20px;
-        }
+        }}
 
-        .metadata dt { font-weight: bold; }
-        .metadata dd { margin-left: 20px; margin-bottom: 5px; }
+        .metadata dt {{ font-weight: bold; }}
+        .metadata dd {{ margin-left: 20px; margin-bottom: 5px; }}
 
-        h1 {
+        h1 {{
             color: var(--selex-dark-blue);
             border-bottom: 2px solid var(--selex-middle-blue);
             padding-bottom: 10px;
-        }
+        }}
 
-        h2 {
-            color: var(--selex-middle-blue);
+        h2 {{
+            color: var(--selex-dark-blue);
             border-bottom: 1px solid var(--selex-dark-grey);
             padding-bottom: 5px;
-        }
+        }}
 
-        h3 { color: var(--selex-middle-blue); }
-        h4 { color: var(--selex-middle-blue); }"""
+        h3 {{ color: var(--selex-dark-blue); }}
+        h4 {{ color: var(--selex-dark-blue); }}
+
+        /* Markdown content styling */
+        table {{
+            border-collapse: collapse;
+            width: 100%;
+            margin: 20px 0;
+        }}
+        
+        th, td {{
+            border: 1px solid var(--border-grey);
+            padding: 8px 12px;
+            text-align: left;
+        }}
+        
+        th {{
+            background-color: var(--selex-light-grey);
+            font-weight: bold;
+            color: var(--selex-dark-blue);
+        }}
+        
+        code {{
+            background-color: var(--selex-light-grey);
+            padding: 2px 4px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }}
+        
+        pre {{
+            background-color: var(--selex-light-grey);
+            padding: 15px;
+            border-radius: 5px;
+            overflow-x: auto;
+            border-left: 4px solid var(--selex-light-blue);
+        }}
+        
+        pre code {{
+            background-color: transparent;
+            padding: 0;
+        }}
+        
+        blockquote {{
+            border-left: 4px solid var(--selex-light-blue);
+            padding-left: 15px;
+            margin: 15px 0;
+            color: var(--text-muted);
+            font-style: italic;
+        }}
+        
+        ul, ol {{
+            margin: 15px 0;
+            padding-left: 30px;
+        }}
+        
+        li {{
+            margin: 5px 0;
+        }}"""
 
     # Minify CSS: remove comments, extra whitespace, semicolons before }, etc.
     minified = minify_css(styles)
@@ -598,10 +641,20 @@ def minify_css(css_text: str) -> str:
     """
     # Remove CSS comments
     minified = re.sub(r'/\*.*?\*/', '', css_text, flags=re.DOTALL)
-    # Remove all whitespace (spaces, tabs, newlines)
-    minified = re.sub(r'\s+', '', minified)
+    
+    # Remove newlines and extra whitespace, but keep necessary spaces
+    minified = re.sub(r'\s+', ' ', minified)  # Replace multiple whitespace with single space
+    minified = re.sub(r'\s*{\s*', '{', minified)  # Remove spaces around {
+    minified = re.sub(r'\s*}\s*', '}', minified)  # Remove spaces around }
+    minified = re.sub(r'\s*;\s*', ';', minified)  # Remove spaces around ;
+    minified = re.sub(r'\s*:\s*', ':', minified)  # Remove spaces around :
+    minified = re.sub(r'\s*,\s*', ',', minified)  # Remove spaces around ,
+    
     # Remove semicolons before closing braces
     minified = re.sub(r';}', '}', minified)
+    
+    # Trim leading/trailing whitespace
+    minified = minified.strip()
 
     return minified
 
@@ -614,7 +667,7 @@ def get_amendment_styles() -> str:
     """
     styles = """
         /* Override max-width for diff view */
-        body { max-width: 1200px; }
+        body { max-width: 1000px; }
 
         .amendment-info {
             background-color: var(--selex-light-grey);

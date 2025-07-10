@@ -58,8 +58,10 @@ def create_html_diff(text_before: str, text_after: str, beteckning: str, rubrik:
         {css_variables}
         
         body {{
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 20px;
+            font-family: var(--font-modern);
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 20px;
             background-color: var(--selex-light-grey);
         }}
         .header {{

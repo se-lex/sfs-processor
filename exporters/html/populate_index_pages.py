@@ -133,12 +133,13 @@ def create_index_html(documents: List[Dict[str, Any]], output_file: Path) -> Non
     <style>
 {get_css_variables_escaped()}
         body {{
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-            max-width: 1200px;
+            font-family: var(--font-system);
+            max-width: 1000px;
             margin: 0 auto;
             padding: 20px;
             line-height: 1.6;
             color: var(--text-primary);
+            background-color: var(--bg-light-grey);
         }}
         .header {{
             border-bottom: 2px solid var(--selex-light-blue);

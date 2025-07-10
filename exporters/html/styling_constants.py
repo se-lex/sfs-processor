@@ -7,6 +7,13 @@ Contains all color variables and common styles used across HTML generation.
 # Configuration constants
 LIGHTER_PERCENT_ON_HOVER = 20
 
+# Font families
+FONT_FAMILIES = {
+    'primary': "Arial, sans-serif",
+    'system': "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif",
+    'modern': "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+}
+
 
 def lighten_color(hex_color, percent=20):
     """
@@ -136,6 +143,9 @@ def get_css_variables():
     # Add other utility variables
     css_vars.append("\n    /* Utility variables */")
     css_vars.append("    --base-font-size: 14px;")
+    css_vars.append(f"    --font-primary: {FONT_FAMILIES['primary']};")
+    css_vars.append(f"    --font-system: {FONT_FAMILIES['system']};")
+    css_vars.append(f"    --font-modern: {FONT_FAMILIES['modern']};")
     
     css_vars.append("}")
     
