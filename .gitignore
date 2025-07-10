@@ -4,5 +4,7 @@ ___pycache__
 .DS_Store
 
 # Ignore output files
+logs/
+output/
+sfs-output/
 data/kommande.yaml
-sfs-test
