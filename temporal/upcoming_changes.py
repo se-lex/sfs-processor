@@ -63,47 +63,6 @@ from pathlib import Path
 UPCOMING_CHANGES_FILE_PATH = "data/kommande.yaml"
 
 
-def extract_section_title(markdown_content: str, section_id: str) -> str:
-    """
-    Extract the title/heading text for a specific section or article.
-    
-    Args:
-        markdown_content: The full markdown content
-        section_id: The section ID to look for (e.g., "1§", "2kap")
-        
-    Returns:
-        The section title or section_id if no title found
-    """
-    if not section_id:
-        return ""
-    
-    # Try to find the section with the given ID and extract its title
-    section_patterns = [
-        # Pattern for section tags with ID and title in content
-        rf'<section[^>]*id="{re.escape(section_id)}"[^>]*>([^<]+)',
-        # Pattern for article tags with ID and title in content
-        rf'<article[^>]*id="{re.escape(section_id)}"[^>]*>([^<]+)',
-        # Pattern for markdown headers with section ID followed by title
-        rf'#{1,6}\s*{re.escape(section_id)}\s+([^\n]+)',
-        # Pattern for section ID followed by title text
-        rf'{re.escape(section_id)}\s+([^\n<]+)',
-    ]
-    
-    for pattern in section_patterns:
-        matches = re.search(pattern, markdown_content, re.DOTALL | re.IGNORECASE)
-        if matches:
-            title = matches.group(1).strip()
-            if title:
-                # Clean up the title - remove HTML tags and extra whitespace
-                title = re.sub(r'<[^>]+>', '', title)
-                title = re.sub(r'\s+', ' ', title).strip()
-                # Return first line or first 100 characters
-                lines = title.split('\n')
-                if lines:
-                    return lines[0][:100].strip()
-    
-    return section_id  # Fallback to just the section ID
-
 
 def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
     """
@@ -139,13 +98,16 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
     # Extract dates from section and article tags using regex
     
     # Pattern for section tags with selex attributes - ikraft_datum and upphor_datum
-    section_pattern = r'<section[^>]*selex:(ikraft_datum|upphor_datum)="([^"]+)"[^>]*(?:id="([^"]*)")?[^>]*>'
-    section_matches = re.finditer(section_pattern, markdown_content)
+    # Also capture class and content to extract section headings
+    section_pattern = r'<section[^>]*id="([^"]+)"[^>]*class="([^"]*)"[^>]*selex:(ikraft_datum|upphor_datum)="([^"]+)"[^>]*>(.*?)</section>'
+    section_matches = re.finditer(section_pattern, markdown_content, re.DOTALL)
     
     for match in section_matches:
-        attribute_name = match.group(1)
-        date_value = match.group(2)
-        section_id = match.group(3) if match.group(3) else None
+        section_id = match.group(1) if match.group(1) else None
+        class_name = match.group(2) if match.group(2) else None
+        attribute_name = match.group(3)
+        date_value = match.group(4)
+        content = match.group(5) if match.group(5) else ""
         
         # Extract ikraft_datum and upphor_datum from section tags
         if attribute_name == 'ikraft_datum':
@@ -160,25 +122,39 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
             try:
                 # Verify it's a valid date
                 datetime.strptime(date_value, '%Y-%m-%d')
-                section_title = extract_section_title(markdown_content, section_id) if section_id else ""
+                
+                # Extract section title based on class
+                if class_name == "paragraf":
+                    # For paragraphs, use simple section_id with §
+                    section_title = f"{section_id} §"
+                elif class_name == "kapital":
+                    # For chapters, extract the heading from content
+                    heading_match = re.search(r'#+\s*(.+?)(?:\n|$)', content)
+                    if heading_match:
+                        section_title = heading_match.group(1).strip()
+                    else:
+                        section_title = section_id
+                else:
+                    raise ValueError(f"Okänd section class '{class_name}' för section {section_id}. Förväntade klasser: 'paragraf', 'kapital'")
+                
                 changes.append({
                     'type': date_type,
                     'date': date_value,
                     'source': 'section_tag',
                     'section_id': section_id,
-                    'section_title': section_title
+                    'section_title': section_title,
+                    'class_name': class_name
                 })
             except ValueError:
                 pass  # Skip invalid dates
     
     # Pattern for article tags with selex attributes
-    article_pattern = r'<article[^>]*selex:(ikraft_datum|upphor_datum)="([^"]+)"[^>]*(?:id="([^"]*)")?[^>]*>'
+    article_pattern = r'<article[^>]*(?:id="([^"]*)")?[^>]*selex:(ikraft_datum|upphor_datum)="([^"]+)"[^>]*>'
     article_matches = re.finditer(article_pattern, markdown_content)
     
     for match in article_matches:
-        attribute_name = match.group(1)
-        date_value = match.group(2)
-        article_id = match.group(3) if match.group(3) else None
+        attribute_name = match.group(2)
+        date_value = match.group(3)
         
         # Extract ikraft_datum and upphor_datum from article tags
         if attribute_name == 'ikraft_datum':
@@ -193,13 +169,10 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
             try:
                 # Verify it's a valid date
                 datetime.strptime(date_value, '%Y-%m-%d')
-                section_title = extract_section_title(markdown_content, article_id) if article_id else ""
                 changes.append({
                     'type': date_type,
                     'date': date_value,
-                    'source': 'article_tag',
-                    'section_id': article_id,
-                    'section_title': section_title
+                    'source': 'article_tag'
                 })
             except ValueError:
                 pass  # Skip invalid dates
@@ -228,20 +201,29 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
                 for existing in changes:
                     if (existing['type'] == status and 
                         existing['date'] == date_value and 
-                        existing['section_id'] == element_id):
+                        existing.get('section_id') == element_id):
                         duplicate = True
                         break
                 
                 if not duplicate:
                     source_type = 'article_tag' if tag_type == 'article' else 'section_tag'
-                    section_title = extract_section_title(markdown_content, element_id) if element_id else ""
-                    changes.append({
-                        'type': status,
-                        'date': date_value,
-                        'source': source_type,
-                        'section_id': element_id,
-                        'section_title': section_title
-                    })
+                    
+                    if source_type == 'article_tag':
+                        changes.append({
+                            'type': status,
+                            'date': date_value,
+                            'source': source_type
+                        })
+                    else:
+                        # For sections, use element_id as section_title if available
+                        section_title = element_id if element_id else ""
+                        changes.append({
+                            'type': status,
+                            'date': date_value,
+                            'source': source_type,
+                            'section_id': element_id,
+                            'section_title': section_title
+                        })
             except ValueError:
                 pass  # Skip invalid dates
     
@@ -250,7 +232,7 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
     seen = set()
     for change in changes:
         # Create a key for deduplication (type + date + section_id)
-        key = (change['type'], change['date'], change.get('section_id'))
+        key = (change['type'], change['date'], change.get('section_id', ''))
         if key not in seen:
             seen.add(key)
             unique_changes.append(change)

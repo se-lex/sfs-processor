@@ -19,6 +19,17 @@ from util.datetime_utils import format_datetime_for_git
 from util.yaml_utils import extract_frontmatter_property
 
 
+def format_section_list(sections):
+    """Format a list of sections with proper Swedish enumeration (commas and 'och' before last)."""
+    if not sections:
+        return ""
+    if len(sections) == 1:
+        return sections[0]
+    if len(sections) == 2:
+        return f"{sections[0]} och {sections[1]}"
+    return f"{', '.join(sections[:-1])} och {sections[-1]}"
+
+
 def generate_descriptive_commit_message(
     doc_name: str,
     changes: List[Dict]
@@ -41,17 +52,18 @@ def generate_descriptive_commit_message(
     upphor_sections = []
     
     for change in changes:
+        # Skip article-level changes (they represent whole document changes)
+        if change.get('source') == 'article_tag':
+            continue
+        
         section_id = change.get('section_id')
         section_title = change.get('section_title', section_id or '')
         
         if not section_id:
             continue
             
-        # Use section title if available, otherwise just section ID
-        if section_title and section_title != section_id:
-            display_text = f"{section_id} ({section_title})"
-        else:
-            display_text = section_id
+        # Use section title
+        display_text = section_title if section_title else f"{section_id} §"
         
         if change['type'] == 'ikraft':
             ikraft_sections.append(display_text)
@@ -67,18 +79,30 @@ def generate_descriptive_commit_message(
     if has_ikraft and has_upphor:
         # Both entry into force and expiration
         emoji = "🔄"
+        
+        # Check if same sections are both taking effect and expiring
+        ikraft_set = set(ikraft_sections)
+        upphor_set = set(upphor_sections)
+        updated_sections = ikraft_set & upphor_set
+        only_ikraft = ikraft_set - upphor_set
+        only_upphor = upphor_set - ikraft_set
+        
         message_parts = []
         
-        if ikraft_sections:
-            sections_str = ", ".join(ikraft_sections)
+        if updated_sections:
+            sections_str = format_section_list(list(updated_sections))
+            message_parts.append(f"{sections_str} uppdateras")
+        
+        if only_ikraft:
+            sections_str = format_section_list(list(only_ikraft))
             message_parts.append(f"{sections_str} träder i kraft")
         
-        if upphor_sections:
-            sections_str = ", ".join(upphor_sections)
+        if only_upphor:
+            sections_str = format_section_list(list(only_upphor))
             message_parts.append(f"{sections_str} upphör")
         
         if message_parts:
-            message = f"{emoji} {doc_name}: {' och '.join(message_parts)}"
+            message = f"{emoji} {doc_name}: {', och '.join(message_parts)}"
         else:
             message = f"{emoji} {doc_name} ändringar träder i kraft och upphör"
             
@@ -89,7 +113,7 @@ def generate_descriptive_commit_message(
             if len(ikraft_sections) == 1:
                 message = f"{emoji} {doc_name}: {ikraft_sections[0]} träder i kraft"
             else:
-                sections_str = ", ".join(ikraft_sections)
+                sections_str = format_section_list(ikraft_sections)
                 message = f"{emoji} {doc_name}: {sections_str} träder i kraft"
         else:  # The whole document comes into force
             message = f"{emoji} {doc_name} träder i kraft"
@@ -101,7 +125,7 @@ def generate_descriptive_commit_message(
             if len(upphor_sections) == 1:
                 message = f"{emoji} {doc_name}: {upphor_sections[0]} upphör"
             else:
-                sections_str = ", ".join(upphor_sections)
+                sections_str = format_section_list(upphor_sections)
                 message = f"{emoji} {doc_name}: {sections_str} upphör"
         else:  # The whole document expires
             message = f"{emoji} {doc_name} upphör"
@@ -183,7 +207,7 @@ def generate_commits(
         return
     
     # Extract doc_name from frontmatter
-    doc_name = extract_frontmatter_property(content, 'doc_name')
+    doc_name = extract_frontmatter_property(content, 'beteckning')
     
     if not doc_name:
         print(f"Varning: Ingen doc_name hittades i frontmatter för {markdown_file}")
