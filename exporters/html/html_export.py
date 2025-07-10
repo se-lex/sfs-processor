@@ -575,18 +575,24 @@ def get_common_styles() -> str:
 
         h1 {{
             color: var(--selex-dark-blue);
-            border-bottom: 2px solid var(--selex-middle-blue);
-            padding-bottom: 10px;
+            padding: 20px 0 10px 0;
         }}
 
         h2 {{
             color: var(--selex-dark-blue);
             border-bottom: 1px solid var(--selex-dark-grey);
-            padding-bottom: 5px;
+            padding: 15px 0 5px 0;
         }}
 
-        h3 {{ color: var(--selex-dark-blue); }}
-        h4 {{ color: var(--selex-dark-blue); }}
+        h3 {{ 
+            color: var(--selex-dark-blue); 
+            padding: 12px 0 8px 0;
+        }}
+        
+        h4 {{ 
+            color: var(--selex-dark-blue); 
+            padding: 10px 0 6px 0;
+        }}
 
         /* Markdown content styling */
         table {{
