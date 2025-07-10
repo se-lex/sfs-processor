@@ -47,13 +47,15 @@ def generate_descriptive_commit_message(
     has_ikraft = any(c['type'] == 'ikraft' for c in changes)
     has_upphor = any(c['type'] in ['upphor', 'upphor_villkor'] for c in changes)
     
-    # Collect sections with titles
+    # Collect sections with titles and check for article-level changes
     ikraft_sections = []
     upphor_sections = []
+    has_article_changes = False
     
     for change in changes:
-        # Skip article-level changes (they represent whole document changes)
+        # Check if this is an article-level change (whole document)
         if change.get('source') == 'article_tag':
+            has_article_changes = True
             continue
         
         section_id = change.get('section_id')
@@ -99,12 +101,15 @@ def generate_descriptive_commit_message(
         
         if only_upphor:
             sections_str = format_section_list(list(only_upphor))
-            message_parts.append(f"{sections_str} upphör")
+            message_parts.append(f"{sections_str} upphävs")
         
         if message_parts:
             message = f"{emoji} {doc_name}: {', och '.join(message_parts)}"
+        elif has_article_changes:
+            # Only article-level changes (whole document changes)
+            message = f"{emoji} {doc_name} träder i kraft och upphävs"
         else:
-            message = f"{emoji} {doc_name} ändringar träder i kraft och upphör"
+            message = f"{emoji} {doc_name} ändringar träder i kraft och upphävs"
             
     elif has_ikraft:
         # Entry into force
@@ -115,20 +120,26 @@ def generate_descriptive_commit_message(
             else:
                 sections_str = format_section_list(ikraft_sections)
                 message = f"{emoji} {doc_name}: {sections_str} träder i kraft"
-        else:  # The whole document comes into force
+        elif has_article_changes:
+            # Article-level change - whole document comes into force
             message = f"{emoji} {doc_name} träder i kraft"
+        else:
+            raise ValueError(f"Ikraft-ändringar hittades för {doc_name} men varken sections eller article-ändringar kunde identifieras")
             
     else:  # has_upphor
         # Expiration
         emoji = "🚫"
         if upphor_sections:
             if len(upphor_sections) == 1:
-                message = f"{emoji} {doc_name}: {upphor_sections[0]} upphör"
+                message = f"{emoji} {doc_name}: {upphor_sections[0]} upphävs"
             else:
                 sections_str = format_section_list(upphor_sections)
-                message = f"{emoji} {doc_name}: {sections_str} upphör"
-        else:  # The whole document expires
-            message = f"{emoji} {doc_name} upphör"
+                message = f"{emoji} {doc_name}: {sections_str} upphävs"
+        elif has_article_changes:
+            # Article-level change - whole document expires
+            message = f"{emoji} {doc_name} upphävs"
+        else:
+            raise ValueError(f"Upphor-ändringar hittades för {doc_name} men varken sections eller article-ändringar kunde identifieras")
     
     return message
 
