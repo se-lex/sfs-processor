@@ -652,7 +652,8 @@ def main():
         # For backward compatibility
         json_dir = Path(sys.argv[1])
     else:
-        json_dir = script_dir / 'json'
+        # Default input directory is always ../sfs-jsondata
+        json_dir = script_dir.parent / 'sfs-jsondata'
 
     # Check if custom output directory is provided
     if args.output:
