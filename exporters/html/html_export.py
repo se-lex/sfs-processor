@@ -140,6 +140,10 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
 
     # Format the content text
     formatted_text = format_sfs_text_as_markdown(innehall_text, apply_links=True)
+    
+    # Apply section tags for HTML export (preserve selex tags)
+    from formatters.format_sfs_text import parse_logical_sections
+    formatted_text = parse_logical_sections(formatted_text)
 
     # Apply amendments if requested
     if apply_amendments and up_to_amendment:
@@ -226,6 +230,7 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     return html_doc
 
 
+
 def make_links_relative(html_content: str) -> str:
     """
     Strip base URL from links to make them relative for HTML export.
@@ -247,6 +252,8 @@ def make_links_relative(html_content: str) -> str:
 
 def markdown_to_html(markdown_text: str) -> str:
     """Convert markdown formatting to HTML using the markdown library.
+    
+    Preserves selex tags (<section>, <article>) and their attributes.
 
     Args:
         markdown_text: Text with markdown formatting
@@ -254,19 +261,36 @@ def markdown_to_html(markdown_text: str) -> str:
     Returns:
         str: HTML formatted text
     """
+    # Pre-process: Mark selex tags for markdown processing
+    processed_text = prepare_markdown_with_selex_tags(markdown_text)
+    
     # Configure markdown with useful extensions
     md = markdown.Markdown(
         extensions=[
             'tables',          # Support for tables
-            'nl2br',           # Convert newlines to <br>
             'attr_list',       # Support for {: .class} attributes
+            'md_in_html',      # Allow markdown inside HTML blocks
         ]
     )
     
     # Convert markdown to HTML
-    html_content = md.convert(markdown_text)
+    html_content = md.convert(processed_text)
     
     return html_content
+
+
+def prepare_markdown_with_selex_tags(markdown_text: str) -> str:
+    """
+    Prepare markdown text with selex tags for proper markdown processing.
+    
+    The md_in_html extension requires markdown="1" attribute on HTML block elements
+    to process markdown content inside them.
+    """
+    # Add markdown="1" to section and article tags
+    processed = re.sub(r'<(section[^>]*)>', r'<\1 markdown="1">', markdown_text)
+    processed = re.sub(r'<(article[^>]*)>', r'<\1 markdown="1">', processed)
+    
+    return processed
 
 
 def create_ignored_html_content(data: Dict[str, Any], reason: str) -> str:
@@ -592,6 +616,34 @@ def get_common_styles() -> str:
         h4 {{ 
             color: var(--selex-dark-blue); 
             padding: 10px 0 6px 0;
+        }}
+
+        /* Selex section styling */
+        article {{
+            margin: 20px 0;
+        }}
+
+        section {{
+            margin: 15px 0;
+        }}
+        
+        section.kapitel {{
+            margin: 25px 0;
+            padding: 10px 0;
+        }}
+        
+        section.paragraf {{
+            margin: 15px 0;
+        }}
+        
+        section[status="upphavd"] {{
+            opacity: 0.6;
+            text-decoration: line-through;
+        }}
+        
+        section[status="ikraft"] {{
+            border-left: 3px solid var(--selex-light-blue);
+            padding-left: 15px;
         }}
 
         /* Markdown content styling */
