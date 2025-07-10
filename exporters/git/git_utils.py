@@ -1,7 +1,13 @@
 """Git utilities for SFS document processing."""
 
 import subprocess
-from datetime import datetime, date
+from datetime import datetime
+
+# Git main branch name
+GIT_MAIN_BRANCH = "main"
+
+# Git command timeout in seconds (10 minutes)
+GIT_TIMEOUT = 600
 
 
 def ensure_git_branch_for_commits(git_branch, remove_all_commits_first=True, verbose=False):
@@ -19,7 +25,7 @@ def ensure_git_branch_for_commits(git_branch, remove_all_commits_first=True, ver
     try:
         # Get current branch name
         result = subprocess.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], 
-                              capture_output=True, text=True, check=True)
+                              capture_output=True, text=True, check=True, timeout=GIT_TIMEOUT)
         current_branch = result.stdout.strip()
 
         # Generate commit branch name
@@ -31,7 +37,7 @@ def ensure_git_branch_for_commits(git_branch, remove_all_commits_first=True, ver
 
         # Create and switch to the new branch
         subprocess.run(['git', 'checkout', '-b', commit_branch], 
-                      check=True, capture_output=True)
+                      check=True, capture_output=True, timeout=GIT_TIMEOUT)
 
         print(f"Skapade och bytte till branch '{commit_branch}' för git-commits")
         
@@ -60,7 +66,7 @@ def restore_original_branch(original_branch):
         
     try:
         subprocess.run(['git', 'checkout', original_branch], 
-                      check=True, capture_output=True)
+                      check=True, capture_output=True, timeout=GIT_TIMEOUT)
         print(f"Bytte tillbaka till ursprunglig branch '{original_branch}'")
     except subprocess.CalledProcessError as e:
         print(f"Varning: Kunde inte byta tillbaka till ursprunglig branch: {e}")
@@ -85,18 +91,18 @@ def remove_all_commits_on_branch(branch_name=None, verbose=False):
         if branch_name:
             # Get current branch
             result = subprocess.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], 
-                                  capture_output=True, text=True, check=True)
+                                  capture_output=True, text=True, check=True, timeout=GIT_TIMEOUT)
             original_branch = result.stdout.strip()
             
             # Switch to target branch if different
             if original_branch != branch_name:
                 subprocess.run(['git', 'checkout', branch_name], 
-                             check=True, capture_output=True)
+                             check=True, capture_output=True, timeout=GIT_TIMEOUT)
         
         # Get the merge base with main branch (the point where current branch diverged)
         result = subprocess.run([
-            'git', 'merge-base', 'HEAD', 'main'
-        ], capture_output=True, text=True, check=True)
+            'git', 'merge-base', 'HEAD', GIT_MAIN_BRANCH
+        ], capture_output=True, text=True, check=True, timeout=GIT_TIMEOUT)
         
         merge_base = result.stdout.strip()
         
@@ -106,7 +112,7 @@ def remove_all_commits_on_branch(branch_name=None, verbose=False):
             f'{merge_base}..HEAD',
             '--format=%H %s',
             '--reverse'  # Show oldest first
-        ], capture_output=True, text=True, check=True)
+        ], capture_output=True, text=True, check=True, timeout=GIT_TIMEOUT)
         
         commits_to_remove = result.stdout.strip().split('\n') if result.stdout.strip() else []
         
@@ -122,21 +128,24 @@ def remove_all_commits_on_branch(branch_name=None, verbose=False):
         
         # Reset to merge base (hard reset to remove all changes)
         subprocess.run(['git', 'reset', '--hard', merge_base], 
-                      check=True, capture_output=True)
+                      check=True, capture_output=True, timeout=GIT_TIMEOUT)
         
         print(f"Tog bort {len(commits_to_remove)} commits från branchen")
         
         # Switch back to original branch if we switched
         if original_branch and original_branch != branch_name:
             subprocess.run(['git', 'checkout', original_branch], 
-                         check=True, capture_output=True)
+                         check=True, capture_output=True, timeout=GIT_TIMEOUT)
         
         return len(commits_to_remove)
         
     except subprocess.CalledProcessError as e:
         print(f"Varning: Kunde inte ta bort commits: {e}")
         if hasattr(e, 'stderr') and e.stderr:
-            print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+            if isinstance(e.stderr, bytes):
+                print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+            else:
+                print(f"Git stderr: {e.stderr}")
         return 0
     except FileNotFoundError:
         print("Varning: Git hittades inte.")
