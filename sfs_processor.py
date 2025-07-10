@@ -180,8 +180,8 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
     # Extract beteckning for logging
     beteckning = data.get('beteckning', '')
 
-    # Process amendments using the temporal module
-    markdown_content = process_markdown_amendments(markdown_content, data, git_branch, verbose, output_file)
+    # Process amendments
+    # TODO: markdown_content = process_markdown_amendments(markdown_content, data, git_branch, verbose, output_file)
     
     # Convert table-like structures to proper Markdown tables
     # TODO: markdown_content = convert_tables_in_markdown(markdown_content, verbose)

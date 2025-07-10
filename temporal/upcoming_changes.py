@@ -63,6 +63,48 @@ from pathlib import Path
 UPCOMING_CHANGES_FILE_PATH = "data/kommande.yaml"
 
 
+def extract_section_title(markdown_content: str, section_id: str) -> str:
+    """
+    Extract the title/heading text for a specific section or article.
+    
+    Args:
+        markdown_content: The full markdown content
+        section_id: The section ID to look for (e.g., "1§", "2kap")
+        
+    Returns:
+        The section title or section_id if no title found
+    """
+    if not section_id:
+        return ""
+    
+    # Try to find the section with the given ID and extract its title
+    section_patterns = [
+        # Pattern for section tags with ID and title in content
+        rf'<section[^>]*id="{re.escape(section_id)}"[^>]*>([^<]+)',
+        # Pattern for article tags with ID and title in content
+        rf'<article[^>]*id="{re.escape(section_id)}"[^>]*>([^<]+)',
+        # Pattern for markdown headers with section ID followed by title
+        rf'#{1,6}\s*{re.escape(section_id)}\s+([^\n]+)',
+        # Pattern for section ID followed by title text
+        rf'{re.escape(section_id)}\s+([^\n<]+)',
+    ]
+    
+    for pattern in section_patterns:
+        matches = re.search(pattern, markdown_content, re.DOTALL | re.IGNORECASE)
+        if matches:
+            title = matches.group(1).strip()
+            if title:
+                # Clean up the title - remove HTML tags and extra whitespace
+                title = re.sub(r'<[^>]+>', '', title)
+                title = re.sub(r'\s+', ' ', title).strip()
+                # Return first line or first 100 characters
+                lines = title.split('\n')
+                if lines:
+                    return lines[0][:100].strip()
+    
+    return section_id  # Fallback to just the section ID
+
+
 def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
     """
     Identify upcoming changes in a markdown document by extracting effective dates
@@ -82,10 +124,11 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
         - 'date': The date in YYYY-MM-DD format
         - 'source': 'section_tag' or 'article_tag'
         - 'section_id': Section/Article ID if available, None otherwise
+        - 'section_title': Section title if available, section_id as fallback
         
     Example:
-        >>> content = '''<section id="1§" selex:ikraft_datum="2025-02-01">
-        ... <article id="2§" selex:upphor_datum="2025-12-31">
+        >>> content = '''<article id="1§" selex:ikraft_datum="2025-02-01">
+        ... <section id="2§" selex:upphor_datum="2025-12-31">
         ... '''
         >>> changes = identify_upcoming_changes(content)
         >>> len(changes)
@@ -117,11 +160,13 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
             try:
                 # Verify it's a valid date
                 datetime.strptime(date_value, '%Y-%m-%d')
+                section_title = extract_section_title(markdown_content, section_id) if section_id else ""
                 changes.append({
                     'type': date_type,
                     'date': date_value,
                     'source': 'section_tag',
-                    'section_id': section_id
+                    'section_id': section_id,
+                    'section_title': section_title
                 })
             except ValueError:
                 pass  # Skip invalid dates
@@ -148,11 +193,13 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
             try:
                 # Verify it's a valid date
                 datetime.strptime(date_value, '%Y-%m-%d')
+                section_title = extract_section_title(markdown_content, article_id) if article_id else ""
                 changes.append({
                     'type': date_type,
                     'date': date_value,
                     'source': 'article_tag',
-                    'section_id': article_id
+                    'section_id': article_id,
+                    'section_title': section_title
                 })
             except ValueError:
                 pass  # Skip invalid dates
@@ -187,11 +234,13 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
                 
                 if not duplicate:
                     source_type = 'article_tag' if tag_type == 'article' else 'section_tag'
+                    section_title = extract_section_title(markdown_content, element_id) if element_id else ""
                     changes.append({
                         'type': status,
                         'date': date_value,
                         'source': source_type,
-                        'section_id': element_id
+                        'section_id': element_id,
+                        'section_title': section_title
                     })
             except ValueError:
                 pass  # Skip invalid dates
