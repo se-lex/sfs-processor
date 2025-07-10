@@ -701,6 +701,15 @@ def get_common_styles() -> str:
         
         li {{
             margin: 5px 0;
+        }}
+        
+        /* Link styling */
+        a {{
+            color: var(--selex-middle-blue);
+        }}
+        
+        a:hover {{
+            color: var(--selex-middle-blue-hover);
         }}"""
 
     # Minify CSS: remove comments, extra whitespace, semicolons before }, etc.
