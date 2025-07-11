@@ -23,7 +23,6 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional
 
 from downloaders.riksdagen_api import fetch_predocs_details, format_predocs_for_frontmatter
-from exporters.git import ensure_git_branch_for_commits, restore_original_branch
 from exporters.git.git_utils import GIT_TIMEOUT
 from formatters.format_sfs_text import (
     format_sfs_text_as_markdown,
@@ -38,8 +37,9 @@ from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
 from temporal.title_temporal import title_temporal
 from temporal.amendments import process_markdown_amendments, extract_amendments
 from temporal.apply_temporal import apply_temporal
+from temporal.generate_commits import create_init_git_commit
 from util.yaml_utils import format_yaml_value
-from util.datetime_utils import format_datetime, format_datetime_for_git
+from util.datetime_utils import format_datetime
 from util.file_utils import filter_json_files, save_to_disk
 from formatters.predocs_parser import parse_predocs_string
 from formatters.table_converter import convert_tables_in_markdown
@@ -209,8 +209,6 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
 
     # Handle git commits if enabled
     if git_enabled:
-        import subprocess
-
         # Get main document metadata
         rubrik = data.get('rubrik', '')
 
@@ -219,109 +217,21 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
 
         # Only create main commit if there are no amendments (they handle their own commits)
         if not amendments and utfardad_datum:
-            # Ensure commits are made in a different branch
-            original_branch, commit_branch = ensure_git_branch_for_commits(git_branch, remove_all_commits_first=True, verbose=verbose)
-
-            # Only proceed with git commits if branch creation was successful
-            if original_branch is not None and commit_branch is not None:
-                try:
-                    # First commit: without ikraft_datum in front matter, dated utfardad_datum
-                    commit_message = rubrik if rubrik else f"SFS {beteckning}"
-                    
-                    # Add förarbeten if available
-                    register_data = data.get('register', {})
-                    predocs = register_data.get('forarbeten')
-                    if predocs:
-                        commit_message += f"\n\nHar tillkommit i Svensk författningssamling efter dessa förarbeten: {predocs}"
-
-                    # Clean selex tags if not preserving them
-                    #if not preserve_section_tags:
-                        # TODO: markdown_content = clean_selex_tags(markdown_content)
-
-                    # Write file for first commit (without ikraft_datum)
-                    save_to_disk(output_file, markdown_content)
-                    
-                    # Debug: Check if file exists
-                    if verbose and not output_file.exists():
-                        print(f"Varning: Filen {output_file} existerar inte efter save_to_disk")
-
-                    # Stage the current file (which doesn't have ikraft_datum yet)
-                    subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True, timeout=GIT_TIMEOUT)
-
-                    # Check if there are any changes to commit
-                    result = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True, timeout=GIT_TIMEOUT)
-                    if result.returncode != 0:  # Non-zero means there are changes
-                        # Create first commit with utfardad_datum as date for both author and committer
-                        utfardad_datum_git = format_datetime_for_git(utfardad_datum) if utfardad_datum else None
-                        env = {**os.environ, 'GIT_AUTHOR_DATE': utfardad_datum_git, 'GIT_COMMITTER_DATE': utfardad_datum_git}
-                        subprocess.run([
-                            'git', 'commit',
-                            '-m', commit_message
-                        ], check=True, capture_output=True, env=env, timeout=GIT_TIMEOUT)
-                        print(f"Git-commit skapad: '{commit_message}' daterad {utfardad_datum_git}")
-                    else:
-                        print(f"Inga ändringar att commita för första commit av {beteckning}")
-
-                    # Second commit: add "entry into force" (ikraft_datum) to front matter if it exists
-                    if ikraft_datum:
-                        # Add "entry into force" date (ikraft_datum) and sort front matter
-                        markdown_content_with_ikraft = add_ikraft_datum_to_frontmatter(markdown_content, ikraft_datum, beteckning)
-                        
-                        # Apply temporal rules as of the ikraft_datum (entry into force date)
-                        markdown_content_with_ikraft = apply_temporal(markdown_content_with_ikraft, ikraft_datum, verbose=verbose)
-
-                        if not preserve_section_tags:
-                            markdown_content_with_ikraft = clean_selex_tags(markdown_content_with_ikraft)
-
-                        # Write updated file with ikraft_datum
-                        save_to_disk(output_file, markdown_content_with_ikraft)
-
-                        # Stage the updated file
-                        subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True, timeout=GIT_TIMEOUT)
-
-                        # Check if there are any changes to commit
-                        result = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True, timeout=GIT_TIMEOUT)
-                        if result.returncode != 0:  # Non-zero means there are changes
-                            # Create second commit with ikraft_datum as date for both author and committer
-                            ikraft_datum_git = format_datetime_for_git(ikraft_datum) if ikraft_datum else None
-                            env = {**os.environ, 'GIT_AUTHOR_DATE': ikraft_datum_git, 'GIT_COMMITTER_DATE': ikraft_datum_git}
-                            subprocess.run([
-                                'git', 'commit',
-                                '-m', f"{beteckning} träder i kraft" # TODO: Se till att committa förarbeten först
-                            ], check=True, capture_output=True, env=env, timeout=GIT_TIMEOUT)
-                            print(f"Git-commit skapad: '{beteckning} träder i kraft' daterad {ikraft_datum_git}")
-                        else:
-                            print(f"Inga ändringar att commita för ikraft_datum av {beteckning}")
-
-                        # Use the content with ikraft_datum
-                        markdown_content = markdown_content_with_ikraft
-
-                    # Push the new branch to remote
-                    try:
-                        subprocess.run(['git', 'push', 'origin', commit_branch], check=True, capture_output=True, timeout=GIT_TIMEOUT)
-                        print(f"Pushade branch '{commit_branch}' till remote")
-                    except subprocess.CalledProcessError as e:
-                        print(f"Varning: Kunde inte pusha branch '{commit_branch}': {e}")
-
-                except subprocess.CalledProcessError as e:
-                    print(f"Varning: Git-commit misslyckades för {beteckning}: {e}")
-                    # Print stderr output for debugging
-                    if hasattr(e, 'stderr') and e.stderr:
-                        print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
-                    # Write the file anyway, without git commits
-                    save_to_disk(output_file, markdown_content)
-                    # Restore original branch on error
-                    restore_original_branch(original_branch)
-                except FileNotFoundError:
-                    print("Varning: Git hittades inte. Hoppar över Git-commits.")
-                    # Write the file anyway, without git commits
-                    save_to_disk(output_file, markdown_content)
-                    # Restore original branch on error
-                    restore_original_branch(original_branch)
-            else:
-                # Branch creation failed, write file without git commits
-                print(f"Hoppar över Git-commits för {beteckning} på grund av branch-problem")
-                save_to_disk(output_file, markdown_content)
+            # Get förarbeten if available
+            register_data = data.get('register', {})
+            predocs = register_data.get('forarbeten')
+            
+            # Create initial git commit
+            create_init_git_commit(
+                output_file=output_file,
+                markdown_content=markdown_content,
+                beteckning=beteckning,
+                rubrik=rubrik,
+                utfardad_datum=utfardad_datum,
+                git_branch=git_branch,
+                predocs=predocs,
+                verbose=verbose
+            )
         else:
             # Write file if git is enabled but no commits needed
             save_to_disk(output_file, markdown_content)

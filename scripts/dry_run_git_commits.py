@@ -71,6 +71,11 @@ def run_generate_commits_dry_run(
     print("=" * 80)
     
     try:
+        # Set up environment with PYTHONPATH
+        import os
+        env = os.environ.copy()
+        env['PYTHONPATH'] = str(script_dir)
+        
         # Run the command and capture both stdout and stderr
         with open(log_path, 'w', encoding='utf-8') as log_file:
             # Write header to log file
@@ -86,7 +91,8 @@ def run_generate_commits_dry_run(
                 stdout=subprocess.PIPE,
                 stderr=subprocess.STDOUT,
                 universal_newlines=True,
-                bufsize=1
+                bufsize=1,
+                env=env
             )
             
             # Stream output line by line

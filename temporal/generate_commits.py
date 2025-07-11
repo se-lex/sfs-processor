@@ -15,8 +15,99 @@ from typing import List, Dict, Optional
 from temporal.upcoming_changes import identify_upcoming_changes
 from temporal.apply_temporal import apply_temporal
 from exporters.git.git_utils import GIT_TIMEOUT
+from exporters.git import ensure_git_branch_for_commits, restore_original_branch
 from util.datetime_utils import format_datetime_for_git
 from util.yaml_utils import extract_frontmatter_property
+from util.file_utils import save_to_disk
+
+
+def create_init_git_commit(
+    output_file: Path,
+    markdown_content: str,
+    beteckning: str,
+    rubrik: str,
+    utfardad_datum: str,
+    git_branch: str = None,
+    predocs: Optional[str] = None,
+    verbose: bool = False
+) -> bool:
+    """Create the initial git commit for a document.
+    
+    Args:
+        output_file: Path to the markdown file
+        markdown_content: The markdown content to commit
+        beteckning: Document ID
+        rubrik: Document title
+        utfardad_datum: Issue date
+        git_branch: Branch name for commits
+        predocs: Preparatory works (förarbeten) if available
+        verbose: Enable verbose output
+        
+    Returns:
+        True if commit was successful, False otherwise
+    """
+    import subprocess
+    
+    # Ensure commits are made in a different branch
+    original_branch, commit_branch = ensure_git_branch_for_commits(git_branch, remove_all_commits_first=True, verbose=verbose)
+    
+    # Only proceed with git commits if branch creation was successful
+    if original_branch is None or commit_branch is None:
+        print(f"Hoppar över Git-commits för {beteckning} på grund av branch-problem")
+        save_to_disk(output_file, markdown_content)
+        return False
+    
+    # Prepare commit message
+    commit_message = rubrik if rubrik else f"SFS {beteckning}"
+    
+    # Add förarbeten if available
+    if predocs:
+        commit_message += f"\n\nHar tillkommit i Svensk författningssamling efter dessa förarbeten: {predocs}"
+    
+    # Write file for commit
+    save_to_disk(output_file, markdown_content)
+    
+    # Debug: Check if file exists
+    if verbose and not output_file.exists():
+        print(f"Varning: Filen {output_file} existerar inte efter save_to_disk")
+    
+    try:
+        # Stage the file
+        subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True, timeout=GIT_TIMEOUT)
+        
+        # Check if there are any changes to commit
+        result = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True, timeout=GIT_TIMEOUT)
+        if result.returncode != 0:  # Non-zero means there are changes
+            # Create commit with utfardad_datum as date for both author and committer
+            utfardad_datum_git = format_datetime_for_git(utfardad_datum) if utfardad_datum else None
+            env = {**os.environ, 'GIT_AUTHOR_DATE': utfardad_datum_git, 'GIT_COMMITTER_DATE': utfardad_datum_git}
+            subprocess.run([
+                'git', 'commit',
+                '-m', commit_message
+            ], check=True, capture_output=True, env=env, timeout=GIT_TIMEOUT)
+            print(f"Git-commit skapad: '{commit_message}' daterad {utfardad_datum_git}")
+            return True
+        else:
+            print(f"Inga ändringar att commita för första commit av {beteckning}")
+            return True
+            
+    except subprocess.CalledProcessError as e:
+        print(f"Varning: Git-commit misslyckades för {beteckning}: {e}")
+        # Print stderr output for debugging
+        if hasattr(e, 'stderr') and e.stderr:
+            print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+        # Write the file anyway, without git commits
+        save_to_disk(output_file, markdown_content)
+        # Restore original branch on error
+        restore_original_branch(original_branch)
+        return False
+    except FileNotFoundError:
+        print("Varning: Git hittades inte. Hoppar över Git-commits.")
+        # Write the file anyway, without git commits
+        save_to_disk(output_file, markdown_content)
+        # Restore original branch on error
+        restore_original_branch(original_branch)
+        return False
 
 
 def format_section_list(sections):
@@ -280,8 +371,7 @@ def generate_commits(
         try:
             filtered_content = apply_temporal(content, date, False)
             # Write the temporally filtered content to the file
-            with open(markdown_file, 'w', encoding='utf-8') as f:
-                f.write(filtered_content)
+            save_to_disk(markdown_file, filtered_content)
         except Exception as e:
             print(f"Fel vid tillämpning av temporal ändringar för {date}: {e}")
             continue
@@ -323,8 +413,7 @@ def generate_commits(
     
     # Restore original content after all commits
     try:
-        with open(markdown_file, 'w', encoding='utf-8') as f:
-            f.write(original_content)
+        save_to_disk(markdown_file, original_content)
     except Exception as e:
         print(f"Varning: Kunde inte återställa ursprungligt innehåll: {e}")
 
