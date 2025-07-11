@@ -420,6 +420,11 @@ departement: {format_yaml_value(organisation)}
         
         # Create article tag with temporal attributes
         article_attributes = []
+        
+        # Add utfardad_datum if available
+        if utfardad_datum:
+            article_attributes.append(f'selex:utfardad_datum="{utfardad_datum}"')
+        
         ikraft_datum = format_datetime(data.get('ikraftDateTime'))
         if ikraft_datum:
             article_attributes.append(f'selex:ikraft_datum="{ikraft_datum}"')
