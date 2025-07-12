@@ -30,6 +30,26 @@ def check_pdf_exists(url: str) -> bool:
         return False
 
 
+def clean_beteckning(beteckning: str) -> str:
+    """
+    Tar bort sidhänvisningar (t.ex. "s.1") från beteckning.
+    
+    Args:
+        beteckning: Beteckning som kan innehålla sidhänvisning
+        
+    Returns:
+        str: Beteckning utan sidhänvisning
+    """
+    if not beteckning:
+        return beteckning
+    
+    # Ta bort "s." och allt som kommer efter det
+    if 's.' in beteckning:
+        return beteckning.split('s.')[0].strip()
+    
+    return beteckning
+
+
 def generate_pdf_url(beteckning: str, utfardad_datum: str = None, check_exists: bool = True) -> str:
     """
     Genererar PDF URL baserat på beteckning och utfardad_datum.
@@ -51,6 +71,9 @@ def generate_pdf_url(beteckning: str, utfardad_datum: str = None, check_exists: 
         # Konvertera till sträng om det är en integer
         if isinstance(beteckning, int):
             beteckning = str(beteckning)
+        
+        # Rensa beteckning från sidhänvisningar
+        beteckning = clean_beteckning(beteckning)
         
         if ':' not in beteckning:
             print(f"Felaktig beteckning format: {beteckning}")
