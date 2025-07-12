@@ -228,7 +228,9 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     # TODO: markdown_content = convert_tables_in_markdown(markdown_content, verbose)
     
     # Apply temporal processing to handle selex attributes
-    # TODO: markdown_content = apply_temporal(markdown_content, today, verbose=verbose)
+    from datetime import datetime
+    today = datetime.now().strftime('%Y-%m-%d')
+    markdown_content = apply_temporal(markdown_content, today, verbose=verbose)
     
     # Extract amendments for git logic (if needed)
     # TODO: amendments = extract_amendments(data.get('andringsforfattningar', []))

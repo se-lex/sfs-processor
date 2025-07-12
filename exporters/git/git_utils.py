@@ -432,13 +432,20 @@ def push_to_target_repository(branch_name: str, remote_name: str = 'target', ver
         if verbose:
             print(f"Pushar branch '{branch_name}' till remote '{remote_name}'...")
         
-        subprocess.run(['git', 'push', remote_name, branch_name], 
-                      check=True, capture_output=True, timeout=GIT_TIMEOUT)
+        result = subprocess.run(['git', 'push', remote_name, branch_name], 
+                               capture_output=True, text=True, timeout=GIT_TIMEOUT)
         
-        if verbose:
-            print(f"Lyckades pusha branch '{branch_name}' till {repo_url}")
-        
-        return True
+        if result.returncode == 0:
+            if verbose:
+                print(f"Lyckades pusha branch '{branch_name}' till {repo_url}")
+            return True
+        else:
+            print(f"Push misslyckades med exit code {result.returncode}")
+            if result.stdout:
+                print(f"Git stdout: {result.stdout}")
+            if result.stderr:
+                print(f"Git stderr: {result.stderr}")
+            return False
         
     except subprocess.CalledProcessError as e:
         print(f"Fel vid push till target repository: {e}")

@@ -55,17 +55,20 @@ def process_files_with_git_batch(json_files, output_dir, verbose, predocs):
                 print(f"Fel vid läsning av {abs_json_file}: {e}")
                 continue
 
-            # Create documents in the cloned repository
-            make_document(data, output_dir, ["git"], True, verbose, True, predocs, True)
+            # Create documents in the cloned repository AND save to original output directory
+            # First convert to absolute path since we changed working directory
+            original_output_dir = Path(original_cwd) / Path(output_dir).name if not Path(output_dir).is_absolute() else Path(output_dir)
+            make_document(data, original_output_dir, ["git"], True, verbose, True, predocs, True)
 
         # Push all commits to target repository
         if verbose:
             print(f"Pushar batch till target repository...")
 
-        subprocess.run(['git', 'push', 'origin', unique_branch],
-                     check=True, capture_output=True, timeout=GIT_TIMEOUT)
-
-        print(f"Batch pushad till target repository som branch '{unique_branch}'")
+        from exporters.git.git_utils import push_to_target_repository
+        if push_to_target_repository(unique_branch, 'origin', verbose):
+            print(f"Batch pushad till target repository som branch '{unique_branch}'")
+        else:
+            print(f"Misslyckades med att pusha batch till target repository")
 
     except subprocess.CalledProcessError as e:
         print(f"Fel vid git batch processing: {e}")
