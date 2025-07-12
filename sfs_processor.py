@@ -37,7 +37,7 @@ from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
 from temporal.title_temporal import title_temporal
 from temporal.amendments import process_markdown_amendments, extract_amendments
 from temporal.apply_temporal import apply_temporal
-from exporters.git import init_commit
+from exporters.git import create_init_git_commit
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime
 from util.file_utils import filter_json_files, save_to_disk
@@ -173,7 +173,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     # Process markdown with section markers if requested
     if "md-markers" in output_modes:
         # Create markdown document with section tags preserved
-        _create_markdown_document(data, document_dir, None, True, verbose, fetch_predocs, apply_links)
+        _create_markdown_document(data, document_dir, False, True, verbose, fetch_predocs, apply_links)
 
     # Process HTML format if requested
     if "html" in output_modes:
@@ -248,7 +248,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     # Handle git commits if enabled
     if git_mode:
         # Always create initial commit when git is enabled
-        markdown_content = init_commit(
+        return create_init_git_commit(
             data=data,
             output_file=output_file,
             markdown_content=markdown_content,
@@ -571,8 +571,6 @@ def main():
                         help='Show detailed diff output for each amendment processing')
     parser.add_argument('--formats', dest='output_modes', default='md',
                         help='Output formats to generate (comma-separated). Currently supported: md, md-markers, git, html, htmldiff. Default: md. Use "md-markers" to preserve section tags. Use "git" to enable Git commits with historical dates. HTML creates documents in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer}). HTMLDIFF includes amendment versions with diff view.')
-    parser.add_argument('--git-branch', dest='git_branch', default='sfs-updates-(date)',
-                        help='Branch name to use for git commits when "git" format is enabled. Use "(date)" as placeholder for current date. Default: sfs-updates-(date)')
     parser.add_argument('--predocs', action='store_true',
                         help='Fetch detailed information about förarbeten from Riksdagen API. This will make processing slower.')
     parser.add_argument('--apply-links', action='store_true', default=True,
@@ -658,7 +656,7 @@ def main():
                 continue
 
             # Use make_document to create documents in specified formats
-            make_document(data, output_dir, output_modes, args.year_folder, args.verbose, args.git_branch, args.predocs, args.apply_links)
+            make_document(data, output_dir, output_modes, args.year_folder, args.verbose, False, args.predocs, args.apply_links)
     
     print(f"\nBearbetning klar! {len(json_files)} filer sparade i {output_dir} i format: {', '.join(output_modes)}")
 

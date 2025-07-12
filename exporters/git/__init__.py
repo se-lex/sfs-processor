@@ -7,10 +7,14 @@ from .git_utils import (
     get_target_repository,
     configure_git_remote,
     push_to_target_repository,
-    clone_target_repository_to_temp
+    clone_target_repository_to_temp,
+    is_file_tracked,
+    has_staged_changes,
+    stage_file,
+    create_commit_with_date
 )
-from .init_commit import init_commit
 from .batch_processor import process_files_with_git_batch
+from .generate_commits import create_init_git_commit
 
 __all__ = [
     'prepare_git_branch', 
@@ -20,6 +24,10 @@ __all__ = [
     'configure_git_remote', 
     'push_to_target_repository',
     'clone_target_repository_to_temp',
-    'init_commit',
-    'process_files_with_git_batch'
+    'is_file_tracked',
+    'has_staged_changes',
+    'stage_file',
+    'create_commit_with_date',
+    'process_files_with_git_batch',
+    'create_init_git_commit'
 ]

@@ -6,93 +6,117 @@ This module uses the identify_upcoming_changes function to find all temporal cha
 in markdown files and creates Git commits on the appropriate dates with suitable emojis.
 """
 
-import os
-import subprocess
+import re
 from datetime import datetime
 from pathlib import Path
 from typing import List, Dict, Optional
 
 from temporal.upcoming_changes import identify_upcoming_changes
 from temporal.apply_temporal import apply_temporal
-from exporters.git.git_utils import GIT_TIMEOUT
-from exporters.git import push_to_target_repository
-from util.datetime_utils import format_datetime_for_git
+from exporters.git.git_utils import is_file_tracked, has_staged_changes, stage_file, create_commit_with_date
+from util.datetime_utils import format_datetime, format_datetime_for_git
 from util.yaml_utils import extract_frontmatter_property
-from util.file_utils import save_to_disk
+from util.file_utils import read_file_content, save_to_disk
+from formatters.format_sfs_text import clean_selex_tags
 
 
 def create_init_git_commit(
+    data: dict,
     output_file: Path,
     markdown_content: str,
-    beteckning: str,
-    rubrik: str,
-    utfardad_datum: str,
-    predocs: Optional[str] = None,
     verbose: bool = False
-) -> bool:
-    """Create the initial git commit for a document.
+) -> str:
+    """
+    Create the initial git commit for an SFS document.
+    
+    This function merges functionality from both create_init_git_commit and init_commit.
+    It handles creating commits for individual documents and assumes we're already in a 
+    git repository and on the correct branch.
     
     Args:
-        output_file: Path to the markdown file
-        markdown_content: The markdown content to commit
-        beteckning: Document ID
-        rubrik: Document title
-        utfardad_datum: Issue date
-        predocs: Preparatory works (förarbeten) if available
+        data: JSON data containing document information
+        output_file: Path to the output markdown file (for local reference)
+        markdown_content: The markdown content to commit and save
         verbose: Enable verbose output
         
     Returns:
-        True if commit was successful, False otherwise
+        str: The final markdown content (cleaned, without selex tags)
     """
-    import subprocess
+    # Extract document metadata
+    beteckning = data.get('beteckning')
+    if not beteckning:
+        raise ValueError("Beteckning saknas i dokumentdata")
     
+    rubrik = data.get('rubrik')
+    if not rubrik:
+        raise ValueError("Rubrik saknas i dokumentdata")
+    
+    # Always expect utfardad_datum to exist
+    utfardad_datum = format_datetime(data.get('fulltext', {}).get('utfardadDateTime'))
+    if not utfardad_datum:
+        raise ValueError(f"utfardadDateTime saknas för {beteckning}")
+
+    # Prepare final content for local save (always clean selex tags in git mode)
+    final_content = clean_selex_tags(markdown_content)
+
+    # Save file locally for reference
+    save_to_disk(output_file, final_content)
+    print(f"Skapade dokument: {output_file}")
+
+    # Extract year from beteckning for directory structure
+    year_match = re.search(r'(\d{4}):', beteckning)
+    if year_match:
+        year = year_match.group(1)
+        relative_path = Path(year) / output_file.name
+    else:
+        relative_path = Path(output_file.name)
+
+    # Create directory structure if needed
+    target_file = Path.cwd() / relative_path
+    target_file.parent.mkdir(parents=True, exist_ok=True)
+
+    # Check if file already exists in git repository
+    if target_file.exists():
+        if verbose:
+            print(f"Varning: Filen {relative_path} finns redan i git repository, skippar")
+        return final_content
+    
+    # Also check if file is already tracked by git (in case it was deleted locally)
+    if is_file_tracked(str(relative_path)):
+        if verbose:
+            print(f"Varning: Filen {relative_path} är redan spårad av git, skippar")
+        return final_content
+
+    # Write the file (use clean content without selex tags for git)
+    with open(target_file, 'w', encoding='utf-8') as f:
+        f.write(final_content)
+
+    # Stage the file
+    if not stage_file(str(relative_path), verbose):
+        return final_content
+
+    # Check if there are any changes to commit
+    if not has_staged_changes():
+        print(f"Inga ändringar att commita för {beteckning}")
+        return final_content
+
     # Prepare commit message
-    commit_message = rubrik if rubrik else f"SFS {beteckning}"
-    
+    commit_message = rubrik
+
     # Add förarbeten if available
+    register_data = data.get('register', {})
+    predocs = register_data.get('forarbeten')
     if predocs:
-        commit_message += f"\n\nHar tillkommit i Svensk författningssamling efter dessa förarbeten: {predocs}"
-    
-    # Write file for commit
-    save_to_disk(output_file, markdown_content)
-    
-    # Debug: Check if file exists
-    if verbose and not output_file.exists():
-        print(f"Varning: Filen {output_file} existerar inte efter save_to_disk")
-    
-    try:
-        # Stage the file
-        subprocess.run(['git', 'add', str(output_file)], check=True, capture_output=True, timeout=GIT_TIMEOUT)
-        
-        # Check if there are any changes to commit
-        result = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True, timeout=GIT_TIMEOUT)
-        if result.returncode != 0:  # Non-zero means there are changes
-            # Create commit with utfardad_datum as date for both author and committer
-            utfardad_datum_git = format_datetime_for_git(utfardad_datum) if utfardad_datum else None
-            env = {**os.environ, 'GIT_AUTHOR_DATE': utfardad_datum_git, 'GIT_COMMITTER_DATE': utfardad_datum_git}
-            subprocess.run([
-                'git', 'commit',
-                '-m', commit_message
-            ], check=True, capture_output=True, env=env, timeout=GIT_TIMEOUT)
-            print(f"Git-commit skapad: '{commit_message}' daterad {utfardad_datum_git}")
-            return True
-        else:
-            print(f"Inga ändringar att commita för första commit av {beteckning}")
-            return True
-            
-    except subprocess.CalledProcessError as e:
-        print(f"Varning: Git-commit misslyckades för {beteckning}: {e}")
-        # Print stderr output for debugging
-        if hasattr(e, 'stderr') and e.stderr:
-            print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
-        # Write the file anyway, without git commits
-        save_to_disk(output_file, markdown_content)
-        return False
-    except FileNotFoundError:
-        print("Varning: Git hittades inte. Hoppar över Git-commits.")
-        # Write the file anyway, without git commits
-        save_to_disk(output_file, markdown_content)
-        return False
+        commit_message += (f"\n\nHar tillkommit i Svensk författningssamling "
+                         f"efter dessa förarbeten: {predocs}")
+
+    # Format date for git
+    commit_date = format_datetime_for_git(utfardad_datum)
+
+    # Create commit with specified date
+    create_commit_with_date(commit_message, commit_date, verbose)
+
+    return final_content
 
 
 def format_section_list(sections):
@@ -250,13 +274,12 @@ def generate_descriptive_commit_message(
     return message
 
 
-def generate_commits(
+def generate_temporal_commits(
     markdown_file: Path,
     doc_name: Optional[str] = None,
     from_date: Optional[str] = None,
     to_date: Optional[str] = None,
-    dry_run: bool = False,
-    push_to_remote: bool = False
+    dry_run: bool = False
 ) -> None:
     """
     Generate Git commits for temporal changes in a markdown file.
@@ -270,7 +293,6 @@ def generate_commits(
         from_date: Start date (inclusive) in YYYY-MM-DD format. If None, no lower bound.
         to_date: End date (inclusive) in YYYY-MM-DD format. If None, no upper bound.
         dry_run: If True, show what would be committed without making actual commits
-        push_to_remote: If True, push commits to the target repository configured via environment variables
         
     Raises:
         ValueError: If date format is invalid
@@ -295,10 +317,9 @@ def generate_commits(
         return
     
     try:
-        with open(markdown_file, 'r', encoding='utf-8') as f:
-            content = f.read()
-    except (IOError, UnicodeDecodeError) as e:
-        print(f"Fel vid läsning av {markdown_file}: {e}")
+        content = read_file_content(markdown_file)
+    except IOError as e:
+        print(str(e))
         return
     
     # Identify upcoming changes
@@ -397,55 +418,19 @@ def generate_commits(
         message = generate_descriptive_commit_message(doc_name, date_changes)
         
         # Stage the file
-        try:
-            subprocess.run(['git', 'add', str(markdown_file)], check=True, capture_output=True, timeout=GIT_TIMEOUT)
-        except subprocess.CalledProcessError as e:
-            print(f"Fel vid staging av {markdown_file}: {e}")
-            if hasattr(e, 'stderr') and e.stderr:
-                print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+        if not stage_file(str(markdown_file)):
             continue
         
         # Check if there are any changes to commit
-        result = subprocess.run(['git', 'diff', '--cached', '--quiet'], capture_output=True, timeout=GIT_TIMEOUT)
-        if result.returncode == 0:  # No changes
+        if not has_staged_changes():
             print(f"Inga ändringar att committa för {date}")
             continue
         
         # Create commit with the appropriate date
         git_date = format_datetime_for_git(date)
-        env = {**os.environ, 'GIT_AUTHOR_DATE': git_date, 'GIT_COMMITTER_DATE': git_date}
         
-        try:
-            subprocess.run([
-                'git', 'commit',
-                '-m', message
-            ], check=True, capture_output=True, env=env, timeout=GIT_TIMEOUT)
-            
-            print(f"Git-commit skapad: '{message}' daterad {git_date}")
-            
-        except subprocess.CalledProcessError as e:
-            print(f"Fel vid commit för {date}: {e}")
-            if hasattr(e, 'stderr') and e.stderr:
-                print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
-    
-    # Push to target repository if requested
-    if push_to_remote and not dry_run:
-        try:
-            # Get current branch name for pushing
-            result = subprocess.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], 
-                                  capture_output=True, text=True, check=True, timeout=GIT_TIMEOUT)
-            current_branch = result.stdout.strip()
-            
-            print(f"Pushar commits till target repository...")
-            if push_to_target_repository(current_branch, verbose=True):
-                print(f"Lyckades pusha branch '{current_branch}' till target repository")
-            else:
-                print("Misslyckades med att pusha till target repository")
-                
-        except subprocess.CalledProcessError as e:
-            print(f"Fel vid push till target repository: {e}")
-            if hasattr(e, 'stderr') and e.stderr:
-                print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+        if not create_commit_with_date(message, git_date, verbose=True):
+            print(f"Fel vid commit för {date}")
     
     # Restore original content after all commits
     try:
@@ -458,8 +443,7 @@ def generate_commits_for_directory(
     directory: Path,
     from_date: Optional[str] = None,
     to_date: Optional[str] = None,
-    dry_run: bool = False,
-    push_to_remote: bool = False
+    dry_run: bool = False
 ) -> None:
     """
     Generate Git commits for all markdown files in a directory.
@@ -469,7 +453,6 @@ def generate_commits_for_directory(
         from_date: Start date (inclusive) in YYYY-MM-DD format. If None, no lower bound.
         to_date: End date (inclusive) in YYYY-MM-DD format. If None, no upper bound.
         dry_run: If True, show what would be committed without making actual commits
-        push_to_remote: If True, push commits to the target repository configured via environment variables
     """
     if not directory.exists():
         print(f"Fel: Katalogen {directory} finns inte")
@@ -492,7 +475,7 @@ def generate_commits_for_directory(
         print(f"\nBearbetar {md_file.name}...")
         
         try:
-            generate_commits(md_file, None, from_date, to_date, dry_run, push_to_remote)
+            generate_temporal_commits(md_file, None, from_date, to_date, dry_run)
         except Exception as e:
             print(f"Fel vid bearbetning av {md_file}: {e}")
 
@@ -520,19 +503,14 @@ if __name__ == "__main__":
         action='store_true',
         help='Visa planerade commits utan att utföra dem'
     )
-    parser.add_argument(
-        '--push',
-        action='store_true',
-        help='Pusha commits till target repository (konfigurerat via GIT_TARGET_REPO och GIT_GITHUB_PAT)'
-    )
     
     args = parser.parse_args()
     
     path = Path(args.path)
     
     if path.is_file():
-        generate_commits(path, None, args.from_date, args.to_date, args.dry_run, args.push)
+        generate_temporal_commits(path, None, args.from_date, args.to_date, args.dry_run)
     elif path.is_dir():
-        generate_commits_for_directory(path, args.from_date, args.to_date, args.dry_run, args.push)
+        generate_commits_for_directory(path, args.from_date, args.to_date, args.dry_run)
     else:
         print(f"Fel: {path} finns inte")
