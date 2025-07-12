@@ -104,7 +104,7 @@ def determine_output_path(data: Dict[str, Any], output_dir: Path, year_as_folder
     return document_dir
 
 
-def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_branch: str = None, fetch_predocs: bool = False, apply_links: bool = False, target_date: Optional[str] = None) -> None:
+def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_mode: bool = False, fetch_predocs: bool = False, apply_links: bool = False, target_date: Optional[str] = None) -> None:
     """Create documents by converting JSON to specified output formats and applying amendments.
 
     This is the main function for document creation that handles:
@@ -131,8 +131,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
                      All HTML output uses ELI directory structure with year-based folders
         year_as_folder: Whether to create year-based subdirectories (default: True)
         verbose: Whether to show verbose output (default: False)
-        git_branch: Branch name to use for git commits. If contains "(date)", it will be replaced
-                   with current date. Only used when "git" is in output_modes.
+        git_mode: Whether git mode is enabled (commits will be created)
         fetch_predocs: Whether to fetch detailed information about förarbeten from Riksdagen API (default: False)
         target_date: Optional target date (YYYY-MM-DD) for temporal title processing
     """
@@ -169,9 +168,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
 
     # Process markdown format if requested
     if "md" in output_modes:
-        # Create markdown document (pass git_branch if "git" is in output_modes)
-        git_branch_param = git_branch if "git" in output_modes else None
-        _create_markdown_document(data, document_dir, git_branch_param, False, verbose, fetch_predocs, apply_links)
+        _create_markdown_document(data, document_dir, git_mode, False, verbose, fetch_predocs, apply_links)
 
     # Process markdown with section markers if requested
     if "md-markers" in output_modes:
@@ -190,14 +187,13 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
 
 
 
-def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branch: str = None, preserve_section_tags: bool = False, verbose: bool = False, fetch_predocs: bool = False, apply_links: bool = False) -> str:
+def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode: bool = False, preserve_section_tags: bool = False, verbose: bool = False, fetch_predocs: bool = False, apply_links: bool = False) -> str:
     """Internal function to create a markdown document from JSON data.
 
     Args:
         data: JSON data containing document information
         output_path: Path to the output directory (folder)
-        git_branch: Branch name to use for git commits. If None, no git commits are made.
-                   If contains "(date)", it will be replaced with current date.
+        git_mode: Whether git mode is enabled (commits will be created)
         preserve_section_tags: Whether to preserve <section> tags in output (for md-markers mode)
         verbose: Whether to print verbose output
         fetch_predocs: Whether to fetch detailed information about förarbeten from Riksdagen API
@@ -235,13 +231,10 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
     # TODO: markdown_content = apply_temporal(markdown_content, today, verbose=verbose)
     
     # Extract amendments for git logic (if needed)
-    amendments = extract_amendments(data.get('andringsforfattningar', []))
-
-    # Determine if git functionality is enabled
-    git_enabled = git_branch is not None
+    # TODO: amendments = extract_amendments(data.get('andringsforfattningar', []))
 
     # Add ikraft_datum to front matter if not in Git mode
-    if not git_enabled:
+    if not git_mode:
         ikraft_datum = format_datetime(data.get('ikraftDateTime'))
         if ikraft_datum:
             markdown_content = add_ikraft_datum_to_frontmatter(markdown_content, ikraft_datum, beteckning)
@@ -253,7 +246,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
             print(f"Debug: Innehållsförhandsvisning eftersom misstänkt kort:\n{markdown_content[:500]}...")
 
     # Handle git commits if enabled
-    if git_enabled:
+    if git_mode:
         # Always create initial commit when git is enabled
         markdown_content = init_commit(
             data=data,
@@ -652,7 +645,7 @@ def main():
     # Handle git mode with batch processing
     if "git" in output_modes:
         from exporters.git import process_files_with_git_batch
-        process_files_with_git_batch(json_files, output_dir, output_modes, args.year_folder, args.verbose, args.git_branch, args.predocs, args.apply_links)
+        process_files_with_git_batch(json_files, output_dir, args.verbose, args.predocs)
     else:
         # Convert each JSON file normally
         for json_file in json_files:

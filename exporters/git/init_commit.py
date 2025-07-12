@@ -12,9 +12,9 @@ import subprocess
 from pathlib import Path
 
 from exporters.git.git_utils import GIT_TIMEOUT
-from util.file_utils import save_to_disk
 from formatters.format_sfs_text import clean_selex_tags
 from util.datetime_utils import format_datetime, format_datetime_for_git
+from util.file_utils import save_to_disk
 
 
 def init_commit(

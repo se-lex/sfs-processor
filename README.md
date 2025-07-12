@@ -159,7 +159,7 @@ python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [-
 - `--formats`: Utdataformat att generera, kommaseparerat. Stödda: md, md-markers, git, html, htmldiff (default: "md")
   - `md`: Generera rena markdown-filer utan section-taggar
   - `md-markers`: Generera markdown-filer med section-taggar bevarade
-  - `git`: Aktivera Git-commits med historiska datum (kräver md)
+  - `git`: Aktivera Git-commits med historiska datum
   - `html`: Generera HTML-filer i ELI-struktur (endast grunddokument)
   - `htmldiff`: Generera HTML-filer i ELI-struktur med ändringsversioner
 - `--filter`: Filtrera filer efter år (YYYY) eller specifik beteckning (YYYY:NNN). Kan vara kommaseparerad lista.

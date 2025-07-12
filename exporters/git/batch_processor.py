@@ -17,23 +17,12 @@ from exporters.git import clone_target_repository_to_temp
 from exporters.git.git_utils import GIT_TIMEOUT
 
 
-def process_files_with_git_batch(json_files, output_dir, output_modes, year_folder, verbose, git_branch, predocs, apply_links):
+def process_files_with_git_batch(json_files, output_dir, verbose, predocs):
     """Process files with git batch workflow."""
     # Clone target repository once for all documents
     repo_dir, original_cwd = clone_target_repository_to_temp(verbose=verbose)
     if repo_dir is None:
-        print("Fel: Kunde inte klona target repository, faller tillbaka på lokal bearbetning")
-        # Fallback to normal processing
-        from sfs_processor import make_document
-        for json_file in json_files:
-            try:
-                with open(json_file, 'r', encoding='utf-8') as f:
-                    data = json.load(f)
-            except (json.JSONDecodeError, FileNotFoundError) as e:
-                print(f"Fel vid läsning av {json_file}: {e}")
-                continue
-            make_document(data, output_dir, output_modes, year_folder, verbose, git_branch, predocs, apply_links)
-        return
+        raise RuntimeError("Failed to clone target repository")
 
     try:
         # Change to cloned repository directory
@@ -42,7 +31,7 @@ def process_files_with_git_batch(json_files, output_dir, output_modes, year_fold
         # Create unique branch name for this batch
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         random_suffix = random.randint(1000, 9999)
-        unique_branch = f"{git_branch}_batch_{timestamp}_{random_suffix}"
+        unique_branch = f"batch_{timestamp}_{random_suffix}"
 
         # Create and checkout new branch directly
         try:
@@ -67,7 +56,7 @@ def process_files_with_git_batch(json_files, output_dir, output_modes, year_fold
                 continue
 
             # Create documents in the cloned repository
-            make_document(data, output_dir, output_modes, year_folder, verbose, git_branch, predocs, apply_links)
+            make_document(data, output_dir, ["git"], True, verbose, True, predocs, True)
 
         # Push all commits to target repository
         if verbose:
