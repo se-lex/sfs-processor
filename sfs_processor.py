@@ -45,6 +45,24 @@ from formatters.predocs_parser import parse_predocs_string
 from formatters.table_converter import convert_tables_in_markdown
 
 
+def create_safe_filename(beteckning: str, preserve_section_tags: bool = False) -> str:
+    """
+    Create a safe filename from beteckning.
+    
+    Args:
+        beteckning: Document beteckning (e.g., "2024:1000")
+        preserve_section_tags: Whether this is for md-markers mode
+        
+    Returns:
+        str: Safe filename (e.g., "sfs-2024-1000.md" or "sfs-2024-1000-markers.md")
+    """
+    safe_beteckning = re.sub(r'[^\w\-]', '-', beteckning)
+    if preserve_section_tags:
+        return f"sfs-{safe_beteckning}-markers.md"
+    else:
+        return f"sfs-{safe_beteckning}.md"
+
+
 def determine_output_path(data: Dict[str, Any], output_dir: Path, year_as_folder: bool = True) -> Path:
     """
     Determine output directory path from document data.
@@ -61,10 +79,9 @@ def determine_output_path(data: Dict[str, Any], output_dir: Path, year_as_folder
         ValueError: If beteckning is invalid or year cannot be extracted
     """
     # Extract beteckning for validation
-    beteckning = data.get('beteckning', '')
-    
+    beteckning = data.get('beteckning')
     if not beteckning:
-        raise ValueError("Ingen beteckning hittades i dokumentdata")
+        raise ValueError("Beteckning saknas i dokumentdata")
 
     # Skip documents with beteckning starting with 'N' (notifications etc.)
     if beteckning.startswith('N'):
@@ -80,7 +97,7 @@ def determine_output_path(data: Dict[str, Any], output_dir: Path, year_as_folder
     # Determine output directory based on year_as_folder setting
     if year_as_folder:
         document_dir = output_dir / year
-        document_dir.mkdir(exist_ok=True)
+        document_dir.mkdir(parents=True, exist_ok=True)
     else:
         document_dir = output_dir
 
@@ -190,11 +207,11 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
     """
 
     # Extract beteckning to create safe filename
-    beteckning = data.get('beteckning', '')
-    if preserve_section_tags:
-        safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '-markers.md'
-    else:
-        safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.md'
+    beteckning = data.get('beteckning')
+    if not beteckning:
+        raise ValueError("Beteckning saknas i dokumentdata")
+    
+    safe_filename = create_safe_filename(beteckning, preserve_section_tags)
     output_file = output_path / safe_filename
 
     # Get basic markdown content
@@ -203,8 +220,10 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
     # Always normalize heading levels, regardless of whether we keep section tags
     markdown_content = normalize_heading_levels(markdown_content)
 
-    # Extract beteckning for logging
-    beteckning = data.get('beteckning', '')
+    # Extract beteckning for logging  
+    beteckning = data.get('beteckning')
+    if not beteckning:
+        raise ValueError("Beteckning saknas i dokumentdata")
 
     # Process amendments
     # TODO: markdown_content = process_markdown_amendments(markdown_content, data, git_branch, verbose, output_file)
@@ -240,8 +259,6 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
             data=data,
             output_file=output_file,
             markdown_content=markdown_content,
-            git_branch=git_branch,
-            preserve_section_tags=preserve_section_tags,
             verbose=verbose
         )
     else:
@@ -271,9 +288,14 @@ def convert_to_markdown(data: Dict[str, Any], fetch_predocs: bool = False, apply
     """
 
     # Extract main document information
-    beteckning = data.get('beteckning', '')
+    beteckning = data.get('beteckning')
+    if not beteckning:
+        raise ValueError("Beteckning saknas i dokumentdata")
+    
     # Use temporal processed title if available, otherwise use original
-    rubrik_original = data.get('rubrik_after_temporal', data.get('rubrik', ''))
+    rubrik_original = data.get('rubrik_after_temporal', data.get('rubrik'))
+    if not rubrik_original:
+        raise ValueError("Rubrik saknas i dokumentdata")
     
     rubrik = clean_title(rubrik_original)    # Clean for front matter
 
@@ -538,6 +560,89 @@ def create_ignored_markdown_content(data: Dict[str, Any], reason: str) -> str:
     return markdown_body
 
 
+def _process_files_with_git_batch(json_files, output_dir, output_modes, year_folder, verbose, git_branch, predocs, apply_links):
+    """Process files with git batch workflow."""
+    import shutil
+    import subprocess
+    from datetime import datetime
+    import random
+    from exporters.git import clone_target_repository_to_temp
+    from exporters.git.git_utils import GIT_TIMEOUT
+    
+    # Clone target repository once for all documents
+    repo_dir, original_cwd = clone_target_repository_to_temp(verbose=verbose)
+    if repo_dir is None:
+        print("Fel: Kunde inte klona target repository, faller tillbaka på lokal bearbetning")
+        # Fallback to normal processing
+        for json_file in json_files:
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+            except (json.JSONDecodeError, FileNotFoundError) as e:
+                print(f"Fel vid läsning av {json_file}: {e}")
+                continue
+            make_document(data, output_dir, output_modes, year_folder, verbose, git_branch, predocs, apply_links)
+        return
+    
+    try:
+        # Change to cloned repository directory
+        os.chdir(repo_dir)
+        
+        # Create unique branch name for this batch
+        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+        random_suffix = random.randint(1000, 9999)
+        unique_branch = f"{git_branch}_batch_{timestamp}_{random_suffix}"
+        
+        # Create and checkout new branch directly
+        try:
+            subprocess.run(['git', 'checkout', '-b', unique_branch], 
+                         check=True, capture_output=True, timeout=GIT_TIMEOUT)
+            if verbose:
+                print(f"Skapade och bytte till branch '{unique_branch}' för batch-commits")
+        except subprocess.CalledProcessError as e:
+            print(f"Fel: Kunde inte skapa git branch: {e}")
+            return
+        
+        # Process each JSON file
+        for json_file in json_files:
+            # Use absolute path since we changed working directory
+            abs_json_file = Path(original_cwd) / json_file
+            try:
+                with open(abs_json_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+            except (json.JSONDecodeError, FileNotFoundError) as e:
+                print(f"Fel vid läsning av {abs_json_file}: {e}")
+                continue
+
+            # Create documents in the cloned repository
+            make_document(data, output_dir, output_modes, year_folder, verbose, git_branch, predocs, apply_links)
+        
+        # Push all commits to target repository
+        if verbose:
+            print(f"Pushar batch till target repository...")
+        
+        subprocess.run(['git', 'push', 'origin', unique_branch], 
+                     check=True, capture_output=True, timeout=GIT_TIMEOUT)
+        
+        print(f"Batch pushad till target repository som branch '{unique_branch}'")
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Fel vid git batch processing: {e}")
+        if hasattr(e, 'stderr') and e.stderr:
+            print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+    except Exception as e:
+        print(f"Oväntat fel vid git batch processing: {e}")
+    finally:
+        # Always change back to original directory
+        os.chdir(original_cwd)
+        # Clean up temporary directory
+        try:
+            shutil.rmtree(repo_dir.parent)
+        except Exception as e:
+            if verbose:
+                print(f"Varning: Kunde inte rensa temporär katalog: {e}")
+
+
 def main():
     """Main function to process all JSON files in the json directory."""
     
@@ -626,18 +731,22 @@ def main():
     print(f"Hittade {len(json_files)} JSON-fil(er) att konvertera från {json_dir}")
     print(f"Utdata kommer att sparas i {output_dir}")
     
-    # Convert each JSON file
-    for json_file in json_files:
-        # Read JSON file
-        try:
-            with open(json_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-        except (json.JSONDecodeError, FileNotFoundError) as e:
-            print(f"Fel vid läsning av {json_file}: {e}")
-            continue
+    # Handle git mode with batch processing
+    if "git" in output_modes:
+        _process_files_with_git_batch(json_files, output_dir, output_modes, args.year_folder, args.verbose, args.git_branch, args.predocs, args.apply_links)
+    else:
+        # Convert each JSON file normally
+        for json_file in json_files:
+            # Read JSON file
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+            except (json.JSONDecodeError, FileNotFoundError) as e:
+                print(f"Fel vid läsning av {json_file}: {e}")
+                continue
 
-        # Use make_document to create documents in specified formats
-        make_document(data, output_dir, output_modes, args.year_folder, args.verbose, args.git_branch, args.predocs, args.apply_links)
+            # Use make_document to create documents in specified formats
+            make_document(data, output_dir, output_modes, args.year_folder, args.verbose, args.git_branch, args.predocs, args.apply_links)
     
     print(f"\nBearbetning klar! {len(json_files)} filer sparade i {output_dir} i format: {', '.join(output_modes)}")
 

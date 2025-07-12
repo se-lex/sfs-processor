@@ -2,96 +2,108 @@
 """
 Module for generating initial Git commits for SFS documents.
 
-This module handles the complete git workflow for creating initial commits
-for SFS documents, including branch management and cleanup.
+This module handles creating commits for SFS documents without managing
+the overall git workflow (branching, pushing, etc).
 """
 
+import os
+import re
+import subprocess
 from pathlib import Path
-from typing import Optional
 
-from exporters.git import ensure_git_branch_for_commits, restore_original_branch
-from exporters.git.generate_commits import create_init_git_commit
+from exporters.git.git_utils import GIT_TIMEOUT
 from util.file_utils import save_to_disk
 from formatters.format_sfs_text import clean_selex_tags
-from util.datetime_utils import format_datetime
+from util.datetime_utils import format_datetime, format_datetime_for_git
 
 
 def generate_init_commit_for_document(
     data: dict,
     output_file: Path,
     markdown_content: str,
-    git_branch: str,
-    preserve_section_tags: bool = False,
     verbose: bool = False
 ) -> str:
     """
-    Generate initial git commit for an SFS document with proper branch handling.
-    
-    This function handles the complete git workflow:
-    1. Creates a separate git branch for commits
-    2. Creates the initial commit with document metadata
-    3. Restores the original branch
-    4. Writes the final file content
-    
+    Generate initial git commit for an SFS document.
+
+    This function handles creating commits for individual documents.
+    It assumes we're already in a git repository and on the correct branch.
+
     Args:
         data: JSON data containing document information
-        output_file: Path to the output markdown file
+        output_file: Path to the output markdown file (for local reference)
         markdown_content: The markdown content to commit and save
-        git_branch: Branch name to use for git commits
-        preserve_section_tags: Whether to preserve <section> tags in final output
         verbose: Enable verbose output
-        
+
     Returns:
-        str: The final markdown content (cleaned if preserve_section_tags is False)
+        str: The final markdown content (cleaned, without selex tags)
     """
     # Extract document metadata
-    beteckning = data.get('beteckning', 'Unknown')
-    rubrik = data.get('rubrik', '')
+    beteckning = data.get('beteckning')
+    if not beteckning:
+        raise ValueError("Beteckning saknas i dokumentdata")
+    
+    rubrik = data.get('rubrik')
+    if not rubrik:
+        raise ValueError("Rubrik saknas i dokumentdata")
+    
     utfardad_datum = format_datetime(data.get('fulltext', {}).get('utfardadDateTime'))
-    
-    # Ensure commits are made in a different branch
-    original_branch, commit_branch = ensure_git_branch_for_commits(
-        git_branch, 
-        remove_all_commits_first=True, 
-        verbose=verbose
-    )
-    
-    # Ensure branch creation was successful
-    if original_branch is None or commit_branch is None:
-        raise RuntimeError(f"Misslyckades att skapa git branch för {beteckning}")
-    
-    try:
-        # Only create main commit if we have utfardad_datum
-        if utfardad_datum:
-            # Get förarbeten if available
-            register_data = data.get('register', {})
-            predocs = register_data.get('forarbeten')
-            
-            # Create initial git commit
-            success = create_init_git_commit(
-                output_file=output_file,
-                markdown_content=markdown_content,
-                beteckning=beteckning,
-                rubrik=rubrik,
-                utfardad_datum=utfardad_datum,
-                predocs=predocs,
-                verbose=verbose
-            )
-            
-            if not success:
-                print(f"Git-commit misslyckades för {beteckning}")
+
+    # Prepare final content for local save (always clean selex tags in git mode)
+    final_content = clean_selex_tags(markdown_content)
+
+    # Save file locally for reference
+    save_to_disk(output_file, final_content)
+    print(f"Skapade dokument: {output_file}")
+
+    # Create git commit if we have utfardad_datum
+    if utfardad_datum:
+        # Extract year from beteckning for directory structure
+        year_match = re.search(r'(\d{4}):', beteckning)
+        if year_match:
+            year = year_match.group(1)
+            relative_path = Path(year) / output_file.name
         else:
-            # Write file if no utfardad_datum available
-            save_to_disk(output_file, markdown_content)
-            print(f"Skrev fil utan git-commit (inget utfärdandedatum): {output_file}")
+            relative_path = Path(output_file.name)
+
+        # Create directory structure if needed
+        target_file = Path.cwd() / relative_path
+        target_file.parent.mkdir(parents=True, exist_ok=True)
+
+        # Write the file (use clean content without selex tags for git)
+        clean_content = clean_selex_tags(markdown_content)
         
-    finally:
-        # Always restore original branch after git operations
-        restore_original_branch(original_branch)
-    
-    # Prepare final content for return
-    final_content = markdown_content
-    if not preserve_section_tags:
-        final_content = clean_selex_tags(final_content)
-    
+        with open(target_file, 'w', encoding='utf-8') as f:
+            f.write(clean_content)
+
+        # Stage the file
+        subprocess.run(['git', 'add', str(relative_path)],
+                     check=True, capture_output=True, timeout=GIT_TIMEOUT)
+
+        # Prepare commit message
+        commit_message = rubrik
+
+        # Add förarbeten if available
+        register_data = data.get('register', {})
+        predocs = register_data.get('forarbeten')
+        if predocs:
+            commit_message += (f"\n\nHar tillkommit i Svensk författningssamling "
+                             f"efter dessa förarbeten: {predocs}")
+
+        # Format date for git
+        commit_date = format_datetime_for_git(utfardad_datum)
+
+        # Create commit with specified date
+        env = {**os.environ, 'GIT_AUTHOR_DATE': commit_date, 'GIT_COMMITTER_DATE': commit_date}
+        subprocess.run([
+            'git', 'commit', '-m', commit_message
+        ], check=True, capture_output=True, env=env, timeout=GIT_TIMEOUT)
+
+        if verbose:
+            print(f"Git-commit skapad: '{commit_message}' daterad {commit_date}")
+
+    elif not utfardad_datum:
+        if verbose:
+            print(f"Hoppade över git-commit (inget utfärdandedatum): {beteckning}")
+
     return final_content

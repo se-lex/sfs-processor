@@ -42,9 +42,9 @@ jobs:
       env:
         PYTHONPATH: ${{ github.workspace }}
 
-    - name: Process JSON files to Markdown files
+    - name: Process JSON files to Markdown files with Selex tags
       run: |
-        python sfs_processor.py --input sfs_json --output SFS --formats md,git
+        python sfs_processor.py --input sfs_json --output SFS --formats md-markers
       env:
         PYTHONPATH: ${{ github.workspace }}
 

@@ -3,6 +3,7 @@
 import os
 import subprocess
 from datetime import datetime
+from pathlib import Path
 from urllib.parse import urlparse
 
 # Git main branch name
@@ -15,7 +16,7 @@ GIT_TIMEOUT = 600
 DEFAULT_TARGET_REPO = "https://github.com/se-lex/sfs.git"
 
 
-def ensure_git_branch_for_commits(git_branch, remove_all_commits_first=True, verbose=False):
+def prepare_git_branch(git_branch, remove_all_commits_first=True, verbose=False):
     """
     Ensures that git commits are made in a different branch than the current one.
     Creates a new branch if needed and switches to it.
@@ -227,6 +228,67 @@ def create_authenticated_url(repo_url: str, pat_token: str) -> str:
     else:
         # For other hosts, keep original URL
         return repo_url
+
+
+def clone_target_repository_to_temp(verbose: bool = False) -> tuple[Path, str]:
+    """
+    Clone target repository to a temporary directory.
+    
+    Args:
+        verbose: Enable verbose output
+        
+    Returns:
+        tuple[Path, str]: (repo_directory_path, original_cwd) or (None, None) if failed
+    """
+    import tempfile
+    
+    try:
+        # Get repository URL and PAT token
+        repo_url = get_target_repository()
+        pat_token = os.getenv('GIT_GITHUB_PAT')
+        
+        # Try to load PAT from .env file if not in environment
+        if not pat_token:
+            try:
+                from dotenv import load_dotenv
+                load_dotenv()
+                pat_token = os.getenv('GIT_GITHUB_PAT')
+            except ImportError:
+                pass  # dotenv not available
+        
+        # Create authenticated URL if PAT is available
+        if pat_token:
+            auth_url = create_authenticated_url(repo_url, pat_token)
+        else:
+            auth_url = repo_url
+            if verbose:
+                print("Varning: Ingen PAT token hittades, använder okrypterad URL")
+            
+        # Create temporary directory for cloning
+        temp_dir = tempfile.mkdtemp()
+        repo_dir = Path(temp_dir) / "target_repo"
+        
+        if verbose:
+            print(f"Klonar {repo_url} till temporär katalog...")
+        
+        # Clone the repository
+        subprocess.run([
+            'git', 'clone', auth_url, str(repo_dir)
+        ], check=True, capture_output=True, timeout=GIT_TIMEOUT)
+        
+        # Remember original directory
+        original_cwd = os.getcwd()
+        
+        return repo_dir, original_cwd
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Fel vid kloning av target repository: {e}")
+        if hasattr(e, 'stderr') and e.stderr:
+            print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+        return None, None
+    except Exception as e:
+        print(f"Oväntat fel vid kloning av target repository: {e}")
+        return None, None
 
 
 def push_to_target_repository(branch_name: str, remote_name: str = 'target', verbose: bool = False) -> bool:
