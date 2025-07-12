@@ -23,7 +23,6 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional
 
 from downloaders.riksdagen_api import fetch_predocs_details, format_predocs_for_frontmatter
-from exporters.git.git_utils import GIT_TIMEOUT
 from formatters.format_sfs_text import (
     format_sfs_text_as_markdown,
     parse_logical_sections,
@@ -35,14 +34,13 @@ from formatters.sort_frontmatter import sort_frontmatter_properties
 from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
 from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
 from temporal.title_temporal import title_temporal
-from temporal.amendments import process_markdown_amendments, extract_amendments
+from temporal.amendments import extract_amendments
 from temporal.apply_temporal import apply_temporal
 from exporters.git import create_init_git_commit
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime
 from util.file_utils import filter_json_files, save_to_disk
 from formatters.predocs_parser import parse_predocs_string
-from formatters.table_converter import convert_tables_in_markdown
 
 
 def create_safe_filename(beteckning: str, preserve_section_tags: bool = False) -> str:

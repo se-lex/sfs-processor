@@ -359,6 +359,49 @@ def stage_file(file_path: str, verbose: bool = False) -> bool:
         return False
 
 
+def checkout_branch(branch_name: str, create_if_missing: bool = True, verbose: bool = False) -> bool:
+    """
+    Checkout to a git branch, optionally creating it if it doesn't exist.
+    
+    Args:
+        branch_name: Name of the branch to checkout
+        create_if_missing: If True, create the branch if it doesn't exist
+        verbose: Enable verbose output
+        
+    Returns:
+        bool: True if checkout was successful, False otherwise
+    """
+    try:
+        # Try to checkout the branch first
+        result = subprocess.run(['git', 'checkout', branch_name],
+                              capture_output=True, timeout=GIT_TIMEOUT)
+        
+        if result.returncode == 0:
+            if verbose:
+                print(f"Bytte till branch '{branch_name}'")
+            return True
+        elif create_if_missing:
+            # Branch doesn't exist, create it
+            subprocess.run(['git', 'checkout', '-b', branch_name],
+                          check=True, capture_output=True, timeout=GIT_TIMEOUT)
+            if verbose:
+                print(f"Skapade och bytte till branch '{branch_name}'")
+            return True
+        else:
+            if verbose:
+                print(f"Branch '{branch_name}' finns inte och create_if_missing=False")
+            return False
+            
+    except subprocess.CalledProcessError as e:
+        print(f"Fel vid checkout av branch '{branch_name}': {e}")
+        if hasattr(e, 'stderr') and e.stderr:
+            print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+        return False
+    except FileNotFoundError:
+        print("Varning: Git hittades inte.")
+        return False
+
+
 def create_commit_with_date(message: str, date: str, verbose: bool = False) -> bool:
     """
     Create a git commit with a specified date.
