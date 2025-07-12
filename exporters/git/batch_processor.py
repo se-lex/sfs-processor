@@ -13,7 +13,6 @@ import json
 
 from exporters.git import clone_target_repository_to_temp
 from exporters.git.git_utils import checkout_branch, push_to_target_repository
-from sfs_processor import make_document
 
 
 def process_files_with_git_batch(json_files, output_dir, verbose, predocs, batch_size=10):
