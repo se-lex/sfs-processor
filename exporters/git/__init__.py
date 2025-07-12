@@ -9,7 +9,7 @@ from .git_utils import (
     push_to_target_repository,
     clone_target_repository_to_temp
 )
-from .generate_init_commit_for_doc import generate_init_commit_for_document
+from .init_commit import init_commit
 from .batch_processor import process_files_with_git_batch
 
 __all__ = [
@@ -20,6 +20,6 @@ __all__ = [
     'configure_git_remote', 
     'push_to_target_repository',
     'clone_target_repository_to_temp',
-    'generate_init_commit_for_document',
+    'init_commit',
     'process_files_with_git_batch'
 ]

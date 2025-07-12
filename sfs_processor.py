@@ -37,7 +37,7 @@ from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
 from temporal.title_temporal import title_temporal
 from temporal.amendments import process_markdown_amendments, extract_amendments
 from temporal.apply_temporal import apply_temporal
-from exporters.git import generate_init_commit_for_document
+from exporters.git import init_commit
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime
 from util.file_utils import filter_json_files, save_to_disk
@@ -255,7 +255,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
     # Handle git commits if enabled
     if git_enabled:
         # Always create initial commit when git is enabled
-        markdown_content = generate_init_commit_for_document(
+        markdown_content = init_commit(
             data=data,
             output_file=output_file,
             markdown_content=markdown_content,

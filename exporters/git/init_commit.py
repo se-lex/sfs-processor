@@ -17,7 +17,7 @@ from formatters.format_sfs_text import clean_selex_tags
 from util.datetime_utils import format_datetime, format_datetime_for_git
 
 
-def generate_init_commit_for_document(
+def init_commit(
     data: dict,
     output_file: Path,
     markdown_content: str,
@@ -69,6 +69,12 @@ def generate_init_commit_for_document(
         # Create directory structure if needed
         target_file = Path.cwd() / relative_path
         target_file.parent.mkdir(parents=True, exist_ok=True)
+
+        # Check if file already exists in git repository
+        if target_file.exists():
+            if verbose:
+                print(f"Varning: Filen {relative_path} finns redan i git repository, skippar")
+            return final_content
 
         # Write the file (use clean content without selex tags for git)
         clean_content = clean_selex_tags(markdown_content)
