@@ -37,7 +37,7 @@ from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
 from temporal.title_temporal import title_temporal
 from temporal.amendments import process_markdown_amendments, extract_amendments
 from temporal.apply_temporal import apply_temporal
-from temporal.generate_commits import create_init_git_commit
+from exporters.git.generate_commits import create_init_git_commit
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime
 from util.file_utils import filter_json_files, save_to_disk
