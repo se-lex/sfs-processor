@@ -156,7 +156,7 @@ python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [-
 
 - `--input`: Input-katalog med JSON-filer (default: "sfs_json")
 - `--output`: Output-katalog för konverterade filer (default: "SFS")
-- `--formats`: Utdataformat att generera, kommaseparerat. Stödda: md, md-markers, git, html, htmldiff (default: "md")
+- `--formats`: Utdataformat att generera, kommaseparerat. Stödjer: md, md-markers, git, html, htmldiff (default: "md")
   - `md`: Generera rena markdown-filer utan section-taggar
   - `md-markers`: Generera markdown-filer med section-taggar bevarade
   - `git`: Aktivera Git-commits med historiska datum (kräver md)
@@ -166,3 +166,6 @@ python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [-
 - `--no-year-folder`: Skapa inte årbaserade undermappar för dokument
 - `--verbose`: Visa detaljerad information om bearbetningen
 
+## Licens
+
+Detta projekt är licensierat under Business Source License 1.1 (BSL 1.1) - se [LICENSE](LICENSE) filen för detaljer. Efter 3 år övergår licensen för aktuell version automatiskt till MIT.
