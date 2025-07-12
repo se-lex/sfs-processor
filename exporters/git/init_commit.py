@@ -75,6 +75,17 @@ def init_commit(
             if verbose:
                 print(f"Varning: Filen {relative_path} finns redan i git repository, skippar")
             return final_content
+        
+        # Also check if file is already tracked by git (in case it was deleted locally)
+        try:
+            result = subprocess.run(['git', 'ls-files', str(relative_path)], 
+                                  capture_output=True, text=True, timeout=GIT_TIMEOUT)
+            if result.returncode == 0 and result.stdout.strip():
+                if verbose:
+                    print(f"Varning: Filen {relative_path} är redan spårad av git, skippar")
+                return final_content
+        except subprocess.CalledProcessError:
+            pass  # File is not tracked, continue
 
         # Write the file (use clean content without selex tags for git)
         clean_content = clean_selex_tags(markdown_content)
