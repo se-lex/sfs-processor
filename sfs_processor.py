@@ -429,10 +429,15 @@ departement: {format_yaml_value(organisation)}
         if ikraft_datum:
             article_attributes.append(f'selex:ikraft_datum="{ikraft_datum}"')
         
-        # Check for expiration date in both tidsbegransadDateTime and upphavdDateTime
-        upphor_datum = utgar_datum or format_datetime(data.get('upphavdDateTime'))
-        if upphor_datum:
-            article_attributes.append(f'selex:upphor_datum="{upphor_datum}"')
+        # Check for expiration date - distinguish between temporal expiration and active revocation
+        upphavd_datum = format_datetime(data.get('upphavdDateTime'))
+        if utgar_datum:
+            # Temporal expiration (tidsbegransadDateTime)
+            article_attributes.append(f'selex:upphor_datum="{utgar_datum}"')
+        elif upphavd_datum:
+            # Active revocation (upphavdDateTime)
+            article_attributes.append(f'selex:upphor_datum="{upphavd_datum}"')
+            article_attributes.append('selex:upphavd="true"')
         
         # Check for conditional entry into force
         if data.get('ikraftDenDagenRegeringenBestammer'):

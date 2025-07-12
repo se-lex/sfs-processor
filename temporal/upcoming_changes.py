@@ -84,6 +84,7 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
         - 'source': 'section_tag' or 'article_tag'
         - 'section_id': Section/Article ID if available, None otherwise
         - 'section_title': Section title if available, section_id as fallback
+        - 'is_revoked': True if selex:upphavd="true" (active revocation), only present if True
         
     Example:
         >>> content = '''<article id="1§" selex:ikraft_datum="2025-02-01">
@@ -208,22 +209,32 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
                 if not duplicate:
                     source_type = 'article_tag' if tag_type == 'article' else 'section_tag'
                     
+                    # Check for selex:upphavd="true" attribute to distinguish active revocation
+                    tag_content = match.group(0)
+                    is_revoked = 'selex:upphavd="true"' in tag_content
+                    
                     if source_type == 'article_tag':
-                        changes.append({
+                        change_data = {
                             'type': status,
                             'date': date_value,
                             'source': source_type
-                        })
+                        }
+                        if is_revoked:
+                            change_data['is_revoked'] = True
+                        changes.append(change_data)
                     else:
                         # For sections, use element_id as section_title if available
                         section_title = element_id if element_id else ""
-                        changes.append({
+                        change_data = {
                             'type': status,
                             'date': date_value,
                             'source': source_type,
                             'section_id': element_id,
                             'section_title': section_title
-                        })
+                        }
+                        if is_revoked:
+                            change_data['is_revoked'] = True
+                        changes.append(change_data)
             except ValueError:
                 pass  # Skip invalid dates
     

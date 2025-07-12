@@ -141,12 +141,17 @@ def generate_descriptive_commit_message(
     # Collect sections with titles and check for article-level changes
     ikraft_sections = []
     upphor_sections = []
+    upphavd_sections = []  # Sections with selex:upphavd="true"
     has_article_changes = False
+    has_article_revoked = False  # Article-level active revocation
     
     for change in changes:
         # Check if this is an article-level change (whole document)
         if change.get('source') == 'article_tag':
             has_article_changes = True
+            # Track if this is an active revocation at article level
+            if change.get('is_revoked'):
+                has_article_revoked = True
             continue
         
         section_id = change.get('section_id')
@@ -162,6 +167,9 @@ def generate_descriptive_commit_message(
             ikraft_sections.append(display_text)
         elif change['type'] == 'upphor':
             upphor_sections.append(display_text)
+            # Track if this is an active revocation (upphävd)
+            if change.get('is_revoked'):
+                upphavd_sections.append(display_text)
         elif change['type'] == 'upphor_villkor':
             # Handle conditional expiry - treat similar to upphor but with different messaging
             upphor_sections.append(display_text)
@@ -192,13 +200,20 @@ def generate_descriptive_commit_message(
         
         if only_upphor:
             sections_str = format_section_list(list(only_upphor))
-            message_parts.append(f"{sections_str} upphävs")
+            # Use specific terminology if all are actively revoked
+            if set(only_upphor).issubset(set(upphavd_sections)):
+                message_parts.append(f"{sections_str} upphävs")
+            else:
+                message_parts.append(f"{sections_str} upphör att gälla")
         
         if message_parts:
             message = f"{emoji} {doc_name}: {', och '.join(message_parts)}"
         elif has_article_changes:
             # Only article-level changes (whole document changes)
-            message = f"{emoji} {doc_name} träder i kraft och upphävs"
+            if has_article_revoked:
+                message = f"{emoji} {doc_name} träder i kraft och upphävs"
+            else:
+                message = f"{emoji} {doc_name} träder i kraft och upphör att gälla"
         else:
             message = f"{emoji} {doc_name} ändringar träder i kraft och upphävs"
             
@@ -222,13 +237,28 @@ def generate_descriptive_commit_message(
         emoji = "🚫"
         if upphor_sections:
             if len(upphor_sections) == 1:
-                message = f"{emoji} {doc_name}: {upphor_sections[0]} upphävs"
+                # For single section, use specific terminology if actively revoked
+                if upphor_sections[0] in upphavd_sections:
+                    message = f"{emoji} {doc_name}: {upphor_sections[0]} upphävs"
+                else:
+                    message = f"{emoji} {doc_name}: {upphor_sections[0]} upphör att gälla"
             else:
                 sections_str = format_section_list(upphor_sections)
-                message = f"{emoji} {doc_name}: {sections_str} upphävs"
+                # Check if all sections are actively revoked
+                if set(upphor_sections).issubset(set(upphavd_sections)):
+                    message = f"{emoji} {doc_name}: {sections_str} upphävs"
+                else:
+                    # Mixed or temporal expiration - use general term but indicate if some are actively revoked
+                    if upphavd_sections:
+                        message = f"{emoji} {doc_name}: {sections_str} upphävs"
+                    else:
+                        message = f"{emoji} {doc_name}: {sections_str} upphör att gälla"
         elif has_article_changes:
             # Article-level change - whole document expires
-            message = f"{emoji} {doc_name} upphävs"
+            if has_article_revoked:
+                message = f"{emoji} {doc_name} upphävs"
+            else:
+                message = f"{emoji} {doc_name} upphör att gälla"
         else:
             raise ValueError(f"Upphor-ändringar hittades för {doc_name} men varken sections eller article-ändringar kunde identifieras")
     
