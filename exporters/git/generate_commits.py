@@ -15,7 +15,7 @@ from typing import List, Dict, Optional
 from temporal.upcoming_changes import identify_upcoming_changes
 from temporal.apply_temporal import apply_temporal
 from exporters.git.git_utils import GIT_TIMEOUT
-from exporters.git import ensure_git_branch_for_commits, restore_original_branch
+from exporters.git import push_to_target_repository
 from util.datetime_utils import format_datetime_for_git
 from util.yaml_utils import extract_frontmatter_property
 from util.file_utils import save_to_disk
@@ -27,7 +27,6 @@ def create_init_git_commit(
     beteckning: str,
     rubrik: str,
     utfardad_datum: str,
-    git_branch: str = None,
     predocs: Optional[str] = None,
     verbose: bool = False
 ) -> bool:
@@ -39,7 +38,6 @@ def create_init_git_commit(
         beteckning: Document ID
         rubrik: Document title
         utfardad_datum: Issue date
-        git_branch: Branch name for commits
         predocs: Preparatory works (förarbeten) if available
         verbose: Enable verbose output
         
@@ -47,15 +45,6 @@ def create_init_git_commit(
         True if commit was successful, False otherwise
     """
     import subprocess
-    
-    # Ensure commits are made in a different branch
-    original_branch, commit_branch = ensure_git_branch_for_commits(git_branch, remove_all_commits_first=True, verbose=verbose)
-    
-    # Only proceed with git commits if branch creation was successful
-    if original_branch is None or commit_branch is None:
-        print(f"Hoppar över Git-commits för {beteckning} på grund av branch-problem")
-        save_to_disk(output_file, markdown_content)
-        return False
     
     # Prepare commit message
     commit_message = rubrik if rubrik else f"SFS {beteckning}"
@@ -98,15 +87,11 @@ def create_init_git_commit(
             print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
         # Write the file anyway, without git commits
         save_to_disk(output_file, markdown_content)
-        # Restore original branch on error
-        restore_original_branch(original_branch)
         return False
     except FileNotFoundError:
         print("Varning: Git hittades inte. Hoppar över Git-commits.")
         # Write the file anyway, without git commits
         save_to_disk(output_file, markdown_content)
-        # Restore original branch on error
-        restore_original_branch(original_branch)
         return False
 
 
@@ -270,7 +255,8 @@ def generate_commits(
     doc_name: Optional[str] = None,
     from_date: Optional[str] = None,
     to_date: Optional[str] = None,
-    dry_run: bool = False
+    dry_run: bool = False,
+    push_to_remote: bool = False
 ) -> None:
     """
     Generate Git commits for temporal changes in a markdown file.
@@ -284,6 +270,7 @@ def generate_commits(
         from_date: Start date (inclusive) in YYYY-MM-DD format. If None, no lower bound.
         to_date: End date (inclusive) in YYYY-MM-DD format. If None, no upper bound.
         dry_run: If True, show what would be committed without making actual commits
+        push_to_remote: If True, push commits to the target repository configured via environment variables
         
     Raises:
         ValueError: If date format is invalid
@@ -441,6 +428,25 @@ def generate_commits(
             if hasattr(e, 'stderr') and e.stderr:
                 print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
     
+    # Push to target repository if requested
+    if push_to_remote and not dry_run:
+        try:
+            # Get current branch name for pushing
+            result = subprocess.run(['git', 'rev-parse', '--abbrev-ref', 'HEAD'], 
+                                  capture_output=True, text=True, check=True, timeout=GIT_TIMEOUT)
+            current_branch = result.stdout.strip()
+            
+            print(f"Pushar commits till target repository...")
+            if push_to_target_repository(current_branch, verbose=True):
+                print(f"Lyckades pusha branch '{current_branch}' till target repository")
+            else:
+                print("Misslyckades med att pusha till target repository")
+                
+        except subprocess.CalledProcessError as e:
+            print(f"Fel vid push till target repository: {e}")
+            if hasattr(e, 'stderr') and e.stderr:
+                print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+    
     # Restore original content after all commits
     try:
         save_to_disk(markdown_file, original_content)
@@ -452,7 +458,8 @@ def generate_commits_for_directory(
     directory: Path,
     from_date: Optional[str] = None,
     to_date: Optional[str] = None,
-    dry_run: bool = False
+    dry_run: bool = False,
+    push_to_remote: bool = False
 ) -> None:
     """
     Generate Git commits for all markdown files in a directory.
@@ -462,6 +469,7 @@ def generate_commits_for_directory(
         from_date: Start date (inclusive) in YYYY-MM-DD format. If None, no lower bound.
         to_date: End date (inclusive) in YYYY-MM-DD format. If None, no upper bound.
         dry_run: If True, show what would be committed without making actual commits
+        push_to_remote: If True, push commits to the target repository configured via environment variables
     """
     if not directory.exists():
         print(f"Fel: Katalogen {directory} finns inte")
@@ -484,7 +492,7 @@ def generate_commits_for_directory(
         print(f"\nBearbetar {md_file.name}...")
         
         try:
-            generate_commits(md_file, None, from_date, to_date, dry_run)
+            generate_commits(md_file, None, from_date, to_date, dry_run, push_to_remote)
         except Exception as e:
             print(f"Fel vid bearbetning av {md_file}: {e}")
 
@@ -512,14 +520,19 @@ if __name__ == "__main__":
         action='store_true',
         help='Visa planerade commits utan att utföra dem'
     )
+    parser.add_argument(
+        '--push',
+        action='store_true',
+        help='Pusha commits till target repository (konfigurerat via GIT_TARGET_REPO och GIT_GITHUB_PAT)'
+    )
     
     args = parser.parse_args()
     
     path = Path(args.path)
     
     if path.is_file():
-        generate_commits(path, None, args.from_date, args.to_date, args.dry_run)
+        generate_commits(path, None, args.from_date, args.to_date, args.dry_run, args.push)
     elif path.is_dir():
-        generate_commits_for_directory(path, args.from_date, args.to_date, args.dry_run)
+        generate_commits_for_directory(path, args.from_date, args.to_date, args.dry_run, args.push)
     else:
         print(f"Fel: {path} finns inte")

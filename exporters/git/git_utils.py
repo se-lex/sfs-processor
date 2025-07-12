@@ -1,13 +1,18 @@
 """Git utilities for SFS document processing."""
 
+import os
 import subprocess
 from datetime import datetime
+from urllib.parse import urlparse
 
 # Git main branch name
 GIT_MAIN_BRANCH = "main"
 
 # Git command timeout in seconds (10 minutes)
 GIT_TIMEOUT = 600
+
+# Default target repository
+DEFAULT_TARGET_REPO = "https://github.com/se-lex/sfs.git"
 
 
 def ensure_git_branch_for_commits(git_branch, remove_all_commits_first=True, verbose=False):
@@ -150,3 +155,128 @@ def remove_all_commits_on_branch(branch_name=None, verbose=False):
     except FileNotFoundError:
         print("Varning: Git hittades inte.")
         return 0
+
+
+def get_target_repository() -> str:
+    """
+    Get the target repository URL from environment variable or use default.
+    
+    Returns:
+        str: Repository URL to push to
+    """
+    return os.getenv('GIT_TARGET_REPO', DEFAULT_TARGET_REPO)
+
+
+def configure_git_remote(repo_url: str, remote_name: str = 'target', verbose: bool = False) -> bool:
+    """
+    Configure a git remote for pushing commits.
+    
+    Args:
+        repo_url: URL of the target repository
+        remote_name: Name for the remote (default: 'target')
+        verbose: Enable verbose output
+        
+    Returns:
+        bool: True if successful, False otherwise
+    """
+    try:
+        # Check if remote already exists
+        result = subprocess.run(['git', 'remote', 'get-url', remote_name], 
+                              capture_output=True, timeout=GIT_TIMEOUT)
+        
+        if result.returncode == 0:
+            # Remote exists, update it
+            subprocess.run(['git', 'remote', 'set-url', remote_name, repo_url], 
+                         check=True, capture_output=True, timeout=GIT_TIMEOUT)
+            if verbose:
+                print(f"Uppdaterade remote '{remote_name}' till {repo_url}")
+        else:
+            # Remote doesn't exist, add it
+            subprocess.run(['git', 'remote', 'add', remote_name, repo_url], 
+                         check=True, capture_output=True, timeout=GIT_TIMEOUT)
+            if verbose:
+                print(f"Lade till remote '{remote_name}': {repo_url}")
+        
+        return True
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Fel vid konfiguration av git remote: {e}")
+        if hasattr(e, 'stderr') and e.stderr:
+            print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+        return False
+
+
+def create_authenticated_url(repo_url: str, pat_token: str) -> str:
+    """
+    Create an authenticated URL using PAT token.
+    
+    Args:
+        repo_url: Original repository URL
+        pat_token: Personal Access Token
+        
+    Returns:
+        str: Authenticated URL
+    """
+    if not pat_token:
+        return repo_url
+    
+    parsed = urlparse(repo_url)
+    if parsed.hostname == 'github.com':
+        # For GitHub, use token as username
+        return f"https://{pat_token}@github.com{parsed.path}"
+    else:
+        # For other hosts, keep original URL
+        return repo_url
+
+
+def push_to_target_repository(branch_name: str, remote_name: str = 'target', verbose: bool = False) -> bool:
+    """
+    Push the specified branch to the target repository.
+    
+    Args:
+        branch_name: Name of the branch to push
+        remote_name: Name of the remote to push to
+        verbose: Enable verbose output
+        
+    Returns:
+        bool: True if push was successful, False otherwise
+    """
+    try:
+        # Protect against pushing to main branch
+        if branch_name == GIT_MAIN_BRANCH:
+            print(f"❌ Fel: Kan inte pusha till main branch '{GIT_MAIN_BRANCH}' för säkerhet")
+            print(f"Använd ensure_git_branch_for_commits() för att skapa en separat branch först")
+            return False
+            
+        # Get repository URL and PAT token
+        repo_url = get_target_repository()
+        pat_token = os.getenv('GIT_GITHUB_PAT')
+        
+        # Create authenticated URL if PAT is available
+        if pat_token:
+            auth_url = create_authenticated_url(repo_url, pat_token)
+            # Configure remote with authenticated URL
+            if not configure_git_remote(auth_url, remote_name, verbose):
+                return False
+        else:
+            # Configure remote without authentication
+            if not configure_git_remote(repo_url, remote_name, verbose):
+                return False
+        
+        # Push the branch
+        if verbose:
+            print(f"Pushar branch '{branch_name}' till remote '{remote_name}'...")
+        
+        subprocess.run(['git', 'push', remote_name, branch_name], 
+                      check=True, capture_output=True, timeout=GIT_TIMEOUT)
+        
+        if verbose:
+            print(f"Lyckades pusha branch '{branch_name}' till {repo_url}")
+        
+        return True
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Fel vid push till target repository: {e}")
+        if hasattr(e, 'stderr') and e.stderr:
+            print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+        return False

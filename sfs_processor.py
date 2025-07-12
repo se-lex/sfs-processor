@@ -37,12 +37,54 @@ from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
 from temporal.title_temporal import title_temporal
 from temporal.amendments import process_markdown_amendments, extract_amendments
 from temporal.apply_temporal import apply_temporal
-from exporters.git.generate_commits import create_init_git_commit
+from exporters.git import generate_init_commit_for_document
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime
 from util.file_utils import filter_json_files, save_to_disk
 from formatters.predocs_parser import parse_predocs_string
 from formatters.table_converter import convert_tables_in_markdown
+
+
+def determine_output_path(data: Dict[str, Any], output_dir: Path, year_as_folder: bool = True) -> Path:
+    """
+    Determine output directory path from document data.
+    
+    Args:
+        data: JSON data containing document information
+        output_dir: Base output directory
+        year_as_folder: Whether to organize by year in subdirectories
+        
+    Returns:
+        Path: The output directory path for the document
+        
+    Raises:
+        ValueError: If beteckning is invalid or year cannot be extracted
+    """
+    # Extract beteckning for validation
+    beteckning = data.get('beteckning', '')
+    
+    if not beteckning:
+        raise ValueError("Ingen beteckning hittades i dokumentdata")
+
+    # Skip documents with beteckning starting with 'N' (notifications etc.)
+    if beteckning.startswith('N'):
+        raise ValueError(f"Hoppar över beteckning som börjar med 'N': {beteckning}")
+
+    # Extract year from beteckning (format is typically YYYY:NNN)
+    year_match = re.search(r'(\d{4}):', beteckning)
+    if not year_match:
+        raise ValueError(f"Kunde inte extrahera år från beteckning: {beteckning}")
+
+    year = year_match.group(1)
+
+    # Determine output directory based on year_as_folder setting
+    if year_as_folder:
+        document_dir = output_dir / year
+        document_dir.mkdir(exist_ok=True)
+    else:
+        document_dir = output_dir
+
+    return document_dir
 
 
 def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_branch: str = None, fetch_predocs: bool = False, apply_links: bool = False, target_date: Optional[str] = None) -> None:
@@ -100,40 +142,24 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
         if verbose:
             print("Info: Lade till 'md'-läge eftersom 'git'-läge kräver markdown-generering")
 
-    # Extract beteckning for output file naming
-    beteckning = data.get('beteckning', '')
-
-    # Skip documents with beteckning starting with 'N' (notifications etc.)
-    if beteckning and beteckning.startswith('N'):
-        print(f"Varning: Hoppar över beteckning som börjar med 'N': {beteckning}")
-        return
-
-    # Extract year from beteckning (format is typically YYYY:NNN)
-    year_match = re.search(r'(\d{4}):', beteckning)
-    if not year_match:
+    # Determine output path and validate document
+    try:
+        document_dir = determine_output_path(data, output_dir, year_as_folder)
+    except ValueError as e:
         if "md" in output_modes:
-            print(f"Fel: Kunde inte extrahera år från beteckning: {beteckning}")
+            print(f"Varning: {e}")
         return
-
-    year = year_match.group(1)
-
-    # Determine output directory based on year_as_folder setting
-    if year_as_folder:
-        document_dir = output_dir / year
-        document_dir.mkdir(exist_ok=True)
-    else:
-        document_dir = output_dir
 
     # Process markdown format if requested
     if "md" in output_modes:
         # Create markdown document (pass git_branch if "git" is in output_modes)
         git_branch_param = git_branch if "git" in output_modes else None
-        markdown_content = _create_markdown_document(data, document_dir, git_branch_param, False, verbose, fetch_predocs, apply_links)
+        _create_markdown_document(data, document_dir, git_branch_param, False, verbose, fetch_predocs, apply_links)
 
     # Process markdown with section markers if requested
     if "md-markers" in output_modes:
         # Create markdown document with section tags preserved
-        markdown_content = _create_markdown_document(data, document_dir, None, True, verbose, fetch_predocs, apply_links)
+        _create_markdown_document(data, document_dir, None, True, verbose, fetch_predocs, apply_links)
 
     # Process HTML format if requested
     if "html" in output_modes:
@@ -209,32 +235,15 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
 
     # Handle git commits if enabled
     if git_enabled:
-        # Get main document metadata
-        rubrik = data.get('rubrik', '')
-
-        ikraft_datum = format_datetime(data.get('ikraftDateTime'))
-        utfardad_datum = format_datetime(data.get('fulltext', {}).get('utfardadDateTime'))
-
-        # Only create main commit if there are no amendments (they handle their own commits)
-        if not amendments and utfardad_datum:
-            # Get förarbeten if available
-            register_data = data.get('register', {})
-            predocs = register_data.get('forarbeten')
-            
-            # Create initial git commit
-            create_init_git_commit(
-                output_file=output_file,
-                markdown_content=markdown_content,
-                beteckning=beteckning,
-                rubrik=rubrik,
-                utfardad_datum=utfardad_datum,
-                git_branch=git_branch,
-                predocs=predocs,
-                verbose=verbose
-            )
-        else:
-            # Write file if git is enabled but no commits needed
-            save_to_disk(output_file, markdown_content)
+        # Always create initial commit when git is enabled
+        markdown_content = generate_init_commit_for_document(
+            data=data,
+            output_file=output_file,
+            markdown_content=markdown_content,
+            git_branch=git_branch,
+            preserve_section_tags=preserve_section_tags,
+            verbose=verbose
+        )
     else:
         # No git mode - write the file normally
         # Clean selex tags if not preserving them
