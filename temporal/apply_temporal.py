@@ -6,7 +6,7 @@ Funktionen tar bort sektioner baserat på selex:status, selex:upphor_datum och s
 relativt till ett angivet target datum.
 
 Regler:
-1. Sektioner med selex:status="upphavd" tas bort helt
+1. Sektioner med selex:status="upphavd" eller "gammal upphord" tas bort helt
 2. Sektioner med selex:status="ikraft" och selex:ikraft_datum > target_date tas bort helt
 3. Sektioner med selex:status="ikraft" och selex:ikraft_datum <= target_date får sina temporal attribut borttagna
 4. Sektioner med selex:upphor_datum som är <= target_date tas bort helt
@@ -75,7 +75,7 @@ def apply_temporal(markdown_text: str, target_date: str, verbose: bool = False) 
             # Kontrollera status-attribut
             if status_match:
                 status_value = status_match.group(1)
-                if "upphavd" in status_value:
+                if "upphavd" in status_value or "upphord" in status_value:
                     should_remove = True
                     remove_reason = f"status '{status_value}'"
                 elif "ikraft" in status_value and ikraft_match:

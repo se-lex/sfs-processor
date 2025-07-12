@@ -15,7 +15,7 @@ from exporters.git import clone_target_repository_to_temp
 from exporters.git.git_utils import checkout_branch, push_to_target_repository
 
 
-def process_files_with_git_batch(json_files, output_dir, verbose, predocs, batch_size=10):
+def process_files_with_git_batch(json_files, output_dir, verbose, predocs, batch_size=100):
     """Process files with git batch workflow, using same branch but pushing after each batch."""
     # Clone target repository once for all batches
     repo_dir, original_cwd = clone_target_repository_to_temp(verbose=verbose)
@@ -66,7 +66,8 @@ def process_files_with_git_batch(json_files, output_dir, verbose, predocs, batch
                 print(f"Misslyckades med att pusha till target repository")
 
     except Exception as e:
-        print(f"Oväntat fel vid git batch processing: {e}")
+        print(f"Fel vid git batch processing: {e}")
+        raise  # Re-raise the exception so temporal processing errors are visible
     finally:
         # Always change back to original directory
         os.chdir(original_cwd)
