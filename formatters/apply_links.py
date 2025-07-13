@@ -66,8 +66,21 @@ def apply_sfs_links(text: str) -> str:
         url = f"{base_url}/sfs/{year}/{number}"
         return f"[{designation}]({url})"
 
-    # Ersätt alla SFS-beteckningar med markdown-länkar
-    return re.sub(sfs_pattern, replace_sfs_designation, text)
+    # Processar texten rad för rad för att undvika att länka rubriker
+    lines = text.split('\n')
+    processed_lines = []
+
+    for line in lines:
+        # Skippa rubriker (börjar med #)
+        if line.strip().startswith('#'):
+            processed_lines.append(line)
+            continue
+
+        # Ersätt alla SFS-beteckningar med markdown-länkar
+        processed_line = re.sub(sfs_pattern, replace_sfs_designation, line)
+        processed_lines.append(processed_line)
+
+    return '\n'.join(processed_lines)
 
 
 def find_chapter_context(text: str, position: int) -> str:
@@ -441,9 +454,21 @@ def apply_eu_links(text: str) -> str:
         
         return f"[{full_match}]({url})"
 
-    # Apply all EU patterns
-    text = re.sub(EU_REGULATION_PATTERN, replace_eu_reference, text)
-    text = re.sub(EU_EEG_PATTERN, replace_eeg_reference, text)
-    text = re.sub(EU_EG_PATTERN, replace_eg_reference, text)
+    # Processar texten rad för rad för att undvika att länka rubriker
+    lines = text.split('\n')
+    processed_lines = []
+
+    for line in lines:
+        # Skippa rubriker (börjar med #)
+        if line.strip().startswith('#'):
+            processed_lines.append(line)
+            continue
+
+        # Apply all EU patterns to this line
+        processed_line = re.sub(EU_REGULATION_PATTERN, replace_eu_reference, line)
+        processed_line = re.sub(EU_EEG_PATTERN, replace_eeg_reference, processed_line)
+        processed_line = re.sub(EU_EG_PATTERN, replace_eg_reference, processed_line)
+        
+        processed_lines.append(processed_line)
     
-    return text
+    return '\n'.join(processed_lines)
