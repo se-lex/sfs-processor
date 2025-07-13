@@ -22,21 +22,20 @@ from formatters.format_sfs_text import clean_selex_tags
 
 def create_init_git_commit(
     data: dict,
-    output_file: Path,
     markdown_content: str,
+    output_file: Path,
     verbose: bool = False
 ) -> str:
     """
     Create the initial git commit for an SFS document.
     
-    This function merges functionality from both create_init_git_commit and init_commit.
-    It handles creating commits for individual documents and assumes we're already in a 
-    git repository and on the correct branch.
+    It handles creating commits for individual documents and assumes 
+    we're already in a git repository and on the correct branch.
     
     Args:
         data: JSON data containing document information
-        output_file: Path to the output markdown file (for local reference)
         markdown_content: The markdown content to commit and save
+        output_file: Path to the output markdown file (for local reference)
         verbose: Enable verbose output
         
     Returns:
