@@ -357,9 +357,7 @@ def generate_temporal_commits(
     
     # Check if selex tags are present (required for temporal processing)
     if '<article' not in content:
-        print(f"Varning: Inga selex-taggar hittades i {markdown_file}")
-        print("Temporal processing kräver att selex-taggar är kvar i dokumentet")
-        return
+        raise ValueError(f"Inga selex-taggar hittades i {markdown_file}. Temporal processing kräver att selex-taggar är kvar i dokumentet")
     
     # Identify upcoming changes
     changes = identify_upcoming_changes(content)
@@ -410,15 +408,15 @@ def generate_temporal_commits(
         print(f"{'='*80}")
         
         # Table headers
-        print(f"{'Datum':<12} {'Meddelande':<50} {'Tecken ändrade':<15}")
-        print(f"{'-'*12} {'-'*50} {'-'*15}")
+        print(f"{'Datum':<12} {'Meddelande':<150}")
+        print(f"{'-'*12} {'-'*150}")
         
         for date in sorted(changes_by_date.keys()):
             date_changes = changes_by_date[date]
             
             # Apply temporal changes for this date (includes H1 title processing)
             try:
-                filtered_content = apply_temporal(content, date, False)  # No verbose for dry run
+                filtered_content = apply_temporal(content, date, dry_run)  # No verbose for dry run
                 
                 # Apply temporal title processing for frontmatter rubrik if it exists
                 if rubrik:
@@ -428,37 +426,19 @@ def generate_temporal_commits(
                 # Remove andringsforfattningar from frontmatter in git mode
                 filtered_content = remove_prop_from_frontmatter(filtered_content, "andringsforfattningar")
                 
-                # Clean selex tags to show accurate character difference
+                # Clean selex tags for final content
                 clean_content = clean_selex_tags(filtered_content)
-                
-                # For comparison, try to clean original content (may fail if it has unprocessed temporal sections)
-                original_with_title = content
-                if rubrik:
-                    original_temporal_rubrik = title_temporal(rubrik, date)
-                    original_with_title = set_prop_in_frontmatter(content, "rubrik", original_temporal_rubrik)
-                
-                # Remove andringsforfattningar from original content too for fair comparison
-                original_with_title = remove_prop_from_frontmatter(original_with_title, "andringsforfattningar")
-                
-                try:
-                    original_clean = clean_selex_tags(original_with_title)
-                except ValueError:
-                    # Original content has unprocessed temporal sections, use length without cleaning
-                    original_clean = original_with_title
-                
-                # Calculate character difference
-                char_diff = abs(len(clean_content) - len(original_clean))
                 
                 # Generate descriptive commit message
                 message = generate_descriptive_commit_message(doc_name, date_changes)
                 
                 # Truncate message if too long for table
-                display_message = message[:47] + "..." if len(message) > 50 else message
+                display_message = message[:147] + "..." if len(message) > 150 else message
                 
-                print(f"{date:<12} {display_message:<50} {char_diff:<15}")
+                print(f"{date:<12} {display_message:<150}")
                 
             except Exception as e:
-                print(f"{date:<12} {'FEL: ' + str(e)[:40]:<50} {'N/A':<15}")
+                print(f"{date:<12} {'FEL: ' + str(e)[:147]:<150}")
         
         print(f"\nTotalt {len(changes_by_date)} commits skulle skapas.")
         print("Kör utan --dry-run för att utföra commits på riktigt.")

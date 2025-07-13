@@ -118,11 +118,11 @@ def apply_temporal(markdown_text: str, target_date: str, verbose: bool = False) 
             attributes = section_match.group(2)
             
             # Extrahera datum-attribut och status-attribut
-            upphor_match = re.search(r'selex:upphor_datum="(\d{4}-\d{2}-\d{2})"', attributes)
-            ikraft_match = re.search(r'selex:ikraft_datum="(\d{4}-\d{2}-\d{2})"', attributes)
             status_match = re.search(r'selex:status="([^"]+)"', attributes)
-            ikraft_villkor_match = re.search(r'selex:ikraft_villkor="([^"]+)"', attributes)
+            upphor_match = re.search(r'selex:upphor_datum="(\d{4}-\d{2}-\d{2})"', attributes)
             upphor_villkor_match = re.search(r'selex:upphor_villkor="([^"]+)"', attributes)
+            ikraft_match = re.search(r'selex:ikraft_datum="(\d{4}-\d{2}-\d{2})"', attributes)
+            ikraft_villkor_match = re.search(r'selex:ikraft_villkor="([^"]+)"', attributes)
             
             should_remove = False
             remove_reason = ""
