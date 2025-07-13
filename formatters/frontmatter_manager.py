@@ -22,40 +22,7 @@ def add_ikraft_datum_to_frontmatter(markdown_content: str, ikraft_datum: str) ->
     Returns:
         str: Updated markdown content with ikraft_datum added and front matter sorted
     """
-    # Add ikraft_datum to front matter
-    # Find the position of the closing --- and insert before it
-    closing_marker = '\n---\n'
-    if closing_marker in markdown_content:
-        before_closing, after_closing = markdown_content.split(closing_marker, 1)
-        ikraft_line = f"ikraft_datum: {format_yaml_value(ikraft_datum)}"
-        # Preserve the original spacing after the front matter
-        updated_content = f"{before_closing}\n{ikraft_line}\n---\n{after_closing}"
-    else:
-        # Fallback: return original content if no proper front matter found
-        updated_content = markdown_content
-
-    try:
-        # Extract and sort front matter if it exists
-        if updated_content.startswith('---'):
-            # Find the end of the front matter
-            front_matter_end = updated_content.find('\n---\n', 3)
-            if front_matter_end != -1:
-                # Extract front matter and content, preserving spacing
-                end_of_frontmatter = front_matter_end + 4  # Position after \n---
-                while end_of_frontmatter < len(updated_content) and updated_content[end_of_frontmatter] == '\n':
-                    end_of_frontmatter += 1
-
-                front_matter = updated_content[:front_matter_end + 4]  # Include up to \n---
-                rest_of_content = updated_content[end_of_frontmatter:]
-
-                # Sort only the front matter and ensure proper spacing
-                # The front_matter already includes the full block with markers, so use it directly
-                sorted_front_matter = sort_frontmatter_properties(front_matter + '\n')
-                updated_content = sorted_front_matter + '\n' + rest_of_content
-    except ValueError as e:
-        print(f"Varning: Kunde inte sortera front matter efter att ha lagt till ikraft_datum: {e}")
-
-    return updated_content
+    return set_prop_in_frontmatter(markdown_content, "ikraft_datum", ikraft_datum)
 
 
 def set_prop_in_frontmatter(markdown_content: str, property_name: str, new_value: str) -> str:
