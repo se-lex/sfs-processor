@@ -43,19 +43,19 @@ from util.file_utils import filter_json_files, save_to_disk
 from formatters.predocs_parser import parse_predocs_string
 
 
-def create_safe_filename(beteckning: str, preserve_section_tags: bool = False) -> str:
+def create_safe_filename(beteckning: str, preserve_selex_tags: bool = False) -> str:
     """
     Create a safe filename from beteckning.
     
     Args:
         beteckning: Document beteckning (e.g., "2024:1000")
-        preserve_section_tags: Whether this is for md-markers mode
+        preserve_selex_tags: Whether this is for md-markers mode
         
     Returns:
         str: Safe filename (e.g., "sfs-2024-1000.md" or "sfs-2024-1000-markers.md")
     """
     safe_beteckning = re.sub(r'[^\w\-]', '-', beteckning)
-    if preserve_section_tags:
+    if preserve_selex_tags:
         return f"sfs-{safe_beteckning}-markers.md"
     else:
         return f"sfs-{safe_beteckning}.md"
@@ -170,7 +170,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
 
     # Process markdown with section markers if requested
     if "md-markers" in output_modes:
-        # Create markdown document with section tags preserved
+        # Create markdown document with selex tags preserved
         _create_markdown_document(data, document_dir, False, True, verbose, fetch_predocs, apply_links)
 
     # Process HTML format if requested
@@ -185,14 +185,14 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
 
 
 
-def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode: bool = False, preserve_section_tags: bool = False, verbose: bool = False, fetch_predocs: bool = False, apply_links: bool = False) -> str:
+def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode: bool = False, preserve_selex_tags: bool = False, verbose: bool = False, fetch_predocs: bool = False, apply_links: bool = False) -> str:
     """Internal function to create a markdown document from JSON data.
 
     Args:
         data: JSON data containing document information
         output_path: Path to the output directory (folder)
         git_mode: Whether git mode is enabled (commits will be created)
-        preserve_section_tags: Whether to preserve <section> tags in output (for md-markers mode)
+        preserve_selex_tags: Whether to preserve selex tags in output (for md-markers mode)
         verbose: Whether to print verbose output
         fetch_predocs: Whether to fetch detailed information about förarbeten from Riksdagen API
 
@@ -205,7 +205,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     if not beteckning:
         raise ValueError("Beteckning saknas i dokumentdata")
     
-    safe_filename = create_safe_filename(beteckning, preserve_section_tags)
+    safe_filename = create_safe_filename(beteckning, preserve_selex_tags)
     output_file = output_path / safe_filename
 
     # Get basic markdown content
@@ -225,8 +225,8 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     # Convert table-like structures to proper Markdown tables
     # TODO: markdown_content = convert_tables_in_markdown(markdown_content, verbose)
     
-    # Apply temporal processing to handle selex attributes (only if not in git mode)
-    if not git_mode:
+    # Apply temporal processing to handle selex attributes (only if not in git mode and not preserving selex tags)
+    if not git_mode and not preserve_selex_tags:
         from datetime import datetime
         target_date = datetime.now().strftime('%Y-%m-%d')
         markdown_content = apply_temporal(markdown_content, target_date, verbose=verbose)
@@ -258,7 +258,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     else:
         # No git mode - write the file normally
         # Clean selex tags if not preserving them
-        if not preserve_section_tags:
+        if not preserve_selex_tags:
             markdown_content = clean_selex_tags(markdown_content)
         save_to_disk(output_file, markdown_content)
         print(f"Skapade dokument: {output_file}")
