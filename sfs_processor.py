@@ -225,17 +225,11 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     # Convert table-like structures to proper Markdown tables
     # TODO: markdown_content = convert_tables_in_markdown(markdown_content, verbose)
     
-    # Apply temporal processing to handle selex attributes
-    if git_mode:
-        # In git mode, use utfardad_datum as the target date for temporal processing
-        target_date = format_datetime(data.get('fulltext', {}).get('utfardadDateTime'))
-        if not target_date:
-            raise ValueError(f"utfardadDateTime saknas för {data.get('beteckning')}")
-    else:
+    # Apply temporal processing to handle selex attributes (only if not in git mode)
+    if not git_mode:
         from datetime import datetime
         target_date = datetime.now().strftime('%Y-%m-%d')
-    
-    markdown_content = apply_temporal(markdown_content, target_date, verbose=verbose)
+        markdown_content = apply_temporal(markdown_content, target_date, verbose=verbose)
     
     # Extract amendments for git logic (if needed)
     # TODO: amendments = extract_amendments(data.get('andringsforfattningar', []))

@@ -56,8 +56,11 @@ def create_init_git_commit(
     if not utfardad_datum:
         raise ValueError(f"utfardadDateTime saknas för {beteckning}")
 
+    # Apply temporal processing with utfardad_datum as target date
+    temporal_content = apply_temporal(markdown_content, utfardad_datum, verbose=verbose)
+    
     # Prepare final content for local save (always clean selex tags in git mode)
-    final_content = clean_selex_tags(markdown_content)
+    final_content = clean_selex_tags(temporal_content)
 
     # Save file locally for reference
     save_to_disk(output_file, final_content)
