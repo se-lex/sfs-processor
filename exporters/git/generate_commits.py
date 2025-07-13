@@ -100,8 +100,7 @@ def create_init_git_commit(
         return final_content
 
     # Write the file (use clean content without selex tags for git)
-    with open(target_file, 'w', encoding='utf-8') as f:
-        f.write(final_content)
+    save_to_disk(target_file, final_content)
 
     # Stage the file
     if not stage_file(str(relative_path), verbose):

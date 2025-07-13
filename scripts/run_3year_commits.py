@@ -101,7 +101,8 @@ def run_init_commits(json_files: List[Path], output_dir: Path, start_year: int, 
                 output_dir=output_dir,
                 verbose=verbose,
                 predocs=False,
-                batch_size=50
+                batch_size=50,
+                branch_name="f"beta-{datetime.now().strftime('%Y-%m-%d')}""
             )
             logger.info("Init commits processing completed successfully")
             return True
@@ -122,7 +123,8 @@ def run_temporal_commits(markers_dir: Path, start_date: str, end_date: str, dry_
             to_date=end_date,
             dry_run=dry_run,
             verbose=verbose,
-            batch_size=50
+            batch_size=50,
+            branch_name="f"beta-13juli-{datetime.now().strftime('%Y-%m-%d')}""
         )
         logger.info("Temporal commits processing completed successfully")
         return True

@@ -52,7 +52,8 @@ def process_temporal_commits_batch(
     to_date: Optional[str] = None,
     dry_run: bool = False,
     verbose: bool = False,
-    batch_size: int = 100
+    batch_size: int = 100,
+    branch_name: Optional[str] = None
 ) -> None:
     """
     Process temporal commits for markdown files in batch, with git operations.
@@ -84,23 +85,20 @@ def process_temporal_commits_batch(
 
     if dry_run:
         print("KÖR I DRY-RUN LÄGE - inga commits kommer att skapas")
-        _process_temporal_commits_dry_run(md_files, from_date, to_date, verbose)
+        _process_temporal_commits_dry_run(md_files, from_date, to_date)
     else:
-        _process_temporal_commits_with_git(md_files, from_date, to_date, verbose, batch_size)
+        _process_temporal_commits_with_git(md_files, from_date, to_date, verbose, batch_size, branch_name)
 
 
 def _process_temporal_commits_dry_run(
     md_files: List[Path],
     from_date: Optional[str],
-    to_date: Optional[str], 
-    verbose: bool
+    to_date: Optional[str]
 ) -> None:
     """Process temporal commits in dry-run mode (no git operations)."""
     print(f"\n{'='*80}")
     print(f"DRY RUN: Visar planerade temporal commits")
     print(f"{'='*80}")
-    
-    total_commits = 0
     
     for md_file in md_files:
         print(f"\nBearbetar {md_file.name}...")
@@ -119,7 +117,8 @@ def _process_temporal_commits_with_git(
     from_date: Optional[str],
     to_date: Optional[str],
     verbose: bool,
-    batch_size: int
+    batch_size: int,
+    branch_name: Optional[str] = None
 ) -> None:
     """Process temporal commits with actual git operations."""
     # Clone target repository once for all batches
@@ -131,8 +130,11 @@ def _process_temporal_commits_with_git(
         # Change to cloned repository directory
         os.chdir(repo_dir)
 
-        # Create branch name based on date range
-        unique_branch = _create_temporal_branch_name(from_date, to_date)
+        # Use provided branch name or create one based on date range
+        if branch_name:
+            unique_branch = branch_name
+        else:
+            unique_branch = _create_temporal_branch_name(from_date, to_date)
 
         # Create and checkout new branch
         if not checkout_branch(unique_branch, create_if_missing=True, verbose=verbose):

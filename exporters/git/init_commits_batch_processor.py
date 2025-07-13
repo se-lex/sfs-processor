@@ -17,7 +17,7 @@ from exporters.git.git_utils import checkout_branch, push_to_target_repository
 from util.file_utils import read_file_content
 
 
-def process_files_with_git_batch(json_files, output_dir, verbose, predocs, batch_size=100):
+def process_files_with_git_batch(json_files, output_dir, verbose, predocs, batch_size=100, branch_name=None):
     """Process files with git batch workflow, using same branch but pushing after each batch."""
     # Clone target repository once for all batches
     repo_dir, original_cwd = clone_target_repository_to_temp(verbose=verbose)
@@ -28,10 +28,13 @@ def process_files_with_git_batch(json_files, output_dir, verbose, predocs, batch
         # Change to cloned repository directory
         os.chdir(repo_dir)
 
-        # Create unique branch name for this entire operation
-        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-        random_suffix = random.randint(1000, 9999)
-        unique_branch = f"batch_{timestamp}_{random_suffix}"
+        # Use provided branch name or create unique one
+        if branch_name:
+            unique_branch = branch_name
+        else:
+            timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+            random_suffix = random.randint(1000, 9999)
+            unique_branch = f"batch_{timestamp}_{random_suffix}"
 
         # Create and checkout new branch
         if not checkout_branch(unique_branch, create_if_missing=True, verbose=verbose):
