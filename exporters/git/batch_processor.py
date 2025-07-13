@@ -13,6 +13,7 @@ import json
 
 from exporters.git import clone_target_repository_to_temp
 from exporters.git.git_utils import checkout_branch, push_to_target_repository
+from util.file_utils import read_file_content
 
 
 def process_files_with_git_batch(json_files, output_dir, verbose, predocs, batch_size=100):
@@ -81,9 +82,9 @@ def _process_batch_files(json_files, output_dir, verbose, predocs, original_cwd,
         # Use absolute path since we changed working directory
         abs_json_file = Path(original_cwd) / json_file
         try:
-            with open(abs_json_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-        except (json.JSONDecodeError, FileNotFoundError) as e:
+            content = read_file_content(abs_json_file)
+            data = json.loads(content)
+        except (json.JSONDecodeError, IOError) as e:
             print(f"Fel vid läsning av {abs_json_file}: {e}")
             continue
 
