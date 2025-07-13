@@ -186,14 +186,34 @@ def _process_temporal_batch_files(
     total_batches: int
 ) -> None:
     """Process batch of markdown files for temporal commits in the current repository."""
+    import shutil
+    
     for md_file in md_files:
         # Use absolute path since we changed working directory
         abs_md_file = Path(original_cwd) / md_file
         
+        # Copy file to year folder in cloned repo and remove -markers from filename
+        # Extract year from file path (e.g., 2013/sfs-2013-xxx-markers.md -> 2013)
+        year_dir = md_file.parent.name
+        filename = md_file.name
+        
+        # Remove -markers from filename if present
+        if "-markers" in filename:
+            filename = filename.replace("-markers", "")
+        
+        # Target structure: year/filename (directly in year folder at root)
+        target_file = Path.cwd() / year_dir / filename
+        
+        # Create directory structure if needed
+        target_file.parent.mkdir(parents=True, exist_ok=True)
+        
         try:
+            # Copy the file to the git repo
+            shutil.copy2(abs_md_file, target_file)
+            
             print(f"Bearbetar {md_file.name} för temporal commits...")
-            # Run generate_temporal_commits in normal mode (not dry-run)
-            generate_temporal_commits(abs_md_file, None, from_date, to_date, dry_run=False)
+            # Run generate_temporal_commits on the copied file in the repo
+            generate_temporal_commits(target_file, None, from_date, to_date, dry_run=False)
         except Exception as e:
             print(f"Fel vid temporal bearbetning av {abs_md_file}: {e}")
             continue
