@@ -18,6 +18,53 @@ Regler:
 import re
 from datetime import datetime
 from typing import Optional
+from temporal.title_temporal import title_temporal
+
+
+def _process_h1_heading(lines: list, i: int, target_date: str, verbose: bool = False) -> tuple:
+    """
+    Process H1 heading with temporal rules.
+    
+    Args:
+        lines: List of markdown lines
+        i: Current line index (pointing to H1 line)
+        target_date: Target date for temporal processing
+        verbose: Enable verbose output
+        
+    Returns:
+        Tuple of (processed_line, next_index, changes_applied)
+    """
+    line = lines[i]
+    h1_content = line.strip()[2:].strip()  # Remove "# " from beginning
+    
+    # Check if there are more lines that belong to the same title (multiline)
+    multiline_title = [h1_content]
+    j = i + 1
+    while j < len(lines) and not lines[j].strip().startswith('#') and not lines[j].strip().startswith('<'):
+        if lines[j].strip():  # Add non-empty lines
+            multiline_title.append(lines[j].strip())
+        elif multiline_title:  # If we already have content, break at empty line
+            break
+        j += 1
+    
+    full_title = '\n'.join(multiline_title)
+    
+    # Apply temporal title rules
+    processed_title = title_temporal(full_title, target_date)
+    
+    changes_applied = 0
+    if processed_title != full_title:
+        if verbose:
+            print("Regel tillämpas: Bearbetar H1-rubrik med temporal regler")
+            print(f"Original: {full_title}")
+            print(f"Bearbetad: {processed_title}")
+            print("-" * 80)
+        changes_applied = 1
+    
+    # Replace H1 line with processed title
+    processed_line = f"# {processed_title}"
+    
+    return processed_line, j, changes_applied
 
 
 def apply_temporal(markdown_text: str, target_date: str, verbose: bool = False) -> str:
@@ -55,6 +102,14 @@ def apply_temporal(markdown_text: str, target_date: str, verbose: bool = False) 
     
     while i < len(lines):
         line = lines[i]
+        
+        # Kolla om raden är en H1-rubrik som kan innehålla temporal regler
+        if line.strip().startswith('# '):
+            processed_line, next_i, h1_changes = _process_h1_heading(lines, i, target_date, verbose)
+            result.append(processed_line)
+            changes_applied += h1_changes
+            i = next_i
+            continue
         
         # Kolla om raden är en section- eller article-öppning
         section_match = re.match(r'<(section|article)(.*)>', line)

@@ -56,10 +56,10 @@ def create_init_git_commit(
     if not utfardad_datum:
         raise ValueError(f"utfardadDateTime saknas för {beteckning}")
 
-    # Apply temporal processing with utfardad_datum as target date
+    # Apply temporal processing with utfardad_datum as target date (includes H1 title processing)
     temporal_content = apply_temporal(markdown_content, utfardad_datum, verbose=verbose)
     
-    # Apply temporal title processing for the utfardad_datum
+    # Apply temporal title processing for frontmatter rubrik
     temporal_rubrik = title_temporal(rubrik, utfardad_datum)
     
     # Update rubrik in frontmatter with temporal title
@@ -392,11 +392,11 @@ def generate_temporal_commits(
         for date in sorted(changes_by_date.keys()):
             date_changes = changes_by_date[date]
             
-            # Apply temporal changes for this date
+            # Apply temporal changes for this date (includes H1 title processing)
             try:
                 filtered_content = apply_temporal(content, date, False)  # No verbose for dry run
                 
-                # Apply temporal title processing for this date if rubrik exists
+                # Apply temporal title processing for frontmatter rubrik if it exists
                 if rubrik:
                     temporal_rubrik = title_temporal(rubrik, date)
                     filtered_content = set_prop_in_frontmatter(filtered_content, "rubrik", temporal_rubrik, doc_name)
@@ -441,11 +441,11 @@ def generate_temporal_commits(
     for date in sorted(changes_by_date.keys()):
         date_changes = changes_by_date[date]
         
-        # Apply temporal changes for this date
+        # Apply temporal changes for this date (includes H1 title processing)
         try:
             filtered_content = apply_temporal(content, date, False)
             
-            # Apply temporal title processing for this date if rubrik exists
+            # Apply temporal title processing for frontmatter rubrik if it exists
             if rubrik:
                 temporal_rubrik = title_temporal(rubrik, date)
                 filtered_content = set_prop_in_frontmatter(filtered_content, "rubrik", temporal_rubrik, doc_name)
