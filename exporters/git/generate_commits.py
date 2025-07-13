@@ -129,14 +129,35 @@ def create_init_git_commit(
 
 
 def format_section_list(sections):
-    """Format a list of sections with proper Swedish enumeration (commas and 'och' before last)."""
+    """Format a list of sections with proper Swedish enumeration (commas and 'och' before last).
+    
+    If more than 3 sections, return count instead of listing them all.
+    """
     if not sections:
         return ""
     if len(sections) == 1:
         return sections[0]
     if len(sections) == 2:
         return f"{sections[0]} och {sections[1]}"
-    return f"{', '.join(sections[:-1])} och {sections[-1]}"
+    if len(sections) == 3:
+        return f"{sections[0]}, {sections[1]} och {sections[2]}"
+
+    # More than 3 sections - return count instead
+    # Determine section type based on content
+    section_type = "paragrafer"  # default
+
+    if sections:
+        # Check first section to determine type
+        first_section = sections[0].lower()
+        if "kapitel" in first_section or "kap" in first_section:
+            section_type = "kapitel"
+        elif "§" in first_section:
+            section_type = "paragrafer"
+        else:
+            # Assume it's a general section type
+            section_type = "avsnitt"
+
+    return f"{len(sections)} {section_type}"
 
 
 def generate_descriptive_commit_message(
