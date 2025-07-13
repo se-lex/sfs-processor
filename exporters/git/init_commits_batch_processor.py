@@ -1,8 +1,9 @@
 #!/usr/bin/env python3
 """
-Batch processing functionality for git exports.
+Initial commits batch processing functionality for git exports.
 
-This module handles batch processing of multiple SFS documents to git repository.
+This module handles batch processing of multiple SFS documents to create
+initial git commits in a target repository.
 """
 
 import os
