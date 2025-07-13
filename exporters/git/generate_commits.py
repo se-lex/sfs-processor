@@ -387,9 +387,12 @@ def generate_temporal_commits(
             # Apply temporal changes for this date
             try:
                 filtered_content = apply_temporal(content, date, False)  # No verbose for dry run
+                # Clean selex tags to show accurate character difference
+                clean_content = clean_selex_tags(filtered_content)
+                original_clean = clean_selex_tags(content)
                 
                 # Calculate character difference
-                char_diff = abs(len(filtered_content) - len(content))
+                char_diff = abs(len(clean_content) - len(original_clean))
                 
                 # Generate descriptive commit message
                 message = generate_descriptive_commit_message(doc_name, date_changes)
@@ -416,8 +419,10 @@ def generate_temporal_commits(
         # Apply temporal changes for this date
         try:
             filtered_content = apply_temporal(content, date, False)
-            # Write the temporally filtered content to the file
-            save_to_disk(markdown_file, filtered_content)
+            # Clean selex tags before committing to git
+            clean_content = clean_selex_tags(filtered_content)
+            # Write the clean content to the file
+            save_to_disk(markdown_file, clean_content)
         except Exception as e:
             print(f"Fel vid tillämpning av temporal ändringar för {date}: {e}")
             continue
