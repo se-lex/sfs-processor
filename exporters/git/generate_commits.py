@@ -13,11 +13,12 @@ from typing import List, Dict, Optional
 
 from temporal.upcoming_changes import identify_upcoming_changes
 from temporal.apply_temporal import apply_temporal
+from temporal.title_temporal import title_temporal
 from exporters.git.git_utils import is_file_tracked, has_staged_changes, stage_file, create_commit_with_date
 from util.datetime_utils import format_datetime, format_datetime_for_git
-from util.yaml_utils import extract_frontmatter_property
 from util.file_utils import read_file_content, save_to_disk
 from formatters.format_sfs_text import clean_selex_tags
+from formatters.frontmatter_manager import set_prop_in_frontmatter, extract_frontmatter_property
 
 
 def create_init_git_commit(
@@ -58,8 +59,14 @@ def create_init_git_commit(
     # Apply temporal processing with utfardad_datum as target date
     temporal_content = apply_temporal(markdown_content, utfardad_datum, verbose=verbose)
     
+    # Apply temporal title processing for the utfardad_datum
+    temporal_rubrik = title_temporal(rubrik, utfardad_datum)
+    
+    # Update rubrik in frontmatter with temporal title
+    temporal_content_with_rubrik = set_prop_in_frontmatter(temporal_content, "rubrik", temporal_rubrik, beteckning)
+    
     # Prepare final content for local save (always clean selex tags in git mode)
-    final_content = clean_selex_tags(temporal_content)
+    final_content = clean_selex_tags(temporal_content_with_rubrik)
 
     # Save file locally for reference
     save_to_disk(output_file, final_content)
@@ -102,8 +109,8 @@ def create_init_git_commit(
         print(f"Inga ändringar att commita för {beteckning}")
         return final_content
 
-    # Prepare commit message
-    commit_message = rubrik
+    # Prepare commit message using temporal title
+    commit_message = temporal_rubrik
 
     # Add förarbeten if available
     register_data = data.get('register', {})
@@ -354,8 +361,9 @@ def generate_temporal_commits(
         print(f"Inga ändringar inom datumintervallet {from_date or 'början'} - {to_date or 'slut'}")
         return
     
-    # Extract doc_name from frontmatter
+    # Extract doc_name and rubrik from frontmatter
     doc_name = extract_frontmatter_property(content, 'beteckning')
+    rubrik = extract_frontmatter_property(content, 'rubrik')
     
     if not doc_name:
         print(f"Varning: Ingen doc_name hittades i frontmatter för {markdown_file}")
@@ -387,9 +395,26 @@ def generate_temporal_commits(
             # Apply temporal changes for this date
             try:
                 filtered_content = apply_temporal(content, date, False)  # No verbose for dry run
+                
+                # Apply temporal title processing for this date if rubrik exists
+                if rubrik:
+                    temporal_rubrik = title_temporal(rubrik, date)
+                    filtered_content = set_prop_in_frontmatter(filtered_content, "rubrik", temporal_rubrik, doc_name)
+                
                 # Clean selex tags to show accurate character difference
                 clean_content = clean_selex_tags(filtered_content)
-                original_clean = clean_selex_tags(content)
+                
+                # For comparison, try to clean original content (may fail if it has unprocessed temporal sections)
+                original_with_title = content
+                if rubrik:
+                    original_temporal_rubrik = title_temporal(rubrik, date)
+                    original_with_title = set_prop_in_frontmatter(content, "rubrik", original_temporal_rubrik, doc_name)
+                
+                try:
+                    original_clean = clean_selex_tags(original_with_title)
+                except ValueError:
+                    # Original content has unprocessed temporal sections, use length without cleaning
+                    original_clean = original_with_title
                 
                 # Calculate character difference
                 char_diff = abs(len(clean_content) - len(original_clean))
@@ -419,9 +444,15 @@ def generate_temporal_commits(
         # Apply temporal changes for this date
         try:
             filtered_content = apply_temporal(content, date, False)
+            
+            # Apply temporal title processing for this date if rubrik exists
+            if rubrik:
+                temporal_rubrik = title_temporal(rubrik, date)
+                filtered_content = set_prop_in_frontmatter(filtered_content, "rubrik", temporal_rubrik, doc_name)
+            
             # Clean selex tags before committing to git
             clean_content = clean_selex_tags(filtered_content)
-            # Write the clean content to the file
+            # Write the file (use clean content without selex tags for git)
             save_to_disk(markdown_file, clean_content)
         except Exception as e:
             print(f"Fel vid tillämpning av temporal ändringar för {date}: {e}")
