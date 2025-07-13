@@ -4,6 +4,8 @@ import re
 from datetime import datetime
 from typing import Optional
 
+from util.text_utils import clean_text
+
 
 def title_temporal(rubrik: Optional[str], target_date: str) -> str:
     """
@@ -30,7 +32,8 @@ def title_temporal(rubrik: Optional[str], target_date: str) -> str:
         target_dt = datetime.strptime(target_date, '%Y-%m-%d')
     except ValueError:
         # If target_date is invalid, return the original rubrik cleaned
-        return _clean_temporal_markers(rubrik)
+        result = _clean_temporal_markers(rubrik)
+        return clean_text(result)
     
     # Split the rubrik into lines to process temporal variants
     lines = rubrik.split('\n')
@@ -68,13 +71,16 @@ def title_temporal(rubrik: Optional[str], target_date: str) -> str:
     if expiry_date and entry_date:
         if target_dt < expiry_date:
             # Before expiry date - use old title
-            return _clean_temporal_markers('\n'.join(old_title_lines))
+            result = _clean_temporal_markers('\n'.join(old_title_lines))
+            return clean_text(result)
         elif target_dt >= entry_date:
             # On or after entry date - use new title
-            return _clean_temporal_markers('\n'.join(new_title_lines))
+            result = _clean_temporal_markers('\n'.join(new_title_lines))
+            return clean_text(result)
     
     # Fallback: clean the entire rubrik and return
-    return _clean_temporal_markers(rubrik)
+    result = _clean_temporal_markers(rubrik)
+    return clean_text(result)
 
 
 def _clean_temporal_markers(text: str) -> str:

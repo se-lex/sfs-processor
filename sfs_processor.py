@@ -291,7 +291,7 @@ def convert_to_markdown(data: Dict[str, Any], fetch_predocs: bool = False, apply
     if not rubrik_original:
         raise ValueError("Rubrik saknas i dokumentdata")
     
-    rubrik = clean_title(rubrik_original)    # Clean for front matter
+    rubrik = clean_text(rubrik_original)    # Clean for front matter
 
     # Extract dates
     publicerad_datum = format_datetime(data.get('publiceradDateTime'))
@@ -484,22 +484,6 @@ departement: {format_yaml_value(organisation)}
     # Return the complete markdown content
     return yaml_front_matter + markdown_body
 
-
-def clean_title(rubrik: Optional[str]) -> str:
-    """Clean rubrik by removing beteckning in parentheses and line breaks."""
-    if not rubrik:
-        return ""
-
-    # Remove line breaks and carriage returns
-    cleaned = re.sub(r'[\r\n]+', ' ', rubrik)
-    
-    # Remove beteckning pattern in parentheses (e.g., "(1987:1185)")
-    # Pattern matches parentheses containing year:number format
-    # First remove the parentheses and their content, then clean up extra whitespace
-    cleaned = re.sub(r'\s*\(\d{4}:\d+\)\s*', ' ', cleaned)
-    # Clean up any multiple spaces that might have been created
-    cleaned = re.sub(r'\s+', ' ', cleaned).strip()
-    return cleaned
 
 
 def ignore_rules(innehall_text: str) -> tuple[bool, str]:

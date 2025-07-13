@@ -47,7 +47,7 @@ def create_init_git_commit(
     if not beteckning:
         raise ValueError("Beteckning saknas i dokumentdata")
     
-    rubrik = data.get('rubrik')
+    rubrik = data.get('rubrik_after_temporal', data.get('rubrik'))
     if not rubrik:
         raise ValueError("Rubrik saknas i dokumentdata")
     
