@@ -324,6 +324,12 @@ def generate_temporal_commits(
         print(str(e))
         return
     
+    # Check if selex tags are present (required for temporal processing)
+    if '<article' not in content:
+        print(f"Varning: Inga selex-taggar hittades i {markdown_file}")
+        print("Temporal processing kräver att selex-taggar är kvar i dokumentet")
+        return
+    
     # Identify upcoming changes
     changes = identify_upcoming_changes(content)
     
