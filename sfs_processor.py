@@ -238,7 +238,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     if not git_mode:
         ikraft_datum = format_datetime(data.get('ikraftDateTime'))
         if ikraft_datum:
-            markdown_content = add_ikraft_datum_to_frontmatter(markdown_content, ikraft_datum, beteckning)
+            markdown_content = add_ikraft_datum_to_frontmatter(markdown_content, ikraft_datum)
 
     # Debug: Check final markdown content length
     if verbose:

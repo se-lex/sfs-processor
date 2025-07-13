@@ -18,7 +18,7 @@ from exporters.git.git_utils import is_file_tracked, has_staged_changes, stage_f
 from util.datetime_utils import format_datetime, format_datetime_for_git
 from util.file_utils import read_file_content, save_to_disk
 from formatters.format_sfs_text import clean_selex_tags
-from formatters.frontmatter_manager import set_prop_in_frontmatter, extract_frontmatter_property
+from formatters.frontmatter_manager import set_prop_in_frontmatter, extract_frontmatter_property, remove_prop_from_frontmatter
 
 
 def create_init_git_commit(
@@ -63,10 +63,13 @@ def create_init_git_commit(
     temporal_rubrik = title_temporal(rubrik, utfardad_datum)
     
     # Update rubrik in frontmatter with temporal title
-    temporal_content_with_rubrik = set_prop_in_frontmatter(temporal_content, "rubrik", temporal_rubrik, beteckning)
+    temporal_content_with_rubrik = set_prop_in_frontmatter(temporal_content, "rubrik", temporal_rubrik)
+    
+    # Remove andringsforfattningar from frontmatter in git mode
+    temporal_content_clean = remove_prop_from_frontmatter(temporal_content_with_rubrik, "andringsforfattningar")
     
     # Prepare final content for local save (always clean selex tags in git mode)
-    final_content = clean_selex_tags(temporal_content_with_rubrik)
+    final_content = clean_selex_tags(temporal_content_clean)
 
     # Save file locally for reference
     save_to_disk(output_file, final_content)
@@ -420,7 +423,10 @@ def generate_temporal_commits(
                 # Apply temporal title processing for frontmatter rubrik if it exists
                 if rubrik:
                     temporal_rubrik = title_temporal(rubrik, date)
-                    filtered_content = set_prop_in_frontmatter(filtered_content, "rubrik", temporal_rubrik, doc_name)
+                    filtered_content = set_prop_in_frontmatter(filtered_content, "rubrik", temporal_rubrik)
+                
+                # Remove andringsforfattningar from frontmatter in git mode
+                filtered_content = remove_prop_from_frontmatter(filtered_content, "andringsforfattningar")
                 
                 # Clean selex tags to show accurate character difference
                 clean_content = clean_selex_tags(filtered_content)
@@ -429,7 +435,10 @@ def generate_temporal_commits(
                 original_with_title = content
                 if rubrik:
                     original_temporal_rubrik = title_temporal(rubrik, date)
-                    original_with_title = set_prop_in_frontmatter(content, "rubrik", original_temporal_rubrik, doc_name)
+                    original_with_title = set_prop_in_frontmatter(content, "rubrik", original_temporal_rubrik)
+                
+                # Remove andringsforfattningar from original content too for fair comparison
+                original_with_title = remove_prop_from_frontmatter(original_with_title, "andringsforfattningar")
                 
                 try:
                     original_clean = clean_selex_tags(original_with_title)
@@ -469,7 +478,10 @@ def generate_temporal_commits(
             # Apply temporal title processing for frontmatter rubrik if it exists
             if rubrik:
                 temporal_rubrik = title_temporal(rubrik, date)
-                filtered_content = set_prop_in_frontmatter(filtered_content, "rubrik", temporal_rubrik, doc_name)
+                filtered_content = set_prop_in_frontmatter(filtered_content, "rubrik", temporal_rubrik)
+            
+            # Remove andringsforfattningar from frontmatter in git mode
+            filtered_content = remove_prop_from_frontmatter(filtered_content, "andringsforfattningar")
             
             # Clean selex tags before committing to git
             clean_content = clean_selex_tags(filtered_content)
