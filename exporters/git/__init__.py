@@ -11,6 +11,7 @@ from .git_utils import (
     is_file_tracked,
     has_staged_changes,
     stage_file,
+    check_duplicate_commit_message,
     create_commit_with_date
 )
 from .init_commits_batch_processor import process_files_with_git_batch
@@ -28,6 +29,7 @@ __all__ = [
     'is_file_tracked',
     'has_staged_changes',
     'stage_file',
+    'check_duplicate_commit_message',
     'create_commit_with_date',
     'process_files_with_git_batch',
     'process_temporal_commits_batch',

@@ -402,6 +402,41 @@ def checkout_branch(branch_name: str, create_if_missing: bool = True, verbose: b
         return False
 
 
+def check_duplicate_commit_message(message: str, verbose: bool = False) -> bool:
+    """
+    Check if a commit with the given message already exists in the current branch.
+    
+    Args:
+        message: Commit message to check
+        verbose: Enable verbose output
+        
+    Returns:
+        bool: True if a duplicate exists, False otherwise
+    """
+    try:
+        # Search for commits with the exact message
+        result = subprocess.run([
+            'git', 'log', '--grep', f'^{message}$', '--format=%H', '-n', '1'
+        ], capture_output=True, text=True, timeout=GIT_TIMEOUT)
+        
+        has_duplicate = result.returncode == 0 and result.stdout.strip() != ""
+        
+        if has_duplicate and verbose:
+            commit_hash = result.stdout.strip()
+            print(f"Varning: En commit med samma meddelande finns redan: {commit_hash}")
+            
+        return has_duplicate
+        
+    except subprocess.CalledProcessError as e:
+        if verbose:
+            print(f"Fel vid sökning efter duplicerad commit: {e}")
+        return False
+    except FileNotFoundError:
+        if verbose:
+            print("Varning: Git hittades inte.")
+        return False
+
+
 def create_commit_with_date(message: str, date: str, verbose: bool = False) -> bool:
     """
     Create a git commit with a specified date.
@@ -415,6 +450,10 @@ def create_commit_with_date(message: str, date: str, verbose: bool = False) -> b
         bool: True if commit was successful, False otherwise
     """
     try:
+        # Check for duplicate commit message
+        if check_duplicate_commit_message(message, verbose):
+            raise ValueError(f"En commit med meddelandet '{message}' finns redan!")
+        
         # Set both author and committer dates
         env = {**os.environ, 'GIT_AUTHOR_DATE': date, 'GIT_COMMITTER_DATE': date}
         
@@ -427,6 +466,9 @@ def create_commit_with_date(message: str, date: str, verbose: bool = False) -> b
             
         return True
         
+    except ValueError as e:
+        print(f"❌ Fel: {e}")
+        return False
     except subprocess.CalledProcessError as e:
         print(f"Fel vid commit: {e}")
         if hasattr(e, 'stderr') and e.stderr:
