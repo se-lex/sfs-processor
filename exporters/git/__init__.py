@@ -1,21 +1,35 @@
 """Git export functionality for SFS documents."""
 
 from .git_utils import (
-    ensure_git_branch_for_commits, 
+    prepare_git_branch, 
     restore_original_branch, 
     remove_all_commits_on_branch,
     get_target_repository,
     configure_git_remote,
-    push_to_target_repository
+    push_to_target_repository,
+    clone_target_repository_to_temp,
+    is_file_tracked,
+    has_staged_changes,
+    stage_file,
+    create_commit_with_date
 )
-from .generate_init_commit_for_doc import generate_init_commit_for_document
+from .init_commits_batch_processor import process_files_with_git_batch
+from .temporal_commits_batch_processor import process_temporal_commits_batch
+from .generate_commits import create_init_git_commit
 
 __all__ = [
-    'ensure_git_branch_for_commits', 
+    'prepare_git_branch', 
     'restore_original_branch', 
     'remove_all_commits_on_branch',
     'get_target_repository',
     'configure_git_remote', 
     'push_to_target_repository',
-    'generate_init_commit_for_document'
+    'clone_target_repository_to_temp',
+    'is_file_tracked',
+    'has_staged_changes',
+    'stage_file',
+    'create_commit_with_date',
+    'process_files_with_git_batch',
+    'process_temporal_commits_batch',
+    'create_init_git_commit'
 ]

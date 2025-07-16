@@ -3,8 +3,7 @@ YAML utilities for formatting values according to YAML standards.
 """
 
 import re
-import yaml
-from typing import Any, Optional
+from typing import Any
 
 
 def format_yaml_value(value: Any) -> str:
@@ -57,34 +56,3 @@ def format_yaml_value(value: Any) -> str:
     return value
 
 
-def extract_frontmatter_property(content: str, property_name: str) -> Optional[str]:
-    """
-    Extract a property from YAML frontmatter in markdown content.
-    
-    Args:
-        content: The full markdown content with frontmatter
-        property_name: The property name to extract from frontmatter
-        
-    Returns:
-        The property value from frontmatter, or None if not found
-    """
-    # Check if content starts with YAML frontmatter
-    if not content.startswith('---\n'):
-        return None
-    
-    # Find the end of frontmatter
-    end_marker = content.find('\n---\n', 4)
-    if end_marker == -1:
-        return None
-    
-    # Extract frontmatter
-    frontmatter_text = content[4:end_marker]
-    
-    try:
-        frontmatter = yaml.safe_load(frontmatter_text)
-        if isinstance(frontmatter, dict):
-            return frontmatter.get(property_name)
-    except yaml.YAMLError:
-        pass
-    
-    return None

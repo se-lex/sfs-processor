@@ -124,6 +124,16 @@ Exempel på selex-attribut:
 
 Dessa attribut används automatiskt av systemets datumfiltrering för att skapa versioner av författningar som gäller vid specifika tidpunkter. Sektioner med `selex:upphor_datum` som har passerat tas bort, och sektioner med `selex:ikraft_datum` som ännu inte har kommit tas bort från den aktuella versionen.
 
+### Temporal processing för olika format
+
+Systemet hanterar temporal processing (tidsbaserad filtrering) olika beroende på vilket format som används:
+
+- **`md` format**: Tillämpar temporal processing med dagens datum som målpunkt. Selex-taggar tas bort efter filtrering.
+- **`md-markers` format**: Bevarar selex-taggar och hoppar över temporal processing. Detta gör att alla temporal attribut behålls för senare bearbetning.
+- **`git` format**: Hoppar över temporal processing i huvudbearbetningen. Temporal hantering sköts separat i git-arbetsflödet för att skapa historiska commits.
+- **`html` format**: Tillämpar temporal processing med dagens datum innan HTML-generering.
+- **`htmldiff` format**: Tillämpar temporal processing med dagens datum innan HTML-generering.
+
 ### Konvertering till HTML med ELI-struktur
 
 ```bash
@@ -159,7 +169,7 @@ python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [-
 - `--formats`: Utdataformat att generera, kommaseparerat. Stödda: md, md-markers, git, html, htmldiff (default: "md")
   - `md`: Generera rena markdown-filer utan section-taggar
   - `md-markers`: Generera markdown-filer med section-taggar bevarade
-  - `git`: Aktivera Git-commits med historiska datum (kräver md)
+  - `git`: Aktivera Git-commits med historiska datum
   - `html`: Generera HTML-filer i ELI-struktur (endast grunddokument)
   - `htmldiff`: Generera HTML-filer i ELI-struktur med ändringsversioner
 - `--filter`: Filtrera filer efter år (YYYY) eller specifik beteckning (YYYY:NNN). Kan vara kommaseparerad lista.

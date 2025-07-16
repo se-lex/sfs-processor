@@ -45,6 +45,27 @@ def filter_json_files(json_files: List[Path], filter_criteria: str) -> List[Path
     return filtered_files
 
 
+def read_file_content(file_path: Path) -> str:
+    """
+    Read file content with proper error handling.
+    
+    Args:
+        file_path: Path to the file to read
+        
+    Returns:
+        str: File content, or empty string if reading failed
+        
+    Raises:
+        IOError: If file cannot be read
+        UnicodeDecodeError: If file encoding is invalid
+    """
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            return f.read()
+    except (IOError, UnicodeDecodeError) as e:
+        raise IOError(f"Fel vid läsning av {file_path}: {e}")
+
+
 def save_to_disk(file_path: Path, content: str) -> None:
     """Save content to disk with proper error handling.
 

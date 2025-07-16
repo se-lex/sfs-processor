@@ -23,7 +23,6 @@ from pathlib import Path
 from typing import Dict, Any, List, Optional
 
 from downloaders.riksdagen_api import fetch_predocs_details, format_predocs_for_frontmatter
-from exporters.git.git_utils import GIT_TIMEOUT
 from formatters.format_sfs_text import (
     format_sfs_text_as_markdown,
     parse_logical_sections,
@@ -35,14 +34,31 @@ from formatters.sort_frontmatter import sort_frontmatter_properties
 from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
 from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
 from temporal.title_temporal import title_temporal
-from temporal.amendments import process_markdown_amendments, extract_amendments
+from temporal.amendments import extract_amendments
 from temporal.apply_temporal import apply_temporal
-from exporters.git import generate_init_commit_for_document
+from exporters.git import create_init_git_commit
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime
 from util.file_utils import filter_json_files, save_to_disk
 from formatters.predocs_parser import parse_predocs_string
-from formatters.table_converter import convert_tables_in_markdown
+
+
+def create_safe_filename(beteckning: str, preserve_selex_tags: bool = False) -> str:
+    """
+    Create a safe filename from beteckning.
+    
+    Args:
+        beteckning: Document beteckning (e.g., "2024:1000")
+        preserve_selex_tags: Whether this is for md-markers mode
+        
+    Returns:
+        str: Safe filename (e.g., "sfs-2024-1000.md" or "sfs-2024-1000-markers.md")
+    """
+    safe_beteckning = re.sub(r'[^\w\-]', '-', beteckning)
+    if preserve_selex_tags:
+        return f"sfs-{safe_beteckning}-markers.md"
+    else:
+        return f"sfs-{safe_beteckning}.md"
 
 
 def determine_output_path(data: Dict[str, Any], output_dir: Path, year_as_folder: bool = True) -> Path:
@@ -61,10 +77,9 @@ def determine_output_path(data: Dict[str, Any], output_dir: Path, year_as_folder
         ValueError: If beteckning is invalid or year cannot be extracted
     """
     # Extract beteckning for validation
-    beteckning = data.get('beteckning', '')
-    
+    beteckning = data.get('beteckning')
     if not beteckning:
-        raise ValueError("Ingen beteckning hittades i dokumentdata")
+        raise ValueError("Beteckning saknas i dokumentdata")
 
     # Skip documents with beteckning starting with 'N' (notifications etc.)
     if beteckning.startswith('N'):
@@ -80,14 +95,14 @@ def determine_output_path(data: Dict[str, Any], output_dir: Path, year_as_folder
     # Determine output directory based on year_as_folder setting
     if year_as_folder:
         document_dir = output_dir / year
-        document_dir.mkdir(exist_ok=True)
+        document_dir.mkdir(parents=True, exist_ok=True)
     else:
         document_dir = output_dir
 
     return document_dir
 
 
-def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_branch: str = None, fetch_predocs: bool = False, apply_links: bool = False, target_date: Optional[str] = None) -> None:
+def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_mode: bool = False, fetch_predocs: bool = False, apply_links: bool = False, target_date: Optional[str] = None) -> None:
     """Create documents by converting JSON to specified output formats and applying amendments.
 
     This is the main function for document creation that handles:
@@ -114,8 +129,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
                      All HTML output uses ELI directory structure with year-based folders
         year_as_folder: Whether to create year-based subdirectories (default: True)
         verbose: Whether to show verbose output (default: False)
-        git_branch: Branch name to use for git commits. If contains "(date)", it will be replaced
-                   with current date. Only used when "git" is in output_modes.
+        git_mode: Whether git mode is enabled (commits will be created)
         fetch_predocs: Whether to fetch detailed information about förarbeten from Riksdagen API (default: False)
         target_date: Optional target date (YYYY-MM-DD) for temporal title processing
     """
@@ -152,14 +166,12 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
 
     # Process markdown format if requested
     if "md" in output_modes:
-        # Create markdown document (pass git_branch if "git" is in output_modes)
-        git_branch_param = git_branch if "git" in output_modes else None
-        _create_markdown_document(data, document_dir, git_branch_param, False, verbose, fetch_predocs, apply_links)
+        _create_markdown_document(data, document_dir, git_mode, False, verbose, fetch_predocs, apply_links)
 
     # Process markdown with section markers if requested
     if "md-markers" in output_modes:
-        # Create markdown document with section tags preserved
-        _create_markdown_document(data, document_dir, None, True, verbose, fetch_predocs, apply_links)
+        # Create markdown document with selex tags preserved
+        _create_markdown_document(data, document_dir, False, True, verbose, fetch_predocs, apply_links)
 
     # Process HTML format if requested
     if "html" in output_modes:
@@ -173,15 +185,14 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
 
 
 
-def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branch: str = None, preserve_section_tags: bool = False, verbose: bool = False, fetch_predocs: bool = False, apply_links: bool = False) -> str:
+def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode: bool = False, preserve_selex_tags: bool = False, verbose: bool = False, fetch_predocs: bool = False, apply_links: bool = False) -> str:
     """Internal function to create a markdown document from JSON data.
 
     Args:
         data: JSON data containing document information
         output_path: Path to the output directory (folder)
-        git_branch: Branch name to use for git commits. If None, no git commits are made.
-                   If contains "(date)", it will be replaced with current date.
-        preserve_section_tags: Whether to preserve <section> tags in output (for md-markers mode)
+        git_mode: Whether git mode is enabled (commits will be created)
+        preserve_selex_tags: Whether to preserve selex tags in output (for md-markers mode)
         verbose: Whether to print verbose output
         fetch_predocs: Whether to fetch detailed information about förarbeten from Riksdagen API
 
@@ -190,11 +201,11 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
     """
 
     # Extract beteckning to create safe filename
-    beteckning = data.get('beteckning', '')
-    if preserve_section_tags:
-        safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '-markers.md'
-    else:
-        safe_filename = "sfs-" + re.sub(r'[^\w\-]', '-', beteckning) + '.md'
+    beteckning = data.get('beteckning')
+    if not beteckning:
+        raise ValueError("Beteckning saknas i dokumentdata")
+    
+    safe_filename = create_safe_filename(beteckning, preserve_selex_tags)
     output_file = output_path / safe_filename
 
     # Get basic markdown content
@@ -203,8 +214,10 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
     # Always normalize heading levels, regardless of whether we keep section tags
     markdown_content = normalize_heading_levels(markdown_content)
 
-    # Extract beteckning for logging
-    beteckning = data.get('beteckning', '')
+    # Extract beteckning for logging  
+    beteckning = data.get('beteckning')
+    if not beteckning:
+        raise ValueError("Beteckning saknas i dokumentdata")
 
     # Process amendments
     # TODO: markdown_content = process_markdown_amendments(markdown_content, data, git_branch, verbose, output_file)
@@ -212,20 +225,20 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
     # Convert table-like structures to proper Markdown tables
     # TODO: markdown_content = convert_tables_in_markdown(markdown_content, verbose)
     
-    # Apply temporal processing to handle selex attributes
-    # TODO: markdown_content = apply_temporal(markdown_content, today, verbose=verbose)
+    # Apply temporal processing to handle selex attributes (only if not in git mode and not preserving selex tags)
+    if not git_mode and not preserve_selex_tags:
+        from datetime import datetime
+        target_date = datetime.now().strftime('%Y-%m-%d')
+        markdown_content = apply_temporal(markdown_content, target_date, verbose=verbose)
     
     # Extract amendments for git logic (if needed)
-    amendments = extract_amendments(data.get('andringsforfattningar', []))
-
-    # Determine if git functionality is enabled
-    git_enabled = git_branch is not None
+    # TODO: amendments = extract_amendments(data.get('andringsforfattningar', []))
 
     # Add ikraft_datum to front matter if not in Git mode
-    if not git_enabled:
+    if not git_mode:
         ikraft_datum = format_datetime(data.get('ikraftDateTime'))
         if ikraft_datum:
-            markdown_content = add_ikraft_datum_to_frontmatter(markdown_content, ikraft_datum, beteckning)
+            markdown_content = add_ikraft_datum_to_frontmatter(markdown_content, ikraft_datum)
 
     # Debug: Check final markdown content length
     if verbose:
@@ -234,20 +247,18 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_branc
             print(f"Debug: Innehållsförhandsvisning eftersom misstänkt kort:\n{markdown_content[:500]}...")
 
     # Handle git commits if enabled
-    if git_enabled:
+    if git_mode:
         # Always create initial commit when git is enabled
-        markdown_content = generate_init_commit_for_document(
+        return create_init_git_commit(
             data=data,
             output_file=output_file,
             markdown_content=markdown_content,
-            git_branch=git_branch,
-            preserve_section_tags=preserve_section_tags,
             verbose=verbose
         )
     else:
         # No git mode - write the file normally
         # Clean selex tags if not preserving them
-        if not preserve_section_tags:
+        if not preserve_selex_tags:
             markdown_content = clean_selex_tags(markdown_content)
         save_to_disk(output_file, markdown_content)
         print(f"Skapade dokument: {output_file}")
@@ -271,11 +282,16 @@ def convert_to_markdown(data: Dict[str, Any], fetch_predocs: bool = False, apply
     """
 
     # Extract main document information
-    beteckning = data.get('beteckning', '')
-    # Use temporal processed title if available, otherwise use original
-    rubrik_original = data.get('rubrik_after_temporal', data.get('rubrik', ''))
+    beteckning = data.get('beteckning')
+    if not beteckning:
+        raise ValueError("Beteckning saknas i dokumentdata")
     
-    rubrik = clean_title(rubrik_original)    # Clean for front matter
+    # Use temporal processed title if available, otherwise use original
+    rubrik_original = data.get('rubrik_after_temporal', data.get('rubrik'))
+    if not rubrik_original:
+        raise ValueError("Rubrik saknas i dokumentdata")
+    
+    rubrik = clean_text(rubrik_original)    # Clean for front matter
 
     # Extract dates
     publicerad_datum = format_datetime(data.get('publiceradDateTime'))
@@ -469,22 +485,6 @@ departement: {format_yaml_value(organisation)}
     return yaml_front_matter + markdown_body
 
 
-def clean_title(rubrik: Optional[str]) -> str:
-    """Clean rubrik by removing beteckning in parentheses and line breaks."""
-    if not rubrik:
-        return ""
-
-    # Remove line breaks and carriage returns
-    cleaned = re.sub(r'[\r\n]+', ' ', rubrik)
-    
-    # Remove beteckning pattern in parentheses (e.g., "(1987:1185)")
-    # Pattern matches parentheses containing year:number format
-    # First remove the parentheses and their content, then clean up extra whitespace
-    cleaned = re.sub(r'\s*\(\d{4}:\d+\)\s*', ' ', cleaned)
-    # Clean up any multiple spaces that might have been created
-    cleaned = re.sub(r'\s+', ' ', cleaned).strip()
-    return cleaned
-
 
 def ignore_rules(innehall_text: str) -> tuple[bool, str]:
     """
@@ -538,6 +538,7 @@ def create_ignored_markdown_content(data: Dict[str, Any], reason: str) -> str:
     return markdown_body
 
 
+
 def main():
     """Main function to process all JSON files in the json directory."""
     
@@ -555,8 +556,6 @@ def main():
                         help='Show detailed diff output for each amendment processing')
     parser.add_argument('--formats', dest='output_modes', default='md',
                         help='Output formats to generate (comma-separated). Currently supported: md, md-markers, git, html, htmldiff. Default: md. Use "md-markers" to preserve section tags. Use "git" to enable Git commits with historical dates. HTML creates documents in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer}). HTMLDIFF includes amendment versions with diff view.')
-    parser.add_argument('--git-branch', dest='git_branch', default='sfs-updates-(date)',
-                        help='Branch name to use for git commits when "git" format is enabled. Use "(date)" as placeholder for current date. Default: sfs-updates-(date)')
     parser.add_argument('--predocs', action='store_true',
                         help='Fetch detailed information about förarbeten from Riksdagen API. This will make processing slower.')
     parser.add_argument('--apply-links', action='store_true', default=True,
@@ -626,18 +625,23 @@ def main():
     print(f"Hittade {len(json_files)} JSON-fil(er) att konvertera från {json_dir}")
     print(f"Utdata kommer att sparas i {output_dir}")
     
-    # Convert each JSON file
-    for json_file in json_files:
-        # Read JSON file
-        try:
-            with open(json_file, 'r', encoding='utf-8') as f:
-                data = json.load(f)
-        except (json.JSONDecodeError, FileNotFoundError) as e:
-            print(f"Fel vid läsning av {json_file}: {e}")
-            continue
+    # Handle git mode with batch processing
+    if "git" in output_modes:
+        from exporters.git import process_files_with_git_batch
+        process_files_with_git_batch(json_files, output_dir, args.verbose, args.predocs)
+    else:
+        # Convert each JSON file normally
+        for json_file in json_files:
+            # Read JSON file
+            try:
+                with open(json_file, 'r', encoding='utf-8') as f:
+                    data = json.load(f)
+            except (json.JSONDecodeError, FileNotFoundError) as e:
+                print(f"Fel vid läsning av {json_file}: {e}")
+                continue
 
-        # Use make_document to create documents in specified formats
-        make_document(data, output_dir, output_modes, args.year_folder, args.verbose, args.git_branch, args.predocs, args.apply_links)
+            # Use make_document to create documents in specified formats
+            make_document(data, output_dir, output_modes, args.year_folder, args.verbose, False, args.predocs, args.apply_links)
     
     print(f"\nBearbetning klar! {len(json_files)} filer sparade i {output_dir} i format: {', '.join(output_modes)}")
 

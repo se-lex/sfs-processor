@@ -3,6 +3,7 @@
 import os
 import subprocess
 from datetime import datetime
+from pathlib import Path
 from urllib.parse import urlparse
 
 # Git main branch name
@@ -15,7 +16,7 @@ GIT_TIMEOUT = 600
 DEFAULT_TARGET_REPO = "https://github.com/se-lex/sfs.git"
 
 
-def ensure_git_branch_for_commits(git_branch, remove_all_commits_first=True, verbose=False):
+def prepare_git_branch(git_branch, remove_all_commits_first=True, verbose=False):
     """
     Ensures that git commits are made in a different branch than the current one.
     Creates a new branch if needed and switches to it.
@@ -229,6 +230,213 @@ def create_authenticated_url(repo_url: str, pat_token: str) -> str:
         return repo_url
 
 
+def clone_target_repository_to_temp(verbose: bool = False) -> tuple[Path, str]:
+    """
+    Clone target repository to a temporary directory.
+    
+    Args:
+        verbose: Enable verbose output
+        
+    Returns:
+        tuple[Path, str]: (repo_directory_path, original_cwd) or (None, None) if failed
+    """
+    import tempfile
+    
+    try:
+        # Get repository URL and PAT token
+        repo_url = get_target_repository()
+        pat_token = os.getenv('GIT_GITHUB_PAT')
+        
+        # Try to load PAT from .env file if not in environment
+        if not pat_token:
+            try:
+                from dotenv import load_dotenv
+                load_dotenv()
+                pat_token = os.getenv('GIT_GITHUB_PAT')
+            except ImportError:
+                pass  # dotenv not available
+        
+        # Create authenticated URL if PAT is available
+        if pat_token:
+            auth_url = create_authenticated_url(repo_url, pat_token)
+        else:
+            auth_url = repo_url
+            if verbose:
+                print("Varning: Ingen PAT token hittades, använder okrypterad URL")
+            
+        # Create temporary directory for cloning
+        temp_dir = tempfile.mkdtemp()
+        repo_dir = Path(temp_dir) / "target_repo"
+        
+        if verbose:
+            print(f"Klonar {repo_url} till temporär katalog...")
+        
+        # Clone the repository
+        subprocess.run([
+            'git', 'clone', auth_url, str(repo_dir)
+        ], check=True, capture_output=True, timeout=GIT_TIMEOUT)
+        
+        # Remember original directory
+        original_cwd = os.getcwd()
+        
+        return repo_dir, original_cwd
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Fel vid kloning av target repository: {e}")
+        if hasattr(e, 'stderr') and e.stderr:
+            print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+        return None, None
+    except Exception as e:
+        print(f"Oväntat fel vid kloning av target repository: {e}")
+        return None, None
+
+
+def is_file_tracked(file_path: str) -> bool:
+    """
+    Check if a file is already tracked by git.
+    
+    Args:
+        file_path: Path to the file to check
+        
+    Returns:
+        bool: True if file is tracked, False otherwise
+    """
+    try:
+        result = subprocess.run(['git', 'ls-files', file_path], 
+                              capture_output=True, text=True, timeout=GIT_TIMEOUT)
+        return result.returncode == 0 and result.stdout.strip() != ""
+    except subprocess.CalledProcessError:
+        return False
+    except FileNotFoundError:
+        return False
+
+
+def has_staged_changes() -> bool:
+    """
+    Check if there are any staged changes ready to commit.
+    
+    Returns:
+        bool: True if there are staged changes, False otherwise
+    """
+    try:
+        result = subprocess.run(['git', 'diff', '--cached', '--quiet'], 
+                              capture_output=True, timeout=GIT_TIMEOUT)
+        # git diff --cached --quiet returns 0 if there are no changes, 1 if there are changes
+        return result.returncode != 0
+    except subprocess.CalledProcessError:
+        return False
+    except FileNotFoundError:
+        return False
+
+
+def stage_file(file_path: str, verbose: bool = False) -> bool:
+    """
+    Stage a file for git commit.
+    
+    Args:
+        file_path: Path to the file to stage
+        verbose: Enable verbose output
+        
+    Returns:
+        bool: True if staging was successful, False otherwise
+    """
+    try:
+        subprocess.run(['git', 'add', file_path],
+                      check=True, capture_output=True, timeout=GIT_TIMEOUT)
+        
+        if verbose:
+            print(f"Stagade fil: {file_path}")
+            
+        return True
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Fel vid staging av {file_path}: {e}")
+        if hasattr(e, 'stderr') and e.stderr:
+            print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+        return False
+    except FileNotFoundError:
+        print("Varning: Git hittades inte.")
+        return False
+
+
+def checkout_branch(branch_name: str, create_if_missing: bool = True, verbose: bool = False) -> bool:
+    """
+    Checkout to a git branch, optionally creating it if it doesn't exist.
+    
+    Args:
+        branch_name: Name of the branch to checkout
+        create_if_missing: If True, create the branch if it doesn't exist
+        verbose: Enable verbose output
+        
+    Returns:
+        bool: True if checkout was successful, False otherwise
+    """
+    try:
+        # Try to checkout the branch first
+        result = subprocess.run(['git', 'checkout', branch_name],
+                              capture_output=True, timeout=GIT_TIMEOUT)
+        
+        if result.returncode == 0:
+            if verbose:
+                print(f"Bytte till branch '{branch_name}'")
+            return True
+        elif create_if_missing:
+            # Branch doesn't exist, create it
+            subprocess.run(['git', 'checkout', '-b', branch_name],
+                          check=True, capture_output=True, timeout=GIT_TIMEOUT)
+            if verbose:
+                print(f"Skapade och bytte till branch '{branch_name}'")
+            return True
+        else:
+            if verbose:
+                print(f"Branch '{branch_name}' finns inte och create_if_missing=False")
+            return False
+            
+    except subprocess.CalledProcessError as e:
+        print(f"Fel vid checkout av branch '{branch_name}': {e}")
+        if hasattr(e, 'stderr') and e.stderr:
+            print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+        return False
+    except FileNotFoundError:
+        print("Varning: Git hittades inte.")
+        return False
+
+
+def create_commit_with_date(message: str, date: str, verbose: bool = False) -> bool:
+    """
+    Create a git commit with a specified date.
+    
+    Args:
+        message: Commit message
+        date: Date string in format that git accepts (e.g., "2024-01-01 12:00:00 +0100")
+        verbose: Enable verbose output
+        
+    Returns:
+        bool: True if commit was successful, False otherwise
+    """
+    try:
+        # Set both author and committer dates
+        env = {**os.environ, 'GIT_AUTHOR_DATE': date, 'GIT_COMMITTER_DATE': date}
+        
+        subprocess.run([
+            'git', 'commit', '-m', message
+        ], check=True, capture_output=True, env=env, timeout=GIT_TIMEOUT)
+        
+        if verbose:
+            print(f"Git-commit skapad: '{message}' daterad {date}")
+            
+        return True
+        
+    except subprocess.CalledProcessError as e:
+        print(f"Fel vid commit: {e}")
+        if hasattr(e, 'stderr') and e.stderr:
+            print(f"Git stderr: {e.stderr.decode('utf-8', errors='replace')}")
+        return False
+    except FileNotFoundError:
+        print("Varning: Git hittades inte.")
+        return False
+
+
 def push_to_target_repository(branch_name: str, remote_name: str = 'target', verbose: bool = False) -> bool:
     """
     Push the specified branch to the target repository.
@@ -267,13 +475,20 @@ def push_to_target_repository(branch_name: str, remote_name: str = 'target', ver
         if verbose:
             print(f"Pushar branch '{branch_name}' till remote '{remote_name}'...")
         
-        subprocess.run(['git', 'push', remote_name, branch_name], 
-                      check=True, capture_output=True, timeout=GIT_TIMEOUT)
+        result = subprocess.run(['git', 'push', remote_name, branch_name], 
+                               capture_output=True, text=True, timeout=GIT_TIMEOUT)
         
-        if verbose:
-            print(f"Lyckades pusha branch '{branch_name}' till {repo_url}")
-        
-        return True
+        if result.returncode == 0:
+            if verbose:
+                print(f"Lyckades pusha branch '{branch_name}' till {repo_url}")
+            return True
+        else:
+            print(f"Push misslyckades med exit code {result.returncode}")
+            if result.stdout:
+                print(f"Git stdout: {result.stdout}")
+            if result.stderr:
+                print(f"Git stderr: {result.stderr}")
+            return False
         
     except subprocess.CalledProcessError as e:
         print(f"Fel vid push till target repository: {e}")
