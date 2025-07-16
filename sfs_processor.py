@@ -131,7 +131,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
         verbose: Whether to show verbose output (default: False)
         git_mode: Whether git mode is enabled (commits will be created)
         fetch_predocs: Whether to fetch detailed information about förarbeten from Riksdagen API (default: False)
-        target_date: Optional target date (YYYY-MM-DD) for temporal title processing
+        target_date: Optional target date (YYYY-MM-DD) for temporal processing
     """
 
     # Default to markdown output if no modes specified
@@ -166,12 +166,12 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
 
     # Process markdown format if requested
     if "md" in output_modes:
-        _create_markdown_document(data, document_dir, git_mode, False, verbose, fetch_predocs, apply_links)
+        _create_markdown_document(data, document_dir, git_mode, False, verbose, fetch_predocs, apply_links, target_date)
 
     # Process markdown with section markers if requested
     if "md-markers" in output_modes:
         # Create markdown document with selex tags preserved
-        _create_markdown_document(data, document_dir, False, True, verbose, fetch_predocs, apply_links)
+        _create_markdown_document(data, document_dir, False, True, verbose, fetch_predocs, apply_links, target_date)
 
     # Process HTML format if requested
     if "html" in output_modes:
@@ -185,7 +185,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
 
 
 
-def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode: bool = False, preserve_selex_tags: bool = False, verbose: bool = False, fetch_predocs: bool = False, apply_links: bool = False) -> str:
+def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode: bool = False, preserve_selex_tags: bool = False, verbose: bool = False, fetch_predocs: bool = False, apply_links: bool = False, target_date: Optional[str] = None) -> str:
     """Internal function to create a markdown document from JSON data.
 
     Args:
@@ -226,9 +226,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     # TODO: markdown_content = convert_tables_in_markdown(markdown_content, verbose)
     
     # Apply temporal processing to handle selex attributes (only if not in git mode and not preserving selex tags)
-    if not git_mode and not preserve_selex_tags:
-        from datetime import datetime
-        target_date = datetime.now().strftime('%Y-%m-%d')
+    if not git_mode and not preserve_selex_tags and target_date:
         markdown_content = apply_temporal(markdown_content, target_date, verbose=verbose)
     
     # Extract amendments for git logic (if needed)
