@@ -631,6 +631,9 @@ def get_common_styles() -> str:
             padding: 20px;
             line-height: 1.6;
             background-color: var(--selex-white);
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }}
 
         .metadata {{
