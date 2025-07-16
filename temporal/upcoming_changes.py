@@ -149,34 +149,48 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
             except ValueError:
                 pass  # Skip invalid dates
     
-    # Pattern for article tags with selex attributes
-    article_pattern = r'<article[^>]*(?:id="([^"]*)")?[^>]*selex:(ikraft_datum|upphor_datum)="([^"]+)"[^>]*>'
-    article_matches = re.finditer(article_pattern, markdown_content)
+    # Pattern for article tags - find all article tags first, then extract dates from each
+    article_tag_pattern = r'<article[^>]*>'
+    article_tag_matches = re.finditer(article_tag_pattern, markdown_content)
     
-    for match in article_matches:
-        attribute_name = match.group(2)
-        date_value = match.group(3)
+    for article_match in article_tag_matches:
+        article_tag = article_match.group(0)
         
-        # Extract ikraft_datum and upphor_datum from article tags
-        if attribute_name == 'ikraft_datum':
-            date_type = 'ikraft'
-        elif attribute_name == 'upphor_datum':
-            date_type = 'upphor'
-        else:
-            continue  # Skip other date types
-            
-        # Validate date format
-        if len(date_value) == 10 and date_value.count('-') == 2:
-            try:
-                # Verify it's a valid date
-                datetime.strptime(date_value, '%Y-%m-%d')
-                changes.append({
-                    'type': date_type,
-                    'date': date_value,
-                    'source': 'article_tag'
-                })
-            except ValueError:
-                pass  # Skip invalid dates
+        # Find all ikraft_datum and upphor_datum within this article tag
+        ikraft_match = re.search(r'selex:ikraft_datum="([^"]+)"', article_tag)
+        upphor_match = re.search(r'selex:upphor_datum="([^"]+)"', article_tag)
+        
+        # Process ikraft_datum if found
+        if ikraft_match:
+            date_value = ikraft_match.group(1)
+            if len(date_value) == 10 and date_value.count('-') == 2:
+                try:
+                    datetime.strptime(date_value, '%Y-%m-%d')
+                    changes.append({
+                        'type': 'ikraft',
+                        'date': date_value,
+                        'source': 'article_tag'
+                    })
+                except ValueError:
+                    pass  # Skip invalid dates
+        
+        # Process upphor_datum if found
+        if upphor_match:
+            date_value = upphor_match.group(1)
+            if len(date_value) == 10 and date_value.count('-') == 2:
+                try:
+                    datetime.strptime(date_value, '%Y-%m-%d')
+                    change_data = {
+                        'type': 'upphor',
+                        'date': date_value,
+                        'source': 'article_tag'
+                    }
+                    # Check for active revocation (selex:upphavd="true")
+                    if 'selex:upphavd="true"' in article_tag:
+                        change_data['is_revoked'] = True
+                    changes.append(change_data)
+                except ValueError:
+                    pass  # Skip invalid dates
     
     # Also look for simpler selex:status patterns with dates in separate attributes
     status_pattern = r'<(section|article)[^>]*selex:status="(ikraft|upphor)"[^>]*selex:(?:ikraft_datum|upphor_datum)="([^"]+)"[^>]*(?:id="([^"]*)")?[^>]*>'
@@ -210,8 +224,9 @@ def identify_upcoming_changes(markdown_content: str) -> List[Dict[str, str]]:
                     source_type = 'article_tag' if tag_type == 'article' else 'section_tag'
                     
                     # Check for selex:upphavd="true" attribute to distinguish active revocation
+                    # Only set is_revoked for upphor (expiration), not for ikraft (entry into force)
                     tag_content = match.group(0)
-                    is_revoked = 'selex:upphavd="true"' in tag_content
+                    is_revoked = status == 'upphor' and 'selex:upphavd="true"' in tag_content
                     
                     if source_type == 'article_tag':
                         change_data = {
