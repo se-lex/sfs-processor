@@ -6,7 +6,7 @@ Funktionen tar bort sektioner baserat på selex:status, selex:upphor_datum och s
 relativt till ett angivet target datum.
 
 Regler:
-1. Sektioner med selex:status="upphavd" eller "gammal upphord" tas bort helt
+1. Sektioner med selex:status="upphavd" eller "upphord" tas bort helt
 2. Sektioner med selex:status="ikraft" och selex:ikraft_datum > target_date tas bort helt
 3. Sektioner med selex:status="ikraft" och selex:ikraft_datum <= target_date får sina temporal attribut borttagna
 4. Sektioner med selex:upphor_datum som är <= target_date tas bort helt
