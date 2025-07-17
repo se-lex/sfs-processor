@@ -42,6 +42,14 @@ jobs:
       env:
         PYTHONPATH: ${{ github.workspace }}
 
+    - name: Upload JSON files as artifacts
+      if: false
+      uses: actions/upload-artifact@v3
+      with:
+        name: sfs-json-files
+        path: sfs_json/
+        retention-days: 90
+
     - name: Process JSON files to Markdown files with Selex tags
       run: |
         python sfs_processor.py --input sfs_json --output SFS --formats md-markers
