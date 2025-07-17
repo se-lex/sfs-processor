@@ -217,7 +217,11 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
 
             # Kontrollera om det är en rubrik (baserat på rensad rad men använd original för output)
             # Specialfall som alltid ska bli rubriker (även utanför standardkriterier)
-            if not next_is_list_start:
+            
+            # "Övergångsbestämmelser" ska alltid bli rubrik även om följd av numrerad lista
+            is_overgangsbestammelser = cleaned_line.strip().lower() == "övergångsbestämmelser"
+            
+            if not next_is_list_start or is_overgangsbestammelser:
                 # Kontrollera först om det är en avdelningsrubrik (nivå 2 ##)
                 if is_chapter_header(cleaned_line.strip()):
                     _add_header_with_blank_line(formatted, '##', original_line)
