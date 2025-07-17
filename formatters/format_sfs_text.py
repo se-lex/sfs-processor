@@ -210,7 +210,9 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                 # Uteslut rader som börjar med vanliga juridiska fraser
                 not re.match(JURIDIC_PHRASE_PATTERN, cleaned_line.strip(), re.IGNORECASE) and
                 # Uteslut specifika juridiska fraser som inte ska bli rubriker
-                not re.match(SPECIFIC_JURIDIC_PATTERN, cleaned_line.strip(), re.IGNORECASE)
+                not re.match(SPECIFIC_JURIDIC_PATTERN, cleaned_line.strip(), re.IGNORECASE) and
+                # Uteslut rader som innehåller tabb-tecken
+                '\t' not in original_line
             )
 
             # Kontrollera om det är en rubrik (baserat på rensad rad men använd original för output)
