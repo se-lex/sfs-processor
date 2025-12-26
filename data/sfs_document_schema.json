@@ -1,0 +1,109 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "SFS Document Schema",
+  "description": "Schema for validating Swedish legal documents (SFS) from Regeringskansliets rättsdatabas",
+  "type": "object",
+  "required": ["beteckning"],
+  "properties": {
+    "beteckning": {
+      "type": "string",
+      "pattern": "^(\\d{4}:\\d+|N\\d{4}:\\d+)$",
+      "description": "Document identifier in format YYYY:NNN (e.g., 2010:800)"
+    },
+    "rubrik": {
+      "type": "string",
+      "minLength": 1,
+      "description": "Document title/heading"
+    },
+    "rubrik_after_temporal": {
+      "type": "string",
+      "description": "Title after temporal processing"
+    },
+    "publiceradDateTime": {
+      "type": "string",
+      "description": "Publication date in ISO format"
+    },
+    "tidsbegransadDateTime": {
+      "type": "string",
+      "description": "Time-limited expiration date"
+    },
+    "ikraftDateTime": {
+      "type": "string",
+      "description": "Entry into force date"
+    },
+    "upphavdDateTime": {
+      "type": "string",
+      "description": "Repeal date"
+    },
+    "ikraftDenDagenRegeringenBestammer": {
+      "type": "boolean",
+      "description": "Flag indicating entry into force is determined by government"
+    },
+    "upphavdDenDagenRegeringenBestammer": {
+      "type": "boolean",
+      "description": "Flag indicating repeal date is determined by government"
+    },
+    "celexnummer": {
+      "type": "string",
+      "description": "CELEX number for EU legislation references"
+    },
+    "eUdirektiv": {
+      "type": "boolean",
+      "description": "Flag indicating if document relates to EU directive"
+    },
+    "publicerad": {
+      "type": "boolean",
+      "description": "Publication status flag"
+    },
+    "andringsforfattningar": {
+      "type": "array",
+      "description": "List of amendments to this document",
+      "items": {
+        "type": "object",
+        "properties": {
+          "beteckning": {
+            "type": "string"
+          },
+          "rubrik": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "fulltext": {
+      "type": "object",
+      "description": "Full text content of the document",
+      "properties": {
+        "forfattningstext": {
+          "type": "string",
+          "description": "Legal text content (may be HTML-formatted)"
+        },
+        "utfardadDateTime": {
+          "type": "string",
+          "description": "Date when document was issued"
+        }
+      }
+    },
+    "register": {
+      "type": "object",
+      "description": "Registry information",
+      "properties": {
+        "forarbeten": {
+          "type": "string",
+          "description": "Preparatory works (förarbeten) references"
+        }
+      }
+    },
+    "organisation": {
+      "type": "object",
+      "description": "Issuing organization information",
+      "properties": {
+        "namn": {
+          "type": "string",
+          "description": "Organization name"
+        }
+      }
+    }
+  },
+  "additionalProperties": true
+}

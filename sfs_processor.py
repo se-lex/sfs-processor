@@ -41,6 +41,7 @@ from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime
 from util.file_utils import filter_json_files, save_to_disk
 from formatters.predocs_parser import parse_predocs_string
+from util.document_validator import validate_sfs_document, DocumentValidationError
 
 
 def create_safe_filename(beteckning: str, preserve_selex_tags: bool = False) -> str:
@@ -134,10 +135,13 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
         target_date: Optional target date (YYYY-MM-DD) for temporal title processing
     """
 
+    # Validate document structure
+    validate_sfs_document(data, strict=False)
+
     # Default to markdown output if no modes specified
     if output_modes is None:
         output_modes = ["md"]
-    
+
     # Set default target_date to today for md format only
     if target_date is None and 'md' in output_modes:
         target_date = datetime.now().strftime('%Y-%m-%d')

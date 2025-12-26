@@ -8,7 +8,13 @@ import requests
 import os
 import time
 import json
+import sys
+from pathlib import Path
 from typing import List, Optional, Dict
+
+# Add parent directory to path to import util modules
+sys.path.insert(0, str(Path(__file__).parent.parent))
+from util.document_validator import validate_sfs_document
 
 
 def fetch_document_by_rkrattsbaser(doc_id: str) -> Optional[Dict]:
@@ -90,6 +96,9 @@ def save_document_from_rkrattsbaser(doc_id: str, document_data: Dict, output_dir
         return True
 
     try:
+        # Validate document before saving
+        validate_sfs_document(document_data, strict=False)
+
         # Skapa katalog om den inte finns
         os.makedirs(output_dir, exist_ok=True)
 
