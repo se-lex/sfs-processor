@@ -1,0 +1,75 @@
+# Example configuration file for SFS Processor
+# Copy this file to config.yaml and customize as needed
+
+# API Configuration
+api:
+  # Regeringskansliet API settings
+  rkrattsbaser_url: "https://beta.rkrattsbaser.gov.se/elasticsearch/SearchEsByRawJson"
+  rkrattsbaser_timeout: 30
+
+  # Riksdagen API settings
+  riksdagen_base_url: "https://data.riksdagen.se"
+  riksdagen_timeout: 30
+
+  # EUR-Lex API settings
+  eur_lex_base_url: "https://eur-lex.europa.eu"
+  eur_lex_timeout: 30
+
+  # PDF URL domains
+  pdf_old_domain: "https://rkrattsdb.gov.se"
+  pdf_new_domain: "https://svenskforfattningssamling.se"
+  pdf_check_timeout: 10
+
+# Git Configuration
+git:
+  # Git repository URL (can also be set via GIT_TARGET_REPO env var)
+  target_repo: "https://github.com/se-lex/sfs.git"
+
+  # GitHub Personal Access Token (recommended to use GIT_GITHUB_PAT env var instead)
+  # github_pat: "ghp_xxxxxxxxxxxxxxxxxxxx"
+
+  # Minimum year for git commits
+  min_year: 1980
+
+  # Git operation timeout in seconds
+  timeout: 600
+
+  # Main branch name
+  main_branch: "main"
+
+# Cloudflare R2 Configuration
+# Recommended: Use environment variables instead of storing credentials in config file
+cloudflare:
+  # access_key_id: ""        # Use CLOUDFLARE_R2_ACCESS_KEY_ID env var
+  # secret_access_key: ""    # Use CLOUDFLARE_R2_SECRET_ACCESS_KEY env var
+  # bucket_name: ""          # Use CLOUDFLARE_R2_BUCKET_NAME env var
+  # account_id: ""           # Use CLOUDFLARE_R2_ACCOUNT_ID env var
+
+# Link Configuration
+links:
+  # Base URL for internal document links
+  internal_links_base_url: "https://selex.se/eli"
+
+  # ELI host for document identifiers
+  eli_host: "selex.se"
+
+# Processing Configuration
+processing:
+  # Default output formats (md, md-markers, html, htmldiff, git)
+  default_formats:
+    - md
+
+  # Create year-based subdirectories by default
+  default_year_as_folder: true
+
+  # Verbose output by default
+  default_verbose: false
+
+  # Fetch detailed förarbeten information by default
+  default_fetch_predocs: false
+
+  # Apply internal and external links by default
+  default_apply_links: true
+
+  # Strict JSON schema validation (raises exceptions on invalid documents)
+  strict_validation: false
