@@ -227,7 +227,8 @@ Efter att JSON-filerna sparats kan de bearbetas med sfs_processor.py:
     # Konvertera och spara varje författning som JSON
     successful_saves = 0
     failed_saves = 0
-    
+    skipped_n = 0
+
     for i, document in enumerate(documents, 1):
         beteckning = document.get('beteckning')
         if not beteckning:
@@ -235,8 +236,14 @@ Efter att JSON-filerna sparats kan de bearbetas med sfs_processor.py:
             failed_saves += 1
             continue
 
+        # Skip documents with beteckning starting with 'N' (myndighetsföreskrifter)
+        if beteckning.startswith('N'):
+            print(f"\n[{i}/{len(documents)}] ⚠ Hoppar över {beteckning} - myndighetsföreskrift (N-beteckning)")
+            skipped_n += 1
+            continue
+
         print(f"\n[{i}/{len(documents)}] Bearbetar {beteckning}...")
-        
+
         if save_document_as_json(document, output_dir):
             successful_saves += 1
         else:
@@ -245,6 +252,7 @@ Efter att JSON-filerna sparats kan de bearbetas med sfs_processor.py:
     # Sammanfattning
     print("\n=== Sammanfattning ===")
     print(f"Totalt författningar: {len(documents)}")
+    print(f"Överhoppade N-beteckningar: {skipped_n}")
     print(f"Lyckade sparningar: {successful_saves}")
     print(f"Misslyckade sparningar: {failed_saves}")
 

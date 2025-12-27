@@ -81,9 +81,12 @@ def determine_output_path(data: Dict[str, Any], output_dir: Path, year_as_folder
     if not beteckning:
         raise ValueError("Beteckning saknas i dokumentdata")
 
-    # Skip documents with beteckning starting with 'N' (notifications etc.)
+    # Skip documents with beteckning starting with 'N' (myndighetsföreskrifter)
+    # These are agency regulations (föreskrifter utfärdade av myndigheter) which are not
+    # part of the main Swedish Code of Statutes (SFS) and follow different numbering conventions.
+    # Example: N2025:4 refers to Transportstyrelsens föreskrifter (TSFS 2018:49)
     if beteckning.startswith('N'):
-        raise ValueError(f"Hoppar över beteckning som börjar med 'N': {beteckning}")
+        raise ValueError(f"Hoppar över myndighetsföreskrift (N-beteckning): {beteckning}")
 
     # Extract year from beteckning (format is typically YYYY:NNN)
     year_match = re.search(r'(\d{4}):', beteckning)
