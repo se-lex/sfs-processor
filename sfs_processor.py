@@ -105,7 +105,7 @@ def determine_output_path(data: Dict[str, Any], output_dir: Path, year_as_folder
     return document_dir
 
 
-def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_mode: bool = False, fetch_predocs: bool = False, apply_links: bool = False, target_date: Optional[str] = None) -> None:
+def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str] = None, year_as_folder: bool = True, verbose: bool = False, git_mode: bool = False, fetch_predocs_from_api: bool = False, apply_links: bool = False, target_date: Optional[str] = None) -> None:
     """Create documents by converting JSON to specified output formats and applying amendments.
 
     This is the main function for document creation that handles:
@@ -133,7 +133,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
         year_as_folder: Whether to create year-based subdirectories (default: True)
         verbose: Whether to show verbose output (default: False)
         git_mode: Whether git mode is enabled (commits will be created)
-        fetch_predocs: Whether to fetch detailed information about förarbeten from Riksdagen API (default: False)
+        fetch_predocs_from_api: Whether to fetch detailed information about förarbeten from Riksdagen API. Parsing always happens. (default: False)
         target_date: Optional target date (YYYY-MM-DD) for temporal title processing
     """
 
@@ -169,12 +169,12 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
 
     # Process markdown format if requested
     if "md" in output_modes:
-        _create_markdown_document(data, document_dir, git_mode, False, verbose, fetch_predocs, apply_links)
+        _create_markdown_document(data, document_dir, git_mode, False, verbose, fetch_predocs_from_api, apply_links)
 
     # Process markdown with section markers if requested
     if "md-markers" in output_modes:
         # Create markdown document with selex tags preserved
-        _create_markdown_document(data, document_dir, False, True, verbose, fetch_predocs, apply_links)
+        _create_markdown_document(data, document_dir, False, True, verbose, fetch_predocs_from_api, apply_links)
 
     # Process HTML format if requested
     if "html" in output_modes:
@@ -188,7 +188,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
 
 
 
-def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode: bool = False, preserve_selex_tags: bool = False, verbose: bool = False, fetch_predocs: bool = False, apply_links: bool = False) -> str:
+def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode: bool = False, preserve_selex_tags: bool = False, verbose: bool = False, fetch_predocs_from_api: bool = False, apply_links: bool = False) -> str:
     """Internal function to create a markdown document from JSON data.
 
     Args:
@@ -197,7 +197,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
         git_mode: Whether git mode is enabled (commits will be created)
         preserve_selex_tags: Whether to preserve selex tags in output (for md-markers mode)
         verbose: Whether to print verbose output
-        fetch_predocs: Whether to fetch detailed information about förarbeten from Riksdagen API
+        fetch_predocs_from_api: Whether to fetch detailed information about förarbeten from Riksdagen API. Parsing always happens.
 
     Returns:
         str: The final markdown content that was written to file
@@ -212,7 +212,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     output_file = output_path / safe_filename
 
     # Get basic markdown content
-    markdown_content = convert_to_markdown(data, fetch_predocs, apply_links)
+    markdown_content = convert_to_markdown(data, fetch_predocs_from_api, apply_links)
     
     # Always normalize heading levels, regardless of whether we keep section tags
     markdown_content = normalize_heading_levels(markdown_content)
@@ -275,7 +275,7 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     return markdown_content
 
 
-def convert_to_markdown(data: Dict[str, Any], fetch_predocs: bool = False, apply_links: bool = False) -> str:
+def convert_to_markdown(data: Dict[str, Any], fetch_predocs_from_api: bool = False, apply_links: bool = False) -> str:
     """Convert JSON data to Markdown content with YAML front matter.
 
     This function only handles the conversion from JSON to markdown string format.
@@ -283,7 +283,7 @@ def convert_to_markdown(data: Dict[str, Any], fetch_predocs: bool = False, apply
 
     Args:
         data: JSON data for the document
-        fetch_predocs: Whether to fetch detailed information about förarbeten from Riksdag API
+        fetch_predocs_from_api: Whether to fetch detailed information about förarbeten from Riksdag API. Parsing always happens.
         apply_links: Whether to add links to other SFS documents
 
     Returns:
@@ -369,30 +369,37 @@ departement: {format_yaml_value(organisation)}
 
     # Add other metadata
     if predocs:
-        if fetch_predocs:
-            # Parse förarbeten and fetch detailed information
-            try:
-                parsed_predocs = parse_predocs_string(predocs)
-                if parsed_predocs:
-                    detailed_predocs = fetch_predocs_details(parsed_predocs)
-                    formatted_predocs = format_predocs_for_frontmatter(detailed_predocs)
-                    
-                    if formatted_predocs:
-                        yaml_front_matter += "forarbeten:\n"
-                        for item in formatted_predocs:
-                            yaml_front_matter += f"  - {format_yaml_value(item)}\n"
-                    else:
-                        # Fallback to original string if parsing failed
-                        yaml_front_matter += f"forarbeten: {format_yaml_value(predocs)}\n"
+        # ALWAYS parse förarbeten string (fast, no API dependency)
+        try:
+            parsed_predocs = parse_predocs_string(predocs)
+
+            if parsed_predocs:
+                if fetch_predocs_from_api:
+                    # Fetch detailed information from Riksdagen API
+                    try:
+                        detailed_predocs = fetch_predocs_details(parsed_predocs)
+                        formatted_predocs = format_predocs_for_frontmatter(detailed_predocs)
+                    except Exception as e:
+                        print(f"Varning: Kunde inte hämta detaljerad förarbeten-information från API: {e}")
+                        # Fallback to parsed data without API details
+                        formatted_predocs = [f"{p['type'].upper()} {p['rm']}:{p['bet']}" for p in parsed_predocs]
                 else:
-                    # Fallback to original string if parsing failed
+                    # Use parsed data without API fetching (fast, structured)
+                    formatted_predocs = [f"{p['type'].upper()} {p['rm']}:{p['bet']}" for p in parsed_predocs]
+
+                if formatted_predocs:
+                    yaml_front_matter += "forarbeten:\n"
+                    for item in formatted_predocs:
+                        yaml_front_matter += f"  - {format_yaml_value(item)}\n"
+                else:
+                    # Fallback to original string if formatting failed
                     yaml_front_matter += f"forarbeten: {format_yaml_value(predocs)}\n"
-            except Exception as e:
-                print(f"Varning: Kunde inte hämta detaljerad förarbeten-information: {e}")
-                # Fallback to original string
+            else:
+                # Parsing returned no results, use original string
                 yaml_front_matter += f"forarbeten: {format_yaml_value(predocs)}\n"
-        else:
-            # Just use the original string without fetching details
+        except Exception as e:
+            print(f"Varning: Kunde inte parsa förarbeten: {e}")
+            # Fallback to original string
             yaml_front_matter += f"forarbeten: {format_yaml_value(predocs)}\n"
     if celex_nummer:
         yaml_front_matter += f"celex: {format_yaml_value(celex_nummer)}\n"
@@ -565,8 +572,8 @@ def main():
                         help='Show detailed diff output for each amendment processing')
     parser.add_argument('--formats', dest='output_modes', default='md',
                         help='Output formats to generate (comma-separated). Currently supported: md, md-markers, git, html, htmldiff. Default: md. Use "md-markers" to preserve section tags. Use "git" to enable Git commits with historical dates. HTML creates documents in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer}). HTMLDIFF includes amendment versions with diff view.')
-    parser.add_argument('--predocs', action='store_true',
-                        help='Fetch detailed information about förarbeten from Riksdagen API. This will make processing slower.')
+    parser.add_argument('--predocs-fetch', action='store_true', dest='predocs_fetch',
+                        help='Fetch detailed information about förarbeten from Riksdagen API. Parsing of förarbeten always happens. This will make processing slower.')
     parser.add_argument('--apply-links', action='store_true', default=True,
                         help='Apply internal paragraph links (e.g., [9 §](#9§)), external SFS links (e.g., [2002:43](/sfs/2002:43)), EU legislation links (e.g., [(EU) nr 651/2014](https://eur-lex.europa.eu/...)), and law name links (e.g., [8 kap. 7 § regeringsformen](/sfs/1974/152)) to the document. Default: True')
     parser.set_defaults(year_folder=True)
@@ -637,7 +644,7 @@ def main():
     # Handle git mode with batch processing
     if "git" in output_modes:
         from exporters.git import process_files_with_git_batch
-        process_files_with_git_batch(json_files, output_dir, args.verbose, args.predocs)
+        process_files_with_git_batch(json_files, output_dir, args.verbose, args.predocs_fetch)
     else:
         # Convert each JSON file normally
         for json_file in json_files:
@@ -650,7 +657,7 @@ def main():
                 continue
 
             # Use make_document to create documents in specified formats
-            make_document(data, output_dir, output_modes, args.year_folder, args.verbose, False, args.predocs, args.apply_links)
+            make_document(data, output_dir, output_modes, args.year_folder, args.verbose, False, args.predocs_fetch, args.apply_links)
     
     print(f"\nBearbetning klar! {len(json_files)} filer sparade i {output_dir} i format: {', '.join(output_modes)}")
 
