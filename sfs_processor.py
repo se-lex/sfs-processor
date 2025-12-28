@@ -453,8 +453,7 @@ departement: {format_yaml_value(organisation)}
             print(f"Ursprunglig innehållsförhandsvisning: {innehall_text[:200]}...")
 
         # Create Markdown body (clean the original rubrik for heading)
-        clean_heading = re.sub(r'[\r\n]+', ' ', rubrik_original) if rubrik_original else ""
-        clean_heading = re.sub(r'\s+', ' ', clean_heading).strip()
+        clean_heading = clean_text(rubrik_original)
         
         # Create article tag with temporal attributes
         article_attributes = []
@@ -537,8 +536,7 @@ def create_ignored_markdown_content(data: Dict[str, Any], reason: str) -> str:
     """
     # Get the original rubrik for the heading and clean it
     rubrik_original = data.get('rubrik', '')
-    clean_heading = re.sub(r'[\r\n]+', ' ', rubrik_original) if rubrik_original else ""
-    clean_heading = re.sub(r'\s+', ' ', clean_heading).strip()
+    clean_heading = clean_text(rubrik_original)
 
     # Create simplified body with main heading and explanation
     markdown_body = f"# {clean_heading}\n\n"
