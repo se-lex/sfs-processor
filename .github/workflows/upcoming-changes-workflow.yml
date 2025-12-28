@@ -1,0 +1,66 @@
+name: Uppdatera kommande ändringar (temporal changes)
+
+on:
+  # schedule:
+  #   # Kör varje dag kl 01:00 UTC (02:00/03:00 svensk tid beroende på säsong)
+  #   - cron: '0 1 * * *'
+  workflow_dispatch:  # Tillåter manuell körning
+
+permissions:
+  contents: write
+
+jobs:
+  update-upcoming-changes:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run upcoming changes script
+      run: |
+        # Kör scriptet på markdown-katalogen för att uppdatera kommande.yaml
+        python temporal/upcoming_changes.py SFS/
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+
+    - name: Create git commits for daily temporal changes
+      run: |
+        # Hämta datumintervall från kommande.yaml (tidigaste datum ≤ idag)
+        # Detta gör att vi kan hämta ikapp missade dagar om jobbet misslyckats
+        eval $(python temporal/get_temporal_date_range.py)
+        echo "Bearbetar temporal commits från $FROM_DATE till $TO_DATE"
+        python scripts/temporal_commits_batch.py SFS/ --from-date "$FROM_DATE" --to-date "$TO_DATE" --verbose
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+        GIT_GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+
+    - name: Commit and push kommande.yaml updates
+      run: |
+        # Lägg till den uppdaterade kommande.yaml filen
+        git add data/kommande.yaml
+
+        if git diff --staged --quiet; then
+          echo "Inga ändringar i kommande.yaml"
+        else
+          git commit -m "Uppdatera kommande ändringar - $(date +'%Y-%m-%d')"
+          git push
+          echo "✅ Kommande.yaml har uppdaterats och pushats"
+        fi

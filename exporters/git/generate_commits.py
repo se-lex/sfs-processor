@@ -12,7 +12,7 @@ from pathlib import Path
 from typing import List, Dict, Optional
 
 from temporal.upcoming_changes import identify_upcoming_changes
-from temporal.apply_temporal import apply_temporal
+from temporal.apply_temporal import apply_temporal, is_document_content_empty, add_empty_document_message
 from temporal.title_temporal import title_temporal
 from exporters.git.git_utils import is_file_tracked, has_staged_changes, stage_file, create_commit_with_date
 from util.datetime_utils import format_datetime, format_datetime_for_git
@@ -58,15 +58,28 @@ def create_init_git_commit(
 
     # Apply temporal processing with utfardad_datum as target date (includes H1 title processing)
     temporal_content = apply_temporal(markdown_content, utfardad_datum, verbose=verbose)
-    
+
+    # Check if document is empty after temporal processing and add explanatory message
+    if is_document_content_empty(temporal_content):
+        temporal_content = add_empty_document_message(temporal_content, data, utfardad_datum)
+        if verbose:
+            print(f"Info: Tomt dokument efter temporal processing för {beteckning} vid {utfardad_datum}, lade till förklarande meddelande")
+
     # Apply temporal title processing for frontmatter rubrik
     temporal_rubrik = title_temporal(rubrik, utfardad_datum)
-    
+
     # Update rubrik in frontmatter with temporal title
     temporal_content_with_rubrik = set_prop_in_frontmatter(temporal_content, "rubrik", temporal_rubrik)
-    
+
+    # Add ikraft_datum to frontmatter (even if it's a future date)
+    ikraft_datum = format_datetime(data.get('ikraftDateTime'))
+    if ikraft_datum:
+        temporal_content_with_ikraft = set_prop_in_frontmatter(temporal_content_with_rubrik, "ikraft_datum", ikraft_datum)
+    else:
+        temporal_content_with_ikraft = temporal_content_with_rubrik
+
     # Remove andringsforfattningar from frontmatter in git mode
-    temporal_content_clean = remove_prop_from_frontmatter(temporal_content_with_rubrik, "andringsforfattningar")
+    temporal_content_clean = remove_prop_from_frontmatter(temporal_content_with_ikraft, "andringsforfattningar")
     
     # Prepare final content for local save (always clean selex tags in git mode)
     final_content = clean_selex_tags(temporal_content_clean)
@@ -123,6 +136,8 @@ def create_init_git_commit(
 
     # Format date for git
     commit_date = format_datetime_for_git(utfardad_datum)
+    if not commit_date:
+        raise ValueError(f"Kunde inte formatera datum för git: {utfardad_datum}")
 
     # Create commit with specified date
     create_commit_with_date(commit_message, commit_date, verbose)
@@ -410,12 +425,16 @@ def generate_temporal_commits(
             # Apply temporal changes for this date (includes H1 title processing)
             try:
                 filtered_content = apply_temporal(content, date, dry_run)  # No verbose for dry run
-                
+
+                # Check if document is empty after temporal processing and add explanatory message
+                if is_document_content_empty(filtered_content):
+                    filtered_content = add_empty_document_message(filtered_content, data=None, target_date=date)
+
                 # Apply temporal title processing for frontmatter rubrik if it exists
                 if rubrik:
                     temporal_rubrik = title_temporal(rubrik, date)
                     filtered_content = set_prop_in_frontmatter(filtered_content, "rubrik", temporal_rubrik)
-                
+
                 # Remove andringsforfattningar from frontmatter in git mode
                 filtered_content = remove_prop_from_frontmatter(filtered_content, "andringsforfattningar")
                 
@@ -447,17 +466,22 @@ def generate_temporal_commits(
         # Apply temporal changes for this date (includes H1 title processing)
         try:
             filtered_content = apply_temporal(content, date, False)
-            
+
+            # Check if document is empty after temporal processing and add explanatory message
+            if is_document_content_empty(filtered_content):
+                filtered_content = add_empty_document_message(filtered_content, data=None, target_date=date)
+
             # Apply temporal title processing for frontmatter rubrik if it exists
             if rubrik:
                 temporal_rubrik = title_temporal(rubrik, date)
                 filtered_content = set_prop_in_frontmatter(filtered_content, "rubrik", temporal_rubrik)
-            
+
             # Remove andringsforfattningar from frontmatter in git mode
             filtered_content = remove_prop_from_frontmatter(filtered_content, "andringsforfattningar")
-            
+
             # Clean selex tags before committing to git
             clean_content = clean_selex_tags(filtered_content)
+            
             # Write the file (use clean content without selex tags for git)
             save_to_disk(markdown_file, clean_content)
         except Exception as e:
@@ -478,7 +502,9 @@ def generate_temporal_commits(
         
         # Create commit with the appropriate date
         git_date = format_datetime_for_git(date)
-        
+        if not git_date:
+            raise ValueError(f"Kunde inte formatera datum för git: {date}")
+
         if not create_commit_with_date(message, git_date, verbose=True):
             print(f"Fel vid commit för {date}")
     

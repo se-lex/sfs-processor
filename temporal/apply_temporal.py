@@ -17,7 +17,7 @@ Regler:
 
 import re
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Dict, Any
 from temporal.title_temporal import title_temporal
 
 
@@ -287,6 +287,168 @@ def apply_temporal_to_file(file_path: str, target_date: str, output_path: Option
     
     if verbose:
         print(f"Temporal filtrering tillämpad och sparad till: {output_file}")
+
+
+def is_document_content_empty(markdown_content: str) -> bool:
+    """
+    Kontrollera om dokumentinnehållet är tomt efter temporal processing.
+
+    Ett dokument anses vara tomt om det:
+    - Inte har någon <article> tagg (eftersom temporal processing tog bort hela article)
+    - Eller bara innehåller YAML frontmatter + <article> taggar + H1 rubrik + whitespace
+
+    Args:
+        markdown_content: Markdown-innehållet som ska kontrolleras
+
+    Returns:
+        bool: True om dokumentet är tomt, False annars
+    """
+    # Extrahera allt efter frontmatter
+    # Frontmatter slutar med "---" följt av innehåll
+    parts = markdown_content.split('---', 2)
+    if len(parts) < 3:
+        # Inget innehåll efter frontmatter
+        return True
+
+    body_content = parts[2].strip()
+
+    # Om kroppen är helt tom är dokumentet tomt
+    if not body_content:
+        return True
+
+    # Extrahera innehållet mellan <article> taggarna om de finns
+    article_match = re.search(r'<article[^>]*>(.*?)</article>', markdown_content, re.DOTALL)
+    if not article_match:
+        # Ingen article-tagg hittades - dokumentet är tomt
+        # (temporal processing tog bort hela article-taggen)
+        return True
+
+    article_content = article_match.group(1)
+
+    # Ta bort H1 rubriken
+    content_without_h1 = re.sub(r'#\s+[^\n]+', '', article_content)
+
+    # Ta bort alla section taggar
+    content_without_sections = re.sub(r'</?section[^>]*>', '', content_without_h1)
+
+    # Ta bort whitespace och tomma rader
+    cleaned_content = content_without_sections.strip()
+
+    # Om inget innehåll finns kvar är dokumentet tomt
+    return len(cleaned_content) == 0
+
+
+def add_empty_document_message(markdown_content: str, data: Optional[Dict[str, Any]] = None, target_date: Optional[str] = None) -> str:
+    """
+    Lägg till ett kursivt meddelande till ett tomt dokument som förklarar varför det är tomt.
+
+    Args:
+        markdown_content: Det tomma markdown-innehållet
+        data: JSON-data för dokumentet (optional). Om None, extraheras info från frontmatter
+        target_date: Måldatum som användes för temporal processing (YYYY-MM-DD)
+
+    Returns:
+        str: Markdown-innehåll med tilllagt kursivt meddelande
+    """
+    from util.datetime_utils import format_datetime
+    from formatters.frontmatter_manager import extract_frontmatter_property
+
+    # Extrahera ikraft_datum och upphor_datum - antingen från data eller frontmatter
+    if data:
+        ikraft_datum = format_datetime(data.get('ikraftDateTime'))
+        upphavd_datum = format_datetime(data.get('upphavdDateTime'))
+        utgar_datum = format_datetime(data.get('tidsbegransadDateTime'))
+        rubrik = data.get('rubrik_after_temporal', data.get('rubrik', ''))
+        andringsforfattningar = data.get('andringsforfattningar', [])
+    else:
+        # Extrahera från frontmatter
+        ikraft_datum = extract_frontmatter_property(markdown_content, 'ikraft_datum')
+        upphavd_datum = extract_frontmatter_property(markdown_content, 'upphavd_datum')
+        utgar_datum = extract_frontmatter_property(markdown_content, 'utgar_datum')
+        rubrik = extract_frontmatter_property(markdown_content, 'rubrik')
+
+        # Konvertera datum till strängar om de är date-objekt
+        if ikraft_datum and not isinstance(ikraft_datum, str):
+            ikraft_datum = ikraft_datum.strftime('%Y-%m-%d') if hasattr(ikraft_datum, 'strftime') else str(ikraft_datum)
+        if upphavd_datum and not isinstance(upphavd_datum, str):
+            upphavd_datum = upphavd_datum.strftime('%Y-%m-%d') if hasattr(upphavd_datum, 'strftime') else str(upphavd_datum)
+        if utgar_datum and not isinstance(utgar_datum, str):
+            utgar_datum = utgar_datum.strftime('%Y-%m-%d') if hasattr(utgar_datum, 'strftime') else str(utgar_datum)
+
+        # Försök extrahera andringsforfattningar från frontmatter
+        andringsforfattningar_str = extract_frontmatter_property(markdown_content, 'andringsforfattningar')
+        if andringsforfattningar_str and isinstance(andringsforfattningar_str, list):
+            andringsforfattningar = andringsforfattningar_str
+        else:
+            andringsforfattningar = []
+
+    message = None
+
+    # Kontrollera om dokumentet inte har trätt i kraft ännu
+    if ikraft_datum:
+        try:
+            ikraft_dt = datetime.strptime(ikraft_datum, '%Y-%m-%d')
+            target_dt = datetime.strptime(target_date, '%Y-%m-%d')
+
+            if ikraft_dt > target_dt:
+                message = f"*Kommer träda i kraft {ikraft_datum}*"
+        except ValueError:
+            pass
+
+    # Kontrollera om dokumentet har upphävts
+    if not message:
+        if upphavd_datum or utgar_datum:
+            # Försök hitta vilket dokument som upphävde detta
+            repealing_doc = None
+
+            # Leta efter ändringsförfattning som upphävde dokumentet
+            for amendment in andringsforfattningar:
+                anteckningar = amendment.get('anteckningar', '')
+                if anteckningar and ('upphävd' in anteckningar.lower() or 'upphör' in anteckningar.lower()):
+                    repealing_doc = amendment.get('beteckning')
+                    break
+
+            if repealing_doc:
+                message = f"*Har upphävts genom {repealing_doc}*"
+            else:
+                # Fallback om vi inte hittar vilket dokument som upphävde
+                upphor_date = upphavd_datum or utgar_datum
+                message = f"*Har upphävts (upphörde {upphor_date})*"
+
+    # Om inget meddelande kunde genereras, returnera originalet
+    if not message:
+        return markdown_content
+
+    # Kolla om det finns en article-tagg
+    article_match = re.search(r'(<article[^>]*>)\s*\n\s*(#\s+[^\n]+)\s*\n', markdown_content, re.DOTALL)
+
+    if article_match:
+        # Article-taggen finns - sätt in meddelandet efter H1-rubriken
+        insertion_point = article_match.end()
+        new_content = (
+            markdown_content[:insertion_point] +
+            "\n" + message + "\n" +
+            markdown_content[insertion_point:]
+        )
+    else:
+        # Ingen article-tagg finns (temporal processing tog bort den)
+        # Vi måste skapa en ny body med article-taggen och meddelandet
+        # Hitta slutet på frontmatter
+        frontmatter_end = markdown_content.rfind('---')
+        if frontmatter_end == -1:
+            return markdown_content
+
+        frontmatter = markdown_content[:frontmatter_end + 3]
+
+        # Använd rubrik som vi redan extraherat
+        clean_heading = re.sub(r'[\r\n]+', ' ', rubrik) if rubrik else ""
+        clean_heading = re.sub(r'\s+', ' ', clean_heading).strip()
+
+        # Skapa ny body med article och meddelande
+        new_body = f"\n\n<article>\n\n# {clean_heading}\n\n{message}\n\n</article>"
+        new_content = frontmatter + new_body
+
+    return new_content
 
 
 if __name__ == "__main__":

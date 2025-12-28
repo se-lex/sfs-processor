@@ -35,7 +35,7 @@ from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
 from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
 from temporal.title_temporal import title_temporal
 from temporal.amendments import extract_amendments
-from temporal.apply_temporal import apply_temporal
+from temporal.apply_temporal import apply_temporal, is_document_content_empty, add_empty_document_message
 from exporters.git import create_init_git_commit
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime
@@ -46,11 +46,11 @@ from formatters.predocs_parser import parse_predocs_string
 def create_safe_filename(beteckning: str, preserve_selex_tags: bool = False) -> str:
     """
     Create a safe filename from beteckning.
-    
+
     Args:
         beteckning: Document beteckning (e.g., "2024:1000")
         preserve_selex_tags: Whether this is for md-markers mode
-        
+
     Returns:
         str: Safe filename (e.g., "sfs-2024-1000.md" or "sfs-2024-1000-markers.md")
     """
@@ -81,9 +81,12 @@ def determine_output_path(data: Dict[str, Any], output_dir: Path, year_as_folder
     if not beteckning:
         raise ValueError("Beteckning saknas i dokumentdata")
 
-    # Skip documents with beteckning starting with 'N' (notifications etc.)
+    # Skip documents with beteckning starting with 'N' (myndighetsföreskrifter)
+    # These are agency regulations (föreskrifter utfärdade av myndigheter) which are not
+    # part of the main Swedish Code of Statutes (SFS) and follow different numbering conventions.
+    # Example: N2025:4 refers to Transportstyrelsens föreskrifter (TSFS 2018:49)
     if beteckning.startswith('N'):
-        raise ValueError(f"Hoppar över beteckning som börjar med 'N': {beteckning}")
+        raise ValueError(f"Hoppar över myndighetsföreskrift (N-beteckning): {beteckning}")
 
     # Extract year from beteckning (format is typically YYYY:NNN)
     year_match = re.search(r'(\d{4}):', beteckning)
@@ -228,7 +231,13 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     # Apply temporal processing to handle selex attributes (only if not in git mode and not preserving selex tags)
     if not git_mode and not preserve_selex_tags and target_date:
         markdown_content = apply_temporal(markdown_content, target_date, verbose=verbose)
-    
+
+        # Kontrollera om dokumentet är tomt efter temporal processing och lägg till förklarande meddelande
+        if is_document_content_empty(markdown_content):
+            markdown_content = add_empty_document_message(markdown_content, data, target_date)
+            if verbose:
+                print(f"Info: Tomt dokument efter temporal processing för {beteckning}, lade till förklarande meddelande")
+
     # Extract amendments for git logic (if needed)
     # TODO: amendments = extract_amendments(data.get('andringsforfattningar', []))
 
