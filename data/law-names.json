@@ -1408,6 +1408,13 @@
     "category": "Speciell förvaltningsrätt"
   },
   {
+    "id": "2001:559",
+    "name": "vägtrafiklagen",
+    "type": "law",
+    "alternativeNames": [],
+    "category": "Speciell förvaltningsrätt"
+  },
+  {
     "id": "2001:883",
     "name": "revisorslagen",
     "type": "law",
@@ -1666,12 +1673,20 @@
     "category": "Speciell förvaltningsrätt"
   },
   {
+    "id": "2010:610",
+    "name": "fängelselagen",
+    "type": "law",
+    "alternativeNames": [],
+    "category": "Straffrätt"
+  },
+  {
     "id": "2010:900",
-    "name": "",
+    "name": "plan- och bygglagen",
     "type": "law",
     "alternativeNames": [
       "PBL"
-    ]
+    ],
+    "category": "Allmän förvaltningsrätt"
   },
   {
     "id": "2010:1622",
@@ -1690,11 +1705,12 @@
   },
   {
     "id": "2011:1244",
-    "name": "",
+    "name": "skatteförfarandelagen",
     "type": "law",
     "alternativeNames": [
       "SFL"
-    ]
+    ],
+    "category": "Skatterätt"
   },
   {
     "id": "2013:561",
@@ -1743,6 +1759,13 @@
     "alternativeNames": [
       "DSL"
     ],
+    "category": "IT-rätt"
+  },
+  {
+    "id": "2018:1174",
+    "name": "cybersäkerhetslagen",
+    "type": "law",
+    "alternativeNames": [],
     "category": "IT-rätt"
   }
 ]
