@@ -31,17 +31,26 @@ jobs:
 
     - name: Run upcoming changes script
       run: |
-        # Kör scriptet på markdown-katalogen
+        # Kör scriptet på markdown-katalogen för att uppdatera kommande.yaml
         python temporal/upcoming_changes.py SFS/
       env:
         PYTHONPATH: ${{ github.workspace }}
+
+    - name: Create git commits for daily temporal changes
+      run: |
+        # Kör temporal commits för dokument som har ändringar idag
+        TODAY=$(date +'%Y-%m-%d')
+        python scripts/temporal_commits_batch.py SFS/ --from-date "$TODAY" --to-date "$TODAY" --verbose
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+        GIT_GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
 
     - name: Configure Git
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
 
-    - name: Commit and push changes
+    - name: Commit and push kommande.yaml updates
       run: |
         # Lägg till den uppdaterade kommande.yaml filen
         git add data/kommande.yaml
@@ -49,7 +58,7 @@ jobs:
         if git diff --staged --quiet; then
           echo "Inga ändringar i kommande.yaml"
         else
-          git commit -m "Uppdatera kommande ändringar (kommande.yaml) - $(date +'%Y-%m-%d')"
+          git commit -m "Uppdatera kommande ändringar - $(date +'%Y-%m-%d')"
           git push
           echo "✅ Kommande.yaml har uppdaterats och pushats"
         fi
