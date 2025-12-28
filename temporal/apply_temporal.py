@@ -17,7 +17,7 @@ Regler:
 
 import re
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Dict, Any
 from temporal.title_temporal import title_temporal
 
 
@@ -338,24 +338,49 @@ def is_document_content_empty(markdown_content: str) -> bool:
     return len(cleaned_content) == 0
 
 
-def add_empty_document_message(markdown_content: str, data: dict, target_date: str) -> str:
+def add_empty_document_message(markdown_content: str, data: Optional[Dict[str, Any]] = None, target_date: Optional[str] = None) -> str:
     """
     Lägg till ett kursivt meddelande till ett tomt dokument som förklarar varför det är tomt.
 
     Args:
         markdown_content: Det tomma markdown-innehållet
-        data: JSON-data för dokumentet (måste innehålla minst beteckning, rubrik, och datumfält)
+        data: JSON-data för dokumentet (optional). Om None, extraheras info från frontmatter
         target_date: Måldatum som användes för temporal processing (YYYY-MM-DD)
 
     Returns:
         str: Markdown-innehåll med tilllagt kursivt meddelande
     """
     from util.datetime_utils import format_datetime
+    from formatters.frontmatter_manager import extract_frontmatter_property
 
-    # Extrahera ikraft_datum och upphor_datum från data
-    ikraft_datum = format_datetime(data.get('ikraftDateTime'))
-    upphavd_datum = format_datetime(data.get('upphavdDateTime'))
-    utgar_datum = format_datetime(data.get('tidsbegransadDateTime'))
+    # Extrahera ikraft_datum och upphor_datum - antingen från data eller frontmatter
+    if data:
+        ikraft_datum = format_datetime(data.get('ikraftDateTime'))
+        upphavd_datum = format_datetime(data.get('upphavdDateTime'))
+        utgar_datum = format_datetime(data.get('tidsbegransadDateTime'))
+        rubrik = data.get('rubrik_after_temporal', data.get('rubrik', ''))
+        andringsforfattningar = data.get('andringsforfattningar', [])
+    else:
+        # Extrahera från frontmatter
+        ikraft_datum = extract_frontmatter_property(markdown_content, 'ikraft_datum')
+        upphavd_datum = extract_frontmatter_property(markdown_content, 'upphavd_datum')
+        utgar_datum = extract_frontmatter_property(markdown_content, 'utgar_datum')
+        rubrik = extract_frontmatter_property(markdown_content, 'rubrik')
+
+        # Konvertera datum till strängar om de är date-objekt
+        if ikraft_datum and not isinstance(ikraft_datum, str):
+            ikraft_datum = ikraft_datum.strftime('%Y-%m-%d') if hasattr(ikraft_datum, 'strftime') else str(ikraft_datum)
+        if upphavd_datum and not isinstance(upphavd_datum, str):
+            upphavd_datum = upphavd_datum.strftime('%Y-%m-%d') if hasattr(upphavd_datum, 'strftime') else str(upphavd_datum)
+        if utgar_datum and not isinstance(utgar_datum, str):
+            utgar_datum = utgar_datum.strftime('%Y-%m-%d') if hasattr(utgar_datum, 'strftime') else str(utgar_datum)
+
+        # Försök extrahera andringsforfattningar från frontmatter
+        andringsforfattningar_str = extract_frontmatter_property(markdown_content, 'andringsforfattningar')
+        if andringsforfattningar_str and isinstance(andringsforfattningar_str, list):
+            andringsforfattningar = andringsforfattningar_str
+        else:
+            andringsforfattningar = []
 
     message = None
 
@@ -374,11 +399,10 @@ def add_empty_document_message(markdown_content: str, data: dict, target_date: s
     if not message:
         if upphavd_datum or utgar_datum:
             # Försök hitta vilket dokument som upphävde detta
-            amendments = data.get('andringsforfattningar', [])
             repealing_doc = None
 
             # Leta efter ändringsförfattning som upphävde dokumentet
-            for amendment in amendments:
+            for amendment in andringsforfattningar:
                 anteckningar = amendment.get('anteckningar', '')
                 if anteckningar and ('upphävd' in anteckningar.lower() or 'upphör' in anteckningar.lower()):
                     repealing_doc = amendment.get('beteckning')
@@ -416,8 +440,7 @@ def add_empty_document_message(markdown_content: str, data: dict, target_date: s
 
         frontmatter = markdown_content[:frontmatter_end + 3]
 
-        # Hämta rubrik från data
-        rubrik = data.get('rubrik_after_temporal', data.get('rubrik', ''))
+        # Använd rubrik som vi redan extraherat
         clean_heading = re.sub(r'[\r\n]+', ' ', rubrik) if rubrik else ""
         clean_heading = re.sub(r'\s+', ' ', clean_heading).strip()
 
