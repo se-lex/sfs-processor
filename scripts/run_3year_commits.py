@@ -100,7 +100,7 @@ def run_init_commits(json_files: List[Path], output_dir: Path, start_year: int, 
                 json_files=filtered_json_files,
                 output_dir=output_dir,
                 verbose=verbose,
-                predocs=False,
+                fetch_predocs_from_api=False,  # Parsing always happens, API fetching is optional
                 batch_size=50,
                 branch_name=f"batch-{datetime.now().strftime('%Y-%m-%d')}"
             )

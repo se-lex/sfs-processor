@@ -17,7 +17,7 @@ from exporters.git.git_utils import checkout_branch, push_to_target_repository
 from util.file_utils import read_file_content
 
 
-def process_files_with_git_batch(json_files, output_dir, verbose, predocs, batch_size=100, branch_name=None):
+def process_files_with_git_batch(json_files, output_dir, verbose, fetch_predocs_from_api, batch_size=100, branch_name=None):
     """Process files with git batch workflow, using same branch but pushing after each batch."""
     # Clone target repository once for all batches
     repo_dir, original_cwd = clone_target_repository_to_temp(verbose=verbose)
@@ -51,7 +51,7 @@ def process_files_with_git_batch(json_files, output_dir, verbose, predocs, batch
             # Process each batch in the same repository and branch, pushing after each
             for i, batch in enumerate(batches, 1):
                 print(f"\nBearbetar batch {i}/{len(batches)} ({len(batch)} filer)...")
-                _process_batch_files(batch, output_dir, verbose, predocs, original_cwd, i, len(batches))
+                _process_batch_files(batch, output_dir, verbose, fetch_predocs_from_api, original_cwd, i, len(batches))
                 
                 # Push after each batch
                 print(f"Pushar batch {i}/{len(batches)} till target repository...")
@@ -61,7 +61,7 @@ def process_files_with_git_batch(json_files, output_dir, verbose, predocs, batch
                     print(f"Misslyckades med att pusha batch {i}/{len(batches)} till target repository")
         else:
             print(f"Bearbetar {total_files} filer i en enda batch...")
-            _process_batch_files(json_files, output_dir, verbose, predocs, original_cwd, 1, 1)
+            _process_batch_files(json_files, output_dir, verbose, fetch_predocs_from_api, original_cwd, 1, 1)
             
             # Push the single batch
             print(f"Pushar alla {total_files} filer till target repository...")
@@ -78,7 +78,7 @@ def process_files_with_git_batch(json_files, output_dir, verbose, predocs, batch
         os.chdir(original_cwd)
 
 
-def _process_batch_files(json_files, output_dir, verbose, predocs, original_cwd, batch_num, total_batches):
+def _process_batch_files(json_files, output_dir, verbose, fetch_predocs_from_api, original_cwd, batch_num, total_batches):
     """Process batch files in the current repository without creating new branches."""
     # Process each JSON file in the current git repository
     from sfs_processor import make_document
@@ -98,7 +98,7 @@ def _process_batch_files(json_files, output_dir, verbose, predocs, original_cwd,
             original_output_dir = Path(original_cwd) / Path(output_dir).name
         else:
             original_output_dir = Path(output_dir)
-        make_document(data, original_output_dir, ["git"], True, verbose, True, predocs, True)
+        make_document(data, original_output_dir, ["git"], True, verbose, True, fetch_predocs_from_api, True)
     
     if verbose:
         print(f"Batch {batch_num}/{total_batches} bearbetad ({len(json_files)} filer)")
