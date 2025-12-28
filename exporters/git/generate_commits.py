@@ -264,14 +264,8 @@ def generate_descriptive_commit_message(
         
         if message_parts:
             message = f"{emoji} {doc_name}: {', och '.join(message_parts)}"
-        elif has_article_changes:
-            # Only article-level changes (whole document changes)
-            if has_article_revoked:
-                message = f"{emoji} {doc_name} träder i kraft och upphävs"
-            else:
-                message = f"{emoji} {doc_name} träder i kraft och upphör att gälla"
         else:
-            message = f"{emoji} {doc_name} ändringar träder i kraft och upphävs"
+            raise ValueError(f"Ikraft- och upphör-ändringar på samma datum, borde inte vara möjligt för {doc_name}. Kontrollera ändringarna.")
             
     elif has_ikraft:
         # Entry into force

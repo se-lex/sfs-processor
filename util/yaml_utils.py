@@ -33,9 +33,10 @@ def format_yaml_value(value: Any) -> str:
     needs_quotes = (
         # Starts with special YAML characters
         value[0] in '!&*|>@`#%{}[]' or
-        # Contains special characters that could be interpreted as YAML syntax (but not simple dates)
-        (any(char in value for char in ['[', ']', '{', '}', ',', '#', '`', '"', "'", '|', '>', '*', '&', '!', '%', '@']) or
-         (':' in value and not re.match(r'^\d{4}:\d+$', value))) or  # Allow YYYY:NNN format and dates
+        # Contains special characters that could be interpreted as YAML syntax
+        any(char in value for char in ['[', ']', '{', '}', ',', '#', '`', '"', "'", '|', '>', '*', '&', '!', '%', '@']) or
+        # Contains colon (YAML key-value separator or time format) - always quote SFS beteckning
+        ':' in value or
         # Looks like a number, boolean, or null
         value.lower() in ['true', 'false', 'null', 'yes', 'no', 'on', 'off'] or
         re.match(r'^-?\d+\.?\d*$', value) or  # Numbers

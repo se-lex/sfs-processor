@@ -660,8 +660,6 @@ def parse_logical_sections(text: str) -> str:
             
             # Hantera status attribut - en sektion kan ha både upphävd och ikraft
             status_values = []
-            if has_expired:
-                status_values.append('gammal')
             if has_upphavd:
                 status_values.append('upphavd')
             if has_upphord:

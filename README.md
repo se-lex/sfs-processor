@@ -71,10 +71,10 @@ Mer innehåll...
 
 #### Format: `md-markers`
 
-Markdown-filer med strukturerade `<section>`-taggar för avancerad styling:
+Markdown-filer med bevarad semantisk struktur genom `<section>`-taggar:
 
-- **`<section class="kapitel">`**: Omsluter kapitel med underliggande paragrafer
-- **`<section class="paragraf">`**: Omsluter varje paragraf (§) med rubrik och innehåll
+- **`<section class="kapitel">`**: Omsluter kapitel som strukturell enhet med underliggande paragrafer
+- **`<section class="paragraf">`**: Omsluter varje paragraf (§) som en avgränsad juridisk bestämmelse
 
 ```html
 <section class="kapitel">
@@ -86,7 +86,7 @@ Innehållet i paragrafen...
 </section>
 ```
 
-Denna struktur gör det möjligt att skapa avancerad CSS-styling och JavaScript-funktionalitet för navigation och presentation av författningstexten.
+Denna semantiska struktur bevarar dokumentets logiska uppbyggnad och möjliggör automatisk bearbetning, analys, och navigation av författningstexten. Section-taggarna kan även användas för CSS-styling och JavaScript-funktionalitet.
 
 ### Selex-attribut för juridisk status och datum
 
@@ -175,4 +175,3 @@ python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [-
 - `--filter`: Filtrera filer efter år (YYYY) eller specifik beteckning (YYYY:NNN). Kan vara kommaseparerad lista.
 - `--no-year-folder`: Skapa inte årbaserade undermappar för dokument
 - `--verbose`: Visa detaljerad information om bearbetningen
-
