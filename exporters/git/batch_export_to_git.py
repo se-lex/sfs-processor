@@ -46,13 +46,34 @@ def parse_year_range(year_range: str) -> list[str]:
         return [year_range]
 
 
+def year_range_to_date_range(year_range: str) -> tuple[str, str]:
+    """
+    Convert year range to date range for temporal commit filtering.
+
+    Args:
+        year_range: Year range in format "YYYY-YYYY" or single year "YYYY"
+
+    Returns:
+        Tuple of (from_date, to_date) in YYYY-MM-DD format
+
+    Examples:
+        "2024-2026" -> ("2024-01-01", "2026-12-31")
+        "2024" -> ("2024-01-01", "2024-12-31")
+    """
+    if '-' in year_range:
+        start_year, end_year = year_range.split('-')
+        return (f"{start_year}-01-01", f"{end_year}-12-31")
+    else:
+        return (f"{year_range}-01-01", f"{year_range}-12-31")
+
+
 def main():
     parser = argparse.ArgumentParser(
         description='Batch export SFS documents to Git repository with initial and temporal commits.'
     )
     parser.add_argument(
         '--years',
-        help='Year range to export (e.g., "2024-2026" or "2024"). Creates filter for these years.'
+        help='Year range to export (e.g., "2024-2026" or "2024"). Filters both documents and temporal commits (ikraft/upphör dates) to this period.'
     )
     parser.add_argument(
         '--filter',
@@ -207,11 +228,18 @@ def main():
             print("Kör först: python sfs_processor.py --formats md-markers")
             return 1
 
+        # Calculate date range for temporal commits based on year filter
+        temporal_from_date = None
+        temporal_to_date = None
+        if args.years:
+            temporal_from_date, temporal_to_date = year_range_to_date_range(args.years)
+            print(f"Filtrerar temporal commits för perioden: {temporal_from_date} till {temporal_to_date}")
+
         try:
             process_temporal_commits_batch(
                 markdown_dir=markers_dir,
-                from_date=None,  # No date filter - process all upcoming changes
-                to_date=None,
+                from_date=temporal_from_date,
+                to_date=temporal_to_date,
                 dry_run=False,
                 verbose=args.verbose,
                 batch_size=args.batch_size,
