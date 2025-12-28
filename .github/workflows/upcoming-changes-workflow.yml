@@ -1,0 +1,55 @@
+name: Uppdatera kommande ändringar (temporal changes)
+
+on:
+  # schedule:
+  #   # Kör varje dag kl 01:00 UTC (02:00/03:00 svensk tid beroende på säsong)
+  #   - cron: '0 1 * * *'
+  workflow_dispatch:  # Tillåter manuell körning
+
+permissions:
+  contents: write
+
+jobs:
+  update-upcoming-changes:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Run upcoming changes script
+      run: |
+        # Kör scriptet på markdown-katalogen
+        python temporal/upcoming_changes.py SFS/
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+
+    - name: Configure Git
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+
+    - name: Commit and push changes
+      run: |
+        # Lägg till den uppdaterade kommande.yaml filen
+        git add data/kommande.yaml
+
+        if git diff --staged --quiet; then
+          echo "Inga ändringar i kommande.yaml"
+        else
+          git commit -m "Uppdatera kommande ändringar (kommande.yaml) - $(date +'%Y-%m-%d')"
+          git push
+          echo "✅ Kommande.yaml har uppdaterats och pushats"
+        fi
