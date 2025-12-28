@@ -67,12 +67,19 @@ def create_init_git_commit(
 
     # Apply temporal title processing for frontmatter rubrik
     temporal_rubrik = title_temporal(rubrik, utfardad_datum)
-    
+
     # Update rubrik in frontmatter with temporal title
     temporal_content_with_rubrik = set_prop_in_frontmatter(temporal_content, "rubrik", temporal_rubrik)
-    
+
+    # Add ikraft_datum to frontmatter (even if it's a future date)
+    ikraft_datum = format_datetime(data.get('ikraftDateTime'))
+    if ikraft_datum:
+        temporal_content_with_ikraft = set_prop_in_frontmatter(temporal_content_with_rubrik, "ikraft_datum", ikraft_datum)
+    else:
+        temporal_content_with_ikraft = temporal_content_with_rubrik
+
     # Remove andringsforfattningar from frontmatter in git mode
-    temporal_content_clean = remove_prop_from_frontmatter(temporal_content_with_rubrik, "andringsforfattningar")
+    temporal_content_clean = remove_prop_from_frontmatter(temporal_content_with_ikraft, "andringsforfattningar")
     
     # Prepare final content for local save (always clean selex tags in git mode)
     final_content = clean_selex_tags(temporal_content_clean)
