@@ -38,9 +38,11 @@ jobs:
 
     - name: Create git commits for daily temporal changes
       run: |
-        # Kör temporal commits för dokument som har ändringar idag
-        TODAY=$(date +'%Y-%m-%d')
-        python scripts/temporal_commits_batch.py SFS/ --from-date "$TODAY" --to-date "$TODAY" --verbose
+        # Hämta datumintervall från kommande.yaml (tidigaste datum ≤ idag)
+        # Detta gör att vi kan hämta ikapp missade dagar om jobbet misslyckats
+        eval $(python temporal/get_temporal_date_range.py)
+        echo "Bearbetar temporal commits från $FROM_DATE till $TO_DATE"
+        python scripts/temporal_commits_batch.py SFS/ --from-date "$FROM_DATE" --to-date "$TO_DATE" --verbose
       env:
         PYTHONPATH: ${{ github.workspace }}
         GIT_GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}

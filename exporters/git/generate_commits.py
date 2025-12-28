@@ -123,6 +123,8 @@ def create_init_git_commit(
 
     # Format date for git
     commit_date = format_datetime_for_git(utfardad_datum)
+    if not commit_date:
+        raise ValueError(f"Kunde inte formatera datum för git: {utfardad_datum}")
 
     # Create commit with specified date
     create_commit_with_date(commit_message, commit_date, verbose)
@@ -464,6 +466,7 @@ def generate_temporal_commits(
             
             # Clean selex tags before committing to git
             clean_content = clean_selex_tags(filtered_content)
+            
             # Write the file (use clean content without selex tags for git)
             save_to_disk(markdown_file, clean_content)
         except Exception as e:
@@ -484,7 +487,9 @@ def generate_temporal_commits(
         
         # Create commit with the appropriate date
         git_date = format_datetime_for_git(date)
-        
+        if not git_date:
+            raise ValueError(f"Kunde inte formatera datum för git: {date}")
+
         if not create_commit_with_date(message, git_date, verbose=True):
             print(f"Fel vid commit för {date}")
     

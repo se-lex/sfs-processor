@@ -57,7 +57,7 @@ Invalid dates or malformed date strings are silently ignored.
 import re
 import yaml
 from datetime import datetime
-from typing import List, Dict
+from typing import List, Dict, Optional
 from pathlib import Path
 
 UPCOMING_CHANGES_FILE_PATH = "data/kommande.yaml"
@@ -322,55 +322,131 @@ def save_upcoming_file(doc_id: str, dates: List[str]) -> None:
 def get_doc_ids_for_date(date: str) -> List[str]:
     """
     Get document IDs that have changes on a specific date.
-    
+
     Args:
         date: The date to look for in YYYY-MM-DD format
-        
+
     Returns:
         List of document IDs (beteckningar) that have changes on the specified date.
         Returns empty list if date not found or file doesn't exist.
-        
+
     Example:
         >>> doc_ids = get_doc_ids_for_date('2025-01-15')
         >>> print(doc_ids)
         ['sfs-2024-1274', 'sfs-2024-1275']
     """
     file_path = Path(UPCOMING_CHANGES_FILE_PATH)
-    
+
     # Validate date format
     if not (len(date) == 10 and date.count('-') == 2):
         print(f"Varning: Ogiltigt datumformat: {date}")
         return []
-        
+
     try:
         # Verify it's a valid date
         datetime.strptime(date, '%Y-%m-%d')
     except ValueError:
         print(f"Varning: Ogiltigt datum: {date}")
         return []
-    
+
     # Check if file exists
     if not file_path.exists():
         return []
-    
+
     # Read YAML file and look for the date
     try:
         with open(file_path, 'r', encoding='utf-8') as f:
             content = f.read().strip()
             if not content:
                 return []
-            
+
             data = yaml.safe_load(content) or {}
-            
+
             if date in data:
                 return data[date] if isinstance(data[date], list) else []
-            
+
     except (IOError, yaml.YAMLError) as e:
         print(f"Fel: Kunde inte läsa fil {UPCOMING_CHANGES_FILE_PATH}: {e}")
         return []
-    
+
     # Date not found
     return []
+
+
+def get_earliest_pending_date(up_to_date: Optional[str] = None) -> Optional[str]:
+    """
+    Get the earliest date from kommande.yaml that is <= up_to_date.
+
+    This is useful for catching up on missed temporal commits when running
+    a daily job - it finds the earliest date that still needs processing.
+
+    Args:
+        up_to_date: The latest date to consider in YYYY-MM-DD format.
+                    If None, uses today's date.
+
+    Returns:
+        The earliest date in YYYY-MM-DD format that is <= up_to_date,
+        or None if no dates found or file doesn't exist.
+
+    Example:
+        >>> # If kommande.yaml has dates: 2025-01-15, 2025-02-01, 2025-07-01
+        >>> # and today is 2025-02-10
+        >>> earliest = get_earliest_pending_date()
+        >>> print(earliest)
+        '2025-01-15'
+    """
+    from datetime import date
+
+    file_path = Path(UPCOMING_CHANGES_FILE_PATH)
+
+    # Use today's date if not specified
+    if up_to_date is None:
+        up_to_date = date.today().strftime('%Y-%m-%d')
+
+    # Validate date format
+    if not (len(up_to_date) == 10 and up_to_date.count('-') == 2):
+        print(f"Varning: Ogiltigt datumformat: {up_to_date}")
+        return None
+
+    try:
+        # Verify it's a valid date
+        up_to_datetime = datetime.strptime(up_to_date, '%Y-%m-%d')
+    except ValueError:
+        print(f"Varning: Ogiltigt datum: {up_to_date}")
+        return None
+
+    # Check if file exists
+    if not file_path.exists():
+        return None
+
+    # Read YAML file
+    try:
+        with open(file_path, 'r', encoding='utf-8') as f:
+            content = f.read().strip()
+            if not content:
+                return None
+
+            data = yaml.safe_load(content) or {}
+
+            # Filter dates <= up_to_date and find earliest
+            valid_dates = []
+            for date_str in data.keys():
+                try:
+                    date_obj = datetime.strptime(date_str, '%Y-%m-%d')
+                    if date_obj <= up_to_datetime:
+                        valid_dates.append(date_str)
+                except ValueError:
+                    continue  # Skip invalid dates
+
+            if not valid_dates:
+                return None
+
+            # Return earliest date (dates are already in YYYY-MM-DD format, so string sort works)
+            return min(valid_dates)
+
+    except (IOError, yaml.YAMLError) as e:
+        print(f"Fel: Kunde inte läsa fil {UPCOMING_CHANGES_FILE_PATH}: {e}")
+        return None
 
 
 def extract_doc_id_from_filename(filename: str) -> str:
