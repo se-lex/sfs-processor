@@ -195,10 +195,14 @@ Efter att JSON-filerna sparats kan de bearbetas med sfs_processor.py:
         search_date = cutoff_date.isoformat()
         print(f"Hämtar författningar uppdaterade de senaste {args.days} dagarna (efter {search_date})")
 
+    # Skapa output-katalog tidigt så den finns även om inga dokument hittas
+    output_dir = Path(args.output)
+    output_dir.mkdir(exist_ok=True)
+
     # Hämta författningar från API:et
     print("\nSöker efter författningar i Regeringskansliets databas...")
     api_response = get_newer_items(search_date)
-    
+
     if not api_response:
         print("✗ Kunde inte hämta data från API:et")
         return
@@ -209,24 +213,22 @@ Efter att JSON-filerna sparats kan de bearbetas med sfs_processor.py:
         documents = [hit['_source'] for hit in hits]
 
         print(f"✓ Hittade {len(documents)} författningar uppdaterade efter {search_date}")
-        
+
         if not documents:
             print("Inga nya författningar hittades för det angivna datumet.")
             return
-            
+
     except (KeyError, TypeError) as e:
         print(f"✗ Fel vid parsing av API-svar: {e}")
         return
-    
-    # Skapa output-katalog
-    output_dir = Path(args.output)
-    output_dir.mkdir(exist_ok=True)
+
     print(f"Sparar JSON-filer till: {output_dir.absolute()}")
 
     # Konvertera och spara varje författning som JSON
     successful_saves = 0
     failed_saves = 0
-    
+    skipped_n = 0
+
     for i, document in enumerate(documents, 1):
         beteckning = document.get('beteckning')
         if not beteckning:
@@ -234,8 +236,14 @@ Efter att JSON-filerna sparats kan de bearbetas med sfs_processor.py:
             failed_saves += 1
             continue
 
+        # Skip documents with beteckning starting with 'N' (myndighetsföreskrifter)
+        if beteckning.startswith('N'):
+            print(f"\n[{i}/{len(documents)}] ⚠ Hoppar över {beteckning} - myndighetsföreskrift (N-beteckning)")
+            skipped_n += 1
+            continue
+
         print(f"\n[{i}/{len(documents)}] Bearbetar {beteckning}...")
-        
+
         if save_document_as_json(document, output_dir):
             successful_saves += 1
         else:
@@ -244,6 +252,7 @@ Efter att JSON-filerna sparats kan de bearbetas med sfs_processor.py:
     # Sammanfattning
     print("\n=== Sammanfattning ===")
     print(f"Totalt författningar: {len(documents)}")
+    print(f"Överhoppade N-beteckningar: {skipped_n}")
     print(f"Lyckade sparningar: {successful_saves}")
     print(f"Misslyckade sparningar: {failed_saves}")
 

@@ -4,102 +4,81 @@ import re
 from datetime import datetime
 from typing import Optional
 
+from util.text_utils import clean_text
+
 
 def title_temporal(rubrik: Optional[str], target_date: str) -> str:
     """
     Select the appropriate title variant based on a target date.
-    
+
     Handles titles with temporal rules like:
     "/Rubriken upphör att gälla U:2025-07-15/"
     "Förordning (2023:30) om statsbidrag..."
     "/Rubriken träder i kraft I:2025-07-15/"
     "Förordning om statsbidrag..."
-    
+
     Args:
         rubrik: The title string containing temporal variants
         target_date: Date string in YYYY-MM-DD format
-        
+
     Returns:
-        The appropriate title variant for the given date
+        The appropriate title variant for the given date (single line)
     """
     if not rubrik:
         return ""
-    
+
     # Parse target date
     try:
         target_dt = datetime.strptime(target_date, '%Y-%m-%d')
     except ValueError:
         # If target_date is invalid, return the original rubrik cleaned
-        return _clean_temporal_markers(rubrik)
-    
-    # Split the rubrik into lines to process temporal variants
-    lines = rubrik.split('\n')
-    
-    # Parse the structure: expiry marker, old content, entry marker, new content
-    old_title_lines = []
-    new_title_lines = []
-    expiry_date = None
-    entry_date = None
-    section = 'start'  # 'start', 'old', 'new'
-    
-    for line in lines:
-        line = line.strip()
-        if not line:
-            continue
-            
-        # Check for temporal markers
-        expiry_match = re.match(r'/Rubriken upphör att gälla U:(\d{4}-\d{2}-\d{2})/', line)
-        entry_match = re.match(r'/Rubriken träder i kraft I:(\d{4}-\d{2}-\d{2})/', line)
-        
-        if expiry_match:
-            expiry_date = datetime.strptime(expiry_match.group(1), '%Y-%m-%d')
-            section = 'old'
-        elif entry_match:
-            entry_date = datetime.strptime(entry_match.group(1), '%Y-%m-%d')
-            section = 'new'
-        else:
-            # Regular content line
-            if section == 'old':
-                old_title_lines.append(line)
-            elif section == 'new':
-                new_title_lines.append(line)
-    
+        return _process_title(rubrik)
+
+    # Look for temporal markers and extract content between them
+    expiry_match = re.search(r'/Rubriken upphör att gälla U:(\d{4}-\d{2}-\d{2})/', rubrik)
+    entry_match = re.search(r'/Rubriken träder i kraft I:(\d{4}-\d{2}-\d{2})/', rubrik)
+
+    if not expiry_match or not entry_match:
+        # No temporal markers found, return cleaned rubrik
+        return _process_title(rubrik)
+
+    expiry_date = datetime.strptime(expiry_match.group(1), '%Y-%m-%d')
+    entry_date = datetime.strptime(entry_match.group(1), '%Y-%m-%d')
+
+    # Extract the old and new title parts
+    expiry_pos = expiry_match.end()
+    entry_pos = entry_match.start()
+
+    # Old title is between expiry marker and entry marker
+    old_title = rubrik[expiry_pos:entry_pos].strip()
+
+    # New title is after entry marker
+    new_title = rubrik[entry_match.end():].strip()
+
     # Determine which title to use based on dates
-    if expiry_date and entry_date:
-        if target_dt < expiry_date:
-            # Before expiry date - use old title
-            return _clean_temporal_markers('\n'.join(old_title_lines))
-        elif target_dt >= entry_date:
-            # On or after entry date - use new title
-            return _clean_temporal_markers('\n'.join(new_title_lines))
-    
-    # Fallback: clean the entire rubrik and return
-    return _clean_temporal_markers(rubrik)
+    if target_dt < expiry_date:
+        # Before expiry date - use old title if available, otherwise new
+        title = old_title if old_title else new_title
+    else:
+        # On or after expiry date - use new title if available, otherwise old
+        title = new_title if new_title else old_title
+
+    return _process_title(title)
 
 
-def _clean_temporal_markers(text: str) -> str:
-    """Remove temporal markers from text."""
+def _process_title(text: str) -> str:
+    """Process title text: remove temporal markers, line breaks, and clean."""
     if not text:
         return ""
-    
-    # Remove temporal marker lines
-    lines = text.split('\n')
-    cleaned_lines = []
-    
-    for line in lines:
-        line = line.strip()
-        # Skip temporal marker lines
-        if not re.match(r'/Rubriken (upphör att gälla|träder i kraft)', line):
-            cleaned_lines.append(line)
-    
-    # Join lines and clean up whitespace
-    result = '\n'.join(cleaned_lines).strip()
-    
-    # Remove any remaining temporal markers that might be inline
-    result = re.sub(r'/Rubriken (upphör att gälla|träder i kraft) [UI]:\d{4}-\d{2}-\d{2}/', '', result)
-    
-    # Clean up extra whitespace and line breaks
-    result = re.sub(r'\n\s*\n', '\n', result)  # Remove empty lines
-    result = re.sub(r'\s+', ' ', result)  # Normalize spaces
-    
-    return result.strip()
+
+    # Remove any temporal markers that might still be in the text
+    text = re.sub(r'/Rubriken (upphör att gälla|träder i kraft) [UI]:\d{4}-\d{2}-\d{2}/', '', text)
+
+    # Replace line breaks with spaces
+    text = text.replace('\n', ' ').replace('\r', ' ')
+
+    # Clean up multiple spaces
+    text = re.sub(r'\s+', ' ', text).strip()
+
+    # Apply final cleaning (removes document numbers etc.)
+    return clean_text(text)

@@ -210,12 +210,18 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                 # Uteslut rader som börjar med vanliga juridiska fraser
                 not re.match(JURIDIC_PHRASE_PATTERN, cleaned_line.strip(), re.IGNORECASE) and
                 # Uteslut specifika juridiska fraser som inte ska bli rubriker
-                not re.match(SPECIFIC_JURIDIC_PATTERN, cleaned_line.strip(), re.IGNORECASE)
+                not re.match(SPECIFIC_JURIDIC_PATTERN, cleaned_line.strip(), re.IGNORECASE) and
+                # Uteslut rader som innehåller tabb-tecken
+                '\t' not in original_line
             )
 
             # Kontrollera om det är en rubrik (baserat på rensad rad men använd original för output)
             # Specialfall som alltid ska bli rubriker (även utanför standardkriterier)
-            if not next_is_list_start:
+            
+            # "Övergångsbestämmelser" ska alltid bli rubrik även om följd av numrerad lista
+            is_overgangsbestammelser = cleaned_line.strip().lower() == "övergångsbestämmelser"
+            
+            if not next_is_list_start or is_overgangsbestammelser:
                 # Kontrollera först om det är en avdelningsrubrik (nivå 2 ##)
                 if is_chapter_header(cleaned_line.strip()):
                     _add_header_with_blank_line(formatted, '##', original_line)
@@ -373,7 +379,6 @@ def _is_section_upphavd(header_line: str, content: str) -> bool:
     Kontrollera om en sektion ska markeras som upphävd baserat på rubrik och innehåll.
 
     Söker efter "upphävd", "har upphävts", "har upphävs" (felstavning),
-    "/Rubriken upphör att gälla ", "/Upphör att gälla ", "/Kapitlet upphör att gälla ",
     eller "/Ny beteckning" i både rubrikens text och det direkta innehållet.
     Sökningen är case-insensitive.
 
@@ -388,24 +393,46 @@ def _is_section_upphavd(header_line: str, content: str) -> bool:
     header_lower = header_line.lower()
     content_lower = content.lower()
 
-    # Kontrollera både i rubrik och innehåll efter olika upphävd-markeringar
+    # Kontrollera både i rubrik och innehåll efter upphävd-markeringar
     # Observera: "har upphävs" är en felstavning som förekommer i vissa SFS-dokument (ex. 2018:263)
     return ('upphävd' in header_lower or
             'har upphävts' in header_lower or
             'har upphävs' in header_lower or
-            '/rubriken upphör att gälla ' in header_lower or
-            '/upphör att gälla ' in header_lower or
-            '/kapitlet upphör att gälla ' in header_lower or
-            '/kapitelrubriken upphör att gälla ' in header_lower or
             '/ny beteckning' in header_lower or
             'upphävd' in content_lower or
             'har upphävts' in content_lower or
             'har upphävs' in content_lower or
+            '/ny beteckning' in content_lower)
+
+
+def _is_section_upphord(header_line: str, content: str) -> bool:
+    """
+    Kontrollera om en sektion ska markeras som upphörd baserat på rubrik och innehåll.
+
+    Söker efter "/Rubriken upphör att gälla ", "/Upphör att gälla ", "/Kapitlet upphör att gälla ",
+    eller "/Kapitelrubriken upphör att gälla " i både rubrikens text och det direkta innehållet.
+    Sökningen är case-insensitive.
+
+    Args:
+        header_line (str): Rubrikraden (med markdown-markeringar som ###)
+        content (str): Det direkta innehållet under rubriken (exklusive underrubriker)
+
+    Returns:
+        bool: True om sektionen ska markeras som upphörd, False annars
+    """
+    # Konvertera till lowercase för case-insensitive sökning
+    header_lower = header_line.lower()
+    content_lower = content.lower()
+
+    # Kontrollera både i rubrik och innehåll efter upphör-markeringar
+    return ('/rubriken upphör att gälla ' in header_lower or
+            '/upphör att gälla ' in header_lower or
+            '/kapitlet upphör att gälla ' in header_lower or
+            '/kapitelrubriken upphör att gälla ' in header_lower or
             '/rubriken upphör att gälla ' in content_lower or
             '/upphör att gälla ' in content_lower or
             '/kapitlet upphör att gälla ' in content_lower or
-            '/kapitelrubriken upphör att gälla ' in content_lower or
-            '/ny beteckning' in content_lower)
+            '/kapitelrubriken upphör att gälla ' in content_lower)
 
 
 def _is_section_ikraft(header_line: str, content: str) -> bool:
@@ -546,6 +573,8 @@ def parse_logical_sections(text: str) -> str:
 
             # Använd hjälpfunktion för att kontrollera upphävd-status
             has_upphavd = _is_section_upphavd(header_line, filtered_content)
+            has_upphord = _is_section_upphord(header_line, filtered_content)
+            has_expired = has_upphavd or has_upphord
 
             # Sök efter "U:YYYY-MM-DD" i både rubrik och innehåll
             upphor_datum = None
@@ -555,7 +584,7 @@ def parse_logical_sections(text: str) -> str:
                 upphor_datum = upphor_match.group(1)
 
                 # Kontrollera konsistens: om vi hittar upphor_datum ska sektionen också vara upphävd
-                if not has_upphavd:
+                if not has_expired:
                     raise ValueError(f"Inkonsistens upptäckt: Sektion har upphor_datum '{upphor_datum}' men är inte markerad som upphävd. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
 
             # Kontrollera "ikraft" i det direkta innehållet OCH i rubrikens text
@@ -574,7 +603,7 @@ def parse_logical_sections(text: str) -> str:
                 if not has_ikraft:
                     raise ValueError(f"Inkonsistens upptäckt: Sektion har ikraft_datum '{ikraft_datum}' men är inte markerad som ikraft. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
             else:
-                # Om inget datum hittas, sök efter villkor
+                # Om inget datum hittas, sök efter annat villkor
                 # Mönster för "/Träder i kraft I:villkor/" eller "/Rubriken träder i kraft I:villkor/" eller "/Kapitlet träder i kraft I:villkor/"
                 ikraft_villkor_match = re.search(r'/(?:rubriken |kapitlet )?träder i kraft i:([^/]+)/', all_section_content, re.IGNORECASE)
                 if ikraft_villkor_match:
@@ -633,6 +662,8 @@ def parse_logical_sections(text: str) -> str:
             status_values = []
             if has_upphavd:
                 status_values.append('upphavd')
+            if has_upphord:
+                status_values.append('upphord')
             if has_ikraft:
                 status_values.append('ikraft')
             
@@ -643,6 +674,8 @@ def parse_logical_sections(text: str) -> str:
                 attributes.append(f'selex:ikraft_datum="{ikraft_datum}"')
             if upphor_datum:
                 attributes.append(f'selex:upphor_datum="{upphor_datum}"')
+            if has_upphavd:
+                attributes.append('selex:upphavd="true"') # TODO: Peka ut i vilken ändringsförfattning den upphävdes
             if ikraft_villkor:
                 attributes.append(f'selex:ikraft_villkor="{ikraft_villkor}"')
 

@@ -2,7 +2,7 @@
 """
 Script to run generate_commits in dry run mode and log output.
 
-This script runs the temporal/generate_commits.py script with --dry-run flag,
+This script runs the exporters/git/generate_commits.py script with --dry-run flag,
 captures all output, and saves it to a log file in the output directory.
 """
 
@@ -30,7 +30,7 @@ def run_generate_commits_dry_run(
     """
     # Get script directory
     script_dir = Path(__file__).parent.parent
-    generate_commits_path = script_dir / "temporal" / "generate_commits.py"
+    generate_commits_path = script_dir / "exporters" / "git" / "generate_commits.py"
     
     if not generate_commits_path.exists():
         print(f"Fel: generate_commits.py hittades inte på {generate_commits_path}")

@@ -18,6 +18,34 @@ from formatters.format_sfs_text import format_sfs_text_as_markdown
 from formatters.add_pdf_url_to_frontmatter import generate_pdf_url
 from temporal.apply_temporal import apply_temporal
 from exporters.html.styling_constants import get_css_variables
+from downloaders.eur_lex_api import generate_eur_lex_url
+
+
+def format_celex_as_links(celex_numbers: str) -> str:
+    """
+    Convert Celex numbers to clickable EUR-Lex links.
+    
+    Handles multiple Celex numbers separated by commas or spaces.
+    
+    Args:
+        celex_numbers (str): One or more Celex numbers (e.g., "32001L0083, 32004L0027")
+        
+    Returns:
+        str: HTML string with clickable links to EUR-Lex
+    """
+    if not celex_numbers:
+        return ""
+    
+    # Split by comma and/or whitespace, filter out empty strings
+    celex_list = [celex.strip() for celex in re.split(r'[,\s]+', celex_numbers) if celex.strip()]
+    
+    # Convert each Celex number to a link
+    links = []
+    for celex in celex_list:
+        url = generate_eur_lex_url(celex)
+        links.append(f'<a href="{html.escape(url)}" target="_blank">{html.escape(celex)}</a>')
+    
+    return ', '.join(links)
 
 
 def create_html_documents(data: Dict[str, Any], output_path: Path, include_amendments: bool = False) -> None:
@@ -195,9 +223,10 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
             <dd property="eli:preparatory_act" datatype="xsd:string">{html.escape(forarbeten)}</dd>""")
     
     if celex_nummer:
+        celex_links = format_celex_as_links(celex_nummer)
         column1_items.append(f"""
             <dt>CELEX:</dt>
-            <dd property="eli:related_to" resource="{html.escape(celex_nummer)}" datatype="xsd:string">{html.escape(celex_nummer)}</dd>""")
+            <dd property="eli:related_to" resource="{html.escape(celex_nummer)}" datatype="xsd:string">{celex_links}</dd>""")
     
     if eu_direktiv:
         column1_items.append("""
@@ -602,6 +631,9 @@ def get_common_styles() -> str:
             padding: 20px;
             line-height: 1.6;
             background-color: var(--selex-white);
+            -webkit-text-size-adjust: 100%;
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
         }}
 
         .metadata {{
