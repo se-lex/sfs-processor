@@ -1,0 +1,33 @@
+Business Source License 1.1
+
+Licensor: Marca System AB
+Software: SE-Lex 1.0
+Change Date: 2029-01-01
+Change License: MIT License
+
+Usage Limitation:
+This License allows the Licensed Work to be used, copied, modified, and distributed,
+provided that the Licensed Work is not used in a way that constitutes a "Production Offering."
+
+Definition of "Production Offering":
+A Production Offering is the provision of the Licensed Work (or any derivative work) to third parties
+as a hosted or managed service, or as part of a paid product or service, without obtaining a
+commercial license from the Licensor.
+
+AI Use Limitation:
+Use of the Licensed Work, or substantial portions thereof, as training data for machine learning models,
+or as part of retrieval-augmented generation systems, in a Production Offering,
+requires a separate commercial license from Marca System AB.
+
+Change Date License:
+On the Change Date, the Licensed Work will automatically be distributed under the MIT License.
+
+Additional Terms:
+- This license does not grant permission to use the trade names, trademarks, service marks,
+  or product names of Marca System AB, except as required for describing the origin of the Licensed Work.
+- To obtain a commercial license for a Production Offering or for commercial AI use, please contact martin@marca.se.
+
+---
+
+Copyright (c) 2025 Marca System AB
+All rights reserved.
