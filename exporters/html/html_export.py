@@ -78,10 +78,6 @@ def create_html_documents(data: Dict[str, Any], output_path: Path, include_amend
     eli_dir = output_path / "eli" / "sfs" / year / lopnummer
     eli_dir.mkdir(parents=True, exist_ok=True)
 
-    # Generate the shared CSS file if it doesn't exist
-    css_dir = output_path / "eli" / "sfs"
-    generate_css_file(css_dir)
-
     # Generate base HTML content (without amendments applied)
     base_html_content = convert_to_html(data, apply_amendments=False)
     base_file = eli_dir / "index.html"
