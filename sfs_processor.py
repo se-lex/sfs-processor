@@ -636,12 +636,13 @@ def main():
     print(f"Hittade {len(json_files)} JSON-fil(er) att konvertera från {json_dir}")
     print(f"Utdata kommer att sparas i {output_dir}")
     
-    # Generate CSS file once for HTML/HTMLDIFF formats
+    # Generate CSS and JS files once for HTML/HTMLDIFF formats
     if "html" in output_modes or "htmldiff" in output_modes:
-        from exporters.html.html_export import generate_css_file
-        css_dir = output_dir / "eli" / "sfs"
-        css_dir.mkdir(parents=True, exist_ok=True)
-        generate_css_file(css_dir)
+        from exporters.html.html_export import generate_css_file, generate_js_file
+        css_js_dir = output_dir / "eli" / "sfs"
+        css_js_dir.mkdir(parents=True, exist_ok=True)
+        generate_css_file(css_js_dir)
+        generate_js_file(css_js_dir)
     
     # Handle git mode with batch processing
     if "git" in output_modes:
