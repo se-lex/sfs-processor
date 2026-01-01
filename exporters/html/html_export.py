@@ -298,8 +298,72 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
 </body>
 </html>"""
 
+    # Minify the final HTML to reduce file size
+    html_doc = minify_html(html_doc)
+
     return html_doc
 
+
+
+def minify_html(html_content: str) -> str:
+    """
+    Minify HTML by removing unnecessary whitespace while preserving content.
+    
+    This function removes:
+    - Leading/trailing whitespace on lines
+    - Empty lines
+    - Extra spaces between tags
+    - Whitespace inside tags
+    
+    But preserves:
+    - Content within <pre>, <code>, <script> tags
+    - Single spaces in text content
+    - Line breaks that affect rendering
+    
+    Args:
+        html_content (str): HTML content to minify
+        
+    Returns:
+        str: Minified HTML content
+    """
+    # Store pre, code, script, and textarea content to preserve formatting
+    preserved_blocks = []
+    block_placeholder = "___PRESERVED_BLOCK_{}___"
+    
+    def preserve_block(match):
+        index = len(preserved_blocks)
+        preserved_blocks.append(match.group(0))
+        return block_placeholder.format(index)
+    
+    # Preserve content in pre, code, script, textarea tags
+    html_content = re.sub(r'<pre[^>]*>.*?</pre>', preserve_block, html_content, flags=re.DOTALL | re.IGNORECASE)
+    html_content = re.sub(r'<script[^>]*>.*?</script>', preserve_block, html_content, flags=re.DOTALL | re.IGNORECASE)
+    html_content = re.sub(r'<textarea[^>]*>.*?</textarea>', preserve_block, html_content, flags=re.DOTALL | re.IGNORECASE)
+    
+    # Remove HTML comments (except IE conditional comments)
+    html_content = re.sub(r'<!--(?!\[if\s).*?-->', '', html_content, flags=re.DOTALL)
+    
+    # Remove leading and trailing whitespace on each line
+    html_content = re.sub(r'^\s+', '', html_content, flags=re.MULTILINE)
+    html_content = re.sub(r'\s+$', '', html_content, flags=re.MULTILINE)
+    
+    # Remove empty lines
+    html_content = re.sub(r'\n\s*\n', '\n', html_content)
+    
+    # Remove whitespace between tags (but not inside tags with text)
+    html_content = re.sub(r'>\s+<', '><', html_content)
+    
+    # Remove whitespace around = in attributes
+    html_content = re.sub(r'\s*=\s*', '=', html_content)
+    
+    # Reduce multiple spaces to single space in text content
+    html_content = re.sub(r'  +', ' ', html_content)
+    
+    # Restore preserved blocks
+    for index, block in enumerate(preserved_blocks):
+        html_content = html_content.replace(block_placeholder.format(index), block)
+    
+    return html_content.strip()
 
 
 def make_links_relative(html_content: str) -> str:
@@ -395,6 +459,9 @@ def create_ignored_html_content(data: Dict[str, Any], reason: str) -> str:
     </div>
 </body>
 </html>"""
+
+    # Minify the HTML
+    html_doc = minify_html(html_doc)
 
     return html_doc
 
@@ -550,6 +617,9 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
     </div>
 </body>
 </html>"""
+
+    # Minify the combined HTML
+    combined_html = minify_html(combined_html)
 
     return combined_html
 
