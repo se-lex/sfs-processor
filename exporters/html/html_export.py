@@ -514,7 +514,6 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
             drawerEnabled: false,
         }};
     </script>
-    <script src="https://swebar.netlify.app/navbar.js"></script>
     <script src="../../selex-init.js" defer></script>
     <style>{get_common_styles()}
         {get_amendment_styles()}
@@ -620,7 +619,6 @@ def create_html_head(title: str, beteckning: str, additional_styles: str = "", a
             drawerEnabled: false,
         }};
     </script>
-    <script src=\"https://swebar.netlify.app/navbar.js\"></script>
     <script src=\"{js_relative_path}\" defer></script>"""
     if additional_scripts:
         navbar_script += f"""
