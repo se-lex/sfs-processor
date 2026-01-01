@@ -78,6 +78,10 @@ def create_html_documents(data: Dict[str, Any], output_path: Path, include_amend
     eli_dir = output_path / "eli" / "sfs" / year / lopnummer
     eli_dir.mkdir(parents=True, exist_ok=True)
 
+    # Generate the shared CSS file if it doesn't exist
+    css_dir = output_path / "eli" / "sfs"
+    generate_css_file(css_dir)
+
     # Generate base HTML content (without amendments applied)
     base_html_content = convert_to_html(data, apply_amendments=False)
     base_file = eli_dir / "index.html"
@@ -117,6 +121,31 @@ def create_html_documents(data: Dict[str, Any], output_path: Path, include_amend
                 amendment_file = amend_eli_dir / "index.html"
                 save_to_disk(amendment_file, amendment_html_with_diff)
                 print(f"Created amendment HTML document: {amendment_file}")
+
+
+def generate_css_file(css_dir: Path) -> None:
+    """Generate the shared CSS file for HTML documents.
+    
+    Creates a styles.css file in the specified directory containing all
+    CSS styles and variables used by HTML documents.
+    
+    Args:
+        css_dir: Directory where the CSS file should be created
+    """
+    from sfs_processor import save_to_disk
+    
+    css_file_path = css_dir / "styles.css"
+    
+    # Only generate if it doesn't exist to avoid regenerating on every document
+    if css_file_path.exists():
+        return
+    
+    # Generate the complete CSS content
+    css_content = get_common_styles()
+    
+    # Save the CSS file
+    save_to_disk(css_file_path, css_content)
+    print(f"Generated CSS file: {css_file_path}")
 
 
 def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_amendment: int = None) -> str:
@@ -356,7 +385,8 @@ def create_ignored_html_content(data: Dict[str, Any], reason: str) -> str:
     ignored_styles = minify_css("""
         .warning { background-color: var(--warning-yellow-bg); border: 1px solid var(--warning-yellow); padding: 15px; border-radius: 5px; margin-bottom: 20px; }""")
 
-    html_doc = create_html_head(rubrik_original, beteckning, additional_styles=ignored_styles)
+    # Use external CSS for ignored documents as well
+    html_doc = create_html_head(rubrik_original, beteckning, additional_styles=ignored_styles, use_external_css=True)
     html_doc += f"""
 <body>
     <h1>{html.escape(rubrik_original)}</h1>
@@ -528,14 +558,16 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
     return combined_html
 
 
-def create_html_head(title: str, beteckning: str, additional_styles: str = "", additional_scripts: str = "") -> str:
+def create_html_head(title: str, beteckning: str, additional_styles: str = "", additional_scripts: str = "", use_external_css: bool = True, css_relative_path: str = "../../styles.css") -> str:
     """Create HTML head section with navbar integration.
 
     Args:
         title: Page title
         beteckning: Document beteckning for navbar
-        additional_styles: Additional CSS styles to include
+        additional_styles: Additional CSS styles to include inline
         additional_scripts: Additional JavaScript to include
+        use_external_css: Whether to use external CSS file (default: True)
+        css_relative_path: Relative path to CSS file from HTML document (default: "../../styles.css")
 
     Returns:
         str: Complete HTML head section
@@ -550,12 +582,21 @@ def create_html_head(title: str, beteckning: str, additional_styles: str = "", a
       iana: http://www.iana.org/">
 """
 
-    # Common base styles
-    base_styles = f"""
+    # CSS styles - either external link or inline
+    if use_external_css:
+        base_styles = f"""
+    <link rel="stylesheet" href="{css_relative_path}">"""
+        if additional_styles:
+            # Only add inline styles if there are additional styles
+            base_styles += f"""
+    <style>{additional_styles}</style>"""
+    else:
+        # Fallback to inline styles (for ignored documents or special cases)
+        base_styles = f"""
     <style>{get_common_styles()}"""
-    if additional_styles:
-        base_styles += additional_styles
-    base_styles += """
+        if additional_styles:
+            base_styles += additional_styles
+        base_styles += """
     </style>"""
 
     # Navbar initialization script
