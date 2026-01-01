@@ -312,11 +312,12 @@ def minify_html(html_content: str) -> str:
     This function removes:
     - Leading/trailing whitespace on lines
     - Empty lines
-    - Extra spaces between tags
+    - Extra spaces between block-level tags
     - Whitespace inside tags
     
     But preserves:
-    - Content within <pre>, <code>, <script> tags
+    - Content within <pre>, <code>, <script>, <textarea> tags
+    - Whitespace between inline elements (span, em, strong, a, etc.)
     - Single spaces in text content
     - Line breaks that affect rendering
     
@@ -337,11 +338,12 @@ def minify_html(html_content: str) -> str:
     
     # Preserve content in pre, code, script, textarea tags
     html_content = re.sub(r'<pre[^>]*>.*?</pre>', preserve_block, html_content, flags=re.DOTALL | re.IGNORECASE)
+    html_content = re.sub(r'<code[^>]*>.*?</code>', preserve_block, html_content, flags=re.DOTALL | re.IGNORECASE)
     html_content = re.sub(r'<script[^>]*>.*?</script>', preserve_block, html_content, flags=re.DOTALL | re.IGNORECASE)
     html_content = re.sub(r'<textarea[^>]*>.*?</textarea>', preserve_block, html_content, flags=re.DOTALL | re.IGNORECASE)
     
-    # Remove HTML comments (except IE conditional comments)
-    html_content = re.sub(r'<!--(?!\[if\s).*?-->', '', html_content, flags=re.DOTALL)
+    # Remove HTML comments (except IE conditional comments which start with <!--[if)
+    html_content = re.sub(r'<!--(?!\[if).*?-->', '', html_content, flags=re.DOTALL)
     
     # Remove leading and trailing whitespace on each line
     html_content = re.sub(r'^\s+', '', html_content, flags=re.MULTILINE)
@@ -350,13 +352,21 @@ def minify_html(html_content: str) -> str:
     # Remove empty lines
     html_content = re.sub(r'\n\s*\n', '\n', html_content)
     
-    # Remove whitespace between tags (but not inside tags with text)
-    html_content = re.sub(r'>\s+<', '><', html_content)
+    # Remove whitespace between block-level tags only (not inline elements)
+    # This preserves whitespace between inline elements like <span>, <em>, <strong>, <a>
+    # that rely on whitespace for proper visual rendering
+    block_tags = r'(?:html|head|body|div|section|article|header|footer|nav|main|aside|ul|ol|li|dl|dt|dd|h[1-6]|p|table|thead|tbody|tr|td|th)'
+    # Remove whitespace between block tag closing and block tag opening
+    html_content = re.sub(rf'(</{block_tags}>)\s+(<{block_tags}[^>]*>)', r'\1\2', html_content, flags=re.IGNORECASE)
+    # Remove whitespace after block tag opening
+    html_content = re.sub(rf'(<{block_tags}[^>]*>)\s+', r'\1', html_content, flags=re.IGNORECASE)
+    # Remove whitespace before block tag closing
+    html_content = re.sub(rf'\s+(</{block_tags}>)', r'\1', html_content, flags=re.IGNORECASE)
     
     # Remove whitespace around = in attributes
     html_content = re.sub(r'\s*=\s*', '=', html_content)
     
-    # Reduce multiple spaces to single space in text content
+    # Reduce multiple spaces to single space in text content (but preserve at least one space)
     html_content = re.sub(r'  +', ' ', html_content)
     
     # Restore preserved blocks
