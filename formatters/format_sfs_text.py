@@ -56,11 +56,11 @@ ARTICLE_TAG_PATTERN = r'^\s*<article[^>]*>\s*$'
 ARTICLE_CLOSE_TAG_PATTERN = r'^\s*</article>\s*$'
 
 # Temporal patterns
-INTOFORCE_ANY_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft [Ii]:[^/]+'
-INTOFORCE_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?träder i kraft [Ii]:[^/]+/\s*'
+INTOFORCE_ANY_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken |bilagan )?träder i kraft [Ii]:[^/]+'
+INTOFORCE_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken |bilagan )?träder i kraft [Ii]:[^/]+/\s*'
 INTOFORCE_DATE_EXTRACT_PATTERN = r'[Ii]:(\d{4}-\d{2}-\d{2})'
 
-REVOKE_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken )?upphör att gälla [Uu]:[^/]+/\s*'
+REVOKE_FULL_TEMPORAL_TAG_PATTERN = r'/(?:rubriken |kapitlet |kapitelrubriken |bilagan )?upphör att gälla [Uu]:[^/]+/\s*'
 REVOKE_DATE_EXTRACT_PATTERN = r'[Uu]:(\d{4}-\d{2}-\d{2})'
 
 # Exclusion patterns
@@ -409,9 +409,8 @@ def _is_section_upphord(header_line: str, content: str) -> bool:
     """
     Kontrollera om en sektion ska markeras som upphörd baserat på rubrik och innehåll.
 
-    Söker efter "/Rubriken upphör att gälla ", "/Upphör att gälla ", "/Kapitlet upphör att gälla ",
-    eller "/Kapitelrubriken upphör att gälla " i både rubrikens text och det direkta innehållet.
-    Sökningen är case-insensitive.
+    Söker efter "upphör att gälla" med olika prefix i både rubrikens text och det direkta innehållet.
+    Sökningen är case-insensitive och flexibel för vad som följer efter "gälla".
 
     Args:
         header_line (str): Rubrikraden (med markdown-markeringar som ###)
@@ -425,14 +424,17 @@ def _is_section_upphord(header_line: str, content: str) -> bool:
     content_lower = content.lower()
 
     # Kontrollera både i rubrik och innehåll efter upphör-markeringar
-    return ('/rubriken upphör att gälla ' in header_lower or
-            '/upphör att gälla ' in header_lower or
-            '/kapitlet upphör att gälla ' in header_lower or
-            '/kapitelrubriken upphör att gälla ' in header_lower or
-            '/rubriken upphör att gälla ' in content_lower or
-            '/upphör att gälla ' in content_lower or
-            '/kapitlet upphör att gälla ' in content_lower or
-            '/kapitelrubriken upphör att gälla ' in content_lower)
+    # Använd 'in' för att matcha oavsett vad som följer efter "gälla"
+    return ('/rubriken upphör att gälla' in header_lower or
+            '/upphör att gälla' in header_lower or
+            '/kapitlet upphör att gälla' in header_lower or
+            '/kapitelrubriken upphör att gälla' in header_lower or
+            '/bilagan upphör att gälla' in header_lower or
+            '/rubriken upphör att gälla' in content_lower or
+            '/upphör att gälla' in content_lower or
+            '/kapitlet upphör att gälla' in content_lower or
+            '/kapitelrubriken upphör att gälla' in content_lower or
+            '/bilagan upphör att gälla' in content_lower)
 
 
 def _is_section_ikraft(header_line: str, content: str) -> bool:
