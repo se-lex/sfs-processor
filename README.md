@@ -93,8 +93,8 @@ Denna semantiska struktur bevarar dokumentets logiska uppbyggnad och möjliggör
 Förutom CSS-klasser använder `<section>`-taggarna även `selex:`-attribut för att hantera juridisk status och datum. Dessa attribut möjliggör filtrering av innehåll baserat på ikraftträdande- och upphörandedatum:
 
 - **`selex:status`**: Anger sektionens juridiska status
-  - `ikraft`: Sektionen innehåller ikraftträdanderegler (t.ex. "/Träder i kraft I:2024-01-01")
-  - `upphavd`: Sektionen är upphävd (t.ex. innehåller "upphävd" eller "/Upphör att gälla")
+  - `ikraft`: Sektionen innehåller ikraftträdanderegler (konverterat från t.ex. "/Träder i kraft I:2024-01-01")
+  - `upphavd`: Sektionen är upphävd (konverterad från ifall rubrik innehåller "upphävd" eller "/Upphör att gälla")
 
 - **`selex:ikraft_datum`**: Datum då sektionen träder ikraft (format: YYYY-MM-DD)
 - **`selex:upphor_datum`**: Datum då sektionen upphör att gälla (format: YYYY-MM-DD)  
@@ -104,20 +104,17 @@ Exempel på selex-attribut:
 
 ```html
 <section class="kapitel" selex:status="ikraft" selex:ikraft_datum="2024-01-01">
-### Övergångsbestämmelser
-/Träder i kraft I:2024-01-01/
+### 1 § En paragraf
 ...
 </section>
 
 <section class="paragraf" selex:status="upphavd" selex:upphor_datum="2023-12-31">
-####  1 § En paragraf
-/Upphör att gälla U:2023-12-31/
+#### 2 § En paragraf 
 ...
 </section>
 
 <section class="kapitel" selex:status="ikraft" selex:ikraft_villkor="den dag regeringen bestämmer">
-### Villkorad ikraftträdande
-/Träder i kraft I:bestämmelse om något/
+### 3 § Rubrik på villkorad ikraftträdande
 ...
 </section>
 ```
