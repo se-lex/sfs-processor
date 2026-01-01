@@ -321,12 +321,22 @@ def minify_html(html_content: str) -> str:
     - Single spaces in text content
     - Line breaks that affect rendering
     
+    Examples:
+        Input:  "<p>  Text  </p>\n\n  <div>  Content  </div>"
+        Output: "<p>Text</p><div>Content</div>"
+        
+        Input:  "Text <a href='#'>link</a> more text"
+        Output: "Text <a href='#'>link</a> more text"  (space preserved)
+        
     Args:
         html_content (str): HTML content to minify
         
     Returns:
         str: Minified HTML content
     """
+    # Block-level tags where whitespace between them can be safely removed
+    BLOCK_TAGS = r'(?:html|head|body|div|section|article|header|footer|nav|main|aside|ul|ol|li|dl|dt|dd|h[1-6]|p|table|thead|tbody|tr|td|th)'
+    
     # Store pre, code, script, and textarea content to preserve formatting
     preserved_blocks = []
     block_placeholder = "___PRESERVED_BLOCK_{}___"
@@ -336,11 +346,8 @@ def minify_html(html_content: str) -> str:
         preserved_blocks.append(match.group(0))
         return block_placeholder.format(index)
     
-    # Preserve content in pre, code, script, textarea tags
-    html_content = re.sub(r'<pre[^>]*>.*?</pre>', preserve_block, html_content, flags=re.DOTALL | re.IGNORECASE)
-    html_content = re.sub(r'<code[^>]*>.*?</code>', preserve_block, html_content, flags=re.DOTALL | re.IGNORECASE)
-    html_content = re.sub(r'<script[^>]*>.*?</script>', preserve_block, html_content, flags=re.DOTALL | re.IGNORECASE)
-    html_content = re.sub(r'<textarea[^>]*>.*?</textarea>', preserve_block, html_content, flags=re.DOTALL | re.IGNORECASE)
+    # Preserve content in pre, code, script, textarea tags (combined pattern for efficiency)
+    html_content = re.sub(r'<(pre|code|script|textarea)[^>]*>.*?</\1>', preserve_block, html_content, flags=re.DOTALL | re.IGNORECASE)
     
     # Remove HTML comments (except IE conditional comments which start with <!--[if)
     html_content = re.sub(r'<!--(?!\[if).*?-->', '', html_content, flags=re.DOTALL)
@@ -355,13 +362,12 @@ def minify_html(html_content: str) -> str:
     # Remove whitespace between block-level tags only (not inline elements)
     # This preserves whitespace between inline elements like <span>, <em>, <strong>, <a>
     # that rely on whitespace for proper visual rendering
-    block_tags = r'(?:html|head|body|div|section|article|header|footer|nav|main|aside|ul|ol|li|dl|dt|dd|h[1-6]|p|table|thead|tbody|tr|td|th)'
     # Remove whitespace between block tag closing and block tag opening
-    html_content = re.sub(rf'(</{block_tags}>)\s+(<{block_tags}[^>]*>)', r'\1\2', html_content, flags=re.IGNORECASE)
+    html_content = re.sub(rf'(</{BLOCK_TAGS}>)\s+(<{BLOCK_TAGS}[^>]*>)', r'\1\2', html_content, flags=re.IGNORECASE)
     # Remove whitespace after block tag opening
-    html_content = re.sub(rf'(<{block_tags}[^>]*>)\s+', r'\1', html_content, flags=re.IGNORECASE)
+    html_content = re.sub(rf'(<{BLOCK_TAGS}[^>]*>)\s+', r'\1', html_content, flags=re.IGNORECASE)
     # Remove whitespace before block tag closing
-    html_content = re.sub(rf'\s+(</{block_tags}>)', r'\1', html_content, flags=re.IGNORECASE)
+    html_content = re.sub(rf'\s+(</{BLOCK_TAGS}>)', r'\1', html_content, flags=re.IGNORECASE)
     
     # Remove whitespace around = in attributes
     html_content = re.sub(r'\s*=\s*', '=', html_content)
