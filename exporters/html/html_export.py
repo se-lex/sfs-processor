@@ -144,6 +144,39 @@ def generate_css_file(css_dir: Path) -> None:
     print(f"Generated CSS file: {css_file_path}")
 
 
+def generate_js_file(js_dir: Path) -> None:
+    """Generate the shared JavaScript file for HTML documents.
+    
+    Creates a selex-init.js file in the specified directory by copying
+    the source JavaScript file from the html exporter directory.
+    
+    Args:
+        js_dir: Directory where the JS file should be created
+    """
+    import shutil
+    
+    js_file_path = js_dir / "selex-init.js"
+    
+    # Only generate if it doesn't exist to avoid regenerating on every document
+    if js_file_path.exists():
+        return
+    
+    # Get the source JS file path (same directory as this module)
+    source_js_path = Path(__file__).parent / "selex-init.js"
+    
+    if not source_js_path.exists():
+        print(f"Warning: Source JS file not found: {source_js_path}")
+        return
+    
+    # Copy the JS file
+    try:
+        shutil.copy2(source_js_path, js_file_path)
+        print(f"Generated JS file: {js_file_path}")
+    except Exception as e:
+        print(f"Error copying JS file: {e}")
+
+
+
 def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_amendment: int = None) -> str:
     """Convert JSON data to HTML format with ELI structure.
 
@@ -221,7 +254,7 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
 
     # Create HTML document with navbar integration and ELI format
     html_doc = create_html_head(rubrik_original, beteckning)
-    html_doc += "\n<body>"
+    html_doc += f"\n<body data-beteckning=\"{html.escape(beteckning)}\">"
 
     # Build metadata in two columns
     column1_items = []
@@ -475,36 +508,18 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{html.escape(title)} - Med ändringar</title>
-    <script src="https://swebar.netlify.app/navbar.js"></script>
+    <script>
+        window.NAVBAR_CONFIG = {{
+            logoUrl: "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 70'><text x='0' y='60' font-family='Inter, sans-serif' font-size='70' fill='%23f1c40f'>SE-Lex</text></svg>",
+            drawerEnabled: false,
+        }};
+    </script>
+    <script src="../../selex-init.js" defer></script>
     <style>{get_common_styles()}
         {get_amendment_styles()}
     </style>
-    <script>
-        function showTab(tabName) {{
-            // Hide all tab contents
-            const contents = document.querySelectorAll('.tab-content');
-            contents.forEach(content => content.classList.remove('active'));
-
-            // Remove active class from all buttons
-            const buttons = document.querySelectorAll('.tab-button');
-            buttons.forEach(button => button.classList.remove('active'));
-
-            // Show selected tab content
-            document.getElementById(tabName).classList.add('active');
-
-            // Mark button as active
-            document.querySelector(`[onclick="showTab('${{tabName}}')"]`).classList.add('active');
-        }}
-
-        document.addEventListener('DOMContentLoaded', function() {{
-            if (typeof SwedacNavbar !== 'undefined') {{
-                SwedacNavbar.setHeader("SFS");
-                SwedacNavbar.setHeaderChild("{html.escape(beteckning)}");
-            }}
-        }});
-    </script>
 </head>
-<body>
+<body data-beteckning="{html.escape(beteckning)}">
     {metadata_section}
 
     <h1>{html.escape(title)}</h1>
@@ -518,8 +533,8 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
 
     <div class="tab-container">
         <div class="tab-buttons">
-            <button class="tab-button active" onclick="showTab('diff')">Visa ändringar</button>
-            <button class="tab-button" onclick="showTab('final')">Slutlig version</button>
+            <button class="tab-button active" data-tab="diff">Visa ändringar</button>
+            <button class="tab-button" data-tab="final">Slutlig version</button>
         </div>
 
         <div id="diff" class="tab-content active">
@@ -554,7 +569,7 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
     return combined_html
 
 
-def create_html_head(title: str, beteckning: str, additional_styles: str = "", additional_scripts: str = "", use_external_css: bool = True, css_relative_path: str = "../../styles.css") -> str:
+def create_html_head(title: str, beteckning: str, additional_styles: str = "", additional_scripts: str = "", use_external_css: bool = True, css_relative_path: str = "../../styles.css", js_relative_path: str = "../../selex-init.js") -> str:
     """Create HTML head section with navbar integration.
 
     Args:
@@ -564,6 +579,7 @@ def create_html_head(title: str, beteckning: str, additional_styles: str = "", a
         additional_scripts: Additional JavaScript to include
         use_external_css: Whether to use external CSS file (default: True)
         css_relative_path: Relative path to CSS file from HTML document (default: "../../styles.css")
+        js_relative_path: Relative path to JS file from HTML document (default: "../../selex-init.js")
 
     Returns:
         str: Complete HTML head section
@@ -595,7 +611,7 @@ def create_html_head(title: str, beteckning: str, additional_styles: str = "", a
         base_styles += """
     </style>"""
 
-    # Navbar initialization script
+    # Navbar configuration and external scripts
     navbar_script = f"""
     <script>
         window.NAVBAR_CONFIG = {{
@@ -603,17 +619,11 @@ def create_html_head(title: str, beteckning: str, additional_styles: str = "", a
             drawerEnabled: false,
         }};
     </script>
-    <script src=\"https://swebar.netlify.app/navbar.js\"></script>
-    <script>
-        document.addEventListener('DOMContentLoaded', function() {{
-            if (typeof SweNavbar !== 'undefined') {{
-                SweNavbar.setHeader(\"SFS\");
-                SweNavbar.setHeaderChild(\"{html.escape(beteckning)}\");
-            }}
-        }});"""
+    <script src=\"{js_relative_path}\" defer></script>"""
     if additional_scripts:
-        navbar_script += additional_scripts
-    navbar_script += """
+        navbar_script += f"""
+    <script>
+{additional_scripts}
     </script>"""
 
     # Generate ELI canonical URL and metadata
