@@ -1,0 +1,73 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "sfs-processor"
+version = "0.1.0"
+description = "Swedish legal document processor"
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = [
+    "requests>=2.25.0",
+    "pyyaml>=6.0",
+    "markdown>=3.4.0",
+]
+
+[project.optional-dependencies]
+test = [
+    "pytest>=7.4.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.12.0",
+    "requests-mock>=1.11.0",
+]
+
+[tool.pytest.ini_options]
+# Test discovery
+testpaths = ["test"]
+python_files = ["test_*.py", "*_test.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+
+# Output options
+addopts = [
+    "-v",                          # Verbose output
+    "--tb=short",                  # Shorter traceback format
+    "--strict-markers",            # Error on unknown markers
+    "--color=yes",                 # Colored output
+    "-ra",                         # Show summary of all test outcomes
+    "--cov=.",                     # Coverage for all modules
+    "--cov-report=term-missing",   # Show missing lines in coverage
+    "--cov-report=html:htmlcov",   # HTML coverage report
+    "--cov-branch",                # Branch coverage
+]
+
+# Markers for test categorization
+markers = [
+    "unit: Unit tests that don't require external resources",
+    "integration: Integration tests that test multiple components",
+    "api: Tests that interact with external APIs (mocked)",
+    "slow: Tests that take significant time to run",
+]
+
+# Coverage settings
+[tool.coverage.run]
+source = ["."]
+omit = [
+    "test/*",
+    "*/test_*",
+    "*/__pycache__/*",
+    "*/site-packages/*",
+    ".venv/*",
+    "venv/*",
+]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:",
+    "if TYPE_CHECKING:",
+]
