@@ -4,7 +4,7 @@ Detta repository innehåller Python-script för att konvertera SFS-författninga
 
 ## Installation
 
-1. Se till att du har Python 3.6+ installerat
+1. Se till att du har Python 3.11 eller senare installerat
 2. Installera nödvändiga beroenden:
 
 ```bash
@@ -173,7 +173,83 @@ python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [-
 - `--no-year-folder`: Skapa inte årbaserade undermappar för dokument
 - `--verbose`: Visa detaljerad information om bearbetningen
 
+## Tester
+
+Projektet använder pytest för testning med omfattande testsvit som täcker funktionalitet och edge cases.
+
+### Installation av testberoenden
+
+```bash
+pip install pytest pytest-cov pytest-mock requests-mock
+```
+
+### Köra alla tester
+
+```bash
+pytest
+```
+
+### Köra tester med täckningsrapport
+
+```bash
+pytest --cov=. --cov-report=html
+```
+
+### Köra specifika testkategorier
+
+```bash
+# Endast unit-tester (snabba, ingen I/O)
+pytest -m unit
+
+# Endast integrationstester
+pytest -m integration
+
+# Endast API-tester (mockade API-anrop)
+pytest -m api
+
+# Hoppa över långsamma tester
+pytest -m "not slow"
+```
+
+### Köra enskilda testfiler
+
+```bash
+pytest test/test_linking.py -v
+pytest test/test_title_temporal.py -v
+pytest test/test_predocs.py -v
+```
+
+### CI/CD
+
+Testerna körs automatiskt vid varje push och pull request via GitHub Actions. Täckningsrapporter genereras och arkiveras som artifacts.
+
+## Bidra
+
+Vi välkomnar bidrag från communityn! 🙌
+
+- Läs [CONTRIBUTING.md](CONTRIBUTING.md) för riktlinjer om hur du bidrar
+- Se [DEVELOPMENT.md](DEVELOPMENT.md) för utvecklardokumentation och arkitekturöversikt
+- Öppna ett [GitHub Issue](https://github.com/se-lex/sfs-processor/issues) för att rapportera buggar eller föreslå nya funktioner
+
+## Community och support
+
+- **Rapportera buggar**: Öppna ett issue på GitHub med detaljerad beskrivning
+- **Föreslå funktioner**: Diskutera nya idéer via GitHub Issues
+- **Frågor**: Använd GitHub Issues med etiketten "question"
+
+Se [CONTRIBUTING.md](CONTRIBUTING.md) för mer information om hur du kan hjälpa till.
+
 ## Licens
 
-Detta projekt är licensierat under Business Source License 1.1 (BSL 1.1) - se [LICENSE](LICENSE) filen för detaljer. Efter 2 år övergår licensen för aktuell version automatiskt till MIT.
+Projektet är licensierat under **Business Source License 1.1 (BSL 1.1)**.
+
+### Sammanfattning
+
+- ✅ **Fritt att använda** för icke-produktionssyfte
+- ✅ **Fritt att modifiera och distribuera**
+- ✅ **Övergår automatiskt till MIT-licens** 2029-01-01
+- ⚠️ **Produktionsanvändning kräver kommersiell licens** (kontakta martin@marca.se)
+- 🤖 **AI-träningsanvändning kräver explicit tillstånd**
+
+Se [LICENSE](LICENSE)-filen för fullständiga villkor.
 

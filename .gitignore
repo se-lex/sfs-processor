@@ -3,6 +3,9 @@ ___pycache__
 *.pyc
 .DS_Store
 
+# Ignore Claude configuration
+.claude/
+
 # Ignore output files
 logs/
 output/

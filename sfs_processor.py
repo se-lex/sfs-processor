@@ -221,12 +221,6 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     if not beteckning:
         raise ValueError("Beteckning saknas i dokumentdata")
 
-    # Process amendments
-    # TODO: markdown_content = process_markdown_amendments(markdown_content, data, git_branch, verbose, output_file)
-    
-    # Convert table-like structures to proper Markdown tables
-    # TODO: markdown_content = convert_tables_in_markdown(markdown_content, verbose)
-    
     # Apply temporal processing to handle selex attributes (only if not in git mode and not preserving selex tags)
     if not git_mode and not preserve_selex_tags and target_date:
         markdown_content = apply_temporal(markdown_content, target_date, verbose=verbose)
