@@ -1,81 +1,100 @@
 #!/usr/bin/env python3
 """Test script for title_temporal function."""
 
+import pytest
 from temporal.title_temporal import title_temporal
 
 
-def test_example():
-    """Test with the provided example."""
-    rubrik = """/Rubriken upphör att gälla U:2025-07-15/
-Förordning (2023:30) om statsbidrag till regioner för åtgärder för att höja driftsäkerheten \
-på hälso- och sjukvårdens fastigheter
-/Rubriken träder i kraft I:2025-07-15/
-Förordning om statsbidrag till regioner för åtgärder för att höja driftsäkerheten \
-på fastigheter för hälso- och sjukvård"""
-
-    print("Testing title_temporal function with provided example:")
-    print()
-
-    # Test dates before transition
+@pytest.mark.unit
+def test_title_before_transition_date(sample_temporal_title):
+    """Test that the old title is returned for dates before transition."""
     date_before = "2025-07-14"
-    result_before = title_temporal(rubrik, date_before)
-    print(f"Result for {date_before} (before transition):")
-    print(f"  {result_before}")
+    result = title_temporal(sample_temporal_title, date_before)
 
-    # Test dates on transition date
+    # Should not contain temporal markers in output
+    assert "/Rubriken" not in result, \
+        f"Result should not contain temporal markers: {result}"
+
+    # Old title: "...på hälso- och sjukvårdens fastigheter"
+    assert "hälso- och sjukvårdens fastigheter" in result, \
+        f"Old title should contain old wording: {result}"
+
+    # Should NOT have the new wording
+    assert "fastigheter för hälso- och sjukvård" not in result, \
+        f"Old title should not contain new wording: {result}"
+
+
+@pytest.mark.unit
+def test_title_on_transition_date(sample_temporal_title):
+    """Test that the new title is returned on the transition date."""
     date_on = "2025-07-15"
-    result_on = title_temporal(rubrik, date_on)
-    print(f"Result for {date_on} (on transition date):")
-    print(f"  {result_on}")
+    result = title_temporal(sample_temporal_title, date_on)
 
-    # Test dates after transition
+    # Should not contain temporal markers in output
+    assert "/Rubriken" not in result, \
+        f"Result should not contain temporal markers: {result}"
+
+    # New title: "...på fastigheter för hälso- och sjukvård"
+    assert "fastigheter för hälso- och sjukvård" in result, \
+        f"New title should contain new wording: {result}"
+
+    # Should NOT have the old wording
+    assert "hälso- och sjukvårdens fastigheter" not in result, \
+        f"New title should not contain old wording: {result}"
+
+
+@pytest.mark.unit
+def test_title_after_transition_date(sample_temporal_title):
+    """Test that the new title is returned for dates after transition."""
     date_after = "2025-07-16"
-    result_after = title_temporal(rubrik, date_after)
-    print(f"Result for {date_after} (after transition):")
-    print(f"  {result_after}")
-    print()
+    result = title_temporal(sample_temporal_title, date_after)
 
-    # Verify correct behavior
-    expected_old = ("Förordning (2023:30) om statsbidrag till regioner för åtgärder "
-                    "för att höja driftsäkerheten på hälso- och sjukvårdens fastigheter")
-    expected_new = ("Förordning om statsbidrag till regioner för åtgärder "
-                    "för att höja driftsäkerheten på fastigheter för hälso- och sjukvård")
+    # Should not contain temporal markers in output
+    assert "/Rubriken" not in result, \
+        f"Result should not contain temporal markers: {result}"
 
-    print("Verification:")
-    print(f"✓ Before transition: {'PASS' if result_before == expected_old else 'FAIL'}")
-    print(f"✓ On transition:     {'PASS' if result_on == expected_new else 'FAIL'}")
-    print(f"✓ After transition:  {'PASS' if result_after == expected_new else 'FAIL'}")
+    # Should have the new wording
+    assert "fastigheter för hälso- och sjukvård" in result, \
+        f"New title should contain new wording: {result}"
 
-    # Additional verification
-    assert "(2023:30)" in result_before, "Old title should contain (2023:30)"
-    assert "(2023:30)" not in result_on, "New title should not contain (2023:30)"
-    assert "(2023:30)" not in result_after, "New title should not contain (2023:30)"
-    print("✓ All assertions passed!")
+    # Should NOT have the old wording
+    assert "hälso- och sjukvårdens fastigheter" not in result, \
+        f"New title should not contain old wording: {result}"
 
 
-def test_edge_cases():
-    """Test edge cases."""
-    print("\n" + "="*60)
-    print("Testing edge cases:")
-
-    # Test with no temporal markers
+@pytest.mark.unit
+def test_title_no_temporal_markers():
+    """Test with a simple title without temporal markers."""
     simple_title = "Simple title without temporal markers"
     result = title_temporal(simple_title, "2025-01-01")
-    print(f"Simple title: {result}")
 
-    # Test with None
+    # Should return the title unchanged
+    assert result == simple_title, f"Simple title should be unchanged: {result}"
+
+
+@pytest.mark.unit
+def test_title_with_none():
+    """Test that None input is handled gracefully."""
     result = title_temporal(None, "2025-01-01")
-    print(f"None title: '{result}'")
 
-    # Test with empty string
+    # Should return empty string
+    assert result == "", f"None should return empty string: {result}"
+
+
+@pytest.mark.unit
+def test_title_with_empty_string():
+    """Test that empty string is handled gracefully."""
     result = title_temporal("", "2025-01-01")
-    print(f"Empty title: '{result}'")
 
-    # Test with invalid date
-    result = title_temporal(simple_title, "invalid-date")
-    print(f"Invalid date: {result}")
+    # Should return empty string
+    assert result == "", f"Empty string should be returned: {result}"
 
 
-if __name__ == "__main__":
-    test_example()
-    test_edge_cases()
+@pytest.mark.unit
+def test_title_with_invalid_date(sample_temporal_title):
+    """Test that invalid date is handled gracefully."""
+    result = title_temporal(sample_temporal_title, "invalid-date")
+
+    # Should return something (implementation dependent)
+    # At minimum, should not crash
+    assert result is not None, "Should handle invalid date without crashing"
