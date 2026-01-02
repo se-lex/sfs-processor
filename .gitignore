@@ -3,6 +3,11 @@ ___pycache__
 *.pyc
 .DS_Store
 
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
 # Ignore output files
 logs/
 output/
