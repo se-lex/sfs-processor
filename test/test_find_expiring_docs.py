@@ -102,57 +102,29 @@ class TestLoadJsonFile:
 class TestHasExpiringDatetime:
     """Test the has_expiring_datetime function."""
 
-    def test_has_valid_datetime(self):
-        """Test data with valid tidsbegransadDateTime."""
+    @pytest.mark.parametrize("datetime_value", [
+        "2025-12-31T23:59:59",  # Full datetime
+        "2025-12-31",           # Date only
+        "2024-01-01T00:00:00",  # Another valid datetime
+    ])
+    def test_has_valid_datetime(self, datetime_value):
+        """Test data with valid tidsbegransadDateTime values."""
         data = {
             "beteckning": "2024:1",
-            "tidsbegransadDateTime": "2025-12-31T23:59:59"
+            "tidsbegransadDateTime": datetime_value
         }
 
         result = has_expiring_datetime(data)
 
         assert result is True
 
-    def test_has_datetime_date_only(self):
-        """Test data with date-only tidsbegransadDateTime."""
-        data = {
-            "beteckning": "2024:1",
-            "tidsbegransadDateTime": "2025-12-31"
-        }
-
-        result = has_expiring_datetime(data)
-
-        assert result is True
-
-    def test_datetime_is_none(self):
-        """Test data with None tidsbegransadDateTime."""
-        data = {
-            "beteckning": "2024:1",
-            "tidsbegransadDateTime": None
-        }
-
-        result = has_expiring_datetime(data)
-
-        assert result is False
-
-    def test_datetime_is_empty_string(self):
-        """Test data with empty string tidsbegransadDateTime."""
-        data = {
-            "beteckning": "2024:1",
-            "tidsbegransadDateTime": ""
-        }
-
-        result = has_expiring_datetime(data)
-
-        assert result is False
-
-    def test_datetime_field_missing(self):
-        """Test data without tidsbegransadDateTime field."""
-        data = {
-            "beteckning": "2024:1",
-            "rubrik": "Test"
-        }
-
+    @pytest.mark.parametrize("data,description", [
+        ({"beteckning": "2024:1", "tidsbegransadDateTime": None}, "None value"),
+        ({"beteckning": "2024:1", "tidsbegransadDateTime": ""}, "Empty string"),
+        ({"beteckning": "2024:1", "rubrik": "Test"}, "Missing field"),
+    ])
+    def test_datetime_falsy_values(self, data, description):
+        """Test data with None, empty string, or missing tidsbegransadDateTime."""
         result = has_expiring_datetime(data)
 
         assert result is False
