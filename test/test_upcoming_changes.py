@@ -24,11 +24,15 @@ from temporal.upcoming_changes import (
 class TestIdentifyUpcomingChanges:
     """Test the identify_upcoming_changes function."""
 
-    def test_extract_ikraft_datum_from_section(self):
-        """Test extracting ikraft_datum from section tag."""
-        content = '''<section id="1" class="paragraf" selex:ikraft_datum="2025-06-01">
+    @pytest.mark.parametrize("date_attr,date_value,expected_type,section_id", [
+        ("ikraft_datum", "2025-06-01", "ikraft", "1"),
+        ("upphor_datum", "2025-12-31", "upphor", "2"),
+    ])
+    def test_extract_date_from_section(self, date_attr, date_value, expected_type, section_id):
+        """Test extracting ikraft_datum and upphor_datum from section tag."""
+        content = f'''<section id="{section_id}" class="paragraf" selex:{date_attr}="{date_value}">
 
-## 1 §
+## {section_id} §
 
 Content here
 
@@ -37,28 +41,11 @@ Content here
         result = identify_upcoming_changes(content)
 
         assert len(result) == 1
-        assert result[0]['type'] == 'ikraft'
-        assert result[0]['date'] == '2025-06-01'
+        assert result[0]['type'] == expected_type
+        assert result[0]['date'] == date_value
         assert result[0]['source'] == 'section_tag'
-        assert result[0]['section_id'] == '1'
-        assert result[0]['section_title'] == '1 §'
-
-    def test_extract_upphor_datum_from_section(self):
-        """Test extracting upphor_datum from section tag."""
-        content = '''<section id="2" class="paragraf" selex:upphor_datum="2025-12-31">
-
-## 2 §
-
-This section expires.
-
-</section>'''
-
-        result = identify_upcoming_changes(content)
-
-        assert len(result) == 1
-        assert result[0]['type'] == 'upphor'
-        assert result[0]['date'] == '2025-12-31'
-        assert result[0]['section_id'] == '2'
+        assert result[0]['section_id'] == section_id
+        assert result[0]['section_title'] == f'{section_id} §'
 
     def test_extract_from_kapital_section(self):
         """Test extracting from chapter (kapital) section."""
@@ -77,26 +64,19 @@ Chapter content
         assert result[0]['class_name'] == 'kapital'
         assert result[0]['section_title'] == '1 kap. Inledande bestämmelser'
 
-    def test_extract_ikraft_datum_from_article(self):
-        """Test extracting ikraft_datum from article tag."""
-        content = '<article selex:ikraft_datum="2025-03-15">Content</article>'
+    @pytest.mark.parametrize("date_attr,date_value,expected_type", [
+        ("ikraft_datum", "2025-03-15", "ikraft"),
+        ("upphor_datum", "2026-12-31", "upphor"),
+    ])
+    def test_extract_date_from_article(self, date_attr, date_value, expected_type):
+        """Test extracting ikraft_datum and upphor_datum from article tag."""
+        content = f'<article selex:{date_attr}="{date_value}">Content</article>'
 
         result = identify_upcoming_changes(content)
 
         assert len(result) == 1
-        assert result[0]['type'] == 'ikraft'
-        assert result[0]['date'] == '2025-03-15'
-        assert result[0]['source'] == 'article_tag'
-
-    def test_extract_upphor_datum_from_article(self):
-        """Test extracting upphor_datum from article tag."""
-        content = '<article selex:upphor_datum="2026-12-31">Content</article>'
-
-        result = identify_upcoming_changes(content)
-
-        assert len(result) == 1
-        assert result[0]['type'] == 'upphor'
-        assert result[0]['date'] == '2026-12-31'
+        assert result[0]['type'] == expected_type
+        assert result[0]['date'] == date_value
         assert result[0]['source'] == 'article_tag'
 
     def test_extract_with_upphavd_flag(self):
@@ -131,20 +111,20 @@ Expires
         assert result[1]['date'] == '2025-06-01'
         assert result[2]['date'] == '2025-12-31'
 
-    def test_invalid_date_format_ignored(self):
-        """Test that invalid date formats are ignored."""
-        content = '''<section id="1" class="paragraf" selex:ikraft_datum="2025-13-45">
+    @pytest.mark.parametrize("invalid_date,tag_type", [
+        ("2025-13-45", "section"),  # Invalid month/day
+        ("not-a-date", "article"),  # Malformed date
+        ("2025-02-30", "section"),  # Invalid day for month
+    ])
+    def test_invalid_dates_ignored(self, invalid_date, tag_type):
+        """Test that invalid and malformed dates are ignored."""
+        if tag_type == "section":
+            content = f'''<section id="1" class="paragraf" selex:ikraft_datum="{invalid_date}">
 ## 1 §
 Invalid date
 </section>'''
-
-        result = identify_upcoming_changes(content)
-
-        assert len(result) == 0
-
-    def test_malformed_date_ignored(self):
-        """Test that malformed dates are ignored."""
-        content = '''<article selex:ikraft_datum="not-a-date">Content</article>'''
+        else:
+            content = f'<article selex:ikraft_datum="{invalid_date}">Content</article>'
 
         result = identify_upcoming_changes(content)
 
