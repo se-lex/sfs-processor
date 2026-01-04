@@ -111,7 +111,6 @@ omit = [
     ".venv/*",
     "venv/*",
     "sfs_docs/*",
-    "SFS/*",
     "output/*",
 ]
 

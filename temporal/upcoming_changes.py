@@ -20,7 +20,7 @@ The module searches for dates in the following Selex markup patterns:
 
 ## Output Format
 
-The module generates a YAML file at `data/kommande.yaml` with the following structure:
+The module generates a YAML file at `output/kommande.yaml` with the following structure:
 
 ```yaml
 '2025-01-15':
@@ -60,7 +60,7 @@ from datetime import datetime
 from typing import List, Dict, Optional
 from pathlib import Path
 
-UPCOMING_CHANGES_FILE_PATH = "data/kommande.yaml"
+UPCOMING_CHANGES_FILE_PATH = "output/kommande.yaml"
 
 
 
