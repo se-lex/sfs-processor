@@ -563,6 +563,8 @@ def main():
                         help='Output formats to generate (comma-separated). Currently supported: md-markers, md, git, html, htmldiff. Default: md-markers. Use "md-markers" to preserve section tags with temporal attributes (standard). Use "md" for clean markdown without section tags. Use "git" to enable Git commits with historical dates. HTML creates documents in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer}). HTMLDIFF includes amendment versions with diff view.')
     parser.add_argument('--predocs-fetch', action='store_true', dest='predocs_fetch',
                         help='Fetch detailed information about förarbeten from Riksdagen API. Parsing of förarbeten always happens. This will make processing slower.')
+    parser.add_argument('--target-date', dest='target_date', default=None,
+                        help='Target date (YYYY-MM-DD) for temporal processing. Used with md, html, and htmldiff formats to filter content based on validity dates. If not specified, today\'s date is used for md format. Example: --target-date 2023-01-01')
     parser.add_argument('--apply-links', action='store_true', default=True,
                         help='Apply internal paragraph links (e.g., [9 §](#9§)), external SFS links (e.g., [2002:43](/sfs/2002:43)), EU legislation links (e.g., [(EU) nr 651/2014](https://eur-lex.europa.eu/...)), and law name links (e.g., [8 kap. 7 § regeringsformen](/sfs/1974/152)) to the document. Default: True')
     parser.set_defaults(year_folder=True)
@@ -654,7 +656,7 @@ def main():
                 continue
 
             # Use make_document to create documents in specified formats
-            make_document(data, output_dir, output_modes, args.year_folder, args.verbose, False, args.predocs_fetch, args.apply_links)
+            make_document(data, output_dir, output_modes, args.year_folder, args.verbose, False, args.predocs_fetch, args.apply_links, args.target_date)
     
     print(f"\nBearbetning klar! {len(json_files)} filer sparade i {output_dir} i format: {', '.join(output_modes)}")
 
