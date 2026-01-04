@@ -169,10 +169,21 @@ Systemet hanterar temporal processing (tidsbaserad filtrering) olika beroende p�
 
 - **`html`** och **`htmldiff`**: Tillämpar temporal processing med dagens datum innan HTML-generering, liknande `md`-format.
 
+#### Exempel med target-date
+
+För att se hur en lag såg ut vid ett specifikt datum:
+
+```bash
+# Se hur lagen såg ut 2023-01-01
+python sfs_processor.py --input sfs_json --output SFS --formats md --target-date 2023-01-01
+```
+
+Detta är användbart för att skapa historiska versioner eller för att förstå hur lagen såg ut vid en viss tidpunkt.
+
 ## Kommandoradsalternativ
 
 ```bash
-python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [--filter FILTER] [--no-year-folder] [--verbose]
+python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [--filter FILTER] [--target-date DATE] [--no-year-folder] [--verbose]
 ```
 
 ### Parametrar
@@ -180,12 +191,13 @@ python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [-
 - `--input`: Input-katalog med JSON-filer (default: "sfs_json")
 - `--output`: Output-katalog för konverterade filer (default: "SFS")
 - `--formats`: Utdataformat att generera, kommaseparerat. Stödjer: md-markers, md, git, html, htmldiff (default: "md-markers")
-  - `md`: Generera rena markdown-filer utan section-taggar
   - `md-markers`: Generera markdown-filer med section-taggar bevarade
+  - `md`: Generera rena markdown-filer utan section-taggar
   - `git`: Aktivera Git-commits med historiska datum
   - `html`: Generera HTML-filer i ELI-struktur (endast grunddokument)
   - `htmldiff`: Generera HTML-filer i ELI-struktur med ändringsversioner
 - `--filter`: Filtrera filer efter år (YYYY) eller specifik beteckning (YYYY:NNN). Kan vara kommaseparerad lista.
+- `--target-date`: Datum (YYYY-MM-DD) för temporal filtrering. Används med `md`, `html` och `htmldiff` format för att filtrera innehåll baserat på giltighetsdatum. Om inte angivet används dagens datum för `md`-format. Exempel: `--target-date 2023-01-01`
 - `--no-year-folder`: Skapa inte årbaserade undermappar för dokument
 - `--verbose`: Visa detaljerad information om bearbetningen
 
