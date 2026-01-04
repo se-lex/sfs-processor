@@ -8,10 +8,10 @@ Det här dokumentet ger en djupare översikt över projektets arkitektur, kodstr
 
 ### Huvudfunktioner
 
-- Hämta SFS-dokument från Riksdagens öppna data
+- Hämta SFS-dokument från RK (Regeringskansliet)
 - Konvertera JSON till välformaterad Markdown
 - Generera HTML med temporal hantering av ändringar
-- Exportera till Git-repositories med historik
+- Exportera till Git-repository med historik
 - Hantera temporala aspekter av lagstiftning (giltighetstider, ändringar)
 
 ## Kom igång
@@ -23,7 +23,7 @@ Om du vill bidra till projektet:
 1. **Forka repositoryt** på GitHub
 2. **Klona din fork** lokalt:
    ```bash
-   git clone https://github.com/ditt-användarnamn/sfs-processor.git
+   git clone https://github.com/se-lex/sfs-processor.git
    cd sfs-processor
    ```
 3. **Skapa virtuell miljö** (rekommenderat):
@@ -99,12 +99,12 @@ INTERNAL_LINKS_BASE_URL=https://selex.se/eli
 ### Dataflöde
 
 ```
-Riksdagen API → JSON → Parser → Formatters → Exporters → Output
-                                     ↓
-                              Temporal Processing
+RK API → JSON → Parser → Formatters → Exporters → Output
+                                ↓
+                         Temporal Processing
 ```
 
-1. **Nedladdning**: Hämta rådata från Riksdagens API
+1. **Nedladdning**: Hämta rådata från Regeringskansliet
 2. **Parsing**: Validera och strukturera JSON-data
 3. **Formatering**: Konvertera till Markdown/HTML
 4. **Temporal processing**: Hantera tidsbaserade aspekter
@@ -172,7 +172,7 @@ sfs-processor/
 ### `downloaders/` (Nedladdning)
 
 **`download_sfs_docs.py`**:
-- Ladda ner specifika SFS-dokument från Riksdagens API
+- Ladda ner specifika SFS-dokument från Regeringskansliets rättsdatabas
 - Hantera paginering och rate limiting
 - Cacha nedladdad data
 
@@ -426,7 +426,7 @@ except Exception as e:
 
 ### API rate limiting
 
-- Riksdagen API: Respektera rate limits
+- Regeringskansliet rättsdatabas & Riksdagens API: Respektera rate limits
 - Implementera exponential backoff vid 429-svar
 - Cacha data lokalt när möjligt
 
@@ -434,14 +434,14 @@ except Exception as e:
 
 ### Externa APIer
 
-- [Riksdagens öppna data](https://data.riksdagen.se/)
-- [Rättsbaser API](https://beta.rkrattsbaser.gov.se/)
-- [EUR-Lex](https://eur-lex.europa.eu/)
+- [Riksdagens öppna data](https://data.riksdagen.se)
+- [Regieringskansliets rättsdatabas](https://beta.rkrattsbaser.gov.se)
+- [EUR-Lex](https://eur-lex.europa.eu)
 
 ### Dokumentation
 
-- [Markdown spec](https://commonmark.org/)
-- [Python Markdown](https://python-markdown.github.io/)
+- [Markdown spec](https://commonmark.org)
+- [Python Markdown](https://python-markdown.github.io)
 - [ELI standard](https://eur-lex.europa.eu/eli-register/about.html)
 
 ## Support
@@ -453,6 +453,3 @@ Vid frågor eller problem:
 3. Sök i [GitHub Issues](https://github.com/yourusername/sfs-processor/issues)
 4. Öppna ett nytt issue om problemet kvarstår
 
----
-
-**Lycka till med utvecklingen!** 🚀

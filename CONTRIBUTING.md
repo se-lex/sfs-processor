@@ -107,6 +107,6 @@ För fullständiga kodkonventioner, se [DEVELOPMENT.md](DEVELOPMENT.md#kodkonven
 Om du har frågor som inte täcks här:
 
 - Öppna ett issue med etiketten "question"
-- Kontakta projektmaintainer via GitHub
+- Kontakta Martin Rimskog via [e-post](mailto:martin@marca.se) [LinkedIn](https://www.linkedin.com/in/martinrimskog/)
 
 Tack för ditt bidrag! 🙏
