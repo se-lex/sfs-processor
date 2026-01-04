@@ -605,7 +605,7 @@ def main():
         output_dir = script_dir.parent / f'sfs-export-{primary_format}'
     
     # Create output directory if it doesn't exist
-    output_dir.mkdir(exist_ok=True)
+    output_dir.mkdir(parents=True, exist_ok=True)
     
     # Check if json directory exists
     if not json_dir.exists():
