@@ -6,6 +6,11 @@ ___pycache__
 # Ignore Claude configuration
 .claude/
 
+# Test coverage
+.coverage
+htmlcov/
+.pytest_cache/
+
 # Ignore output files
 logs/
 output/
