@@ -1,5 +1,10 @@
 # Svensk författningssamling (SFS) till Markdown-filer
 
+> [!NOTE]
+> **Detta är en del av [SE-Lex](https://github.com/se-lex)**, läs mer om [projektet här](https://github.com/se-lex).
+>
+> SFS-författningar exporteras till [https://github.com/se-lex/sfs](https://github.com/se-lex/sfs) och publiceras också som HTML på [https://selex.se](https://selex.se) med stöd för EU:s juridiska identifieringsstandard (ELI).
+
 Detta repository innehåller Python-script för att konvertera SFS-författningar (Svensk författningssamling) från JSON-format till välformaterade Markdown-filer och andra format.
 
 ## Installation
@@ -16,7 +21,31 @@ pip install -r requirements.txt
 Konvertera JSON-filer med författningar till Markdown:
 
 ```bash
-python sfs_processor.py --input sfs_json --output SFS --formats md
+python sfs_processor.py --input sfs_json --output SFS --formats md-markers
+```
+
+## Output-format
+
+Verktyget kan generera författningar i flera olika format, beroende på användningsområde:
+
+### Markdown-format
+
+- **`md-markers`** (standard): Markdown med semantiska `<section>`-taggar och selex-attribut för juridisk status och temporal hantering
+- **`md`**: Rena Markdown-filer med normaliserade rubriknivåer, lämpliga för visning och läsning
+
+### Git-format
+
+- **`git`**: Exporterar författningar som Git-commits med historiska datum, vilket skapar en versionshistorik av lagstiftningen
+
+### HTML-format
+
+- **`html`**: Genererar HTML-filer i ELI-struktur (`/eli/sfs/{år}/{nummer}/index.html`) för webbpublicering
+- **`htmldiff`**: Som HTML men inkluderar även separata versioner för varje ändringsförfattning
+
+Exempel på att kombinera flera format:
+
+```bash
+python sfs_processor.py --input sfs_json --output output --formats md,html,git
 ```
 
 ## Hämta källdata
@@ -44,32 +73,14 @@ Nedladdade filer sparas som standard i katalogen `sfs_docs`. Du kan ange annan k
 Konvertera alla JSON-filer i en katalog till Markdown:
 
 ```bash
-python sfs_processor.py --input sfs_json --output SFS --formats md
+python sfs_processor.py --input sfs_json --output SFS --formats md-markers
 ```
 
 ### Struktur av genererade Markdown-filer
 
 Beroende på vilket format du väljer får du olika strukturer:
 
-#### Format: `md` (standard)
-
-Rena Markdown-filer med normaliserade rubriknivåer:
-
-```markdown
-# Lag (2024:123) om exempel
-
-## Inledande bestämmelser
-
-### 1 §
-
-Innehållet i paragrafen...
-
-### 2 §
-
-Mer innehåll...
-```
-
-#### Format: `md-markers`
+#### Format: `md-markers` (standard)
 
 Markdown-filer med bevarad semantisk struktur genom `<section>`-taggar:
 
@@ -87,6 +98,26 @@ Innehållet i paragrafen...
 ```
 
 Denna semantiska struktur bevarar dokumentets logiska uppbyggnad och möjliggör automatisk bearbetning, analys, och navigation av författningstexten. Section-taggarna kan även användas för CSS-styling och JavaScript-funktionalitet.
+
+#### Format: `md`
+
+Rena Markdown-filer med normaliserade rubriknivåer, utan section-taggar:
+
+```markdown
+# Lag (2024:123) om exempel
+
+## Inledande bestämmelser
+
+### 1 §
+
+Innehållet i paragrafen...
+
+### 2 §
+
+Mer innehåll...
+```
+
+Detta format är lämpligt för enkel visning och läsning, utan metadata eller temporal hantering.
 
 ### Selex-attribut för juridisk status och datum
 
@@ -125,33 +156,11 @@ Dessa attribut används automatiskt av systemets datumfiltrering för att skapa 
 
 Systemet hanterar temporal processing (tidsbaserad filtrering) olika beroende på vilket format som används:
 
-- **`md` format**: Tillämpar temporal processing med dagens datum som målpunkt. Selex-taggar tas bort efter filtrering.
-- **`md-markers` format**: Bevarar selex-taggar och hoppar över temporal processing. Detta gör att alla temporal attribut behålls för senare bearbetning.
-- **`git` format**: Hoppar över temporal processing i huvudbearbetningen. Temporal hantering sköts separat i git-arbetsflödet för att skapa historiska commits.
-- **`html` format**: Tillämpar temporal processing med dagens datum innan HTML-generering.
-- **`htmldiff` format**: Tillämpar temporal processing med dagens datum innan HTML-generering.
-
-### Konvertering till HTML med ELI-struktur
-
-```bash
-python sfs_processor.py --input sfs_json --output output --formats html
-```
-
-Detta skapar HTML-filer i ELI-strukturen: `/eli/sfs/{artal}/{lopnummer}/index.html`
-
-### HTML med ändringsversioner
-
-För att inkludera separata versioner för varje ändringsförfattning:
-
-```bash
-python sfs_processor.py --input sfs_json --output output --formats htmldiff
-```
-
-### Kombinera flera format
-
-```bash
-python sfs_processor.py --input sfs_json --output output --formats md,html,htmldiff
-```
+- **`md`**: Tillämpar temporal processing med dagens datum som målpunkt. Selex-taggar tas bort efter filtrering.
+- **`md-markers`**: Bevarar selex-taggar och hoppar över temporal processing. Detta gör att alla temporal attribut behålls för senare bearbetning.
+- **`git`**: Hoppar över temporal processing i huvudbearbetningen. Temporal hantering sköts separat i git-arbetsflödet för att skapa historiska commits.
+- **`html`**: Tillämpar temporal processing med dagens datum innan HTML-generering.
+- **`htmldiff`**: Tillämpar temporal processing med dagens datum innan HTML-generering.
 
 ## Kommandoradsalternativ
 
@@ -163,7 +172,7 @@ python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [-
 
 - `--input`: Input-katalog med JSON-filer (default: "sfs_json")
 - `--output`: Output-katalog för konverterade filer (default: "SFS")
-- `--formats`: Utdataformat att generera, kommaseparerat. Stödjer: md, md-markers, git, html, htmldiff (default: "md")
+- `--formats`: Utdataformat att generera, kommaseparerat. Stödjer: md-markers, md, git, html, htmldiff (default: "md-markers")
   - `md`: Generera rena markdown-filer utan section-taggar
   - `md-markers`: Generera markdown-filer med section-taggar bevarade
   - `git`: Aktivera Git-commits med historiska datum
@@ -173,73 +182,10 @@ python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [-
 - `--no-year-folder`: Skapa inte årbaserade undermappar för dokument
 - `--verbose`: Visa detaljerad information om bearbetningen
 
-## Tester
-
-Projektet använder pytest för testning med omfattande testsvit som täcker funktionalitet och edge cases.
-
-### Installation av testberoenden
-
-```bash
-pip install pytest pytest-cov pytest-mock requests-mock
-```
-
-### Köra alla tester
-
-```bash
-pytest
-```
-
-### Köra tester med täckningsrapport
-
-```bash
-pytest --cov=. --cov-report=html
-```
-
-### Köra specifika testkategorier
-
-```bash
-# Endast unit-tester (snabba, ingen I/O)
-pytest -m unit
-
-# Endast integrationstester
-pytest -m integration
-
-# Endast API-tester (mockade API-anrop)
-pytest -m api
-
-# Hoppa över långsamma tester
-pytest -m "not slow"
-```
-
-### Köra enskilda testfiler
-
-```bash
-pytest test/test_linking.py -v
-pytest test/test_title_temporal.py -v
-pytest test/test_predocs.py -v
-```
-
-### CI/CD
-
-Testerna körs automatiskt vid varje push och pull request via GitHub Actions. Täckningsrapporter genereras och arkiveras som artifacts.
-
 ## Bidra
 
 Vi välkomnar bidrag från communityn! 🙌
 
 - Läs [CONTRIBUTING.md](CONTRIBUTING.md) för riktlinjer om hur du bidrar
 - Se [DEVELOPMENT.md](DEVELOPMENT.md) för utvecklardokumentation och arkitekturöversikt
-- Öppna ett [GitHub Issue](https://github.com/se-lex/sfs-processor/issues) för att rapportera buggar eller föreslå nya funktioner
-
-## Community och support
-
-- **Rapportera buggar**: Öppna ett issue på GitHub med detaljerad beskrivning
-- **Föreslå funktioner**: Diskutera nya idéer via GitHub Issues
-- **Frågor**: Använd GitHub Issues med etiketten "question"
-
-Se [CONTRIBUTING.md](CONTRIBUTING.md) för mer information om hur du kan hjälpa till.
-
-## Licens
-
-Projektet är licensierat under **Business Source License 1.1 (BSL 1.1)**. Se [LICENSE](LICENSE)-filen för fullständiga villkor.
-
+- Kontakt: Martin Rimskog via [e-post](mailto:martin@marca.se) eller [LinkedIn](https://www.linkedin.com/in/martinrimskog/)
