@@ -119,7 +119,7 @@ def parse_logical_paragraphs(text: str) -> list:
 def _add_header_with_blank_line(formatted: list, header_level: str, original_line: str) -> None:
     """
     Lägg till en rubrik med tom rad före om nödvändigt enligt markdown-standarden.
-    
+
     Args:
         formatted (list): Lista med formaterade rader
         header_level (str): Rubriknivå som "##" eller "###" eller "####"
@@ -129,6 +129,24 @@ def _add_header_with_blank_line(formatted: list, header_level: str, original_lin
     if formatted and formatted[-1].strip():
         formatted.append('')
     formatted.append(format_header_with_markings(header_level, original_line))
+
+
+def _adjust_heading_level_for_avdelning(base_level: str, inside_avdelning: bool) -> str:
+    """
+    Justera rubriknivån baserat på om vi är inuti en AVDELNING.
+    Innehåll under AVDELNING får en nivå lägre (mer #).
+
+    Args:
+        base_level (str): Basrubriknivå som "##", "###", eller "####"
+        inside_avdelning (bool): Om vi är inuti en AVDELNING-sektion
+
+    Returns:
+        str: Justerad rubriknivå
+    """
+    if inside_avdelning:
+        # Lägg till en extra # för att sänka nivån
+        return base_level + '#'
+    return base_level
 
 
 def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
@@ -174,6 +192,7 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
     # Steg 2: Bearbeta resultatet för rubriker och fetstil-formatering
     formatted = []
     previous_line_empty = True  # Första raden räknas som början av nytt stycke
+    inside_avdelning = False  # Spåra om vi är inuti en AVDELNING
 
     # Använd originalraderna för formatering men tillämpa rubriklogik baserat på rensade rader
     for i, original_line in enumerate(original_result_lines):
@@ -224,22 +243,28 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
             if not next_is_list_start or is_overgangsbestammelser:
                 # Kontrollera först om det är en avdelningsrubrik (nivå 2 ##)
                 if is_chapter_header(cleaned_line.strip()):
+                    # AVDELNING är alltid nivå 2 (##) och markerar början av en ny sektion
+                    inside_avdelning = True
                     _add_header_with_blank_line(formatted, '##', original_line)
                 # Kontrollera om det är ett kapitel (börjar med "X kap." eller "X Kap" eller "X A Kap")
                 elif re.match(CHAPTER_PATTERN, cleaned_line.strip()):
-                    _add_header_with_blank_line(formatted, '##', original_line)
+                    adjusted_level = _adjust_heading_level_for_avdelning('##', inside_avdelning)
+                    _add_header_with_blank_line(formatted, adjusted_level, original_line)
                 # Kontrollera om det är en bilaga (börjar med "Bilaga ")
                 elif cleaned_line.strip().startswith(ATTACHMENT_PREFIX):
-                    _add_header_with_blank_line(formatted, '##', original_line)
+                    adjusted_level = _adjust_heading_level_for_avdelning('##', inside_avdelning)
+                    _add_header_with_blank_line(formatted, adjusted_level, original_line)
                 # Kontrollera om det är en artikel (börjar med "Artikel X")
                 elif re.match(ARTIKEL_PATTERN, cleaned_line.strip()):
-                    _add_header_with_blank_line(formatted, '###', original_line)
+                    adjusted_level = _adjust_heading_level_for_avdelning('###', inside_avdelning)
+                    _add_header_with_blank_line(formatted, adjusted_level, original_line)
                 # Potentiella rubriker enligt standardkriterier
                 elif is_potential_header:
                     # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de andra kriterierna
                     if (len(cleaned_line.split()) <= 2 and '.' not in cleaned_line) or (len(cleaned_line) < 300 and not cleaned_line.strip().endswith(('.', ':'))):
                         # Använd H3-rubrik för rubriker
-                        _add_header_with_blank_line(formatted, '###', original_line)
+                        adjusted_level = _adjust_heading_level_for_avdelning('###', inside_avdelning)
+                        _add_header_with_blank_line(formatted, adjusted_level, original_line)
                     else:
                         # Hantera paragrafnummer som rubriker
                         if previous_line_empty:
@@ -247,19 +272,22 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                             paragraph_match = re.match(r'^' + PARAGRAPH_PATTERN, cleaned_line)
                             if paragraph_match:
                                 paragraph_num = paragraph_match.group(0)
-                                
+
                                 # Extrahera markeringar från originalraden
                                 markings = re.findall(TEMPORAL_MARKER_PATTERN, original_line)
-                                
+
+                                # Justera rubriknivå baserat på AVDELNING-kontext
+                                adjusted_level = _adjust_heading_level_for_avdelning('####', inside_avdelning)
+
                                 # Skapa rubrik med bara markeringar och paragrafnummer
                                 if markings:
                                     markings_str = ' '.join(markings)
-                                    formatted.append(f'#### {markings_str} {paragraph_num}')
+                                    formatted.append(f'{adjusted_level} {markings_str} {paragraph_num}')
                                 else:
-                                    formatted.append(f'#### {paragraph_num}')
-                                
+                                    formatted.append(f'{adjusted_level} {paragraph_num}')
+
                                 formatted.append('')  # Tom rad efter rubriken
-                                
+
                                 # Hitta resten av texten efter paragrafnumret i rensad rad
                                 rest_of_line = cleaned_line[len(paragraph_num):].strip()
                                 if rest_of_line:
@@ -270,26 +298,30 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                             formatted.append(original_line)
                 else:
                     if is_chapter_header(cleaned_line.strip()):
-                        # Hantera avdelningsrubriker
+                        # Hantera avdelningsrubriker - alltid nivå 2 (##)
+                        inside_avdelning = True
                         _add_header_with_blank_line(formatted, '##', original_line)
                     elif previous_line_empty:
                         # Kontrollera om raden börjar med paragrafnummer (använd rensad rad)
                         paragraph_match = re.match(r'^' + PARAGRAPH_PATTERN, cleaned_line)
                         if paragraph_match:
                             paragraph_num = paragraph_match.group(0)
-                            
+
                             # Extrahera markeringar från originalraden
                             markings = re.findall(TEMPORAL_MARKER_PATTERN, original_line)
-                            
+
+                            # Justera rubriknivå baserat på AVDELNING-kontext
+                            adjusted_level = _adjust_heading_level_for_avdelning('####', inside_avdelning)
+
                             # Skapa rubrik med bara markeringar och paragrafnummer
                             if markings:
                                 markings_str = ' '.join(markings)
-                                formatted.append(f'#### {markings_str} {paragraph_num}')
+                                formatted.append(f'{adjusted_level} {markings_str} {paragraph_num}')
                             else:
-                                formatted.append(f'#### {paragraph_num}')
-                            
+                                formatted.append(f'{adjusted_level} {paragraph_num}')
+
                             formatted.append('')  # Tom rad efter rubriken
-                            
+
                             # Hitta resten av texten efter paragrafnumret i rensad rad
                             rest_of_line = cleaned_line[len(paragraph_num):].strip()
                             if rest_of_line:
@@ -301,25 +333,30 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
             else:
                 # Hantera AVDELNING-rubriker och paragrafnummer som rubriker även när övriga kriterier inte uppfylls
                 if is_chapter_header(cleaned_line.strip()):
+                    # AVDELNING är alltid nivå 2 (##)
+                    inside_avdelning = True
                     _add_header_with_blank_line(formatted, '##', original_line)
                 elif previous_line_empty:
                     # Kontrollera om raden börjar med paragrafnummer (använd rensad rad)
                     paragraph_match = re.match(r'^' + PARAGRAPH_PATTERN, cleaned_line)
                     if paragraph_match:
                         paragraph_num = paragraph_match.group(0)
-                        
+
                         # Extrahera markeringar från originalraden
                         markings = re.findall(TEMPORAL_MARKER_PATTERN, original_line)
-                        
+
+                        # Justera rubriknivå baserat på AVDELNING-kontext
+                        adjusted_level = _adjust_heading_level_for_avdelning('####', inside_avdelning)
+
                         # Skapa rubrik med bara markeringar och paragrafnummer
                         if markings:
                             markings_str = ' '.join(markings)
-                            formatted.append(f'#### {markings_str} {paragraph_num}')
+                            formatted.append(f'{adjusted_level} {markings_str} {paragraph_num}')
                         else:
-                            formatted.append(f'#### {paragraph_num}')
-                        
+                            formatted.append(f'{adjusted_level} {paragraph_num}')
+
                         formatted.append('')  # Tom rad efter rubriken
-                        
+
                         # Hitta resten av texten efter paragrafnumret i rensad rad
                         rest_of_line = cleaned_line[len(paragraph_num):].strip()
                         if rest_of_line:
