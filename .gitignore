@@ -14,5 +14,4 @@ htmlcov/
 # Ignore output files
 logs/
 output/
-sfs-output/
 data/kommande.yaml

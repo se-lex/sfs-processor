@@ -21,7 +21,7 @@ pip install -r requirements.txt
 Konvertera JSON-filer med författningar till Markdown:
 
 ```bash
-python sfs_processor.py --input sfs_json --output SFS --formats md-markers
+python sfs_processor.py --input sfs_json --output output/md --formats md-markers
 ```
 
 ## Output-format
@@ -73,7 +73,7 @@ Nedladdade filer sparas som standard i katalogen `sfs_docs`. Du kan ange annan k
 Konvertera alla JSON-filer i en katalog till Markdown:
 
 ```bash
-python sfs_processor.py --input sfs_json --output SFS --formats md-markers
+python sfs_processor.py --input sfs_json --output output/md --formats md-markers
 ```
 
 ### Struktur av genererade Markdown-filer
@@ -175,7 +175,7 @@ För att se hur en lag såg ut vid ett specifikt datum:
 
 ```bash
 # Se hur lagen såg ut 2023-01-01
-python sfs_processor.py --input sfs_json --output SFS --formats md --target-date 2023-01-01
+python sfs_processor.py --input sfs_json --output output/md --formats md --target-date 2023-01-01
 ```
 
 Detta är användbart för att skapa historiska versioner eller för att förstå hur lagen såg ut vid en viss tidpunkt.

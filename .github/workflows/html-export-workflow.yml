@@ -48,9 +48,9 @@ jobs:
     - name: Generate HTML export
       run: |
         if [ -n "${{ inputs.filter }}" ]; then
-          python sfs_processor.py --input sfs_json --output SFS --formats html --filter "${{ inputs.filter }}"
+          python sfs_processor.py --input sfs_json --output output/html --formats html --filter "${{ inputs.filter }}"
         else
-          python sfs_processor.py --input sfs_json --output SFS --formats html
+          python sfs_processor.py --input sfs_json --output output/html --formats html
         fi
       env:
         PYTHONPATH: ${{ github.workspace }}
@@ -89,9 +89,9 @@ jobs:
         aws configure set region us-east-1
         aws configure set output json
 
-    - name: Upload SFS folder to Cloudflare R2
+    - name: Upload HTML folder to Cloudflare R2
       run: |
-        aws s3 sync SFS/ s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs/ \
+        aws s3 sync output/html/ s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs/ \
           --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
           --delete \
           --cache-control "public, max-age=3600" \

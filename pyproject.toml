@@ -60,6 +60,8 @@ omit = [
     "*/site-packages/*",
     ".venv/*",
     "venv/*",
+    "sfs_docs/*",
+    "output/*",
 ]
 
 [tool.coverage.report]

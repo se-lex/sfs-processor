@@ -32,7 +32,7 @@ jobs:
     - name: Run upcoming changes script
       run: |
         # Kör scriptet på markdown-katalogen för att uppdatera kommande.yaml
-        python temporal/upcoming_changes.py SFS/
+        python temporal/upcoming_changes.py output/md/
       env:
         PYTHONPATH: ${{ github.workspace }}
 
@@ -42,7 +42,7 @@ jobs:
         # Detta gör att vi kan hämta ikapp missade dagar om jobbet misslyckats
         eval $(python temporal/get_temporal_date_range.py)
         echo "Bearbetar temporal commits från $FROM_DATE till $TO_DATE"
-        python scripts/temporal_commits_batch.py SFS/ --from-date "$FROM_DATE" --to-date "$TO_DATE" --verbose
+        python scripts/temporal_commits_batch.py output/md/ --from-date "$FROM_DATE" --to-date "$TO_DATE" --verbose
       env:
         PYTHONPATH: ${{ github.workspace }}
         GIT_GITHUB_PAT: ${{ secrets.GITHUB_TOKEN }}
