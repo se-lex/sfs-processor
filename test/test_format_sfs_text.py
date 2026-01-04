@@ -9,7 +9,8 @@ from formatters.format_sfs_text import (
     normalize_heading_levels,
     parse_logical_sections,
     is_chapter_header,
-    generate_section_id
+    generate_section_id,
+    format_sfs_text_as_markdown
 )
 
 
@@ -456,3 +457,101 @@ class TestFormatSfsTextEdgeCases:
 
         assert result.count("## Section") == 3 or result.count("# Section") == 3
         assert "<section>" not in result
+
+
+# ===========================================================================
+# AVDELNING Integration Tests
+# ===========================================================================
+
+@pytest.mark.integration
+class TestAvdelningIntegration:
+    """Integration tests for AVDELNING document processing."""
+
+    def test_avdelning_document_formatting(self):
+        """Test that documents with AVDELNING structure are formatted correctly."""
+        # Sample text with AVDELNING structure (Roman numerals)
+        text = """AVDELNING I. INLEDANDE BESTÄMMELSER
+
+1 kap. Lagens innehåll
+
+1 §
+
+Denna lag innehåller bestämmelser om socialtjänsten.
+
+AVDELNING II. ALLMÄNNA BESTÄMMELSER
+
+2 kap. Socialnämndens ansvar
+
+1 §
+
+Varje kommun ska ha en socialnämnd."""
+
+        result = format_sfs_text_as_markdown(text)
+
+        # Verify AVDELNING headers are formatted as H2
+        assert "## AVDELNING I. INLEDANDE BESTÄMMELSER" in result
+        assert "## AVDELNING II. ALLMÄNNA BESTÄMMELSER" in result
+
+        # Verify chapter headers are present
+        assert "kap." in result
+
+        # Verify paragraph markers are present
+        assert "§" in result
+
+        # Verify content is preserved
+        assert "socialtjänsten" in result
+        assert "socialnämnd" in result
+
+    def test_avdelning_with_swedish_ordinals(self):
+        """Test AVDELNING with Swedish ordinal numbers."""
+        text = """FÖRSTA AVDELNING
+
+1 kap. Inledande bestämmelser
+
+1 §
+
+Första paragrafen.
+
+ANDRA AVDELNINGEN
+
+2 kap. Fortsättning
+
+1 §
+
+Andra paragrafen."""
+
+        result = format_sfs_text_as_markdown(text)
+
+        # Verify AVDELNING headers with Swedish ordinals are formatted
+        assert "## FÖRSTA AVDELNING" in result
+        assert "## ANDRA AVDELNINGEN" in result
+
+        # Verify structure is preserved
+        assert "kap." in result
+        assert "§" in result
+
+    def test_avdelning_sections_with_parse_logical_sections(self):
+        """Test that AVDELNING sections are properly tagged with parse_logical_sections."""
+        text = """AVDELNING I
+
+1 kap.
+
+1 §
+
+Content here."""
+
+        # First format as markdown
+        formatted = format_sfs_text_as_markdown(text)
+
+        # Then parse logical sections
+        result = parse_logical_sections(formatted)
+
+        # Verify section tags are present
+        assert "<section" in result
+        assert "</section>" in result
+
+        # Verify AVDELNING section has the correct CSS class
+        assert 'class="avdelning"' in result or 'class="forfattning avdelning"' in result
+
+        # Verify the AVDELNING header is still present
+        assert "AVDELNING I" in result
