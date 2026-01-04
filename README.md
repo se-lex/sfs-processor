@@ -30,7 +30,7 @@ Verktyget kan generera författningar i flera olika format, beroende på använd
 
 ### Markdown-format
 
-- **`md-markers`** (standard): Markdown med semantiska `<section>`-taggar och selex-attribut för juridisk status och temporal hantering
+- **`md-markers`** (förvalt): Markdown med semantiska `<section>`-taggar och selex-attribut för juridisk status och temporal hantering
 - **`md`**: Rena Markdown-filer med normaliserade rubriknivåer, lämpliga för visning och läsning
 
 ### Git-format
@@ -80,7 +80,7 @@ python sfs_processor.py --input sfs_json --output SFS --formats md-markers
 
 Beroende på vilket format du väljer får du olika strukturer:
 
-#### Format: `md-markers` (standard)
+#### Format: `md-markers` (förvalt)
 
 Markdown-filer med bevarad semantisk struktur genom `<section>`-taggar:
 
@@ -156,7 +156,7 @@ Dessa attribut används automatiskt av systemets datumfiltrering för att skapa 
 
 Systemet hanterar temporal processing (tidsbaserad filtrering) olika beroende på vilket format som används:
 
-- **`md-markers`** (standard): Bevarar selex-taggar och hoppar över temporal processing. Detta gör att alla temporal attribut behålls för senare bearbetning. Rekommenderas för att bevara all juridisk metadata.
+- **`md-markers`** (förvalt): Bevarar selex-taggar och hoppar över temporal processing. Detta gör att alla temporal attribut behålls för senare bearbetning. Rekommenderas för att bevara all juridisk metadata.
 
 - **`md`**: Tillämpar temporal processing med **dagens datum som målpunkt**. Detta är viktigt att förstå:
   - Upphävda bestämmelser (med `selex:upphor_datum` före dagens datum) tas bort
