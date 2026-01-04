@@ -241,15 +241,5 @@ Se [CONTRIBUTING.md](CONTRIBUTING.md) för mer information om hur du kan hjälpa
 
 ## Licens
 
-Projektet är licensierat under **Business Source License 1.1 (BSL 1.1)**.
-
-### Sammanfattning
-
-- ✅ **Fritt att använda** för icke-produktionssyfte
-- ✅ **Fritt att modifiera och distribuera**
-- ✅ **Övergår automatiskt till MIT-licens** 2029-01-01
-- ⚠️ **Produktionsanvändning kräver kommersiell licens** (kontakta martin@marca.se)
-- 🤖 **AI-träningsanvändning kräver explicit tillstånd**
-
-Se [LICENSE](LICENSE)-filen för fullständiga villkor.
+Projektet är licensierat under **Business Source License 1.1 (BSL 1.1)**. Se [LICENSE](LICENSE)-filen för fullständiga villkor.
 

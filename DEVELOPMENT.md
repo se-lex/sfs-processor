@@ -264,7 +264,7 @@ Om du vill lägga till support för ett nytt format (t.ex. PDF):
 För att integrera en ny källa (t.ex. annan myndighet):
 
 1. **Skapa downloader**: `downloaders/download_<källa>.py`
-2. **Mappa till JSON**: Konvertera till samma JSON-schema som Riksdagen
+2. **Mappa till JSON**: Konvertera till samma JSON-schema som RK
 3. **Testa**: Verifiera att befintliga formatters fungerar
 4. **Dokumentera**: Uppdatera dokumentation
 
@@ -450,6 +450,6 @@ Vid frågor eller problem:
 
 1. Kolla [README.md](README.md) för grundläggande användning
 2. Läs [CONTRIBUTING.md](CONTRIBUTING.md) för bidragsriktlinjer
-3. Sök i [GitHub Issues](https://github.com/yourusername/sfs-processor/issues)
+3. Sök i [GitHub Issues](https://github.com/se-lex/sfs-processor/issues)
 4. Öppna ett nytt issue om problemet kvarstår
 
