@@ -35,6 +35,14 @@ dev = [
 [project.scripts]
 sfs-processor = "sfs_processor:main"
 
+[tool.setuptools]
+py-modules = ["sfs_processor"]
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["formatters*", "exporters*", "temporal*", "downloaders*", "util*", "scripts*"]
+exclude = ["test*", "logs*", "data*", "reports*", "output*", "sfs_docs*"]
+
 [tool.ruff]
 line-length = 120
 target-version = "py310"
