@@ -4,7 +4,7 @@ Det här dokumentet ger en djupare översikt över projektets arkitektur, kodstr
 
 ## Projektöversikt
 
-`sfs-processor` är ett verktyg för att konvertera svensk lagstiftningsdata (Svensk författningssamling) från JSON-format till olika output-format inklusive Markdown, HTML och Git-repositories.
+`sfs-processor` är ett verktyg för att konvertera svensk lagstiftningsdata (Svensk författningssamling) från JSON-format till olika output-format inklusive Markdown-filer, HTML-filer och Git-commits.
 
 ### Huvudfunktioner
 
@@ -13,6 +13,86 @@ Det här dokumentet ger en djupare översikt över projektets arkitektur, kodstr
 - Generera HTML med temporal hantering av ändringar
 - Exportera till Git-repositories med historik
 - Hantera temporala aspekter av lagstiftning (giltighetstider, ändringar)
+
+## Kom igång
+
+### Installation för bidragsgivare
+
+Om du vill bidra till projektet:
+
+1. **Forka repositoryt** på GitHub
+2. **Klona din fork** lokalt:
+   ```bash
+   git clone https://github.com/ditt-användarnamn/sfs-processor.git
+   cd sfs-processor
+   ```
+3. **Skapa virtuell miljö** (rekommenderat):
+   ```bash
+   python -m venv venv
+   source venv/bin/activate  # På Windows: venv\Scripts\activate
+   ```
+4. **Installera dependencies**:
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+För bidragsprocess, se [CONTRIBUTING.md](CONTRIBUTING.md).
+
+### Köra tester
+
+**Alla tester**:
+```bash
+python -m pytest test/ -v
+```
+
+**Enskilda testfiler**:
+```bash
+python test/test_title_temporal.py
+```
+
+**Med coverage**:
+```bash
+pip install pytest-cov
+python -m pytest test/ --cov=. --cov-report=html
+```
+
+### Köra lokalt
+
+**Processa ett dokument**:
+```bash
+python sfs_processor.py data/test_docs/sfs-2023-123.json --output md
+```
+
+**Ladda ner testdokument**:
+```bash
+python downloaders/download_sfs_docs.py --year 2023 --number 123
+```
+
+**Verbose mode** för detaljerad loggning:
+```bash
+python sfs_processor.py input.json --output md --verbose
+```
+
+### Miljövariabler
+
+Skapa en `.env`-fil för lokal utveckling:
+
+```bash
+# GitHub (för Git-export)
+GIT_GITHUB_PAT=ghp_your_personal_access_token
+
+# Cloudflare R2 (för HTML-export)
+CLOUDFLARE_R2_ACCESS_KEY_ID=your_access_key
+CLOUDFLARE_R2_SECRET_ACCESS_KEY=your_secret_key
+CLOUDFLARE_R2_BUCKET_NAME=your_bucket
+CLOUDFLARE_R2_ACCOUNT_ID=your_account_id
+
+# HTML (ELI) konfiguration
+ELI_HOST=selex.se
+INTERNAL_LINKS_BASE_URL=https://selex.se/eli
+```
+
+**OBS**: `.env`-filen är listad i `.gitignore` och ska ALDRIG committas.
 
 ## Arkitektur
 
@@ -145,65 +225,17 @@ sfs-processor/
 **`apply_temporal.py`**:
 - Applicera temporala regler på dokument
 - Filtrera innehåll baserat på target_date
-- Hantera `<selex:...>` attribut (start-/slutdatum för textstycken)
+- Hantera `selex:...` attribut för temporal information
 
 **Exempel på temporal attribut**:
 ```markdown
-<selex:startdate>2024-01-01</selex:startdate>
-Denna text gäller från 2024-01-01
-<selex:enddate>2024-12-31</selex:enddate>
-```
+<section selex:ikraft_datum="2024-01-01" selex:upphor_datum="2024-12-31">
+Denna text gäller från 2024-01-01 till 2024-12-31
+</section>
 
-## Utvecklingsmiljö
-
-### Setup
-
-1. Klona repositoryt
-2. Skapa virtuell miljö: `python -m venv venv`
-3. Aktivera: `source venv/bin/activate`
-4. Installera dependencies: `pip install -r requirements.txt`
-
-### Miljövariabler
-
-Skapa en `.env`-fil för lokal utveckling:
-
-```bash
-# GitHub (för Git-export)
-GIT_GITHUB_PAT=ghp_your_personal_access_token
-
-# Cloudflare R2 (för HTML-export)
-CLOUDFLARE_R2_ACCESS_KEY_ID=your_access_key
-CLOUDFLARE_R2_SECRET_ACCESS_KEY=your_secret_key
-CLOUDFLARE_R2_BUCKET_NAME=your_bucket
-CLOUDFLARE_R2_ACCOUNT_ID=your_account_id
-
-# ELI konfiguration
-ELI_HOST=selex.se
-INTERNAL_LINKS_BASE_URL=https://selex.se/eli
-```
-
-**OBS**: `.env`-filen är listad i `.gitignore` och ska ALDRIG committas.
-
-### Köra lokalt
-
-**Processa ett dokument**:
-```bash
-python sfs_processor.py data/test_docs/sfs-2023-123.json --output md
-```
-
-**Ladda ner testdokument**:
-```bash
-python downloaders/download_sfs_docs.py --year 2023 --number 123
-```
-
-**Kör alla tester**:
-```bash
-python -m pytest test/ -v
-```
-
-**Kör specifikt test**:
-```bash
-python test/test_title_temporal.py
+<section selex:status="upphavd" selex:upphavd="true">
+Denna text är upphävd
+</section>
 ```
 
 ## Arbetsflöde för utveckling
@@ -317,6 +349,21 @@ python -m pytest test/ --cov=. --cov-report=html
 - Temporal förhandsvisning
 
 ## Kodkonventioner
+
+### Allmänna riktlinjer
+
+Projektet följer **PEP 8-standarden** för Python-kod:
+
+- **Indentering**: 4 mellanslag (inga tabs)
+- **Radlängd**: Max 100 tecken (flexibelt för långa strängar)
+- **Variabelnamn**: Använd beskrivande namn (`document_data` istället för `dd`)
+- **Svenska termer**: OK för domänspecifika begrepp (t.ex. `beteckning`, `författning`, `paragraf`)
+- **Kommentarer**: Kommentera komplex logik, inte uppenbar kod
+- **Docstrings**: Alla publika funktioner måste ha docstrings som beskriver:
+  - Vad funktionen gör
+  - Parametrar och deras typer
+  - Returvärde
+  - Eventuella exceptions som kastas
 
 ### Namngivning
 

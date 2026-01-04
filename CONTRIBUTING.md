@@ -1,66 +1,15 @@
-# Bidra till SFS-Processor
+# Bidra till sfs-processor
 
-Tack för ditt intresse att bidra till SFS-Processor! Det här dokumentet beskriver hur du kan hjälpa till med utvecklingen.
+Tack för ditt intresse att bidra till sfs-processor! Det här dokumentet beskriver hur du kan hjälpa till.
 
-## Kom igång
+## Snabbstart
 
-### Förutsättningar
+1. **Forka och klona** repositoryt
+2. **Installera**: `pip install -r requirements.txt`
+3. **Testa**: `python -m pytest test/ -v`
+4. **Läs**: [DEVELOPMENT.md](DEVELOPMENT.md) för teknisk dokumentation
 
-- Python 3.11 eller senare
-- Git
-- Grundläggande kunskaper om Python och Markdown
-
-### Installera utvecklingsmiljö
-
-1. Forka repositoryt på GitHub
-2. Klona din fork lokalt:
-   ```bash
-   git clone https://github.com/se-lex/sfs-processor.git
-   cd sfs-processor
-   ```
-
-3. Skapa en virtuell miljö (rekommenderat):
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # På Windows: venv\Scripts\activate
-   ```
-
-4. Installera dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-## Utvecklingsmiljö
-
-### Installation av dependencies
-
-Projektet har minimala beroenden som specificeras i `requirements.txt`:
-```bash
-pip install -r requirements.txt
-```
-
-### Köra tester
-
-Kör alla tester med:
-```bash
-python -m pytest test/ -v
-```
-
-Enskilda testfiler kan köras direkt:
-```bash
-python test/test_title_temporal.py
-```
-
-### Kodstil
-
-Projektet följer PEP 8-standarden för Python-kod. Några specifika riktlinjer:
-
-- Använd 4 mellanslag för indentering (inga tabs)
-- Maximal radlängd: 100 tecken (flexibelt för långa strängar)
-- Använd beskrivande variabelnamn
-- Svenska termer är OK för domänspecifika begrepp (t.ex. "beteckning", "författning")
-- Kommentera komplex logik
-- Docstrings för alla publika funktioner
+För detaljerad setup och utvecklingsmiljö, se [DEVELOPMENT.md](DEVELOPMENT.md).
 
 ## Bidra med kod
 
@@ -144,23 +93,14 @@ ValueError: Cannot process empty chapter
 
 ## Kodstandard
 
-### Allmänna riktlinjer
+Projektet följer **PEP 8-standarden**. Huvudriktlinjer:
 
-- **PEP 8**: Följ Python Enhancement Proposal 8 för kodstil
-- **Variabelnamn**: Använd beskrivande namn (`document_data` istället för `dd`)
-- **Svenska termer**: OK att använda för juridiska/domänspecifika termer (t.ex. `beteckning`, `författning`, `paragraf`)
-- **Kommentarer**: Kommentera komplex logik, inte uppenbar kod
-- **Docstrings**: Alla publika funktioner ska ha docstrings som beskriver:
-  - Vad funktionen gör
-  - Parametrar och deras typer
-  - Returvärde
-  - Eventuella exceptions som kastas
+- 4 mellanslag för indentering
+- Max 100 tecken per rad
+- Beskrivande variabelnamn
+- Docstrings för alla publika funktioner
 
-## Licens
-
-Genom att bidra till SFS-Processor accepterar du att ditt bidrag licensieras under **Business Source License 1.1** (samma licens som resten av projektet).
-
-Se [LICENSE](LICENSE)-filen för fullständiga villkor. Observera att projektet övergår till MIT-licens 2029-01-01.
+För fullständiga kodkonventioner, se [DEVELOPMENT.md](DEVELOPMENT.md#kodkonventioner).
 
 ## Frågor?
 
