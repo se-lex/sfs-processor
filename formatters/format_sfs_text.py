@@ -499,12 +499,13 @@ def parse_logical_sections(text: str) -> str:
     lines = text.split('\n')
     result = []
     current_section = []
-    section_stack = []  # Stack för att hålla koll på nestlade sektioner
+    section_stack = []  # Stack för att hålla koll på nestlade sektioner: [(actual_level, effective_level), ...]
     parent_stack = []  # Stack för att hålla koll på föräldrasektioner: [(level, section_id), ...]
+    inside_avdelning = False  # Flagga för att spåra om vi är inuti en AVDELNING-sektion
 
     def close_sections_to_level(target_level):
         """Stäng alla sektioner ner till målnivån"""
-        nonlocal section_stack, result, parent_stack
+        nonlocal section_stack, result, parent_stack, inside_avdelning
         while section_stack and section_stack[-1] >= target_level:
             # Lägg endast till en tom rad före </section> taggen om den sista raden inte redan är tom
             if result and result[-1].strip() != '':
@@ -714,17 +715,38 @@ def parse_logical_sections(text: str) -> str:
 
         if header_match:
             header_level = len(header_match.group(1))  # Antal # tecken
+            header_text = header_match.group(2)
+
+            # Kontrollera om detta är en AVDELNING-rubrik
+            is_avdelning_header = header_level == 2 and is_chapter_header(header_text)
 
             # Om vi har en pågående sektion, bearbeta den först
             if current_section:
                 process_current_section()
 
-            # Stäng sektioner som är på samma eller djupare nivå
-            close_sections_to_level(header_level)
+            # Specialhantering för AVDELNING och KAPITEL:
+            # Allt inuti en AVDELNING får sin nivå ökad med +1 för korrekt nesting
+            effective_level = header_level
+
+            if is_avdelning_header:
+                # Ny AVDELNING: stäng eventuell tidigare AVDELNING (level 2)
+                close_sections_to_level(2)
+                inside_avdelning = True
+                effective_level = 2
+            elif inside_avdelning:
+                # Inuti AVDELNING: öka nivån med +1 för alla rubriker
+                # H2 (KAPITEL) blir level 3, H3 blir level 4, etc.
+                effective_level = header_level + 1
+            else:
+                # Utanför AVDELNING: normal nivå
+                effective_level = header_level
+
+            # Stäng sektioner baserat på effektiv nivå
+            close_sections_to_level(effective_level)
 
             # Starta ny sektion
             current_section = [line]
-            section_stack.append(header_level)
+            section_stack.append(effective_level)
 
         else:
             # Lägg till raden till nuvarande sektion
