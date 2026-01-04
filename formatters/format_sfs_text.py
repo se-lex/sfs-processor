@@ -926,8 +926,34 @@ def generate_section_id(header_text: str, parent_id: str = None) -> str:
         kapitel_num = kapitel_match.group(1)
         kapitel_letter = kapitel_match.group(2) if kapitel_match.group(2) else ''
         return f"kap{kapitel_num}{kapitel_letter.lower()}"
-    
-    # Om inget paragrafnummer eller kapitel, skapa slug från rubriken
+
+    # Kontrollera om det är en AVDELNING (Pattern 1: AVDELNING I, AVD. II, etc.)
+    division_match_1 = re.match(r'^(?:AVDELNING|AVD\.)\s*([IVX]+)', cleaned_header, re.IGNORECASE)
+    if division_match_1:
+        # Konvertera romerska siffror till arabiska
+        roman = division_match_1.group(1).upper()
+        roman_to_arabic = {
+            'I': 1, 'II': 2, 'III': 3, 'IV': 4, 'V': 5,
+            'VI': 6, 'VII': 7, 'VIII': 8, 'IX': 9, 'X': 10
+        }
+        number = roman_to_arabic.get(roman, roman.lower())
+        return f"avd{number}"
+
+    # Kontrollera om det är en AVDELNING (Pattern 2: FÖRSTA AVDELNING, ANDRA AVDELNINGEN, etc.)
+    division_match_2 = re.match(DIVISION_PATTERN_2, cleaned_header, re.IGNORECASE)
+    if division_match_2:
+        # Mappa svenska ordningstal till arabiska siffror
+        ordinal_map = {
+            'första': 1, 'andra': 2, 'tredje': 3, 'fjärde': 4,
+            'femte': 5, 'sjätte': 6, 'sjunde': 7, 'åttonde': 8,
+            'nionde': 9, 'tionde': 10
+        }
+        # Extrahera ordningstalet (första ordet)
+        ordinal_word = cleaned_header.split()[0].lower()
+        number = ordinal_map.get(ordinal_word, ordinal_word)
+        return f"avd{number}"
+
+    # Om inget paragrafnummer, kapitel eller avdelning, skapa slug från rubriken
     # Ta bort alla icke-alfanumeriska tecken och ersätt med bindestreck
     slug = re.sub(r'[^\w\s-]', '', cleaned_header)
     slug = re.sub(r'\s+', '-', slug)

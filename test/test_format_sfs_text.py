@@ -375,6 +375,20 @@ class TestGenerateSectionId:
         with pytest.raises(ValueError):
             generate_section_id("")
 
+    def test_generate_id_from_avdelning_roman(self):
+        """Test generating ID from AVDELNING with Roman numerals."""
+        assert generate_section_id("AVDELNING I") == "avd1"
+        assert generate_section_id("AVDELNING II. Allmänna bestämmelser") == "avd2"
+        assert generate_section_id("AVD. III") == "avd3"
+        assert generate_section_id("AVDELNING IV. INSATSER TILL ENSKILDA") == "avd4"
+
+    def test_generate_id_from_avdelning_swedish(self):
+        """Test generating ID from AVDELNING with Swedish ordinals."""
+        assert generate_section_id("FÖRSTA AVDELNING") == "avd1"
+        assert generate_section_id("ANDRA AVDELNINGEN") == "avd2"
+        assert generate_section_id("TREDJE AVD.") == "avd3"
+        assert generate_section_id("FJÄRDE AVDELNING. Titel här") == "avd4"
+
 
 # ===========================================================================
 # Edge Cases
