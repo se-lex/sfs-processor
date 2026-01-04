@@ -950,7 +950,8 @@ def generate_section_id(header_text: str, parent_id: str = None) -> str:
         return f"kap{kapitel_num}{kapitel_letter.lower()}"
 
     # Kontrollera om det är en AVDELNING (Pattern 1: AVDELNING I, AVD. II, etc.)
-    division_match_1 = re.match(r'^(?:AVDELNING|AVD\.)\s*([IVX]+)', cleaned_header, re.IGNORECASE)
+    # Endast versaler matchas för att skilja från referenser i "Lagens disposition"
+    division_match_1 = re.match(r'^(?:AVDELNING|AVD\.)\s*([IVX]+)', cleaned_header)
     if division_match_1:
         # Konvertera romerska siffror till arabiska
         roman = division_match_1.group(1).upper()
@@ -962,7 +963,8 @@ def generate_section_id(header_text: str, parent_id: str = None) -> str:
         return f"avd{number}"
 
     # Kontrollera om det är en AVDELNING (Pattern 2: FÖRSTA AVDELNING, ANDRA AVDELNINGEN, etc.)
-    division_match_2 = re.match(DIVISION_PATTERN_2, cleaned_header, re.IGNORECASE)
+    # Endast versaler matchas för att skilja från referenser i "Lagens disposition"
+    division_match_2 = re.match(DIVISION_PATTERN_2, cleaned_header)
     if division_match_2:
         # Mappa svenska ordningstal till arabiska siffror
         ordinal_map = {
@@ -1073,7 +1075,7 @@ def is_chapter_header(line: str) -> bool:
     if not line:
         return False
     
-    # Mönster 1: AVDELNING/AVD. följt av romerska siffror
-    # Mönster 2: Svenska ordningstal följt av AVDELNING/AVD.
-    return (re.match(DIVISION_PATTERN_1, line, re.IGNORECASE) is not None or 
-            re.match(DIVISION_PATTERN_2, line, re.IGNORECASE) is not None)
+    # Mönster 1: AVDELNING/AVD. följt av romerska siffror (endast versaler)
+    # Mönster 2: Svenska ordningstal följt av AVDELNING/AVD. (endast versaler)
+    return (re.match(DIVISION_PATTERN_1, line) is not None or
+            re.match(DIVISION_PATTERN_2, line) is not None)
