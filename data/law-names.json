@@ -94,6 +94,12 @@
     "category": "Speciell avtalsrätt"
   },
   {
+    "id": "1941:967",
+    "name": "värnpliktslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
     "id": "1942:740",
     "name": "rättegångsbalken",
     "type": "law",
@@ -127,6 +133,12 @@
       "FB"
     ],
     "category": "Familjerätt"
+  },
+  {
+    "id": "1955:183",
+    "name": "bankrörelselagen",
+    "type": "law",
+    "alternativeNames": []
   },
   {
     "id": "1957:259",
@@ -178,6 +190,12 @@
     "category": "Immaterialrätt"
   },
   {
+    "id": "1962:661",
+    "name": "cialförsäkringsbalken",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "1962:700",
     "name": "brottsbalken",
     "type": "law",
@@ -202,9 +220,27 @@
     "category": "Sakrätt"
   },
   {
+    "id": "1964:822",
+    "name": "naturvårdslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1965:745",
+    "name": "studiemedelsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "1966:209",
     "name": "virkesmätningslagen",
     "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1967:270",
+    "name": "skolförordningen",
+    "type": "regulation",
     "alternativeNames": []
   },
   {
@@ -417,6 +453,12 @@
     "alternativeNames": []
   },
   {
+    "id": "1973:531",
+    "name": "bostadssaneringslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
     "id": "1974:152",
     "name": "regeringsformen",
     "type": "law",
@@ -510,6 +552,12 @@
     "id": "1975:635",
     "name": "räntelagen",
     "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1975:927",
+    "name": "fartygsregisterförordningen",
+    "type": "regulation",
     "alternativeNames": []
   },
   {
@@ -609,6 +657,12 @@
     "category": "Skatterätt"
   },
   {
+    "id": "1979:1196",
+    "name": "jordbruksbokföringslagen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "1979:189",
     "name": "bötesverkställighetslagen",
     "type": "law",
@@ -627,11 +681,23 @@
     "alternativeNames": []
   },
   {
+    "id": "1979:412",
+    "name": "indelningslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
     "id": "1979:429",
     "name": "skogsvårdslagen",
     "type": "law",
     "alternativeNames": [],
     "category": "Speciell förvaltningsrätt"
+  },
+  {
+    "id": "1979:748",
+    "name": "fondkommissionslagen",
+    "type": "law",
+    "alternativeNames": []
   },
   {
     "id": "1980:100",
@@ -644,6 +710,12 @@
   {
     "id": "1980:152",
     "name": "containerlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1980:565",
+    "name": "ningslagen",
     "type": "law",
     "alternativeNames": []
   },
@@ -661,6 +733,12 @@
     "type": "law",
     "alternativeNames": [],
     "category": "Fordringsrätt"
+  },
+  {
+    "id": "1981:1361",
+    "name": "hemförsäljningslagen",
+    "type": "law",
+    "alternativeNames": []
   },
   {
     "id": "1981:774",
@@ -709,8 +787,44 @@
     "category": "Arbetsrätt"
   },
   {
+    "id": "1983:447",
+    "name": "kommunalskattelagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1983:850",
+    "name": "uppbördslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
     "id": "1983:929",
     "name": "mönstringslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1983:945",
+    "name": "vattenlagen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "1984:110",
+    "name": "omplaceringsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "1984:1118",
+    "name": "vuxenutbildningslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1984:272",
+    "name": "civilförsvarslagen",
     "type": "law",
     "alternativeNames": []
   },
@@ -762,6 +876,12 @@
     ]
   },
   {
+    "id": "1985:288",
+    "name": "vuxenutbildningsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "1985:716",
     "name": "konsumenttjänstlagen",
     "type": "law",
@@ -769,6 +889,42 @@
       "KTjL"
     ],
     "category": "Speciell avtalsrätt"
+  },
+  {
+    "id": "1985:894",
+    "name": "kommunalförbundslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1986:300",
+    "name": "sjötrafikförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "1986:357",
+    "name": "tullförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "1986:617",
+    "name": "utsökningslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1986:678",
+    "name": "utsökningsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "1987:1068",
+    "name": "tulltaxeförordningen",
+    "type": "law",
+    "alternativeNames": []
   },
   {
     "id": "1987:11",
@@ -794,11 +950,23 @@
     "alternativeNames": []
   },
   {
+    "id": "1987:618",
+    "name": "bankaktiebolagslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
     "id": "1987:619",
     "name": "sparbankslagen",
     "type": "law",
     "alternativeNames": [],
     "category": "Ekonomisk rätt"
+  },
+  {
+    "id": "1987:620",
+    "name": "föreningsbankslagen",
+    "type": "law",
+    "alternativeNames": []
   },
   {
     "id": "1987:672",
@@ -810,12 +978,24 @@
     "category": "Processrätt"
   },
   {
+    "id": "1987:743",
+    "name": "gymnasieförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "1987:822",
     "name": "",
     "type": "law",
     "alternativeNames": [
       "CISG"
     ]
+  },
+  {
+    "id": "1988:180",
+    "name": "församlingslagen",
+    "type": "law",
+    "alternativeNames": []
   },
   {
     "id": "1988:220",
@@ -846,6 +1026,18 @@
     ]
   },
   {
+    "id": "1988:950",
+    "name": "kulturmiljölagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1989:844",
+    "name": "aktiekontolagen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "1989:978",
     "name": "prisregleringslagen",
     "type": "law",
@@ -854,6 +1046,12 @@
   {
     "id": "1990:1144",
     "name": "begravningslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1990:137",
+    "name": "tullregisterlagen",
     "type": "law",
     "alternativeNames": []
   },
@@ -872,6 +1070,12 @@
     "alternativeNames": [
       "LVU"
     ]
+  },
+  {
+    "id": "1990:524",
+    "name": "presstödsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
   },
   {
     "id": "1990:746",
@@ -933,6 +1137,18 @@
     "category": "Statsrätt"
   },
   {
+    "id": "1991:1559",
+    "name": "grundlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1991:1870",
+    "name": "sjömansskattelagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
     "id": "1991:45",
     "name": "minerallagen",
     "type": "law",
@@ -967,6 +1183,12 @@
     "alternativeNames": [
       "BRL"
     ]
+  },
+  {
+    "id": "1991:742",
+    "name": "byggnadslagen",
+    "type": "law",
+    "alternativeNames": []
   },
   {
     "id": "1991:900",
@@ -1022,9 +1244,21 @@
     ]
   },
   {
+    "id": "1992:300",
+    "name": "kyrkolagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
     "id": "1992:497",
     "name": "lönegarantilagen",
     "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1993:1199",
+    "name": "fastighetstaxeringsförordningen",
+    "type": "regulation",
     "alternativeNames": []
   },
   {
@@ -1077,11 +1311,25 @@
     ]
   },
   {
+    "id": "1994:1194",
+    "name": "dskoleförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "1994:1220",
     "name": "stiftelselagen",
     "type": "law",
     "alternativeNames": [],
     "category": "Associationsrätt"
+  },
+  {
+    "id": "1994:1512",
+    "name": "",
+    "type": "law",
+    "alternativeNames": [
+      "AVLK"
+    ]
   },
   {
     "id": "1994:193",
@@ -1125,14 +1373,6 @@
     ]
   },
   {
-    "id": "1994:1512",
-    "name": "",
-    "type": "law",
-    "alternativeNames": [
-      "AVLK"
-    ]
-  },
-  {
     "id": "1995:1000",
     "name": "pantbankslagen",
     "type": "law",
@@ -1148,6 +1388,12 @@
     ]
   },
   {
+    "id": "1995:1325",
+    "name": "beslutsordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "1995:1554",
     "name": "årsredovisningslagen",
     "type": "law",
@@ -1157,6 +1403,18 @@
     "category": "Associationsrätt"
   },
   {
+    "id": "1995:1559",
+    "name": "värdepappersbolagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1995:206",
+    "name": "särskoleförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "1995:400",
     "name": "fastighetsmäklarlagen",
     "type": "law",
@@ -1164,18 +1422,17 @@
     "category": "Sakrätt"
   },
   {
+    "id": "1995:401",
+    "name": "specialskoleförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "1995:584",
     "name": "föräldraledighetslagen",
     "type": "law",
     "alternativeNames": [],
     "category": "Familjerätt"
-  },
-  {
-    "id": "1996:242",
-    "name": "ärendelagen",
-    "type": "law",
-    "alternativeNames": [],
-    "category": "Processrätt"
   },
   {
     "id": "1996:1596",
@@ -1188,6 +1445,13 @@
     "name": "rättshjälpslagen",
     "type": "law",
     "alternativeNames": []
+  },
+  {
+    "id": "1996:242",
+    "name": "ärendelagen",
+    "type": "law",
+    "alternativeNames": [],
+    "category": "Processrätt"
   },
   {
     "id": "1996:627",
@@ -1376,6 +1640,18 @@
     "category": "Speciell förvaltningsrätt"
   },
   {
+    "id": "2000:1086",
+    "name": "insiderlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2000:1101",
+    "name": "marknadsmissbruksförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "2000:1281",
     "name": "tullagen",
     "type": "law",
@@ -1389,6 +1665,12 @@
       "SAL"
     ],
     "category": "Skatterätt"
+  },
+  {
+    "id": "2001:1113",
+    "name": "socialförsäkrings-balken",
+    "type": "law",
+    "alternativeNames": []
   },
   {
     "id": "2001:1227",
@@ -1428,6 +1710,12 @@
     "category": "Speciell förvaltningsrätt"
   },
   {
+    "id": "2002:599",
+    "name": "rättegångbalken",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
     "id": "2003:234",
     "name": "",
     "type": "law",
@@ -1457,6 +1745,12 @@
     ]
   },
   {
+    "id": "2003:438",
+    "name": "fartygssäkerhetsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "2003:778",
     "name": "",
     "type": "law",
@@ -1481,6 +1775,12 @@
     "category": "Marknadsrätt"
   },
   {
+    "id": "2004:368",
+    "name": "bolagsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "2004:451",
     "name": "produktsäkerhetslagen",
     "type": "law",
@@ -1493,6 +1793,12 @@
     "type": "law",
     "alternativeNames": [],
     "category": "Speciell förvaltningsrätt"
+  },
+  {
+    "id": "2004:660",
+    "name": "vattenförvaltningsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
   },
   {
     "id": "2005:104",
@@ -1517,6 +1823,12 @@
       "ABL"
     ],
     "category": "Associationsrätt"
+  },
+  {
+    "id": "2005:559",
+    "name": "aktieboken",
+    "type": "regulation",
+    "alternativeNames": []
   },
   {
     "id": "2005:59",
@@ -1571,11 +1883,23 @@
     "alternativeNames": []
   },
   {
+    "id": "2007:224",
+    "name": "högskoleförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "2007:612",
     "name": "bidragsbrottslagen",
     "type": "law",
     "alternativeNames": [],
     "category": "Straffrätt"
+  },
+  {
+    "id": "2007:90",
+    "name": "vägmärkesförordningen",
+    "type": "regulation",
+    "alternativeNames": []
   },
   {
     "id": "2008:263",
@@ -1616,6 +1940,18 @@
     "id": "2008:717",
     "name": "FRA-lagen",
     "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2009:1165",
+    "name": "barlastvattenlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2009:212",
+    "name": "militärtrafikförordningen",
+    "type": "regulation",
     "alternativeNames": []
   },
   {
@@ -1673,21 +2009,16 @@
     "category": "Speciell förvaltningsrätt"
   },
   {
-    "id": "2010:610",
-    "name": "fängelselagen",
-    "type": "law",
-    "alternativeNames": [],
-    "category": "Straffrätt"
+    "id": "2010:1369",
+    "name": "patientsäkerhetsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
   },
   {
-    "id": "2010:900",
-    "name": "plan- och bygglagen",
-    "type": "law",
-    "alternativeNames": [
-      "PBL",
-      "bygglagen"
-    ],
-    "category": "Allmän förvaltningsrätt"
+    "id": "2010:1579",
+    "name": "arbetsordningen",
+    "type": "regulation",
+    "alternativeNames": []
   },
   {
     "id": "2010:1622",
@@ -1705,6 +2036,53 @@
     "category": "Allmän avtalsrätt"
   },
   {
+    "id": "2010:2010",
+    "name": "fängelseförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2010:2043",
+    "name": "ringsrörelselagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2010:610",
+    "name": "fängelselagen",
+    "type": "law",
+    "alternativeNames": [],
+    "category": "Straffrätt"
+  },
+  {
+    "id": "2010:611",
+    "name": "häkteslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2010:659",
+    "name": "patientlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2010:770",
+    "name": "luftfartsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2010:900",
+    "name": "plan- och bygglagen",
+    "type": "law",
+    "alternativeNames": [
+      "PBL",
+      "bygglagen"
+    ],
+    "category": "Allmän förvaltningsrätt"
+  },
+  {
     "id": "2011:1244",
     "name": "skatteförfarandelagen",
     "type": "law",
@@ -1712,6 +2090,102 @@
       "SFL"
     ],
     "category": "Skatterätt"
+  },
+  {
+    "id": "2011:1261",
+    "name": "skatteförfarandeförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2011:13",
+    "name": "tillsynsboken",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2011:131",
+    "name": "sameskolförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2011:203",
+    "name": "budgetlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2011:210",
+    "name": "kapitalförsörjningsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2011:257",
+    "name": "försäkringsrörelseförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2011:594",
+    "name": "varumärkesförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2011:668",
+    "name": "fastighetsboken",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2011:927",
+    "name": "avfallsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2012:145",
+    "name": "kustbevakningsdatalagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2012:179",
+    "name": "strafflagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2012:211",
+    "name": "taxitrafiklagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2012:237",
+    "name": "trafikförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2012:238",
+    "name": "taxitrafikförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2013:250",
+    "name": "industriutsläppsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2013:251",
+    "name": "miljöprövningsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
   },
   {
     "id": "2013:561",
@@ -1729,6 +2203,18 @@
     "category": "Speciell förvaltningsrätt"
   },
   {
+    "id": "2015:433",
+    "name": "åklagardatalagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2015:503",
+    "name": "anställningsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
     "id": "2016:1145",
     "name": "",
     "type": "law",
@@ -1737,12 +2223,42 @@
     ]
   },
   {
+    "id": "2016:30",
+    "name": "utlänningsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2016:964",
+    "name": "konkurrensskadelagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
     "id": "2017:30",
     "name": "",
     "type": "law",
     "alternativeNames": [
       "HSL"
     ]
+  },
+  {
+    "id": "2017:447",
+    "name": "tullbrottsdatalagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2017:452",
+    "name": "skattebrottsdatalagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2017:808",
+    "name": "vapenförordningen",
+    "type": "regulation",
+    "alternativeNames": []
   },
   {
     "id": "2017:900",
@@ -1754,6 +2270,43 @@
     "category": "Allmän förvaltningsrätt"
   },
   {
+    "id": "2017:966",
+    "name": "miljöbedömningsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:1174",
+    "name": "cybersäkerhetslagen",
+    "type": "law",
+    "alternativeNames": [],
+    "category": "IT-rätt"
+  },
+  {
+    "id": "2018:1202",
+    "name": "brottsdataförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:1212",
+    "name": "läkemedelsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:1251",
+    "name": "strafftidslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:1696",
+    "name": "brottsdatalagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
     "id": "2018:218",
     "name": "dataskyddslagen",
     "type": "law",
@@ -1763,10 +2316,159 @@
     "category": "IT-rätt"
   },
   {
-    "id": "2018:1174",
-    "name": "cybersäkerhetslagen",
+    "id": "2018:506",
+    "name": "strålskyddsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:597",
+    "name": "munallagen",
     "type": "law",
-    "alternativeNames": [],
-    "category": "IT-rätt"
+    "alternativeNames": []
+  },
+  {
+    "id": "2019:313",
+    "name": "avgiftsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2019:369",
+    "name": "vägtrafikdatalagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2019:382",
+    "name": "vägtrafikdataförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2019:383",
+    "name": "fordonsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2019:66",
+    "name": "djurskyddsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2019:95",
+    "name": "strafftidsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2020:486",
+    "name": "miljö-balken",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2020:833",
+    "name": "skoleförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2021:955",
+    "name": "säkerhetsskyddsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2022:1718",
+    "name": "polisförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2022:365",
+    "name": "järnvägsmarknadslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2022:366",
+    "name": "järnvägstekniklagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2022:367",
+    "name": "järnvägssäkerhetslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2022:418",
+    "name": "järnvägsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2023:38",
+    "name": "biobankslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2023:455",
+    "name": "betalningslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2024:1020",
+    "name": "patentförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2024:1082",
+    "name": "rörelselagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2024:1089",
+    "name": "klampningslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2024:710",
+    "name": "tullbefogenhetslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2024:759",
+    "name": "tullbefogenhetsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2024:782",
+    "name": "förfarandelagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2025:468",
+    "name": "socialtjänstförordningen",
+    "type": "regulation",
+    "alternativeNames": []
+  },
+  {
+    "id": "2025:671",
+    "name": "studiestödsförordningen",
+    "type": "regulation",
+    "alternativeNames": []
   }
 ]

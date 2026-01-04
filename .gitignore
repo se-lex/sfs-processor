@@ -16,4 +16,9 @@ htmlcov/
 logs/
 output/
 sfs-output/
-data/kommande.yaml
+data/kommande.yaml# Log files from law name matching
+logs/missing_law_names.txt
+logs/found_law_matches.json
+logs/varningar_sammanfattning.txt
+logs/html_conversion_latest.log
+logs/add_law_names_output.txt
