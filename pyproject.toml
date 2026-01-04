@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "sfs-processor"
-version = "0.1.0"
+version = "1.0.0"
 description = "Konvertera svensk författningssamling (SFS) från JSON till Markdown och andra format"
 readme = "README.md"
 requires-python = ">=3.10"
