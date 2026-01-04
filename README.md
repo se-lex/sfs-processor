@@ -197,7 +197,7 @@ python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [-
   - `html`: Generera HTML-filer i ELI-struktur (endast grunddokument)
   - `htmldiff`: Generera HTML-filer i ELI-struktur med ändringsversioner
 - `--filter`: Filtrera filer efter år (YYYY) eller specifik beteckning (YYYY:NNN). Kan vara kommaseparerad lista.
-- `--target-date`: Datum (YYYY-MM-DD) för temporal filtrering. Används med `md`, `html` och `htmldiff` format för att filtrera innehåll baserat på giltighetsdatum. Om inte angivet används dagens datum för `md`-format. Exempel: `--target-date 2023-01-01`
+- `--target-date`: Datum (YYYY-MM-DD) för temporal filtrering, baserat på selex-taggar. Används med `md`, `html` och `htmldiff` format för att filtrera innehåll baserat på giltighetsdatum. Om inte angivet används dagens datum för `md`-format. Exempel: `--target-date 2023-01-01`
 - `--no-year-folder`: Skapa inte årbaserade undermappar för dokument
 - `--verbose`: Visa detaljerad information om bearbetningen
 
