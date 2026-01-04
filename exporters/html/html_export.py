@@ -24,31 +24,32 @@ from downloaders.eur_lex_api import generate_eur_lex_url
 def format_celex_as_links(celex_numbers: str) -> str:
     """
     Convert Celex numbers to clickable EUR-Lex links.
-    
+
     Handles multiple Celex numbers separated by commas or spaces.
-    
+
     Args:
         celex_numbers (str): One or more Celex numbers (e.g., "32001L0083, 32004L0027")
-        
+
     Returns:
         str: HTML string with clickable links to EUR-Lex
     """
     if not celex_numbers:
         return ""
-    
+
     # Split by comma and/or whitespace, filter out empty strings
     celex_list = [celex.strip() for celex in re.split(r'[,\s]+', celex_numbers) if celex.strip()]
-    
+
     # Convert each Celex number to a link
     links = []
     for celex in celex_list:
         url = generate_eur_lex_url(celex)
         links.append(f'<a href="{html.escape(url)}" target="_blank">{html.escape(celex)}</a>')
-    
+
     return ', '.join(links)
 
 
-def create_html_documents(data: Dict[str, Any], output_path: Path, include_amendments: bool = False) -> None:
+def create_html_documents(data: Dict[str, Any], output_path: Path,
+                          include_amendments: bool = False) -> None:
     """Create HTML documents from JSON data using ELI directory structure.
 
     Creates documents in ELI directory structure: /eli/sfs/{YEAR}/{lopnummer}
@@ -106,13 +107,14 @@ def create_html_documents(data: Dict[str, Any], output_path: Path, include_amend
                 amend_eli_dir.mkdir(parents=True, exist_ok=True)
 
                 # Generate HTML content with amendments applied up to this point
-                amendment_html_content = convert_to_html(data, apply_amendments=True, up_to_amendment=i+1)
+                amendment_html_content = convert_to_html(
+                    data, apply_amendments=True, up_to_amendment=i + 1)
 
                 # Create HTML with diff view comparing base and amended content
                 amendment_html_with_diff = create_amendment_html_with_diff(
-                    base_html_content, amendment_html_content, amendment_beteckning, amendment.get('rubrik', ''),
-                    amendment.get('ikraft_datum', '')
-                )
+                    base_html_content, amendment_html_content, amendment_beteckning, amendment.get(
+                        'rubrik', ''), amendment.get(
+                        'ikraft_datum', ''))
 
                 amendment_file = amend_eli_dir / "index.html"
                 save_to_disk(amendment_file, amendment_html_with_diff)
@@ -121,24 +123,24 @@ def create_html_documents(data: Dict[str, Any], output_path: Path, include_amend
 
 def generate_css_file(css_dir: Path) -> None:
     """Generate the shared CSS file for HTML documents.
-    
+
     Creates a styles.css file in the specified directory containing all
     CSS styles and variables used by HTML documents.
-    
+
     Args:
         css_dir: Directory where the CSS file should be created
     """
     from sfs_processor import save_to_disk
-    
+
     css_file_path = css_dir / "styles.css"
-    
+
     # Only generate if it doesn't exist to avoid regenerating on every document
     if css_file_path.exists():
         return
-    
+
     # Generate the complete CSS content
     css_content = get_common_styles()
-    
+
     # Save the CSS file
     save_to_disk(css_file_path, css_content)
     print(f"Generated CSS file: {css_file_path}")
@@ -146,28 +148,28 @@ def generate_css_file(css_dir: Path) -> None:
 
 def generate_js_file(js_dir: Path) -> None:
     """Generate the shared JavaScript file for HTML documents.
-    
+
     Creates a selex-init.js file in the specified directory by copying
     the source JavaScript file from the html exporter directory.
-    
+
     Args:
         js_dir: Directory where the JS file should be created
     """
     import shutil
-    
+
     js_file_path = js_dir / "selex-init.js"
-    
+
     # Only generate if it doesn't exist to avoid regenerating on every document
     if js_file_path.exists():
         return
-    
+
     # Get the source JS file path (same directory as this module)
     source_js_path = Path(__file__).parent / "selex-init.js"
-    
+
     if not source_js_path.exists():
         print(f"Warning: Source JS file not found: {source_js_path}")
         return
-    
+
     # Copy the JS file
     try:
         shutil.copy2(source_js_path, js_file_path)
@@ -176,8 +178,8 @@ def generate_js_file(js_dir: Path) -> None:
         print(f"Error copying JS file: {e}")
 
 
-
-def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_amendment: int = None) -> str:
+def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False,
+                    up_to_amendment: int = None) -> str:
     """Convert JSON data to HTML format with ELI structure.
 
     Args:
@@ -227,7 +229,7 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
 
     # Format the content text
     formatted_text = format_sfs_text_as_markdown(innehall_text, apply_links=True)
-    
+
     # Apply section tags for HTML export (preserve selex tags)
     from formatters.format_sfs_text import parse_logical_sections
     formatted_text = parse_logical_sections(formatted_text)
@@ -248,7 +250,7 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
 
     # Convert markdown-formatted text to HTML
     html_content = markdown_to_html(formatted_text)
-    
+
     # Strip base URL from links to make them relative for HTML export
     html_content = make_links_relative(html_content)
 
@@ -259,54 +261,54 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     # Build metadata in two columns
     column1_items = []
     column2_items = []
-    
+
     # Column 1: Basic document info
     column1_items.append(f"""
             <dt>Beteckning:</dt>
             <dd property="eli:id_local" datatype="xsd:string">{html.escape(beteckning)}</dd>""")
-    
+
     if organisation:
         column1_items.append(f"""
             <dt>Departement:</dt>
             <dd property="eli:passed_by" datatype="xsd:string">{html.escape(organisation)}</dd>""")
-    
+
     if pdf_url:
         column1_items.append(f"""
             <dt>PDF-fil:</dt>
             <dd><a href="{html.escape(pdf_url)}" property="eli:is_realized_by" datatype="xsd:anyURI">PDF-fil</a></dd>""")
-    
+
     if forarbeten:
         column1_items.append(f"""
             <dt>Förarbeten:</dt>
             <dd property="eli:preparatory_act" datatype="xsd:string">{html.escape(forarbeten)}</dd>""")
-    
+
     if celex_nummer:
         celex_links = format_celex_as_links(celex_nummer)
         column1_items.append(f"""
             <dt>CELEX:</dt>
             <dd property="eli:related_to" resource="{html.escape(celex_nummer)}" datatype="xsd:string">{celex_links}</dd>""")
-    
+
     if eu_direktiv:
         column1_items.append("""
             <dt>EU-direktiv:</dt>
             <dd property="eli:type_document" resource="http://data.europa.eu/eli/ontology#directive" datatype="xsd:boolean">Ja</dd>""")
-    
+
     # Column 2: Dates and links
     if publicerad_datum:
         column2_items.append(f"""
             <dt>Publicerad:</dt>
             <dd property="eli:date_publication" datatype="xsd:date">{html.escape(publicerad_datum)}</dd>""")
-    
+
     if utfardad_datum:
         column2_items.append(f"""
             <dt>Utfärdad:</dt>
             <dd property="eli:date_document" datatype="xsd:date">{html.escape(utfardad_datum)}</dd>""")
-    
+
     if ikraft_datum:
         column2_items.append(f"""
             <dt>Ikraft:</dt>
             <dd property="eli:date_entry-into-force" datatype="xsd:date">{html.escape(ikraft_datum)}</dd>""")
-    
+
     html_doc += f"""
     <div class="metadata">
         <div class="metadata-column">
@@ -334,29 +336,28 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     return html_doc
 
 
-
 def make_links_relative(html_content: str) -> str:
     """
     Strip base URL from links to make them relative for HTML export.
-    
+
     Removes https://selex.se/eli from links to make them relative.
-    
+
     Args:
         html_content (str): HTML content with potentially absolute links
-        
+
     Returns:
         str: HTML content with relative links
     """
     # Pattern to match https://selex.se/eli in href attributes
     pattern = r'href="https://selex\.se/eli(/[^"]*)"'
     replacement = r'href="\1"'
-    
+
     return re.sub(pattern, replacement, html_content)
 
 
 def markdown_to_html(markdown_text: str) -> str:
     """Convert markdown formatting to HTML using the markdown library.
-    
+
     Preserves selex tags (<section>, <article>) and their attributes.
 
     Args:
@@ -367,7 +368,7 @@ def markdown_to_html(markdown_text: str) -> str:
     """
     # Pre-process: Mark selex tags for markdown processing
     processed_text = prepare_markdown_with_selex_tags(markdown_text)
-    
+
     # Configure markdown with useful extensions
     md = markdown.Markdown(
         extensions=[
@@ -376,24 +377,24 @@ def markdown_to_html(markdown_text: str) -> str:
             'md_in_html',      # Allow markdown inside HTML blocks
         ]
     )
-    
+
     # Convert markdown to HTML
     html_content = md.convert(processed_text)
-    
+
     return html_content
 
 
 def prepare_markdown_with_selex_tags(markdown_text: str) -> str:
     """
     Prepare markdown text with selex tags for proper markdown processing.
-    
+
     The md_in_html extension requires markdown="1" attribute on HTML block elements
     to process markdown content inside them.
     """
     # Add markdown="1" to section and article tags
     processed = re.sub(r'<(section[^>]*)>', r'<\1 markdown="1">', markdown_text)
     processed = re.sub(r'<(article[^>]*)>', r'<\1 markdown="1">', processed)
-    
+
     return processed
 
 
@@ -415,7 +416,11 @@ def create_ignored_html_content(data: Dict[str, Any], reason: str) -> str:
         .warning { background-color: var(--warning-yellow-bg); border: 1px solid var(--warning-yellow); padding: 15px; border-radius: 5px; margin-bottom: 20px; }""")
 
     # Use external CSS for ignored documents as well
-    html_doc = create_html_head(rubrik_original, beteckning, additional_styles=ignored_styles, use_external_css=True)
+    html_doc = create_html_head(
+        rubrik_original,
+        beteckning,
+        additional_styles=ignored_styles,
+        use_external_css=True)
     html_doc += f"""
 <body>
     <h1>{html.escape(rubrik_original)}</h1>
@@ -432,7 +437,12 @@ def create_ignored_html_content(data: Dict[str, Any], reason: str) -> str:
     return html_doc
 
 
-def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendment_beteckning: str, amendment_rubrik: str, ikraft_datum: str) -> str:
+def create_amendment_html_with_diff(
+        base_html: str,
+        amendment_html: str,
+        amendment_beteckning: str,
+        amendment_rubrik: str,
+        ikraft_datum: str) -> str:
     """Create HTML document with diff view between base and amended content.
 
     Args:
@@ -488,7 +498,7 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
         diff_table = html_diff[start_index:end_index]
     else:
         diff_table = '<p>Kunde inte generera diff-tabell.</p>'
-    
+
     # Extract metadata from the amendment HTML
     metadata_match = re.search(r'<div class="metadata">.*?</div>', amendment_html, re.DOTALL)
     metadata_section = metadata_match.group(0) if metadata_match else ""
@@ -569,7 +579,14 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
     return combined_html
 
 
-def create_html_head(title: str, beteckning: str, additional_styles: str = "", additional_scripts: str = "", use_external_css: bool = True, css_relative_path: str = "../../styles.css", js_relative_path: str = "../../selex-init.js") -> str:
+def create_html_head(
+        title: str,
+        beteckning: str,
+        additional_styles: str = "",
+        additional_scripts: str = "",
+        use_external_css: bool = True,
+        css_relative_path: str = "../../styles.css",
+        js_relative_path: str = "../../selex-init.js") -> str:
     """Create HTML head section with navbar integration.
 
     Args:
@@ -657,7 +674,7 @@ def get_common_styles() -> str:
     """
     # Get CSS variables from styling constants
     css_vars = get_css_variables()
-    
+
     styles = f"""
         {css_vars}
 
@@ -700,7 +717,7 @@ def get_common_styles() -> str:
 
         .metadata dt {{ font-weight: bold; }}
         .metadata dd {{ margin-left: 20px; margin-bottom: 5px; }}
-        
+
         @media (max-width: 768px) {{
             .metadata {{
                 grid-template-columns: 1fr;
@@ -720,24 +737,24 @@ def get_common_styles() -> str:
             padding: 12px 0 4px 0;
         }}
 
-        h3 {{ 
-            color: var(--selex-dark-blue); 
+        h3 {{
+            color: var(--selex-dark-blue);
             padding: 10px 0 6px 0;
         }}
-        
-        h4 {{ 
-            color: #333; 
+
+        h4 {{
+            color: #333;
             display: inline;
             padding-right: 20px;
             margin: 0;
             font-weight: bold;
         }}
-        
+
         /* Make p tags that follow h4 display inline */
         h4 + p {{
             display: inline;
         }}
-        
+
         /* Ensure proper spacing after inline paragraph */
         section.paragraf p {{
             margin-bottom: 1em;
@@ -753,16 +770,16 @@ def get_common_styles() -> str:
             margin: 20px 0;
             padding: 10px 0;
         }}
-        
+
         section.paragraf {{
             margin: 0 0 10px 0;
         }}
-        
+
         section[status="upphavd"] {{
             opacity: 0.6;
             text-decoration: line-through;
         }}
-        
+
         section[status="ikraft"] {{
             border-left: 3px solid var(--selex-light-blue);
             padding-left: 15px;
@@ -774,19 +791,19 @@ def get_common_styles() -> str:
             width: 100%;
             margin: 20px 0;
         }}
-        
+
         th, td {{
             border: 1px solid var(--border-grey);
             padding: 8px 12px;
             text-align: left;
         }}
-        
+
         th {{
             background-color: var(--selex-light-grey);
             font-weight: bold;
             color: var(--selex-dark-blue);
         }}
-        
+
         code {{
             background-color: var(--selex-light-grey);
             padding: 2px 4px;
@@ -794,7 +811,7 @@ def get_common_styles() -> str:
             font-family: 'Courier New', monospace;
             font-size: 0.9em;
         }}
-        
+
         pre {{
             background-color: var(--selex-light-grey);
             padding: 15px;
@@ -802,12 +819,12 @@ def get_common_styles() -> str:
             overflow-x: auto;
             border-left: 4px solid var(--selex-light-blue);
         }}
-        
+
         pre code {{
             background-color: transparent;
             padding: 0;
         }}
-        
+
         blockquote {{
             border-left: 4px solid var(--selex-light-blue);
             padding-left: 15px;
@@ -815,21 +832,21 @@ def get_common_styles() -> str:
             color: var(--text-muted);
             font-style: italic;
         }}
-        
+
         ul, ol {{
             margin: 15px 0;
             padding-left: 30px;
         }}
-        
+
         li {{
             margin: 5px 0;
         }}
-        
+
         /* Link styling */
         a {{
             color: var(--selex-middle-blue);
         }}
-        
+
         a:hover {{
             color: var(--selex-middle-blue-hover);
         }}"""
@@ -851,7 +868,7 @@ def minify_css(css_text: str) -> str:
     """
     # Remove CSS comments
     minified = re.sub(r'/\*.*?\*/', '', css_text, flags=re.DOTALL)
-    
+
     # Remove newlines and extra whitespace, but keep necessary spaces
     minified = re.sub(r'\s+', ' ', minified)  # Replace multiple whitespace with single space
     minified = re.sub(r'\s*{\s*', '{', minified)  # Remove spaces around {
@@ -859,10 +876,10 @@ def minify_css(css_text: str) -> str:
     minified = re.sub(r'\s*;\s*', ';', minified)  # Remove spaces around ;
     minified = re.sub(r'\s*:\s*', ':', minified)  # Remove spaces around :
     minified = re.sub(r'\s*,\s*', ',', minified)  # Remove spaces around ,
-    
+
     # Remove semicolons before closing braces
     minified = re.sub(r';}', '}', minified)
-    
+
     # Trim leading/trailing whitespace
     minified = minified.strip()
 

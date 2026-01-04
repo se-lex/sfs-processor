@@ -17,7 +17,7 @@ def clean_text(text: Optional[str]) -> str:
 
     # Remove line breaks and carriage returns
     cleaned = re.sub(r'[\r\n]+', ' ', text)
-    
+
     # Remove beteckning pattern in parentheses (e.g., "(1987:1185)")
     # Pattern matches parentheses containing year:number format
     # First remove the parentheses and their content, then clean up extra whitespace

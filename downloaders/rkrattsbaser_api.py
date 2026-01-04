@@ -69,7 +69,10 @@ def fetch_document_by_rkrattsbaser(doc_id: str) -> Optional[Dict]:
         return None
 
 
-def save_document_from_rkrattsbaser(doc_id: str, document_data: Dict, output_dir: str = "rkrattsbaser") -> bool:
+def save_document_from_rkrattsbaser(
+        doc_id: str,
+        document_data: Dict,
+        output_dir: str = "rkrattsbaser") -> bool:
     """
     Sparar dokumentdata från Regeringskansliets API till fil.
 
@@ -128,39 +131,40 @@ def convert_riksdagen_id_to_rkrattsbaser_format(doc_id: str) -> str:
     return doc_id
 
 
-def download_documents(document_ids: List[str], output_dir: str = "rkrattsbaser") -> tuple[int, int]:
+def download_documents(document_ids: List[str],
+                       output_dir: str = "rkrattsbaser") -> tuple[int, int]:
     """
     Laddar ner en lista med dokument från rkrattsbaser.
-    
+
     Args:
         document_ids (List[str]): Lista med dokument-ID:n att ladda ner (i Riksdagen-format)
         output_dir (str): Katalog att spara filerna i
-        
+
     Returns:
         tuple[int, int]: (successful_downloads, failed_downloads)
     """
     successful_downloads = 0
     failed_downloads = 0
-    
+
     for i, document_id in enumerate(document_ids, 1):
         print(f"[{i}/{len(document_ids)}] Laddar ner {document_id}...")
-        
+
         # Konvertera dokument-ID till rätt format för rkrattsbaser
         converted_id = convert_riksdagen_id_to_rkrattsbaser_format(document_id)
-        
+
         # Ladda ner dokumentet från rkrattsbaser
         document_data = fetch_document_by_rkrattsbaser(converted_id)
         if document_data:
             success = save_document_from_rkrattsbaser(document_id, document_data, output_dir)
         else:
             success = False
-        
+
         if success:
             successful_downloads += 1
         else:
             failed_downloads += 1
-        
+
         # Kort paus mellan nedladdningar för att vara snäll mot servern
         time.sleep(0.5)
-    
+
     return successful_downloads, failed_downloads

@@ -12,7 +12,7 @@ from .title_temporal import title_temporal
 
 __all__ = [
     'apply_temporal',
-    'apply_temporal_to_file', 
+    'apply_temporal_to_file',
     'identify_upcoming_changes',
     'find_expiring_files',
     'add_overgangsbestammelser_for_amendment_to_text',

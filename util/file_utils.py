@@ -48,13 +48,13 @@ def filter_json_files(json_files: List[Path], filter_criteria: str) -> List[Path
 def read_file_content(file_path: Path) -> str:
     """
     Read file content with proper error handling.
-    
+
     Args:
         file_path: Path to the file to read
-        
+
     Returns:
         str: File content, or empty string if reading failed
-        
+
     Raises:
         IOError: If file cannot be read
         UnicodeDecodeError: If file encoding is invalid

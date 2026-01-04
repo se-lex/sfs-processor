@@ -6,14 +6,13 @@ Returns the earliest pending date from kommande.yaml up to today,
 which allows the daily workflow to catch up on missed dates.
 """
 
+from temporal.upcoming_changes import get_earliest_pending_date
 import sys
 from datetime import date
 from pathlib import Path
 
 # Add parent directory to Python path
 sys.path.insert(0, str(Path(__file__).parent.parent))
-
-from temporal.upcoming_changes import get_earliest_pending_date
 
 
 def main():

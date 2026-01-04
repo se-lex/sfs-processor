@@ -23,12 +23,12 @@ EU_REGULATION_PATTERN = r'\(EU\)(?:\s*[Nn]r)?(?:\s*(\d+)/(\d{4})|\s*(\d{4})/(\d+
 # Older formats: XX/YY/EEG, XXX/YY/EEG, XX/YYY/EEG, XXX/YYY/EEG
 EU_EEG_PATTERN = r'(\d{2,3})/(\d{2,3})/EEG'
 
-# Older formats: XX/YY/EG, XXX/YY/EG, XX/YYY/EG, XXX/YYY/EG  
+# Older formats: XX/YY/EG, XXX/YY/EG, XX/YYY/EG, XXX/YYY/EG
 EU_EG_PATTERN = r'(\d{2,3})/(\d{2,3})/EG'
 
 # Law name pattern - kapitel följt av eventuella paragrafer och lagnamn
 # Hanterar olika format som:
-# - 2 kap. 10 a–10 c §§ socialförsäkringsbalken  
+# - 2 kap. 10 a–10 c §§ socialförsäkringsbalken
 # - 58 kap. 26 och 27 §§ socialförsäkringsbalken
 # - 8 kap. 7 § regeringsformen
 # - 8 eller 9 § någonlagen
@@ -40,7 +40,7 @@ def apply_sfs_links(text: str) -> str:
     Letar efter SFS-beteckningar i texten och konverterar dem till markdown-länkar.
 
     Söker efter mönster som "YYYY:NNN" (år:löpnummer) och skapar länkar till /sfs/(beteckning).
-    
+
     Använder alltid https://selex.se/eli som bas-URL om INTERNAL_LINKS_BASE_URL inte är satt.
 
     Args:
@@ -86,11 +86,11 @@ def apply_sfs_links(text: str) -> str:
 def find_chapter_context(text: str, position: int) -> str:
     """
     Hitta vilket kapitel en position i texten tillhör.
-    
+
     Args:
         text (str): Hela texten
         position (int): Position i texten
-        
+
     Returns:
         str: Kapitel-ID (t.ex. "kap1") eller None om inget kapitel
     """
@@ -98,14 +98,14 @@ def find_chapter_context(text: str, position: int) -> str:
     # Söka efter markdown-rubriker som "1 kap.", "2 kap.", etc.
     chapter_pattern = r'^#{1,2}\s*(\d+(?:\s*[a-z])?)\s*kap\.?'
     chapters = []
-    
+
     lines = text[:position].split('\n')
     for line in lines:
         match = re.match(chapter_pattern, line.strip(), re.IGNORECASE)
         if match:
             chapter_num = match.group(1).replace(' ', '')
             chapters.append(f"kap{chapter_num}")
-    
+
     # Returnera det senaste kapitlet som hittades före denna position
     return chapters[-1] if chapters else None
 
@@ -126,11 +126,11 @@ def apply_internal_links(text: str) -> str:
     """
     lines = text.split('\n')
     processed_lines = []
-    
+
     # Bygg en positionsfördelning för att kunna hitta kapitelkontext
     current_position = 0
     line_positions = []
-    
+
     for line in lines:
         line_positions.append(current_position)
         current_position += len(line) + 1  # +1 för newline
@@ -149,14 +149,14 @@ def apply_internal_links(text: str) -> str:
         paragraph_pattern = PARAGRAPH_PATTERN
 
         # Använd en mer robust approach: ersätt bara paragrafer som inte redan är i markdown-länkar
-        
+
         def replace_paragraph_reference(match):
             """Ersätter en paragrafnummer med en intern markdown-länk"""
             full_match = match.group(0)
             number_and_letter = match.group(1)
             start_pos = match.start()
             end_pos = match.end()
-            
+
             # Kontrollera om denna paragraf är inuti en befintlig markdown-länk
             # Leta efter närmaste [ före denna position och ] efter denna position
             left_bracket = line.rfind('[', 0, start_pos)
@@ -170,7 +170,7 @@ def apply_internal_links(text: str) -> str:
                     elif line[search_pos] == ']':
                         bracket_count -= 1
                     search_pos += 1
-                
+
                 # Om vi hittade matchande ] och vår paragraf är mellan [ och ]
                 if bracket_count == 0 and search_pos > end_pos:
                     # Kontrollera om det finns () direkt efter ]
@@ -178,7 +178,7 @@ def apply_internal_links(text: str) -> str:
                         paren_end = line.find(')', search_pos)
                         if paren_end != -1:
                             return full_match  # Vi är inne i en markdown-länk, skippa
-            
+
             # Extrahera nummer och eventuell bokstav
             parts = number_and_letter.split()
             number = parts[0]
@@ -186,12 +186,12 @@ def apply_internal_links(text: str) -> str:
 
             # Skapa länktext
             link_text = f"{number}{' ' + letter if letter else ''} §"
-            
+
             # Kontrollera om det finns en explicit kapitelreferens före denna paragraf
             # Mönster: "8 kap. 5 §", "2 kap. 22 §", etc.
             preceding_text = line[:start_pos]
             explicit_chapter_match = re.search(r'(\d+(?:\s*[a-z])?)\s+kap\.\s*$', preceding_text)
-            
+
             if explicit_chapter_match:
                 # Explicit kapitelreferens hittad
                 chapter_num = explicit_chapter_match.group(1).replace(' ', '')
@@ -201,7 +201,7 @@ def apply_internal_links(text: str) -> str:
                 # Ingen explicit referens, använd implicit kapitelkontext
                 absolute_pos = line_positions[line_idx] + start_pos
                 chapter_context = find_chapter_context(text, absolute_pos)
-                
+
                 if chapter_context:
                     anchor = f"{chapter_context}.{number}{letter}"
                 else:
@@ -220,7 +220,7 @@ def apply_law_name_links(text: str) -> str:
     """
     Letar efter lagnamnsreferenser i texten och konverterar dem till SFS markdown-länkar.
 
-    Söker efter mönster som "2 kap. 10 a–10 c §§ socialförsäkringsbalken", 
+    Söker efter mönster som "2 kap. 10 a–10 c §§ socialförsäkringsbalken",
     "8 kap. 7 § regeringsformen", etc. och skapar länkar till SFS-dokument
     baserat på lagnamn från data/law-names.json.
 
@@ -240,7 +240,7 @@ def apply_law_name_links(text: str) -> str:
 
     # Hämta bas-URL från miljövariabler - använd alltid https://selex.se/eli som default
     base_url = os.getenv('INTERNAL_LINKS_BASE_URL', 'https://selex.se/eli')
-    
+
     # Processar texten rad för rad för att undvika att länka rubriker
     lines = text.split('\n')
     processed_lines = []
@@ -257,32 +257,32 @@ def apply_law_name_links(text: str) -> str:
             paragraph_part = match.group(2).strip()
             law_name = match.group(3).lower()
             full_match = match.group(0)
-            
+
             # Leta upp lagnamnet i data
             sfs_id = _lookup_law_name(law_name, law_names_data)
-            
+
             if not sfs_id:
                 print(f"Varning: Okänt lagnamn '{law_name}' i referens '{full_match}'")
                 return full_match  # Returnera oförändrat om lagnamnet inte hittas
-            
+
             # Extrahera år och nummer från SFS-ID (format: "YYYY:NNN")
             id_parts = sfs_id.split(':')
             if len(id_parts) != 2:
                 print(f"Varning: Ogiltigt SFS-ID format '{sfs_id}' för lagnamn '{law_name}'")
                 return full_match
-            
+
             year, number = id_parts
-            
+
             # Skapa bas-URL
             url = f"{base_url}/sfs/{year}/{number}"
-            
+
             # Extrahera första paragrafnummer för anchor om det finns
             # För externa länkar (till annan författning) ska formatet vara: #kapX.Y
             # där X är kapitelnummer och Y är paragrafnummer
             first_paragraph = _extract_first_paragraph(paragraph_part)
             if first_paragraph:
                 url += f"#kap{chapter}.{first_paragraph}"  # Format: #kap1.2
-            
+
             return f"[{full_match}]({url})"
 
         # Ersätt alla lagnamnsreferenser med markdown-länkar
@@ -295,7 +295,7 @@ def apply_law_name_links(text: str) -> str:
 def _load_law_names():
     """
     Laddar lagnamn från data/law-names.json.
-    
+
     Returns:
         dict: Dictionary med lagnamn som nycklar och SFS-ID som värden, eller None om fel
     """
@@ -304,22 +304,22 @@ def _load_law_names():
         current_file = Path(__file__)
         project_root = current_file.parent.parent  # från formatters/ till projektrot
         law_names_file = project_root / "data" / "law-names.json"
-        
+
         if not law_names_file.exists():
             print(f"Varning: Kunde inte hitta {law_names_file}")
             return None
-            
+
         with open(law_names_file, 'r', encoding='utf-8') as f:
             law_data = json.load(f)
-        
+
         # Skapa lookup-dictionary: lagnamn -> SFS-ID
         law_lookup = {}
         for entry in law_data:
             if entry.get('name'):
                 law_lookup[entry['name'].lower()] = entry['id']
-        
+
         return law_lookup
-        
+
     except Exception as e:
         print(f"Fel vid laddning av lagnamn: {e}")
         return None
@@ -328,11 +328,11 @@ def _load_law_names():
 def _lookup_law_name(law_name: str, law_names_data: dict) -> str:
     """
     Slår upp ett lagnamn i lagnamnsdata.
-    
+
     Args:
         law_name (str): Lagnamnet att slå upp (lowercase)
         law_names_data (dict): Dictionary med lagnamn och SFS-ID
-        
+
     Returns:
         str: SFS-ID eller None om lagnamnet inte hittas
     """
@@ -342,23 +342,23 @@ def _lookup_law_name(law_name: str, law_names_data: dict) -> str:
 def _extract_first_paragraph(paragraph_part: str) -> str:
     """
     Extraherar första paragrafnummer från en paragraftext.
-    
+
     Hanterar format som:
     - "7 §" -> "7"
     - "10 a–10 c §§" -> "10a"
     - "26 och 27 §§" -> "26"
     - "8 eller 9 §" -> "8"
     - "2, 3 och 4 §§" -> "2"
-    
+
     Args:
         paragraph_part (str): Texten mellan kapitel och lagnamn
-        
+
     Returns:
         str: Första paragrafnummer med eventuell bokstav, eller None om inget hittas
     """
     if not paragraph_part:
         return None
-    
+
     # Sök efter första förekomst av paragrafnummer (siffra + eventuell bokstav följt av icke-bokstav)
     # Matchar mönster som "7", "10 a", "26", "8" men inte "26o" från "26 och"
     match = re.search(r'(\d+)(?:\s+([a-z])(?!\w))?', paragraph_part)
@@ -366,7 +366,7 @@ def _extract_first_paragraph(paragraph_part: str) -> str:
         number = match.group(1)
         letter = match.group(2) or ''
         return f"{number}{letter}"
-    
+
     return None
 
 
@@ -375,7 +375,7 @@ def apply_eu_links(text: str) -> str:
     Letar efter EU-lagstiftningsreferenser i texten och konverterar dem till EUR-Lex länkar.
 
     Hanterar olika format:
-    - Modern: "(EU) nr 651/2014", "(EU) 1234/2020" 
+    - Modern: "(EU) nr 651/2014", "(EU) 1234/2020"
     - Äldre: "92/43/EEG", "95/46/EG"
 
     Args:
@@ -387,7 +387,7 @@ def apply_eu_links(text: str) -> str:
     def replace_eu_reference(match):
         """Ersätter en EU-referens med en markdown-länk till EUR-Lex"""
         full_match = match.group(0)
-        
+
         # Extract year and number from the different capture groups
         if match.group(1) and match.group(2):  # nr 651/2014 format
             number = match.group(1)
@@ -397,13 +397,13 @@ def apply_eu_links(text: str) -> str:
             number = match.group(4)
         else:
             return full_match  # Couldn't parse, return unchanged
-        
+
         # Create CELEX number: 3YYYYRNNNNN (R for regulation)
         celex = f"3{year}R{number.zfill(4)}"
-        
+
         # Create EUR-Lex URL
         url = f"https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A{celex}"
-        
+
         return f"[{full_match}]({url})"
 
     def replace_eeg_reference(match):
@@ -411,7 +411,7 @@ def apply_eu_links(text: str) -> str:
         full_match = match.group(0)
         year_part = match.group(1)
         number_part = match.group(2)
-        
+
         # Convert 2-digit year to 4-digit (assumes 19XX for years >= 50, 20XX for < 50)
         if len(year_part) == 2:
             year_int = int(year_part)
@@ -421,13 +421,13 @@ def apply_eu_links(text: str) -> str:
                 year = f"20{year_part}"
         else:
             year = year_part
-        
+
         # Create CELEX number: 3YYYYLNNNNN (L for directive)
         celex = f"3{year}L{number_part.zfill(4)}"
-        
+
         # Create EUR-Lex URL
         url = f"https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A{celex}"
-        
+
         return f"[{full_match}]({url})"
 
     def replace_eg_reference(match):
@@ -435,7 +435,7 @@ def apply_eu_links(text: str) -> str:
         full_match = match.group(0)
         year_part = match.group(1)
         number_part = match.group(2)
-        
+
         # Convert 2-digit year to 4-digit (assumes 19XX for years >= 50, 20XX for < 50)
         if len(year_part) == 2:
             year_int = int(year_part)
@@ -445,13 +445,13 @@ def apply_eu_links(text: str) -> str:
                 year = f"20{year_part}"
         else:
             year = year_part
-        
+
         # Create CELEX number: 3YYYYLNNNNN (L for directive)
         celex = f"3{year}L{number_part.zfill(4)}"
-        
+
         # Create EUR-Lex URL
         url = f"https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A{celex}"
-        
+
         return f"[{full_match}]({url})"
 
     # Processar texten rad för rad för att undvika att länka rubriker
@@ -468,7 +468,7 @@ def apply_eu_links(text: str) -> str:
         processed_line = re.sub(EU_REGULATION_PATTERN, replace_eu_reference, line)
         processed_line = re.sub(EU_EEG_PATTERN, replace_eeg_reference, processed_line)
         processed_line = re.sub(EU_EG_PATTERN, replace_eg_reference, processed_line)
-        
+
         processed_lines.append(processed_line)
-    
+
     return '\n'.join(processed_lines)
