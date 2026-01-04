@@ -1,11 +1,11 @@
-# Svensk författningssamling (SFS) till Markdown-filer
+# sfs-processor - Verktyg för konvertering av Svensk författningssamling
+
+Detta repository innehåller Python-script för att konvertera SFS-författningar (Svensk författningssamling) från JSON-format till Markdown med temporala taggar, HTML, Git och andra format.
 
 > [!NOTE]
 > **Detta är en del av [SE-Lex](https://github.com/se-lex)**, läs mer om [projektet här](https://github.com/se-lex).
 >
 > SFS-författningar exporteras till [https://github.com/se-lex/sfs](https://github.com/se-lex/sfs) och publiceras också som HTML på [https://selex.se](https://selex.se) med stöd för EU:s juridiska identifieringsstandard (ELI).
-
-Detta repository innehåller Python-script för att konvertera SFS-författningar (Svensk författningssamling) från JSON-format till välformaterade Markdown-filer och andra format.
 
 ## Installation
 
@@ -156,11 +156,18 @@ Dessa attribut används automatiskt av systemets datumfiltrering för att skapa 
 
 Systemet hanterar temporal processing (tidsbaserad filtrering) olika beroende på vilket format som används:
 
-- **`md`**: Tillämpar temporal processing med dagens datum som målpunkt. Selex-taggar tas bort efter filtrering.
-- **`md-markers`**: Bevarar selex-taggar och hoppar över temporal processing. Detta gör att alla temporal attribut behålls för senare bearbetning.
+- **`md-markers`** (standard): Bevarar selex-taggar och hoppar över temporal processing. Detta gör att alla temporal attribut behålls för senare bearbetning. Rekommenderas för att bevara all juridisk metadata.
+
+- **`md`**: Tillämpar temporal processing med **dagens datum som målpunkt**. Detta är viktigt att förstå:
+  - Upphävda bestämmelser (med `selex:upphor_datum` före dagens datum) tas bort
+  - Bestämmelser som ännu inte trätt i kraft (med `selex:ikraft_datum` efter dagens datum) tas bort
+  - Selex-taggar tas bort efter filtrering
+  - Resultatet blir en "ren" Markdown-vy av hur lagen ser ut idag
+  - **Obs:** Eftersom temporal filtrering används automatiskt, kan innehåll försvinna om det är upphävt eller ej ikraftträtt
+
 - **`git`**: Hoppar över temporal processing i huvudbearbetningen. Temporal hantering sköts separat i git-arbetsflödet för att skapa historiska commits.
-- **`html`**: Tillämpar temporal processing med dagens datum innan HTML-generering.
-- **`htmldiff`**: Tillämpar temporal processing med dagens datum innan HTML-generering.
+
+- **`html`** och **`htmldiff`**: Tillämpar temporal processing med dagens datum innan HTML-generering, liknande `md`-format.
 
 ## Kommandoradsalternativ
 
