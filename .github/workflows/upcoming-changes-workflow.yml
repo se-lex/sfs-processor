@@ -55,7 +55,7 @@ jobs:
     - name: Commit and push kommande.yaml updates
       run: |
         # Lägg till den uppdaterade kommande.yaml filen
-        git add data/kommande.yaml
+        git add output/kommande.yaml
 
         if git diff --staged --quiet; then
           echo "Inga ändringar i kommande.yaml"

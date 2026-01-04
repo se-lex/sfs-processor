@@ -14,4 +14,3 @@ htmlcov/
 # Ignore output files
 logs/
 output/
-data/kommande.yaml
