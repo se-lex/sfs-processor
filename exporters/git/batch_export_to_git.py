@@ -69,8 +69,7 @@ def year_range_to_date_range(year_range: str) -> tuple[str, str]:
 
 def main():
     parser = argparse.ArgumentParser(
-        description='Batch export SFS documents to Git repository with initial and temporal commits.'
-    )
+        description='Batch export SFS documents to Git repository with initial and temporal commits.')
     parser.add_argument(
         '--years',
         help='Year range to export (e.g., "2024-2026" or "2024"). Filters both documents and temporal commits (ikraft/upphör dates) to this period.'
@@ -195,9 +194,9 @@ def main():
 
     # Step 1: Create initial commits (if not skipped)
     if not args.skip_initial:
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("STEG 1: SKAPAR INITIALA COMMITS")
-        print("="*80 + "\n")
+        print("=" * 80 + "\n")
 
         try:
             process_files_with_git_batch(
@@ -217,9 +216,9 @@ def main():
 
     # Step 2: Create temporal commits (if not skipped)
     if not args.skip_temporal:
-        print("\n" + "="*80)
+        print("\n" + "=" * 80)
         print("STEG 2: SKAPAR TEMPORAL COMMITS (UPCOMING CHANGES)")
-        print("="*80 + "\n")
+        print("=" * 80 + "\n")
 
         # Check if markers directory exists
         if not markers_dir.exists():
@@ -233,7 +232,8 @@ def main():
         temporal_to_date = None
         if args.years:
             temporal_from_date, temporal_to_date = year_range_to_date_range(args.years)
-            print(f"Filtrerar temporal commits för perioden: {temporal_from_date} till {temporal_to_date}")
+            print(
+                f"Filtrerar temporal commits för perioden: {temporal_from_date} till {temporal_to_date}")
 
         try:
             process_temporal_commits_batch(
@@ -253,15 +253,15 @@ def main():
         print("\n⏭️  Hoppar över temporal commits (--skip-temporal)")
 
     # Summary
-    print("\n" + "="*80)
+    print("\n" + "=" * 80)
     print("✅ BATCH EXPORT KLAR!")
-    print("="*80)
+    print("=" * 80)
     print(f"Branch: {args.branch}")
     print(f"Antal filer bearbetade: {len(json_files)}")
     print("\nNästa steg:")
     print(f"1. Gå till target repository och skapa en Pull Request från branch '{args.branch}'")
     print(f"2. Granska ändringarna och merga till main")
-    print("="*80 + "\n")
+    print("=" * 80 + "\n")
 
     return 0
 

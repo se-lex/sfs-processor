@@ -5,9 +5,10 @@ Script för att extrahera alla omatchade lagnamn från valideringsrapporten.
 
 import re
 
+
 def extract_unmatched_laws():
     """Extrahera alla omatchade lagnamn från rapporten."""
-    
+
     # Läs rapportfilen
     with open('lagnamn_validering_rapport.md', 'r', encoding='utf-8') as f:
         content = f.read()
@@ -30,6 +31,7 @@ def extract_unmatched_laws():
 
     for i, (law_name, count) in enumerate(matches_sorted, 1):
         print(f'{i:3d}. {law_name:<35} {count:>6} förekomster')
+
 
 if __name__ == "__main__":
     extract_unmatched_laws()

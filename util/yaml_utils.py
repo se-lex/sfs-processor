@@ -55,5 +55,3 @@ def format_yaml_value(value: Any) -> str:
         return f'"{escaped_value}"'
 
     return value
-
-

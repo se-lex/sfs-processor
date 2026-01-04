@@ -85,17 +85,19 @@ def parse_logical_paragraphs(text: str) -> list:
     while i < len(raw_paragraphs):
         current_paragraph = raw_paragraphs[i]
 
-        # Slå ihop alla rader inom paragrafen med mellanslag (för att hantera markeringar på separata rader)
+        # Slå ihop alla rader inom paragrafen med mellanslag (för att hantera
+        # markeringar på separata rader)
         paragraph_lines = current_paragraph.split('\n')
         consolidated_paragraph = ' '.join(line.strip() for line in paragraph_lines if line.strip())
 
         # Om detta stycke är bara en rubrik, kontrollera vad som kommer härnäst
         if (re.match(HEADER_LEVEL_PATTERN, consolidated_paragraph.strip()) and
-            i + 1 < len(raw_paragraphs)):
+                i + 1 < len(raw_paragraphs)):
             # Konsolidera nästa paragraf för att kontrollera om det också är en rubrik
             next_paragraph = raw_paragraphs[i + 1]
             next_paragraph_lines = next_paragraph.split('\n')
-            consolidated_next = ' '.join(line.strip() for line in next_paragraph_lines if line.strip())
+            consolidated_next = ' '.join(line.strip()
+                                         for line in next_paragraph_lines if line.strip())
 
             # Om nästa stycke också är en rubrik, behandla denna rubrik som egen paragraf
             if re.match(HEADER_LEVEL_PATTERN, consolidated_next.strip()):
@@ -113,13 +115,10 @@ def parse_logical_paragraphs(text: str) -> list:
     return logical_paragraphs
 
 
-
-
-
 def _add_header_with_blank_line(formatted: list, header_level: str, original_line: str) -> None:
     """
     Lägg till en rubrik med tom rad före om nödvändigt enligt markdown-standarden.
-    
+
     Args:
         formatted (list): Lista med formaterade rader
         header_level (str): Rubriknivå som "##" eller "###" eller "####"
@@ -184,9 +183,11 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
             # Rensa raden för rubrikanalys (ta bort /-markeringar)
             cleaned_line = re.sub(TEMPORAL_MARKER_PATTERN, '', original_line).strip()
 
-            # Kontrollera om nästnästa rad börjar med "1." för att undvika att göra en rad till rubrik
+            # Kontrollera om nästnästa rad börjar med "1." för att undvika att göra en
+            # rad till rubrik
             next_is_list_start = False
-            if i + 2 < len(original_result_lines) and original_result_lines[i + 2].strip().startswith("1."):
+            if i + \
+                    2 < len(original_result_lines) and original_result_lines[i + 2].strip().startswith("1."):
                 next_is_list_start = True
 
             # Kontrollera om det är en potentiell rubrik (kombinerad logik)
@@ -217,15 +218,16 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
 
             # Kontrollera om det är en rubrik (baserat på rensad rad men använd original för output)
             # Specialfall som alltid ska bli rubriker (även utanför standardkriterier)
-            
+
             # "Övergångsbestämmelser" ska alltid bli rubrik även om följd av numrerad lista
             is_overgangsbestammelser = cleaned_line.strip().lower() == "övergångsbestämmelser"
-            
+
             if not next_is_list_start or is_overgangsbestammelser:
                 # Kontrollera först om det är en avdelningsrubrik (nivå 2 ##)
                 if is_chapter_header(cleaned_line.strip()):
                     _add_header_with_blank_line(formatted, '##', original_line)
-                # Kontrollera om det är ett kapitel (börjar med "X kap." eller "X Kap" eller "X A Kap")
+                # Kontrollera om det är ett kapitel (börjar med "X kap." eller "X Kap"
+                # eller "X A Kap")
                 elif re.match(CHAPTER_PATTERN, cleaned_line.strip()):
                     _add_header_with_blank_line(formatted, '##', original_line)
                 # Kontrollera om det är en bilaga (börjar med "Bilaga ")
@@ -236,8 +238,10 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                     _add_header_with_blank_line(formatted, '###', original_line)
                 # Potentiella rubriker enligt standardkriterier
                 elif is_potential_header:
-                    # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de andra kriterierna
-                    if (len(cleaned_line.split()) <= 2 and '.' not in cleaned_line) or (len(cleaned_line) < 300 and not cleaned_line.strip().endswith(('.', ':'))):
+                    # Om raden har max två ord OCH inte innehåller punkt, eller uppfyller de
+                    # andra kriterierna
+                    if (len(cleaned_line.split()) <= 2 and '.' not in cleaned_line) or (
+                            len(cleaned_line) < 300 and not cleaned_line.strip().endswith(('.', ':'))):
                         # Använd H3-rubrik för rubriker
                         _add_header_with_blank_line(formatted, '###', original_line)
                     else:
@@ -247,19 +251,19 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                             paragraph_match = re.match(r'^' + PARAGRAPH_PATTERN, cleaned_line)
                             if paragraph_match:
                                 paragraph_num = paragraph_match.group(0)
-                                
+
                                 # Extrahera markeringar från originalraden
                                 markings = re.findall(TEMPORAL_MARKER_PATTERN, original_line)
-                                
+
                                 # Skapa rubrik med bara markeringar och paragrafnummer
                                 if markings:
                                     markings_str = ' '.join(markings)
                                     formatted.append(f'#### {markings_str} {paragraph_num}')
                                 else:
                                     formatted.append(f'#### {paragraph_num}')
-                                
+
                                 formatted.append('')  # Tom rad efter rubriken
-                                
+
                                 # Hitta resten av texten efter paragrafnumret i rensad rad
                                 rest_of_line = cleaned_line[len(paragraph_num):].strip()
                                 if rest_of_line:
@@ -277,19 +281,19 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                         paragraph_match = re.match(r'^' + PARAGRAPH_PATTERN, cleaned_line)
                         if paragraph_match:
                             paragraph_num = paragraph_match.group(0)
-                            
+
                             # Extrahera markeringar från originalraden
                             markings = re.findall(TEMPORAL_MARKER_PATTERN, original_line)
-                            
+
                             # Skapa rubrik med bara markeringar och paragrafnummer
                             if markings:
                                 markings_str = ' '.join(markings)
                                 formatted.append(f'#### {markings_str} {paragraph_num}')
                             else:
                                 formatted.append(f'#### {paragraph_num}')
-                            
+
                             formatted.append('')  # Tom rad efter rubriken
-                            
+
                             # Hitta resten av texten efter paragrafnumret i rensad rad
                             rest_of_line = cleaned_line[len(paragraph_num):].strip()
                             if rest_of_line:
@@ -299,7 +303,8 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                     else:
                         formatted.append(original_line)
             else:
-                # Hantera AVDELNING-rubriker och paragrafnummer som rubriker även när övriga kriterier inte uppfylls
+                # Hantera AVDELNING-rubriker och paragrafnummer som rubriker även när
+                # övriga kriterier inte uppfylls
                 if is_chapter_header(cleaned_line.strip()):
                     _add_header_with_blank_line(formatted, '##', original_line)
                 elif previous_line_empty:
@@ -307,19 +312,19 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
                     paragraph_match = re.match(r'^' + PARAGRAPH_PATTERN, cleaned_line)
                     if paragraph_match:
                         paragraph_num = paragraph_match.group(0)
-                        
+
                         # Extrahera markeringar från originalraden
                         markings = re.findall(TEMPORAL_MARKER_PATTERN, original_line)
-                        
+
                         # Skapa rubrik med bara markeringar och paragrafnummer
                         if markings:
                             markings_str = ' '.join(markings)
                             formatted.append(f'#### {markings_str} {paragraph_num}')
                         else:
                             formatted.append(f'#### {paragraph_num}')
-                        
+
                         formatted.append('')  # Tom rad efter rubriken
-                        
+
                         # Hitta resten av texten efter paragrafnumret i rensad rad
                         rest_of_line = cleaned_line[len(paragraph_num):].strip()
                         if rest_of_line:
@@ -332,7 +337,7 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
 
     # Returnera den formaterade texten
     final_text = '\n'.join(formatted)
-    
+
     # Tillämpa externa länkar först (lagnamn, SFS, EU), sedan interna paragraf-länkar
     if apply_links:
         final_text = apply_law_name_links(final_text)
@@ -458,7 +463,8 @@ def _is_section_ikraft(header_line: str, content: str) -> bool:
     header_lower = header_line.lower()
     content_lower = content.lower()
 
-    # Kontrollera både i rubrik och innehåll efter ikraft-markeringar med giltigt datum eller villkor
+    # Kontrollera både i rubrik och innehåll efter ikraft-markeringar med
+    # giltigt datum eller villkor
     return (re.search(INTOFORCE_ANY_PATTERN, header_lower) is not None or
             re.search(INTOFORCE_ANY_PATTERN, content_lower) is not None)
 
@@ -506,7 +512,8 @@ def parse_logical_sections(text: str) -> str:
         """Stäng alla sektioner ner till målnivån"""
         nonlocal section_stack, result, parent_stack
         while section_stack and section_stack[-1] >= target_level:
-            # Lägg endast till en tom rad före </section> taggen om den sista raden inte redan är tom
+            # Lägg endast till en tom rad före </section> taggen om den sista raden
+            # inte redan är tom
             if result and result[-1].strip() != '':
                 result.append('')
             result.append('</section>')
@@ -522,13 +529,13 @@ def parse_logical_sections(text: str) -> str:
             # Hitta rubriknivån för huvudrubriken i denna sektion
             main_header_line = current_section[0] if current_section else ""
             main_header_match = re.match(HEADER_LEVEL_PATTERN, main_header_line)
-            
+
             # Om det inte finns en rubrik i sektionen, lägg bara till innehållet utan section-taggar
             if not main_header_match:
                 result.extend(current_section)
                 current_section = []
                 return
-                
+
             main_header_level = len(main_header_match.group(1))
 
             # Extrahera endast det direkta innehållet under huvudrubriken,
@@ -587,7 +594,8 @@ def parse_logical_sections(text: str) -> str:
 
                 # Kontrollera konsistens: om vi hittar upphor_datum ska sektionen också vara upphävd
                 if not has_expired:
-                    raise ValueError(f"Inkonsistens upptäckt: Sektion har upphor_datum '{upphor_datum}' men är inte markerad som upphävd. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
+                    raise ValueError(
+                        f"Inkonsistens upptäckt: Sektion har upphor_datum '{upphor_datum}' men är inte markerad som upphävd. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
 
             # Kontrollera "ikraft" i det direkta innehållet OCH i rubrikens text
             has_ikraft = _is_section_ikraft(header_line, filtered_content)
@@ -603,17 +611,24 @@ def parse_logical_sections(text: str) -> str:
 
                 # Kontrollera konsistens: om vi hittar ikraft_datum ska sektionen också vara ikraft
                 if not has_ikraft:
-                    raise ValueError(f"Inkonsistens upptäckt: Sektion har ikraft_datum '{ikraft_datum}' men är inte markerad som ikraft. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
+                    raise ValueError(
+                        f"Inkonsistens upptäckt: Sektion har ikraft_datum '{ikraft_datum}' men är inte markerad som ikraft. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
             else:
                 # Om inget datum hittas, sök efter annat villkor
-                # Mönster för "/Träder i kraft I:villkor/" eller "/Rubriken träder i kraft I:villkor/" eller "/Kapitlet träder i kraft I:villkor/"
-                ikraft_villkor_match = re.search(r'/(?:rubriken |kapitlet )?träder i kraft i:([^/]+)/', all_section_content, re.IGNORECASE)
+                # Mönster för "/Träder i kraft I:villkor/" eller "/Rubriken träder i kraft
+                # I:villkor/" eller "/Kapitlet träder i kraft I:villkor/"
+                ikraft_villkor_match = re.search(
+                    r'/(?:rubriken |kapitlet )?träder i kraft i:([^/]+)/',
+                    all_section_content,
+                    re.IGNORECASE)
                 if ikraft_villkor_match:
                     ikraft_villkor = ikraft_villkor_match.group(1).strip()
 
-                    # Kontrollera konsistens: om vi hittar ikraft_villkor ska sektionen också vara ikraft
+                    # Kontrollera konsistens: om vi hittar ikraft_villkor ska sektionen också
+                    # vara ikraft
                     if not has_ikraft:
-                        raise ValueError(f"Inkonsistens upptäckt: Sektion har ikraft_villkor '{ikraft_villkor}' men är inte markerad som ikraft. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
+                        raise ValueError(
+                            f"Inkonsistens upptäckt: Sektion har ikraft_villkor '{ikraft_villkor}' men är inte markerad som ikraft. Rubrik: '{header_line}', Innehåll: '{filtered_content[:100]}...'")
 
             # Bestäm CSS-klass baserat på rubriknivå och innehåll
             css_classes = []
@@ -642,7 +657,7 @@ def parse_logical_sections(text: str) -> str:
 
             # Bygg section-tagg med attribut
             attributes = []
-            
+
             # Lägg till id-attribut baserat på rubriken
             if header_match:
                 # Hitta lämplig förälder baserat på rubriknivå - endast kapitel kan vara föräldrar
@@ -653,13 +668,13 @@ def parse_logical_sections(text: str) -> str:
                     if level < main_header_level and re.match(r'^kap\d+[a-z]?$', pid):
                         parent_id = pid
                         break
-                
+
                 section_id = generate_section_id(header_text, parent_id)
                 attributes.append(f'id="{section_id}"')
-            
+
             if css_classes:
                 attributes.append(f'class="{" ".join(css_classes)}"')
-            
+
             # Hantera status attribut - en sektion kan ha både upphävd och ikraft
             status_values = []
             if has_upphavd:
@@ -668,16 +683,17 @@ def parse_logical_sections(text: str) -> str:
                 status_values.append('upphord')
             if has_ikraft:
                 status_values.append('ikraft')
-            
+
             if status_values:
                 attributes.append(f'selex:status="{" ".join(status_values)}"')
-            
+
             if ikraft_datum:
                 attributes.append(f'selex:ikraft_datum="{ikraft_datum}"')
             if upphor_datum:
                 attributes.append(f'selex:upphor_datum="{upphor_datum}"')
             if has_upphavd:
-                attributes.append('selex:upphavd="true"') # TODO: Peka ut i vilken ändringsförfattning den upphävdes
+                # TODO: Peka ut i vilken ändringsförfattning den upphävdes
+                attributes.append('selex:upphavd="true"')
             if ikraft_villkor:
                 attributes.append(f'selex:ikraft_villkor="{ikraft_villkor}"')
 
@@ -685,7 +701,7 @@ def parse_logical_sections(text: str) -> str:
                 result.append(f'<section {" ".join(attributes)}>')
             else:
                 result.append('<section>')
-            
+
             # Lägg alltid till en tom rad efter <section> taggen
             result.append('')
 
@@ -693,9 +709,11 @@ def parse_logical_sections(text: str) -> str:
             cleaned_section = []
             for line in current_section:
                 # Ta bort ikraft-markeringar
-                cleaned_line = re.sub(INTOFORCE_FULL_TEMPORAL_TAG_PATTERN, '', line, flags=re.IGNORECASE)
+                cleaned_line = re.sub(INTOFORCE_FULL_TEMPORAL_TAG_PATTERN,
+                                      '', line, flags=re.IGNORECASE)
                 # Ta bort upphör-markeringar
-                cleaned_line = re.sub(REVOKE_FULL_TEMPORAL_TAG_PATTERN, '', cleaned_line, flags=re.IGNORECASE)
+                cleaned_line = re.sub(REVOKE_FULL_TEMPORAL_TAG_PATTERN, '',
+                                      cleaned_line, flags=re.IGNORECASE)
                 cleaned_section.append(cleaned_line)
 
             # Lägg till det rensade innehållet
@@ -740,33 +758,31 @@ def parse_logical_sections(text: str) -> str:
     return '\n'.join(result)
 
 
-
-
 def check_unprocessed_temporal_sections(text: str) -> None:
     """
     Kontrollera att inga sektioner med temporal status-attribut finns kvar.
-    
+
     Denna funktion säkerställer att alla temporala sektioner har behandlats korrekt
     av temporal processing innan selex tags tas bort.
-    
+
     Obs: Eftersom artikel-temporala attribut (selex:ikraft_datum, selex:upphor_datum, etc.)
     läggs till i frontmatter och hanteras inte här, så kontrolleras endast
     <section> och </section> taggar för obehandlade status-attribut.
-    
+
     Args:
         text (str): Text som ska kontrolleras
-        
+
     Raises:
         ValueError: Om sektioner med obehandlade status-attribut hittas
     """
     # Sök efter section- och article-taggar med temporal attribut som indikerar obehandlad status
     temporal_patterns = [
         r'<section[^>]*selex:ikraft_datum=',  # Section ikraftträdandedatum
-        r'<section[^>]*selex:upphor_datum=',  # Section upphörandedatum  
+        r'<section[^>]*selex:upphor_datum=',  # Section upphörandedatum
         r'<section[^>]*selex:status=',        # Section status attribut
         # Note: Article temporal attributes are handled in frontmatter, not in temporal processing
     ]
-    
+
     found_issues = []
     for pattern in temporal_patterns:
         matches = re.finditer(pattern, text, re.IGNORECASE)
@@ -778,19 +794,19 @@ def check_unprocessed_temporal_sections(text: str) -> None:
                 section_content = text[section_start:section_start + 200] + "..."
             else:
                 section_content = text[section_start:section_end + 10]
-            
+
             found_issues.append(section_content)
-    
+
     if found_issues:
         error_msg = (
             "Fel: Sektioner eller artiklar med obehandlade temporal attribut hittades. "
             "Dessa borde ha behandlats av temporal processing före borttagning av selex tags.\n\n"
-            "Hittade element:\n" + 
+            "Hittade element:\n" +
             "\n".join(f"- {issue}" for issue in found_issues[:5])  # Visa max 5 exempel
         )
         if len(found_issues) > 5:
             error_msg += f"\n... och {len(found_issues) - 5} till"
-        
+
         raise ValueError(error_msg)
 
 
@@ -798,7 +814,7 @@ def clean_selex_tags(text: str) -> str:
     """
     Rensa bort alla selex-taggar (<section>, </section>, <article>, </article>) och deras associerade tomma rader.
     Normaliserar också rubriknivåer så att de inte hoppar över nivåer.
-    
+
     Funktionen kontrollerar först att inga obehandlade temporal sektioner finns,
     sedan rensar den:
     1. Alla <section> taggar (med eller utan attribut)
@@ -809,18 +825,18 @@ def clean_selex_tags(text: str) -> str:
     6. Tomma rader som kommer direkt före </section> eller </article> taggar
     7. Eventuella överflödiga dubletter av tomma rader
     8. Normaliserar rubriknivåer så att de följer en logisk hierarki (1, 2, 3, 4...)
-    
+
     Obs: Artikel-temporala attribut (selex:ikraft_datum, selex:upphor_datum, etc.) läggas också
-    till i frontmatter och hanteras inte här. Därför tas <article>-taggen bort bort 
+    till i frontmatter och hanteras inte här. Därför tas <article>-taggen bort bort
     här utan att kontrollera dess attribut.
-    
+
     Args:
         text (str): Text med selex-taggar och tomma rader
-        
+
     Returns:
         str: Rensat text utan selex-taggar och deras associerade tomma rader,
              med normaliserade rubriknivåer
-        
+
     Raises:
         ValueError: Om obehandlade temporal sektioner hittas
     """
@@ -829,17 +845,17 @@ def clean_selex_tags(text: str) -> str:
     lines = text.split('\n')
     result = []
     i = 0
-    
+
     while i < len(lines):
         line = lines[i]
-        
+
         # Kontrollera om raden är en <section> eller <article> tagg
         if re.match(SECTION_TAG_PATTERN, line) or re.match(ARTICLE_TAG_PATTERN, line):
             # Hoppa över taggen
             i += 1
             # Behåll den tomma raden efter taggen för markdown-standard om nästa rad är en rubrik
-            if (i < len(lines) and lines[i].strip() == '' and 
-                i + 1 < len(lines) and re.match(r'#{1,6}\s', lines[i + 1].strip())):
+            if (i < len(lines) and lines[i].strip() == '' and
+                    i + 1 < len(lines) and re.match(r'#{1,6}\s', lines[i + 1].strip())):
                 # Den tomma raden följs av en rubrik, behåll den
                 result.append('')
                 i += 1
@@ -847,69 +863,70 @@ def clean_selex_tags(text: str) -> str:
                 # Hoppa över tomma rader som inte följs av rubriker
                 i += 1
             continue
-            
+
         # Kontrollera om raden är en </section> eller </article> tagg
         elif re.match(SECTION_CLOSE_TAG_PATTERN, line) or re.match(ARTICLE_CLOSE_TAG_PATTERN, line):
-            # Ta bort föregående tom rad om den finns (eftersom vi lägger till tom rad före sluttaggen)
+            # Ta bort föregående tom rad om den finns (eftersom vi lägger till tom rad
+            # före sluttaggen)
             if result and result[-1].strip() == '':
                 result.pop()
             # Hoppa över sluttaggen utan att lägga till den
             i += 1
             continue
-            
+
         else:
             # Vanlig rad - lägg till den
             result.append(line)
             i += 1
-    
+
     # Ta bort eventuella dubletter av tomma rader och rensa slutresultatet
     cleaned_result = []
     prev_empty = False
-    
+
     for line in result:
         is_empty = line.strip() == ''
-        
+
         # Lägg endast till tomma rader om föregående rad inte var tom
         if is_empty and prev_empty:
             continue  # Hoppa över dublett av tom rad
         else:
             cleaned_result.append(line)
             prev_empty = is_empty
-    
+
     # Ta bort inledande och avslutande tomma rader
     while cleaned_result and cleaned_result[0].strip() == '':
         cleaned_result.pop(0)
     while cleaned_result and cleaned_result[-1].strip() == '':
         cleaned_result.pop()
-    
+
     # Normalisera rubriknivåer så att de inte hoppar över nivåer
     final_text = '\n'.join(cleaned_result)
     final_text = normalize_heading_levels(final_text)
-    
+
     return final_text
 
 
 def generate_section_id(header_text: str, parent_id: str = None) -> str:
     """
     Genererar ett id-attribut för section-taggar baserat på rubrik eller paragrafnummer.
-    
+
     Regler:
     - Om rubriken innehåller paragrafnummer (t.ex. "5 §", "13 a §"), använd bara paragrafnumret
     - Om rubriken är ett kapitel (t.ex. "1 kap.", "2 a kap."), använd formatet "kap1", "kap2a"
     - Om parent_id finns och rubriken är en paragraf, lägg till parent som prefix: "kap1.1"
     - Annars skapa en slug från rubriken (max 30 tecken)
     - Ta bort markeringar (text inom //) innan slug-generering
-    
+
     Args:
         header_text (str): Rubriktext (utan # tecken)
         parent_id (str, optional): ID för överordnad sektion
-        
+
     Returns:
         str: ID som kan användas som HTML id-attribut
     """
     # Ta bort markeringar (text inom //) från rubriken
     cleaned_header = re.sub(TEMPORAL_MARKER_PATTERN, '', header_text).strip()
-    
+
     # Kontrollera om det finns paragrafnummer i rubriken
     paragraph_match = re.search(PARAGRAPH_PATTERN, cleaned_header)
     if paragraph_match:
@@ -918,7 +935,7 @@ def generate_section_id(header_text: str, parent_id: str = None) -> str:
         if parent_id:
             return f"{parent_id}.{paragraph_num}"
         return f"{paragraph_num}"
-    
+
     # Kontrollera om det är ett kapitel (använd samma mönster som i format_sfs_text_as_markdown)
     kapitel_match = re.match(CHAPTER_PATTERN, cleaned_header)
     if kapitel_match:
@@ -926,20 +943,20 @@ def generate_section_id(header_text: str, parent_id: str = None) -> str:
         kapitel_num = kapitel_match.group(1)
         kapitel_letter = kapitel_match.group(2) if kapitel_match.group(2) else ''
         return f"kap{kapitel_num}{kapitel_letter.lower()}"
-    
+
     # Om inget paragrafnummer eller kapitel, skapa slug från rubriken
     # Ta bort alla icke-alfanumeriska tecken och ersätt med bindestreck
     slug = re.sub(r'[^\w\s-]', '', cleaned_header)
     slug = re.sub(r'\s+', '-', slug)
     slug = slug.lower().strip('-')
-    
+
     # Begränsa till max 30 tecken
     if len(slug) > 30:
         slug = slug[:30].rstrip('-')
-    
+
     if not slug:
         raise ValueError(f"Kan inte generera giltigt ID från rubriktext: '{header_text}'")
-    
+
     if parent_id:
         return f"{parent_id}.{slug}"
     else:
@@ -949,19 +966,19 @@ def generate_section_id(header_text: str, parent_id: str = None) -> str:
 def normalize_heading_levels(text: str) -> str:
     """
     Normalisera rubriknivåer så att de inte hoppar över nivåer.
-    
-    Om det finns rubriker på nivå 1 och 3 men inte nivå 2, kommer nivå 3 att 
-    justeras till nivå 2. Detta säkerställer valid Markdown där rubriknivåer 
+
+    Om det finns rubriker på nivå 1 och 3 men inte nivå 2, kommer nivå 3 att
+    justeras till nivå 2. Detta säkerställer valid Markdown där rubriknivåer
     följer en logisk hierarki utan hopp.
-    
+
     Args:
         text (str): Markdown-text med rubriker
-        
+
     Returns:
         str: Text med normaliserade rubriknivåer
     """
     lines = text.split('\n')
-    
+
     # Först, hitta alla rubriknivåer som används i dokumentet
     used_levels = set()
     for line in lines:
@@ -969,20 +986,20 @@ def normalize_heading_levels(text: str) -> str:
         if match:
             level = len(match.group(1))
             used_levels.add(level)
-    
+
     if not used_levels:
         return text  # Inga rubriker att normalisera
-    
+
     # Skapa mappning från gamla nivåer till nya nivåer
     sorted_levels = sorted(used_levels)
     level_mapping = {}
-    
+
     # Börja från nivå 1 och tilldela nya nivåer sekventiellt
     new_level = 1
     for old_level in sorted_levels:
         level_mapping[old_level] = new_level
         new_level += 1
-    
+
     # Tillämpa den nya nivåmappningen
     result_lines = []
     for line in lines:
@@ -994,38 +1011,37 @@ def normalize_heading_levels(text: str) -> str:
             result_lines.append(new_hashes + match.group(2))
         else:
             result_lines.append(line)
-    
-    return '\n'.join(result_lines)
 
+    return '\n'.join(result_lines)
 
 
 def is_chapter_header(line: str) -> bool:
     """
     Kontrollera om en rad är en AVDELNING-rubrik som ska få nivå 2 (##).
-    
+
     AVDELNING-rubriker identifieras med två mönster:
     1. AVDELNING eller AVD. följt av romerska siffror (I, II, III, IV, V, X, etc.)
     2. Svenska ordningstal (FÖRSTA, ANDRA, etc.) följt av AVDELNING eller AVD.
-    
+
     Exempel:
     - "AVDELNING I. INLEDANDE BESTÄMMELSER"
-    - "AVD. I SKATTEFRIA INKOMSTER OCH INTE AVDRAGSGILLA UTGIFTER"  
+    - "AVD. I SKATTEFRIA INKOMSTER OCH INTE AVDRAGSGILLA UTGIFTER"
     - "AVDELNING I"
     - "FÖRSTA AVDELNINGEN"
     - "ANDRA AVDELNINGEN"
     - "AVD. II KAPITALVINSTER OCH KAPITALFÖRLUSTER"
-    
+
     Args:
         line (str): Raden som ska kontrolleras
-        
+
     Returns:
         bool: True om raden är en AVDELNING-rubrik, False annars
     """
     line = line.strip()
     if not line:
         return False
-    
+
     # Mönster 1: AVDELNING/AVD. följt av romerska siffror
     # Mönster 2: Svenska ordningstal följt av AVDELNING/AVD.
-    return (re.match(DIVISION_PATTERN_1, line, re.IGNORECASE) is not None or 
+    return (re.match(DIVISION_PATTERN_1, line, re.IGNORECASE) is not None or
             re.match(DIVISION_PATTERN_2, line, re.IGNORECASE) is not None)

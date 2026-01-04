@@ -10,7 +10,7 @@ from util.text_utils import clean_text
 def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Extract and format amendment information, sorted chronologically by ikraft_datum."""
     from util.datetime_utils import format_datetime  # Import to avoid circular imports
-    
+
     amendments = []
 
     for amendment in andringsforfattningar:
@@ -24,7 +24,7 @@ def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict
         # Only include non-empty amendments
         if amendment_data['beteckning']:
             amendments.append(amendment_data)
-    
+
     # Sort amendments chronologically by ikraft_datum
     # Amendments without ikraft_datum will be sorted to the end
     amendments.sort(key=lambda x: x['ikraft_datum'] or '9999-12-31')
@@ -32,7 +32,12 @@ def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict
     return amendments
 
 
-def process_markdown_amendments(markdown_content: str, data: Dict[str, Any], git_branch: str = None, verbose: bool = False, output_file: Path = None) -> str:
+def process_markdown_amendments(markdown_content: str,
+                                data: Dict[str,
+                                           Any],
+                                git_branch: str = None,
+                                verbose: bool = False,
+                                output_file: Path = None) -> str:
     """
     Process amendments on markdown content by checking for amendment markers and applying changes.
 
@@ -53,10 +58,10 @@ def process_markdown_amendments(markdown_content: str, data: Dict[str, Any], git
     Returns:
         str: The processed markdown content with amendments applied, or original content if no processing needed
     """
-    
+
     # Extract beteckning for logging
     beteckning = data.get('beteckning', '')
-    
+
     # Extract the original text content to check for amendment markers
     amendments = extract_amendments(data.get('andringsforfattningar', []))
 
@@ -75,7 +80,8 @@ def process_markdown_amendments(markdown_content: str, data: Dict[str, Any], git
 
             # Apply amendments if they exist, otherwise just apply temporal processing
             if has_amendment_markers and amendments:
-                processed_text = apply_amendments_to_text(markdown_body, amendments, git_branch, verbose, output_file)
+                processed_text = apply_amendments_to_text(
+                    markdown_body, amendments, git_branch, verbose, output_file)
                 if verbose:
                     print(f"Debug: Bearbetad textlängd för {beteckning}: {len(processed_text)}")
             else:
@@ -84,7 +90,8 @@ def process_markdown_amendments(markdown_content: str, data: Dict[str, Any], git
                 current_date = date.today().strftime('%Y-%m-%d')
                 processed_text = apply_temporal(markdown_body, current_date)
                 if verbose:
-                    print(f"Info: Temporal processing tillämpat på {beteckning} utan ändringar för datum {current_date}")
+                    print(
+                        f"Info: Temporal processing tillämpat på {beteckning} utan ändringar för datum {current_date}")
 
             # Reconstruct the full content
             processed_markdown = front_matter + "\n\n" + processed_text
@@ -97,7 +104,12 @@ def process_markdown_amendments(markdown_content: str, data: Dict[str, Any], git
         return markdown_content
 
 
-def apply_amendments_to_text(text: str, amendments: List[Dict[str, Any]], git_branch: str = None, verbose: bool = False, output_file: Path = None) -> str:
+def apply_amendments_to_text(text: str,
+                             amendments: List[Dict[str,
+                                                   Any]],
+                             git_branch: str = None,
+                             verbose: bool = False,
+                             output_file: Path = None) -> str:
     """
     Apply changes to SFS text based on amendment dates.
 

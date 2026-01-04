@@ -1,3 +1,4 @@
+from exporters.html.styling_constants import get_css_variables, COLORS
 import difflib
 import html
 import re
@@ -9,9 +10,14 @@ import sys
 project_root = Path(__file__).parent.parent.parent
 sys.path.insert(0, str(project_root))
 
-from exporters.html.styling_constants import get_css_variables, COLORS
 
-def create_html_diff(text_before: str, text_after: str, beteckning: str, rubrik: str, ikraft_datum: str, output_dir: Path = None) -> str:
+def create_html_diff(
+        text_before: str,
+        text_after: str,
+        beteckning: str,
+        rubrik: str,
+        ikraft_datum: str,
+        output_dir: Path = None) -> str:
     """
     Create an HTML diff file showing changes between before and after text.
 
@@ -56,7 +62,7 @@ def create_html_diff(text_before: str, text_after: str, beteckning: str, rubrik:
     <title>Ändringsförfattning {beteckning} - Textändringar</title>
     <style>
         {css_variables}
-        
+
         body {{
             font-family: var(--font-modern);
             max-width: 1100px;
