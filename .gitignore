@@ -1,6 +1,7 @@
 .env
 ___pycache__
 *.pyc
+*.egg-info/
 .DS_Store
 
 # Ignore Claude configuration
