@@ -125,7 +125,7 @@ def make_document(data: Dict[str, Any], output_dir: Path, output_modes: List[str
     Args:
         data: JSON data for the document
         output_dir: Directory where output files should be saved
-        output_modes: List of formats/modes to use (e.g., ["md", "git"]). If None, defaults to ["md"]
+        output_modes: List of formats/modes to use (e.g., ["md-markers", "git"]). If None, defaults to ["md-markers"]
                      Note: "git" mode requires "md" mode to be included as it modifies markdown processing
                      "md" generates clean markdown (section tags removed), "md-markers" preserves section tags
                      "html" generates base document only, "htmldiff" includes amendment versions
@@ -221,12 +221,6 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     if not beteckning:
         raise ValueError("Beteckning saknas i dokumentdata")
 
-    # Process amendments
-    # TODO: markdown_content = process_markdown_amendments(markdown_content, data, git_branch, verbose, output_file)
-    
-    # Convert table-like structures to proper Markdown tables
-    # TODO: markdown_content = convert_tables_in_markdown(markdown_content, verbose)
-    
     # Apply temporal processing to handle selex attributes (only if not in git mode and not preserving selex tags)
     if not git_mode and not preserve_selex_tags and target_date:
         markdown_content = apply_temporal(markdown_content, target_date, verbose=verbose)
@@ -565,8 +559,8 @@ def main():
                         help='Do not create year-based subdirectories for documents')
     parser.add_argument('--verbose', action='store_true',
                         help='Show detailed diff output for each amendment processing')
-    parser.add_argument('--formats', dest='output_modes', default='md',
-                        help='Output formats to generate (comma-separated). Currently supported: md, md-markers, git, html, htmldiff. Default: md. Use "md-markers" to preserve section tags. Use "git" to enable Git commits with historical dates. HTML creates documents in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer}). HTMLDIFF includes amendment versions with diff view.')
+    parser.add_argument('--formats', dest='output_modes', default='md-markers',
+                        help='Output formats to generate (comma-separated). Currently supported: md-markers, md, git, html, htmldiff. Default: md-markers. Use "md-markers" to preserve section tags with temporal attributes (standard). Use "md" for clean markdown without section tags. Use "git" to enable Git commits with historical dates. HTML creates documents in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer}). HTMLDIFF includes amendment versions with diff view.')
     parser.add_argument('--predocs-fetch', action='store_true', dest='predocs_fetch',
                         help='Fetch detailed information about förarbeten from Riksdagen API. Parsing of förarbeten always happens. This will make processing slower.')
     parser.add_argument('--apply-links', action='store_true', default=True,
