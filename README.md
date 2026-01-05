@@ -82,22 +82,39 @@ Beroende på vilket format du väljer får du olika strukturer:
 
 #### Format: `md-markers` (förvalt)
 
-Markdown-filer med bevarad semantisk struktur genom `<section>`-taggar:
+Markdown-filer med bevarad semantisk struktur genom `<article>` och `<section>`-taggar:
 
+- **`<article>`**: Omsluter hela författningen och kan innehålla temporala attribut (ikraft_datum, upphor_datum, etc.)
+- **`<section class="avdelning">`**: Omsluter avdelningar (divisions) som överordnad strukturell enhet
 - **`<section class="kapitel">`**: Omsluter kapitel som strukturell enhet med underliggande paragrafer
 - **`<section class="paragraf">`**: Omsluter varje paragraf (§) som en avgränsad juridisk bestämmelse
 
 ```html
-<section class="kapitel">
-## Inledande bestämmelser
-<section class="paragraf">
-### 1 §
-Innehållet i paragrafen...
-</section>
-</section>
+<article selex:status="ikraft" selex:ikraft_datum="2024-01-01">
+
+  # Lag (2024:123) om exempel
+
+  <section class="avdelning" id="avd1">
+  ## AVDELNING I. ALLMÄNNA BESTÄMMELSER
+
+    <section class="kapitel" id="inledande-bestammelser">
+    ### Inledande bestämmelser
+
+      <section class="paragraf" id="inledande-bestammelser.1">
+      #### 1 §
+      Innehållet i paragrafen...
+      </section>
+
+    </section>
+
+  </section>
+
+</article>
 ```
 
-Denna semantiska struktur bevarar dokumentets logiska uppbyggnad och möjliggör automatisk bearbetning, analys, och navigation av författningstexten. Section-taggarna kan även användas för CSS-styling och JavaScript-funktionalitet.
+Denna semantiska struktur bevarar dokumentets logiska uppbyggnad och möjliggör automatisk bearbetning, analys, och navigation av författningstexten. ID-attributen gör det möjligt att länka direkt till specifika rubriker och paragrafer (t.ex. `#inledande-bestammelser.1`). Taggarna kan även användas för CSS-styling och JavaScript-funktionalitet.
+
+_OBS! Trots HTML-taggarna är filerna fortfarande fullt läsbara som Markdown :)_
 
 #### Format: `md`
 
