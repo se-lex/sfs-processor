@@ -555,13 +555,24 @@ def main():
     parser.add_argument('--verbose', action='store_true',
                         help='Show detailed diff output for each amendment processing')
     parser.add_argument('--formats', dest='output_modes', default='md-markers',
-                        help='Output formats to generate (comma-separated). Currently supported: md-markers, md, git, html, htmldiff. Default: md-markers. Use "md-markers" to preserve section tags with temporal attributes (standard). Use "md" for clean markdown without section tags. Use "git" to enable Git commits with historical dates. HTML creates documents in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer}). HTMLDIFF includes amendment versions with diff view.')
+                        help='Output formats to generate (comma-separated). Currently supported: md-markers, md, git, html, htmldiff, vector. Default: md-markers. Use "md-markers" to preserve section tags with temporal attributes (standard). Use "md" for clean markdown without section tags. Use "git" to enable Git commits with historical dates. HTML creates documents in ELI directory structure (/eli/sfs/{YEAR}/{lopnummer}). HTMLDIFF includes amendment versions with diff view. VECTOR creates embeddings for semantic search.')
     parser.add_argument('--predocs-fetch', action='store_true', dest='predocs_fetch',
                         help='Fetch detailed information about förarbeten from Riksdagen API. Parsing of förarbeten always happens. This will make processing slower.')
     parser.add_argument('--target-date', dest='target_date', default=None,
                         help='Target date (YYYY-MM-DD) for temporal processing. Used with md, html, and htmldiff formats to filter content based on validity dates. If not specified, today\'s date is used for md format. Example: --target-date 2023-01-01')
     parser.add_argument('--apply-links', action='store_true', default=True,
                         help='Apply internal paragraph links (e.g., [9 §](#9§)), external SFS links (e.g., [2002:43](/sfs/2002:43)), EU legislation links (e.g., [(EU) nr 651/2014](https://eur-lex.europa.eu/...)), and law name links (e.g., [8 kap. 7 § regeringsformen](/sfs/1974/152)) to the document. Default: True')
+    # Vector export options
+    parser.add_argument('--vector-backend', dest='vector_backend', default='json',
+                        choices=['postgresql', 'elasticsearch', 'json'],
+                        help='Vector store backend for vector format (default: json)')
+    parser.add_argument('--vector-chunking', dest='vector_chunking', default='paragraph',
+                        choices=['paragraph', 'chapter', 'section', 'semantic', 'fixed_size'],
+                        help='Chunking strategy for vector format (default: paragraph)')
+    parser.add_argument('--vector-mock', dest='vector_mock', action='store_true',
+                        help='Use mock embeddings for vector format (for testing without OpenAI API)')
+    parser.add_argument('--embedding-model', dest='embedding_model', default='text-embedding-3-large',
+                        help='Embedding model for vector format (default: text-embedding-3-large)')
     parser.set_defaults(year_folder=True)
     args = parser.parse_args()
 
@@ -571,7 +582,7 @@ def main():
         output_modes = ['md']  # Default to markdown
 
     # Validate output modes
-    supported_formats = ['md', 'md-markers', 'git', 'html', 'htmldiff']
+    supported_formats = ['md', 'md-markers', 'git', 'html', 'htmldiff', 'vector']
     invalid_formats = [mode for mode in output_modes if mode not in supported_formats]
     if invalid_formats:
         print(f"Fel: Ej stödda utdataformat: {', '.join(invalid_formats)}")
@@ -634,7 +645,38 @@ def main():
         css_js_dir.mkdir(parents=True, exist_ok=True)
         generate_css_file(css_js_dir)
         generate_js_file(css_js_dir)
-    
+
+    # Handle vector mode with batch processing
+    if "vector" in output_modes:
+        from exporters.vector import VectorExportConfig, ChunkingStrategy
+        from exporters.vector.vector_export import batch_create_vector_documents
+
+        # Build vector config
+        vector_config = VectorExportConfig(
+            embedding_provider="mock" if args.vector_mock else "openai",
+            embedding_model=args.embedding_model,
+            backend_type=args.vector_backend,
+            chunking_strategy=ChunkingStrategy(args.vector_chunking),
+            verbose=args.verbose
+        )
+
+        # Set target_date to today if not specified
+        vector_target_date = args.target_date or datetime.now().strftime('%Y-%m-%d')
+
+        print(f"Skapar vektordata med {args.embedding_model} och {args.vector_chunking}-chunking...")
+        batch_create_vector_documents(
+            json_files=json_files,
+            output_dir=output_dir,
+            config=vector_config,
+            target_date=vector_target_date,
+            show_progress=True
+        )
+
+        # Remove 'vector' from output_modes if it's the only one to avoid further processing
+        if output_modes == ['vector']:
+            print(f"\nVektorbearbetning klar! {len(json_files)} filer bearbetade")
+            return
+
     # Handle git mode with batch processing
     if "git" in output_modes:
         from exporters.git import process_files_with_git_batch
