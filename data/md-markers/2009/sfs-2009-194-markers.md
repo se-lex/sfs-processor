@@ -1,0 +1,545 @@
+---
+beteckning: "2009:194"
+rubrik: Lag om förfarandet vid skattereduktion för hushållsarbete
+departement: Finansdepartementet
+utfardad_datum: 2009-03-19
+ikraft_datum: 2009-07-01
+publicerad_datum: 2026-01-02
+forarbeten: - "PROP 2008/09:77"
+  - "BET 2008/09:SkU20"
+  - "RSKR 2008/09:184"
+pdf_url: https://rkrattsdb.gov.se/SFSdoc/09/090194.pdf
+andringsforfattningar:
+  - beteckning: "2011:1426"
+    rubrik: Lag om ändring i lagen om förfarandet vid skattereduktion för hushållsarbete
+    ikraft_datum: 2012-01-01
+    anteckningar: "ändr. 8, 17, 19, 22 §§"
+  - beteckning: "2014:1458"
+    rubrik: Lag om ändring i lagen om förfarandet vid skattereduktion för hushållsarbete
+    ikraft_datum: 2015-01-01
+    anteckningar: "upph. 10 §, rubr. närmast före 10 §; ändr. 7, 8, 9, 12, 21, 23, 24 §§, rubr. närmast före 23 §"
+  - beteckning: "2015:777"
+    rubrik: Lag om ändring i lagen om förfarandet vid skattereduktion för hushållsarbete
+    ikraft_datum: 2016-01-01
+    anteckningar: "ändr. 7, 17, 19 §§"
+  - beteckning: "2019:451"
+    rubrik: Lag om ändring i lagen om förfarandet vid skattereduktion för hushållsarbete
+    ikraft_datum: 2019-07-01
+    anteckningar: "ändr. 7, 17, 19 §§"
+  - beteckning: "2020:1069"
+    rubrik: Lag om ändring i lagen om förfarandet vid skattereduktion för hushållsarbete
+    ikraft_datum: 2021-01-01
+    anteckningar: "upph. rubr. närmast före 23 §; nuvarande 23 § betecknas 23 b §; ändr. 7, 9, 17, 19 §§; nya 23, 23 a §§, rubr. närmast före 23 §"
+  - beteckning: "2024:416"
+    rubrik: Lag om ändring i lagen om förfarandet vid skattereduktion för hushållsarbete
+    ikraft_datum: 2024-07-01
+    anteckningar: "ändr. 7, 17 §§"
+  - beteckning: "2024:419"
+    rubrik: Lag om ändring i lagen om förfarandet vid skattereduktion för hushållsarbete
+    ikraft_datum: 2025-01-01
+    anteckningar: "ändr. 7, 17 §§"
+  - beteckning: "2025:323"
+    rubrik: Lag om ändring i lagen om förfarandet vid skattereduktion för hushållsarbete
+    ikraft_datum: 2025-05-12
+    anteckningar: ändr. 7 §
+  - beteckning: "2025:324"
+    rubrik: Lag om ändring i lagen om förfarandet vid skattereduktion för hushållsarbete
+    ikraft_datum: 2026-01-01
+    anteckningar: ändr. 7 §
+  - beteckning: "2009:539"
+    rubrik: Lag om ändring i lagen om förfarandet vid skattereduktion för hushållsarbete
+    anteckningar: "ändr. 2, 19, 22 §; ny 9 a §"
+---
+<article selex:utfardad_datum="2009-03-19" selex:ikraft_datum="2009-07-01">
+
+# Lag om förfarandet vid skattereduktion för hushållsarbete
+
+<section id="lagens-tillämpningsområde">
+
+## Lagens tillämpningsområde
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+I denna lag finns bestämmelser om förfarandet vid skattereduktion för hushållsarbete enligt [67 kap. inkomstskattelagen](https://selex.se/eli/sfs/1999/1229) ([1999:1229](https://selex.se/eli/sfs/1999/1229)).
+
+</section>
+
+</section>
+<section id="hänvisningar">
+
+## Hänvisningar
+
+<section id="2" class="paragraf">
+
+### 2 §
+
+I [67 kap. inkomstskattelagen](https://selex.se/eli/sfs/1999/1229) ([1999:1229](https://selex.se/eli/sfs/1999/1229)) finns bestämmelser om
+
+– vilka som kan få skattereduktion ([11 §](#11)),
+
+– begäran om skattereduktion ([12 §](#12)),
+
+– definitioner (13 och [14 §](#14)§),
+
+– villkor för skattereduktion (15–[17 §](#17)§),
+
+– underlag för skattereduktion ([18 §](#18)), och
+
+– skattereduktionens storlek ([19 §](#19)). Lag ([2009:539](https://selex.se/eli/sfs/2009/539)).
+
+</section>
+
+</section>
+<section id="definitioner">
+
+## Definitioner
+
+<section id="3" class="paragraf">
+
+### 3 §
+
+Termer och uttryck som används i denna lag har samma betydelse och tillämpningsområde som i inkomstskattelagen ([1999:1229](https://selex.se/eli/sfs/1999/1229)), om inget annat anges.
+
+</section>
+
+</section>
+<section id="beslutande-myndighet">
+
+## Beslutande myndighet
+
+<section id="4" class="paragraf">
+
+### 4 §
+
+Beslut enligt denna lag fattas av Skatteverket.
+
+</section>
+
+</section>
+<section id="belopp">
+
+## Belopp
+
+<section id="5" class="paragraf">
+
+### 5 §
+
+Uppgifter om belopp ska anges i hela krontal så att öretal faller bort.
+
+</section>
+
+</section>
+<section id="begäran-om-utbetalning-från-sk">
+
+## Begäran om utbetalning från Skatteverket
+
+</section>
+<section id="vem-som-får-begära-utbetalning">
+
+## Vem som får begära utbetalning från Skatteverket
+
+<section id="6" class="paragraf">
+
+### 6 §
+
+Om den som kan ha rätt till skattereduktion för hushållsarbete (köparen) inte har betalat hela utgiften för hushållsarbetet, får en sådan utförare som anges i [67 kap. 16 § 1 och 17 § inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap67.16) ([1999:1229](https://selex.se/eli/sfs/1999/1229)) begära utbetalning från Skatteverket enligt [8 §](#8).
+
+</section>
+
+</section>
+<section id="utbetalningens-storlek">
+
+## Utbetalningens storlek
+
+<section id="7" class="paragraf">
+
+### 7 §
+
+Utbetalningen får uppgå till ett belopp som motsvarar mellanskillnaden mellan den debiterade ersättningen för hushållsarbetet inklusive mervärdesskatt och köparens faktiska betalning för arbetet till utföraren före begäran om utbetalning.
+
+Utbetalning får dock uppgå till högst
+
+1. samma belopp som köparen har betalat om den avser sådant hushållsarbete som anges i [67 kap. 13 § inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap67.13) ([1999:1229](https://selex.se/eli/sfs/1999/1229)), och
+
+2. tre sjundedelar av det belopp som köparen har betalat om den avser annat hushållsarbete.
+
+Utbetalning får inte ske till den del köparens sammanlagda preliminära skattereduktion enligt [17 §](#17) skulle uppgå till ett belopp som överstiger 75 000 kronor för ett beskattningsår. Utbetalning får inte ske till den del den preliminära skattereduktionen för sådant hushållsarbete som anges i [67 kap. 13 a och 13 b §§ inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap67.13a) skulle överstiga 50 000 kronor för ett beskattningsår. Lag ([2025:324](https://selex.se/eli/sfs/2025/324)).
+
+</section>
+
+</section>
+<section id="begäran-om-utbetalning">
+
+## Begäran om utbetalning
+
+<section id="8" class="paragraf">
+
+### 8 §
+
+Utbetalning får begäras efter det att hushållsarbetet har utförts och betalats.
+
+Begäran ska lämnas elektroniskt och ska ha kommit in till Skatteverket senast den 31 januari året efter det beskattningsår då arbetet betalades.
+
+Begäran ska vara undertecknad av utföraren eller av den som är ombud eller annan behörig företrädare för utföraren.
+
+En begäran som lämnats för en utförare som är juridisk person, anses ha lämnats av utföraren, om det inte var uppenbart att den som lämnade begäran saknade behörighet att företräda utföraren. Lag ([2014:1458](https://selex.se/eli/sfs/2014/1458)).
+
+</section>
+<section id="9" class="paragraf">
+
+### 9 §
+
+En begäran om utbetalning ska innehålla uppgifter om
+
+1. namn, adress och, om sådant nummer finns, organisationsnummer, personnummer, samordningsnummer eller motsvarande registreringsnummer för utföraren,
+
+2. personnummer eller samordningsnummer i de fall sådant nummer finns för köparen,
+
+3. debiterad ersättning för hushållsarbete, debiterad ersättning för material och debiterad ersättning för annat än hushållsarbete och material, betalt belopp för hushållsarbete och den dag som betalningen för hushållsarbetet kommit utföraren tillhanda,
+
+4. vad hushållsarbetet avsett och antalet arbetade timmar, utom i fråga om sådant arbete som avses i [67 kap. 13 § 12 och 13 inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap67.13) ([1999:1229](https://selex.se/eli/sfs/1999/1229)), och
+
+5. det belopp som utföraren begär som utbetalning från Skatteverket. Lag ([2020:1069](https://selex.se/eli/sfs/2020/1069)).
+
+</section>
+<section id="9a" class="paragraf">
+
+### 9 a §
+
+En begäran om utbetalning ska i fråga om sådant arbete som avses i [67 kap. 13 a § inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap67.13a) ([1999:1229](https://selex.se/eli/sfs/1999/1229)) även innehålla uppgifter om småhusets eller ägarlägenhetens beteckning.
+
+En begäran om utbetalning ska i fråga om sådant arbete som avses i 67 kap. [13 b §](#kap67.13b) även innehålla uppgifter om lägenhetens beteckning samt föreningens eller bolagets organisationsnummer eller motsvarande. Lag ([2009:539](https://selex.se/eli/sfs/2009/539)).
+
+</section>
+<section id="10" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 10 §
+
+Har upphävts genom lag ([2014:1458](https://selex.se/eli/sfs/2014/1458)).
+
+</section>
+
+</section>
+<section id="skatteverkets-beslut-om-utbeta">
+
+## Skatteverkets beslut om utbetalning
+
+<section id="11" class="paragraf">
+
+### 11 §
+
+Skatteverket ska snarast fatta beslut om sådan utbetalning som avses i [7 §](#7).
+
+</section>
+<section id="12" class="paragraf">
+
+### 12 §
+
+Utbetalning ska göras till utförarens bank- eller kreditmarknadsföretagskonto. Lag ([2014:1458](https://selex.se/eli/sfs/2014/1458)).
+
+</section>
+
+</section>
+<section id="återbetalning">
+
+## Återbetalning
+
+Underrättelse om felaktig utbetalning
+
+<section id="13" class="paragraf">
+
+### 13 §
+
+Om Skatteverket har betalat ut ett belopp utan att mottagaren har varit berättigad till det, ska mottagaren snarast underrätta Skatteverket om denna utbetalning.
+
+Om utföraren till köparen betalar tillbaka ett belopp, som tidigare har legat till grund för beslut om utbetalning av ett belopp från Skatteverket, ska utföraren snarast underrätta Skatteverket om denna återbetalning.
+
+</section>
+
+</section>
+<section id="beslut-om-återbetalning">
+
+## Beslut om återbetalning
+
+<section id="14" class="paragraf">
+
+### 14 §
+
+Om Skatteverket har betalat ut ett belopp utan att mottagaren har varit berättigad till det, ska Skatteverket snarast besluta att det felaktigt utbetalda beloppet ska betalas tillbaka.
+
+Om utföraren till köparen betalar tillbaka ett belopp, som tidigare har legat till grund för beslut om utbetalning av ett belopp från Skatteverket, ska verket snarast besluta att återbetalning ska ske med ett belopp som motsvarar vad som betalats tillbaka till köparen.
+
+Ett beslut om återbetalning får inte meddelas efter utgången av det sjätte året efter det beskattningsår som utbetalningen avser.
+
+</section>
+
+</section>
+<section id="inbetalning-till-konto">
+
+## Inbetalning till konto
+
+<section id="15" class="paragraf">
+
+### 15 §
+
+Återbetalning ska göras genom insättning på ett särskilt konto för återbetalning enligt denna lag.
+
+Återbetalningen anses ha gjorts den dag då betalningen har bokförts på det särskilda kontot.
+
+</section>
+<section id="16" class="paragraf">
+
+### 16 §
+
+Återbetalning ska göras senast den sista dagen i månaden efter den månad då Skatteverket fattat beslutet om återbetalning.
+
+</section>
+
+</section>
+<section id="preliminär-skattereduktion">
+
+## Preliminär skattereduktion
+
+</section>
+<section id="den-preliminära-skattereduktio">
+
+## Den preliminära skattereduktionens storlek
+
+<section id="17" class="paragraf">
+
+### 17 §
+
+Köparen ska tillgodoräknas preliminär skattereduktion med
+
+1. ett belopp motsvarande den utbetalning som Skatteverket enligt [11 §](#11) beslutat om till utföraren, och
+
+2. ett belopp motsvarande redovisade arbetsgivaravgifter i fråga om sådan ersättning för hushållsarbete som har redovisats i en förenklad arbetsgivardeklaration enligt [26 kap. 4 § skatteförfarandelagen](https://selex.se/eli/sfs/2011/1244#kap26.4) ([2011:1244](https://selex.se/eli/sfs/2011/1244)).
+
+Om Skatteverket har beslutat om återbetalning enligt [14 §](#14), ska den tidigare tillgodoräknade preliminära skattereduktionen minskas med belopp motsvarande den beslutade återbetalningen.
+
+Den preliminära skattereduktionen får sammanlagt uppgå till högst 75 000 kronor för ett beskattningsår. Den preliminära skattereduktionen för sådant hushållsarbete som anges i [67 kap. 13 a och 13 b §§ inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap67.13a) ([1999:1229](https://selex.se/eli/sfs/1999/1229)) får uppgå till högst 50 000 kronor för ett beskattningsår. Lag ([2024:419](https://selex.se/eli/sfs/2024/419)).
+
+</section>
+
+</section>
+<section id="i-vilken-ordning-olika-belopp">
+
+## I vilken ordning olika belopp ska tillgodoräknas
+
+<section id="18" class="paragraf">
+
+### 18 §
+
+Preliminär skattereduktion ska tillgodoräknas i den ordning som belopp enligt [17 §](#17) första stycket 1 och 2 registreras av Skatteverket.
+
+</section>
+
+</section>
+<section id="skatteverkets-meddelande-till">
+
+## Skatteverkets meddelande till köparen
+
+<section id="19" class="paragraf">
+
+### 19 §
+
+Skatteverket ska så snart som möjligt skriftligen meddela köparen av hushållsarbetet om
+
+1. beslut enligt [11 §](#11) om utbetalning,
+
+2. beslut enligt [14 §](#14) om återbetalning, och
+
+3. belopp motsvarande redovisade arbetsgivaravgifter i fråga om sådan ersättning för hushållsarbete som har redovisats i en förenklad arbetsgivardeklaration enligt [26 kap. 4 § skatteförfarandelagen](https://selex.se/eli/sfs/2011/1244#kap26.4) ([2011:1244](https://selex.se/eli/sfs/2011/1244)).
+
+Meddelandet ska innehålla uppgifter om
+
+1. namn, adress och, om sådant nummer finns, organisationsnummer, personnummer, samordningsnummer eller motsvarande registreringsnummer för utföraren eller annan mottagare som avses i [13 §](#13) första stycket,
+
+2. utbetalt belopp till eller återbetalt belopp från respektive utförare eller annan mottagare som avses i [13 §](#13) första stycket, och
+
+3. den totala preliminära skattereduktionen som tillgodoräknats köparen enligt [17 §](#17), och hur stor del av denna skattereduktion som avser sådant hushållsarbete som anges i [67 kap. 13 a och 13 b §§ inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap67.13a) ([1999:1229](https://selex.se/eli/sfs/1999/1229)).
+
+Skatteverket ska på begäran av köparen lämna denne ett särskilt meddelande om den totala preliminära skattereduktionen som tillgodoräknats enligt [17 §](#17). Det ska framgå av meddelandet hur stor del av denna skattereduktion som avser sådant hushållsarbete som anges i [67 kap. 13 a och 13 b §§ inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap67.13a). Lag ([2020:1069](https://selex.se/eli/sfs/2020/1069)).
+
+</section>
+
+</section>
+<section id="utredning">
+
+## Utredning
+
+<section id="20" class="paragraf">
+
+### 20 §
+
+Den som begär utbetalning enligt [8 §](#8) eller underrättar Skatteverket om felaktig utbetalning enligt [13 §](#13) ska ge Skatteverket tillfälle att granska underlaget för utbetalning eller återbetalning och lämna de uppgifter som behövs för granskningen.
+
+</section>
+
+</section>
+<section id="tillfälle-att-yttra-sig">
+
+## Tillfälle att yttra sig
+
+<section id="21" class="paragraf">
+
+### 21 §
+
+Ett ärende får inte avgöras till nackdel för utföraren eller annan mottagare som avses i [13 §](#13) första stycket utan att denne har fått tillfälle att yttra sig i ärendet. Om det är uppenbart obehövligt, behöver den som ärendet gäller inte få tillfälle att yttra sig.
+
+Om ett ärende har tillförts uppgifter av någon annan, får det inte avgöras utan att den som ärendet gäller har underrättats om uppgifterna och fått tillfälle att yttra sig över dem.
+
+Andra stycket gäller inte om
+
+1. avgörandet inte är till nackdel för den som ärendet gäller,
+
+2. uppgiften saknar betydelse eller om det av någon annan anledning är uppenbart obehövligt att den som ärendet gäller underrättas och får tillfälle att yttra sig,
+
+3. det finns risk att en underrättelse skulle göra det avsevärt svårare att genomföra beslutet i ärendet, eller
+
+4. avgörandet inte kan skjutas upp.
+
+Underrättelseskyldigheten gäller med de begränsningar som följer av [10 kap. 3 § offentlighets- och sekretesslagen](https://selex.se/eli/sfs/2009/400#kap10.3) ([2009:400](https://selex.se/eli/sfs/2009/400)). Lag ([2014:1458](https://selex.se/eli/sfs/2014/1458)).
+
+</section>
+
+</section>
+<section id="ränta">
+
+## Ränta
+
+<section id="22" class="paragraf">
+
+### 22 §
+
+Kostnadsränta tas ut på sådant belopp som enligt [14 §](#14) ska betalas tillbaka efter beslut av Skatteverket. Räntan beräknas från den dag beloppet betalades ut till och med dagen för Skatteverkets beslut enligt [14 §](#14).
+
+Kostnadsränta beräknas efter en räntesats som motsvarar basräntan enligt [65 kap. 3 § skatteförfarandelagen](https://selex.se/eli/sfs/2011/1244#kap65.3) ([2011:1244](https://selex.se/eli/sfs/2011/1244)).
+
+Om det finns särskilda skäl, får Skatteverket helt eller delvis efterge kravet på ränta. Lag ([2011:1426](https://selex.se/eli/sfs/2011/1426)).
+
+</section>
+
+</section>
+<section id="verkställighet-anstånd-och-bet">
+
+## Verkställighet, anstånd och betalningssäkring
+
+<section id="23" class="paragraf">
+
+### 23 §
+
+Beslut om återbetalning enligt denna lag gäller omedelbart. Lag ([2020:1069](https://selex.se/eli/sfs/2020/1069)).
+
+</section>
+<section id="23a" class="paragraf">
+
+### 23 a §
+
+I fråga om beslut om återbetalning enligt denna lag gäller vad som sägs om anstånd i 63 kap. [2 §](#kap63.2), [4 §](#4) första stycket, 5, 6, 8-10, 15, 16, 22 och [23 §](#23)§ och [71 kap. 1 § andra stycket skatteförfarandelagen](https://selex.se/eli/sfs/2011/1244#kap71.1) ([2011:1244](https://selex.se/eli/sfs/2011/1244)). Lag ([2020:1069](https://selex.se/eli/sfs/2020/1069)).
+
+</section>
+<section id="23b" class="paragraf">
+
+### 23 b §
+
+Om återbetalning enligt denna lag inte görs i rätt tid, ska fordran lämnas för indrivning. Regeringen får meddela föreskrifter om att indrivning inte behöver begäras för ett ringa belopp.
+
+Bestämmelser om indrivning finns i lagen ([1993:891](https://selex.se/eli/sfs/1993/891)) om indrivning av statliga fordringar m.m. Vid indrivning får verkställighet ske enligt utsökningsbalken.
+
+I fråga om återbetalning enligt denna lag gäller vad som sägs om betalningssäkring i 46 kap. 2, 5–7 och 9–[22 §](#22)§, 68 kap. [1 §](#kap68.1), 69 kap. 13–[18 §](#18)§ och [71 kap. 1 § skatteförfarandelagen](https://selex.se/eli/sfs/2011/1244#kap71.1) ([2011:1244](https://selex.se/eli/sfs/2011/1244)). Lag ([2020:1069](https://selex.se/eli/sfs/2020/1069)).
+
+</section>
+
+</section>
+<section id="överklagande">
+
+## Överklagande
+
+<section id="24" class="paragraf">
+
+### 24 §
+
+Skatteverkets beslut enligt denna lag får överklagas till allmän förvaltningsdomstol.
+
+Prövningstillstånd krävs vid överklagande till kammarrätten. Lag ([2014:1458](https://selex.se/eli/sfs/2014/1458)).
+
+
+</section>
+
+</section>
+<section id="övergångsbestämmelser" selex:status="upphavd" selex:upphavd="true">
+
+## Övergångsbestämmelser
+
+[2011:1426](https://selex.se/eli/sfs/2011/1426)
+
+1. Denna lag träder i kraft den 1 januari 2012.
+
+2. Bestämmelserna om ränta i [22 §](#22) tillämpas på ränta som hänför sig till tid från och med den 1 januari 2013. För ränta som hänför sig till tid dessförinnan gäller i stället bestämmelserna om ränta i [19 kap. skattebetalningslagen](https://selex.se/eli/sfs/1997/483) ([1997:483](https://selex.se/eli/sfs/1997/483)).
+
+[2014:1458](https://selex.se/eli/sfs/2014/1458)
+
+1. Denna lag träder i kraft den 1 januari 2015.
+
+2. Bestämmelserna i 8, 9, 12 och [24 §](#24)§ i den nya lydelsen tillämpas första gången på begäran om utbetalning som avser arbete som har betalats av köparen efter den 31 mars 2015.
+
+3. Den upphävda paragrafen gäller dock fortfarande för begäran om utbetalning som avser arbete som har betalats av köparen före den 1 april 2015.
+
+4. Bestämmelsen i [23 §](#23) i den nya lydelsen tillämpas första gången på begäran om utbetalning som lämnas efter den 31 januari 2015.
+
+5. Om det finns särskilda skäl får Skatteverket medge befrielse från skyldigheten enligt [8 §](#8) andra stycket att lämna begäran elektroniskt. Befrielse får medges för högst sex månader från den dag beslut om befrielse fattats. Ansökan om befrielse ska göras senast den 30 april 2015.
+
+[2015:777](https://selex.se/eli/sfs/2015/777)
+
+1. Denna lag träder i kraft den 1 januari 2016.
+
+2. Lagen tillämpas första gången för beskattningsår som börjar efter den 31 december 2015.
+
+[2019:451](https://selex.se/eli/sfs/2019/451)
+
+1. Denna lag träder i kraft den 1 juli 2019.
+
+2. Bestämmelserna i 7 och [17 §](#17)§ i den nya lydelsen tillämpas första gången för beskattningsår som börjar efter den 31 december 2018.
+
+3. Bestämmelsen i [19 §](#19) i den nya lydelsen tillämpas första gången på meddelanden som lämnas till köparen efter ikraftträdandet.
+
+[2020:1069](https://selex.se/eli/sfs/2020/1069)
+
+1. Denna lag träder i kraft den 1 januari 2021.
+
+2. Lagen tillämpas första gången för beskattningsår som börjar efter den 31 december 2020.
+
+3. Bestämmelserna i 23 och [23 a §](#23a)§ tillämpas första gången på beslut om återbetalning avseende en begäran om utbetalning som har lämnats efter den 31 december 2020.
+
+[2024:416](https://selex.se/eli/sfs/2024/416)
+
+1. Denna lag träder i kraft den 1 juli 2024.
+
+2. Lagen tillämpas första gången för beskattningsår som börjar efter den 31 december 2023.
+
+3. För utbetalningar och tillgodoräknanden som avser hushållsarbete som har betalats respektive redovisats före den 1 juli 2024 får den sammanlagda skattereduktionen för hushållsarbete uppgå till högst 75 000 kronor. Skattereduktionen för sådant hushållsarbete som anges i [67 kap. 13 a och 13 b §§ inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap67.13a) ([1999:1229](https://selex.se/eli/sfs/1999/1229)) får dock uppgå till högst 50 000 kronor.
+
+[2024:419](https://selex.se/eli/sfs/2024/419)
+
+1. Denna lag träder i kraft den 1 januari 2025.
+
+2. Lagen tillämpas första gången för beskattningsår som börjar efter den 31 december 2024.
+
+[2025:323](https://selex.se/eli/sfs/2025/323)
+
+1. Denna lag träder i kraft den 12 maj 2025.
+
+2. Lagen tillämpas första gången för beskattningsår som börjar efter den 31 december 2024.
+
+[2025:324](https://selex.se/eli/sfs/2025/324)
+
+1. Denna lag träder i kraft den 1 januari 2026.
+
+2. Lagen tillämpas första gången för beskattningsår som börjar efter den 31 december 2025.
+
+</section>
+
+</article>

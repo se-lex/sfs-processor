@@ -1,0 +1,16 @@
+---
+beteckning: "2025:1452"
+rubrik: "Förordning om upphävande av Vägverkets föreskrifter (VVFS 2005:75) om betalning av avgift för färd på Svinesundsförbindelsen"
+departement: Landsbygds- och infrastrukturdepartementet
+utfardad_datum: 2025-12-04
+publicerad_datum: 2025-12-08
+pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/2025-12/SFS2025-1452.pdf
+---
+
+<article selex:utfardad_datum="2025-12-04">
+
+# Förordning om upphävande av Vägverkets föreskrifter (VVFS 2005:75) om betalning av avgift för färd på Svinesundsförbindelsen
+
+Regeringen föreskriver att Vägverkets föreskrifter (VVFS [2005:75](https://selex.se/eli/sfs/2005/75)) om betalning av avgift för färd på Svinesundsförbindelsen ska upphöra att gälla vid utgången av januari 2026.
+
+</article>

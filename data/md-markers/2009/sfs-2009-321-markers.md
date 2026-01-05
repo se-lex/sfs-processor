@@ -1,0 +1,442 @@
+---
+beteckning: "2009:321"
+rubrik: Studiestödsdataförordning
+departement: Utbildningsdepartementet
+utfardad_datum: 2009-04-23
+ikraft_datum: 2010-01-01
+publicerad_datum: 2025-12-22
+pdf_url: https://rkrattsdb.gov.se/SFSdoc/09/090321.pdf
+andringsforfattningar:
+  - beteckning: "2011:920"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2011-07-26
+    anteckningar: ändr. 15 §
+  - beteckning: "2011:1472"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2012-01-01
+    anteckningar: ändr. 15 §
+  - beteckning: "2017:201"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2017-07-01
+    anteckningar: ändr. 15 §
+  - beteckning: "2017:539"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2017-07-02
+    anteckningar: ändr. 15 §
+  - beteckning: "2018:1362"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2018-08-01
+    anteckningar: "ändr. 3, 4, 5, 6, 15, 16 §§"
+  - beteckning: "2018:1122"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2018-09-01
+    anteckningar: ändr. 15 §
+  - beteckning: "2017:393"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2019-01-01
+    anteckningar: ändr. 15 §
+  - beteckning: "2019:22"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2019-04-01
+    anteckningar: ändr. 15 §
+  - beteckning: "2020:1126"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2021-01-01
+    anteckningar: "ändr. 9, 16 §§"
+  - beteckning: "2021:380"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2021-06-18
+    anteckningar: ändr. 15 §
+  - beteckning: "2022:238"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2022-05-01
+    anteckningar: ändr. 15 §
+  - beteckning: "2022:871"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2022-06-30
+    anteckningar: "upph. 10 §; ändr. 2, 4, 14, 15 §§; ny 4 a §, rubr. närmast före 4 a §"
+  - beteckning: "2022:1081"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2022-08-01
+    anteckningar: ändr. 15 §
+  - beteckning: "2022:1284"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2022-09-01
+    anteckningar: ändr. 15 §
+  - beteckning: "2023:365"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2023-09-01
+    anteckningar: ändr. 15 §
+  - beteckning: "2023:466"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2024-01-01
+    anteckningar: ändr. 15 §
+  - beteckning: "2025:197"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2025-04-01
+    anteckningar: ändr. 15 §
+  - beteckning: "2025:489"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2025-07-01
+    anteckningar: ändr. 13 §
+  - beteckning: "2024:1363"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2025-10-01
+    anteckningar: ändr. 11 §
+  - beteckning: "2025:1555"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    ikraft_datum: 2026-01-01
+    anteckningar: ändr. 15 §
+  - beteckning: "2017:540"
+    rubrik: Förordning om ändring i förordningen om ändring i studiestödsdataförordningen
+    anteckningar: "ändr. 15 § i 2017:393"
+  - beteckning: "2018:1363"
+    rubrik: Förordning om ändring i förordningen om ändring i studiestödsdataförordningen
+    anteckningar: "ändr. 15 § i 2018:1122"
+  - beteckning: "2018:1364"
+    rubrik: Förordning om ändring i förordningen om ändring i förordningen om ändring i studiestödsdataförordningen
+    anteckningar: "ändr. 15 § i 2017:540"
+  - beteckning: "2009:942"
+    rubrik: Förordning om ändring i studiestödsdataförordningen
+    anteckningar: ändr. 15 §
+---
+<article selex:utfardad_datum="2009-04-23" selex:ikraft_datum="2010-01-01">
+
+# Studiestödsdataförordning
+
+<section id="inledande-bestämmelse">
+
+## Inledande bestämmelse
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+I denna förordning finns kompletterande bestämmelser om sådan behandling av personuppgifter som omfattas av studiestödsdatalagen ([2009:287](https://selex.se/eli/sfs/2009/287)).
+
+</section>
+
+</section>
+<section id="förberedande-handläggning">
+
+## Förberedande handläggning
+
+<section id="2" class="paragraf">
+
+### 2 §
+
+Personuppgifter får behandlas i Centrala studiestödsnämndens studiestödsverksamhet för att förbereda handläggningen av
+
+1. ärenden om studiehjälp för personer som fyller 16 år och som för första gången skulle kunna få studiehjälp,
+
+2. ärenden om studiemedel för personer som har antagits till en utbildning som berättigar till studiemedel, och
+
+3. ärenden om omställningsstudiestöd för personer som har för avsikt att söka, har sökt eller har antagits till en utbildning som berättigar till omställningsstudiestöd. Förordning ([2022:871](https://selex.se/eli/sfs/2022/871)).
+
+</section>
+
+</section>
+<section id="ärenden-om-studiehjälp">
+
+## Ärenden om studiehjälp
+
+<section id="3" class="paragraf">
+
+### 3 §
+
+Behandlingen av personuppgifter enligt [2 §](#2) 1 får i fråga om
+
+1. den person som fyller 16 år endast avse uppgifter om namn, adress, folkbokföringsort, personnummer, samordningsnummer, födelsetid, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, sekretessmarkering, medborgarskap och invandrings- och utvandringsdatum, och
+
+2. den eller de som senast mottog allmänt eller förlängt barnbidrag för den person som fyller 16 år endast avse namn, adress, folkbokföringsort, personnummer, samordningsnummer, födelsetid, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, sekretessmarkering, medborgarskap, invandrings- och utvandringsdatum och bankkonto.
+
+Uppgifter som anges i första stycket 2 får även behandlas i fråga om den eller de som i annat fall kan få studiehjälp utbetalad för den person som fyller 16 år. Förordning ([2018:1362](https://selex.se/eli/sfs/2018/1362)).
+
+</section>
+
+</section>
+<section id="ärenden-om-studiemedel">
+
+## Ärenden om studiemedel
+
+<section id="4" class="paragraf">
+
+### 4 §
+
+Behandlingen av personuppgifter enligt [2 §](#2) 2 får i fråga om
+
+1. den person som har antagits till en utbildning endast avse uppgifter om namn, adress, folkbokföringsort, personnummer, samordningsnummer, födelsetid, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, sekretessmarkering, medborgarskap, invandrings- och utvandringsdatum, studieresultat, den utbildning som antagningen avser och huruvida personen är intagen i anstalt, och
+
+2. barn som den person som har antagits till en utbildning är vårdnadshavare för endast avse personnummer, samordningsnummer eller födelsetid. Förordning ([2022:871](https://selex.se/eli/sfs/2022/871)).
+
+</section>
+
+</section>
+<section id="ärenden-om-omställningsstudies">
+
+## Ärenden om omställningsstudiestöd
+
+<section id="4a" class="paragraf">
+
+### 4 a §
+
+Behandlingen av personuppgifter enligt [2 §](#2) 3 får i fråga om
+
+1. den person som har för avsikt att söka eller har sökt en utbildning endast avse uppgifter i ett yttrande som lämnats av en omställningsorganisation enligt [32 §](#32) lagen ([2022:856](https://selex.se/eli/sfs/2022/856)) om omställningsstudiestöd och uppgifter som anges i [36 §](#36) första stycket 3-6 förordningen ([2022:857](https://selex.se/eli/sfs/2022/857)) om omställningsstudiestöd, och
+
+2. den person som har antagits till en utbildning, utöver uppgifter enligt 1, endast avse uppgifter om namn, adress, folkbokföringsort, personnummer, samordningsnummer, födelsetid, särskilt
+
+identifikationsnummer som getts av Centrala studiestödsnämnden, sekretessmarkering, medborgarskap, invandrings- och utvandringsdatum, studieresultat, den utbildning som antagningen avser och huruvida personen är intagen i anstalt. Förordning ([2022:871](https://selex.se/eli/sfs/2022/871)).
+
+</section>
+
+</section>
+<section id="information-om-studiestödsförm">
+
+## Information om studiestödsförmåner och studiesociala förmåner
+
+<section id="5" class="paragraf">
+
+### 5 §
+
+För ändamål som anges i [4 §](#4) första stycket 4 studiestödsdatalagen ([2009:287](https://selex.se/eli/sfs/2009/287)) får endast uppgifter om namn, adress, folkbokföringsort, personnummer, samordningsnummer, födelsetid, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, medborgarskap, bankkonto och typ av studiestöd behandlas. Förordning ([2018:1362](https://selex.se/eli/sfs/2018/1362)).
+
+</section>
+
+</section>
+<section id="framtagande-och-distribution-a">
+
+## Framtagande och distribution av bevis om studiestöd för studier
+
+<section id="6" class="paragraf">
+
+### 6 §
+
+För ändamål som anges i [4 §](#4) första stycket 5 studiestödsdatalagen ([2009:287](https://selex.se/eli/sfs/2009/287)) får endast uppgifter om namn, adress, personnummer, samordningsnummer, födelsetid, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, studietakt, typ av studiestöd och studietid behandlas. Förordning ([2018:1362](https://selex.se/eli/sfs/2018/1362)).
+
+</section>
+
+</section>
+<section id="intern-elektronisk-tillgång-ti">
+
+## Intern elektronisk tillgång till personuppgifter
+
+<section id="7" class="paragraf">
+
+### 7 §
+
+Direkt elektronisk tillgång till personuppgifter i ett ärende om studiestöd, som inte behövs för återbetalning eller återkrav av studiestöd, ska begränsas senast tre år efter utgången av det kalenderår då studiestöd senast beviljades i ärendet eller ansökan om studiestöd avslogs. Det innebär att bara ett begränsat antal personer som arbetar i myndighetens studiestödsverksamhet får ha sådan tillgång till personuppgifterna i ärendet. Behövs personuppgifterna för ett nytt ärende om studiestöd, får begränsningen upphävas.
+
+Centrala studiestödsnämnden får meddela närmare föreskrifter om begränsning av intern elektronisk tillgång enligt första stycket.
+
+</section>
+<section id="8" class="paragraf">
+
+### 8 §
+
+Centrala studiestödsnämnden får, i fråga om personuppgifter som inte omfattas av [7 §](#7), meddela föreskrifter om villkoren för elektronisk tillgång till personuppgifterna för den som arbetar i myndighetens studiestödsverksamhet. Sådan tillgång ska begränsas till vad som behövs för att han eller hon ska kunna fullgöra sina arbetsuppgifter inom studiestödsverksamheten.
+
+</section>
+<section id="9" class="paragraf">
+
+### 9 §
+
+Centrala studiestödsnämnden ska, inför beslut om att meddela föreskrifter enligt 7 och [8 §](#8)§, samråda med Integritetsskyddsmyndigheten. Förordning ([2020:1126](https://selex.se/eli/sfs/2020/1126)).
+
+</section>
+
+</section>
+<section id="direktåtkomst">
+
+## Direktåtkomst
+
+<section id="10" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 10 §
+
+Har upphävts genom förordning ([2022:871](https://selex.se/eli/sfs/2022/871)).
+
+</section>
+<section id="11" class="paragraf">
+
+### 11 §
+
+Arbetslöshetskassornas direktåtkomst till personuppgifter som behandlas i Centrala studiestödsnämndens studiestödsverksamhet får endast avse uppgifter enligt [17 §](#17) förordningen ([2024:1350](https://selex.se/eli/sfs/2024/1350)) om arbetslöshetsförsäkring och särskilt identifikationsnummer som getts av Centrala studiestödsnämnden. Förordning ([2024:1363](https://selex.se/eli/sfs/2024/1363)).
+
+</section>
+<section id="12" class="paragraf">
+
+### 12 §
+
+En läroanstalt får ha direktåtkomst till de personuppgifter som behandlas i Centrala studiestödsnämndens studiestödsverksamhet som läroanstalten själv har lämnat till Centrala studiestödsnämnden och till anknytande uppgifter om särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, namn och sekretessmarkering. Läroanstalten får också ha direktåtkomst till uppgifter om att Centrala studiestödsnämnden har beslutat eller sänt meddelande till parten i ett ärende om studiestöd.
+
+</section>
+<section id="13" class="paragraf">
+
+### 13 §
+
+En socialnämnd får ha direktåtkomst till personuppgifter som behandlas i Centrala studiestödsnämndens studiestödsverksamhet i den utsträckning som anges i [2 §](#2) förordningen ([2008:975](https://selex.se/eli/sfs/2008/975)) om uppgiftsskyldighet i vissa fall på socialtjänstens område.
+
+En socialnämnd får ha direktåtkomst enligt första stycket först sedan Centrala studiestödsnämnden har försäkrat sig om att handläggare hos socialnämnden bara kan ta del av uppgifter om personer som är aktuella i ärenden hos socialnämnden. Förordning ([2025:489](https://selex.se/eli/sfs/2025/489)).
+
+</section>
+<section id="14" class="paragraf">
+
+### 14 §
+
+Direktåtkomst enligt 11-[13 §](#13)§ får inte avse personuppgifter till vilka den direkta elektroniska tillgången har begränsats enligt [7 §](#7). Förordning ([2022:871](https://selex.se/eli/sfs/2022/871)).
+
+</section>
+
+</section>
+<section id="annat-elektroniskt-utlämnande">
+
+## Annat elektroniskt utlämnande
+
+<section id="15" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-01-01">
+
+### 15 §
+
+Centrala studiestödsnämnden får lämna ut personuppgifter elektroniskt på annat sätt än genom direktåtkomst enligt följande.
+
+Mottagare		Personuppgifter
+
+Allmän förvaltningsdomstol 	Uppgifter som krävs för prövning av överklagade beslut som Centrala studiestödsnämnden har fattat.
+
+Bank eller annan betalningsförmedlare	Namn, adress, personnummer, samordningsnummer, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, kontonummer, belopp, utbetalningsdatum och aviseringstext.
+
+Företag som tar fram och till studerande distribuerar bevis om studiestöd för studier	Namn, adress, personnummer, samordningsnummer, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, typ av bevis, giltighetstid för beviset och under vilken tidsperiod den studerande har beviljats studiestöd för studier.
+
+Försäkringskassan	Uppgifter som omfattas av Centrala studiestödsnämndens uppgiftsskyldighet enligt [110 kap. 34 § socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap110.34).
+
+Inkassoföretag		Namn, adress, personnummer, samordningsnummer, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, skulduppgifter, den åtgärd som Centrala studiestödsnämnden begär att inkassoföretaget ska vidta och orsak till en återkallelse av begäran.
+
+Kommun			– Personnummer, samordningsnummer, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, kommunkod, läroanstaltens kod, studieväg, klass, studietid, tid för studieavbrott och närvaro på läroanstalten i fråga om studerande som har fått studiehjälp och som ansökt om stöd till inackordering enligt [15 kap. 32 § skollagen](https://selex.se/eli/sfs/1985/1100#kap15.32) ([2010:800](https://selex.se/eli/sfs/2010/800)), – namn, adress, personnummer och samordningsnummer för betalningsmottagare av studiehjälp, och – namn, personnummer eller samordningsnummer, adress och tidigare studiestöd för att kommunen ska kunna fullgöra sina uppgifter enligt lagen ([2017:527](https://selex.se/eli/sfs/2017/527)) om studiestartsstöd, uppgift om den studerande har beviljats studiestartsstöd samt uppgifter om kommunens elektroniska åtkomst till personuppgifter hos Centrala studiestödsnämnden.
+
+Kronofogdemyndigheten	- Uppgifter som krävs för handläggning av ärenden enligt lagen ([1990:746](https://selex.se/eli/sfs/1990/746)) om betalningsföreläggande och handräckning och mål enligt lagen ([1993:891](https://selex.se/eli/sfs/1993/891)) om indrivning av statliga fordringar m.m. som initieras av Centrala studiestödsnämnden, och - uppgifter om omställningsstudiebidrag som krävs för att Kronofogdemyndigheten ska kunna besluta om utmätning enligt [7 kap. utsökningsbalken](https://selex.se/eli/sfs/1981/774).
+
+Migrationsverket	Uppgift om att en person som har fyllt 18 men inte 21 år har beviljats studiehjälp enligt studiestödslagen ([1999:1395](https://selex.se/eli/sfs/1999/1395)), som krävs för prövningen av om en kommun har rätt till ersättning enligt förordningen ([1990:927](https://selex.se/eli/sfs/1990/927)) om statlig ersättning för flyktingmottagande m.m. eller enligt förordningen ([2010:1122](https://selex.se/eli/sfs/2010/1122)) om statlig ersättning för insatser för vissa utlänningar, samt namn, personnummer och samordningsnummer.
+
+Myndighet eller organisation som är mottagare av underrättelse enligt lagen ([2008:206](https://selex.se/eli/sfs/2008/206)) om underrättelseskyldighet vid felaktiga utbetalningar från välfärdssystemen        Uppgifter som krävs för att lämna en underrättelse enligt [3 §](#3) lagen om underrättelseskyldighet vid felaktiga utbetalningar från välfärdssystemen.
+
+Myndighet som anges i [2 §](#2) förordningen ([2016:775](https://selex.se/eli/sfs/2016/775)) om uppgiftsskyldighet vid samverkan mot viss organiserad brottslighet	        Uppgifter som behövs för den mottagande myndighetens deltagande i samverkan enligt lagen ([2016:774](https://selex.se/eli/sfs/2016/774)) om uppgiftsskyldighet vid samverkan mot viss organiserad brottslighet.
+
+Myndighet som anges i [2 §](#2) lagen ([2025:170](https://selex.se/eli/sfs/2025/170)) om skyldighet att lämna uppgifter till de brottsbekämpande myndigheterna           Uppgifter som behövs i de brottsbekämpande myndigheternas brottsbekämpande verksamhet enligt 4 och [5 §](#5)§ lagen om skyldighet att lämna uppgifter till de brottsbekämpande myndigheterna.
+
+Myndighet som begär det eller sådant organ som anges i bilagan till offentlighets- och sekretesslagen ([2009:400](https://selex.se/eli/sfs/2009/400)) som begär det                     Namn, adress, den studerandes länskod, kommunkod, läroanstaltens kod, studie- vägskod, årskurs, läroanstaltens namn, utbildningens namn och läroanstaltens länskod.
+
+Omställningsorganisa- tion enligt [5 §](#5) lagen ([2022:856](https://selex.se/eli/sfs/2022/856)) om omställningsstudiestöd  Uppgifter som omfattas av Centrala studiestödsnämndens uppgiftsskyldighet enligt [35 §](#35) förordningen ([2022:857](https://selex.se/eli/sfs/2022/857)) om omställningsstudiestöd och uppgifter som krävs för att omställningsorganisationen ska kunna fullgöra sina uppgifter enligt lagen om omställningsstudiestöd, förordningen om omställningsstudiestöd, lagen ([2022:850](https://selex.se/eli/sfs/2022/850)) om grundläggande omställnings- och kompetensstöd och förordningen ([2022:852](https://selex.se/eli/sfs/2022/852)) om grundläggande omställnings- och kompetensstöd.
+
+Polismyndigheten 	Uppgifter som krävs dels för att Centrala studiestödsnämnden ska kunna göra anmälningar enligt bidragsbrottslagen ([2007:612](https://selex.se/eli/sfs/2007/612)), dels för Polismyndighetens handläggning av sådana anmälningar.
+
+Skatteverket	        Uppgifter som krävs för att fullgöra skyldigheten att lämna kontrolluppgifter eller uppgifter om betalningsmottagare i arbetsgivardeklarationer enligt skatteförfarandelagen ([2011:1244](https://selex.se/eli/sfs/2011/1244)) och uppgifter som krävs för att fullgöra uppgiftsskyldigheter enligt folkbokföringslagen ([1991:481](https://selex.se/eli/sfs/1991/481)), lagen ([2022:1697](https://selex.se/eli/sfs/2022/1697)) om samordningsnummer och folkbokföringsförordningen ([1991:749](https://selex.se/eli/sfs/1991/749)).
+
+Transportstyrelsen	Namn och personnummer i ärenden om körkortslån enligt förordningen ([2018:1118](https://selex.se/eli/sfs/2018/1118)) om körkortslån.
+
+Utbetalningsmyndigheten	Uppgifter som omfattas av Centrala studiestödsnämndens uppgiftsskyldighet enligt lagen ([2023:456](https://selex.se/eli/sfs/2023/456)) om skyldighet att lämna uppgifter till Utbetalningsmyndigheten.
+
+Örebro kommun	        Namn, personnummer, samordningsnummer, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, beviljat belopp i bidrag enligt förordningen ([1995:667](https://selex.se/eli/sfs/1995/667)) om bidrag till vissa funktionshindrade elever i gymnasieskolan som utbetalas till Örebro kommun för kostnad för kost, logi och annan service i samband med boendet som kommunen tillhandahåller samt den totala kostnaden för sådant.
+
+Överklagandenämnden för studiestöd 	        Uppgifter som krävs för prövning av överklagade beslut som Centrala studiestödsnämnden har fattat.
+
+Centrala studiestödsnämnden får också lämna ut personuppgifter elektroniskt på annat sätt än genom direktåtkomst i den utsträckning det behövs för att någon annan ska kunna lämna ut personuppgifter elektroniskt till myndigheten. Förordning ([2025:197](https://selex.se/eli/sfs/2025/197)).
+
+</section>
+<section id="15" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-01-01">
+
+### 15 §
+
+Centrala studiestödsnämnden får lämna ut personuppgifter elektroniskt på annat sätt än genom direktåtkomst enligt följande.
+
+Mottagare		Personuppgifter
+
+Allmän förvaltningsdomstol 	Uppgifter som krävs för prövning av överklagade beslut som Centrala studiestödsnämnden har fattat.
+
+Bank eller annan betalningsförmedlare	Namn, adress, personnummer, samordningsnummer, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, kontonummer, belopp, utbetalningsdatum och aviseringstext.
+
+Företag som tar fram och till studerande distribuerar bevis om studiestöd för studier	Namn, adress, personnummer, samordningsnummer, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, typ av bevis, giltighetstid för beviset och under vilken tidsperiod den studerande har beviljats studiestöd för studier.
+
+Försäkringskassan	Uppgifter som omfattas av Centrala studiestödsnämndens uppgiftsskyldighet enligt [110 kap. 34 § socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap110.34).
+
+Inkassoföretag		Namn, adress, personnummer, samordningsnummer, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, skulduppgifter, den åtgärd som Centrala studiestödsnämnden begär att inkassoföretaget ska vidta och orsak till en återkallelse av begäran.
+
+Kommun          	- Personnummer, samordningsnummer, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, kommunkod, läroanstaltens kod, studieväg, klass, studietid, tid för studieavbrott och närvaro på läroanstalten i fråga om studerande som har fått studiehjälp och som har ansökt om stöd till inackordering enligt [15 kap. 32 § skollagen](https://selex.se/eli/sfs/1985/1100#kap15.32) ([2010:800](https://selex.se/eli/sfs/2010/800)), och - namn, adress, personnummer och samordningsnummer för betalningsmottagare av studiehjälp.
+
+Kronofogdemyndigheten	- Uppgifter som krävs för handläggning av ärenden enligt lagen ([1990:746](https://selex.se/eli/sfs/1990/746)) om betalningsföreläggande och handräckning och mål enligt lagen ([1993:891](https://selex.se/eli/sfs/1993/891)) om indrivning av statliga fordringar m.m. som initieras av Centrala studiestödsnämnden, och - uppgifter om omställningsstudiebidrag som krävs för att Kronofogdemyndigheten ska kunna besluta om utmätning enligt [7 kap. utsökningsbalken](https://selex.se/eli/sfs/1981/774).
+
+Migrationsverket	Uppgift om att en person som har fyllt 18 men inte 21 år har beviljats studiehjälp enligt studiestödslagen ([1999:1395](https://selex.se/eli/sfs/1999/1395)), som krävs för prövningen av om en kommun har rätt till ersättning enligt förordningen ([1990:927](https://selex.se/eli/sfs/1990/927)) om statlig ersättning för flyktingmottagande m.m. eller enligt förordningen ([2010:1122](https://selex.se/eli/sfs/2010/1122)) om statlig ersättning för insatser för vissa utlänningar, samt namn, personnummer och samordningsnummer.
+
+Myndighet eller         Uppgifter som krävs för att lämna en organisation som är     underrättelse enligt [3 §](#3) lagen om mottagare av            underrättelseskyldighet vid felaktiga underrättelse enligt    utbetalningar från välfärdssystemen. lagen ([2008:206](https://selex.se/eli/sfs/2008/206)) om underrättelseskyldighet vid felaktiga utbetalningar från välfärdssystemen
+
+Myndighet som anges i   Uppgifter som behövs för den mottagande [2 §](#2) förordningen        myndighetens deltagande i samverkan ([2016:775](https://selex.se/eli/sfs/2016/775)) om           enligt lagen ([2016:774](https://selex.se/eli/sfs/2016/774)) om uppgiftsskyldighet vid  uppgiftsskyldighet vid samverkan mot samverkan mot viss      viss organiserad brottslighet. organiserad brottslighet
+
+Myndighet som anges i   Uppgifter som behövs i de [2 §](#2) lagen ([2025:170](https://selex.se/eli/sfs/2025/170))    brottsbekämpande myndigheternas om skyldighet att       brottsbekämpande verksamhet enligt 4 lämna uppgifter         och [5 §](#5)§ lagen om skyldighet att lämna till de                 uppgifter till de brottsbekämpande brottsbekämpande        myndigheterna. myndigheterna
+
+Myndighet som begär     Namn, adress, den studerandes länskod, det eller sådant organ  kommunkod, läroanstaltens kod, studie- som anges i bilagan     vägskod, årskurs, läroanstaltens namn, till offentlighets-     utbildningens namn och läroanstaltens och sekretesslagen      länskod. ([2009:400](https://selex.se/eli/sfs/2009/400)) som begär det
+
+Omställningsorganisa-   Uppgifter som omfattas av Centrala tion enligt [5 §](#5) lagen   studiestödsnämndens uppgiftsskyldighet ([2022:856](https://selex.se/eli/sfs/2022/856)) om           enligt [35 §](#35) förordningen ([2022:857](https://selex.se/eli/sfs/2022/857)) om omställningsstudiestöd  omställningsstudiestöd och uppgifter som krävs för att omställningsorganisationen ska kunna fullgöra sina uppgifter enligt lagen om omställningsstudiestöd, förordningen om omställningsstudiestöd, lagen ([2022:850](https://selex.se/eli/sfs/2022/850)) om grundläggande omställnings- och kompetensstöd och förordningen ([2022:852](https://selex.se/eli/sfs/2022/852)) om grundläggande omställnings- och kompetensstöd.
+
+Polismyndigheten 	Uppgifter som krävs dels för att Centrala studiestödsnämnden ska kunna göra anmälningar enligt bidragsbrottslagen ([2007:612](https://selex.se/eli/sfs/2007/612)), dels för Polismyndighetens handläggning av sådana anmälningar.
+
+Skatteverket	        Uppgifter som krävs för att fullgöra skyldigheten att lämna kontrolluppgifter eller uppgifter om betalningsmottagare i arbetsgivardeklarationer enligt skatteförfarandelagen ([2011:1244](https://selex.se/eli/sfs/2011/1244)) och uppgifter som krävs för att fullgöra uppgiftsskyldigheter enligt folkbokföringslagen ([1991:481](https://selex.se/eli/sfs/1991/481)), lagen ([2022:1697](https://selex.se/eli/sfs/2022/1697)) om samordningsnummer och folkbokföringsförordningen ([1991:749](https://selex.se/eli/sfs/1991/749)).
+
+Transportstyrelsen	Namn och personnummer i ärenden om körkortslån enligt förordningen ([2018:1118](https://selex.se/eli/sfs/2018/1118)) om körkortslån.
+
+Utbetalningsmyndigheten	Uppgifter som omfattas av Centrala studiestödsnämndens uppgiftsskyldighet enligt lagen ([2023:456](https://selex.se/eli/sfs/2023/456)) om skyldighet att lämna uppgifter till Utbetalningsmyndigheten.
+
+Örebro kommun	        Namn, personnummer, samordningsnummer, särskilt identifikationsnummer som getts av Centrala studiestödsnämnden, beviljat belopp i bidrag enligt förordningen ([1995:667](https://selex.se/eli/sfs/1995/667)) om bidrag till vissa funktionshindrade elever i gymnasieskolan som utbetalas till Örebro kommun för kostnad för kost, logi och annan service i samband med boendet som kommunen tillhandahåller samt den totala kostnaden för sådant.
+
+Överklagandenämnden     Uppgifter som krävs för prövning av för studiestöd 	        överklagade beslut som Centrala studiestödsnämnden har fattat.
+
+Centrala studiestödsnämnden får också lämna ut personuppgifter elektroniskt på annat sätt än genom direktåtkomst i den utsträckning det behövs för att någon annan ska kunna lämna ut personuppgifter elektroniskt till myndigheten. Förordning ([2025:1555](https://selex.se/eli/sfs/2025/1555)).
+
+</section>
+
+</section>
+<section id="gallring">
+
+## Gallring
+
+<section id="16" class="paragraf">
+
+### 16 §
+
+Riksarkivet får, efter att ha gett Integritetsskyddsmyndigheten tillfälle att yttra sig, meddela föreskrifter om att personuppgifter får bevaras för arkivändamål av allmänt intresse, vetenskapliga eller historiska forskningsändamål eller statistiska ändamål eller för redovisningsändamål.
+
+Sådana föreskrifter får avvika från bestämmelserna om gallring i [16 §](#16) första stycket studiestödsdatalagen ([2009:287](https://selex.se/eli/sfs/2009/287)). Förordning ([2020:1126](https://selex.se/eli/sfs/2020/1126)).
+
+
+</section>
+
+</section>
+<section id="övergångsbestämmelser" selex:status="upphavd" selex:upphavd="true">
+
+## Övergångsbestämmelser
+
+[2009:321](https://selex.se/eli/sfs/2009/321)
+
+1. Denna förordning träder i kraft den 1 januari 2010.
+
+2. Bestämmelserna i 7–9, 14 och [16 §](#16)§ ska inte börja tillämpas förrän den 1 januari 2011.
+
+[2011:1472](https://selex.se/eli/sfs/2011/1472)
+
+1. Denna förordning träder i kraft den 1 januari 2012.
+
+2. Äldre bestämmelser gäller fortfarande i fråga om uppgifter som krävs för att fullgöra kontrolluppgiftsskyldighet enligt lagen ([2001:1227](https://selex.se/eli/sfs/2001/1227)) om självdeklarationer och kontrolluppgifter.
+
+[2017:393](https://selex.se/eli/sfs/2017/393)
+
+1. Denna förordning träder i kraft den 1 januari 2019.
+
+2. Bestämmelserna i den nya lydelsen tillämpas första gången på uppgifter som avser kalenderår 2019.
+
+[2025:1555](https://selex.se/eli/sfs/2025/1555)
+
+1. Denna förordning träder i kraft den 1 januari 2026.
+
+2. Äldre bestämmelser gäller fortfarande i fråga om uppgifter som avser studiestartsstöd enligt den upphävda lagen ([2017:527](https://selex.se/eli/sfs/2017/527)) om studiestartsstöd.
+
+</section>
+
+</article>

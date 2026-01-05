@@ -1,0 +1,338 @@
+---
+beteckning: "2007:1206"
+rubrik: Förordning med instruktion för Tandvårds- och läkemedelsförmånsverket
+departement: Socialdepartementet
+utfardad_datum: 2007-11-29
+ikraft_datum: 2008-01-01
+publicerad_datum: 2025-12-08
+pdf_url: https://rkrattsdb.gov.se/SFSdoc/07/071206.pdf
+andringsforfattningar:
+  - beteckning: "2008:200"
+    rubrik: Förordning om ändring i förordningen med instruktion för Läkemedelsförmånsnämnden
+    ikraft_datum: 2008-07-01
+    anteckningar: "ändr. 1, 2, 5, 6, 7, 8, 11 §§, rubr. närmast före 7 §; ny 5 a §"
+  - beteckning: "2008:659"
+    rubrik: Förordning om ändring i förordningen med instruktion för Läkemedelsförmånsnämnden
+    ikraft_datum: 2008-09-01
+    anteckningar: "ändr. författningsrubr., 1, 11, 13 §§, rubr. närmast före 7 §"
+  - beteckning: "2008:843"
+    rubrik: Förordning om ändring i förordningen med instruktion för Tandvårds- och läkemedelsförmånsverket
+    ikraft_datum: 2008-12-01
+    anteckningar: "ändr. 1, 2, 5, 5 a, 7, 11 §§ rubr. närmast före 7 §; ny 5 b §"
+  - beteckning: "2009:638"
+    rubrik: Förordning om ändring i förordningen med instruktion för Tandvårds- och läkemedelsförmånsverket
+    ikraft_datum: 2009-07-01
+    anteckningar: "ändr. 1, 2, 5, 6 §§"
+  - beteckning: "2010:194"
+    rubrik: Förordning om ändring i förordningen med instruktion för Tandvårds- och läkemedelsförmånsverket
+    ikraft_datum: 2010-04-15
+    anteckningar: "ändr. 5, 11 §§"
+  - beteckning: "2010:1384"
+    rubrik: Förordning om ändring i förordningen med instruktion för Tandvårds- och läkemedelsförmånsverket
+    ikraft_datum: 2011-01-01
+    anteckningar: ändr. 2 §
+  - beteckning: "2011:1146"
+    rubrik: Förordning om ändring i förordningen med instruktion för Tandvårds- och läkemedelsförmånsverket
+    ikraft_datum: 2012-01-01
+    anteckningar: "ändr. 5 a §; nya 2 a, 2 b §§, rubr. närmast före 2 a §"
+  - beteckning: "2013:1038"
+    rubrik: Förordning om ändring i förordningen med instruktion för Tandvårds- och läkemedelsförmånsverket
+    ikraft_datum: 2014-01-01
+    anteckningar: ändr. 6 §
+  - beteckning: "2014:1069"
+    rubrik: Förordning om ändring i förordningen med instruktion för Tandvårds- och läkemedelsförmånsverket
+    ikraft_datum: 2014-10-01
+    anteckningar: "nuvarande 1 § betecknas 1 a §; ändr. den nya 1 a §, 2, 4, 5, 6, 9 §§; ny 1 §"
+  - beteckning: "2015:166"
+    rubrik: Förordning om ändring i förordningen med instruktion för Tandvårds- och läkemedelsförmånsverket
+    ikraft_datum: 2015-07-01
+    anteckningar: ändr. 2 a §
+  - beteckning: "2017:29"
+    rubrik: Förordning om ändring i förordningen med instruktion för Tandvårds- och läkemedelsförmånsverket
+    ikraft_datum: 2017-04-01
+    anteckningar: ändr. 5 §
+  - beteckning: "2019:115"
+    rubrik: Förordning om ändring i förordningen med instruktion för Tandvårds- och läkemedelsförmånsverket
+    ikraft_datum: 2019-04-15
+    anteckningar: "ändr. 1 a, 2 §§"
+  - beteckning: "2020:356"
+    rubrik: Förordning om ändring i förordningen med instruktion för Tandvårds- och läkemedelsförmånsverket
+    ikraft_datum: 2020-07-01
+    anteckningar: "ändr. 2, 5 a §§"
+  - beteckning: "2022:1359"
+    rubrik: Förordning om ändring i förordningen med instruktion för Tandvårds- och läkemedelsförmånsverket
+    ikraft_datum: 2022-09-01
+    anteckningar: ändr. 5 §
+  - beteckning: "2025:1443"
+    rubrik: Förordning om ändring i förordningen med instruktion för Tandvårds- och läkemedelsförmånsverket
+    ikraft_datum: 2026-01-01
+    anteckningar: "ändr. 1 a, 5 b §§"
+---
+<article selex:utfardad_datum="2007-11-29" selex:ikraft_datum="2008-01-01">
+
+# Förordning med instruktion för Tandvårds- och läkemedelsförmånsverket
+
+<section id="uppgifter">
+
+## Uppgifter
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+Tandvårds- och läkemedelsförmånsverket ska genom sin verksamhet medverka till en ändamålsenlig och kostnadseffektiv läkemedelsanvändning och tandvård, en god tillgänglighet till läkemedel i samhället och en väl fungerande apoteksmarknad. Verksamheten ska bedrivas i enlighet med de etiska principerna för prioriteringar i vården. Förordning ([2014:1069](https://selex.se/eli/sfs/2014/1069)).
+
+</section>
+<section id="1a" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-01-01">
+
+### 1 a §
+
+Myndigheten ansvarar för
+
+- beslut om subventionering och prisreglering av varor som ingår i läkemedelsförmånerna,
+
+- frågor om öppenvårdsapotekens handelsmarginal och utbyte av läkemedel,
+
+- tillsyn över efterlevnaden av lagen ([2002:160](https://selex.se/eli/sfs/2002/160)) om läkemedelsförmåner m.m. och av föreskrifter och villkor som har meddelats i anslutning till lagen,
+
+- beslut om utformningen av det statliga tandvårdsstödet i fråga om ersättningsberättigande åtgärder, referenspriser samt beloppsgränser och ersättningsgrader inom skyddet mot höga kostnader, och
+
+- tillhandahållande av information i en prisjämförelsetjänst för tandvård inom det statliga tandvårdsstödet. Förordning ([2019:115](https://selex.se/eli/sfs/2019/115)).
+
+</section>
+<section id="1a" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-01-01">
+
+### 1 a §
+
+Myndigheten ansvarar för
+
+- beslut om subventionering och prisreglering av varor som ingår i läkemedelsförmånerna,
+
+- frågor om öppenvårdsapotekens handelsmarginal och utbyte av läkemedel,
+
+- tillsyn över efterlevnaden av lagen ([2002:160](https://selex.se/eli/sfs/2002/160)) om läkemedelsförmåner m.m. och av föreskrifter och villkor som har meddelats i anslutning till lagen,
+
+- beslut om utformningen av det statliga tandvårdsstödet i fråga om ersättningsberättigande åtgärder och referenspriser, och
+
+- tillhandahållande av information i en prisjämförelsetjänst för tandvård inom det statliga tandvårdsstödet. Förordning ([2025:1443](https://selex.se/eli/sfs/2025/1443)).
+
+</section>
+<section id="2" class="paragraf">
+
+### 2 §
+
+Myndigheten ska
+
+- följa och analysera utvecklingen på läkemedels-, apoteks- och tandvårdsområdena och det medicintekniska området,
+
+- följa och analysera utvecklingen i andra länder och ta till vara erfaren-heter därifrån,
+
+- jämföra prisnivån i Sverige med prisnivån i andra länder för relevanta produkter på läkemedelsområdet,
+
+- följa prisutvecklingen på läkemedelsområdet i ett internationellt perspektiv,
+
+- följa upp och utvärdera sina beslut och de föreskrifter som myndigheten beslutar,
+
+- informera berörda om sin verksamhet och om sina beslut om subven-tionering och prisreglering för varor som ingår i läkemedelsförmånerna,
+
+- informera berörda om sin verksamhet inom tandvårdsområdet och om sina beslut enligt [5 a §](#5a), och
+
+- utföra hälsoekonomiska bedömningar i fråga om läkemedel och medicintekniska produkter som inte ingår i läkemedelsförmånerna och som rekvireras till slutenvården eller upphandlas av regionerna.
+
+Myndigheten ska följa och aktivt medverka i EU-arbete och annat internationellt samarbete inom myndighetens verksamhetsområde, i förekommande fall på instruktion från Regeringskansliet. Myndigheten ska hålla Regeringskansliet informerat om det arbete som myndigheten är engagerad i. Förordning ([2020:356](https://selex.se/eli/sfs/2020/356)).
+
+</section>
+
+</section>
+<section id="samverkan">
+
+## Samverkan
+
+<section id="2a" class="paragraf">
+
+### 2 a §
+
+Myndighetens arbete med att styra med kunskap ska planeras och utföras i samverkan med andra berörda myndigheter så att den statliga styrningen med kunskap avseende hälso- och sjukvård är samordnad.
+
+Bestämmelser om samverkan med vissa andra myndigheter finns i förordningen ([2015:155](https://selex.se/eli/sfs/2015/155)) om statlig styrning med kunskap avseende hälso- och sjukvård och socialtjänst.
+
+Myndigheten kungör sina föreskrifter i Gemensamma författningssamlingen avseende hälso- och sjukvård, socialtjänst, läkemedel, folkhälsa m.m. i enlighet med bilaga 1 till författningssamlingsförordningen ([1976:725](https://selex.se/eli/sfs/1976/725)). Förordning ([2015:166](https://selex.se/eli/sfs/2015/166)).
+
+</section>
+<section id="2b" class="paragraf">
+
+### 2 b §
+
+Myndigheten ska samverka med Försäkringskassan och andra berörda parter i frågor om det statliga tandvårdsstödet. Förordning ([2011:1146](https://selex.se/eli/sfs/2011/1146)).
+
+</section>
+
+</section>
+<section id="ledning">
+
+## Ledning
+
+<section id="3" class="paragraf">
+
+### 3 §
+
+Myndigheten leds av en myndighetschef.
+
+</section>
+<section id="4" class="paragraf">
+
+### 4 §
+
+Vid myndigheten ska det finnas ett insynsråd som består av högst nio ledamöter. Förordning ([2014:1069](https://selex.se/eli/sfs/2014/1069)).
+
+</section>
+
+</section>
+<section id="särskilda-organ">
+
+## Särskilda organ
+
+<section id="5" class="paragraf">
+
+### 5 §
+
+Inom myndigheten finns ett särskilt beslutsorgan som benämns Nämnden för läkemedelsförmåner. Nämnden beslutar
+
+- om allmänna riktlinjer för subvention och prissättning,
+
+- om subventionering och prisreglering av nya originalläkemedel och nya beredningsformer av redan tidigare subventionerade läkemedel, med undantag för ärenden som avses i [16 a §](#16a) lagen ([2002:160](https://selex.se/eli/sfs/2002/160)) om läkemedelsförmåner m.m., och om subventionering och prisreglering av nya förbrukningsartiklar,
+
+- på eget initiativ eller efter ansökan om ändrade villkor för att ett visst läkemedel eller en viss vara ska ingå i läkemedelsförmånerna,
+
+- på eget initiativ att ett visst läkemedel eller en viss vara inte längre ska ingå i läkemedelsförmånerna,
+
+- om föreskrifter enligt bemyndigandet i [5 §](#5) förordningen ([2002:687](https://selex.se/eli/sfs/2002/687)) om läkemedelsförmåner m.m. samt om allmänna råd om receptfria läkemedel,
+
+- om verkställighetsföreskrifter enligt bemyndigandet i [21 §](#21) förordningen om läkemedelsförmåner m.m. i sådana frågor som nämnden beslutar om,
+
+- om allmänna råd i sådana frågor som nämnden beslutar om, och
+
+- i andra frågor som myndighetschefen förelägger nämnden.
+
+Nämnden består av en ordförande och minst sex ledamöter. För ordföranden ska en vice ordförande utses. Förordning ([2022:1359](https://selex.se/eli/sfs/2022/1359)).
+
+</section>
+<section id="5a" class="paragraf">
+
+### 5 a §
+
+Inom myndigheten finns ett särskilt beslutsorgan som benämns Nämnden för statligt tandvårdsstöd. Nämnden beslutar om
+
+- föreskrifter enligt bemyndiganden i förordningen ([2008:193](https://selex.se/eli/sfs/2008/193)) om statligt tandvårdsstöd, och
+
+- allmänna råd inom sitt ansvarsområde.
+
+Nämnden består av en ordförande och fyra ledamöter. För ordföranden ska en vice ordförande utses. Förordning ([2020:356](https://selex.se/eli/sfs/2020/356)).
+
+</section>
+<section id="5b" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-01-01">
+
+### 5 b §
+
+Nämnden för statligt tandvårdsstöd ska utforma sina beslut så att utgifterna för det statliga tandvårdsstödet ryms inom ram för anvisade medel på statsbudgeten. Om utgifterna bedöms överstiga anvisade medel ska nämnden vid behov snarast möjligt besluta om ändringar i de föreskrifter som avses i [5 a §](#5a). Förordning ([2008:843](https://selex.se/eli/sfs/2008/843)).
+
+</section>
+<section id="5b" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-01-01">
+
+### 5 b §
+
+Nämnden för statligt tandvårdsstöd ska utforma sina beslut så att utgifterna för det statliga tandvårdsstödet ryms inom ram för anvisade medel på statsbudgeten. Förordning ([2025:1443](https://selex.se/eli/sfs/2025/1443)).
+
+</section>
+<section id="6" class="paragraf">
+
+### 6 §
+
+Myndighetschefen beslutar om föreskrifter och allmänna råd som inte enligt 5 eller [5 a §](#5a) ska beslutas av något av de särskilda beslutsorganen.
+
+Myndighetschefen avgör dessutom övriga ärenden som inte ska avgöras av beslutsorganen eller av personalansvarsnämnden. Förordning ([2014:1069](https://selex.se/eli/sfs/2014/1069)).
+
+</section>
+
+</section>
+<section id="handläggningen-i-nämnden-för-l">
+
+## Handläggningen i Nämnden för läkemedelsförmåner och Nämnden för statligt tandvårdsstöd
+
+<section id="7" class="paragraf">
+
+### 7 §
+
+Myndighetschefen eller den myndighetschefen utser är föredragande i Nämnden för läkemedelsförmåner och Nämnden för statligt tandvårdsstöd. Förordning ([2008:843](https://selex.se/eli/sfs/2008/843)).
+
+</section>
+<section id="8" class="paragraf">
+
+### 8 §
+
+Nämnderna är beslutföra när ordföranden och minst hälften av de andra ledamöterna är närvarande.
+
+När ärenden av större vikt handläggs ska om möjligt samtliga ledamöter vara närvarande.
+
+Myndighetschefen har rätt att delta i nämndernas sammanträden. Vid behov kan nämnderna tillfälligt adjungera en eller flera experter med särskild sakkunskap. Myndighetschefen och adjungerade experter har rätt att yttra sig men deltar inte i besluten. Förordning ([2008:200](https://selex.se/eli/sfs/2008/200)).
+
+</section>
+<section id="9" class="paragraf">
+
+### 9 §
+
+Om ett ärende är så brådskande att nämnden inte hinner sammanträda för att behandla det, får ärendet avgöras genom meddelanden mellan ordföranden och minst så många ledamöter som behövs för beslutförhet. Om detta förfarande inte kan tillämpas, får ordföranden ensam avgöra ärendet. Ett sådant beslut ska anmälas vid nästa sammanträde med nämnden.
+
+Förfarandet i första stycket får även användas för att avgöra ärenden av enkel beskaffenhet. Förordning ([2014:1069](https://selex.se/eli/sfs/2014/1069)).
+
+</section>
+
+</section>
+<section id="anställningar-och-uppdrag">
+
+## Anställningar och uppdrag
+
+<section id="10" class="paragraf">
+
+### 10 §
+
+Generaldirektören är myndighetschef.
+
+</section>
+<section id="11" class="paragraf">
+
+### 11 §
+
+Ordföranden, vice ordföranden samt ledamöterna och personliga ersättare för dessa i Nämnden för läkemedelsförmåner och Nämnden för statligt tandvårdsstöd utses av regeringen för en bestämd tid. Förordning ([2010:194](https://selex.se/eli/sfs/2010/194)).
+
+</section>
+
+</section>
+<section id="personalansvarsnämnd">
+
+## Personalansvarsnämnd
+
+<section id="12" class="paragraf">
+
+### 12 §
+
+Vid myndigheten ska det finnas en personalansvarsnämnd.
+
+</section>
+
+</section>
+<section id="tillämpligheten-av-viss-förord">
+
+## Tillämpligheten av viss förordning
+
+<section id="13" class="paragraf">
+
+### 13 §
+
+Personalföreträdarförordningen ([1987:1101](https://selex.se/eli/sfs/1987/1101)) ska tillämpas på Tandvårds- och läkemedelsförmånsverket. Förordning ([2008:659](https://selex.se/eli/sfs/2008/659)).
+
+</section>
+
+</section>
+
+</article>

@@ -1,0 +1,807 @@
+---
+beteckning: "1996:382"
+rubrik: Förordning med förvaltningsrättsinstruktion
+departement: Justitiedepartementet
+utfardad_datum: 1996-05-23
+ikraft_datum: 1996-07-01
+publicerad_datum: 2026-01-02
+pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/1996-05/SFS1996-382.pdf
+andringsforfattningar:
+  - beteckning: "1996:1124"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 1997-01-01
+    anteckningar: "upph. 45 §; ändr. 3, 35, 36, 41, 44 §§"
+  - beteckning: "1996:1353"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 1997-01-01
+    anteckningar: "ändr. 26, 30 §§"
+  - beteckning: "1997:1115"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 1998-01-01
+    anteckningar: "ändr. 3, 35 §§"
+  - beteckning: "1997:1118"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 1998-02-01
+    anteckningar: "upph. 22 §; ändr. 19, 20, 21, 23, 32 §§, 3 p övergångsbest."
+  - beteckning: "1998:976"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 1998-10-01
+    anteckningar: ändr. 20 §
+  - beteckning: "1998:1023"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 1998-10-01
+    anteckningar: "ändr. 41, 43 §§"
+  - beteckning: "1998:1227"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 1998-11-02
+    anteckningar: ändr. 48 §
+  - beteckning: "1998:1805"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 1999-01-01
+    anteckningar: ändr. 2 §
+  - beteckning: "1999:88"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 1999-04-01
+    anteckningar: ny 5 a §
+  - beteckning: "1999:700"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2000-01-01
+    anteckningar: ändr. 36 §
+  - beteckning: "2001:41"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2001-04-01
+    anteckningar: ändr. 19 §
+  - beteckning: "2001:297"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2001-07-01
+    anteckningar: ändr. 20 §
+  - beteckning: "2001:987"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2002-01-01
+    anteckningar: "ändr. 4, 10, 20, 37, 48 §§"
+  - beteckning: "2002:993"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2003-01-01
+    anteckningar: "ändr. 19, 32, 34, 41 §§; ny 43 a §"
+  - beteckning: "2003:327"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2003-07-01
+    anteckningar: "upph. 9 §; ändr. 8, 10, 14, 15, 16, 20, 21, 49 §§"
+  - beteckning: "2003:632"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2003-12-01
+    anteckningar: ändr. 43 a §
+  - beteckning: "2004:1214"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2005-01-01
+    anteckningar: "upph. 30, 31 §§; ändr. 26, 29, 32, 33, 34 §§"
+  - beteckning: "2005:769"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2006-01-01
+    anteckningar: ny 47 a §
+  - beteckning: "2006:88"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2006-03-31
+    anteckningar: "ändr. 19, 20 §§"
+  - beteckning: "2007:648"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2007-08-01
+    anteckningar: "ändr. 14, 21, 23, 41, 3 p ikrafttr.- och övergångsbest.; ny 20 a §"
+  - beteckning: "2007:1089"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2008-01-01
+    anteckningar: "ändr. 1, 6, 49 §§, rubr. närmast före 6 §; nya 1 a, 7 a §§"
+  - beteckning: "2008:426"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2008-07-01
+    anteckningar: "ändr. 36, 48, 49 §§"
+  - beteckning: "2009:885"
+    rubrik: Förordning om ändring i förordningen med länsrättsinstruktion
+    ikraft_datum: 2010-02-15
+    anteckningar: "ändr. författningsrubr., 1, 1 a, 2, 3, 4, 5, 6, 7, 7 a, 8, 10, 12, 14, 16, 18, 19, 20, 20 a, 21, 23, 25, 26, 27, 28, 29, 32, 33, 35, 37, 38, 39, 40, 41, 42, 43, 43 a, 44, 47, 49 §§"
+  - beteckning: "2010:316"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2010-06-01
+    anteckningar: ändr. 36 §
+  - beteckning: "2010:1696"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2011-01-01
+    anteckningar: ändr. 20 §
+  - beteckning: "2010:1805"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2011-01-01
+    anteckningar: upph. 35 §; ändr. 36 §
+  - beteckning: "2013:397"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2013-07-01
+    anteckningar: ändr. 41 §
+  - beteckning: "2014:910"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2014-09-01
+    anteckningar: ny 43 b §
+  - beteckning: "2014:1357"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2015-01-01
+    anteckningar: ändr. 5 a §
+  - beteckning: "2014:1407"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2015-01-01
+    anteckningar: ändr. 2 §
+  - beteckning: "2016:1357"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2017-03-01
+    anteckningar: ändr. 36 §
+  - beteckning: "2017:551"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2017-07-01
+    anteckningar: "ändr. 19, 32, 43 a §§"
+  - beteckning: "2018:431"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2018-07-01
+    anteckningar: ändr. 8 §
+  - beteckning: "2019:367"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2019-09-01
+    anteckningar: "ändr. 1, 4, 10, 27 §§; ny 37 a §"
+  - beteckning: "2019:594"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2020-01-01
+    anteckningar: ändr. 46 §
+  - beteckning: "2025:476"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2025-07-01
+    anteckningar: ändr. 20 §
+  - beteckning: "2025:1032"
+    rubrik: Förordning om ändring i förordningen med förvaltningsrättsinstruktion
+    ikraft_datum: 2026-01-01
+    anteckningar: ändr 47 §
+---
+<article selex:utfardad_datum="1996-05-23" selex:ikraft_datum="1996-07-01">
+
+# Förordning med förvaltningsrättsinstruktion
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+I varje förvaltningsrätt finns en lagman som är administrativ chef för förvaltningsrätten. Lagmannen ansvarar för verksamheten och ska se till att den bedrivs effektivt och enligt gällande rätt och de förpliktelser som följer av Sveriges medlemskap i Europeiska unionen samt att förvaltningsrätten hushållar väl med statens medel.
+
+I förvaltningsrätterna finns också chefsrådmän, rådmän, assessorer, adjungerade råd, förvaltningsrättsfiskaler, förvaltningsrättsnotarier och andra anställda.
+
+Om inte något annat anges ska det som föreskrivs i denna förordning om rådman också tillämpas på chefsrådman.
+
+Med kammarrätten avses i denna förordning den kammarrätt som förvaltningsrätten hör under. Förordning ([2019:367](https://selex.se/eli/sfs/2019/367)).
+
+</section>
+<section id="1a" class="paragraf">
+
+### 1 a §
+
+Lagmannen är skyldig att vid förvaltningsrätten genomföra den interna styrning och kontroll som Domstolsverket ansvarar för enligt förordningen ([2007:1073](https://selex.se/eli/sfs/2007/1073)) med instruktion för Domstolsverket. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="2" class="paragraf">
+
+### 2 §
+
+Förvaltningsrätten får besluta att domstolen ska vara indelad i avdelningar. Chef för en avdelning är lagmannen eller en chefsrådman. Om det på en avdelning som inte leds av lagmannen finns flera chefsrådmän, bestämmer lagmannen vem av chefsrådmännen som är chef. Chefen för avdelningen leder arbetet på denna samt fördelar tjänstgöringen i rätten efter samråd med domarna på avdelningen.
+
+Förvaltningsrätten får också besluta att domstolen ska vara indelad i andra organisatoriska enheter än avdelningar. Uppgifter som innefattar chefskap över ordinarie domare får dock utövas endast av lagmannen eller en chefsrådman. Förordning ([2014:1407](https://selex.se/eli/sfs/2014/1407)).
+
+</section>
+<section id="3" class="paragraf">
+
+### 3 §
+
+Vid förvaltningsrätterna i Stockholm, Malmö och Göteborg finns en administrativ enhet, som leds av en chef. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="4" class="paragraf">
+
+### 4 §
+
+Lagmannen ska se till att förvaltningsrättsfiskalerna i sin tjänstgöring får en allsidig och utvecklande utbildning enligt den utbildningsplan som Domstolsverket har beslutat i samråd med kammarrätterna. Lagmannen ska också ge vitsord över tjänstgöringen.
+
+Lagmannen ska se till att adjungerade råd som tjänstgör i förvaltningsrätten får en utvecklande och meriterande tjänstgöring enligt den utbildningsplan som Domstolsverket har beslutat i samråd med kammarrätterna. Lagmannen ska också ge vitsord över tjänstgöringen.
+
+För varje förvaltningsrättsfiskal och adjungerat råd ska en ordinarie domare utses som handledare. Den som utses till handledare ska ha ett särskilt intresse och i övrigt vara lämplig för uppdraget. Förordning ([2019:367](https://selex.se/eli/sfs/2019/367)).
+
+</section>
+<section id="5" class="paragraf">
+
+### 5 §
+
+Lagmannen ansvarar, med beaktande av Notarienämndens föreskrifter om notarietjänstgöring, för att förvaltningsrättsnotarierna i sin tjänstgöring får en allsidig och utvecklande utbildning. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="5a" class="paragraf">
+
+### 5 a §
+
+En nämndeman som har utsetts för tjänstgöring i domstolen ska genomgå introduktionsutbildning innan tjänstgöringen påbörjas.
+
+Om en nämndeman har genomgått introduktionsutbildningen ska han eller hon genomgå repetitionsutbildning inom sex månader efter tjänstgöringsperiodens början.
+
+Lagmannen ska, efter samråd med Domstolsverket, ansvara för att nämndemännen ges introduktions- och repetitionsutbildning och regelbunden information. Förordning ([2014:1357](https://selex.se/eli/sfs/2014/1357)).
+
+</section>
+<section id="myndighetsförordningens-tilläm">
+
+## Myndighetsförordningens tillämpning
+
+<section id="6" class="paragraf">
+
+### 6 §
+
+Följande föreskrifter i myndighetsförordningen ([2007:515](https://selex.se/eli/sfs/2007/515)) tillämpas på förvaltningsrätterna:
+
+</section>
+<section id="6" class="paragraf">
+
+### 6 §
+
+om allmänna uppgifter,
+
+</section>
+<section id="8" class="paragraf">
+
+### 8 §
+
+om arbetsgivarpolitik,
+
+</section>
+<section id="19" class="paragraf">
+
+### 19 §
+
+om kostnadsmässiga konsekvenser, och
+
+</section>
+<section id="21" class="paragraf">
+
+### 21 §
+
+om myndighetens beslut.
+
+Bestämmelserna i 19 och [21 §](#21)§ gäller dock endast i fråga om administrativa ärenden. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+Fördelningen av mål m.m.
+
+</section>
+<section id="7" class="paragraf">
+
+### 7 §
+
+Grunderna för fördelningen av arbetsuppgifterna och de övriga bestämmelser som behövs för verksamheten i förvaltningsrätten skall framgå av arbetsordningen.
+
+Domstolsverket meddelar allmänna råd om utformningen av arbetsordningarna. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="7a" class="paragraf">
+
+### 7 a §
+
+En förvaltningsrätt får i arbetsordningen meddela föreskrifter eller i ett enskilt fall besluta vem som får begära in förklaringar, upplysningar eller yttranden i administrativa ärenden. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="8" class="paragraf">
+
+### 8 §
+
+Mål ska fördelas mellan de organisatoriska enheter som anges i arbetsordningen.
+
+Kriterierna för fördelningen av mål ska framgå av arbetsordningen. Förordning ([2018:431](https://selex.se/eli/sfs/2018/431)).
+
+</section>
+<section id="9" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 9 §
+
+Har upphävts genom förordning ([2003:327](https://selex.se/eli/sfs/2003/327)).
+
+</section>
+<section id="10" class="paragraf">
+
+### 10 §
+
+En förvaltningsrättsfiskal eller ett adjungerat råd får inte tilldelas arbetsuppgifter i större omfattning än vad som är lämpligt med hänsyn till fiskalens eller det adjungerade rådets erfarenhet av arbete i domstol. En fiskal eller ett adjungerat råd får inte tilldelas arbetsuppgifter som kräver särskild erfarenhet. Vid tilldelningen av arbetsuppgifter ska fiskalens eller det adjungerade rådets behov av att delta i utbildning beaktas.
+
+Vid sidan av lagmannen ansvarar handledaren för att fördelningen av arbetsuppgifter till fiskalen eller det adjungerade rådet sker på det sätt som anges i första stycket. Förordning ([2019:367](https://selex.se/eli/sfs/2019/367)).
+
+</section>
+<section id="11" class="paragraf">
+
+### 11 §
+
+Lagmannen meddelar de riktlinjer som behövs för tillämpningen av arbetsordningen.
+
+</section>
+<section id="12" class="paragraf">
+
+### 12 §
+
+Lagmannen delar för en bestämd tid in domarna till tjänstgöring inom förvaltningsrätten.
+
+Indelningen skall göras så att domarna får erfarenhet av olika slag av mål. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="13" class="paragraf">
+
+### 13 §
+
+Om det finns särskilda skäl, får lagmannen besluta om tillfälliga avvikelser från vad som har beslutats med stöd av 7 eller [12 §](#12).
+
+</section>
+
+</section>
+<section id="handläggningen-av-mål">
+
+## Handläggningen av mål
+
+<section id="14" class="paragraf">
+
+### 14 §
+
+För varje mål ska det vid varje tidpunkt finnas en ansvarig domare.
+
+Första stycket gäller inte mål som förvaltningsrättsnotarier handlägger med stöd av förordnanden enligt 20–[21 §](#21)§. För sådana mål ansvarar den förordnade.
+
+Den närmare ansvarsfördelningen ska framgå av arbetsordningen. Ansvarsfördelningen ska ordnas så att ansvaret ska kunna utövas på ett effektivt sätt. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="15" class="paragraf">
+
+### 15 §
+
+Om nämndemän deltar i avgörandet, avgörs ett mål eller en fråga som har kommit upp i ett mål efter föredragning.
+
+Har målet eller frågan gåtts igenom i sin helhet vid en muntlig förhandling, får målet eller frågan avgöras utan föredragning, om avgörandet meddelas senast fyra veckor efter den dag förhandlingen avslutades. Förordning ([2003:327](https://selex.se/eli/sfs/2003/327)).
+
+</section>
+<section id="16" class="paragraf">
+
+### 16 §
+
+Målen bereds till avgörande av personal som har utsetts därtill.
+
+Beredningen av mål som avses i [16 §](#16) skattebrottslagen ([1971:69](https://selex.se/eli/sfs/1971/69)) leds alltid av en ordinarie domare, en assessor eller en förvaltningsrättsfiskal.
+
+Ett mål eller en fråga som har kommit upp i ett mål ska genast anmälas till den ansvarige domaren, om målet eller frågan kräver skyndsamt avgörande. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="17" class="paragraf">
+
+### 17 §
+
+Ett mål skall avgöras så snart det kan ske. Ett mål eller en fråga som har kommit upp i ett mål skall handläggas med förtur, om målet eller frågan av någon särskild anledning bör avgöras skyndsamt. Vilka mål som är förtursmål bestäms i arbetsordningen.
+
+</section>
+<section id="18" class="paragraf">
+
+### 18 §
+
+En dom eller ett annat beslut skall meddelas så snart det kan ske och senast fyra veckor efter den dag då föredragningen avslutades. Om förvaltningsrätten avgör ett mål efter en muntlig förhandling, räknas tiden från den dag då förhandlingen avslutades.
+
+Kan domen eller beslutet inte meddelas inom fyra veckor med hänsyn till målets eller frågans art eller på grund av något annat särskilt skäl, får förvaltningsrätten bestämma att domen eller beslutet skall  meddelas senast inom viss angiven tid. Denna får inte vara längre än vad som är oundgängligen nödvändigt. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="19" class="paragraf">
+
+### 19 §
+
+Lagmannen får förordna den som har tillräcklig kunskap och erfarenhet och som är anställd vid en allmän förvaltningsdomstol, en allmän domstol eller en hyresnämnd att på eget ansvar
+
+1. i den utsträckning lagmannen bestämmer sköta sådan skriftväxling som följer av föreskrifter i lagar eller andra författningar,
+
+2. underteckna och expediera kallelser, förelägganden, förordnanden och andra meddelanden,
+
+3. fullgöra förvaltningsrättens eller domarens uppgifter i samband med delgivningar,
+
+4. underteckna och expediera skrivelser, underrättelser, kungörelser och uppgifter som förvaltningsrätten eller domaren ska utfärda eller avge i samband med domar eller beslut,
+
+5. ta emot överklaganden av förvaltningsrättens domar eller beslut och pröva om överklagandet har kommit in i rätt tid och, om så är fallet, vidta de åtgärder som behövs,
+
+6. förordna tolk,
+
+7. besluta i fråga om ersättning eller förskott av allmänna medel till någon som har medverkat i målet eller ärendet, och
+
+8. i den utsträckning lagmannen bestämmer utföra andra arbetsuppgifter som inte enligt lag eller annan författning måste utföras av någon som är lagfaren.
+
+Ett förordnande enligt första stycket 4 för någon som inte är lagfaren får inte innefatta arbetsuppgifter som enligt särskilda bestämmelser ska utföras av någon som är lagfaren. Förordning ([2017:551](https://selex.se/eli/sfs/2017/551)).
+
+</section>
+<section id="20" class="paragraf">
+
+### 20 §
+
+Lagmannen får förordna en förvaltningsrättsnotarie som har tjänstgjort minst ett år samt bedöms ha tillräcklig erfarenhet och i övrigt vara lämplig att på eget ansvar
+
+1. handlägga mål om återkallelse av körkort, körkortstillstånd eller traktorkort enligt körkortslagen ([1998:488](https://selex.se/eli/sfs/1998/488)),
+
+2. handlägga mål om återbetalning av studiemedel och studielån enligt studiestödslagen ([1973:349](https://selex.se/eli/sfs/1973/349)) eller studiestödslagen ([1999:1395](https://selex.se/eli/sfs/1999/1395)),
+
+3. handlägga mål om ekonomiskt bistånd och andra insatser enligt socialtjänstlagen ([2001:453](https://selex.se/eli/sfs/2001/453)) eller socialtjänstlagen ([2025:400](https://selex.se/eli/sfs/2025/400)),
+
+4. handlägga mål som avser en fråga av betydelse för inkomstbeskattningen, dock endast om värdet av vad som yrkas i målet uppenbart inte överstiger hälften av prisbasbeloppet enligt [2 kap. 6 och 7 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap2.6),
+
+5. handlägga mål enligt lagen ([2001:82](https://selex.se/eli/sfs/2001/82)) om svenskt medborgarskap, och
+
+6. handlägga mål om saken är uppenbar.
+
+Förordnanden enligt första stycket får endast avse mål av enkel beskaffenhet som inte kräver särskild erfarenhet. Den ansvarige domaren eller den domare han eller hon utser ska efter prövning i varje enskilt fall avgöra om målet är av sådan art att det kan handläggas av en notarie.
+
+När en notarie handlägger tvistiga mål ska nämndemän alltid delta i avgörandet. Förordning ([2025:476](https://selex.se/eli/sfs/2025/476)).
+
+</section>
+<section id="20a" class="paragraf">
+
+### 20 a §
+
+Lagmannen får förordna en förvaltningsrättsnotarie som har tjänstgjort minst ett år samt bedöms ha tillräcklig erfarenhet och i övrigt vara lämplig att på eget ansvar utan medverkan av nämndemän handlägga mål enligt lagen ([2004:629](https://selex.se/eli/sfs/2004/629)) om trängselskatt. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="21" class="paragraf">
+
+### 21 §
+
+Lagmannen får förordna en förvaltningsrättsnotarie som har tjänstgjort minst ett år och sex månader samt bedöms ha tillräcklig erfarenhet och i övrigt vara lämplig att, utöver vad som anges i 20 och [20 a §](#20a)§, på eget ansvar handlägga mål av enkel beskaffenhet som inte kräver särskild erfarenhet.
+
+I fråga om uppgifter som avses i första stycket ska den ansvarige domaren eller den domare han eller hon utser efter prövning i varje enskilt fall avgöra om målet är av sådan art att det kan handläggas av en notarie.
+
+När en notarie handlägger mål efter ett förordnande enligt första stycket ska nämndemän alltid delta i avgörandet. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="22" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 22 §
+
+Har upphävts genom förordning ([1997:1118](https://selex.se/eli/sfs/1997/1118)).
+
+</section>
+<section id="23" class="paragraf">
+
+### 23 §
+
+Förordnanden enligt 20–[21 §](#21)§ ska fortlöpande omprövas.
+
+Vid tillämpningen av 20, 20 a eller [21 §](#21) eller [41 §](#41) femte stycket ska notarietjänstgöring enligt notarieförordningen ([1990:469](https://selex.se/eli/sfs/1990/469)) räknas som tjänstgöring som förvaltningsrättsnotarie även om den inte har fullgjorts vid en förvaltningsrätt. En förvaltningsrättsnotarie får dock inte förordnas enligt någon av dessa paragrafer innan han eller hon genom tjänstgöring vid en förvaltningsrätt har vunnit tillräcklig erfarenhet av det område som förordnandet avser. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="24" class="paragraf">
+
+### 24 §
+
+Lagmannen eller en chefsrådman bör delta när ett mål avgörs, om det finns särskilda skäl för det med hänsyn till målets art.
+
+</section>
+
+</section>
+<section id="information-om-muntliga-förhan">
+
+## Information om muntliga förhandlingar
+
+<section id="25" class="paragraf">
+
+### 25 §
+
+För varje dag då det hålls sammanträde för muntlig förhandling skall förvaltningsrätten upprätta en förteckning över de mål som har utsatts till förhandling (uppropslista).
+
+På uppropslistan skall det för varje mål eller grupp av mål anges när förhandlingen beräknas börja.
+
+Under sammanträdesdagen skall uppropslistan hållas tillgänglig på rättens kansli och vara anslagen på lämplig plats i anslutning till den lokal där förhandlingen äger rum. Uppropslistan skall vara tillgänglig för allmänheten på rättens kansli senast den helgfria dagen närmast före sammanträdesdagen. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+
+</section>
+<section id="handläggningen-av-administrati">
+
+## Handläggningen av administrativa ärenden
+
+<section id="26" class="paragraf">
+
+### 26 §
+
+Administrativa ärenden avgörs av lagmannen.
+
+Lagmannen får hänskjuta ärenden till kollegium eller, vid en förvaltningsrätt som har plenum men inte kollegium, till plenum.
+
+Kollegium ska finnas i förvaltningsrätterna i Stockholm, Malmö och Göteborg. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="27" class="paragraf">
+
+### 27 §
+
+Plenum består av lagmannen som ordförande och alla som är eller har en tidsbegränsad anställning som rådman, assessor, adjungerat råd eller förvaltningsrättsfiskal. Förordning ([2019:367](https://selex.se/eli/sfs/2019/367)).
+
+</section>
+<section id="28" class="paragraf">
+
+### 28 §
+
+Kollegium består av lagmannen som ordförande, en eller två chefsrådmän samt chefen för den administrativa enheten.
+
+För varje annan ledamot än lagmannen och chefen för den administrativa enheten skall det finnas en personlig ersättare, som träder in vid förfall för ledamoten. Ersättaren skall vara en chefsrådman.
+
+Ledamöterna och ersättarna utses av plenum. De skall vara anställda hos och tjänstgöra i förvaltningsrätten. De skall utses för högst ett år i sänder. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="29" class="paragraf">
+
+### 29 §
+
+Administrativa ärenden skall avgöras med iakttagande av den enskilde domarens självständighet i dömande och rättstillämpande uppgifter.
+
+Lagmannen skall samråda med kollegiet eller, vid en förvaltningsrätt som har plenum men inte kollegium, med plenum innan han eller hon avgör ärenden som avser
+
+1. viktigare frågor om förvaltningsrättens organisation eller arbetsformer, eller
+
+2. arbetsordningen. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="30" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 30 §
+
+Har upphävts genom förordning ([2004:1214](https://selex.se/eli/sfs/2004/1214)).
+
+</section>
+<section id="31" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 31 §
+
+Har upphävts genom förordning ([2004:1214](https://selex.se/eli/sfs/2004/1214)).
+
+</section>
+<section id="32" class="paragraf">
+
+### 32 §
+
+Lagmannen får uppdra åt en avdelning eller någon som är anställd vid en allmän förvaltningsdomstol, en allmän domstol, en hyresnämnd eller Rättshjälpsmyndigheten att i sitt ställe avgöra administrativa ärenden.
+
+Lagmannen får dock endast uppdra åt en chefsrådman att avgöra sådana ärenden som avses i 19–21 och [23 §](#23)§. Förordning ([2017:551](https://selex.se/eli/sfs/2017/551)).
+
+</section>
+<section id="33" class="paragraf">
+
+### 33 §
+
+I administrativa ärenden som efter att ha hänskjutits av lagmannen handläggs i plenum eller i kollegium är förvaltningsrätten beslutför när minst hälften av de ledamöter som skall delta är närvarande. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="34" class="paragraf">
+
+### 34 §
+
+Administrativa ärenden som handläggs i plenum eller i kollegium avgörs efter föredragning om inte lagmannen bestämmer något annat. Sådana ärenden föredras av den som lagmannen utser. Förordning ([2004:1214](https://selex.se/eli/sfs/2004/1214)).
+
+Anställningar m.m.
+
+</section>
+<section id="35" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 35 §
+
+Har upphävts genom förordning ([2010:1805](https://selex.se/eli/sfs/2010/1805)).
+
+</section>
+<section id="36" class="paragraf">
+
+### 36 §
+
+Bestämmelser om utnämning av lagman, chefsrådman och rådman finns i lagen ([2010:1390](https://selex.se/eli/sfs/2010/1390)) om utnämning av ordinarie domare.
+
+Förvaltningsrätten ska anmäla till Domstolsverket när det finns en ledig anställning som ordinarie domare som behöver tillsättas.
+
+Om en ordinarie domare har beviljats ledighet som beräknas vara minst ett år i följd, anställs en vikarie genom beslut av regeringen efter förslag av Domarnämnden. Detsamma gäller om en sådan domare ska anställas för en begränsad tid för något annat än vikariatsändamål.
+
+Vid tidsbegränsad anställning som ordinarie domare gäller inte [5 a §](#5a) lagen ([1982:80](https://selex.se/eli/sfs/1982/80)) om anställningsskydd. Förordning ([2016:1357](https://selex.se/eli/sfs/2016/1357)).
+
+</section>
+<section id="37" class="paragraf">
+
+### 37 §
+
+Förvaltningsrättsfiskaler anställs genom beslut av kammarrätten. Sådana anställningar får ges till den som har tjänstgjort minst ett år som kammarrättsfiskal eller hovrättsfiskal.
+
+Domstolsverket beslutar hur många förvaltningsrättsfiskaler som ska finnas anställda vid en förvaltningsrätt. Domstolsverket får överlämna till kammarrätten eller förvaltningsrätten att besluta detta.
+
+Vid anställning av förvaltningsrättsfiskaler tillämpas inte 6 och [7 §](#7)§ anställningsförordningen ([1994:373](https://selex.se/eli/sfs/1994/373)). Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="37a" class="paragraf">
+
+### 37 a §
+
+En kammarrätt får förordna ett adjungerat råd som har tjänstgjort minst sex månader i den domstolen att tjänstgöra i förvaltningsrätten. Förordning ([2019:367](https://selex.se/eli/sfs/2019/367)).
+
+</section>
+<section id="38" class="paragraf">
+
+### 38 §
+
+Ett förordnande för en kammarrättsassessor att fullgöra domaruppgifter i en förvaltningsrätt enligt [45 §](#45) andra stycket förordningen ([1996:380](https://selex.se/eli/sfs/1996/380)) med kammarrättsinstruktion meddelas av kammarrätten. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="39" class="paragraf">
+
+### 39 §
+
+Förvaltningsrättsnotarier anställs genom beslut av Domstolsverket enligt föreskrifter i notarieförordningen ([1990:469](https://selex.se/eli/sfs/1990/469)).
+
+Endast den som är svensk medborgare får inneha eller utöva en anställning som förvaltningsrättsnotarie. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="40" class="paragraf">
+
+### 40 §
+
+Andra anställningar beslutas av förvaltningsrätten. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="41" class="paragraf">
+
+### 41 §
+
+Lagmannen ska ha en ställföreträdare. Han eller hon utses av förvaltningsrätten.
+
+Om en rådman är ledig ska han eller hon i första hand ersättas genom att arbetsuppgifterna omfördelas.
+
+Som ersättare för lagmannen eller för en rådman får den anlitas som är eller har varit ordinarie domare eller som är eller har varit ledamot eller fiskal i kammarrätt eller hovrätt eller som under minst sex månader har utfört en kammarrätts- eller hovrättsfiskals arbetsuppgifter. Om det inte finns någon med sådan behörighet att tillgå som ersättare för lagmannen, får kammarrätten förordna en förvaltningsrättsnotarie som har tjänstgjort sammanlagt minst ett år och sex månader och som under den tiden har haft förordnanden enligt 20–[21 §](#21)§ i sådan utsträckning att han eller hon kan antas ha fått tillräcklig erfarenhet. Ett förordnande får dock inte innefatta handläggning av mål eller ärenden som är omfattande eller svåra eller som kräver särskild erfarenhet.
+
+Om det inte är möjligt att lösa ersättarbehovet på det sätt som anges i första–tredje styckena får förvaltningsrätten anställa en vikarie för lagmannen eller för en rådman, om vikariatet beräknas vara högst ett år i följd.
+
+Som vikarie för lagmannen eller för en rådman får den anställas som är eller har varit ordinarie domare eller som är kammarrätts- eller hovrättsassessor. Om det inte finns någon med sådan behörighet att tillgå och om vikariatet beräknas vara endast sex månader får som vikarie för en rådman även den anställas som har varit ledamot eller fiskal i kammarrätt eller hovrätt eller som under minst sex månader har utfört en kammarrätts- eller hovrättsfiskals arbetsuppgifter. Förordning ([2013:397](https://selex.se/eli/sfs/2013/397)).
+
+</section>
+<section id="42" class="paragraf">
+
+### 42 §
+
+Om en lagman är förhindrad att utöva sin anställning och om någon ersättare eller vikarie inte har utsetts eller anställts av regeringen eller förvaltningsrätten, skall kammarrätten förordna en ersättare. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="43" class="paragraf">
+
+### 43 §
+
+Vid tillfällig arbetsanhopning får förvaltningsrätten anställa den som är eller har varit ordinarie domare eller som är eller har varit ledamot eller fiskal i kammarrätt eller hovrätt eller som under minst sex månader har utfört en kammarrätts- eller hovrättsfiskals arbetsuppgifter att för enstaka, kortvariga perioder utföra domaruppgifter i förvaltningsrätten. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="43a" class="paragraf">
+
+### 43 a §
+
+Lagmannen får förordna en ordinarie domare i en annan allmän förvaltningsdomstol eller i en allmän domstol eller ett hyresråd att tjänstgöra vid förvaltningsrätten, om han eller hon samtycker. Ett förordnande ges för viss tid eller för särskilt angivna uppgifter.
+
+Lagmannen får förordna en icke ordinarie domare som tjänstgör i en annan förvaltningsrätt eller i en tingsrätt att tjänstgöra vid förvaltningsrätten, om han eller hon samtycker. Ett förordnande ges för viss tid eller för enstaka mål eller ärenden. Förordning ([2017:551](https://selex.se/eli/sfs/2017/551)).
+
+</section>
+<section id="43b" class="paragraf">
+
+### 43 b §
+
+Innan en nämndeman påbörjar en tjänstgöringsperiod i domstolen ska förvaltningsrätten inhämta uppgifter om honom eller henne ur belastningsregistret enligt förordningen ([1999:1134](https://selex.se/eli/sfs/1999/1134)) om belastningsregister, om det inte möter något hinder enligt [7 §](#7) lagen ([1998:620](https://selex.se/eli/sfs/1998/620)) om belastningsregister. Förordning ([2014:910](https://selex.se/eli/sfs/2014/910)).
+
+</section>
+
+</section>
+<section id="ledigheter">
+
+## Ledigheter
+
+<section id="44" class="paragraf">
+
+### 44 §
+
+Om inte regeringen eller Domstolsverket enligt särskilda föreskrifter om ledighet för domare skall besluta om ledigheten, beslutar förvaltningsrätten om ledighet för egen personal. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+</section>
+<section id="45" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 45 §
+
+har upphävts genom förordning ([1996:1124](https://selex.se/eli/sfs/1996/1124)).
+
+Anställningars upphörande m.m.
+
+</section>
+<section id="46" class="paragraf">
+
+### 46 §
+
+Frågor om anställningars upphörande enligt [6 §](#6) lagen ([1994:261](https://selex.se/eli/sfs/1994/261)) om fullmaktsanställning prövas av Domstolsverket. När det gäller lagmän prövar Domstolsverket även i övrigt frågor om anställnings upphörande. Domstolsverket utövar också myndighetens befogenhet enligt [4 a §](#4a) lagen ([1982:80](https://selex.se/eli/sfs/1982/80)) om anställningsskydd, när bestämmelsen är tillämplig i förhållande till arbetstagare som anställs genom beslut av regeringen. Förordning ([2019:594](https://selex.se/eli/sfs/2019/594)).
+
+</section>
+<section id="47" class="paragraf">
+
+### 47 §
+
+Statens ansvarsnämnd beslutar i frågor om disciplinansvar, åtalsanmälan, avstängning och avskedande när det gäller icke ordinarie domare i förvaltningsrätt. Nämnden beslutar i frågor om avstängning enbart om ett förfarande om avskedande har inletts hos nämnden. Om ett sådant förfarande inte har inletts hos nämnden beslutar Domstolsverket i frågor om avstängning.
+
+Domstolsverket beslutar också i frågor om disciplinansvar, åtalsanmälan, avstängning och avskedande när det gäller andra anställda än ordinarie och icke ordinarie domare. Notarienämnden beslutar dock när det gäller förvaltningsrättsnotarier.
+
+En anmälan till Statens ansvarsnämnd enligt [15 §](#15) första stycket anställningsförordningen ([1994:373](https://selex.se/eli/sfs/1994/373)) görs av förvaltningsrätten när det gäller andra domare än lagmän.
+
+Av lagen ([1975:1339](https://selex.se/eli/sfs/1975/1339)) om Justitiekanslerns tillsyn och lagen ([2023:499](https://selex.se/eli/sfs/2023/499)) med instruktion för Riksdagens ombudsmän (JO) följer att Justitiekanslern och Riksdagens ombudsmän har behörighet att göra en sådan anmälan när det gäller lagmän. Förordning ([2025:1032](https://selex.se/eli/sfs/2025/1032)).
+
+</section>
+<section id="47a" class="paragraf">
+
+### 47 a §
+
+En ordinarie domare som vill vara kvar i anställningen efter uppnådd ålder för avgångsskyldighet skall ansöka om detta hos Domstolsverket. Ansökan skall ges in till Domstolsverket senast fyra månader innan sökanden uppnår nämnda ålder. Om Domstolsverket anser att ansökan inte bör beviljas, skall ärendet överlämnas till regeringen. Förordning ([2005:769](https://selex.se/eli/sfs/2005/769)).
+
+</section>
+<section id="48" class="paragraf">
+
+### 48 §
+
+Frågor om bisyssla som avses i 7 a-[7 d §](#7d)§ lagen ([1994:260](https://selex.se/eli/sfs/1994/260)) om offentlig anställning handhas och prövas av Domarnämnden när det gäller lagmän. Förordning ([2008:426](https://selex.se/eli/sfs/2008/426)).
+
+</section>
+
+</section>
+<section id="överklagande-av-administrativa">
+
+## Överklagande av administrativa beslut
+
+<section id="49" class="paragraf">
+
+### 49 §
+
+Förvaltningssrättens beslut i andra administrativa ärenden än anställningsärenden får överklagas hos Domstolsverket, om inte något annat är särskilt föreskrivet.
+
+Förvaltningsrättens beslut i fråga om vikariat för en ordinarie domare får överklagas hos Domarnämnden. Nämndens beslut i sådana ärenden får inte överklagas.
+
+Beslut om indelningen av domare på organisatoriska enheter, om att ett visst mål eller ärende ska tilldelas en viss organisatorisk enhet samt om fördelningen av ansvar för ett visst mål eller ärende får inte överklagas. Förordning ([2009:885](https://selex.se/eli/sfs/2009/885)).
+
+
+</section>
+
+</section>
+<section id="övergångsbestämmelser">
+
+## Övergångsbestämmelser
+
+[1996:382](https://selex.se/eli/sfs/1996/382)
+
+1. Denna förordning träder i kraft den 1 juli 1996.
+
+2. Genom förordningen upphävs förordningen ([1979:573](https://selex.se/eli/sfs/1979/573)) med länsrättsinstruktion.
+
+3. Länsrätten får förordna en länsrättsassessor att utföra domaruppgifter som avses i 20-[21 §](#21)§. Förordning ([2007:648](https://selex.se/eli/sfs/2007/648)).
+
+4. På länsrättsassessorer som har förordnats att fullgöra en länsrättsfiskals uppgifter tillämpas 12 och [41 §](#41)§ samt [47 §](#47) första stycket.
+
+5. Vid handläggningen av mål som avser 1991 och tidigare års taxeringar skall bestämmelserna i [21 §](#21) förordningen ([1979:573](https://selex.se/eli/sfs/1979/573)) med länsrättsinstruktion i sin lydelse före den 1 juli 1992 fortfarande tillämpas. I mål om förseningsavgift skall dock de nya bestämmelserna tillämpas vid handläggning av mål som avser 1991 års taxering.
+
+6. Hänvisningen i [20 §](#20) första stycket 1 till [35 kap. 4 § fastighetstaxeringslagen](https://selex.se/eli/sfs/1979/1152#kap35.4) ([1979:1152](https://selex.se/eli/sfs/1979/1152)) tillämpas första gången i mål som avser fastighetstaxering år 1996.
+
+[1997:1118](https://selex.se/eli/sfs/1997/1118)
+
+Denna förordning träder i kraft den 1 februari 1998. I fråga om förordnanden som meddelats före ikraftträdandet gäller [20 §](#20) i sin äldre lydelse intill utgången av augusti 1998.
+
+[2014:910](https://selex.se/eli/sfs/2014/910)
+
+1. Denna förordning träder i kraft den 1 september 2014.
+
+2. Bestämmelsen i [43 b §](#43b) tillämpas första gången för de nämndemän som utses 2014 för en tjänstgöringsperiod som börjar den 1 januari 2015.
+
+[2014:1357](https://selex.se/eli/sfs/2014/1357)
+
+1. Denna förordning träder i kraft den 1 januari 2015.
+
+2. Bestämmelsen i [5 a §](#5a) första stycket tillämpas första gången för de nämndemän vars tjänstgöringsperiod börjar den 1 januari 2016, även omvalda nämndemän.
+
+3. Äldre bestämmelser gäller fortfarande för de nämndemän vars tjänstgöringsperiod upphör senast den 31 december 2015.
+
+[2014:1407](https://selex.se/eli/sfs/2014/1407)
+
+1. Denna förordning träder i kraft den 1 januari 2015.
+
+2. För förvaltningsrätter som före ikraftträdandet har utsett en lagfaren domare som inte är lagman eller chefsrådman att utöva chefskap över ordinarie domare gäller [2 §](#2) i den äldre lydelsen, dock längst till och med utgången av 2017.
+
+</section>
+
+</article>

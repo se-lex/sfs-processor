@@ -1,0 +1,419 @@
+---
+beteckning: "2009:955"
+rubrik: Förordning om statsbidrag till vissa juridiska personer som tillhandahåller meningsfull sysselsättning till personer med psykisk funktionsnedsättning
+departement: Socialdepartementet
+utfardad_datum: 2009-10-08
+ikraft_datum: 2009-11-01
+publicerad_datum: 2026-01-02
+pdf_url: https://rkrattsdb.gov.se/SFSdoc/09/090955.pdf
+andringsforfattningar:
+  - beteckning: "2011:950"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till vissa juridiska personer som tillhandahåller meningsfull sysselsättning till personer med psykisk funktionsnedsättning
+    ikraft_datum: 2011-09-01
+    anteckningar: "ändr. 1, 2, 8, 12, 13, 16 §§"
+  - beteckning: "2018:1115"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till vissa juridiska personer som tillhandahåller meningsfull sysselsättning till personer med psykisk funktionsnedsättning
+    ikraft_datum: 2018-08-01
+    anteckningar: ny 2 a §
+  - beteckning: "2019:49"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till vissa juridiska personer som tillhandahåller meningsfull sysselsättning till personer med psykisk funktionsnedsättning
+    ikraft_datum: 2019-03-25
+    anteckningar: "upph. 7 §; nuvarande 20 § betecknas 21 §; ändr. 9 §, rubr. närmast före 20 § sätts närmast före 21 §; ny 20 §, rubr. närmast före 20 §"
+  - beteckning: "2019:1074"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till vissa juridiska personer som tillhandahåller meningsfull sysselsättning till personer med psykisk funktionsnedsättning
+    ikraft_datum: 2020-01-01
+    anteckningar: "ändr. 1, 4 §§"
+  - beteckning: "2021:852"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till vissa juridiska personer som tillhandahåller meningsfull sysselsättning till personer med psykisk funktionsnedsättning
+    ikraft_datum: 2021-10-19
+    anteckningar: "ändr. 1, 16 §§"
+  - beteckning: "2025:491"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till vissa juridiska personer som tillhandahåller meningsfull sysselsättning till personer med psykisk funktionsnedsättning
+    ikraft_datum: 2025-07-01
+    anteckningar: ändr. 1 §
+  - beteckning: "2025:1006"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till vissa juridiska personer som tillhandahåller meningsfull sysselsättning till personer med psykisk funktionsnedsättning
+    ikraft_datum: 2026-01-01
+    anteckningar: "ändr. 2, 2 a, 3, 8, 11, 13, 14, 15, 17, 18, 19, 21 §§, rubr. närmast före 17 §; nya 2 b, 2 c, 3 a, 13 a, 15 a §§, rubr. närmast före 13 a §"
+---
+<article selex:utfardad_datum="2009-10-08" selex:ikraft_datum="2009-11-01">
+
+# Förordning om statsbidrag till vissa juridiska personer som tillhandahåller meningsfull sysselsättning till personer med psykisk funktionsnedsättning
+
+<section id="tillämpningsområde-och-syfte">
+
+## Tillämpningsområde och syfte
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+I denna förordning finns föreskrifter om statsbidrag till juridiska personer som i sin verksamhet tillhandahåller sådan meningsfull sysselsättning som avses i [8 kap. 10 § andra stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap8.10) ([2025:400](https://selex.se/eli/sfs/2025/400)) till personer som på grund av en psykisk funktionsnedsättning möter betydande svårigheter i sin livsföring och som inte står till arbetsmarknadens förfogande.
+
+Målen med statsbidraget är att förstärka och komplettera kommunernas och regionernas insatser för att ge personer med en psykisk funktionsnedsättning
+
+1. ett varierat utbud av meningsfull sysselsättning,
+
+2. ökad valfrihet genom att urvalet av sysselsättningsplatser lokalt utökas och breddas,
+
+3. en sysselsättning som är särskilt anpassad till den enskildes förutsättningar och som stärker hans eller hennes möjligheter att leva ett självständigt liv, och
+
+4. bättre möjligheter att övergå eller återgå till studier, praktik eller arbete på den reguljära arbetsmarknaden. Förordning ([2025:491](https://selex.se/eli/sfs/2025/491)).
+
+</section>
+
+</section>
+<section id="villkor-för-statsbidrag">
+
+## Villkor för statsbidrag
+
+<section id="2" class="paragraf">
+
+### 2 §
+
+Bidrag får lämnas till juridiska personer som i Sverige bedriver sådan verksamhet som avses i [1 §](#1) första stycket sedan minst två år före dagen för ansökan.
+
+Verksamheten ska utgå från en värdegrund som understryker rätten till inflytande och delaktighet i samhällslivet för personer med psykisk funktionsnedsättning, vara särskilt anpassad för dessa personer och bedrivas nära de som deltar i sysselsättningen. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+<section id="2a" class="paragraf">
+
+### 2 a §
+
+Bidrag får även lämnas till juridiska personer som har bedrivit verksamhet en kortare period än vad som anges i [2 §](#2) första stycket under förutsättning att
+
+1. den juridiska personen är medlem i en riksorganisation som organiserar juridiska personer som bedriver sådan verksamhet som avses i [1 §](#1) första stycket, och
+
+2. riksorganisationens verksamhet har bedrivits under minst två år före dagen för ansökan. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+<section id="2b" class="paragraf">
+
+### 2 b §
+
+Bidrag får inte lämnas till en juridisk person om den eller någon av dess företrädare som agerar inom ramen för verksamheten
+
+1. utövar våld, tvång eller hot mot en person eller på annat sätt kränker en persons grundläggande fri- och rättigheter,
+
+2. diskriminerar personer eller grupper av personer eller på annat sätt bryter mot principen om alla människors lika värde,
+
+3. försvarar, främjar eller uppmanar till sådana ageranden som anges i 1 eller 2, eller
+
+4. motarbetar det demokratiska styrelseskicket.
+
+Stöd får inte heller lämnas till en juridisk person om det framkommer att någon av dess samarbetsorganisationer, eller en företrädare för samarbetsorganisationen, agerar på ett sådant sätt som anges i första stycket. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+<section id="2c" class="paragraf">
+
+### 2 c §
+
+Om en juridisk person, dess företrädare, samarbetsorganisation eller samarbetsorganisationens företrädare har agerat på ett sådant sätt som anges i [2 b §](#2b), får stöd ändå lämnas till den juridiska personen om det finns särskilda skäl. Vid denna bedömning ska det särskilt beaktas om
+
+1. den juridiska personen har tagit avstånd från agerandet,
+
+2. den juridiska personen har vidtagit adekvata åtgärder för att säkerställa att agerandet inte upprepas,
+
+3. det är fråga om ett enstaka agerande, och
+
+4. agerandet ligger långt tillbaka i tiden.
+
+Vid allvarliga överträdelser av en samarbetsorganisation, eller dess företrädare, ska det vid bedömningen även särskilt beaktas om samarbetet har avbrutits. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+<section id="3" class="paragraf">
+
+### 3 §
+
+Bidrag får inte lämnas till juridiska personer som
+
+1. är i likvidation eller försatta i konkurs,
+
+2. har skatte- eller avgiftsskulder eller andra skulder som har överlämnats till Kronofogdemyndigheten och som vid indrivning handläggs som allmänt mål, eller
+
+3. har en skuld som inte betalats i rätt tid och som avser återkrav av bidrag som har lämnats av Socialstyrelsen. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+<section id="3a" class="paragraf">
+
+### 3 a §
+
+Bidrag får inte lämnas för kostnader som något statligt bidrag redan har lämnats för. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+<section id="4" class="paragraf">
+
+### 4 §
+
+Bidrag får inte lämnas till juridiska personer vars verksamhet står under kontroll av en kommun, en region eller en statlig myndighet. Förordning ([2019:1074](https://selex.se/eli/sfs/2019/1074)).
+
+</section>
+
+</section>
+<section id="formen-för-statsbidraget">
+
+## Formen för statsbidraget
+
+<section id="5" class="paragraf">
+
+### 5 §
+
+Statsbidraget är ett verksamhetsbidrag och utgör en ersättning för de bidragsberättigades verksamhetskostnader i samband med att de anordnar meningsfull sysselsättning för personer med psykisk funktionsnedsättning.
+
+</section>
+
+</section>
+<section id="ansökan">
+
+## Ansökan
+
+<section id="6" class="paragraf">
+
+### 6 §
+
+En ansökan om bidrag ska ha kommit in till Socialstyrelsen senast vid den tidpunkt som styrelsen beslutar.
+
+</section>
+<section id="7" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 7 §
+
+Har upphävts genom förordning ([2019:49](https://selex.se/eli/sfs/2019/49)).
+
+</section>
+<section id="8" class="paragraf">
+
+### 8 §
+
+Den som ansöker om bidrag ska i ansökan redogöra för hur de mål som anges i [1 §](#1) andra stycket ska uppnås med hjälp av de sökta bidragsmedlen.
+
+En sökande ska utöver vad som framgår av första stycket på begäran lämna Socialstyrelsen de handlingar och uppgifter som styrelsen behöver för att kunna pröva ansökan.
+
+En ansökan om statsbidrag ska göras skriftligen av en behörig företrädare för den juridiska personen. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+<section id="9" class="paragraf">
+
+### 9 §
+
+Om den som ansöker om bidrag enligt denna förordning inte lämnar de handlingar eller uppgifter som följer av [8 §](#8), ska sökanden ges tillfälle att inom en viss tid komplettera ansökan. Om sökanden inte följer en uppmaning att komplettera ansökan, får Socialstyrelsen pröva ansökan i befintligt skick. Förordning ([2019:49](https://selex.se/eli/sfs/2019/49)).
+
+Beslutande myndighet m.m.
+
+</section>
+<section id="10" class="paragraf">
+
+### 10 §
+
+Socialstyrelsen beslutar i ärenden om bidrag enligt denna förordning.
+
+</section>
+<section id="11" class="paragraf">
+
+### 11 §
+
+Bidrag lämnas för ett bidragsår i sänder om det finns medel. Ett bidragsår omfattar ett kalenderår.
+
+Beslut om bidrag fattas vid endast ett tillfälle varje bidragsår. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+<section id="12" class="paragraf">
+
+### 12 §
+
+Bedömningen av en ansökan om bidrag ska göras med utgångspunkt i sökandens förmåga att uppfylla de mål som anges i [1 §](#1) andra stycket.
+
+Om den som ansöker om bidrag har lämnat redovisning enligt [14 §](#14) för tidigare beviljade bidrag, ska bedömningen av bidragsansökan även göras med beaktande av vad som framgår av redovisningen. Förordning ([2011:950](https://selex.se/eli/sfs/2011/950)).
+
+</section>
+<section id="13" class="paragraf">
+
+### 13 §
+
+Ett beslut om bidrag får förenas med villkor. Villkoren ska framgå av beslutet. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+
+</section>
+<section id="anmälningsskyldighet">
+
+## Anmälningsskyldighet
+
+<section id="13a" class="paragraf">
+
+### 13 a §
+
+Den som ansöker om eller har beviljats bidrag enligt denna förordning ska snarast möjligt anmäla sådana ändrade förhållanden som kan påverka rätten till eller storleken på bidraget till Socialstyrelsen. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+
+</section>
+<section id="redovisning">
+
+## Redovisning
+
+<section id="14" class="paragraf">
+
+### 14 §
+
+En bidragsmottagare ska senast den 1 mars året efter det år det beviljade bidraget har betalats ut, lämna en redovisning till Socialstyrelsen. Redovisningen ska innehålla
+
+1. en ekonomisk redovisning av det mottagna bidraget,
+
+2. en redogörelse för vad bidraget har använts till, och
+
+3. vilka resultat som har uppnåtts och hur resultaten förhåller sig till de mål som anges i [1 §](#1) andra stycket. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+<section id="15" class="paragraf">
+
+### 15 §
+
+Bidragsmottagaren ska även lämna de övriga uppgifter och handlingar som Socialstyrelsen begär. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+<section id="15a" class="paragraf">
+
+### 15 a §
+
+En revisor ska granska redovisningen enligt [14 §](#14). Revisorns rapport över granskningen ska bifogas redovisningen.
+
+Om det bidrag som har tagits emot uppgår till minst fem prisbasbelopp enligt [2 kap. 6 och 7 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap2.6), ska granskningen göras av en auktoriserad eller godkänd revisor. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+
+</section>
+<section id="uppföljning">
+
+## Uppföljning
+
+<section id="16" class="paragraf">
+
+### 16 §
+
+Socialstyrelsen ska senast den 31 maj varje år lämna en samlad ekonomisk redovisning till regeringen. Av redovisningen ska det framgå
+
+1. vem som har fått bidrag,
+
+2. hur stort bidrag som har utbetalats till varje bidragsmottagare,
+
+3. vilka villkor som har gällt för vart och ett av bidragen,
+
+4. antal platser som respektive bidragsmottagare tillhandahåller,
+
+5. exempel på vilka typer av sysselsättning som tillhandahålls och på verksamheter som bedöms fungera särskilt väl, och
+
+6. en sammanfattande redogörelse för statsbidragets användning i förhållande till de mål som anges i [1 §](#1) andra stycket.
+
+Socialstyrelsen ska vart tredje år vid samma tid även lämna regeringen en bedömning av statsbidragets effekter i förhållande till de mål som anges i [1 §](#1) andra stycket. Förordning ([2021:852](https://selex.se/eli/sfs/2021/852)).
+
+</section>
+
+</section>
+<section id="hinder-mot-utbetalning">
+
+## Hinder mot utbetalning
+
+<section id="17" class="paragraf">
+
+### 17 §
+
+Socialstyrelsen får besluta att ett beviljat bidrag helt eller delvis inte ska betalas ut om bidragsmottagaren inte längre uppfyller villkoren för det eller om det finns grund för återbetalning enligt [18 §](#18). Beslutet gäller omedelbart. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+
+</section>
+<section id="återbetalning-och-återkrav">
+
+## Återbetalning och återkrav
+
+<section id="18" class="paragraf">
+
+### 18 §
+
+En bidragsmottagare är skyldig att betala tillbaka bidraget om
+
+1. mottagaren genom att lämna oriktiga uppgifter eller på något annat sätt har orsakat att bidraget har lämnats felaktigt eller med för högt belopp,
+
+2. bidraget av något annat skäl än vad som anges i 1 har lämnats felaktigt eller med för högt belopp och mottagaren borde ha insett detta,
+
+3. bidraget inte har utnyttjats eller använts för den verksamhet som det har beviljats för,
+
+4. mottagaren inte har lämnat en sådan redovisning som avses i [14 §](#14) eller sådana uppgifter och handlingar som avses i [15 §](#15),
+
+5. villkor i beslutet om bidrag inte har följts, eller
+
+6. mottagaren inte uppfyller villkoren i [2 b §](#2b) och det inte finns sådana särskilda skäl enligt [2 c §](#2c) som innebär att bidrag ändå får lämnas. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+<section id="19" class="paragraf">
+
+### 19 §
+
+Socialstyrelsen ska besluta att helt eller delvis kräva tillbaka bidraget, om bidragsmottagaren är återbetalningsskyldig enligt [18 §](#18).
+
+Om det finns särskilda skäl för det, får Socialstyrelsen besluta att helt eller delvis avstå från ett krav på återbetalning. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+</section>
+
+</section>
+<section id="bemyndigande">
+
+## Bemyndigande
+
+<section id="20" class="paragraf">
+
+### 20 §
+
+Socialstyrelsen får meddela föreskrifter om verkställigheten av denna förordning. Förordning ([2019:49](https://selex.se/eli/sfs/2019/49)).
+
+</section>
+
+</section>
+<section id="överklagande">
+
+## Överklagande
+
+<section id="21" class="paragraf">
+
+### 21 §
+
+I [40 §](#40) förvaltningslagen ([2017:900](https://selex.se/eli/sfs/2017/900)) finns bestämmelser om överklagande till allmän förvaltningsdomstol. Andra beslut än beslut om hinder mot utbetalning enligt [17 §](#17) och beslut om återkrav enligt [19 §](#19) får dock inte överklagas. Förordning ([2025:1006](https://selex.se/eli/sfs/2025/1006)).
+
+
+</section>
+
+</section>
+<section id="övergångsbestämmelser">
+
+## Övergångsbestämmelser
+
+[2009:955](https://selex.se/eli/sfs/2009/955)
+
+1. Denna förordning träder i kraft den 1 november 2009.
+
+2. En juridisk person som har beviljats bidrag för bidragsåret 2009 ska, i stället för vad som anges i [14 §](#14), lämna sin redovisning av detta bidrag till Socialstyrelsen senast den 1 mars 2011.
+
+3. Socialstyrelsens redovisning av bidrag som har beviljats för bidragsåret 2009 ska, i stället för vad som anges i [16 §](#16) första stycket, lämnas till regeringen senast den 31 maj 2011.
+
+4. Vid utbetalning av ett bidrag som har beviljats för bidragsåret 2009 ska, i stället för vad som anges i [17 §](#17), hela bidraget utbetalas vid ett och samma tillfälle.
+
+[2011:950](https://selex.se/eli/sfs/2011/950)
+
+Denna förordning träder i kraft den 1 september 2011. Äldre föreskrifter gäller fortfarande för bidrag som har beviljats före ikraftträdandet.
+
+[2021:852](https://selex.se/eli/sfs/2021/852)
+
+1. Denna förordning träder i kraft den 19 oktober 2021.
+
+2. Den första bedömningen av statsbidragets effekter enligt [16 §](#16) andra stycket i den nya lydelsen ska lämnas till regeringen senast den 31 maj 2024.
+
+[2025:1006](https://selex.se/eli/sfs/2025/1006)
+
+1. Denna förordning träder i kraft den 1 januari 2026.
+
+2. Äldre bestämmelser gäller fortfarande för statsbidrag som har beviljats före ikraftträdandet.
+
+</section>
+
+</article>

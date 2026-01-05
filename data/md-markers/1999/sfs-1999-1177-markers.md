@@ -1,0 +1,398 @@
+---
+beteckning: "1999:1177"
+rubrik: Förordning om statsbidrag till idrottsverksamhet
+departement: Socialdepartementet
+utfardad_datum: 1999-12-09
+ikraft_datum: 2000-01-01
+publicerad_datum: 2026-01-02
+pdf_url: https://rkrattsdb.gov.se/SFSdoc/99/991177.pdf
+andringsforfattningar:
+  - beteckning: "2009:1589"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till idrottsverksamhet
+    ikraft_datum: 2010-01-01
+    anteckningar: "upph. 9 §, rubr. närmast före 9 §; nuvarande 10 § betecknas 14 §; ändr. 2, 4, 5, 6, 8, den nya 14 §§, rubr. närmast före 10 § sätts närmast före nya 14 §; nya 9, 10, 11, 12, 13 §§, rubr. närmast före 10, 13 §§"
+  - beteckning: "2012:116"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till idrottsverksamhet
+    ikraft_datum: 2012-05-01
+    anteckningar: "upph. 10 §; ändr. 4, 14 §§"
+  - beteckning: "2018:988"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till idrottsverksamhet
+    ikraft_datum: 2018-07-01
+    anteckningar: ändr. 13 §
+  - beteckning: "2018:1532"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till idrottsverksamhet
+    ikraft_datum: 2018-11-01
+    anteckningar: ny 6 a §
+  - beteckning: "2021:871"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till idrottsverksamhet
+    ikraft_datum: 2021-11-01
+    anteckningar: ändr. 9 §
+  - beteckning: "2025:20"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till idrottsverksamhet
+    ikraft_datum: 2025-03-01
+    anteckningar: "nuvarande 6 a § betecknas 6 e §; ändr. 3, den nya 6 e, 7, 8, 11, 12 §§, rubr. närmast före 7 §, rubr. närmast före 6 a, tidigare upphävda 10 §§ sätts närmast före 6 e, 11 §§; nya 6 a, 6 b, 6 c, 6 d, 7 a, 7 b, 7 c, 7 d, 7 e, 10 §§, rubr. närmast före 7 c, 7 e, 10 §§"
+---
+<article selex:utfardad_datum="1999-12-09" selex:ikraft_datum="2000-01-01">
+
+# Förordning om statsbidrag till idrottsverksamhet
+
+<section id="tillämpningsområde">
+
+## Tillämpningsområde
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+Denna förordning innehåller föreskrifter om sådant statsbidrag till idrottsverksamhet som avses i lagen ([1995:361](https://selex.se/eli/sfs/1995/361)) om överlämnande av förvaltningsuppgifter till Sveriges Riksidrottsförbund.
+
+</section>
+
+</section>
+<section id="definitioner">
+
+## Definitioner
+
+<section id="2" class="paragraf">
+
+### 2 §
+
+Med idrottsverksamhet avses i denna förordning prestationsinriktad tävlingsidrott och hälsoinriktad bredd- och motionsidrott i vilken det ingår ett centralt moment av fysisk aktivitet.
+
+Med organisation avses i denna förordning föreningar och förbund som är anknutna till Sveriges Riksidrottsförbund. Förordning ([2009:1589](https://selex.se/eli/sfs/2009/1589)).
+
+</section>
+<section id="3" class="paragraf">
+
+### 3 §
+
+Med barn och ungdomar avses i denna förordning personer som är mellan 6 och 25 år. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+
+</section>
+<section id="syftet-med-statsbidraget">
+
+## Syftet med statsbidraget
+
+<section id="4" class="paragraf">
+
+### 4 §
+
+Statsbidraget ska stödja verksamhet som
+
+1. bidrar till att utveckla barns och ungdomars intresse och benägenhet för motion och idrott,
+
+2. bedrivs ur ett barnrättsperspektiv, bland annat genom att öka barns och ungdomars inflytande över och ansvar för sitt idrottande,
+
+3. gör det möjligt för alla människor att utöva idrott och motion,
+
+4. bidrar till att väcka ett livslångt intresse för motion och därmed främjar en god hälsa hos alla människor,
+
+5. syftar till att ge flickor och pojkar respektive kvinnor och män lika förutsättningar att delta i idrottsverksamhet,
+
+6. utvecklar samverkan mellan organisationer som arbetar med idrottsverksamhet, skolan och andra som bedriver arbete för att främja fysisk aktivitet och goda motionsvanor,
+
+7. främjar integration och god etik, och
+
+8. aktivt motverkar dopning inom idrotten.
+
+Statsbidrag får även stödja verksamhet som stärker idrottsutövares internationella konkurrenskraft. Vid prövning av om statsbidrag i detta syfte ska beviljas ska i relevanta delar de syften som anges i första stycket beaktas. Förordning ([2012:116](https://selex.se/eli/sfs/2012/116)).
+
+</section>
+
+</section>
+<section id="förutsättningar-för-statsbidra">
+
+## Förutsättningar för statsbidrag
+
+<section id="5" class="paragraf">
+
+### 5 §
+
+I enlighet med de syften som anges i [4 §](#4) får statsbidrag lämnas enligt denna förordning för att
+
+1. utveckla intresse för idrott hos barn, ungdomar och personer med funktionsnedsättning och främja möjligheterna till allsidig träning efter vars och ens fysiska och psykiska förutsättningar,
+
+2. utveckla kvaliteten i idrottsrörelsens barn- och ungdomsverksamhet utifrån ett barnrättsperspektiv och i idrottsverksamhet i övrigt så att verksamheten främjar en god etik, ökat deltagande, ideellt engagemang, jämställdhet och integration,
+
+3. möjliggöra förberedelser inför och deltagande i internationell tävlingsverksamhet,
+
+4. skapa bättre möjligheter för elitsatsande ungdomar att kombinera sin idrottsutövning med utbildning vid riksidrottsgymnasier, eller
+
+5. aktivt motverka dopning inom idrotten. Förordning ([2009:1589](https://selex.se/eli/sfs/2009/1589)).
+
+</section>
+<section id="6" class="paragraf">
+
+### 6 §
+
+Statsbidrag får beviljas
+
+1. organisationer på central, regional eller lokal nivå som arbetar med idrottsverksamhet,
+
+2. Sveriges Olympiska Kommitté för förberedelser inför och deltagande i internationell tävlingsverksamhet, och
+
+3. huvudmän som är ansvariga för utbildning vid riksidrottsgymnasier. Förordning ([2009:1589](https://selex.se/eli/sfs/2009/1589)).
+
+</section>
+<section id="6a" class="paragraf">
+
+### 6 a §
+
+Statsbidrag får inte lämnas till en organisation som avses i [6 §](#6) 1 om den eller någon av dess företrädare som agerar inom ramen för verksamheten
+
+1. utövar våld, tvång eller hot mot en person eller på annat sätt kränker en persons grundläggande fri- och rättigheter,
+
+2. diskriminerar personer eller grupper av personer eller på annat sätt bryter mot principen om alla människors lika värde,
+
+3. försvarar, främjar eller uppmanar till sådana ageranden som anges i 1 eller 2, eller
+
+4. motarbetar det demokratiska styrelseskicket. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+<section id="6b" class="paragraf">
+
+### 6 b §
+
+Om en organisation som avses i [6 §](#6) 1 eller dess företrädare har agerat på ett sådant sätt som anges i [6 a §](#6a), får statsbidrag ändå lämnas till organisationen om det finns särskilda skäl. Vid denna bedömning ska det särskilt beaktas om
+
+1. organisationen har tagit avstånd från agerandet,
+
+2. organisationen har vidtagit adekvata åtgärder för att säkerställa att agerandet inte upprepas,
+
+3. det är fråga om ett enstaka agerande, och
+
+4. agerandet ligger långt tillbaka i tiden. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+<section id="6c" class="paragraf">
+
+### 6 c §
+
+Statsbidrag får inte lämnas till en organisation eller annan som ansöker om bidrag enligt denna förordning som
+
+1. är i likvidation eller försatt i konkurs,
+
+2. har skatte- eller avgiftsskulder eller andra skulder som har lämnats över till Kronofogdemyndigheten och som vid indrivning handläggs som allmänt mål, eller
+
+3. har en skuld som inte har betalats i rätt tid och som avser återkrav av bidrag som har lämnats av Sveriges Riksidrottsförbund. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+<section id="6d" class="paragraf">
+
+### 6 d §
+
+Om en organisation som avses i [6 §](#6) 1 har varit anknuten till Sveriges Riksidrottsförbund kortare tid än två år det datum då ansökan om statsbidrag lämnas in, får bidrag enligt denna förordning under ett kalenderår lämnas med ett sammanlagt belopp som uppgår till högst ett prisbasbelopp enligt [2 kap. 6 och 7 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap2.6).
+
+Om det finns särskilda skäl, får bidrag lämnas med ett högre belopp än det som anges i första stycket. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+
+</section>
+<section id="behandling-av-personnummer">
+
+## Behandling av personnummer
+
+<section id="6e" class="paragraf">
+
+### 6 e §
+
+I lagen ([2024:488](https://selex.se/eli/sfs/2024/488)) om personuppgiftsbehandling i vissa ärenden om stöd till civilsamhället finns bestämmelser om behandling av personuppgifter i verksamhet med handläggning av sådana ärenden om statligt reglerat stöd till civilsamhället som omfattas av ett villkor om att en organisations verksamhet inte får utövas i strid med samhällets grundläggande värderingar.
+
+Personnummer får även i övrigt behandlas för prövning och kontroll av statsbidrag enligt denna förordning. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+
+</section>
+<section id="ansökan">
+
+## Ansökan
+
+<section id="7" class="paragraf">
+
+### 7 §
+
+Sveriges Riksidrottsförbund prövar frågor om statsbidrag enligt denna förordning. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+<section id="7a" class="paragraf">
+
+### 7 a §
+
+En ansökan om statsbidrag ska göras skriftligen av en behörig företrädare för den sökande. Ansökan ska ha kommit in till Sveriges Riksidrottsförbund senast vid den tidpunkt som Riksidrottsförbundet bestämmer. Om en ansökan har kommit in efter den tidpunkten får Riksidrottsförbundet besluta att ansökan inte tas upp till prövning. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+<section id="7b" class="paragraf">
+
+### 7 b §
+
+Den som ansöker om statsbidrag ska till Sveriges Riksidrottsförbund lämna uppgift om sökt belopp och de övriga uppgifter och handlingar som Riksidrottsförbundet behöver för att kunna pröva ansökan.
+
+Om den som ansöker om bidrag inte har lämnat de uppgifter och handlingar som Riksidrottsförbundet behöver för att kunna pröva ansökan, ska sökanden ges tillfälle att inom en viss tid komplettera ansökan. Om sökanden inte följer en sådan uppmaning, får Riksidrottsförbundet pröva ansökan i befintligt skick. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+
+</section>
+<section id="beslut">
+
+## Beslut
+
+<section id="7c" class="paragraf">
+
+### 7 c §
+
+Ett beslut om statsbidrag får förenas med villkor. Villkoren ska framgå av beslutet.
+
+I beslutet ska sista dag för redovisning enligt [8 §](#8) första stycket anges. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+<section id="7d" class="paragraf">
+
+### 7 d §
+
+En ansökan får avslås om den som ansöker om statsbidrag har beviljats annat statligt bidrag för samma åtgärder som ansökan avser. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+
+</section>
+<section id="anmälningsskyldighet">
+
+## Anmälningsskyldighet
+
+<section id="7e" class="paragraf">
+
+### 7 e §
+
+Den som ansöker om eller har beviljats statsbidrag enligt denna förordning ska utan dröjsmål anmäla sådana ändrade förhållanden som kan påverka rätten till eller storleken på bidraget till Sveriges Riksidrottsförbund. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+
+</section>
+<section id="redovisning">
+
+## Redovisning
+
+<section id="8" class="paragraf">
+
+### 8 §
+
+En bidragsmottagare ska senast vid den tidpunkt som anges i beslutet till Sveriges Riksidrottsförbund lämna de redovisningshandlingar, verksamhetsberättelser, revisorsrapporter och andra handlingar och uppgifter som Riksidrottsförbundet bestämmer.
+
+En bidragsmottagare ska på begäran även till Centrum för idrottsforskning vid Gymnastik- och idrottshögskolan lämna de uppgifter som centrumet behöver för att genomföra en regelbunden och långsiktig uppföljning av statens stöd till idrotten. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+<section id="9" class="paragraf">
+
+### 9 §
+
+Sveriges Riksidrottsförbund ska i sin årsredovisning lämna en samlad redovisning av vilka som har fått bidrag, med vilka belopp och för vilka ändamål. Riksidrottsförbundet ska dessutom till regeringen senast den 31 mars varje år lämna en sammanfattande redogörelse för vad bidragen har använts till och en bedömning av statsbidragets effekter i förhållande till syftet med bidraget. Förordning ([2021:871](https://selex.se/eli/sfs/2021/871)).
+
+</section>
+
+</section>
+<section id="hinder-mot-utbetalning">
+
+## Hinder mot utbetalning
+
+<section id="10" class="paragraf">
+
+### 10 §
+
+Sveriges Riksidrottsförbund får besluta att ett beviljat statsbidrag helt eller delvis inte ska betalas ut om bidragsmottagaren inte längre uppfyller villkoren för det eller om det finns grund för återbetalning enligt [11 §](#11). Beslutet gäller omedelbart. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+
+</section>
+<section id="återbetalning-och-återkrav">
+
+## Återbetalning och återkrav
+
+<section id="11" class="paragraf">
+
+### 11 §
+
+En bidragsmottagare är skyldig att betala tillbaka statsbidraget om
+
+1. mottagaren genom att lämna oriktiga uppgifter eller på något annat sätt har orsakat att bidrag har lämnats felaktigt eller med för högt belopp,
+
+2. bidraget av något annat skäl har lämnats felaktigt eller med för högt belopp och mottagaren borde ha insett detta,
+
+3. bidraget helt eller delvis inte har utnyttjats eller använts för de ändamål som det har beviljats för,
+
+4. mottagaren inte lämnar sådana handlingar och uppgifter som avses i [8 §](#8) första stycket,
+
+5. villkor i beslutet om bidrag inte har följts, eller
+
+6. mottagaren inte uppfyller villkoren i [6 a §](#6a) och det inte finns sådana särskilda skäl enligt [6 b §](#6b) som innebär att bidrag ändå får lämnas. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+<section id="12" class="paragraf">
+
+### 12 §
+
+Sveriges Riksidrottsförbund ska besluta att helt eller delvis kräva tillbaka statsbidraget, om bidragsmottagaren är återbetalningsskyldig enligt [11 §](#11).
+
+Om det finns särskilda skäl för det, får Riksidrottsförbundet besluta att helt eller delvis avstå från ett krav på återbetalning. Förordning ([2025:20](https://selex.se/eli/sfs/2025/20)).
+
+</section>
+
+</section>
+<section id="förvaltningslagens-tillämpning">
+
+## Förvaltningslagens tillämpning
+
+<section id="13" class="paragraf">
+
+### 13 §
+
+Vid Sveriges Riksidrottsförbunds handläggning av ärenden enligt denna förordning tillämpas följande bestämmelser i förvaltningslagen ([2017:900](https://selex.se/eli/sfs/2017/900)):
+
+– [5 §](#5) om legalitet, objektivitet och proportionalitet,
+
+– [10 §](#10) om partsinsyn,
+
+– 16–[18 §](#18)§ om jäv,
+
+– [23 §](#23) om utredningsansvaret,
+
+– [24 §](#24) om när man får lämna uppgifter muntligt,
+
+– [25 §](#25) om kommunikation,
+
+– [31 §](#31) om dokumentation av beslut,
+
+– [32 §](#32) om motivering av beslut, och
+
+– 33 och [34 §](#34)§ om underrättelse om innehållet i beslut och hur ett överklagande går till. Förordning ([2018:988](https://selex.se/eli/sfs/2018/988)).
+
+</section>
+
+</section>
+<section id="överklagande">
+
+## Överklagande
+
+<section id="14" class="paragraf">
+
+### 14 §
+
+Beslut enligt denna förordning får inte överklagas. Förordning ([2012:116](https://selex.se/eli/sfs/2012/116)).
+
+
+</section>
+
+</section>
+<section id="övergångsbestämmelser">
+
+## Övergångsbestämmelser
+
+[2025:20](https://selex.se/eli/sfs/2025/20)
+
+1. Denna förordning träder i kraft den 1 januari 2026 i fråga om [6 d §](#6d) och i övrigt den 1 mars 2025.
+
+2. Äldre bestämmelser gäller fortfarande för statsbidrag som har beviljats före ikraftträdandet.
+
+</section>
+
+</article>

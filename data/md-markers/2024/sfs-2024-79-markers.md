@@ -1,0 +1,553 @@
+---
+beteckning: "2024:79"
+rubrik: Lag om placering av barn i skyddat boende
+departement: Socialdepartementet
+utfardad_datum: 2024-02-22
+ikraft_datum: 2024-04-01
+publicerad_datum: 2026-01-02
+forarbeten: - "PROP 2023/24:31"
+  - "BET 2023/24:SoU6"
+  - "RSKR 2023/24:130"
+pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/2024-02/SFS2024-79.pdf
+andringsforfattningar:
+  - beteckning: "2025:463"
+    rubrik: Lag om ändring i lagen om placering av barn i skyddat boende
+    ikraft_datum: 2025-07-01
+    anteckningar: "ändr. 1 kap. 1 §, 3 kap. 1 §, 5 kap. 2 §, 6 kap. 1 §"
+  - beteckning: "2025:1295"
+    rubrik: Lag om ändring i lagen om placering av barn i skyddat boende
+    ikraft_datum: 2026-01-01
+    anteckningar: "ändr. 8 kap. 4, 5 §§"
+---
+<article selex:utfardad_datum="2024-02-22" selex:ikraft_datum="2024-04-01">
+
+# Lag om placering av barn i skyddat boende
+
+<section id="kap1" class="kapitel">
+
+## 1 kap. Lagens innehåll
+
+<section id="kap1.1" class="paragraf">
+
+#### 1 §
+
+I denna lag finns bestämmelser om förutsättningarna och förfarandet för att bevilja ett barn skyddat boende tillsammans med en vårdnadshavare, när barnet har två vårdnadshavare och den andra vårdnadshavaren inte samtycker till insatsen.
+
+I [22 kap. 5 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap22.5) ([2025:400](https://selex.se/eli/sfs/2025/400)) finns bestämmelser om att ett barn får beviljas en sådan insats om vårdnadshavarna samtycker till det. Lag ([2025:463](https://selex.se/eli/sfs/2025/463)).
+
+</section>
+
+</section>
+<section id="kap2" class="kapitel">
+
+## 2 kap. Barnets ställning i ärenden och mål enligt denna lag
+
+<section id="kap2.1" class="paragraf">
+
+#### 1 §
+
+Vid beslut enligt denna lag ska det som är bäst för barnet vara avgörande.
+
+Med barn avses varje människa under 18 år.
+
+</section>
+<section id="kap2.2" class="paragraf">
+
+#### 2 §
+
+Socialnämnden ska se till att barnet får information i frågor som rör honom eller henne. Informationen ska ges med beaktande av barnets individuella behov och situation i fråga om ålder, mognad och individuella förutsättningar.
+
+Barnet ska även ges möjlighet att framföra sina åsikter i frågor som rör honom eller henne. Om barnet inte framför sina åsikter, ska hans eller hennes inställning så långt det är möjligt klarläggas på annat sätt. Barnets åsikter och inställning ska tillmätas betydelse i förhållande till hans eller hennes ålder och mognad.
+
+</section>
+<section id="kap2.3" class="paragraf">
+
+#### 3 §
+
+Om barnet fyllt 15 år, har han eller hon rätt att själv föra sin talan i ärenden och mål enligt denna lag. Ett barn som är yngre får höras i domstol, om han eller hon inte kan antas ta skada av det.
+
+</section>
+<section id="kap2.4" class="paragraf">
+
+#### 4 §
+
+Den som är förordnad som offentligt biträde enligt 8 kap. [4 §](#kap8.4) för ett barn som är under 15 år, utan att samtidigt vara biträde för vårdnadshavaren, är utan särskilt förordnande barnets ställföreträdare i det ärende eller mål som förordnandet avser.
+
+</section>
+
+</section>
+<section id="kap3" class="kapitel">
+
+## 3 kap. Insats i form av skyddat boende
+
+<section id="kap3.förutsättningar-för-insatsen">
+
+### Förutsättningar för insatsen
+
+<section id="kap3.1" class="paragraf">
+
+#### 1 §
+
+Om en vårdnadshavare beviljas skyddat boende enligt socialtjänstlagen ([2025:400](https://selex.se/eli/sfs/2025/400)) och det finns en direkt eller indirekt risk för att barnets säkerhet äventyras eller hälsa skadas, får även barnet beviljas en sådan insats för placering tillsammans med vårdnadshavaren, trots att det inte finns samtycke från den andra vårdnadshavaren. Lag ([2025:463](https://selex.se/eli/sfs/2025/463)).
+
+</section>
+<section id="kap3.2" class="paragraf">
+
+#### 2 §
+
+Insatsen får beviljas endast om den vårdnadshavare som barnet placeras med är myndig och samtycker till insatsen.
+
+</section>
+
+</section>
+<section id="kap3.ansökan-och-beslut-om-insatsen">
+
+### Ansökan och beslut om insatsen
+
+<section id="kap3.3" class="paragraf">
+
+#### 3 §
+
+Ett beslut om skyddat boende enligt [1 §](#kap3.1) meddelas av förvaltningsrätten efter ansökan av socialnämnden.
+
+Ansökan ska innehålla en redogörelse för
+
+1. barnets förhållanden,
+
+2. de omständigheter som utgör grund för att barnet behöver placeras i skyddat boende enligt lagen,
+
+3. vilken information som har lämnats till barnet och på vilket sätt den har lämnats, och
+
+4. barnets inställning.
+
+</section>
+<section id="kap3.4" class="paragraf">
+
+#### 4 §
+
+Rättens beslut att bevilja barnet skyddat boende upphör att gälla om placeringen inte har påbörjats inom fyra veckor från den dag beslutet fick laga kraft.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap4" class="kapitel">
+
+## 4 kap. Beslut om en omedelbar insats i form av skyddat boende
+
+<section id="kap4.förutsättningar-för-ett-beslut">
+
+### Förutsättningar för ett beslut om en omedelbar insats
+
+<section id="kap4.1" class="paragraf">
+
+#### 1 §
+
+Socialnämnden får bevilja ett barn en omedelbar insats i form av skyddat boende, om
+
+1. det kan antas att förutsättningarna för skyddat boende enligt 3 kap. [1 §](#kap3.1) är uppfyllda, och
+
+2. rättens beslut om en sådan insats inte kan avvaktas med hänsyn till risken för att barnets säkerhet äventyras eller hälsa skadas.
+
+Om nämndens beslut inte kan avvaktas, får ordföranden eller någon annan ledamot som nämnden har utsett bevilja den omedelbara insatsen. Beslutet ska anmälas vid nämndens nästa sammanträde.
+
+När nämnden har ansökt hos förvaltningsrätten om att barnet ska beviljas skyddat boende enligt 3 kap. får även rätten bevilja en omedelbar sådan insats.
+
+</section>
+<section id="kap4.2" class="paragraf">
+
+#### 2 §
+
+Den omedelbara insatsen i form av skyddat boende får beviljas endast om den vårdnadshavare som barnet placeras med är myndig och samtycker till insatsen.
+
+</section>
+
+</section>
+<section id="kap4.beslut-fastställs-av-domstol">
+
+### Beslut fastställs av domstol
+
+<section id="kap4.3" class="paragraf">
+
+#### 3 §
+
+Om socialnämnden har beviljat en omedelbar insats i form av skyddat boende, ska beslutet underställas förvaltningsrätten inom en vecka från den dag beslutet fattades. Beslutet och handlingarna i ärendet ska lämnas till domstolen.
+
+Förvaltningsrätten ska pröva beslutet så snart som möjligt.
+
+Om det inte finns synnerliga hinder, ska beslutet prövas inom en vecka från den dag beslutet och handlingarna kom in till domstolen.
+
+</section>
+<section id="kap4.4" class="paragraf">
+
+#### 4 §
+
+Om beslutet inte har underställts förvaltningsrätten inom föreskriven tid, upphör det att gälla.
+
+</section>
+<section id="kap4.5" class="paragraf">
+
+#### 5 §
+
+Om socialnämnden har beviljat en omedelbar insats i form av skyddat boende efter det att nämnden har ansökt om skyddat boende för barnet enligt 3 kap., ska beslutet underställas den domstol som prövar frågan om skyddat boende. Bestämmelserna i 3 och [4 §](#kap4.4)§ gäller också vid ett sådant beslut.
+
+</section>
+
+</section>
+<section id="kap4.ansökan-efter-fastställt-beslu">
+
+### Ansökan efter fastställt beslut
+
+<section id="kap4.6" class="paragraf">
+
+#### 6 §
+
+Om förvaltningsrätten fastställer ett beslut om en omedelbar insats i form av skyddat boende, ska socialnämnden inom sex veckor från den dag placeringen påbörjades ansöka hos förvaltningsrätten om att barnet ska beviljas skyddat boende enligt 3 kap.
+
+Förvaltningsrätten får medge förlängning av denna tid, om ytterligare utredning eller någon annan särskild omständighet gör det nödvändigt.
+
+</section>
+
+</section>
+<section id="kap4.upphörande-av-en-omedelbar-ins">
+
+### Upphörande av en omedelbar insats
+
+<section id="kap4.7" class="paragraf">
+
+#### 7 §
+
+Ett beslut om en omedelbar insats i form av skyddat boende upphör att gälla
+
+1. om ansökan om att bevilja barnet skyddat boende enligt 3 kap. inte har gjorts inom den tid som anges i [6 §](#kap4.6) och inte heller förlängning av tiden har begärts, eller
+
+2. när rätten avgör frågan om skyddat boende enligt 3 kap.
+
+</section>
+<section id="kap4.8" class="paragraf">
+
+#### 8 §
+
+Om det inte längre finns skäl för en omedelbar insats i form av skyddat boende, ska socialnämnden besluta att insatsen ska upphöra. Ett sådant beslut får meddelas också av den rätt som prövar en fråga om en insats med stöd av lagen.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap5" class="kapitel">
+
+## 5 kap. Bestämmelser om genomförandet av insatsen
+
+<section id="kap5.placeringens-innehåll-och-utfo">
+
+### Placeringens innehåll och utformning
+
+<section id="kap5.1" class="paragraf">
+
+#### 1 §
+
+Socialnämnden beslutar om var barnet ska placeras och om hur insatsen i övrigt ska genomföras.
+
+Om nämndens beslut inte kan avvaktas, får ordföranden eller någon annan ledamot som nämnden har utsett besluta i frågan. Beslutet ska anmälas vid nämndens nästa sammanträde.
+
+</section>
+<section id="kap5.2" class="paragraf">
+
+#### 2 §
+
+Placeringen ska anses påbörjad när barnet har kommit till ett skyddat boende efter ett beslut om insatsen enligt 3 kap. eller ett beslut om en omedelbar sådan insats enligt 4 kap. Lag ([2025:463](https://selex.se/eli/sfs/2025/463)).
+
+</section>
+
+</section>
+<section id="kap5.regelbundna-överväganden-om-in">
+
+### Regelbundna överväganden om insatsen
+
+<section id="kap5.3" class="paragraf">
+
+#### 3 §
+
+Om ett barn är placerat i ett skyddat boende, ska socialnämnden minst en gång var sjätte månad överväga om insatsen ska fortsätta.
+
+</section>
+
+</section>
+<section id="kap5.hemlighållande-av-vistelseort">
+
+### Hemlighållande av vistelseort och begränsning av umgänge
+
+<section id="kap5.4" class="paragraf">
+
+#### 4 §
+
+Om det är nödvändigt med hänsyn till ändamålet med insatsen, får socialnämnden besluta
+
+1. att barnets vistelseort ska hållas hemlig för den vårdnadshavare som barnet inte är placerat tillsammans med, och
+
+2. hur barnets umgänge med den vårdnadshavaren ska utövas.
+
+Första stycket gäller även vid en omedelbar insats.
+
+</section>
+<section id="kap5.5" class="paragraf">
+
+#### 5 §
+
+Om socialnämndens beslut enligt [4 §](#kap5.4) inte kan avvaktas, får ordföranden eller någon annan ledamot som nämnden har utsett besluta i frågan. Beslutet ska anmälas vid nämndens nästa sammanträde.
+
+</section>
+<section id="kap5.6" class="paragraf">
+
+#### 6 §
+
+Socialnämnden ska minst en gång var sjätte månad överväga om ett beslut enligt [4 §](#kap5.4) fortfarande behövs.
+
+</section>
+<section id="kap5.7" class="paragraf">
+
+#### 7 §
+
+En framställning från den vårdnadshavare som barnet inte är placerat tillsammans med om att inte hålla vistelseorten hemlig eller om umgängets utövande, får avvisas om framställningen kommer in till socialnämnden inom sex månader från det att ett beslut enligt [4 §](#kap5.4) har fått laga kraft.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap6" class="kapitel">
+
+## 6 kap. Vårdnadshavares bestämmanderätt under insatsen
+
+<section id="kap6.1" class="paragraf">
+
+#### 1 §
+
+När ett barn har beviljats skyddat boende enligt 3 kap. eller en omedelbar sådan insats enligt 4 kap. får den vårdnadshavare som barnet placeras tillsammans med ensam bestämma om
+
+1. en hälsoundersökning enligt lagen ([2017:209](https://selex.se/eli/sfs/2017/209)) om hälsoundersökning av barn och unga som vårdas utanför det egna hemmet,
+
+2. insatser i öppna former enligt [11 kap. 1 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap11.1) ([2025:400](https://selex.se/eli/sfs/2025/400)) med anledning av insatsen skyddat boende, och
+
+3. val och byte av skolenhet eller förskoleenhet med anledning av placeringen. Lag ([2025:463](https://selex.se/eli/sfs/2025/463)).
+
+</section>
+
+</section>
+<section id="kap7" class="kapitel">
+
+## 7 kap. Insatsens upphörande
+
+<section id="kap7.beslut-om-upphörande">
+
+### Beslut om upphörande
+
+<section id="kap7.1" class="paragraf">
+
+#### 1 §
+
+När det inte längre finns skäl för en insats enligt 3 kap., ska socialnämnden besluta att den ska upphöra.
+
+Insatsen ska upphöra senast när vårdnadshavarens insats i form av skyddat boende upphör eller när barnet fyller 18 år.
+
+</section>
+
+</section>
+<section id="kap7.framställning-om-upphörande">
+
+### Framställning om upphörande
+
+<section id="kap7.2" class="paragraf">
+
+#### 2 §
+
+En framställning från den vårdnadshavare som barnet inte är placerat tillsammans med om att insatsen enligt 3 kap. ska upphöra får avvisas, om framställningen kommer in till socialnämnden inom sex månader från det att nämndens eller rättens beslut i fråga om skyddat boende har fått laga kraft.
+
+</section>
+
+</section>
+<section id="kap7.förhållandet-till-vissa-avlägs">
+
+### Förhållandet till vissa avlägsnandebeslut
+
+<section id="kap7.3" class="paragraf">
+
+#### 3 §
+
+Beslut enligt denna lag hindrar inte beslut om
+
+1. avvisning eller utvisning enligt utlänningslagen ([2005:716](https://selex.se/eli/sfs/2005/716)),
+
+2. utvisning enligt lagen ([2022:700](https://selex.se/eli/sfs/2022/700)) om särskild kontroll av vissa utlänningar,
+
+3. utlämning enligt lagen ([1957:668](https://selex.se/eli/sfs/1957/668)) om utlämning för brott,
+
+4. utlämning enligt lagen ([1970:375](https://selex.se/eli/sfs/1970/375)) om utlämning till Danmark, Finland, Island eller Norge för verkställighet av beslut om vård eller behandling,
+
+5. utlämning enligt lagen ([1994:569](https://selex.se/eli/sfs/1994/569)) om Sveriges samarbete med de internationella tribunalerna för brott mot internationell humanitär rätt,
+
+6. överlämnande enligt lagen ([2002:329](https://selex.se/eli/sfs/2002/329)) om samarbete med Internationella brottmålsdomstolen,
+
+7. överlämnande enligt lagen ([2003:1156](https://selex.se/eli/sfs/2003/1156)) om överlämnande från Sverige enligt en europeisk arresteringsorder,
+
+8. utlämning enligt lagen ([2006:615](https://selex.se/eli/sfs/2006/615)) om samarbete med Specialdomstolen för Sierra Leone, eller
+
+9. överlämnande enligt lagen ([2011:1165](https://selex.se/eli/sfs/2011/1165)) om överlämnande från Sverige enligt en nordisk arresteringsorder.
+
+Ett beslut om en insats med stöd av denna lag upphör att gälla när ett beslut enligt första stycket 1-9 har verkställts.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap8" class="kapitel">
+
+## 8 kap. Bestämmelser om handläggningen
+
+<section id="kap8.skyndsamhetskrav-vid-handläggn">
+
+### Skyndsamhetskrav vid handläggningen
+
+<section id="kap8.1" class="paragraf">
+
+#### 1 §
+
+Ärenden och mål enligt denna lag ska handläggas skyndsamt.
+
+</section>
+<section id="kap8.2" class="paragraf">
+
+#### 2 §
+
+Om ett barn är beviljat en omedelbar insats i form av skyddat boende enligt 4 kap. och det hos förvaltningsrätten har gjorts en ansökan om skyddat boende enligt 3 kap., ska rätten ta upp målet till avgörande inom två veckor från den dag ansökan kom in.
+
+Förvaltningsrätten får förlänga tiden, om ytterligare utredning eller någon annan särskild omständighet gör det nödvändigt.
+
+När ett beslut får genomföras genast
+
+</section>
+<section id="kap8.3" class="paragraf">
+
+#### 3 §
+
+Ett beslut om en omedelbar insats i form av skyddat boende gäller genast.
+
+Andra beslut av socialnämnden enligt denna lag gäller genast om nämnden inte bestämmer något annat.
+
+Rätten får bestämma att även andra beslut som rätten har meddelat ska gälla genast.
+
+</section>
+
+</section>
+<section id="kap8.offentligt-biträde">
+
+### Offentligt biträde
+
+<section id="kap8.4" class="paragraf">
+
+#### 4 §
+
+I ärenden och mål om skyddat boende enligt 3 kap. eller om en omedelbar sådan insats enligt 4 kap. eller om upphörande av skyddat boende enligt 7 kap. [1 §](#kap7.1) ska offentligt biträde förordnas för barnet och för vårdnadshavarna, om det inte måste antas att behov av biträde saknas.
+
+Gemensamt biträde får förordnas endast om det inte finns motstridiga intressen mellan dem som biträde ska förordnas för. Lag ([2025:1295](https://selex.se/eli/sfs/2025/1295)).
+
+</section>
+<section id="kap8.5" class="paragraf">
+
+#### 5 §
+
+Frågor om offentligt biträde prövas av den domstol som handlägger målet. I ärenden hos socialnämnden prövas frågor om offentligt biträde av förvaltningsrätten. Lag ([2025:1295](https://selex.se/eli/sfs/2025/1295)).
+
+</section>
+
+</section>
+<section id="kap8.nämndemän-i-kammarrätten">
+
+### Nämndemän i kammarrätten
+
+<section id="kap8.6" class="paragraf">
+
+#### 6 §
+
+Vid handläggning i kammarrätten av mål enligt denna lag ska nämndemän ingå i rätten. Det gäller dock inte i mål om en omedelbar insats enligt 4 kap.
+
+</section>
+
+</section>
+<section id="kap8.handräckning-av-polismyndighet">
+
+### Handräckning av Polismyndigheten
+
+<section id="kap8.7" class="paragraf">
+
+#### 7 §
+
+Polismyndigheten ska lämna hjälp för att på begäran av socialnämnden eller någon ledamot eller tjänsteman som nämnden har utsett genomföra beslut om skyddat boende enligt 3 kap. eller om en omedelbar sådan insats enligt 4 kap.
+
+</section>
+<section id="kap8.8" class="paragraf">
+
+#### 8 §
+
+En begäran enligt [7 §](#kap8.7) får göras endast om
+
+1. det på grund av särskilda omständigheter kan befaras att åtgärden inte kan utföras utan att de särskilda befogenheter som anges i 10 och [10 a §](#kap8.10a)§ polislagen ([1984:387](https://selex.se/eli/sfs/1984/387)) behöver tillgripas, eller
+
+2. det annars finns synnerliga skäl.
+
+</section>
+<section id="kap8.9" class="paragraf">
+
+#### 9 §
+
+Den som begär hjälp enligt [7 §](#kap8.7) ska utan hinder av sekretess lämna Polismyndigheten de uppgifter om barnet eller närstående till barnet som behövs för planeringen och genomförandet av åtgärden.
+
+</section>
+
+</section>
+<section id="kap8.undantag-från-vissa-bestämmels">
+
+### Undantag från vissa bestämmelser i delgivningslagen
+
+<section id="kap8.10" class="paragraf">
+
+#### 10 §
+
+Vid delgivning med en enskild i ett ärende eller mål enligt denna lag får 34-38 och 47-[51 §](#kap8.51)§ delgivningslagen ([2010:1932](https://selex.se/eli/sfs/2010/1932)) inte tillämpas.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap9" class="kapitel">
+
+## 9 kap. Bestämmelser om överklagande
+
+<section id="kap9.1" class="paragraf">
+
+#### 1 §
+
+Socialnämndens beslut får överklagas till allmän förvaltningsdomstol, när nämnden
+
+1. har beslutat om att en insats enligt 3 kap. ska fortsätta eller att en sådan insats ska upphöra, eller
+
+2. har beslutat att barnets vistelseort ska hållas hemlig för vårdnadshavaren som barnet inte är placerat tillsammans med eller beslutat i fråga om umgänge.
+
+Andra beslut av nämnden enligt denna lag får inte överklagas.
+
+</section>
+<section id="kap9.2" class="paragraf">
+
+#### 2 §
+
+Förvaltningsrättens beslut enligt 4 kap. [6 §](#kap4.6) andra stycket får inte överklagas.
+
+</section>
+
+</section>
+
+</article>

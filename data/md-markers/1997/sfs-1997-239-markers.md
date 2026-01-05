@@ -1,0 +1,1594 @@
+---
+beteckning: "1997:239"
+rubrik: Lag om arbetslöshetskassor
+departement: Arbetsmarknadsdepartementet
+utfardad_datum: 1997-05-29
+ikraft_datum: 1998-01-01
+publicerad_datum: 2026-01-02
+forarbeten: - "PROP 1996/97:107"
+  - "BET 1996/97:AU13"
+  - "RSKR 1996/97:236"
+pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/1997-05/SFS1997-239.pdf
+andringsforfattningar:
+  - beteckning: "1998:392"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 1998-10-01
+    anteckningar: "ändr, 110 §"
+  - beteckning: "1999:1117"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2000-01-01
+    anteckningar: "ändr. 67, 71 §§"
+  - beteckning: "2000:1461"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2001-02-05
+    anteckningar: "ändr. 34, 87 §§; nya 34 a, 47 a §§"
+  - beteckning: "2001:29"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2001-04-01
+    anteckningar: ändr. 95 §
+  - beteckning: "2002:543"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2003-01-01
+    anteckningar: "ändr. 5, 6, 7, 12, 13, 15, 17, 19, 43, 46, 50, 53, 64, 71, 84, 89, 90, 91, 92, 94, 97, 98, 99, 100, 103, 104, 107, 109 §§"
+  - beteckning: "2002:1035"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2003-07-01
+    anteckningar: ny 81 a §
+  - beteckning: "2002:1135"
+    rubrik: Lag om ändring i lagen om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2003-07-01
+    anteckningar: "ändr. 91 §, ikrafttr.best."
+  - beteckning: "2003:470"
+    rubrik: Lag om ändring i lagen om ändring i lagen om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2004-01-01
+    anteckningar: "ändr. ikrafttr. till 2002:543"
+  - beteckning: "2004:225"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2004-10-04
+    anteckningar: "ändr. 87 §; nya 87 a, 87 b §§"
+  - beteckning: "2006:1545"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2007-01-01
+    anteckningar: "ändr. 41, 48, 49, 87 §§, rubr. närmast före 48 §; nya 41 a, 93 a §§"
+  - beteckning: "2008:410"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2008-07-01
+    anteckningar: "ändr. 41, 41 a, 48, 87 §§, rubr. närmast före 48 §"
+  - beteckning: "2009:665"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2009-07-01
+    anteckningar: "upph. 34 a, 98 §§, rubr. närmast före 98 §; ändr. 34, 37, 48, 49, 87, 95 §§, rubr. närmast före 95 §; nya 48 a, 48 b, 94 a §§, rubr. närmast före 94 a, 99 §§"
+  - beteckning: "2009:1438"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2010-01-01
+    anteckningar: "ändr. 21, 87 §§, ikrafttr.- och övergångsbest. till 2008:410 ny p. 3; nya 37 a, 48 c, 94 b §§"
+  - beteckning: "2009:825"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2010-02-15
+    anteckningar: "ändr. 95, 109 §§"
+  - beteckning: "2010:1450"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2011-01-01
+    anteckningar: ändr. 109 §
+  - beteckning: "2012:414"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2012-07-01
+    anteckningar: ändr. 95 §
+  - beteckning: "2013:97"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2013-07-01
+    anteckningar: "ändr. 95, 110 §§"
+  - beteckning: "2013:153"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2013-09-01
+    anteckningar: "nuvarande 94 a, 94 b §§ betecknas 94 f, 94 g §§; ändr. 37, 37 a, 39, 87, 94, 100, 104 §§, rubr. närmast före 94 a § sätts närmast före 94 f §; nya 37 b, 37 c, 94 a, 94 b, 94 c, 94 d, 94 e §§, rubr. närmast före 94 §"
+  - beteckning: "2013:936"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2014-01-01
+    anteckningar: "upph. 41 a, 48 a, 48 b, 94 f §§; ändr. 41, 48 c, 49, 87 §§, rubr. närmast före 48 §"
+  - beteckning: "2018:108"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2018-07-02
+    anteckningar: "ändr. 34, 47 §§; ny 34 a §"
+  - beteckning: "2018:1671"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2019-01-01
+    anteckningar: "ändr. 4, 5 §§"
+  - beteckning: "2022:884"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2023-01-01
+    anteckningar: "ändr. 34, 36 §§"
+  - beteckning: "2024:510"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2025-10-01
+    anteckningar: "nuvarande 34 a § betecknas 34 b §; ändr. 1, 12, 32, 37, 37 c, 48, 62, 85, 87 a, 89, 91, 93, 94, 94 a, 94 b, 94 g, 116 §§; ny 34 a §"
+  - beteckning: "2022:885"
+    rubrik: Lag om ändring i lagen om arbetslöshetskassor
+    ikraft_datum: 2026-01-01
+    anteckningar: "ändr. 34, 36 §§"
+  - beteckning: "1997:240"
+    anteckningar: ikrafttr.
+---
+<article selex:utfardad_datum="1997-05-29" selex:ikraft_datum="1998-01-01">
+
+# Lag om arbetslöshetskassor
+
+<section id="allmänna-bestämmelser">
+
+## Allmänna bestämmelser
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+Arbetslöshetsförsäkringen enligt lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring handhas av arbetslöshetskassor som har registrerats enligt 7-[14 §](#14)§. Arbetslöshetskassor är föreningar vars bildande och verksamhet det finns närmare bestämmelser om i denna lag.
+
+En arbetslöshetskassas verksamhet ska omfatta ett visst verksamhetsområde. Ett verksamhetsområde omfattar en viss yrkeskategori eller bransch eller vissa närbesläktade sådana. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="2" class="paragraf">
+
+### 2 §
+
+En arbetslöshetskassa kan förvärva rättigheter och ta på sig skyldigheter samt föra talan inför domstolar och andra myndigheter sedan den registrerats.
+
+För en arbetslöshetskassas förbindelser svarar endast kassans tillgångar. I tillgångarna räknas in avgifter som har förfallit till betalning, även om de ännu inte har betalats.
+
+</section>
+<section id="3" class="paragraf">
+
+### 3 §
+
+En förening kan registreras som arbetslöshetskassa endast om den har minst 10 000 medlemmar, har till ändamål att ge sina medlemmar ersättning vid arbetslöshet samt har antagit stadgar och utsett styrelse och revisorer enligt denna lag.
+
+</section>
+<section id="4" class="paragraf">
+
+### 4 §
+
+En arbetslöshetskassas företagsnamn ska innehålla ordet arbetslöshetskassa.
+
+Företagsnamnet ska tydligt skilja sig från andra bestående arbetslöshetskassors företagsnamn.
+
+Endast arbetslöshetskassor enligt denna lag får i sitt företagsnamn använda benämningen arbetslöshetskassa eller förkortningar därav. Lag ([2018:1671](https://selex.se/eli/sfs/2018/1671)).
+
+</section>
+<section id="5" class="paragraf">
+
+### 5 §
+
+En arbetslöshetskassas stadgar ska ange
+
+1. arbetslöshetskassans företagsnamn,
+
+2. kassans verksamhetsområde,
+
+3. uppgift om kassan är avsedd för anställda eller företagare eller båda kategorierna,
+
+4. den ort i Sverige där kassans styrelse ska ha sitt säte,
+
+5. betalningssätt för arbetslöshetsersättning,
+
+6. betalningssätt för avgifter,
+
+7. påföljden för försummelse att till kassan betala avgift eller särskilt uttaxerat belopp,
+
+8. antalet styrelseledamöter och revisorer samt deras suppleanter, sättet att tillsätta dem och tiden för deras uppdrag,
+
+9. bestämmelser om föreningsstämma,
+
+10. antalet ombud som ska utses till föreningsstämman, sättet att utse dem och tiden för deras uppdrag,
+
+11. tid för ordinarie föreningsstämma,
+
+12. den tid inom vilken föreningsstämman ska sammankallas, hur den ska sammankallas och hur andra meddelanden ska ges till känna för ombuden och medlemmarna, samt
+
+13. den tid inom vilken en medlem som vill få ett ärende behandlat vid en föreningsstämma ska begära det och hur det ska göras.
+
+Första stycket 8 gäller inte arbetstagarrepresentanter som har utsetts enligt lagen ([1987:1245](https://selex.se/eli/sfs/1987/1245)) om styrelserepresentation för de privatanställda.
+
+Inspektionen för arbetslöshetsförsäkringen får medge att en arbetslöshetskassas stadgar innehåller annat än det som anges i första stycket, om det finns särskilda skäl. Lag ([2018:1671](https://selex.se/eli/sfs/2018/1671)).
+
+</section>
+<section id="6" class="paragraf">
+
+### 6 §
+
+En arbetslöshetskassa får inte utöva annan verksamhet än sådan som avses i [1 §](#1) eller använda medel för ändamål som är främmande för sådan verksamhet. Regeringen eller efter regeringens bemyndigande Inspektionen för arbetslöshetsförsäkringen får medge undantag från denna föreskrift, om det finns särskilda skäl. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+
+</section>
+<section id="registrering-av-arbetslöshetsk">
+
+## Registrering av arbetslöshetskassor
+
+<section id="7" class="paragraf">
+
+### 7 §
+
+En förening som vill verka som arbetslöshetskassa registreras hos Inspektionen för arbetslöshetsförsäkringen.
+
+Registreringen gäller från den dag ansökan om registrering kom in till inspektionen. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="8" class="paragraf">
+
+### 8 §
+
+Om en arbetslöshetskassas avsedda verksamhetsområde helt eller i väsentligt hänseende skulle sammanfalla med en redan verksam arbetslöshetskassas verksamhetsområde får registrering vägras.
+
+</section>
+<section id="9" class="paragraf">
+
+### 9 §
+
+En arbetslöshetskassa skall för registrering anmäla
+
+1. sin postadress,
+
+2. de personer som har utsetts till
+
+- styrelseledamot,
+
+- kassaföreståndare,
+
+- suppleant,
+
+- firmatecknare,
+
+- revisor,
+
+3. de utseddas postadress och personnummer, och
+
+4. hur kassans firma tecknas.
+
+Om en arbetstagarrepresentant har utsetts enligt lagen ([1987:1245](https://selex.se/eli/sfs/1987/1245)) om styrelserepresentation för de privatanställda skall det anges.
+
+</section>
+<section id="10" class="paragraf">
+
+### 10 §
+
+En arbetslöshetskassa skall också för registrering anmäla varje ändring av stadgarna som beslutats av föreningsstämman.
+
+</section>
+<section id="11" class="paragraf">
+
+### 11 §
+
+En anmälan som sägs i [9 §](#9) görs första gången när arbetslöshetskassan ansöker om registrering enligt [7 §](#7). Därefter skall en anmälan göras genast efter det att en ändring inträffat i något förhållande som tidigare anmälts eller borde ha anmälts enligt 9-[10 §](#10)§.
+
+Även den som anmälan gäller har rätt att göra anmälan.
+
+</section>
+<section id="12" class="paragraf">
+
+### 12 §
+
+Inspektionen för arbetslöshetsförsäkringen får förelägga arbetslöshetskassan att inom en viss tid yttra sig eller vidta rättelse, om inspektionen finner att ett beslut som anmäls för registrering eller en handling som bifogas anmälan
+
+1. inte har tillkommit i behörig ordning,
+
+2. till sitt innehåll strider mot lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring, mot denna lag, mot föreskrifter som har meddelats med stöd av dessa lagar eller mot arbetslöshetskassans stadgar, eller
+
+3. i något viktigare hänseende har formulerats otydligt eller vilseledande.
+
+Om en arbetslöshetskassa inte följer ett sådant föreläggande, ska anmälan skrivas av. En underrättelse om att så kan ske ska tas in i föreläggandet. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="13" class="paragraf">
+
+### 13 §
+
+Finns det något hinder mot registrering även efter det att ett yttrande som sägs i [12 §](#12) första stycket har avgetts och arbetslöshetskassan har haft tillfälle att yttra sig över hindret, skall Inspektionen för arbetslöshetsförsäkringen vägra registrering, om det inte finns anledning att ge ett nytt föreläggande. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="14" class="paragraf">
+
+### 14 §
+
+För en förpliktelse som genom en åtgärd på en förenings vägnar uppkommit före registreringen svarar de solidariskt som har beslutat eller deltagit i åtgärden. Genom registreringen övergår ansvaret på arbetslöshetskassan, om förpliktelsen uppkommit efter det att föreningen bildats.
+
+</section>
+
+</section>
+<section id="arbetslöshetskassans-ledning">
+
+## Arbetslöshetskassans ledning
+
+</section>
+<section id="kassans-styrelse">
+
+## Kassans styrelse
+
+<section id="15" class="paragraf">
+
+### 15 §
+
+En arbetslöshetskassa skall ha en styrelse med minst tre ledamöter samt suppleanter.
+
+En av ledamöterna och hans eller hennes suppleant skall som statens representant utses av Inspektionen för arbetslöshetsförsäkringen. Övriga ledamöter och suppleanter väljs av föreningsstämman.
+
+Den ledamot och den suppleant som utsetts av inspektionen har rätt till ersättning för uppdragets fullgörande med det belopp som regeringen eller efter regeringens bemyndigande inspektionen fastställer. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="16" class="paragraf">
+
+### 16 §
+
+Vad som sägs i denna lag om styrelseledamöter gäller även suppleanter.
+
+Bestämmelser om arbetstagarrepresentanter finns i lagen ([1987:1245](https://selex.se/eli/sfs/1987/1245)) om styrelserepresentation för de privatanställda.
+
+</section>
+
+</section>
+<section id="krav-för-att-få-vara-styrelsel">
+
+## Krav för att få vara styrelseledamot
+
+<section id="17" class="paragraf">
+
+### 17 §
+
+Styrelseledamöter skall vara bosatta i Sverige, om inte regeringen eller efter regeringens bemyndigande Inspektionen för arbetslöshetsförsäkringen i ett särskilt fall tillåter annat.
+
+Den som är underårig, i konkurs, har en förvaltare enligt [11 kap. 7 § föräldrabalken](https://selex.se/eli/sfs/1949/381#kap11.7) eller är underkastad näringsförbud får inte vara styrelseledamot.
+
+Till styrelseledamot får föreningsstämman välja endast den som är medlem i kassan. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+
+</section>
+<section id="styrelseledamöternas-uppdragst">
+
+## Styrelseledamöternas uppdragstid
+
+<section id="18" class="paragraf">
+
+### 18 §
+
+En styrelseledamots uppdrag gäller för den tid som anges i arbetslöshetskassans stadgar. Uppdragstiden får inte omfatta mer än fyra verksamhetsår och skall bestämmas så att den upphör vid slutet av den ordinarie föreningsstämma där styrelseval förrättas.
+
+</section>
+<section id="19" class="paragraf">
+
+### 19 §
+
+Ett uppdrag som styrelseledamot upphör i förtid om ledamoten begär det. Ett sådant uppdrag upphör i förtid även i det fall att den som utsett ledamoten eller, i fråga om vald styrelseledamot, föreningsstämman beslutar det. Anmälan om att uppdrag upphört i förtid skall göras hos arbetslöshetskassans styrelse och hos Inspektionen för arbetslöshetsförsäkringen. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="20" class="paragraf">
+
+### 20 §
+
+Om en styrelseledamots uppdrag upphör i förtid eller det uppkommer hinder enligt [17 §](#17) för honom eller henne att vara styrelseledamot och en suppleant inte kan träda i ledamotens ställe, skall övriga styrelseledamöter vidta åtgärder för att en ny styrelseledamot tillsätts för den återstående mandattiden.
+
+Sådana åtgärder behöver inte vidtas om den ledamot vars uppdrag upphört var en arbetstagarrepresentant som avses i lagen ([1987:1245](https://selex.se/eli/sfs/1987/1245)) om styrelserepresentation för de privatanställda.
+
+Valet av en ny ledamot som skall väljas på föreningsstämma får anstå till nästa ordinarie stämma där styrelseval förrättas utan hinder av [15 §](#15) första stycket, om styrelsen är beslutför med kvarstående ledamöter och suppleanter.
+
+</section>
+
+</section>
+<section id="poster-inom-arbetslöshetskassa">
+
+## Poster inom arbetslöshetskassans ledning
+
+<section id="21" class="paragraf">
+
+### 21 §
+
+Styrelsen utser inom sig en ordförande och en vice ordförande. Den som är anställd hos arbetslöshetskassan får inte vara ordförande.
+
+Styrelsen utser även en kassaföreståndare och en sekreterare. Bestämmelserna i [17 §](#17) andra stycket gäller också kassaföreståndaren. Kassaföreståndaren får inte vara styrelseledamot i en annan kassa.
+
+Vid lika röstetal avgörs frågan genom lottning. Lag ([2009:1438](https://selex.se/eli/sfs/2009/1438)).
+
+</section>
+
+</section>
+<section id="ledningens-uppgifter">
+
+## Ledningens uppgifter
+
+<section id="22" class="paragraf">
+
+### 22 §
+
+Styrelsen företräder arbetslöshetskassan och tecknar dess firma.
+
+Styrelsen får bemyndiga en styrelseledamot, kassaföreståndaren eller någon annan att företräda arbetslöshetskassan och teckna dess firma, om det inte är förbjudet enligt stadgarna. Styrelsen kan föreskriva att rätten att företräda arbetslöshetskassan och teckna dess firma får utövas endast av två eller flera personer i förening. Ingen annan inskränkning får registeras.
+
+Bestämmelserna i [17 §](#17) andra stycket och [30 §](#30) gäller också den som bemyndigas enligt andra stycket.
+
+Styrelsen kan när som helst återkalla ett bemyndigande som avses i andra stycket.
+
+</section>
+<section id="23" class="paragraf">
+
+### 23 §
+
+Styrelsen svarar för arbetslöshetskassans organisation och förvaltningen av kassans angelägenheter.
+
+Kassaföreståndaren ansvarar för den löpande förvaltningen enligt de riktlinjer och anvisningar som styrelsen meddelar.
+
+</section>
+<section id="24" class="paragraf">
+
+### 24 §
+
+Styrelsen skall se till att organisationen av bokföringen och medelsförvaltningen innefattar en tillfredsställande kontroll.
+
+Kassaföreståndaren skall se till att bokföringen fullgörs i överensstämmelse med lag och att medelsförvaltningen sköts på ett betryggande sätt.
+
+</section>
+
+</section>
+<section id="styrelsesammanträden">
+
+## Styrelsesammanträden
+
+<section id="25" class="paragraf">
+
+### 25 §
+
+Styrelsens ordförande skall se till att styrelsesamman- träden hålls när det behövs. Styrelsen skall sammankallas om någon av styrelseledamöterna eller kassaföreståndaren begär det.
+
+Kassaföreståndaren har rätt att närvara och yttra sig vid styrelsesammanträden även om han eller hon inte är styrelseledamot, om inte styrelsen bestämmer något annat i ett särskilt fall.
+
+</section>
+<section id="26" class="paragraf">
+
+### 26 §
+
+Vid styrelsesammanträden skall föras protokoll som undertecknas av ordföranden och justeras av den ledamot som styrelsen utser.
+
+Styrelseledamöter och kassaföreståndaren har rätt att få en avvikande mening antecknad till protokollet.
+
+Protokollen skall föras i nummerföljd och förvaras på ett betryggande sätt.
+
+</section>
+<section id="27" class="paragraf">
+
+### 27 §
+
+Styrelsen är beslutför om mer än hälften av det totala antalet ledamöter eller det högre antal som föreskrivs i stadgarna är närvarande.
+
+Beslut i ett ärende får inte fattas om inte, såvitt möjligt, samtliga styrelseledamöter har fått tillfälle att delta i ärendets behandling och fått tillfredsställande underlag för att avgöra det.
+
+</section>
+<section id="28" class="paragraf">
+
+### 28 §
+
+Om en styrelseledamot inte kan närvara vid ett styrelsesammanträde skall ledamotens suppleant ges tillfälle att delta i sammanträdet.
+
+Suppleanten för den arbetstagarledamot som har utsetts enligt lagen ([1987:1245](https://selex.se/eli/sfs/1987/1245)) om styrelserepresentation för de privatanställda skall alltid få underlag för styrelsesammanträdena och ges tillfälle att delta vid sammanträden på samma sätt som en styrelseledamot.
+
+</section>
+<section id="29" class="paragraf">
+
+### 29 §
+
+Om inte stadgarna föreskriver en särskild röstmajoritet, gäller som styrelsens beslut den mening för vilken fler än hälften av de närvarande röstar eller, vid lika röstetal, den mening som ordföranden stöder. Är styrelsen inte fulltalig skall de som röstar för beslutet utgöra mer än en tredjedel av det totala antalet styrelseledamöter, om inte något annat föreskrivs i stadgarna.
+
+</section>
+
+</section>
+<section id="särskilda-bestämmelser-om-arbe">
+
+## Särskilda bestämmelser om arbetslöshetskassans ledning och ställföreträdare
+
+<section id="30" class="paragraf">
+
+### 30 §
+
+Styrelseledamöter eller kassaföreståndaren får inte handlägga frågor som rör avtal mellan dem och arbetslöshetskassan. De får inte heller handlägga frågor om avtal mellan kassan och tredje man, om de i frågan har ett väsentligt intresse som kan strida mot kassans intressen. Vad som sägs om handläggning av frågor som rör avtal gäller även rättegång eller annan talan.
+
+</section>
+<section id="31" class="paragraf">
+
+### 31 §
+
+Styrelsen eller andra ställföreträdare för en arbets- löshetskassa får inte företa en rättshandling eller någon annan åtgärd som kan bereda en otillbörlig fördel åt medlem eller någon annan, om rättshandlingen eller åtgärden är till nackdel för arbetslöshetskassan eller någon av dess medlemmar.
+
+</section>
+<section id="32" class="paragraf">
+
+### 32 §
+
+En ställföreträdare för en arbetslöshetskassa får inte följa en sådan föreskrift av en föreningsstämma eller ett annat organ hos arbetslöshetskassan som inte gäller därför att den står i strid med lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring, med denna lag, med föreskrifter utfärdade med stöd av dessa lagar eller med arbetslöshetskassans stadgar. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="33" class="paragraf">
+
+### 33 §
+
+Om en ställföreträdare har överskridit sin befogenhet när han eller hon företog en rättshandling för en arbetslös- hetskassa gäller inte rättshandlingen mot kassan, om den mot vilken rättshandlingen företogs insåg eller borde ha insett att befogenheten överskreds.
+
+Detta gäller också om en kassaföreståndare vid företagande av en rättshandling har överskridit sin behörighet att vidta åtgärder på arbetslöshetskassans vägnar enligt [23 §](#23) andra stycket och [24 §](#24) andra stycket.
+
+</section>
+
+</section>
+<section id="arbetslöshetskassans-medlemmar">
+
+## Arbetslöshetskassans medlemmar
+
+</section>
+<section id="rätt-till-medlemskap">
+
+## Rätt till medlemskap
+
+<section id="34" class="paragraf">
+
+### 34 §
+
+Rätt att bli medlem i en arbetslöshetskassa har var och en som vid ansökningstillfället förvärvsarbetar och uppfyller villkoren i kassans stadgar om arbete inom kassans verksamhetsområde. Även den som vid ansökningstillfället inte arbetar har rätt att bli medlem i en arbetslöshetskassa, om han eller hon uppfyllde villkoren när han eller hon senast arbetade.
+
+Den som är medlem i en annan arbetslöshetskassa har dock inte rätt att bli medlem.
+
+Rätten att bli medlem gäller till månadsskiftet före den månad då den som ansöker om medlemskap uppnår riktåldern för pension enligt [2 kap. 10 a-10 d §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap2.10a). Lag ([2022:885](https://selex.se/eli/sfs/2022/885)).
+
+</section>
+<section id="34a" class="paragraf">
+
+### 34 a §
+
+Den som, när han eller hon senast arbetade, omfattades av en annan stats lagstiftning enligt Europaparlamentets och rådets förordning (EG) nr 883/2004 av den 29 april 2004 om samordning av de sociala trygghetssystemen ska anses ha varit verksam inom det verksamhetsområde som han eller hon skulle ha arbetat inom om arbetet hade utförts i Sverige. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="34b" class="paragraf">
+
+### 34 b §
+
+När medlemskap i en arbetslöshetskassa beviljas anses inträdet i kassan ha skett första dagen i den kalendermånad då ansökan om medlemskap gjordes. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="35" class="paragraf">
+
+### 35 §
+
+Arbetslöshetskassan skall föra en medlemsförteckning. Förteckningen skall innehålla uppgift om
+
+1. varje medlems namn, personnummer, postadress och tid för inträde i kassan, och
+
+2. de avgifter och andra belopp som medlemmen har betalat in.
+
+</section>
+<section id="36" class="paragraf">
+
+### 36 §
+
+Medlemskapet i en arbetslöshetskassa upphör utan uppsägning den dag medlemmen uppnår riktåldern för pension enligt [2 kap. 10 a-10 d §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap2.10a). Lag ([2022:885](https://selex.se/eli/sfs/2022/885)).
+
+</section>
+
+</section>
+<section id="uteslutning-av-medlem">
+
+## Uteslutning av medlem
+
+<section id="37" class="paragraf">
+
+### 37 §
+
+En medlem i en arbetslöshetskassa som medvetet eller av grov vårdslöshet har lämnat oriktiga eller vilseledande uppgifter om förhållanden av betydelse för hans eller hennes rätt till medlemskap eller arbetslöshetsersättning, ska uteslutas ur arbetslöshetskassan om inte särskilda skäl talar mot det. Detsamma gäller en medlem som medvetet eller av grov vårdslöshet har låtit bli att anmäla ändrade uppgifter till arbetslöshetskassan om förhållanden av betydelse för hans eller hennes rätt till ersättning.
+
+I 7 kap. 12-[14 §](#14)§ lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring finns bestämmelser om frånkännande av rätt till arbetslöshetsersättning när arbetslöshetskassan beslutar att medlemmen inte ska uteslutas. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="37a" class="paragraf">
+
+### 37 a §
+
+En medlem får uteslutas om han eller hon inte uppfyller och inte heller under de senaste sex månaderna har uppfyllt bestämmelsen i en arbetslöshetskassas stadgar om arbete inom kassans verksamhetsområde. Lag ([2013:153](https://selex.se/eli/sfs/2013/153)).
+
+</section>
+<section id="37b" class="paragraf">
+
+### 37 b §
+
+Ett beslut om uteslutning av en medlem enligt [37 §](#37) gäller från och med den dag då arbetslöshetskassan inledde utredning av det förhållande som ligger till grund för beslutet.
+
+Ett beslut om uteslutning av en medlem enligt [37 a §](#37a) gäller från och med första dagen i den kalendermånad som följer på beslutet. Om medlemmen har rätt till ersättning vid tidpunkten för beslutet om uteslutning, gäller dock uteslutningen från och med första dagen i den kalendermånad som följer efter den dag då rätten till ersättning upphör. Lag ([2013:153](https://selex.se/eli/sfs/2013/153)).
+
+</section>
+<section id="37c" class="paragraf">
+
+### 37 c §
+
+Arbetslöshetskassans styrelse prövar frågor om uteslutning av en medlem och om frånkännande av rätt till arbetslöshetsersättning enligt lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring. En kassaföreståndare får dock efter uppdrag från styrelsen fatta beslut i sådana ärenden, utom när det gäller omprövning. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="38" class="paragraf">
+
+### 38 §
+
+Har i ett ärende om uteslutning av medlem uppgift som inte saknar betydelse för frågan om uteslutning tillförts ärendet av någon annan får ärendet inte avgöras utan att medlemmen har underrättats om det och fått tillfälle att yttra sig över uppgiften. Medlemmen skall anses ha fått under- rättelse om uppgiften, om den har sänts i ett rekommenderat brev under medlemmens vanliga adress.
+
+</section>
+<section id="39" class="paragraf">
+
+### 39 §
+
+Ett beslut om att utesluta en medlem ska innehålla de skäl som har bestämt utgången, om det inte är uppenbart obehövligt. I beslutet ska det även anges från och med vilken dag uteslutningen gäller. Lag ([2013:153](https://selex.se/eli/sfs/2013/153)).
+
+</section>
+
+</section>
+<section id="rätt-till-utträde">
+
+## Rätt till utträde
+
+<section id="40" class="paragraf">
+
+### 40 §
+
+Utträde ur en arbetslöshetskassa sker efter anmälan. Sådan anmälan skall göras skriftligen och innehålla uppgift om tidpunkten för utträdet. En medlems rätt att träda ut ur en arbetslöshetskassa får inte begränsas.
+
+Ytterligare bestämmelser om utträde finns i 45-[46 §](#46)§.
+
+</section>
+
+</section>
+<section id="medlemsavgifter-och-särskild-u">
+
+## Medlemsavgifter och särskild uttaxering
+
+<section id="41" class="paragraf">
+
+### 41 §
+
+En arbetslöshetskassa ska ta ut medlemsavgifter som i förening med andra inkomster får antas täcka kassans förvaltningskostnader, betalningen av finansieringsavgift och övriga utgifter. En arbetslöshetskassa får besluta om olika medlemsavgifter för olika medlemskategorier, om det finns skäl för det. Lag ([2013:936](https://selex.se/eli/sfs/2013/936)).
+
+</section>
+<section id="41a" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 41 a §
+
+Har upphävts genom lag ([2013:936](https://selex.se/eli/sfs/2013/936)).
+
+</section>
+<section id="42" class="paragraf">
+
+### 42 §
+
+Trots vad stadgarna föreskriver, får en arbetslöshets- kassa besluta om särskild uttaxering, om arbetslöshetskassans tillgångar är otillräckliga för verksamhetens behöriga utövande.
+
+</section>
+<section id="43" class="paragraf">
+
+### 43 §
+
+En arbetslöshetskassas beslut om medlemsavgifter och om särskild uttaxering skall godkännas av Inspektionen för arbetslöshetsförsäkringen. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="44" class="paragraf">
+
+### 44 §
+
+En arbetslöshetskassas inkomster som inte används för löpande utgifter under verksamhetsåret, skall användas för sådana utgifter följande verksamhetsår.
+
+</section>
+<section id="45" class="paragraf">
+
+### 45 §
+
+En medlem skall anses ha trätt ut ur arbetslöshetskassan, om medlemmen vid utgången av andra månaden efter den tid på vilken en medlemsavgift eller ett särskilt uttaxerat belopp belöper inte har betalat avgiften eller beloppet till kassan och inte heller har anmält ett förhållande på vilket befrielse från betalningsskyldighet kan grundas. Medlemmen skall anses ha trätt ut ur kassan vid den tidpunkten.
+
+I en arbetslöshetskassa med en längre avgiftsperiod än en kalendermånad skall en medlem som inte inom tre månader från periodens början har betalat medlemsavgiften anses ha trätt ut ur kassan efter den tiden.
+
+</section>
+<section id="46" class="paragraf">
+
+### 46 §
+
+Om det finns särskilda skäl, får Inspektionen för arbetslöshetsförsäkringen medge utträde vid en senare tidpunkt än vad som sägs i [45 §](#45), dock senast vid utgången av sjätte månaden. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="47" class="paragraf">
+
+### 47 §
+
+En arbetslöshetskassas styrelse får medge att en medlem får fortsätta att vara medlem, även om medlemmen låtit bli att inom den tid som framgår av [45 §](#45) anmäla ett förhållande som befrielse från betalningsskyldighet kan grundas på.
+
+Om det finns särskilda skäl, får styrelsen även i andra fall än som sägs i första stycket besluta att en medlem får fortsätta att vara medlem även om medlemmen inte inom den tid som framgår av [45 §](#45) betalat medlemsavgiften eller ett särskilt uttaxerat belopp.
+
+En kassaföreståndare får, efter uppdrag från styrelsen, fatta beslut i ärenden som avses i första och andra styckena, utom när det gäller omprövning. Lag ([2018:108](https://selex.se/eli/sfs/2018/108)).
+
+</section>
+<section id="47a" class="paragraf">
+
+### 47 a §
+
+Anser arbetslöshetskassan att en medlem trätt ut ur kassan på grund av bristande betalning enligt [45 §](#45) skall kassan fatta beslut om utträdet. Det skall anges i beslutet från och med vilken dag medlemmen anses ha utträtt. Beslutet skall omgående sändas till den enskilde. Lag ([2000:1461](https://selex.se/eli/sfs/2000/1461)).
+
+</section>
+
+</section>
+<section id="finansieringsavgift">
+
+## Finansieringsavgift
+
+<section id="48" class="paragraf">
+
+### 48 §
+
+En arbetslöshetskassa ska till staten för varje kalendermånad betala en finansieringsavgift för finansiering av en del av statens kostnader för utbetalad arbetslöshetsersättning för varje medlem som fanns i arbetslöshetskassan den sista dagen i månaden.
+
+Finansieringsavgiften ska motsvara 131 procent av den under månaden utbetalade arbetslöshetsersättningen till sökande som uppfyller villkoren i 5 kap. [4 §](#kap5.4) lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring delat med det antal ersättningsdagar under månaden som ersättningen motsvarar, delat med tolv. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="48a" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 48 a §
+
+Har upphävts genom lag ([2013:936](https://selex.se/eli/sfs/2013/936)).
+
+</section>
+<section id="48b" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 48 b §
+
+Har upphävts genom lag ([2013:936](https://selex.se/eli/sfs/2013/936)).
+
+</section>
+<section id="48c" class="paragraf">
+
+### 48 c §
+
+En finansieringsavgift får inte ändras efter tolv månader från utgången av den kalendermånad som avgiften avser, om anledningen till ändringen är att de uppgifter som legat till grund för beräkningen av avgiften ändrats. Lag ([2013:936](https://selex.se/eli/sfs/2013/936)).
+
+</section>
+<section id="49" class="paragraf">
+
+### 49 §
+
+Regeringen får meddela närmare föreskrifter om när och på vilket sätt betalningarna enligt [48 §](#48) ska göras. Lag ([2013:936](https://selex.se/eli/sfs/2013/936)).
+
+</section>
+
+</section>
+<section id="föreningsstämma">
+
+## Föreningsstämma
+
+<section id="50" class="paragraf">
+
+### 50 §
+
+En arbetslöshetskassa skall hålla ordinarie föreningsstämma före den 1 juli varje år.
+
+Inspektionen för arbetslöshetsförsäkringen får medge att stämma hålls vid en senare tidpunkt eller att den hålls endast vartannat år. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="51" class="paragraf">
+
+### 51 §
+
+Medlemmars rätt att besluta i arbetslöshetskassans ange- lägenheter får utövas vid föreningsstämman genom valda ombud. Varje ombud har en röst.
+
+Om en arbetslöshetskassa är nybildad och val av ombud inte har hunnit anordnas, får medlemmarna besluta i kassans ange- lägenheter vid föreningsstämman. Vad som sägs om ombud i 55 och [56 §](#56)§ gäller i ett sådant fall på motsvarande sätt medlemmar som beslutar vid stämman.
+
+</section>
+<section id="52" class="paragraf">
+
+### 52 §
+
+Samtliga medlemmar i en arbetslöshetskassa har rätt att delta i val av ombud.
+
+</section>
+<section id="53" class="paragraf">
+
+### 53 §
+
+Föreningsstämman fastställer antalet ombud som skall väljas.
+
+Föreningsstämman kan bemyndiga styrelsen att fastställa antalet ombud. Ett sådant bemyndigande blir giltigt endast om det godkänns av Inspektionen för arbetslöshetsförsäkringen. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="54" class="paragraf">
+
+### 54 §
+
+Ett ombud får inte väljas för längre tid än fem år.
+
+Till ombud får väljas endast en person som är medlem i arbetslöshetskassan.
+
+</section>
+<section id="55" class="paragraf">
+
+### 55 §
+
+Ett ombud får inte rösta genom ett annat ombud.
+
+Ett ombud får inte rösta i en fråga som rör
+
+1. talan mot ombudet,
+
+2. ombudets befrielse från skadeståndsansvar eller från någon annan förpliktelse mot arbetslöshetskassan, eller
+
+3. talan eller befrielse som avses i 1 eller 2 som rör någon annan, om ombudet i frågan har ett väsentligt intresse som kan strida mot kassans intressen.
+
+</section>
+<section id="56" class="paragraf">
+
+### 56 §
+
+Om en bestämmelse i denna lag eller i arbetslöshets- kassans stadgar som rör kallelse till föreningsstämma eller tillhandahållande av handlingar har åsidosatts i ett ärende, får stämman inte besluta i ärendet utan samtycke av alla närvarande ombud. Även utan ett sådant samtycke får förenings- stämman avgöra ett ärende som inte har tagits upp i kallelsen, om ärendet enligt stadgarna skall förekomma på stämman eller omedelbart föranleds av ett annat ärende som skall avgöras. Stämman får också besluta att en extra föreningsstämma skall sammankallas för behandling av ärendet.
+
+</section>
+<section id="57" class="paragraf">
+
+### 57 §
+
+Föreningsstämman öppnas av styrelsens ordförande eller av den som styrelsen har utsett.
+
+Ordföranden vid föreningsstämman utses av stämman.
+
+</section>
+<section id="58" class="paragraf">
+
+### 58 §
+
+Föreningsstämmans beslut utgörs av den mening som har fått mer än hälften av de avgivna rösterna eller, vid lika röstetal, den mening som stämmans ordförande stöder.
+
+Vid val anses den vald som har fått de flesta rösterna. Vid lika röstetal avgörs valet genom lottning, om inte något annat beslutas av stämman innan valet förrättas.
+
+</section>
+<section id="59" class="paragraf">
+
+### 59 §
+
+Föreningsstämman beslutar om ändring av stadgarna. Beslutet är giltigt, om minst tre fjärdedelar av samtliga röstberättigade vid stämman har förenat sig om det. Om arbetslöshetskassans stadgar innehåller ytterligare villkor för ändring av stadgarna, gäller det villkoret.
+
+Beslutet får inte verkställas innan registrering har skett enligt [10 §](#10).
+
+</section>
+<section id="60" class="paragraf">
+
+### 60 §
+
+Föreningsstämman får uppdra åt styrelsen att fatta beslut om medlemsavgifter.
+
+</section>
+<section id="61" class="paragraf">
+
+### 61 §
+
+Ett förbehåll i stadgarna om att tvister mellan arbets- löshetskassan och styrelsen, styrelseledamöterna, kassaföre- ståndaren eller medlemmarna skall hänskjutas till skiljemän har samma verkan som ett skiljeavtal.
+
+Om styrelsen begär skiljemannaförfarande mot arbetslöshets- kassan, tillämpas [65 §](#65).
+
+</section>
+
+</section>
+<section id="talan-mot-föreningsstämmans-be">
+
+## Talan mot föreningsstämmans beslut
+
+<section id="62" class="paragraf">
+
+### 62 §
+
+Om ett beslut av en föreningsstämma inte har kommit till i behörig ordning eller i övrigt strider mot lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring, denna lag eller mot arbetslöshetskassans stadgar, får talan mot arbetslöshetskassan om att beslutet ska upphävas eller ändras föras av en medlem, styrelsen, en styrelseledamot eller kassaföreståndaren.
+
+Talan ska väckas vid tingsrätten.
+
+Talan ska väckas inom tre månader från dagen för beslutet. Om inte talan väcks inom denna tid, är rätten till talan förlorad. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="63" class="paragraf">
+
+### 63 §
+
+En dom som upphäver eller ändrar en föreningsstämmas beslut gäller även för medlemmar som inte har fört talan.
+
+</section>
+<section id="64" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 64 §
+
+Rätten kan ändra en föreningsstämmas beslut endast om det kan fastställas vilket innehåll beslutet rätteligen borde ha haft.
+
+Skall föreningsstämmans beslut enligt denna lag anmälas för registrering, skall rätten underrätta Inspektionen för arbetslöshetsförsäkringen för registrering, om beslutet har upphävts eller ändrats genom en dom som vunnit laga kraft eller om rätten genom beslut under rättegången har förordnat att beslutet inte får verkställas. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="65" class="paragraf">
+
+### 65 §
+
+Om styrelsen vill väcka talan mot arbetslöshetskassan, skall den sammankalla en föreningsstämma där det skall väljas ställföreträdare som kan föra kassans talan i tvisten. Stämning delges den valde ställföreträdaren.
+
+För styrelsen talan mot föreningsstämmans beslut är rätten till talan inte förlorad enligt [62 §](#62) tredje stycket, om styrelsen inom den där angivna tiden har kallat till föreningsstämma enligt första stycket.
+
+</section>
+
+</section>
+<section id="redovisning">
+
+## Redovisning
+
+<section id="66" class="paragraf">
+
+### 66 §
+
+Arbetslöshetskassans verksamhetsår är kalenderår.
+
+</section>
+<section id="67" class="paragraf">
+
+### 67 §
+
+Styrelsen skall avge årsredovisning för varje räkenskapsår. Bestämmelser om bokföring och annan redovisning finns i övrigt, förutom i 68-[71 §](#71)§ denna lag, i bokföringslagen ([1999:1078](https://selex.se/eli/sfs/1999/1078)) och årsredovisningslagen ([1995:1554](https://selex.se/eli/sfs/1995/1554)). Lag ([1999:1117](https://selex.se/eli/sfs/1999/1117)).
+
+</section>
+<section id="68" class="paragraf">
+
+### 68 §
+
+Årsredovisningen skall skrivas under av samtliga styrelseledamöter och av kassaföreståndaren.
+
+Om det har antecknats en avvikande mening om årsredovisningen till styrelsens protokoll, skall den avvikande meningen fogas till redovisningen.
+
+</section>
+<section id="69" class="paragraf">
+
+### 69 §
+
+Årsredovisningen för det förflutna verksamhetsåret skall avlämnas till revisorerna senast den 31 mars.
+
+</section>
+<section id="70" class="paragraf">
+
+### 70 §
+
+Senast en månad efter det att resultaträkningen och balansräkningen har blivit fastställda, skall en kopia av årsredovisningen och revisionsberättelsen hållas tillgängliga hos arbetslöshetskassan för dem som vill ta del av dessa handlingar.
+
+</section>
+<section id="71" class="paragraf">
+
+### 71 §
+
+Regeringen eller efter regeringens bemyndigande Inspektionen för arbetslöshetsförsäkringen får utfärda närmare föreskrifter om arbetslöshetskassans bokföring och årsredovisning. Om det finns särskilda skäl, får föreskrifterna avvika från vad som följer av bokföringslagen ([1999:1078](https://selex.se/eli/sfs/1999/1078)) och årsredovisningslagen ([1995:1554](https://selex.se/eli/sfs/1995/1554)). Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+
+</section>
+<section id="revision">
+
+## Revision
+
+<section id="72" class="paragraf">
+
+### 72 §
+
+En arbetslöshetskassa skall ha minst två revisorer och personliga suppleanter för dem. Vad som i denna lag sägs om revisorer gäller även revisorssuppleanter.
+
+Revisorerna väljs av föreningsstämman, om det inte föreskrivs i stadgarna att de skall utses på ett annat sätt.
+
+</section>
+<section id="73" class="paragraf">
+
+### 73 §
+
+Minst en av revisorerna skall vara en auktoriserad eller en godkänd revisor.
+
+Till revisor kan utses även ett registrerat revisionsbolag.
+
+</section>
+<section id="74" class="paragraf">
+
+### 74 §
+
+Revisor får inte
+
+1. vara underårig,
+
+2. ha en förvaltare enligt [11 kap. 7 § föräldrabalken](https://selex.se/eli/sfs/1949/381#kap11.7),
+
+3. vara i konkurs,
+
+4. vara underkastad näringsförbud,
+
+5. vara styrelseledamot eller kassaföreståndare i arbetslös- hetskassan eller hjälpa till vid kassans bokföring eller medelsförvaltning eller kontrollen över den,
+
+6. vara anställd hos arbetslöshetskassan, eller
+
+7. vara gift eller sambo med en person som avses i 5, syskon eller släkting i rätt upp- eller nedstigande led till en sådan person, eller besvågrad med en sådan person i rätt upp- eller nedstigande led eller så att den ene är gift med den andres syskon.
+
+</section>
+<section id="75" class="paragraf">
+
+### 75 §
+
+En revisors uppdrag gäller för den tid som anges i stadgarna. Om uppdraget inte skall gälla tills vidare, skall tiden bestämmas så att uppdraget upphör vid slutet av den ordinarie föreningsstämma på vilken revisorsval förrättas.
+
+</section>
+<section id="76" class="paragraf">
+
+### 76 §
+
+Om en revisors uppdrag upphör i förtid eller om revisorn enligt [74 §](#74) eller enligt stadgarna inte får fortsätta att vara revisor och inte har någon suppleant, skall styrelsen vidta åtgärder för att en ny revisor tillsätts för den återstående mandattiden.
+
+</section>
+<section id="77" class="paragraf">
+
+### 77 §
+
+Revisorerna får när som helst inventera arbetslöshets- kassans tillgångar och granska dess böcker, räkenskaper och andra handlingar.
+
+Arbetslöshetskassans styrelse och kassaföreståndaren skall lämna de upplysningar och den hjälp som revisorerna begär.
+
+</section>
+<section id="78" class="paragraf">
+
+### 78 §
+
+Revisorerna skall i den omfattning som följer av god revisionssed granska arbetslöshetskassans årsredovisning och räkenskaper samt styrelsens och kassaföreståndarens förvalt- ning. Efter att granskningen har slutförts, skall revisorerna skriva en hänvisning till revisionsberättelsen på årsredo- visningen. Om revisorerna finner att balans- eller resultat- räkningen inte bör fastställas, skall även det antecknas.
+
+</section>
+<section id="79" class="paragraf">
+
+### 79 §
+
+Revisorerna skall för varje verksamhetsår till föreningsstämman avge en revisionsberättelse som skall innehålla
+
+1. ett uttalande om årsredovisningen har gjorts enligt gällande lag och arbetslöshetskassans stadgar,
+
+2. ett uttalande i frågan om ansvarsfrihet för styrelse- ledamöterna, och
+
+3. ett förslag i frågan om fastställande av balansräkning och resultaträkning.
+
+</section>
+<section id="80" class="paragraf">
+
+### 80 §
+
+Revisionsberättelsen skall lämnas till arbetslöshets- kassans styrelse senast en månad efter det att revisorerna har fått redovisningshandlingarna. Dessa skall samtidigt lämnas tillbaka till styrelsen.
+
+</section>
+<section id="81" class="paragraf">
+
+### 81 §
+
+Revisorerna har rätt att närvara vid en föreningsstämma. De är skyldiga att närvara vid en stämma, om det med hänsyn till ärendena anses nödvändigt.
+
+</section>
+<section id="81a" class="paragraf">
+
+### 81 a §
+
+Bestämmelser om Riksrevisionens granskning av arbetslöshetskassornas handläggning av arbetslöshetsersättningen finns i lagen ([2002:1022](https://selex.se/eli/sfs/2002/1022)) om revision av statlig verksamhet m.m. Lag ([2002:1035](https://selex.se/eli/sfs/2002/1035)).
+
+</section>
+
+</section>
+<section id="fusion">
+
+## Fusion
+
+<section id="82" class="paragraf">
+
+### 82 §
+
+Genom ett avtal om fusion kan en arbetslöshetskassa (den överlåtande kassan) gå upp i en annan arbetslöshetskassa (den övertagande kassan). En sådan fusion innebär att medlemmarna i den överlåtande kassan blir medlemmar i den övertagande kassan, att den överlåtande kassan upplöses samt att dess tillgångar och skulder övertas av den övertagande kassan.
+
+En fusion kan också verkställas genom att en överlåtande kassa går upp i två eller flera övertagande kassor.
+
+</section>
+<section id="83" class="paragraf">
+
+### 83 §
+
+Genom ett avtal om fusion kan två eller flera arbetslöshetskassor (de överlåtande kassorna) förenas genom att bilda en ny arbetslöshetskassa. En sådan fusion innebär att medlemmarna i de överlåtande kassorna blir medlemmar i den nya kassan, att de överlåtande kassorna upplöses samt att deras tillgångar och skulder övertas av den nya kasssan.
+
+</section>
+<section id="84" class="paragraf">
+
+### 84 §
+
+Ett avtal om fusion skall för att bli giltigt godkännas av föreningsstämman i den överlåtande arbetslöshetskassan samt av Inspektionen för arbetslöshetsförsäkringen. Bestämmelserna i [59 §](#59) skall tillämpas i fråga om en föreningsstämmas beslut att godkänna en fusion. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+
+</section>
+<section id="den-kompletterande-arbetslöshe">
+
+## Den kompletterande arbetslöshetskassan
+
+<section id="85" class="paragraf">
+
+### 85 §
+
+Rikstäckande organisationer som företräder anställda och företagare på arbetsmarknaden får bilda en kompletterande arbetslöshetskassa. I den kompletterande arbetslöshetskassan är organisationerna som har bildat föreningen medlemmar. Den kompletterande arbetslöshetskassan handhar arbetslöshetsförsäkringen för arbetslösa som är anslutna till den kompletterande arbetslöshetskassan och för arbetslösa som inte är medlemmar i en annan arbetslöshetskassa.
+
+Den kompletterande arbetslöshetskassan ska godkännas av regeringen. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="86" class="paragraf">
+
+### 86 §
+
+Såväl arbetstagare som företagare kan hos kassan försäkra sig mot inkomstbortfall. En sådan försäkrad benämns ansluten.
+
+</section>
+<section id="87" class="paragraf">
+
+### 87 §
+
+För den kompletterande kassan gäller i övrigt bestämmelserna i denna lag med följande undantag.
+
+Bestämmelserna i [1 §](#1) andra stycket och [5 §](#5) första stycket 2 om kassans verksamhetsområde, bestämmelsen i [3 §](#3) om minsta antal medlemmar, bestämmelsen i [8 §](#8) om att registrering i vissa fall får vägras samt bestämmelserna i 82–[84 §](#84)§ om fusion gäller inte.
+
+Bestämmelserna i [3 §](#3), [5 §](#5) första stycket 12, 34–[47 a §](#47a)§ samt [60 §](#60) om medlemskap, medlemsförteckning, medlemsavgift m.m., i [48 §](#48) om finansieringsavgift, i [94 g §](#94g) om uppgiftsskyldighet samt i 95–[97 §](#97)§ och 111–[115 §](#115)§ om överklagande, omprövning och ändring gäller för de anslutna i stället för medlemmarna. Det som sägs om medlem i 31 och [61 §](#61)§ gäller även den som är ansluten till den kompletterande arbetslöshetskassan.
+
+I stället för det som sägs i [17 §](#17) tredje stycket gäller för den kompletterande arbetslöshetskassan följande. Till styrelseledamöter får utses medlemmar, förtroendevalda eller anställda i de organisationer som är medlemmar i föreningen. Styrelseledamöterna får inte vara styrelseledamöter, kassaföreståndare eller ombud vid föreningsstämma i en annan arbetslöshetskassa.
+
+Bestämmelserna i 51–[54 §](#54)§ om val av ombud och valda ombud gäller i den kompletterande arbetslöshetskassan på motsvarande sätt ombud som utses av medlemsorganisationerna. För sådana ombud gäller det som sägs i fjärde stycket om styrelseledamöter i den kompletterande kassan. Lag ([2013:936](https://selex.se/eli/sfs/2013/936)).
+
+</section>
+<section id="87a" class="paragraf">
+
+### 87 a §
+
+Den kompletterande arbetslöshetskassan ska ta ut en avgift av dem som får arbetslöshetsersättning enligt lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring och som inte är anslutna till den kompletterande arbetslöshetskassan eller medlemmar i en annan arbetslöshetskassa. Avgiften ska bidra till att täcka arbetslöshetskassans förvaltningskostnader för denna grupp ersättningsberättigade.
+
+Avgiften betalas genom att den dras av när arbetslöshetsersättningen betalas ut. Avdrag för betalning av preliminär skatt ska göras innan avgiften dras av från ersättningen. Avdrag för avgiften får inte göras gällande mot beslut om utmätning av lön enligt [7 kap. utsökningsbalken](https://selex.se/eli/sfs/1981/774). Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="87b" class="paragraf">
+
+### 87 b §
+
+Regeringen eller den myndighet som regeringen bestämmer får, efter förslag från den kompletterande arbetslöshetskassan, meddela föreskrifter om storleken på avgiften enligt [87 a §](#87a). Lag ([2004:225](https://selex.se/eli/sfs/2004/225)).
+
+</section>
+
+</section>
+<section id="samverkan">
+
+## Samverkan
+
+<section id="88" class="paragraf">
+
+### 88 §
+
+Arbetslöshetskassorna skall samverka med varandra i frågor som rör administration, service, information, utbildning och utveckling av kassornas verksamhet.
+
+Arbetslöshetskassorna skall lämna information till den enskilde om vilka andra arbetslöshetskassor som är verksamma inom hans eller hennes yrkesområde.
+
+</section>
+
+</section>
+<section id="tillsyn">
+
+## Tillsyn
+
+<section id="89" class="paragraf">
+
+### 89 §
+
+Inspektionen för arbetslöshetsförsäkringen utövar tillsyn över arbetslöshetskassorna och gör uppföljning av arbetslöshetsförsäkringen.
+
+Inspektionen ska verka för att lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring och denna lag tillämpas likformigt och rättvist. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="90" class="paragraf">
+
+### 90 §
+
+En arbetslöshetskassa skall för tillsyn och uppföljning av arbetslöshetsförsäkringen lämna uppgifter enligt vad regeringen eller efter regeringens bemyndigande Inspektionen för arbetslöshetsförsäkringen föreskriver.
+
+En arbetslöshetskassa är skyldig att lämna inspektionen tillträde till föreningsstämman och styrelsesammanträdena. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="91" class="paragraf">
+
+### 91 §
+
+Inspektionen för arbetslöshetsförsäkringen får meddela de erinringar i fråga om en arbetslöshetskassas verksamhet som inspektionen finner behövliga.
+
+Inspektionen får förelägga en arbetslöshetskassa att inom en viss tid vidta de åtgärder som behövs för rättelse, om
+
+1. en avvikelse har gjorts från arbetslöshetskassans stadgar, denna lag, lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring eller de författningar och föreskrifter i övrigt som gäller för arbetslöshetskassans verksamhet,
+
+2. stadgarna inte längre uppfyller kraven enligt [5 §](#5),
+
+3. arbetslöshetskassans tillgångar inte är tillräckliga, eller
+
+4. någon annan allvarlig anmärkning kan riktas mot arbetslöshetskassans verksamhet. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="92" class="paragraf">
+
+### 92 §
+
+Om ett föreläggande enligt [91 §](#91) inte har följts inom den tid som angetts i föreläggandet och det förhållandet mot vilket anmärkningen riktats inte heller har undanröjts på något annat sätt, får Inspektionen för arbetslöshetsförsäkringen bestämma att arbetslöshetskassan helt eller delvis under en viss tid inte skall ha rätt till statsbidrag. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+
+</section>
+<section id="statsbidrag">
+
+## Statsbidrag
+
+<section id="93" class="paragraf">
+
+### 93 §
+
+En arbetslöshetskassa har rätt till statsbidrag för kostnader för arbetslöshetsersättning som betalas ut enligt lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="93a" class="paragraf">
+
+### 93 a §
+
+Regeringen får besluta om bidrag till en arbetslöshetskassa för andra ändamål än dem som anges i [93 §](#93). Lag ([2006:1545](https://selex.se/eli/sfs/2006/1545)).
+
+</section>
+
+</section>
+<section id="återbetalning-av-statsbidrag">
+
+## Återbetalning av statsbidrag
+
+<section id="94" class="paragraf">
+
+### 94 §
+
+Om någon som har fått arbetslöshetsersättning har orsakat att ersättningen har betalats ut i strid med denna lag, lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring eller föreskrifter som har meddelats i anslutning till någon av dessa lagar, ska arbetslöshetskassan betala tillbaka statsbidrag som har betalats ut felaktigt. Detsamma gäller när den som har fått ersättning från en arbetslöshetskassa senare har fått lön eller ekonomiskt skadestånd som motsvarar lön för samma tid.
+
+Återbetalningsskyldigheten omfattar dock inte belopp som arbetslöshetskassan har beslutat att avstå från att återkräva med stöd av 8 kap. [5 §](#kap8.5) lagen om arbetslöshetsförsäkring. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="94a" class="paragraf">
+
+### 94 a §
+
+Om en arbetslöshetskassa har orsakat att arbetslöshetsersättning har betalats ut i strid med denna lag, lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring eller föreskrifter som har meddelats i anslutning till någon av dessa lagar, ska arbetslöshetskassan betala tillbaka statsbidrag som har betalats ut felaktigt. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="94b" class="paragraf">
+
+### 94 b §
+
+Om det är någon annan än den som har fått ersättningen eller en arbetslöshetskassa som har orsakat att arbetslöshetsersättning har betalats ut i strid med denna lag, lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring eller föreskrifter som har meddelats i anslutning till någon av dessa lagar, ska arbetslöshetskassan betala tillbaka statsbidrag som har betalats ut felaktigt endast om den som har fått ersättningen skäligen borde ha insett att han eller hon har fått ersättning obehörigen eller med ett för högt belopp.
+
+Återbetalningsskyldigheten omfattar dock inte belopp som arbetslöshetskassan har beslutat att avstå från att återkräva med stöd av 8 kap. [5 §](#kap8.5) lagen om arbetslöshetsförsäkring. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+<section id="94c" class="paragraf">
+
+### 94 c §
+
+En arbetslöshetskassa ska, även i andra fall än som anges i 94–[94 b §](#94b)§, betala tillbaka statsbidrag som kassan har fått utan att vara berättigad till det eller har fått med för högt belopp. Lag ([2013:153](https://selex.se/eli/sfs/2013/153)).
+
+</section>
+<section id="94d" class="paragraf">
+
+### 94 d §
+
+Inspektionen för arbetslöshetsförsäkringen ska besluta att kräva tillbaka statsbidrag från en arbetslöshetskassa om myndigheten vid sin tillsyn finner att förutsättningarna för återbetalningsskyldighet enligt 94–[94 c §](#94c)§ är uppfyllda. Lag ([2013:153](https://selex.se/eli/sfs/2013/153)).
+
+</section>
+<section id="94e" class="paragraf">
+
+### 94 e §
+
+Inspektionen för arbetslöshetsförsäkringen får, om en arbetslöshetskassa begär det eller i samband med beslut enligt [94 d §](#94d), besluta att delvis befria kassan från återbetalningsskyldighet enligt 94–[94 c §](#94c)§ om det finns särskilda skäl. Om det finns synnerliga skäl, får myndigheten besluta om hel befrielse. Lag ([2013:153](https://selex.se/eli/sfs/2013/153)).
+
+</section>
+
+</section>
+<section id="uppgiftsskyldighet">
+
+## Uppgiftsskyldighet
+
+<section id="94f" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 94 f §
+
+Har upphävts genom lag ([2013:936](https://selex.se/eli/sfs/2013/936)).
+
+</section>
+<section id="94g" class="paragraf">
+
+### 94 g §
+
+En arbetslöshetskassa ska på begäran av Statistiska centralbyrån lämna de uppgifter om medlemskap i arbetslöshetskassan och medlemmars arbetslöshetsersättning enligt lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring som myndigheten behöver för framställning av statistik i enlighet med ett sådant uppdrag från regeringen som syftar till att kartlägga och analysera arbetsmarknaden.
+
+Regeringen kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela närmare föreskrifter om skyldigheten enligt första stycket och om när uppgifter får lämnas ut elektroniskt. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+</section>
+
+</section>
+<section id="överklagande-omprövning-och-än">
+
+## Överklagande, omprövning och ändring
+
+</section>
+<section id="överklagande-av-en-arbetslöshe">
+
+## Överklagande av en arbetslöshetskassas beslut
+
+<section id="95" class="paragraf">
+
+### 95 §
+
+Beslut av en arbetslöshetskassa i ärenden enligt denna lag om rätt till medlemskap, medlemsavgifter och särskild uttaxering får överklagas till allmän förvaltningsdomstol. Behörig förvaltningsrätt är den inom vars domkrets klaganden var folkbokförd vid tidpunkten för beslutet. Om han eller hon inte var folkbokförd i Sverige är behörig förvaltningsrätt den inom vars domkrets det första beslutet i saken har fattats.
+
+Arbetslöshetskassans beslut enligt denna lag i andra fall än som avses i första stycket får inte överklagas. Lag ([2013:97](https://selex.se/eli/sfs/2013/97)).
+
+</section>
+<section id="96" class="paragraf">
+
+### 96 §
+
+Arbetslöshetskassans beslut får inte överklagas av en enskild innan kassan har omprövat sitt beslut enligt [111 §](#111). Om ett beslut överklagas innan det har omprövats, skall överklagandet anses som en begäran om omprövning.
+
+</section>
+<section id="97" class="paragraf">
+
+### 97 §
+
+Inspektionen för arbetslöshetsförsäkringen får, även till förmån för en enskild part, överklaga en domstols och en arbetslöshetskassas beslut i ärenden som avses i [95 §](#95). Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="98" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 98 §
+
+Har upphävts genom lag ([2009:665](https://selex.se/eli/sfs/2009/665)).
+
+</section>
+
+</section>
+<section id="överklagande-av-beslut-från-in">
+
+## Överklagande av beslut från Inspektionen för arbetslöshetsförsäkringen
+
+<section id="99" class="paragraf">
+
+### 99 §
+
+Utan hinder av vad som sägs i [2 §](#2) första stycket får styrelsen för en förening som vägrats registrering överklaga beslut från Inspektionen för arbetslöshetsförsäkringen i ärendet om registrering. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="100" class="paragraf">
+
+### 100 §
+
+En arbetslöshetskassa får överklaga Inspektionen för arbetslöshetsförsäkringens beslut enligt 92, 94 d och [94 e §](#94e)§ till allmän förvaltningsdomstol. Lag ([2013:153](https://selex.se/eli/sfs/2013/153)).
+
+</section>
+
+</section>
+<section id="gemensamma-bestämmelser-om-öve">
+
+## Gemensamma bestämmelser om överklagande
+
+<section id="101" class="paragraf">
+
+### 101 §
+
+Ett beslut skall överklagas skriftligt.
+
+I skrivelsen skall anges vilket beslut som överklagas och den ändring av beslutet som begärs. [102 §](#102) Skrivelsen med överklagandet skall ges in till den instans som har meddelat beslutet. Skrivelsen skall, om inte annat anges i 103 och [104 §](#104)§, ha kommit in till den instansen inom två månader från den dag klaganden fick del av beslutet.
+
+</section>
+<section id="103" class="paragraf">
+
+### 103 §
+
+Om överklagandet görs av Inspektionen för arbetslöshetsförsäkringen eller av en arbetslöshetskassa skall skrivelsen med överklagandet ha kommit in till den instans som meddelat beslutet inom två månader från beslutets dag. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="104" class="paragraf">
+
+### 104 §
+
+Beslut i frågor som avses i 8, 92, 94 d och [94 e §](#94e)§ ska överklagas inom två månader från dagen för beslutet. Lag ([2013:153](https://selex.se/eli/sfs/2013/153)).
+
+</section>
+<section id="105" class="paragraf">
+
+### 105 §
+
+Den instans som har meddelat det överklagade beslutet prövar om skrivelsen med överklagandet har kommit in i rätt tid.
+
+Om skrivelsen har kommit in för sent, skall den avvisas utom när
+
+1. förseningen beror på att den instans som har fattat det överklagade beslutet har lämnat klaganden en felaktig underrättelse om hur man överklagar, eller
+
+2. skrivelsen inom tiden för överklagande har kommit in till den instans som skall pröva överklagandet.
+
+I fall som avses i 2 skall den instans dit skrivelsen kommit vidarebefordra den till den instans som har meddelat beslutet och samtidigt lämna uppgift om vilken dag skrivelsen kom in till den högre instansen.
+
+</section>
+<section id="106" class="paragraf">
+
+### 106 §
+
+Om skrivelsen med överklagandet inte avvisas enligt [105 §](#105) andra stycket, skall den instans som har meddelat det överklagade beslutet lämna över denna och övriga handlingar i ärendet till den instans som skall pröva överklagandet.
+
+</section>
+<section id="107" class="paragraf">
+
+### 107 §
+
+Beslut enligt denna lag från en arbetslöshetskassa, Inspektionen för arbetslöshetsförsäkringen eller en domstol gäller omedelbart, om inte något annat har angetts i beslutet eller bestämts av den instans som skall överpröva beslutet. Lag ([2002:543](https://selex.se/eli/sfs/2002/543)).
+
+</section>
+<section id="108" class="paragraf">
+
+### 108 §
+
+I ett mål där en enskild part överklagar en arbetslöshetskassas beslut är kassan den enskildes motpart.
+
+</section>
+<section id="109" class="paragraf">
+
+### 109 §
+
+Inspektionen för arbetslöshetsförsäkringen får överta en arbetslöshetskassas uppgift att i förvaltningsrätt och kammarrätt föra talan.
+
+Inspektionen för sådan talan i Högsta förvaltningsdomstolen. Lag ([2010:1450](https://selex.se/eli/sfs/2010/1450)).
+
+</section>
+<section id="110" class="paragraf">
+
+### 110 §
+
+Prövningstillstånd krävs vid överklagande till kammarrätten. Lag ([2013:97](https://selex.se/eli/sfs/2013/97)).
+
+</section>
+
+</section>
+<section id="omprövning-och-ändring">
+
+## Omprövning och ändring
+
+<section id="111" class="paragraf">
+
+### 111 §
+
+Beslut av en arbetslöshetskassa i ärenden som sägs i [95 §](#95) skall omprövas av kassan, om det begärs av den enskilde som beslutet angår.
+
+Detta gäller inte, om arbetslöshetskassan redan har ändrat beslutet med stöd av [113 §](#113).
+
+</section>
+<section id="112" class="paragraf">
+
+### 112 §
+
+Bestämmelserna i 101-[106 §](#106)§ om överklagande skall tillämpas i fråga om en begäran om omprövning.
+
+</section>
+<section id="113" class="paragraf">
+
+### 113 §
+
+En arbetslöshetskassa skall utan begäran ändra sitt beslut i ärenden som sägs i [95 §](#95) och som inte har överprövats av en högre instans, om
+
+1. beslutet på grund av skrivfel, räknefel eller något annat sådant förbiseende innehåller en uppenbar oriktighet,
+
+2. beslutet har blivit oriktigt på grund av att det har fattats på uppenbart felaktigt eller ofullständigt underlag, eller
+
+3. beslutet har blivit oriktigt på grund av en uppenbart felaktig rättstillämpning eller någon annan liknande orsak.
+
+En ändring enligt första stycket behöver inte göras, om oriktigheten är av ringa betydelse.
+
+</section>
+<section id="114" class="paragraf">
+
+### 114 §
+
+En ändring med stöd av [113 §](#113) av ett beslut får inte göras sedan mer än två år förflutit från den dag då beslutet meddelades.
+
+Ett beslut får ändras även efter det att den tiden har gått ut, om det först därefter har kommit fram att beslutet har fattats på uppenbart felaktigt eller ofullständigt underlag eller om det finns andra synnerliga skäl.
+
+</section>
+<section id="115" class="paragraf">
+
+### 115 §
+
+Vid omprövning enligt [111 §](#111) får beslutet inte ändras till den enskildes nackdel.
+
+Vid ändring enligt [113 §](#113) får beslutet inte ändras till den enskildes nackdel, om det finns synnerliga skäl mot det.
+
+</section>
+
+</section>
+<section id="straffbestämmelse">
+
+## Straffbestämmelse
+
+<section id="116" class="paragraf">
+
+### 116 §
+
+Om en förening eller en annan organisation utan att vara registrerad enligt denna lag handhar frågor om arbetslöshetsersättning enligt lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring, döms den som på föreningens eller organisationens vägnar deltar i en åtgärd eller ett beslut i sådan verksamhet till böter eller fängelse i högst sex månader. Lag ([2024:510](https://selex.se/eli/sfs/2024/510)).
+
+
+</section>
+
+</section>
+<section id="övergångsbestämmelser" selex:status="upphavd" selex:upphavd="true">
+
+## Övergångsbestämmelser
+
+[1997:239](https://selex.se/eli/sfs/1997/239)
+
+Föreskrifter om ikraftträdande av denna lag meddelas i lagen ([1997:240](https://selex.se/eli/sfs/1997/240)) om införande av lagen ([1997:238](https://selex.se/eli/sfs/1997/238)) om arbetslös- hetsförsäkring och lagen ([1997:239](https://selex.se/eli/sfs/1997/239)) om arbetslöshetskassor.
+
+[1999:1117](https://selex.se/eli/sfs/1999/1117)
+
+Denna lag träder i kraft den 1 januari 2000 och tillämpas första gången för det räkenskapsår som inleds närmast efter den 31 december 1999.
+
+[2001:29](https://selex.se/eli/sfs/2001/29)
+
+Denna lag träder i kraft den 1 april 2001. I fall där omprövningsbeslut har fattats dessförinnan gäller äldre bestämmelser.
+
+[2006:1545](https://selex.se/eli/sfs/2006/1545)
+
+1. Denna lag träder i kraft den 1 januari 2007.
+
+2. Äldre föreskrifter gäller fortfarande för finansieringsavgifter som avser tid före ikraftträdandet.
+
+3. Den äldre lydelsen av [49 §](#49) gäller för föreskrifter som avser tid före ikraftträdandet.
+
+[2008:410](https://selex.se/eli/sfs/2008/410)
+
+1. Denna lag träder i kraft den 1 juli 2008.
+
+2. När det gäller förhöjd finansieringsavgift för tid före ikraftträdandet gäller fortfarande äldre föreskrifter.
+
+3. Förändringar av de uppgifter som legat till grund för beräkningen av en förhöjd finansieringsavgift enligt [48 §](#48) i dess äldre lydelse får, efter utgången av 2009, inte leda till att avgiften ändras. Lag ([2009:1438](https://selex.se/eli/sfs/2009/1438)).
+
+[2009:665](https://selex.se/eli/sfs/2009/665)
+
+1. Denna lag träder i kraft den 1 juli 2009. 2. Äldre föreskrifter gäller för beslut som meddelats före ikraftträdandet.
+
+[2013:97](https://selex.se/eli/sfs/2013/97)
+
+1. Denna lag träder i kraft den 1 juli 2013.
+
+2. Äldre föreskrifter gäller för beslut som har meddelats före ikraftträdandet.
+
+[2013:153](https://selex.se/eli/sfs/2013/153)
+
+Denna lag träder i kraft den 1 september 2013. Den nya bestämmelsen i [37 §](#37) första stycket andra meningen tillämpas inte på sådana förhållanden som har betydelse för rätt till ersättning och som har inträffat före den 1 september 2013.
+
+[2013:936](https://selex.se/eli/sfs/2013/936)
+
+1. Denna lag träder i kraft den 1 januari 2014.
+
+2. Äldre föreskrifter gäller fortfarande för arbetslöshetsavgift som avser tid före den 1 januari 2014.
+
+3. Den upphävda [94 f §](#94f) gäller fortfarande för uppgifter som avser tid före den 1 januari 2014.
+
+[2022:884](https://selex.se/eli/sfs/2022/884)
+
+1. Denna lag träder i kraft den 1 januari 2023.
+
+2. Äldre föreskrifter gäller fortfarande för den som har fyllt 65 år före ikraftträdandet.
+
+[2022:885](https://selex.se/eli/sfs/2022/885)
+
+1. Denna lag träder i kraft den 1 januari 2026.
+
+2. Äldre föreskrifter gäller fortfarande för den som har fyllt 66 år före ikraftträdandet.
+
+[2024:510](https://selex.se/eli/sfs/2024/510)
+
+1. Denna lag träder i kraft den 1 oktober 2025.
+
+2. Äldre bestämmelser gäller fortfarande för arbetslöshetsersättning enligt den upphävda lagen ([1997:238](https://selex.se/eli/sfs/1997/238)) om arbetslöshetsförsäkring.
+
+</section>
+
+</article>

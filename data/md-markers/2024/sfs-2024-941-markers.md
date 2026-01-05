@@ -1,0 +1,362 @@
+---
+beteckning: "2024:941"
+rubrik: Förordning om statsbidrag till ideella organisationer som främjar organiserad samverkan inom området psykisk hälsa och suicidprevention
+departement: Socialdepartementet
+utfardad_datum: 2024-10-24
+ikraft_datum: 2024-12-01
+publicerad_datum: 2026-01-02
+pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/2024-10/SFS2024-941.pdf
+andringsforfattningar:
+  - beteckning: "2025:1009"
+    rubrik: Förordning om ändring i förordningen om statsbidrag till ideella organisationer som främjar organiserad samverkan inom området psykisk hälsa och suicidprevention
+    ikraft_datum: 2026-01-01
+    anteckningar: "ändr. 3, 10, 16, 17 §§; nya 3 a, 3 b §§"
+---
+<article selex:utfardad_datum="2024-10-24" selex:ikraft_datum="2024-12-01">
+
+# Förordning om statsbidrag till ideella organisationer som främjar organiserad samverkan inom området psykisk hälsa och suicidprevention
+
+<section id="inledande-bestämmelser">
+
+## Inledande bestämmelser
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+Denna förordning innehåller bestämmelser om statsbidrag till ideella organisationer som bedriver verksamhet för att främja organiserad samverkan mellan patient-, brukar- och anhörigorganisationer inom området psykisk hälsa och suicidprevention.
+
+Syftet med bidraget är att stärka organisationernas möjligheter att bidra till förbättrade livsvillkor för personer med psykisk ohälsa eller suicidalitet och för deras anhöriga.
+
+Förordningen är meddelad med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7).
+
+</section>
+
+</section>
+<section id="formen-för-bidrag">
+
+## Formen för bidrag
+
+<section id="2" class="paragraf">
+
+### 2 §
+
+Bidrag lämnas i form av verksamhetsbidrag.
+
+</section>
+
+</section>
+<section id="förutsättningar-för-bidrag">
+
+## Förutsättningar för bidrag
+
+<section id="3" class="paragraf">
+
+### 3 §
+
+Bidrag får, om det finns medel, lämnas till en ideell organisation som
+
+1. är en juridisk person med ett allmännyttigt ändamål som bedriver verksamhet i Sverige inom det område som anges i [1 §](#1) första stycket sedan minst tre år före det datum då ansökan om bidrag gavs in,
+
+2. bedriver riksomfattande verksamhet som stöder nationella, lokala eller regionala organisationer (riksorganisationer) eller bedriver verksamhet som är av nationellt intresse (riksintresse),
+
+3. har antagit stadgar och är demokratiskt uppbyggd,
+
+4. består av minst fem medlemsorganisationer, i form av patient-, brukar- eller anhörigorganisationer,
+
+5. kan dokumentera sin verksamhet genom fastställda verksamhets- och revisionsberättelser, och
+
+6. utformar sin verksamhet på ett sätt som är ändamålsenligt och kostnadseffektivt och som möjliggör en uppföljning av insatsernas resultat. Förordning ([2025:1009](https://selex.se/eli/sfs/2025/1009)).
+
+</section>
+<section id="3a" class="paragraf">
+
+### 3 a §
+
+Stöd får inte lämnas till en organisation om den eller någon av dess företrädare som agerar inom ramen för verksamheten
+
+1. utövar våld, tvång eller hot mot en person eller på annat sätt kränker en persons grundläggande fri- och rättigheter,
+
+2. diskriminerar personer eller grupper av personer eller på annat sätt bryter mot principen om alla människors lika värde,
+
+3. försvarar, främjar eller uppmanar till sådana ageranden som anges i 1 eller 2, eller
+
+4. motarbetar det demokratiska styrelseskicket.
+
+Stöd får inte heller lämnas till en organisation om det framkommer att någon av dess samarbetsorganisationer, eller en företrädare för samarbetsorganisationen, agerar på ett sådant sätt som anges i första stycket. Förordning ([2025:1009](https://selex.se/eli/sfs/2025/1009)).
+
+</section>
+<section id="3b" class="paragraf">
+
+### 3 b §
+
+Om en organisation, dess företrädare, organisationens samarbetsorganisation eller samarbetsorganisationens företrädare har agerat på ett sådant sätt som anges i [3 a §](#3a), får stöd ändå lämnas till organisationen om det finns särskilda skäl. Vid denna bedömning ska det särskilt beaktas om
+
+1. organisationen har tagit avstånd från agerandet,
+
+2. organisationen har vidtagit adekvata åtgärder för att säkerställa att agerandet inte upprepas,
+
+3. det är fråga om ett enstaka agerande, och
+
+4. agerandet ligger långt tillbaka i tiden.
+
+Vid allvarliga överträdelser av en samarbetsorganisation, eller dess företrädare, ska det vid bedömningen även särskilt beaktas om samarbetet har avbrutits. Förordning ([2025:1009](https://selex.se/eli/sfs/2025/1009)).
+
+</section>
+<section id="4" class="paragraf">
+
+### 4 §
+
+Bidrag får inte lämnas till en organisation som
+
+1. är i likvidation eller försatt i konkurs,
+
+2. har skatte- eller avgiftsskulder eller andra skulder som har överlämnats till Kronofogdemyndigheten och som vid indrivning handläggs som allmänt mål,
+
+3. har en skuld som inte har betalats i rätt tid och som avser återkrav av bidrag som har lämnats av Folkhälsomyndigheten, eller
+
+4. under samma tidsperiod har fått annat statsbidrag för samma verksamhet som en ansökan enligt denna förordning avser.
+
+</section>
+
+</section>
+<section id="ansökan">
+
+## Ansökan
+
+<section id="5" class="paragraf">
+
+### 5 §
+
+Folkhälsomyndigheten prövar frågor om bidrag enligt denna förordning.
+
+</section>
+<section id="6" class="paragraf">
+
+### 6 §
+
+En ansökan om bidrag ska göras skriftligen av en behörig företrädare för organisationen. Ansökan ska ha kommit in till Folkhälsomyndigheten senast vid den tidpunkt som myndigheten bestämmer.
+
+</section>
+<section id="7" class="paragraf">
+
+### 7 §
+
+En ansökan om bidrag ska innehålla
+
+1. den sökande organisationens stadgar,
+
+2. handlingar som visar vem eller vilka som har rätt att företräda organisationen,
+
+3. verksamhets- och förvaltningsberättelse, balans- och resultaträkning samt revisionsberättelse för det närmast föregående räkenskapsåret,
+
+4. uppgifter om vilka aktiviteter som ansökan avser, vad som är ändamålet med aktiviteterna och hur verksamheten ska bedrivas,
+
+5. årlig budget för den verksamhet som ansökan avser, och
+
+6. uppgifter om andra sökta eller beviljade bidrag för den aktuella perioden.
+
+Den som ansöker om bidrag ska lämna de övriga uppgifter och handlingar som Folkhälsomyndigheten behöver för att kunna pröva ansökan.
+
+</section>
+<section id="8" class="paragraf">
+
+### 8 §
+
+Om den som ansöker om bidrag inte har lämnat de uppgifter och handlingar som följer av [7 §](#7), ska den sökande ges tillfälle att inom viss tid komplettera ansökan.
+
+Om den som ansöker om bidrag inte följer en uppmaning att komplettera ansökan, får Folkhälsomyndigheten pröva ansökan i befintligt skick.
+
+</section>
+
+</section>
+<section id="fördelning-av-bidrag">
+
+## Fördelning av bidrag
+
+<section id="9" class="paragraf">
+
+### 9 §
+
+Folkhälsomyndigheten får prioritera mellan inkomna ansökningar och ge företräde till de ansökningar som bedöms ha bäst förutsättningar att uppfylla det syfte med bidraget som anges i [1 §](#1) andra stycket.
+
+</section>
+
+</section>
+<section id="beslut">
+
+## Beslut
+
+<section id="10" class="paragraf">
+
+### 10 §
+
+Ett beslut om bidrag får endast avse ett kalenderår. Förordning ([2025:1009](https://selex.se/eli/sfs/2025/1009)).
+
+</section>
+<section id="11" class="paragraf">
+
+### 11 §
+
+Ett beslut om bidrag får förenas med villkor. Villkoren ska framgå av beslutet.
+
+I beslutet ska sista dag för redovisning enligt [13 §](#13) anges. Beslutet ska även innehålla information om hinder mot utbetalning enligt [16 §](#16) och om återbetalning och återkrav enligt 17 och [18 §](#18)§.
+
+</section>
+
+</section>
+<section id="anmälningsskyldighet">
+
+## Anmälningsskyldighet
+
+<section id="12" class="paragraf">
+
+### 12 §
+
+Den som ansöker om eller har beviljats bidrag enligt denna förordning ska snarast möjligt till Folkhälsomyndigheten anmäla sådana ändrade förhållanden som kan påverka rätten till eller storleken på bidraget.
+
+</section>
+
+</section>
+<section id="redovisning">
+
+## Redovisning
+
+<section id="13" class="paragraf">
+
+### 13 §
+
+En bidragsmottagare ska lämna en ekonomisk redovisning av de mottagna medlen till Folkhälsomyndigheten senast den 30 april året efter det år bidraget togs emot. Redovisningen ska göras på det sätt som myndigheten bestämmer. Tillsammans med redovisningen ska det lämnas en redogörelse för
+
+1. vad medlen har använts till,
+
+2. vilka resultat som uppnåtts, och
+
+3. hur resultaten förhåller sig till det syfte med bidraget som anges i [1 §](#1) andra stycket.
+
+Vid samma tidpunkt som redovisningen lämnas ska medel som inte har använts för avsett ändamål betalas tillbaka till Folkhälsomyndigheten.
+
+Bidragsmottagaren ska även lämna de övriga uppgifter och handlingar som myndigheten begär.
+
+</section>
+<section id="14" class="paragraf">
+
+### 14 §
+
+En revisor ska granska redovisningen enligt [13 §](#13). Revisorns rapport över granskningen ska bifogas redovisningen.
+
+Om det bidrag som har tagits emot uppgår till minst fem prisbasbelopp enligt [2 kap. 6 och 7 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap2.6), ska granskningen göras av en auktoriserad eller godkänd revisor.
+
+</section>
+<section id="15" class="paragraf">
+
+### 15 §
+
+Folkhälsomyndigheten ska senast den 30 september varje år lämna en samlad ekonomisk redovisning till regeringen av de bidrag som har lämnats enligt denna förordning.
+
+Redovisningen ska innehålla
+
+1. uppgifter om vilka som har fått bidrag och med vilka belopp,
+
+2. en redogörelse för vad bidragen har använts till,
+
+3. en bedömning av bidragens resultat, och
+
+4. en bedömning av effekterna i förhållande till det syfte som anges i [1 §](#1) andra stycket om en sådan bedömning är möjlig.
+
+</section>
+
+</section>
+<section id="hinder-mot-utbetalning">
+
+## Hinder mot utbetalning
+
+<section id="16" class="paragraf">
+
+### 16 §
+
+Folkhälsomyndigheten får besluta att ett beviljat bidrag helt eller delvis inte ska betalas ut om mottagaren av bidraget inte längre uppfyller förutsättningarna för det eller om det finns grund för återbetalning enligt [17 §](#17). Beslutet gäller omedelbart. Förordning ([2025:1009](https://selex.se/eli/sfs/2025/1009)).
+
+</section>
+
+</section>
+<section id="återbetalning-och-återkrav">
+
+## Återbetalning och återkrav
+
+<section id="17" class="paragraf">
+
+### 17 §
+
+En bidragsmottagare är skyldig att betala tillbaka bidraget om
+
+1. mottagaren genom att lämna oriktiga uppgifter eller på något annat sätt har orsakat att bidrag har lämnats felaktigt eller med för högt belopp,
+
+2. bidraget av något annat skäl än vad som anges i 1 har lämnats felaktigt eller med för högt belopp och mottagaren borde ha insett detta,
+
+3. bidraget inte har utnyttjats eller använts för den verksamhet som det har beviljats för,
+
+4. mottagaren inte har lämnat en sådan redovisning som avses i [13 §](#13),
+
+5. villkor i beslutet om bidraget inte har följts, eller
+
+6. mottagaren inte uppfyller villkoren i [3 a §](#3a) och det inte finns sådana särskilda skäl enligt [3 b §](#3b) som innebär att bidrag ändå får lämnas. Förordning ([2025:1009](https://selex.se/eli/sfs/2025/1009)).
+
+</section>
+<section id="18" class="paragraf">
+
+### 18 §
+
+Folkhälsomyndigheten ska besluta att helt eller delvis kräva tillbaka bidraget om bidragsmottagaren är återbetalningsskyldig enligt [17 §](#17).
+
+Om det finns särskilda skäl för det, får myndigheten besluta att helt eller delvis avstå från ett krav på återbetalning.
+
+</section>
+
+</section>
+<section id="överklagande">
+
+## Överklagande
+
+<section id="19" class="paragraf">
+
+### 19 §
+
+I [40 §](#40) förvaltningslagen ([2017:900](https://selex.se/eli/sfs/2017/900)) finns bestämmelser om överklagande till allmän förvaltningsdomstol. Andra beslut än beslut om hinder mot utbetalning enligt [16 §](#16) och beslut om återkrav enligt [18 §](#18) får dock inte överklagas.
+
+</section>
+
+</section>
+<section id="bemyndigande">
+
+## Bemyndigande
+
+<section id="20" class="paragraf">
+
+### 20 §
+
+Folkhälsomyndigheten får meddela föreskrifter om verkställigheten av denna förordning.
+
+
+</section>
+
+</section>
+<section id="övergångsbestämmelser">
+
+## Övergångsbestämmelser
+
+[2024:941](https://selex.se/eli/sfs/2024/941)
+
+1. Denna förordning träder i kraft den 1 december 2024.
+
+2. Förordningen tillämpas första gången i fråga om bidrag för kalenderåret 2025.
+
+[2025:1009](https://selex.se/eli/sfs/2025/1009)
+
+1. Denna förordning träder i kraft den 1 januari 2026.
+
+2. Äldre bestämmelser gäller fortfarande för statsbidrag som beviljats före ikraftträdandet.
+
+</section>
+
+</article>

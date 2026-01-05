@@ -1,0 +1,66 @@
+---
+beteckning: "1997:698"
+rubrik: Förordning om Europeiska unionens provisoriska resehandling
+departement: Justitiedepartementet
+utfardad_datum: 1997-09-25
+ikraft_datum: 1997-11-01
+publicerad_datum: 2025-12-08
+forarbeten: EGTL168/96 s4
+pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/1997-09/SFS1997-698.pdf
+---
+<article selex:utfardad_datum="1997-09-25" selex:ikraft_datum="1997-11-01" selex:upphor_datum="2025-12-09" selex:upphavd="true">
+
+# Förordning om Europeiska unionens provisoriska resehandling
+
+<section id="1" class="paragraf">
+
+## 1 §
+
+Svensk passmyndighet utom riket får efter ansökan utfärda en provisorisk resehandling till en medborgare i en av Europeiska unionens medlemsstater om
+
+1. den stat där den sökande är medborgare inte har någon tillgänglig diplomatisk eller konsulär representation som kan utfärda resedokument i det land där sökanden befinner sig,
+
+2. sökandens pass kommit bort, blivit stulet eller förstört eller av någon annan orsak inte är tillgängligt och
+
+3. tillstånd har inhämtats från en myndighet som utsetts i detta syfte i den stat där sökanden är medborgare.
+
+</section>
+<section id="2" class="paragraf">
+
+## 2 §
+
+En provisorisk resehandling skall utfärdas för en resa antingen till den stat där sökanden är medborgare eller till det land där sökanden är fast bosatt. I undantagsfall kan en provisorisk resehandling i stället utfärdas för en resa till en annan bestämd ort.
+
+En provisorisk resehandling skall ha den giltighetstid som behövs för att genomföra den resa som den utfärdats för.
+
+</section>
+<section id="3" class="paragraf">
+
+## 3 §
+
+Ansökan om provisorisk resehandling skall göras enligt ett särskilt formulär. Vid ansökan skall ett välliknande fotografi av sökanden ges in. Sökanden skall vidare visa upp handlingar som styrker sökandens identitet och nationalitet. En kopia av de uppvisade handlingarna skall bifogas ansökan.
+
+</section>
+<section id="4" class="paragraf">
+
+## 4 §
+
+För utfärdandet av en provisorisk resehandling får avgift tas ut enligt förordningen ([1997:691](https://selex.se/eli/sfs/1997/691)) om expeditionsavgifter vid utlandsmyndigheterna.
+
+</section>
+<section id="5" class="paragraf">
+
+## 5 §
+
+En diplomatisk eller konsulär representation för en medlemsstat i Europeiska unionen kan under de förutsättningar som anges i 1 - [2 §](#2)§ utfärda en provisorisk resehandling till en svensk medborgare. Tillstånd till att utfärda en sådan resehandling meddelas av en svensk passmyndighet utom riket.
+
+</section>
+<section id="6" class="paragraf">
+
+## 6 §
+
+Föreskrifter för verkställighet av denna förordning meddelas av Regeringskansliet.
+
+</section>
+
+</article>

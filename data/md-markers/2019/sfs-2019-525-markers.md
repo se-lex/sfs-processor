@@ -1,0 +1,702 @@
+---
+beteckning: "2019:525"
+rubrik: Förordning om statligt stöd för installation av laddningspunkter för elfordon
+departement: Klimat- och näringslivsdepartementet
+utfardad_datum: 2019-06-27
+ikraft_datum: 2019-07-15
+publicerad_datum: 2025-12-08
+pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/2019-06/SFS2019-525.pdf
+andringsforfattningar:
+  - beteckning: "2021:1279"
+    rubrik: Förordning om ändring i förordningen om statligt stöd för installation av laddningspunkter för elfordon
+    ikraft_datum: 2022-01-18
+    anteckningar: "ändr. rubr. närmast före 18 §; nya 4 a, 13 a, 18 a §§"
+  - beteckning: "2024:381"
+    rubrik: Förordning om ändring i förordningen om statligt stöd för installation av laddningspunkter för elfordon
+    ikraft_datum: 2024-07-01
+    anteckningar: "ändr. 2, 4, 11, 22, 24 §§"
+  - beteckning: "2025:1226"
+    rubrik: Förordning om ändring i förordningen om statligt stöd för installation av laddningspunkter för elfordon
+    ikraft_datum: 2026-01-01
+    anteckningar: "ändr. 13 a, 18 a §§"
+  - beteckning: "2025:1456"
+    rubrik: Förordning om ändring i förordningen om statligt stöd för installation av laddningspunkter för elfordon
+    ikraft_datum: 2026-02-01
+    anteckningar: "ändr. 2, 3, 4, 5, 6, 8, 9, 10, 14, 15, 17, 18, 19 §§, rubr. närmast före 18 §; nya 4 b, 8 a, 9 a, 10 a, 11 a, 11 b, 11 c, 11 d, 12 a, 13 b §§, rubr. närmast före 11 a, 13 b §§"
+---
+<article selex:utfardad_datum="2019-06-27" selex:ikraft_datum="2019-07-15">
+
+# Förordning om statligt stöd för installation av laddningspunkter för elfordon
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+För omställningen till hållbara transporter i Sverige får Naturvårdsverket, om det finns medel, ge statligt stöd i form av bidrag enligt denna förordning för installation av laddningspunkter för elfordon.
+
+</section>
+<section id="förordningen-är-meddelad-med-s">
+
+## Förordningen är meddelad med stöd av
+
+- [8 kap. 11 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.11) i fråga om [23 §](#23), och
+
+- [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) i fråga om övriga bestämmelser.
+
+</section>
+<section id="ordförklaringar">
+
+## Ordförklaringar
+
+<section id="2" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+### 2 §
+
+I denna förordning betyder
+
+elfordon: elbilar och laddhybridbilar som är laddningsbara från elnätet,
+
+laddningspunkt: ett gränssnitt där ett elfordon i taget kan laddas.
+
+I övrigt har ord och uttryck i förordningen samma betydelse som i kommissionens förordning [(EU) 2023/2831](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32831R2023) av den 13 december 2023 om tillämpningen av artiklarna 107 och 108 i fördraget om Europeiska unionens funktionssätt på stöd av mindre betydelse och kommissionens förordning [(EU) nr 651/2014](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32014R0651) av den 17 juni 2014 genom vilken vissa kategorier av stöd förklaras förenliga med den inre marknaden enligt artiklarna 107 och 108 i fördraget. Förordning ([2024:381](https://selex.se/eli/sfs/2024/381)).
+
+</section>
+<section id="2" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 2 §
+
+I denna förordning betyder
+
+1. elfordon: lätta lastbilar och personbilar enligt lagen ([2001:559](https://selex.se/eli/sfs/2001/559)) om vägtrafikdefinitioner som är klassificerade i utsläppsklass El eller Laddhybrid enligt [32 §](#32) avgasreningslagen ([2011:318](https://selex.se/eli/sfs/2011/318)),
+
+2. laddningspunkt: ett fast gränssnitt, med anslutning till elnätet, som
+
+a) möjliggör överföring av el till ett elfordon,
+
+b) kan ladda endast ett elfordon åt gången, även om den har flera anslutningsdon, och
+
+c) utesluter anordningar med en uteffekt på högst 3,7 kilowatt vars primära syfte inte är laddning av elfordon.
+
+</section>
+
+</section>
+<section id="i-övrigt-har-ord-och-uttryck-i">
+
+## I övrigt har ord och uttryck i förordningen samma betydelse som i
+
+- kommissionens förordning [(EU) nr 651/2014](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32014R0651) av den 17 juni 2014 genom vilken vissa kategorier av stöd förklaras förenliga med den inre marknaden enligt artiklarna 107 och 108 i fördraget, och
+
+- kommissionens förordning [(EU) 2023/2831](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32831R2023) av den 13 december 2023 om tillämpningen av artiklarna 107 och 108 i fördraget om Europeiska unionens funktionssätt på stöd av mindre betydelse. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="förutsättningar-för-bidrag">
+
+## Förutsättningar för bidrag
+
+<section id="3" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+### 3 §
+
+Bidrag får endast ges för laddningspunkter som, när de har installerats,
+
+1. finns på en fastighet som den som ansöker om bidraget äger eller innehar med särskild rätt,
+
+2. är placerade vid en bostad eller en arbetsplats och är avsedda att huvudsakligen användas av dem som bor i bostaden eller av dem som är anställda på arbetsplatsen,
+
+3. är installerade av ett sådant elinstallationsföretag eller en sådan elinstallatör som avses i elsäkerhetslagen ([2016:732](https://selex.se/eli/sfs/2016/732)), och
+
+4. är förberedda för elmätning och debitering av elkostnad och utrustas med minst de uttag eller anslutningsdon för elfordon av typ 2 som beskrivs i standarden EN 62196-2 eller av typ Combo 2 som beskrivs i standarden EN 62196-3.
+
+</section>
+<section id="3" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 3 §
+
+Bidrag får endast ges för laddningspunkter som, när de har installerats,
+
+1. finns på en fastighet som den som ansöker om bidraget äger eller innehar med särskild rätt,
+
+2. är avsedda för att ladda elfordon som används av
+
+a) boende på eller vid fastigheten,
+
+b) besökare eller uppdragstagare till boende på eller vid fastigheten,
+
+c) en juridisk person som bedriver verksamhet på eller vid fastigheten,
+
+d) anställda hos en juridisk person som bedriver verksamhet på eller vid fastigheten eller uppdragstagare åt en sådan juridisk person, eller
+
+e) kunder, tjänstemottagare eller andra besökare till en juridisk person som bedriver verksamhet på eller vid fastigheten,
+
+3. är installerade av ett sådant elinstallationsföretag eller en sådan elinstallatör som avses i elsäkerhetslagen ([2016:732](https://selex.se/eli/sfs/2016/732)),
+
+4. är utformade i enlighet med
+
+a) de tekniska specifikationer som fastställts enligt artikel 21 och bilaga II i Europaparlamentets och rådets förordning [(EU) 2023/1804](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A31804R2023) av den 13 september 2023 om utbyggnad av infrastruktur för alternativa drivmedel och om upphävande av direktiv 2014/94/EU, eller
+
+b) europeiska standarder, om sådana tekniska specifikationer som avses i a inte fastställts, och
+
+5. är förberedda för elmätning och debitering av elkostnad. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="4" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+### /2014 eller i kommissionens förordning (EU) 2023/ 4 §
+
+Bidrag till företag får endast ges i enlighet med de villkor som anges i kapitel I och artikel 56 i kommissionens förordning (EU) nr 6512831. Förordning ([2024:381](https://selex.se/eli/sfs/2024/381)).
+
+</section>
+<section id="4" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 4 §
+
+Bidrag till företag får endast ges i enlighet med de villkor som anges i kapitel I och artikel 36a i kommissionens förordning [(EU) nr 651/2014](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32014R0651), om bidraget avser laddningspunkter som när de installerats är avsedda att användas för att ladda elfordon som används av boende, företaget eller företagets anställda eller uppdragstagare.
+
+I fall där bidraget avser laddningspunkter som när de har installerats är avsedda för att ladda elfordon som används av andra personer än de som anges i första stycket får bidrag till företag också lämnas i enlighet med kommissionens förordning [(EU) 2023/2831](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32831R2023). Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="4a" class="paragraf">
+
+### 4 a §
+
+Om uppgifter om ett stöd till ett företag ska offentliggöras enligt artikel 9 i kommissionens förordning [(EU) nr 651/2014](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32014R0651), får stödet endast beviljas om företaget samtycker till offentliggörandet. Förordning ([2021:1279](https://selex.se/eli/sfs/2021/1279)).
+
+</section>
+<section id="4b" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 4 b §
+
+Bidrag får inte ges till någon som
+
+1. är i likvidation, försatt i konkurs eller genomgår företagsrekonstruktion,
+
+2. har skatte- eller avgiftsskulder eller andra skulder som har överlämnats till Kronofogdemyndigheten och som vid indrivning handläggs som allmänt mål, eller
+
+3. har en skuld som inte betalats i rätt tid och som avser återkrav av bidrag som lämnats av Naturvårdsverket. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="5" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+### 5 §
+
+Bidrag får inte ges till åtgärder som
+
+1. måste genomföras för att uppfylla en skyldighet enligt lag eller annan författning eller enligt villkor i ett tillstånd, eller
+
+2. berättigar till bidrag enligt förordningen ([2017:1318](https://selex.se/eli/sfs/2017/1318)) om bidrag till privatpersoner för installation av laddningspunkt till elfordon.
+
+</section>
+<section id="5" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 5 §
+
+Bidrag får inte ges till åtgärder som
+
+1. måste genomföras för att uppfylla en skyldighet enligt lag eller annan författning eller enligt villkor i ett tillstånd, eller
+
+2. berättigar till skattereduktion för installation av grön teknik enligt [67 kap. inkomstskattelagen](https://selex.se/eli/sfs/1999/1229) ([1999:1229](https://selex.se/eli/sfs/1999/1229)). Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+
+</section>
+<section id="bidragsberättigande-kostnader">
+
+## Bidragsberättigande kostnader
+
+<section id="6" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+### 6 §
+
+Bidragsberättigande kostnader är material- och arbetskostnader för åtgärder som vidtas efter att denna förordning trätt i kraft och som behövs för att installera en laddningspunkt, såsom kostnader för laddbox och framdragning av el.
+
+Arbetskostnader är bidragsberättigande endast om de avser arbete som utförs av någon som är godkänd för F-skatt eller, i fråga om ett utländskt företag, har ett intyg eller en annan handling som visar att företaget genomgår motsvarande kontroll i fråga om skatter och avgifter i sitt hemland.
+
+</section>
+<section id="6" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 6 §
+
+Bidragsberättigande kostnader är material- och arbetskostnader för åtgärder som vidtas och som behövs för att installera en laddningspunkt, som kostnader för laddbox, framdragning av el och effektförsörjning. Som bidragsberättigande kostnader räknas inte kostnader för att installera en begagnad laddningspunkt.
+
+Arbetskostnader är bidragsberättigande endast om de avser arbete som utförs av någon som är godkänd för F-skatt, eller, i fråga om ett utländskt företag, har ett intyg eller annan handling som visar att företaget genomgår motsvarande kontroll i fråga om skatter och avgifter i sitt hemland. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="7" class="paragraf">
+
+### 7 §
+
+En kostnad för vilken offentligt stöd har getts är inte bidragsberättigande.
+
+</section>
+
+</section>
+<section id="bidragets-storlek">
+
+## Bidragets storlek
+
+<section id="8" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+### 8 §
+
+Bidrag får ges som ett engångsbelopp med högst 50 procent av de bidragsberättigande kostnaderna, dock högst 15 000 kronor per laddningspunkt.
+
+</section>
+<section id="8" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 8 §
+
+Bidrag får ges med högst 50 procent av de bidragsberättigande kostnaderna, dock högst 15 000 kronor per laddningspunkt. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="8a" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 8 a §
+
+Inom ramen för ett konkurrensutsatt förfarande får Naturvårdsverket bestämma att bidrag får ges med en högre andel av de bidragsberättigande kostnaderna och med ett högre belopp än vad som anges i [8 §](#8). Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+
+</section>
+<section id="ansökan-om-bidrag">
+
+## Ansökan om bidrag
+
+<section id="9" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+### 9 §
+
+En ansökan om bidrag ska innehålla
+
+1. uppgifter om sökanden och på vilken fastighet laddningspunkten ska installeras,
+
+2. uppgifter om när åtgärden har utförts eller är avsedd att utföras,
+
+3. uppgifter som visar att kraven i [3 §](#3) och [6 §](#6) andra stycket är uppfyllda,
+
+4. en förteckning över kostnaderna för att genomföra åtgärden och hur stor andel av kostnaderna som det söks bidrag för,
+
+5. specificerade skriftliga underlag som styrker kostnaden för de åtgärder som har utförts när ansökan görs, och
+
+6. en upplysning om huruvida sökanden har sökt eller fått annat statligt stöd eller stöd från Europeiska unionen för samma åtgärd.
+
+</section>
+<section id="9" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 9 §
+
+En ansökan om bidrag ska innehålla
+
+1. uppgifter om sökanden och på vilken fastighet laddningspunkten ska eller har installerats,
+
+2. uppgifter om när åtgärden har utförts eller är avsedd att utföras,
+
+3. uppgifter som visar att kraven i [3 §](#3) och [6 §](#6) andra stycket är uppfyllda eller ett intyg om att kraven kommer att uppfyllas,
+
+4. en förteckning över kostnaderna för att genomföra åtgärden och hur stor andel av kostnaderna som det söks bidrag för,
+
+5. specificerade skriftliga underlag som styrker kostnaden för de åtgärder som har utförts när ansökan görs, och
+
+6. en upplysning om huruvida sökanden har sökt eller fått annat statligt stöd eller stöd från Europeiska unionen för samma åtgärd.
+
+En ansökan som avser ett företag ska även innehålla uppgifter om företagets namn, antal anställda, årsomsättning och balansomslutning.
+
+Uppgifterna i ansökan ska lämnas på heder och samvete. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="9a" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 9 a §
+
+Naturvårdsverket får besluta att ansökningar som lämnas inom ramen för ett konkurrensutsatt förfarande ska innehålla andra uppgifter än de som anges i [9 §](#9). Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="10" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+### 10 §
+
+Ansökan ska vara skriftlig och lämnas elektroniskt till Naturvårdsverket i det formulär som Naturvårdsverket anvisar.
+
+Ansökan ska lämnas in senast sex månader efter att den åtgärd som ansökan avser har utförts.
+
+En ansökan som avser stöd enligt kommissionens förordning [(EU) nr 651/2014](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32014R0651) ska lämnas in innan arbetet med åtgärden har inletts.
+
+</section>
+<section id="10" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 10 §
+
+En ansökan ska vara skriftlig och lämnas elektroniskt till Naturvårdsverket i det formulär som Naturvårdsverket anvisar.
+
+En ansökan som avser bidrag enligt kommissionens förordning [(EU) nr 651/2014](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32014R0651) ska lämnas in innan arbetet med åtgärden har inletts. Andra ansökningar ska lämnas in senast sex månader efter att den åtgärd som ansökan avser har utförts. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="10a" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-06-01">
+
+### /2014 av den 23 juli 2014 om elektronisk identifiering och betrodda tjänster för elektroniska transaktioner på den inre marknaden och om upphävande av direktiv 1999/ 10 a §
+
+Ansökan ska undertecknas med en sådan avancerad elektronisk underskrift som avses i artikel 3 i Europaparlamentets och rådets förordning (EU) nr 91093/EG, i den ursprungliga lydelsen. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="11" class="paragraf">
+
+### 11 §
+
+Om ansökan avser bidrag som omfattas av kommissionens förordning [(EU) 2023/2831](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32831R2023), ska sökanden lämna en redogörelse för allt annat stöd
+
+1. av mindre betydelse som sökanden har tagit emot under den senaste treårsperioden, och
+
+2. som företaget tidigare ansökt om eller beviljats och som avser samma stödberättigande kostnader som ansökan omfattar. Förordning ([2024:381](https://selex.se/eli/sfs/2024/381)).
+
+</section>
+
+</section>
+<section id="konkurrensutsatta-anbudsförfar" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+## Konkurrensutsatta anbudsförfaranden
+
+<section id="11a" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 11 a §
+
+Naturvårdsverket får besluta att bidrag ska sökas genom ett konkurrensutsatt anbudsförfarande som uppfyller villkoren i artikel 2.38 och artikel 36a i kommissionens förordning [(EU) nr 651/2014](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32014R0651). Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="11b" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 11 b §
+
+Naturvårdsverket får besluta om hur urvalet mellan sökande ska göras vid ett konkurrensutsatt anbudsförfarande. Naturvårdsverket får också besluta att ytterligare krav än de som anges i [3 §](#3) ska gälla vid ett sådant förfarande.
+
+Naturvårdsverket ska offentliggöra urvalskriterierna och eventuella ytterligare krav innan förfarandet inleds. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="11c" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 11 c §
+
+I ärenden där bidrag ges efter ett konkurrensutsatt anbudsförfarande får en sökande rätta, förtydliga eller komplettera en ansökan eller en handling som lämnats in av sökanden tillsammans med ansökan endast om Naturvårdsverket tillåter eller begär det.
+
+En sådan tillåtelse eller begäran ska vara förenlig med principerna om likabehandling och öppenhet. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="11d" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 11 d §
+
+I ärenden där bidrag ges genom ett konkurrensutsatt anbudsförfarande ska Naturvårdsverket inte tillämpa det som föreskrivs om partsinsyn och kommunikation i 10 och [25 §](#25)§ förvaltningslagen ([2017:900](https://selex.se/eli/sfs/2017/900)). Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+
+</section>
+<section id="prövning-och-beslut-om-bidrag">
+
+## Prövning och beslut om bidrag
+
+<section id="12" class="paragraf">
+
+### 12 §
+
+Naturvårdsverket prövar frågor om bidrag.
+
+</section>
+<section id="12a" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 12 a §
+
+Naturvårdsverket får avslå en ansökan om bidrag, om Naturvårdsverket enligt [17 §](#17) har beslutat att inte betala ut ett tidigare beviljat bidrag eller enligt [19 §](#19) har beslutat att återkräva utbetalat bidrag på grund av omständigheter som hänför sig till sökanden eller till en företrädare med väsentligt inflytande över sökanden. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="13" class="paragraf">
+
+### 13 §
+
+I ett beslut att ge bidrag ska Naturvårdsverket ange
+
+1. att bidragsmottagaren, på begäran av myndigheten, ska lämna de uppgifter som krävs för uppföljning och utvärdering av bidraget, och
+
+2. de övriga villkor som behövs för att säkerställa att kraven enligt denna förordning uppfylls och att syftet med bidraget enligt [1 §](#1) tillgodoses.
+
+Om bidraget avser en åtgärd som inte är utförd, ska Naturvårdsverket i beslutet ange när åtgärden senast ska vara utförd.
+
+</section>
+<section id="13a" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-01-01">
+
+### 13 a §
+
+Om finansieringen helt eller delvis kommer från Europeiska unionen ska Naturvårdsverket i ett beslut att ge bidrag, utöver vad som anges i [13 §](#13), ange att bidragsmottagaren
+
+1. ska tillåta Europeiska kommissionen, Europeiska byrån för bedrägeribekämpning och Europeiska revisionsrätten att utöva sina rättigheter, däribland att genomföra utredningar, kontroller på plats och inspektioner, i enlighet med artikel 129.1 i Europaparlamentets och rådets förordning (EU, Euratom) 2018/1046 av den 18 juli 2018 om finansiella regler för unionens allmänna budget, om ändring av förordningarna [(EU) nr 1296/2013](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32013R1296), [(EU) nr 1301/2013](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32013R1301), [(EU) nr 1303/2013](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32013R1303), [(EU) nr 1304/2013](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32013R1304), [(EU) nr 1309/2013](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32013R1309), [(EU) nr 1316/2013](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32013R1316), [(EU) nr 223/2014](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32014R0223), [(EU) nr 283/2014](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32014R0283) och beslut nr 541/2014/EU samt om upphävande av förordning (EU, Euratom) nr 966/2012,
+
+2. ska se till att kraven i 1 även ställs på den som utför eller medverkar till arbetet med åtgärden,
+
+3. på begäran av Ekonomistyrningsverket ska lämna de uppgifter till myndigheten som krävs för att följa upp bidraget samt ge myndigheten möjlighet att besöka bidragsmottagaren och där ta del av information som behövs för uppföljningen,
+
+4. bevara dokumentation i enlighet med artikel 132 i Europaparlamentets och rådets förordning (EU, Euratom) 2018/1046, och
+
+5. lämna information om att åtgärden helt eller delvis finansieras av medel från Europeiska unionen, i enlighet med artikel 34.2 i Europaparlamentets och rådets förordning [(EU) 2021/241](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32021R0241) av den 12 februari 2021 om inrättande av faciliteten för återhämtning och resiliens. Förordning ([2021:1279](https://selex.se/eli/sfs/2021/1279)).
+
+</section>
+<section id="13a" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-01-01">
+
+### 13 a §
+
+Om finansieringen helt eller delvis kommer från Europeiska unionen ska Naturvårdsverket i ett beslut att ge bidrag, utöver vad som anges i [13 §](#13), ange att bidragsmottagaren
+
+1. ska tillåta Europeiska kommissionen, Europeiska byrån för bedrägeribekämpning och Europeiska revisionsrätten att utöva sina rättigheter, däribland att genomföra utredningar, kontroller på plats och inspektioner, i enlighet med artikel 129.1 i Europaparlamentets och rådets förordning (EU, Euratom) 2018/1046 av den 18 juli 2018 om finansiella regler för unionens allmänna budget, om ändring av förordningarna [(EU) nr 1296/2013](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32013R1296), [(EU) nr 1301/2013](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32013R1301), [(EU) nr 1303/2013](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32013R1303), [(EU) nr 1304/2013](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32013R1304), [(EU) nr 1309/2013](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32013R1309), [(EU) nr 1316/2013](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32013R1316), [(EU) nr 223/2014](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32014R0223), [(EU) nr 283/2014](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32014R0283) och beslut nr 541/2014/EU samt om upphävande av förordning (EU, Euratom) nr 966/2012,
+
+2. ska se till att kraven i 1 även ställs på den som utför eller medverkar till arbetet med åtgärden,
+
+3. på begäran av Statskontoret ska lämna de uppgifter till myndigheten som krävs för att följa upp bidraget samt ge myndigheten möjlighet att besöka bidragsmottagaren och där ta del av information som behövs för uppföljningen,
+
+4. bevara dokumentation i enlighet med artikel 132 i Europaparlamentets och rådets förordning (EU, Euratom) 2018/1046, och
+
+5. lämna information om att åtgärden helt eller delvis finansieras av medel från Europeiska unionen, i enlighet med artikel 34.2 i Europaparlamentets och rådets förordning [(EU) 2021/241](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32021R0241) av den 12 februari 2021 om inrättande av faciliteten för återhämtning och resiliens. Förordning ([2025:1226](https://selex.se/eli/sfs/2025/1226)).
+
+</section>
+
+</section>
+<section id="skyldighet-att-anmäla-ändrade" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+## Skyldighet att anmäla ändrade förhållanden
+
+<section id="13b" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 13 b §
+
+Den som ansöker om eller har beviljats bidrag enligt denna förordning ska snarast möjligt till Naturvårdsverket anmäla sådana ändrade förhållanden som kan påverka rätten till eller storleken på bidraget. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+
+</section>
+<section id="utbetalning-av-bidrag">
+
+## Utbetalning av bidrag
+
+<section id="14" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+### 14 §
+
+Ett bidrag får inte betalas ut innan den åtgärd som bidraget avser har utförts.
+
+</section>
+<section id="14" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 14 §
+
+Ett bidrag får betalas ut i omgångar. Högst 75 procent av bidragsbeloppet får dock betalas ut innan en åtgärd har slutförts. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="15" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+### 15 §
+
+Om Naturvårdsverket har beslutat att ge bidrag för en åtgärd som inte har utförts, ska en slutlig begäran om utbetalning av bidraget ha kommit in till Naturvårdsverket inom tre månader från det att åtgärden, enligt Naturvårdsverkets beslut, senast ska vara utförd. Till begäran om utbetalning ska bidragsmottagaren bifoga specificerade skriftliga underlag som styrker kostnaden.
+
+</section>
+<section id="15" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 15 §
+
+Om Naturvårdsverket har beslutat att ge bidrag för en åtgärd som inte har utförts, ska en slutlig begäran om utbetalning av bidraget ha kommit in till Naturvårdsverket inom tre månader från det att åtgärden enligt beslutet senast ska vara utförd. Till begäran om utbetalning ska bidragsmottagaren bifoga specificerade skriftliga underlag som styrker kostnaden.
+
+En begäran om utbetalning ska vara skriftlig och lämnas elektroniskt till Naturvårdsverket i det formulär som Naturvårdsverket anvisar. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="16" class="paragraf">
+
+### 16 §
+
+Ett bidrag enligt denna förordning som getts med stöd av kommissionens förordning [(EU) nr 651/2014](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32014R0651) får inte betalas ut till ett företag som är föremål för betalningskrav på grund av ett beslut av Europeiska kommissionen som förklarar att ett stöd beviljat av en svensk stödgivare är olagligt och oförenligt med den inre marknaden.
+
+</section>
+<section id="17" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+### 17 §
+
+Naturvårdsverket ska besluta att ett bidrag helt eller delvis inte ska betalas ut, om
+
+1. sökanden genom oriktiga uppgifter eller på annat sätt orsakat att bidraget getts felaktigt eller med för högt belopp,
+
+2. bidraget av annan orsak getts felaktigt eller med för högt belopp och mottagaren skäligen borde ha insett detta, eller
+
+3. villkoren för bidraget inte har följts.
+
+</section>
+<section id="17" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 17 §
+
+Naturvårdsverket ska besluta att ett bidrag helt eller delvis inte ska betalas ut, om
+
+1. sökanden genom att lämna oriktiga uppgifter eller på något annat sätt har orsakat att bidraget getts felaktigt eller med för högt belopp,
+
+2. bidraget av annan orsak getts felaktigt eller med ett för högt belopp och mottagaren skäligen borde ha insett detta,
+
+3. förhållandena som låg till grund för beslutet om bidrag har ändrats på ett sådant sätt som avses i [13 b §](#13b) och sökanden eller bidragsmottagaren inte har anmält det,
+
+4. sökanden eller bidragsmottagaren efter begäran från Naturvårdsverket inte har lämnat sådana uppgifter och handlingar som avses i [18 §](#18),
+
+5. ett villkor i beslutet inte har följts och avvikelsen inte är av mindre betydelse, eller
+
+6. tidigare utbetalat bidrag inte har utnyttjats eller inte har använts för det som det har beviljats för eller det finns anledning att anta att bidraget inte kommer att utnyttjas eller användas för det ändamål som det har beviljats för.
+
+Ett sådant beslut gäller omedelbart. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+
+</section>
+<section id="tillsyn-och-uppföljning" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+## Tillsyn och uppföljning
+
+<section id="18" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+### 18 §
+
+Naturvårdsverket utövar tillsyn över att villkoren för bidraget följs.
+
+</section>
+
+</section>
+<section id="kontroll-och-uppföljning" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+## Kontroll och uppföljning
+
+<section id="18" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 18 §
+
+Naturvårdsverket ska kontrollera att villkoren för bidrag som lämnats enligt denna förordning har följts.
+
+Om Naturvårdsverket begär det, ska bidragsmottagaren lämna de uppgifter och handlingar som behövs för att styrka att förutsättningarna för bidraget är uppfyllda eller för att myndigheten ska kunna pröva frågan om återbetalningsskyldighet. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+</section>
+<section id="18a" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-01-01">
+
+### 18 a §
+
+Om finansieringen helt eller delvis kommer från Europeiska unionen ska Ekonomistyrningsverket i revisionssyfte följa upp bidraget och begära in nödvändiga uppgifter från bidragsmottagaren. Förordning ([2021:1279](https://selex.se/eli/sfs/2021/1279)).
+
+</section>
+<section id="18a" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-01-01">
+
+### 18 a §
+
+Om finansieringen helt eller delvis kommer från Europeiska unionen ska Statskontoret i revisionssyfte följa upp bidraget och begära in nödvändiga uppgifter från bidragsmottagaren. Förordning ([2025:1226](https://selex.se/eli/sfs/2025/1226)).
+
+</section>
+
+</section>
+<section id="återbetalning-och-återkrav">
+
+## Återbetalning och återkrav
+
+<section id="19" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-02-01">
+
+### 19 §
+
+Mottagaren av ett bidrag som har betalats ut enligt denna förordning är återbetalningsskyldig, om
+
+1. det finns grund för det enligt [17 §](#17), eller
+
+2. bidraget helt eller delvis inte har utnyttjats eller använts för det ändamål som det har getts för.
+
+På det belopp som mottagaren av ett bidrag är återbetalningsskyldig för ska ränta enligt räntelagen ([1975:635](https://selex.se/eli/sfs/1975/635)) betalas.
+
+</section>
+<section id="19" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+### 19 §
+
+Mottagaren av ett bidrag som har betalats ut enligt denna förordning är återbetalningsskyldig, om
+
+1. förhållandena är sådana att bidrag inte ska betalas ut enligt [17 §](#17) första stycket 1-5, eller
+
+2. bidraget helt eller delvis inte har utnyttjats eller använts för det ändamål som det har getts för.
+
+</section>
+
+</section>
+<section id="ränta-ska-betalas-på-det-belop">
+
+## Ränta ska betalas på det belopp som en stödmottagare är återbetalningsskyldig för
+
+- från och med den dag som infaller en månad efter det att Naturvårdsverket har skickat ett krav på betalning med stöd av ett beslut enligt [20 §](#20) om återkrav, och
+
+- efter en räntesats som vid varje tidpunkt överstiger statens utlåningsränta med två procentenheter. Förordning ([2025:1456](https://selex.se/eli/sfs/2025/1456)).
+
+<section id="20" class="paragraf">
+
+### 20 §
+
+Om en bidragsmottagare är återbetalningsskyldig enligt [19 §](#19), ska Naturvårdsverket besluta att helt eller delvis kräva tillbaka bidraget tillsammans med ränta. Kravet eller räntan får helt eller delvis sättas ned om det finns särskilda skäl.
+
+</section>
+
+</section>
+<section id="upplysningar">
+
+## Upplysningar
+
+<section id="21" class="paragraf">
+
+### 21 §
+
+Bestämmelser om offentliggörande, rapportering och registerföring finns i [12 a §](#12a) lagen ([2013:388](https://selex.se/eli/sfs/2013/388)) om tillämpning av Europeiska unionens statsstödsregler och i förordningen ([2016:605](https://selex.se/eli/sfs/2016/605)) om tillämpning av Europeiska unionens statsstödsregler.
+
+</section>
+<section id="22" class="paragraf">
+
+### 22 §
+
+Om ansökan avser stöd som omfattas av kommissionens förordning [(EU) 2023/2831](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32831R2023), ska Naturvårdsverket lämna de upplysningar till företaget som framgår av artikel 7.4 i den förordningen. Förordning ([2024:381](https://selex.se/eli/sfs/2024/381)).
+
+</section>
+
+</section>
+<section id="bemyndigande">
+
+## Bemyndigande
+
+<section id="23" class="paragraf">
+
+### 23 §
+
+Naturvårdsverket får meddela föreskrifter om verkställigheten av denna förordning.
+
+</section>
+
+</section>
+<section id="överklagande">
+
+## Överklagande
+
+<section id="24" class="paragraf">
+
+### 24 §
+
+I [40 §](#40) förvaltningslagen ([2017:900](https://selex.se/eli/sfs/2017/900)) finns bestämmelser om överklagande till allmän förvaltningsdomstol. Andra beslut än beslut enligt 16, 17 och [20 §](#20)§ får dock inte överklagas. Förordning ([2024:381](https://selex.se/eli/sfs/2024/381)).
+
+
+</section>
+
+</section>
+<section id="övergångsbestämmelser">
+
+## Övergångsbestämmelser
+
+[2021:1279](https://selex.se/eli/sfs/2021/1279)
+
+1. Denna förordning träder i kraft den 18 januari 2022.
+
+2. Äldre bestämmelser gäller fortfarande för bidrag som har beviljats före ikraftträdandet.
+
+[2025:1456](https://selex.se/eli/sfs/2025/1456)
+
+1. Denna förordning träder i kraft den 1 juni 2026 i fråga om [10 a §](#10a) och i övrigt den 1 februari 2026.
+
+2. Äldre föreskrifter gäller fortfarande för ärenden där ansökan om bidrag har lämnats in till Naturvårdsverket före ikraftträdandet.
+
+</section>
+
+</article>

@@ -1,0 +1,533 @@
+---
+beteckning: "2025:986"
+rubrik: Lag om public service
+departement: Kulturdepartementet
+utfardad_datum: 2025-10-30
+ikraft_datum: 2025-12-02
+publicerad_datum: 2025-12-08
+forarbeten: - "PROP 2024/25:166"
+  - "BET 2025/26:KrU2"
+  - "RSKR 2025/26:15"
+pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/2025-10/SFS2025-986.pdf
+andringsforfattningar:
+  - beteckning: "2025:1448"
+    rubrik: Lag om ändring i lagen om public service
+    ikraft_datum: 2026-01-01
+    anteckningar: ändr. 5 kap. 4 §
+---
+<article selex:utfardad_datum="2025-10-30" selex:ikraft_datum="2025-12-02">
+
+# Lag om public service
+
+<section id="kap1" class="kapitel">
+
+## 1 kap. Inledande bestämmelser
+
+<section id="kap1.lagens-innehåll">
+
+### Lagens innehåll
+
+<section id="kap1.1" class="paragraf">
+
+#### 1 §
+
+Denna lag innehåller bestämmelser om
+
+- public service-uppdraget (2 kap.),
+
+- styrelseledamöter och verkställande direktör (3 kap.),
+
+- granskningen av program (4 kap.), och
+
+- finansieringen av uppdraget (5 kap.).
+
+</section>
+
+</section>
+<section id="kap1.uttryck-som-används-i-lagen">
+
+### Uttryck som används i lagen
+
+<section id="kap1.2" class="paragraf">
+
+#### 2 §
+
+I denna lag avses med
+
+1. public service-företag: företag som har i uppdrag att bedriva verksamhet enligt 2 kap. [1 §](#kap2.1), och
+
+2. program: innehållet i ljudradio, tv eller andra sådana överföringar av ljud, bild eller text som sker med hjälp av elektromagnetiska vågor.
+
+</section>
+
+</section>
+<section id="kap1.andra-bestämmelser-om-ljudradi">
+
+### Andra bestämmelser om ljudradio och tv
+
+<section id="kap1.3" class="paragraf">
+
+#### 3 §
+
+Bestämmelser om ljudradio och tv finns även i radio- och tv-lagen ([2010:696](https://selex.se/eli/sfs/2010/696)).
+
+</section>
+
+</section>
+
+</section>
+<section id="kap2" class="kapitel">
+
+## 2 kap. Public service-uppdraget
+
+<section id="kap2.vad-uppdraget-består-i">
+
+### Vad uppdraget består i
+
+<section id="kap2.1" class="paragraf">
+
+#### 1 §
+
+Public service-uppdraget består i att bedriva radio- och tv-verksamhet i allmänhetens tjänst och verksamhet som är direkt anknuten till denna, enligt bestämmelserna i denna lag, regeringens beslut med stöd av denna lag och regeringens beslut med stöd av radio- och tv-lagen ([2010:696](https://selex.se/eli/sfs/2010/696)).
+
+</section>
+
+</section>
+<section id="kap2.hur-uppdraget-ska-bedrivas">
+
+### Hur uppdraget ska bedrivas
+
+<section id="kap2.2" class="paragraf">
+
+#### 2 §
+
+Public service-uppdraget ska bedrivas självständigt i förhållande till såväl staten som ekonomiska, politiska och andra intressen och maktsfärer i samhället, och verksamheten ska präglas av oberoende och stark integritet.
+
+</section>
+
+</section>
+<section id="kap2.hur-uppdraget-ges">
+
+### Hur uppdraget ges
+
+<section id="kap2.3" class="paragraf">
+
+#### 3 §
+
+Riksdagen beslutar för en period om åtta år om innehållet i public service-uppdraget och om tilldelningen av avgiftsmedel. I enlighet med riksdagens beslut, beslutar regeringen public service-uppdraget. Regeringens beslut ska innehålla de villkor enligt [8 §](#kap2.8) som ska gälla.
+
+</section>
+<section id="kap2.4" class="paragraf">
+
+#### 4 §
+
+Innan regeringen fattar ett beslut enligt [3 §](#kap2.3) ska det public service- företag som beslutet avser ges tillfälle att yttra sig över villkoren i beslutet. Beslutet får inte innehålla andra programrelaterade villkor än sådana som public service-företaget har godtagit.
+
+</section>
+
+</section>
+<section id="kap2.krav-på-programverksamheten">
+
+### Krav på programverksamheten
+
+<section id="kap2.5" class="paragraf">
+
+#### 5 §
+
+Programverksamheten ska
+
+1. som helhet präglas av det demokratiska statsskickets grundidéer och principen om alla människors lika värde och den enskilda människans frihet och värdighet, och
+
+2. utövas opartiskt och sakligt och med beaktande av en vidsträckt yttrandefrihet och informationsfrihet.
+
+</section>
+
+</section>
+<section id="kap2.förbud-mot-visst-innehåll">
+
+### Förbud mot visst innehåll
+
+<section id="kap2.6" class="paragraf">
+
+#### 6 §
+
+Program får inte
+
+1. innehålla reklam,
+
+2. innehålla produktplacering,
+
+3. gynna kommersiella intressen på ett sådant sätt som avses i bestämmelserna om otillbörligt kommersiellt gynnande i 5 kap. [5 §](#kap5.5) och 14 kap. [2 §](#kap14.2) radio- och tv-lagen ([2010:696](https://selex.se/eli/sfs/2010/696)), eller
+
+4. innehålla sådana meddelanden som avses i bestämmelserna om åsiktsannonser i 5 kap. [6 §](#kap5.6) och 14 kap. [3 §](#kap14.3) radio- och tv- lagen.
+
+</section>
+
+</section>
+<section id="kap2.förbud-mot-villkor-om-särskild">
+
+### Förbud mot villkor om särskild betalning
+
+<section id="kap2.7" class="paragraf">
+
+#### 7 §
+
+Program ska kunna tas emot av allmänheten utan villkor om särskild betalning.
+
+</section>
+
+</section>
+<section id="kap2.villkor-som-regeringen-får-stä">
+
+### Villkor som regeringen får ställa upp
+
+<section id="kap2.8" class="paragraf">
+
+#### 8 §
+
+Regeringens beslut enligt [3 §](#kap2.3) får innehålla villkor om
+
+1. rättelse och genmäle,
+
+2. hänsyn till radions och tv:ns särskilda genomslagskraft,
+
+3. att i programverksamheten respektera en enskilds privatliv,
+
+4. ett mångsidigt programutbud,
+
+5. andra annonser än reklam och åsiktsannonser och förbud mot sådana annonser,
+
+6. sponsring och förbud mot sponsring,
+
+7. undantag från förbudet i [6 §](#kap2.6) 1 när det gäller reklam för egen verksamhet eller för verksamhet från ett annat public service-företag,
+
+8. krav på tillgänglighet för personer med funktionsnedsättning,
+
+9. förhandsprövning av nya tjänster,
+
+10. ramar för verksamhet och organisation,
+
+11. användning av avgiftsmedel,
+
+12. redovisning och revision,
+
+13. beredskapsarbete och beredskapsplan för fredstida kriser och höjd beredskap samt verksamhet och organisation vid höjd beredskap,
+
+14. säkerhet vid produktion och distribution av program,
+
+15. att kostnadsfritt sända och på annat sätt förmedla meddelanden som avses i lagen ([2023:407](https://selex.se/eli/sfs/2023/407)) om viktigt meddelande till allmänheten, och
+
+16. att kostnadsfritt sända andra meddelanden som är av vikt för allmänheten, om en myndighet begär det.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap3" class="kapitel">
+
+## 3 kap. Styrelseledamöter och verkställande direktör
+
+<section id="kap3.bolagsordningens-innehåll">
+
+### Bolagsordningens innehåll
+
+<section id="kap3.1" class="paragraf">
+
+#### /1083 av den 11 april 2024 om fastställande av en gemensam ram för medietjänster på den inre marknaden och om ändring av direktiv 2010/ 1 §
+
+Ett public service-företags bolagsordning ska, utöver det som följer av [3 kap. 1-3 §§ aktiebolagslagen](https://selex.se/eli/sfs/2005/551#kap3.1) ([2005:551](https://selex.se/eli/sfs/2005/551)), innehålla föreskrifter om förfaranden för att utse styrelseledamöter och verkställande direktör samt kriterier för sådana uppdrag i enlighet med artikel 5.2 andra stycket i Europaparlamentets och rådets förordning (EU) 202413/EU (europeisk mediefrihetsförordning).
+
+Föreskrifterna ska inte omfatta arbetstagarrepresentanter som utses enligt lagen ([1987:1245](https://selex.se/eli/sfs/1987/1245)) om styrelserepresentation för de privatanställda.
+
+</section>
+
+</section>
+<section id="kap3.prövning-av-ett-beslut-om-entl">
+
+### Prövning av ett beslut om entledigande i förtid
+
+<section id="kap3.2" class="paragraf">
+
+#### 2 §
+
+Den som genom ett beslut av bolagsstämman eller styrelsen har entledigats från ett uppdrag som styrelseledamot eller verkställande direktör innan förordnandetiden har löpt ut, får föra talan om att beslutet ska upphävas. Beslutet ska upphävas om det inte uppfyller förutsättningarna i artikel 5.2 tredje stycket i Europaparlamentets och rådets förordning [(EU) 2024/1083](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A31083R2024).
+
+Talan ska väckas vid allmän domstol inom tre månader från dagen för beslutet. Om talan inte väcks inom denna tid, är rätten att föra talan förlorad.
+
+</section>
+
+</section>
+<section id="kap3.registrering">
+
+### Registrering
+
+<section id="kap3.3" class="paragraf">
+
+#### 3 §
+
+Ett beslut att entlediga någon från ett uppdrag som styrelseledamot eller verkställande direktör innan förordnandetiden har löpt ut får registreras i aktiebolagsregistret trots att beslutet inte uppfyller förutsättningarna i 5.2 tredje stycket i Europaparlamentets och rådets förordning [(EU) 2024/1083](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A31083R2024), om det enligt [2 §](#kap3.2) andra stycket inte längre är möjligt att föra talan mot beslutet.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap4" class="kapitel">
+
+## 4 kap. Granskningen av program
+
+<section id="kap4.vad-granskningen-omfattar">
+
+### Vad granskningen omfattar
+
+<section id="kap4.1" class="paragraf">
+
+#### 1 §
+
+Granskningsnämnden för radio och tv granskar i efterhand om program som ett public service-företag har sänt till eller tillhandahållit allmänheten står i överensstämmelse med denna lag och de programrelaterade villkor som har beslutats med stöd av denna lag.
+
+</section>
+
+</section>
+<section id="kap4.skyldighet-att-lämna-upplysnin">
+
+### Skyldighet att lämna upplysningar, handlingar och exemplar av program
+
+<section id="kap4.2" class="paragraf">
+
+#### 2 §
+
+På begäran av Mediemyndigheten eller granskningsnämnden för radio och tv ska ett public service-företag till myndigheten eller nämnden lämna
+
+1. de upplysningar och handlingar som behövs för granskningen,
+
+2. sådana inspelningar av program som avses i 16 kap. [11 §](#kap16.11) radio- och tv-lagen ([2010:696](https://selex.se/eli/sfs/2010/696)) och andra exemplar av ett program som behövs för granskningen, och
+
+3. de upplysningar som behövs för bedömningen av storleken på den särskilda avgift som kan åläggas enligt [5 §](#kap4.5).
+
+</section>
+<section id="kap4.3" class="paragraf">
+
+#### 3 §
+
+Om en begäran enligt [2 §](#kap4.2) inte följs får Mediemyndigheten eller granskningsnämnden för radio och tv förelägga public service-företaget att fullgöra sin skyldighet.
+
+Ett beslut om föreläggande får förenas med vite.
+
+</section>
+
+</section>
+<section id="kap4.offentliggörande-av-beslut">
+
+### Offentliggörande av beslut
+
+<section id="kap4.4" class="paragraf">
+
+#### 4 §
+
+Om granskningsnämnden för radio och tv finner att ett public service-företag har brutit mot 2 kap. [5 §](#kap2.5) 2 eller mot villkor som har beslutats med stöd av 2 kap. [8 §](#kap2.8) 1-4, 15 eller 16, får nämnden förelägga företaget att offentliggöra nämndens beslut på lämpligt sätt. Ett sådant beslut får inte innebära att offentliggörandet av beslutet ska göras i ett visst program.
+
+Ett beslut om föreläggande får förenas med vite.
+
+</section>
+
+</section>
+<section id="kap4.skyldighet-att-betala-en-särsk">
+
+### Skyldighet att betala en särskild avgift
+
+<section id="kap4.5" class="paragraf">
+
+#### 5 §
+
+Om ett public service-företag bryter mot 2 kap. [6 §](#kap2.6) eller ett villkor som har beslutats med stöd av 2 kap. [8 §](#kap2.8) 5-7, tillämpas bestämmelserna om särskild avgift i 17 kap. 5 och 6- [8 §](#kap4.8)§ och 19 kap. [4 §](#kap19.4) radio- och tv-lagen ([2010:696](https://selex.se/eli/sfs/2010/696)).
+
+</section>
+
+</section>
+<section id="kap4.beslut-som-gäller-omedelbart">
+
+### Beslut som gäller omedelbart
+
+<section id="kap4.6" class="paragraf">
+
+#### 6 §
+
+Beslut om förelägganden att lämna upplysningar och handlingar enligt [2 §](#kap4.2) 1 och [3 §](#kap4.3) och förelägganden om offentliggörande av beslut enligt [4 §](#kap4.4) gäller omedelbart, om inte något annat anges i beslutet.
+
+</section>
+
+</section>
+<section id="kap4.överklagande">
+
+### Överklagande
+
+<section id="kap4.7" class="paragraf">
+
+#### 7 §
+
+Ett beslut om föreläggande enligt 3 eller [4 §](#kap4.4) som har förenats med vite får överklagas till allmän förvaltningsdomstol. Andra beslut enligt denna lag får inte överklagas.
+
+Prövningstillstånd krävs vid överklagande till kammarrätten.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap5" class="kapitel">
+
+## 5 kap. Finansieringen av uppdraget
+
+<section id="kap5.verksamhet-som-finansieras-med">
+
+### Verksamhet som finansieras med public service-avgift
+
+<section id="kap5.1" class="paragraf">
+
+#### 1 §
+
+En public service-avgift ska finansiera den verksamhet som framgår av 2 kap. [1 §](#kap2.1). Avgiften får inte finansiera någon annan verksamhet.
+
+</section>
+
+</section>
+<section id="kap5.årlig-tilldelning-av-avgiftsme">
+
+### Årlig tilldelning av avgiftsmedel
+
+<section id="kap5.2" class="paragraf">
+
+#### 2 §
+
+I enlighet med ett beslut om tilldelning av avgiftsmedel enligt 2 kap. [3 §](#kap2.3) tilldelar riksdagen årligen avgiftsmedel för den verksamhet som framgår av 2 kap. [1 §](#kap2.1).
+
+</section>
+
+</section>
+<section id="kap5.vem-som-ska-betala-public-serv">
+
+### Vem som ska betala public service-avgift
+
+<section id="kap5.3" class="paragraf">
+
+#### 3 §
+
+Den som är obegränsat skattskyldig enligt [3 kap. 3-5 §§ inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap3.3) ([1999:1229](https://selex.se/eli/sfs/1999/1229)) och som vid beskattningsårets ingång har fyllt 18 år är skyldig att betala public service- avgift.
+
+</section>
+
+</section>
+<section id="kap5.hur-public-service-avgiften-be">
+
+### Hur public service-avgiften beräknas
+
+<section id="kap5.4" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-01-01">
+
+#### 4 §
+
+Underlaget för public service-avgiften är den avgiftsskyldiges beskattningsbara förvärvsinkomst enligt [1 kap. 5 § inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap1.5) ([1999:1229](https://selex.se/eli/sfs/1999/1229)).
+
+Underlaget ska uppgå till högst 1,55 gånger det inkomstbasbelopp enligt [58 kap. 26 och 27 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap58.26) som gäller för beskattningsåret.
+
+</section>
+<section id="kap5.4" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-01-01">
+
+#### 4 §
+
+Underlaget för public service-avgiften är den avgiftsskyldiges beskattningsbara förvärvsinkomst enligt [1 kap. 5 § inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap1.5) ([1999:1229](https://selex.se/eli/sfs/1999/1229)).
+
+Underlaget ska uppgå till högst 1,42 gånger det inkomstbasbelopp enligt [58 kap. 26 och 27 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap58.26) som gäller för beskattningsåret. Lag ([2025:1448](https://selex.se/eli/sfs/2025/1448)).
+
+</section>
+<section id="kap5.5" class="paragraf">
+
+#### 5 §
+
+Public service-avgiften är 1 procent av avgiftsunderlaget enligt [4 §](#kap5.4).
+
+När skyldigheten att betala public service-avgift upphör
+
+</section>
+<section id="kap5.6" class="paragraf">
+
+#### 6 §
+
+Public service-avgift ska betalas till och med det år den avgiftsskyldige avlider. Det som skulle ha gällt för den avlidne ska för dödsåret tillämpas för dödsboet.
+
+</section>
+
+</section>
+<section id="kap5.förfaranderegler">
+
+### Förfaranderegler
+
+<section id="kap5.7" class="paragraf">
+
+#### 7 §
+
+Bestämmelser om förfarandet vid uttag av public service- avgiften finns i skatteförfarandelagen ([2011:1244](https://selex.se/eli/sfs/2011/1244)).
+
+</section>
+
+</section>
+<section id="kap5.överföring-och-förvaltning-av">
+
+### Överföring och förvaltning av avgiftsmedel
+
+<section id="kap5.8" class="paragraf">
+
+#### 8 §
+
+De avgiftsmedel som Skatteverket får in ska föras över till ett räntebärande konto i Riksgäldskontoret (public service-kontot).
+
+</section>
+<section id="kap5.9" class="paragraf">
+
+#### 9 §
+
+Kammarkollegiet ska förvalta avgiftsmedlen på public service-kontot.
+
+</section>
+<section id="kap5.10" class="paragraf">
+
+#### 10 §
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela ytterligare föreskrifter om överföring och förvaltning av avgiftsmedlen.
+
+
+</section>
+
+</section>
+<section id="kap5.övergångsbestämmelser" selex:status="upphavd" selex:upphavd="true">
+
+### Övergångsbestämmelser
+
+[2025:986](https://selex.se/eli/sfs/2025/986)
+
+1. Denna lag träder i kraft den 2 december 2025.
+
+2. Lagen tillämpas första gången i fråga om public service- uppdrag som avser tid efter den 31 december 2025, program som sänds eller tillhandahålls efter den 31 december 2025 och public service-avgift som avser tid efter den 31 december 2025.
+
+3. Genom lagen upphävs lagen ([2018:1893](https://selex.se/eli/sfs/2018/1893)) om finansiering av radio och tv i allmänhetens tjänst vid utgången av 2025.
+
+4. Den upphävda lagen gäller dock fortfarande för public service-avgift som avser tid före den 1 januari 2026.
+
+5. Punkterna 3 och 4 i ikraftträdande- och övergångsbestämmelserna till den upphävda lagen ska fortsätta att gälla för ärenden om radio- och tv-avgift som har inletts före den 1 januari 2019.
+
+6. Ett beslut av riksdagen som avser förutsättningar och villkor för public service-företagens verksamhet och tilldelning av avgiftsmedel enligt [2 §](#kap5.2) första stycket i den upphävda lagen för tid efter den 31 december 2025 ska vid tillämpning av denna lag anses vara ett beslut enligt 2 kap. [3 §](#kap2.3).
+
+7. Ett beslut av riksdagen enligt [2 §](#kap5.2) andra stycket i den upphävda lagen som avser tid efter den 31 december 2025 ska vid tillämpning av denna lag anses vara ett beslut enligt 5 kap. [2 §](#kap5.2).
+
+[2025:1448](https://selex.se/eli/sfs/2025/1448)
+
+1. Denna lag träder i kraft den 1 januari 2026.
+
+2. Äldre föreskrifter gäller fortfarande för public service- avgift som avser tid före ikraftträdandet.
+
+</section>
+
+</section>
+
+</article>

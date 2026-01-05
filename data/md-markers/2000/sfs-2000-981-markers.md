@@ -1,0 +1,379 @@
+---
+beteckning: "2000:981"
+rubrik: Lag om fördelning av socialavgifter
+departement: Finansdepartementet
+utfardad_datum: 2000-11-23
+ikraft_datum: 2001-01-01
+publicerad_datum: 2026-01-02
+forarbeten: - "PROP 2000/01:7"
+  - "BET 2000/01:SkU4"
+  - "RSKR 2000/01:32"
+pdf_url: https://rkrattsdb.gov.se/SFSdoc/00/000981.pdf
+andringsforfattningar:
+  - beteckning: "2001:1119"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2002-01-01
+    anteckningar: "ändr. 6, 7 §§"
+  - beteckning: "2001:1172"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2002-01-01
+    anteckningar: "ändr. 11, 13 §§"
+  - beteckning: "2002:51"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2002-07-01
+    anteckningar: ändr. 6 §
+  - beteckning: "2002:325"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2002-07-01
+    anteckningar: ändr. 7 §
+  - beteckning: "2002:217"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2003-01-01
+    anteckningar: "ändr. 3, 8 §§"
+  - beteckning: "2003:731"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2004-01-01
+    anteckningar: ändr. 12 §
+  - beteckning: "2003:1216"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2004-01-01
+    anteckningar: ändr. 4 §
+  - beteckning: "2004:850"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2005-01-01
+    anteckningar: "ändr. 4, 11, 12, 14 §§"
+  - beteckning: "2004:1245"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2005-01-01
+    anteckningar: ändr. 3 §
+  - beteckning: "2006:1346"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2007-01-01
+    anteckningar: "ändr. 3, 11, 13 §§"
+  - beteckning: "2007:287"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2007-07-01
+    anteckningar: "ändr. 11, 13 §§"
+  - beteckning: "2009:1004"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2010-01-01
+    anteckningar: ändr. 14 §
+  - beteckning: "2010:437"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2010-07-01
+    anteckningar: "ändr. 13 §, rubr. närmast före 13 §"
+  - beteckning: "2010:1283"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2011-01-01
+    anteckningar: "ändr. 3, 4, 5, 6, 7, 8, 10 §§"
+  - beteckning: "2011:1515"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2012-01-01
+    anteckningar: ändr. 4 §
+  - beteckning: "2011:1286"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2012-01-01
+    anteckningar: ändr. 12 §
+  - beteckning: "2011:1404"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2012-01-01
+    anteckningar: "ändr. 7, 11 §§"
+  - beteckning: "2013:962"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2014-01-01
+    anteckningar: ändr. 11 §
+  - beteckning: "2023:751"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2024-01-01
+    anteckningar: "ändr. 11, 13 §§"
+  - beteckning: "2024:514"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2025-10-01
+    anteckningar: ändr. 9 §
+  - beteckning: "2025:383"
+    rubrik: Lag om ändring i lagen om fördelning av socialavgifter
+    ikraft_datum: 2026-01-01
+    anteckningar: ändr. 6 §
+---
+<article selex:utfardad_datum="2000-11-23" selex:ikraft_datum="2001-01-01">
+
+# Lag om fördelning av socialavgifter
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+Denna lag innehåller bestämmelser om fördelning av socialavgifterna enligt socialavgiftslagen ([2000:980](https://selex.se/eli/sfs/2000/980)) för finansiering av systemen för social trygghet.
+
+</section>
+<section id="2" class="paragraf">
+
+### 2 §
+
+Termer och uttryck som används i denna lag har samma betydelse som i socialavgiftslagen ([2000:980](https://selex.se/eli/sfs/2000/980)).
+
+</section>
+<section id="sjukförsäkringsavgifter">
+
+## Sjukförsäkringsavgifter
+
+<section id="3" class="paragraf">
+
+### 3 §
+
+Sjukförsäkringsavgifter ska finansiera kostnader för följande ersättningar som utges enligt socialförsäkringsbalken
+
+1. graviditetspenning enligt 10 kap., sjukpenning och ersättning för merkostnader för resor enligt 27 kap. samt ersättningar enligt 110 kap. [30 §](#kap110.30) för kostnader för utredning m.m. i ärenden om sjukdom och rehabilitering,
+
+2. rehabiliteringspenning och andra ersättningar enligt 31 kap., och
+
+3. inkomstrelaterad sjukersättning och inkomstrelaterad aktivitetsersättning enligt 34 kap. Lag ([2010:1283](https://selex.se/eli/sfs/2010/1283)).
+
+</section>
+<section id="4" class="paragraf">
+
+### 4 §
+
+Sjukförsäkringsavgifter ska också finansiera
+
+1. Centrala studiestödsnämndens kostnader med anledning av att studielån som avser en sjukperiod inte behöver återbetalas enligt studiestödslagen ([1999:1395](https://selex.se/eli/sfs/1999/1395)) eller bestämmelser som har meddelats med stöd av den lagen,
+
+2. kostnader för närståendepenning enligt [47 kap. socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110),
+
+3. Försäkringskassans kostnader enligt lagen ([1991:1047](https://selex.se/eli/sfs/1991/1047)) om sjuklön,
+
+4. vissa av Försäkringskassans förvaltningskostnader, och
+
+5. sådana statliga ålderspensionsavgifter enligt lagen ([1998:676](https://selex.se/eli/sfs/1998/676)) om statlig ålderspensionsavgift som betalas för förmåner enligt 1 och 2 ovan samt [3 §](#3). Lag ([2011:1515](https://selex.se/eli/sfs/2011/1515)).
+
+</section>
+
+</section>
+<section id="föräldraförsäkringsavgifter">
+
+## Föräldraförsäkringsavgifter
+
+<section id="5" class="paragraf">
+
+### 5 §
+
+Föräldraförsäkringsavgifter ska finansiera
+
+1. föräldrapenningsförmåner enligt 11–[13 kap. socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110),
+
+2. kostnader för administration av föräldrapenningsförmåner, och
+
+3. sådana statliga ålderspensionsavgifter enligt lagen ([1998:676](https://selex.se/eli/sfs/1998/676)) om statlig ålderspensionsavgift som betalas för föräldrapenningsförmåner. Lag ([2010:1283](https://selex.se/eli/sfs/2010/1283)).
+
+</section>
+
+</section>
+<section id="ålderspensionsavgifter">
+
+## Ålderspensionsavgifter
+
+<section id="6" class="paragraf">
+
+### 6 §
+
+Den andel av influtna ålderspensionsavgifter som beräknas utgöra avgifter för inkomster som överstiger 8,07 gånger det för året gällande inkomstbasbeloppet enligt [58 kap. 26 och 27 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap58.26) ska föras till staten.
+
+Den andel av avgifterna som beräknas motsvara pensionsrätt för premiepension för samma år ska föras till Riksgäldskontoret för tillfällig förvaltning enligt [64 kap. 15 och 16 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap64.15).
+
+Återstoden av avgifterna ska föras till Andra-Fjärde AP- fonderna för förvaltning enligt lagen ([2000:192](https://selex.se/eli/sfs/2000/192)) om allmänna pensionsfonder (AP-fonder). Lag ([2025:383](https://selex.se/eli/sfs/2025/383)).
+
+</section>
+<section id="7" class="paragraf">
+
+### 7 §
+
+Beräknade andelar av ålderspensionsavgifter enligt [6 §](#6) ska stämmas av mot de slutliga avgifter som avser fastställda pensionsrätter för premiepension och inkomster som överstiger 8,07 gånger det för året gällande inkomstbasbeloppet enligt [58 kap. 26 och 27 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap58.26).
+
+Skillnaden mellan beräknade belopp och de belopp som slutligt framräknas för det aktuella året ska regleras vid en kommande överföring.
+
+Medel som regleras gentemot staten ska beräknas med sådan ränta som anges i [65 kap. 3 § skatteförfarandelagen](https://selex.se/eli/sfs/2011/1244#kap65.3) ([2011:1244](https://selex.se/eli/sfs/2011/1244)). Medel som regleras gentemot Riksgäldskontoret ska beräknas med tillägg av sådan avkastning som avses i [64 kap. 16 § första stycket socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap64.16). Lag ([2011:1404](https://selex.se/eli/sfs/2011/1404)).
+
+Efterlevandepensionsavgifter
+
+</section>
+<section id="8" class="paragraf">
+
+### 8 §
+
+Efterlevandepensionsavgifter ska finansiera
+
+1. inkomstgrundad efterlevandepension och änkepension enligt socialförsäkringsbalken, och
+
+2. kostnader för administration av pension enligt 1. Lag ([2010:1283](https://selex.se/eli/sfs/2010/1283)).
+
+</section>
+
+</section>
+<section id="arbetsmarknadsavgifter">
+
+## Arbetsmarknadsavgifter
+
+<section id="9" class="paragraf">
+
+### 9 §
+
+Arbetsmarknadsavgifter ska finansiera
+
+1. arbetslöshetsersättning enligt lagen ([2024:506](https://selex.se/eli/sfs/2024/506)) om arbetslöshetsförsäkring och kostnader för tillsyn av utbetalning av sådan ersättning enligt lagen ([1997:239](https://selex.se/eli/sfs/1997/239)) om arbetslöshetskassor,
+
+2. aktivitetsstöd till den som deltar i ett arbetsmarknadspolitiskt program, dock inte aktivitetsstöd med grundbelopp,
+
+3. kostnader enligt lönegarantilagen ([1992:497](https://selex.se/eli/sfs/1992/497)), och
+
+4. sådana statliga ålderspensionsavgifter enligt lagen ([1998:676](https://selex.se/eli/sfs/1998/676)) om statlig ålderspensionsavgift som betalas på ersättningar enligt 1-3. Lag ([2024:514](https://selex.se/eli/sfs/2024/514)).
+
+</section>
+
+</section>
+<section id="arbetsskadeavgifter">
+
+## Arbetsskadeavgifter
+
+<section id="10" class="paragraf">
+
+### 10 §
+
+Arbetsskadeavgifter ska finansiera
+
+1. ersättningar från arbetsskadeförsäkringen enligt 40–42 samt 87 och [88 kap. socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110),
+
+2. kostnader för administration av ersättningar enligt 1, och
+
+3. sådana statliga ålderspensionsavgifter enligt lagen ([1998:676](https://selex.se/eli/sfs/1998/676)) om statlig ålderspensionsavgift som betalas på ersättningar enligt 1. Lag ([2010:1283](https://selex.se/eli/sfs/2010/1283)).
+
+</section>
+
+</section>
+<section id="fördelning-av-arbetsgivaravgif">
+
+## Fördelning av arbetsgivaravgifter
+
+<section id="11" class="paragraf">
+
+### 11 §
+
+Influtna arbetsgivaravgifter ska fördelas mellan avgiftsändamålen enligt beslut om arbetsgivaravgifter som följer av [53 kap. skatteförfarandelagen](https://selex.se/eli/sfs/2011/1244) ([2011:1244](https://selex.se/eli/sfs/2011/1244)). Avdrag som görs enligt [8 §](#8) lagen ([2023:747](https://selex.se/eli/sfs/2023/747)) om särskilt avdrag vid beräkning av arbetsgivaravgifter och allmän löneavgift för personer som arbetar med forskning eller utveckling och avdrag som görs enligt [5 §](#5) lagen ([2001:1170](https://selex.se/eli/sfs/2001/1170)) om särskilda avdrag i vissa fall vid avgiftsberäkningen enligt lagen ([1994:1920](https://selex.se/eli/sfs/1994/1920)) om allmän löneavgift och socialavgiftslagen ([2000:980](https://selex.se/eli/sfs/2000/980)) ska i första hand avse arbetsmarknadsavgiften och därefter i angiven ordning sjukförsäkringsavgiften, föräldraförsäkringsavgiften, arbetsskadeavgiften och efterlevandepensionsavgiften.
+
+Bestämmelserna i första stycket ska tillämpas också på avgifts- och räntebelopp som betalas ut till arbetsgivare.
+
+Regeringen eller den myndighet som regeringen bestämmer meddelar föreskrifter om fördelningen. Lag ([2023:751](https://selex.se/eli/sfs/2023/751)).
+
+</section>
+
+</section>
+<section id="omföring-av-egenavgifter">
+
+## Omföring av egenavgifter
+
+<section id="12" class="paragraf">
+
+### 12 §
+
+Försäkringskassan får varje år tillgodoföra sig ett visst belopp från varje inkomsttitel på statsbudgeten där egenavgifter redovisats. Beloppet motsvarar summan av de under det föregående året debiterade egenavgifterna minskad med summan av de avgifter som under samma år satts ned eller återbetalats.
+
+Försäkringskassan får under respektive period om tolv månader som preliminär skatt betalas som förskott på belopp enligt första stycket tillgodoföra sig 10,3 procent av den preliminära skatt som debiterats fysiska personer före den 1 februari under perioden. Förskottet tillgodoförs med en tolftedel varje månad. Skatteverket ska varje år senast den 15 februari lämna Försäkringskassan uppgift om summan av den före den 1 februari samma år debiterade preliminära skatten för fysiska personer.
+
+Om Försäkringskassan under en sådan tolvmånadersperiod som anges i andra stycket tillgodoförts förskott som överstiger beloppet enligt första stycket ska skillnaden regleras genom avräkning på belopp som närmast därefter ska tillgodoföras enligt första eller andra stycket. Lag ([2011:1286](https://selex.se/eli/sfs/2011/1286)).
+
+</section>
+
+</section>
+<section id="avdrag-vid-beräkning-av-egenav">
+
+## Avdrag vid beräkning av egenavgifter
+
+<section id="13" class="paragraf">
+
+### 13 §
+
+Avdrag enligt [3 §](#3) lagen ([2023:748](https://selex.se/eli/sfs/2023/748)) om särskilt avdrag vid beräkning av egenavgifter och allmän löneavgift i vissa fall och [6 §](#6) lagen ([2001:1170](https://selex.se/eli/sfs/2001/1170)) om särskilda avdrag i vissa fall vid avgiftsberäkningen enligt lagen ([1994:1920](https://selex.se/eli/sfs/1994/1920)) om allmän löneavgift och socialavgiftslagen ([2000:980](https://selex.se/eli/sfs/2000/980)) ska i första hand avse arbetsmarknadsavgiften och därefter i angiven ordning sjukförsäkringsavgiften, föräldraförsäkringsavgiften, arbetsskadeavgiften och efterlevandepensionsavgiften. Lag ([2023:751](https://selex.se/eli/sfs/2023/751)).
+
+</section>
+
+</section>
+<section id="verkställighetsföreskrifter">
+
+## Verkställighetsföreskrifter
+
+<section id="14" class="paragraf">
+
+### 14 §
+
+Regeringen meddelar närmare föreskrifter om de regleringar som avses i [7 §](#7) andra och tredje styckena.
+
+Regeringen fastställer för varje år de beräknade andelarna av influtna ålderspensionsavgifter som avses i [6 §](#6) efter förslag från Pensionsmyndigheten. Lag ([2009:1004](https://selex.se/eli/sfs/2009/1004)).
+
+
+</section>
+
+</section>
+<section id="övergångsbestämmelser" selex:status="upphavd" selex:upphavd="true">
+
+## Övergångsbestämmelser
+
+[2000:981](https://selex.se/eli/sfs/2000/981)
+
+1. Denna lag träder i kraft den 1 januari 2001.
+
+2. Äldre bestämmelser om fördelningen av socialavgifter i 4 kap. lagen ([1981:691](https://selex.se/eli/sfs/1981/691)) om socialavgifter gäller fortfarande i fråga om avgifter som hänför sig till tid före ikraftträdandet.
+
+3. Äldre bestämmelser om andelar för fördelning av ålderspensionsavgifter skall tillämpas till och med år 2001.
+
+4. Hänvisningen i [4 §](#4) 1 till studiestödslagen ([1999:1395](https://selex.se/eli/sfs/1999/1395)) skall fram till den 1 juli 2001 i stället avse studiestödslagen ([1973:349](https://selex.se/eli/sfs/1973/349)). Sjukförsäkringsavgifter skall därefter även finansiera Centrala studiestödsnämndens kostnader enligt [4 §](#4) 1 i fråga om studiestöd som beviljats enligt studiestödslagen ([1973:349](https://selex.se/eli/sfs/1973/349)) eller enligt övergångsbestämmelserna till studiestödslagen ([1999:1395](https://selex.se/eli/sfs/1999/1395)).
+
+5. Utöver vad som sägs i [10 §](#10) skall arbetsskadeavgifter alltjämt finansiera ersättningar på grund av obligatorisk försäkring enligt lagen ([1916:235](https://selex.se/eli/sfs/1916/235)) om försäkring för olycksfall i arbete, lagen ([1929:131](https://selex.se/eli/sfs/1929/131)) om försäkring för vissa yrkessjukdomar och lagen ([1954:243](https://selex.se/eli/sfs/1954/243)) om yrkesskadeförsäkring.
+
+[2001:1119](https://selex.se/eli/sfs/2001/1119)
+
+Denna lag träder i kraft den 1 januari 2002 och tillämpas första gången på avgifter som beräknas för år 2002.
+
+[2006:1346](https://selex.se/eli/sfs/2006/1346)
+
+1. Denna lag träder i kraft den 1 januari 2007.
+
+2. Äldre bestämmelser i [3 §](#3) tillämpas fortfarande för sjukpenning som utgetts före den 1 november 2006.
+
+3. Äldre bestämmelser i 11 och [13 §](#13)§ tillämpas fortfarande på ersättningar som betalas ut respektive inkomster som uppbärs före ikraftträdandet.
+
+4. Äldre bestämmelser i 11 och [13 §](#13)§ tillämpas fortfarande på avdrag som görs med stöd av punkt 4, 5 och 8 i övergångsbestämmelserna till lagen ([2006:1345](https://selex.se/eli/sfs/2006/1345)) om ändring i socialavgiftslagen ([2000:980](https://selex.se/eli/sfs/2000/980)).
+
+[2009:1004](https://selex.se/eli/sfs/2009/1004)
+
+Denna lag träder i kraft den 1 januari 2010 och tillämpas första gången vid fastställande av andelar för fördelning av ålderspensionsavgifter avseende år 2011.
+
+[2010:1283](https://selex.se/eli/sfs/2010/1283)
+
+1. Denna lag träder i kraft den 1 januari 2011.
+
+2. Avgifter enligt 3, 4, 5, 8 och [10 §](#10)§ ska fortfarande finansiera ersättningar, förmåner, avgifter och kostnader enligt den intill den 1 januari 2011 gällande äldre lagstiftningen.
+
+3. Bestämmelserna i [8 §](#8) 1 tillämpas också i fråga om särskild efterlevandepension enligt [7 kap. 48–54 §§ lagen ([2010:111](https://selex.se/eli/sfs/2010/111)) om införande av socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap7.48).
+
+[2011:1404](https://selex.se/eli/sfs/2011/1404)
+
+1. Denna lag träder i kraft den 1 januari 2012.
+
+2. Bestämmelsen om ränta i [7 §](#7) tredje stycket tillämpas på ränta som hänför sig till tid från och med den 1 januari 2013. För ränta som hänför sig till tid dessförinnan gäller i stället bestämmelserna om ränta i [19 kap. skattebetalningslagen](https://selex.se/eli/sfs/1997/483) ([1997:483](https://selex.se/eli/sfs/1997/483)).
+
+3. I fråga om beskattningsbeslut enligt skattebetalningslagen ([1997:483](https://selex.se/eli/sfs/1997/483)) gäller [11 §](#11) i sin äldre lydelse.
+
+[2023:751](https://selex.se/eli/sfs/2023/751)
+
+1. Denna lag träder i kraft den 1 januari 2024.
+
+2. Äldre bestämmelser gäller fortfarande i fråga om avgifter som hänför sig till tiden före ikraftträdandet.
+
+[2024:514](https://selex.se/eli/sfs/2024/514)
+
+1. Denna lag träder i kraft den 1 oktober 2025.
+
+2. Äldre bestämmelser gäller fortfarande för arbetslöshetsersättning enligt den upphävda lagen ([1997:238](https://selex.se/eli/sfs/1997/238)) om arbetslöshetsförsäkring.
+
+</section>
+
+</article>

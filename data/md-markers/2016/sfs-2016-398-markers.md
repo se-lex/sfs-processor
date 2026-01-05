@@ -1,0 +1,294 @@
+---
+beteckning: "2016:398"
+rubrik: Förordning om stöd till utemiljöer i vissa bostadsområden
+departement: Landsbygds- och infrastrukturdepartementet
+utfardad_datum: 2016-05-04
+ikraft_datum: 2016-07-01
+publicerad_datum: 2025-12-16
+pdf_url: https://rkrattsdb.gov.se/SFSdoc/16/160398.pdf
+andringsforfattningar:
+  - beteckning: "2018:899"
+    rubrik: Förordning om ändring i förordningen om stöd till utemiljöer i vissa bostadsområden
+    ikraft_datum: 2018-07-01
+    anteckningar: ändr. 19 §
+  - beteckning: "2020:524"
+    rubrik: Förordning om ändring i förordningen om stöd till utemiljöer i vissa bostadsområden
+    ikraft_datum: 2020-07-15
+    anteckningar: ny 12 a §
+  - beteckning: "2025:1537"
+    rubrik: Förordning om ändring i förordningen om stöd till utemiljöer i vissa bostadsområden
+    ikraft_datum: 2026-01-01
+    anteckningar: ändr. 10 §
+---
+<article selex:utfardad_datum="2016-05-04" selex:ikraft_datum="2016-07-01">
+
+# Förordning om stöd till utemiljöer i vissa bostadsområden
+
+<section id="syfte-och-tillämpningsområde">
+
+## Syfte och tillämpningsområde
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+Stöd enligt denna förordning får, i mån av tillgång på medel, lämnas för att i eller i anslutning till bostadsområden med socioekonomiska utmaningar åstadkomma utemiljöer som stimulerar till aktivitet och social gemenskap och för att bevara eller utveckla ett bostadsområdes gestaltning.
+
+Åtgärderna ska på ett varaktigt sätt bidra till attraktiva, funktionella, jämställda och trygga utemiljöer.
+
+</section>
+<section id="2" class="paragraf">
+
+### 2 §
+
+Med bostadsområde med socioekonomiska utmaningar avses
+
+1. i tätort en yta om 250 gånger 250 meter där mer än 50 procent av hushållen har en låg köpkraft enligt den senaste statistik som tagits fram enligt förordningen ([2001:100](https://selex.se/eli/sfs/2001/100)) om den officiella statistiken och ett därtill angränsande område med liknande förhållanden, och
+
+2. utanför tätort en yta om 1 000 gånger 1 000 meter där mer än 50 procent av hushållen har en sådan köpkraft.
+
+</section>
+
+</section>
+<section id="förutsättningar-för-stöd">
+
+## Förutsättningar för stöd
+
+<section id="3" class="paragraf">
+
+### 3 §
+
+Stöd för en åtgärd enligt [4 §](#4) får lämnas till fastighetsägare och tomträttshavare i bostadsområden med socioekonomiska utmaningar.
+
+Sådant stöd får även lämnas till någon annan om fastighetsägaren eller tomträttshavaren enligt första stycket har gett sitt tillstånd till att åtgärden genomförs.
+
+</section>
+<section id="4" class="paragraf">
+
+### 4 §
+
+Stöd får lämnas för en åtgärd som innebär att en ny anläggning anordnas eller iordningställs eller att en befintlig anläggning renoveras. Med anläggning avses mötesplats för kultur- och fritidsändamål, gång- och cykelväg, byggnadsanknuten konst eller liknande som uppfyller syftet med stödet och är öppet tillgänglig för enskilda utan kostnad.
+
+En åtgärd enligt första stycket får genomföras i eller i anslutning till bostadsområden med socioekonomiska utmaningar.
+
+</section>
+<section id="5" class="paragraf">
+
+### 5 §
+
+Stöd får inte lämnas om arbetet med åtgärden har inletts innan ansökan enligt [9 §](#9) har kommit in eller om åtgärden genomförs för att uppfylla krav i lag eller annan författning.
+
+Stöd får inte lämnas för en åtgärd med en totalkostnad som är mindre än 100 000 kr.
+
+Förutom direkta kostnader för nyanläggning och renovering är kostnader för förstudier och arkitekt- och projekteringskostnader stödberättigande.
+
+</section>
+<section id="6" class="paragraf">
+
+### 6 §
+
+Den som genomför åtgärden ska vara godkänd för F-skatt eller, i fråga om utländska företagare eller företag, visa upp intyg eller en annan handling som visar att företagaren eller företaget i sitt hemland genom registrering eller på annat sätt genomgår motsvarande kontroll i fråga om skatter och avgifter.
+
+</section>
+<section id="7" class="paragraf">
+
+### 7 §
+
+Stöd får inte beviljas någon som har skulder för svenska skatter eller avgifter hos Kronofogdemyndigheten eller som är i likvidation eller försatt i konkurs.
+
+</section>
+
+</section>
+<section id="stödnivå">
+
+## Stödnivå
+
+<section id="8" class="paragraf">
+
+### 8 §
+
+Stöd får lämnas med högst 50 procent av kostnaderna för en åtgärd enligt [4 §](#4).
+
+</section>
+
+</section>
+<section id="prövningen-av-ett-stödärende">
+
+## Prövningen av ett stödärende
+
+<section id="9" class="paragraf">
+
+### 9 §
+
+Den som ansöker om stöd för en åtgärd enligt [4 §](#4) ska göra det skriftligen till Boverket.
+
+Det ska framgå av ansökan att de som bor och verkar i området där åtgärden ska genomföras är engagerade och delaktiga i åtgärden. Ansökan ska även innehålla en redogörelse för hur åtgärden åstadkommer en sådan utemiljö som stödet syftar till.
+
+Det ska även framgå av ansökan om annat stöd har sökts eller beviljats för samma åtgärd.
+
+</section>
+<section id="10" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-01-01">
+
+### 10 §
+
+Innan Boverket prövar en ansökan ska verket höra Statens konstråd och Statens kulturråd i den omfattning det behövs.
+
+</section>
+<section id="10" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-01-01">
+
+### 10 §
+
+Innan Boverket prövar en ansökan ska verket låta Moderna museet och Statens kulturråd yttra sig i den omfattning det behövs. Förordning ([2025:1537](https://selex.se/eli/sfs/2025/1537)).
+
+</section>
+<section id="11" class="paragraf">
+
+### 11 §
+
+Boverket ska prioritera de ansökningar som bäst bedöms åstadkomma en sådan utemiljö som uppfyller syftet med stödet.
+
+Ansökningar som avser en åtgärd i ett bostadsområde med lågt valdeltagande ska prioriteras.
+
+Verket ska också prioritera ansökningar som avser en åtgärd som ska genomföras i samverkan mellan flera intressenter, exempelvis fastighetsägare, tomträttshavare, näringsliv, organisationer i det civila samhället och kommun.
+
+</section>
+<section id="12" class="paragraf">
+
+### 12 §
+
+Ett beslut om stöd ska innehålla
+
+1. uppgift om vilken åtgärd och plats som stödet lämnas för,
+
+2. uppgift om stödnivå, förskottsbelopp och det maximala stödbeloppet,
+
+3. de villkor som behövs för att tillgodose syftet med stödet,
+
+4. en upplysning om vilka uppgifter som stödmottagaren ska lämna som underlag för uppföljning,
+
+5. uppgift om den tidpunkt, senast två år efter beslutet, när åtgärden ska vara slutförd, och
+
+6. uppgift om när stödmottagaren senast ska ge in en rapport enligt [13 §](#13).
+
+</section>
+<section id="12a" class="paragraf">
+
+### 12 a §
+
+Boverket får efter ansökan från stödmottagaren förlänga tiden för slutförande av en åtgärd, om spridningen av det virus som orsakar sjukdomen covid-19 innebär att åtgärden inte kan slutföras vid den tidpunkt som avses i [12 §](#12) 5. Åtgärden måste dock vara slutförd senast den 30 juni 2021. Om tiden förlängs, får Boverket även besluta att den rapport som avses i [12 §](#12) 6 ska ges in vid en senare tidpunkt, dock inte senare än den 31 oktober 2021. Förordning ([2020:524](https://selex.se/eli/sfs/2020/524)).
+
+</section>
+
+</section>
+<section id="rapport">
+
+## Rapport
+
+<section id="13" class="paragraf">
+
+### 13 §
+
+När den stödberättigande åtgärden har slutförts ska stödmottagaren i en rapport till Boverket redovisa åtgärden, vilka kostnader den medfört och om annat stöd har sökts eller beviljats för samma åtgärd.
+
+Av rapporten ska det särskilt framgå att nödvändiga tillstånd för att genomföra åtgärden har inhämtats.
+
+</section>
+
+</section>
+<section id="utbetalning-av-stöd">
+
+## Utbetalning av stöd
+
+<section id="14" class="paragraf">
+
+### 14 §
+
+Högst 75 procent av det beslutade stödet får betalas ut i förskott i samband med Boverkets beslut om stöd.
+
+När en åtgärd har slutförts och en rapport enligt [13 §](#13) har kommit in ska Boverket fatta ett utbetalningsbeslut, i vilket stödets storlek slutligt bestäms, och betala ut den resterande delen av stödet.
+
+</section>
+<section id="15" class="paragraf">
+
+### 15 §
+
+Boverket ska besluta att stödet helt eller delvis inte ska betalas ut om
+
+1. den som har ansökt om stöd genom att lämna oriktiga uppgifter eller på något annat sätt har förorsakat att stödet beviljats felaktigt eller med för högt belopp,
+
+2. stödet av något annat skäl har beviljats felaktigt eller med för högt belopp och mottagaren borde ha insett detta,
+
+3. stödet helt eller delvis inte har utnyttjats eller inte har använts för den åtgärd som angetts i ansökan,
+
+4. mottagaren inte har lämnat en sådan rapport som avses i [13 §](#13), eller
+
+5. villkoren för stödet i något annat avseende inte har följts.
+
+</section>
+
+</section>
+<section id="återbetalning">
+
+## Återbetalning
+
+<section id="16" class="paragraf">
+
+### 16 §
+
+En stödmottagare är återbetalningsskyldig om någon av de grunder som anges i [15 §](#15) 1–5 föreligger.
+
+På det belopp som en stödmottagare är återbetalningsskyldig för ska ränta enligt räntelagen ([1975:635](https://selex.se/eli/sfs/1975/635)) betalas.
+
+</section>
+<section id="17" class="paragraf">
+
+### 17 §
+
+Om en stödmottagare är återbetalningsskyldig enligt [16 §](#16), ska Boverket besluta att helt eller delvis kräva tillbaka stödet tillsammans med ränta enligt [16 §](#16) andra stycket.
+
+Om det finns särskilda skäl, får Boverket sätta ned kravet på återbetalning och ränta.
+
+</section>
+
+</section>
+<section id="uppföljning">
+
+## Uppföljning
+
+<section id="18" class="paragraf">
+
+### 18 §
+
+Boverket ska följa upp den åtgärd som stöd har beviljats för och i en rapport till regeringen redovisa resultatet av uppföljningen.
+
+</section>
+
+</section>
+<section id="överklagande">
+
+## Överklagande
+
+<section id="19" class="paragraf">
+
+### 19 §
+
+I [40 §](#40) förvaltningslagen ([2017:900](https://selex.se/eli/sfs/2017/900)) finns bestämmelser om överklagande till allmän förvaltningsdomstol. Andra beslut än beslut enligt [15 §](#15) får dock inte överklagas. Förordning ([2018:899](https://selex.se/eli/sfs/2018/899)).
+
+</section>
+
+</section>
+<section id="bemyndigande">
+
+## Bemyndigande
+
+<section id="20" class="paragraf">
+
+### 20 §
+
+Boverket får meddela föreskrifter om verkställigheten av denna förordning.
+
+</section>
+
+</section>
+
+</article>

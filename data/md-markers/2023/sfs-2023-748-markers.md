@@ -1,0 +1,92 @@
+---
+beteckning: "2023:748"
+rubrik: Lag om särskilt avdrag vid beräkning av egenavgifter och allmän löneavgift i vissa fall
+departement: Finansdepartementet
+utfardad_datum: 2023-11-30
+ikraft_datum: 2024-01-01
+publicerad_datum: 2026-01-02
+forarbeten: - "PROP 2023/24:14"
+  - "BET 2023/24:FiU1"
+  - "RSKR 2023/24:47"
+pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/2023-11/SFS2023-748.pdf
+andringsforfattningar:
+  - beteckning: "2023:754"
+    rubrik: Lag om ändring i lagen om särskilt avdrag vid beräkning av egenavgifter och allmän löneavgift i vissa fall
+    ikraft_datum: 2026-01-01
+    anteckningar: ändr. 3 §
+---
+<article selex:utfardad_datum="2023-11-30" selex:ikraft_datum="2024-01-01">
+
+# Lag om särskilt avdrag vid beräkning av egenavgifter och allmän löneavgift i vissa fall
+
+<section id="lagens-tillämpningsområde">
+
+## Lagens tillämpningsområde
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+Denna lag innehåller bestämmelser om särskilt avdrag vid beräkningen av
+
+1. egenavgifter enligt socialavgiftslagen ([2000:980](https://selex.se/eli/sfs/2000/980)), och
+
+2. löneavgift enligt lagen ([1994:1920](https://selex.se/eli/sfs/1994/1920)) om allmän löneavgift.
+
+</section>
+
+</section>
+<section id="ord-och-uttryck-i-lagen">
+
+## Ord och uttryck i lagen
+
+<section id="2" class="paragraf">
+
+### 2 §
+
+Ord och uttryck som används i denna lag har samma betydelse och tillämpningsområde som i socialavgiftslagen ([2000:980](https://selex.se/eli/sfs/2000/980)).
+
+</section>
+
+</section>
+<section id="avdrag-vid-avgiftsberäkningen">
+
+## Avdrag vid avgiftsberäkningen
+
+<section id="3" class="paragraf">
+
+### 3 §
+
+Vid beräkning av egenavgifterna och den allmänna löneavgiften ska från summan av dessa avgifter avdrag göras med 7,5 procent av avgiftsunderlaget, dock högst med 15 000 kronor per år. Avdraget får inte medföra att avgifterna understiger ålderspensionsavgiften enligt [3 kap. 13 § socialavgiftslagen](https://selex.se/eli/sfs/2000/980#kap3.13) ([2000:980](https://selex.se/eli/sfs/2000/980)). Avdraget ska i första hand göras från egenavgifterna.
+
+Första stycket gäller bara
+
+1. till den del avgiftsunderlaget utgörs av avgiftspliktig inkomst av näringsverksamhet,
+
+2. om den del av avgiftsunderlaget som utgörs av avgiftspliktig inkomst av näringsverksamhet överstiger 40 000 kronor, och
+
+3. om den avgiftsskyldige vid ingången av beskattningsåret inte har fyllt 67 år och inte bara ska betala ålderspensionsavgiften enligt [3 kap. 16 § socialavgiftslagen](https://selex.se/eli/sfs/2000/980#kap3.16). Lag ([2023:754](https://selex.se/eli/sfs/2023/754)).
+
+
+</section>
+
+</section>
+<section id="övergångsbestämmelser">
+
+## Övergångsbestämmelser
+
+[2023:748](https://selex.se/eli/sfs/2023/748)
+
+1. Denna lag träder i kraft den 1 januari 2024.
+
+2. Lagen tillämpas första gången på inkomster som uppbärs efter den 31 december 2023. Omfattar beskattningsåret tid såväl före som efter ikraftträdandet ska, om den avgiftsskyldige inte visar annat, så stor del av beskattningsårets inkomst anses hänförlig till tiden efter den 31 december 2023 som svarar mot förhållandet mellan den del av beskattningsåret som infaller under denna tid och hela beskattningsåret.
+
+[2023:754](https://selex.se/eli/sfs/2023/754)
+
+1. Denna lag träder i kraft den 1 januari 2026.
+
+2. Lagen tillämpas första gången på inkomster som uppbärs efter den 31 december 2025. Omfattar beskattningsåret tid såväl före som efter ikraftträdandet ska, om den avgiftsskyldige inte visar annat, så stor del av beskattningsårets inkomst anses hänförlig till tiden efter den 31 december 2025 som svarar mot förhållandet mellan den del av beskattningsåret som infaller under denna tid och hela beskattningsåret.
+
+</section>
+
+</article>

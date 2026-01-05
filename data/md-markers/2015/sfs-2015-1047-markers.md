@@ -1,0 +1,695 @@
+---
+beteckning: "2015:1047"
+rubrik: Förordning med instruktion för Statens skolverk
+departement: Utbildningsdepartementet
+utfardad_datum: 2015-12-18
+ikraft_datum: 2016-01-26
+publicerad_datum: 2025-12-22
+pdf_url: https://rkrattsdb.gov.se/SFSdoc/15/151047.pdf
+andringsforfattningar:
+  - beteckning: "2016:185"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2016-04-15
+    anteckningar: ändr. 13 §
+  - beteckning: "2017:1302"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2018-02-01
+    anteckningar: "upph. 3, 34 §§; ändr. 1, 2, 5, 6, 7, 9, 11, 18, 20 §§"
+  - beteckning: "2019:338"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2019-07-15
+    anteckningar: ändr. 23 §
+  - beteckning: "2019:563"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2019-08-15
+    anteckningar: ändr. 8 §
+  - beteckning: "2019:1289"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2020-02-01
+    anteckningar: "upph. 12, 13 §§, rubr. närmast före 12 §; nuvarande 11 § betecknas 13 §; ändr. 5, 7, 18, 20, 21, §§, rubr. närmast före 11 § sätts närmast före 13 §; nya 11, 12, 12 a §§, rubr. närmast före 11 §"
+  - beteckning: "2022:205"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2022-05-02
+    anteckningar: "ändr. 8, 16, 20 §§"
+  - beteckning: "2022:1094"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2022-08-01
+    anteckningar: "ny 6 a §, rubr. närmast före 6 a §"
+  - beteckning: "2022:797"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2022-10-01
+    anteckningar: "ändr. rubr. närmast efter 23 §; nya 32 a, 32 b, 32 c, 32 d §§, rubr. närmast efter 32 §, rubr. närmast före 32 a §"
+  - beteckning: "2022:562"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2022-10-01
+    anteckningar: ny 18 a §
+  - beteckning: "2022:1102"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2022-12-01
+    anteckningar: ändr. 9 §
+  - beteckning: "2023:31"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2023-03-01
+    anteckningar: "ändr. 32 b, 32 c §§"
+  - beteckning: "2023:602"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2024-01-01
+    anteckningar: ändr. 9 §
+  - beteckning: "2024:621"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2024-09-01
+    anteckningar: "ändr. 1, 7, 18 §§"
+  - beteckning: "2024:1029"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2024-12-17
+    anteckningar: "nya 32 e, 32 f, 34 §§, rubr. närmast före 32 e §"
+  - beteckning: "2025:758"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2025-09-01
+    anteckningar: "ändr. 7, 32 a §§, rubr. närmast före 11 §; ny 12 b §"
+  - beteckning: "2025:1577"
+    rubrik: Förordning om ändring i förordningen med instruktion för Statens skolverk
+    ikraft_datum: 2026-01-20
+    anteckningar: "ändr. 18 §; ny 6 b §, rubr. närmast före 6 b §"
+---
+<article selex:utfardad_datum="2015-12-18" selex:ikraft_datum="2016-01-26">
+
+# Förordning med instruktion för Statens skolverk
+
+<section id="uppgifter">
+
+## Uppgifter
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+Statens skolverk är förvaltningsmyndighet för skolväsendet och för vissa särskilda utbildningsformer och annan pedagogisk verksamhet som bedrivs i stället för utbildning inom skolväsendet, i den utsträckning något annat inte är föreskrivet. Myndigheten ska i sitt arbete beakta att utbildningen enligt [1 kap. 5 § tredje stycket skollagen](https://selex.se/eli/sfs/1985/1100#kap1.5) ([2010:800](https://selex.se/eli/sfs/2010/800)) ska vila på vetenskaplig grund och beprövad erfarenhet.
+
+Myndigheten ska genom sin verksamhet främja att alla barn och elever får tillgång till en likvärdig utbildning och annan verksamhet av god kvalitet i en trygg miljö. Myndigheten ska bidra till goda förutsättningar för barns utveckling och lärande och till förbättrade kunskapsresultat för elever. Inom ramen för detta ska myndigheten främja en stärkt likvärdighet mellan skolor och mellan förskolor.
+
+Myndigheten ska följa utvecklingen inom sitt verksamhetsområde och kontinuerligt göra en analys av behov av åtgärder inom området. Myndigheten ska även utarbeta och genomföra insatser som tillgodoser dessa behov. Myndigheten ska vidare kontinuerligt informera regeringen om analysen och arbetet.
+
+Myndigheten har även andra uppgifter inom sitt verksamhetsområde som följer av denna förordning eller av andra föreskrifter eller särskilda beslut. Förordning ([2024:621](https://selex.se/eli/sfs/2024/621)).
+
+</section>
+
+</section>
+<section id="uppföljning-utvärdering-och-st">
+
+## Uppföljning, utvärdering och statistik
+
+<section id="2" class="paragraf">
+
+### 2 §
+
+Den uppföljning och utvärdering som myndigheten har ansvar för enligt [26 kap. skollagen](https://selex.se/eli/sfs/1985/1100) ([2010:800](https://selex.se/eli/sfs/2010/800)) ska öka kunskapen om hur utbildningarna och verksamheterna har utvecklats i förhållande till de nationella målen. Myndigheten ska även analysera utvecklingen av samtliga utbildningar och verksamheter, anpassat efter respektive verksamhet, samt vidta och lämna förslag på åtgärder för att främja fortsatt utveckling av utbildningarnas och verksamheternas kvalitet.
+
+Myndigheten ska sammanfatta och publicera resultaten av sitt arbete med uppföljning och utvärdering.
+
+Myndigheten ska vid behov lämna statistiska underlag till Regeringskansliet. Förordning ([2017:1302](https://selex.se/eli/sfs/2017/1302)).
+
+</section>
+<section id="3" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 3 §
+
+Har upphävts genom förordning ([2017:1302](https://selex.se/eli/sfs/2017/1302)).
+
+</section>
+<section id="4" class="paragraf">
+
+### 4 §
+
+Myndigheten får, efter samråd med Regeringskansliet (Utbildningsdepartementet), företräda staten vid förhandlingar och ingående av internationella överenskommelser om Sveriges deltagande i internationella kunskapsmätningar och andra individbaserade mätningar inom myndighetens verksamhetsområde, om inte annat följer av särskilda beslut av regeringen.
+
+Myndigheten ska ansvara för Sveriges deltagande i de mätningar som avses i första stycket.
+
+</section>
+
+</section>
+<section id="styrdokument-och-prov">
+
+## Styrdokument och prov
+
+<section id="5" class="paragraf">
+
+### 5 §
+
+Myndigheten ska kontinuerligt bedöma behovet av utveckling av läroplaner och andra styrdokument för skolväsendet som regeringen beslutar om. Myndigheten ska även vid behov föreslå ändringar av dessa.
+
+Myndigheten ska utforma och kontinuerligt utveckla de styrdokument som myndigheten har bemyndigande att meddela föreskrifter om.
+
+Myndigheten ska vidare ansvara för och kontinuerligt utveckla nationella prov samt analysera resultaten av proven. Förordning ([2019:1289](https://selex.se/eli/sfs/2019/1289)).
+
+</section>
+<section id="6" class="paragraf">
+
+### 6 §
+
+Myndigheten ska kontinuerligt bedöma behovet av och utveckla bedömningsstöd och kartläggningsmaterial. Myndigheten ska utforma eller anpassa dessa utifrån olika elevgruppers behov och förutsättningar. Förordning ([2017:1302](https://selex.se/eli/sfs/2017/1302)).
+
+</section>
+
+</section>
+<section id="stöd-för-planering">
+
+## Stöd för planering
+
+<section id="6a" class="paragraf">
+
+### 6 a §
+
+Myndigheten ska kontinuerligt utarbeta regionala planeringsunderlag som behövs till stöd för huvudmännens planering, dimensionering och erbjudande av utbildning som avser
+
+1. gymnasieskolans nationella program,
+
+2. gymnasieskolans introduktionsprogram programinriktat val och yrkesintroduktion, utformade för en grupp elever,
+
+3. gymnasiesärskolans nationella program, och
+
+4. yrkesinriktad kommunal vuxenutbildning på gymnasial nivå. Förordning ([2022:1094](https://selex.se/eli/sfs/2022/1094)).
+
+</section>
+
+</section>
+<section id="samordning-av-stöd-för-antagni" selex:status="ikraft" selex:ikraft_datum="2026-01-20">
+
+## Samordning av stöd för antagning
+
+<section id="6b" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-01-20">
+
+### 6 b §
+
+Myndigheten ska ansvara för nationell samordning av stöd för antagning till gymnasieskolan och anpassade gymnasieskolan. Förordning ([2025:1577](https://selex.se/eli/sfs/2025/1577)).
+
+</section>
+
+</section>
+<section id="stöd-till-skolutveckling">
+
+## Stöd till skolutveckling
+
+<section id="7" class="paragraf">
+
+### 7 §
+
+Myndigheten ska i nära samarbete med kommuner och andra huvudmän stödja dem i deras utbildningsverksamhet och andra pedagogiska verksamheter samt bidra till att förbättra huvudmännens förutsättningar att arbeta med utveckling av verksamheten för ökad måluppfyllelse genom att
+
+1. svara för nationella fortbildnings-, kompetensutvecklings- och stödinsatser för personal,
+
+2. sammanställa och kommunicera kunskap om resultat av forskning, och
+
+3. svara för riktade utvecklingsinsatser inom prioriterade områden. Förordning ([2025:758](https://selex.se/eli/sfs/2025/758)).
+
+</section>
+<section id="8" class="paragraf">
+
+### 8 §
+
+Myndigheten ska särskilt
+
+1. ansvara för den statliga befattningsutbildningen enligt förordningen ([2011:183](https://selex.se/eli/sfs/2011/183)) om befattningsutbildning och fortbildning för rektorer och annan personal med motsvarande ledningsfunktion i skola, förskola och fritidshem,
+
+2. bedriva ett nationellt centrum för språk-, läs- och skrivutveckling och skolbibliotek,
+
+3. stimulera arbetet med entreprenörskap i skolväsendet, och
+
+4. främja skolors arbete med nordiska språk. Förordning ([2022:205](https://selex.se/eli/sfs/2022/205)).
+
+</section>
+<section id="9" class="paragraf">
+
+### 9 §
+
+Myndigheten ska bidra till och redovisa sitt arbete med att trygga den nationella kompetensförsörjningen och underlätta elevers etablering på arbetsmarknaden. Myndigheten ska också följa upp och analysera kvinnors och mäns etablering på arbetsmarknaden eller fortsatta studier, efter avslutad utbildning. Myndigheten ska vidare stödja utvecklingen vad gäller samverkan mellan skola och arbetsliv.
+
+Myndigheten ska samverka med Myndigheten för yrkeshögskolan, Universitetskanslersämbetet, Universitets- och högskolerådet, Tillväxtverket, Rådet för Europeiska socialfonden i Sverige (Svenska ESF-rådet) och Arbetsförmedlingen i syfte att bidra till en väl fungerande kompetensförsörjning.
+
+Myndigheten ska främja utvecklingen av yrkesutbildningens kvalitet och attraktionskraft. Myndigheten ska även stödja utvecklingen av berörda myndigheters och branschorganisationers samarbete när det gäller gymnasial yrkesutbildning. Förordning ([2023:602](https://selex.se/eli/sfs/2023/602)).
+
+</section>
+<section id="10" class="paragraf">
+
+### 10 §
+
+Myndigheten ska ansvara för
+
+1. de nationella programråden för gymnasial yrkesutbildning, och
+
+2. Nationella rådet för vidareutbildning i form av ett fjärde tekniskt år.
+
+</section>
+
+</section>
+<section id="rektorer-lärare-och-förskollär">
+
+## Rektorer, lärare och förskollärare
+
+<section id="11" class="paragraf">
+
+### 11 §
+
+Myndigheten ska bidra till att alla som är verksamma som lärare och förskollärare har goda förutsättningar att utföra sitt arbete. Förordning ([2019:1289](https://selex.se/eli/sfs/2019/1289)).
+
+</section>
+<section id="12" class="paragraf">
+
+### 12 §
+
+Myndigheten ska göra prognoser om skolans och förskolans behov av legitimerade och behöriga lärare och förskollärare. Förordning ([2019:1289](https://selex.se/eli/sfs/2019/1289)).
+
+</section>
+<section id="12a" class="paragraf">
+
+### 12 a §
+
+Myndigheten ska informera om vägar in i lärar- och förskolläraryrkena, genomföra insatser för att attrahera fler till yrkena och stödja huvudmännen i deras arbete med att hantera lärarförsörjningen. Förordning ([2019:1289](https://selex.se/eli/sfs/2019/1289)).
+
+</section>
+<section id="12b" class="paragraf">
+
+### 12 b §
+
+Myndigheten ska ansvara för det nationella professionsprogrammet för rektorer, lärare och förskollärare. Förordning ([2025:758](https://selex.se/eli/sfs/2025/758)).
+
+</section>
+
+</section>
+<section id="hantering-av-statliga-stöd-och">
+
+## Hantering av statliga stöd och bidrag
+
+<section id="13" class="paragraf">
+
+### 13 §
+
+Myndigheten ska administrera statliga stöd och bidrag enligt särskilda föreskrifter eller särskilda beslut. Myndigheten ska följa upp och utvärdera de statliga stöd och bidrag som myndigheten administrerar. Förordning ([2019:1289](https://selex.se/eli/sfs/2019/1289)).
+
+</section>
+
+</section>
+<section id="information">
+
+## Information
+
+<section id="14" class="paragraf">
+
+### 14 §
+
+Myndigheten ska informera och sprida kunskap om sitt verksamhetsområde både i och utanför Sverige.
+
+</section>
+
+</section>
+<section id="internationellt-samarbete">
+
+## Internationellt samarbete
+
+<section id="15" class="paragraf">
+
+### 15 §
+
+Myndigheten ska ansvara för uppgifter som följer av konventionen med stadga för Europaskolorna (SÖ [2002:60](https://selex.se/eli/sfs/2002/60)).
+
+</section>
+<section id="16" class="paragraf">
+
+### 16 §
+
+Myndigheten ska
+
+1. ha det svenska samordningsansvaret för genomförandet av den europeiska agendan för vuxenlärande (European Agenda for Adult Learning),
+
+2. ingå i det europeiska nätverket ReferNet i syfte att samla in, analysera och sprida information om yrkesutbildning i Sverige och internationellt, och
+
+3. vara en nationell referenspunkt för kvalitetssäkring inom yrkesutbildningen. Förordning ([2022:205](https://selex.se/eli/sfs/2022/205)).
+
+</section>
+<section id="17" class="paragraf">
+
+### 17 §
+
+Myndigheten ska särskilt ansvara för information om möjligheten att genomgå gymnasial utbildning helt eller delvis i ett annat nordiskt land i överensstämmelse med avtalet med Danmark, Finland, Island och Norge om nordisk utbildningsgemenskap på gymnasienivå (SÖ [2008:8](https://selex.se/eli/sfs/2008/8)).
+
+</section>
+
+</section>
+<section id="andra-uppgifter">
+
+## Andra uppgifter
+
+<section id="18" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-01-20">
+
+### 18 §
+
+Myndigheten ska
+
+1. ha ett samlat ansvar (sektorsansvar) för funktionshindersfrågor inom ramen för sitt verksamhetsområde och - i den mån det inte är en uppgift för Specialpedagogiska skolmyndigheten - inom ramen för detta ansvar vara samlande, stödjande och pådrivande i förhållande till övriga berörda parter,
+
+2. ansvara för frågor inom ramen för sitt verksamhetsområde som rör nyanlända personer,
+
+3. verka för att generationsmålet och miljökvalitetsmålen nås och vid behov föreslå åtgärder för miljöarbetets utveckling,
+
+4. ha ett samlat ansvar (sektorsansvar) för frågor om de nationella minoriteterna och de nationella minoritetsspråken inom ramen för sitt verksamhetsområde vilket innefattar att verka samlande, stödjande och pådrivande i förhållande till berörda parter,
+
+5. främja användningen och utvecklingen av validering inom kommunal vuxenutbildning,
+
+6. inom ramen för sitt verksamhetsområde stödja kommuner och andra huvudmän i arbetet med säkerhet och krisberedskap, och
+
+7. ha ett samlat ansvar (sektorsansvar) inom ramen för sitt verksamhetsområde när det gäller statliga insatser i frågor om digitalisering, med särskild hänsyn till de risker och möjligheter som digitaliseringen medför, vilket innefattar att vara samlande och stödjande samt att samverka med övriga berörda myndigheter och andra relevanta parter.
+
+Myndigheten ska i fråga om sitt miljöarbete enligt första stycket 3 rapportera till Naturvårdsverket och samråda med myndigheten om vilken rapportering som behövs. Förordning ([2024:621](https://selex.se/eli/sfs/2024/621)).
+
+</section>
+<section id="18" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-01-20">
+
+### 18 §
+
+Myndigheten ska
+
+1. ha ett samlat ansvar (sektorsansvar) för funktionshindersfrågor inom ramen för sitt verksamhetsområde och - i den mån det inte är en uppgift för Specialpedagogiska skolmyndigheten - inom ramen för detta ansvar vara samlande, stödjande och pådrivande i förhållande till övriga berörda parter,
+
+2. ansvara för frågor inom ramen för sitt verksamhetsområde som rör nyanlända personer,
+
+3. verka för att generationsmålet och miljökvalitetsmålen nås och vid behov föreslå åtgärder för miljöarbetets utveckling,
+
+4. ha ett samlat ansvar (sektorsansvar) för frågor om de nationella minoriteterna och de nationella minoritetsspråken inom ramen för sitt verksamhetsområde, vilket innefattar att stödja en undervisning i nationella minoritetsspråk av god kvalitet och främja tillgången till läromedel samt i övrigt verka samlande, stödjande och pådrivande i förhållande till berörda parter,
+
+5. främja användningen och utvecklingen av validering inom kommunal vuxenutbildning,
+
+6. inom ramen för sitt verksamhetsområde stödja kommuner och andra huvudmän i arbetet med säkerhet och krisberedskap, och
+
+7. ha ett samlat ansvar (sektorsansvar) inom ramen för sitt verksamhetsområde när det gäller statliga insatser i frågor om digitalisering, med särskild hänsyn till de risker och möjligheter som digitaliseringen medför, vilket innefattar att vara samlande och stödjande samt att samverka med övriga berörda myndigheter och andra relevanta parter.
+
+Myndigheten ska i fråga om sitt miljöarbete enligt första stycket 3 rapportera till Naturvårdsverket och samråda med myndigheten om vilken rapportering som behövs. Förordning ([2025:1577](https://selex.se/eli/sfs/2025/1577)).
+
+</section>
+<section id="18a" class="paragraf">
+
+### 18 a §
+
+Myndigheten är beredskapsmyndighet enligt förordningen ([2022:524](https://selex.se/eli/sfs/2022/524)) om statliga myndigheters beredskap. Förordning ([2022:562](https://selex.se/eli/sfs/2022/562)).
+
+</section>
+<section id="19" class="paragraf">
+
+### 19 §
+
+Myndigheten ska erbjuda stöd till kommunerna i deras arbete med aktivitetsansvar enligt [29 kap. 9 § skollagen](https://selex.se/eli/sfs/1985/1100#kap29.9) ([2010:800](https://selex.se/eli/sfs/2010/800)).
+
+</section>
+
+</section>
+<section id="arbetets-bedrivande">
+
+## Arbetets bedrivande
+
+<section id="20" class="paragraf">
+
+### 20 §
+
+Myndigheten ska främja jämställdhet och integrera ett jämställdhetsperspektiv och perspektivet mänskliga rättigheter i sin verksamhet. Myndigheten ska i sin verksamhet även främja lika rättigheter och möjligheter oavsett sexuell läggning, könsidentitet eller könsuttryck.
+
+All individbaserad information som myndigheten redovisar ska vara uppdelad på kön, om det inte finns särskilda skäl som talar emot detta.
+
+Vid alla åtgärder som rör barn ska myndigheten i sin verksamhet i första hand beakta vad som bedöms vara barnets bästa enligt Förenta nationernas konvention om barnets rättigheter. Förordning ([2022:205](https://selex.se/eli/sfs/2022/205)).
+
+</section>
+<section id="21" class="paragraf">
+
+### 21 §
+
+Myndigheten ska i genomförandet av sina uppgifter ta tillvara de möjligheter som det nationella socialfondsprogrammet erbjuder. Förordning ([2019:1289](https://selex.se/eli/sfs/2019/1289)).
+
+</section>
+
+</section>
+<section id="ledning">
+
+## Ledning
+
+<section id="22" class="paragraf">
+
+### 22 §
+
+Myndigheten leds av en myndighetschef.
+
+</section>
+<section id="23" class="paragraf">
+
+### 23 §
+
+Vid myndigheten finns ett insynsråd som består av högst tio ledamöter. Förordning ([2019:338](https://selex.se/eli/sfs/2019/338)).
+
+</section>
+
+</section>
+<section id="beslutande-organ">
+
+## Beslutande organ
+
+</section>
+<section id="lärarnas-ansvarsnämnd">
+
+## Lärarnas ansvarsnämnd
+
+<section id="24" class="paragraf">
+
+### 24 §
+
+Inom myndigheten finns ett särskilt beslutsorgan som benämns Lärarnas ansvarsnämnd.
+
+Nämnden har enligt skollagen ([2010:800](https://selex.se/eli/sfs/2010/800)) till uppgift att pröva ärenden om
+
+1. varning,
+
+2. återkallelse av legitimation, och
+
+3. ny legitimation efter tidigare återkallelse.
+
+</section>
+<section id="25" class="paragraf">
+
+### 25 §
+
+Bestämmelser om Lärarnas ansvarsnämnds sammansättning och beslutsförhet finns i [27 kap. 5–7 §§ skollagen](https://selex.se/eli/sfs/1985/1100#kap27.5) ([2010:800](https://selex.se/eli/sfs/2010/800)).
+
+</section>
+<section id="26" class="paragraf">
+
+### 26 §
+
+Lärarnas ansvarsnämnd ansvarar för sina beslut.
+
+Nämnden ansvarar för sin verksamhet inför myndighetens ledning.
+
+</section>
+<section id="27" class="paragraf">
+
+### 27 §
+
+Myndighetens ledning ansvarar inför regeringen för att Lärarnas ansvarsnämnd tilldelas medel och resurser i övrigt för sin verksamhet och för att verksamheten bedrivs författningsenligt och effektivt och redovisas på ett tillförlitligt sätt.
+
+</section>
+
+</section>
+<section id="rådet-för-dansarutbildning">
+
+## Rådet för dansarutbildning
+
+<section id="28" class="paragraf">
+
+### 28 §
+
+Inom myndigheten finns ett särskilt beslutsorgan som benämns Rådet för dansarutbildning. Rådet ska för sådan dansarutbildning som avses i förordningen ([2011:7](https://selex.se/eli/sfs/2011/7)) om dansarutbildning
+
+1. ansvara för organisation och genomförande av antagnings- och urvalsprocessen till utbildningen, och
+
+2. bidra till uppföljning och utveckling av kvaliteten i utbildningen.
+
+</section>
+<section id="29" class="paragraf">
+
+### 29 §
+
+Rådet för dansarutbildning består av en ordförande samt minst sex och högst tio andra ledamöter. I rådet ska det finnas ledamöter med kunskap om dansprofessionen, grundskolan och gymnasieskolan. Varje ledamot ska ha en ersättare. Ordföranden och dennes ersättare ska vara eller ha varit ordinarie domare.
+
+Ordföranden och dennes ersättare i Rådet för dansarutbildning utses av regeringen för en bestämd tid. Övriga ledamöter i rådet och ersättare för dessa utses av myndigheten för en bestämd tid.
+
+</section>
+<section id="30" class="paragraf">
+
+### 30 §
+
+Rådet för dansarutbildning är beslutsfört när ordföranden och minst hälften av de andra ledamöterna är närvarande.
+
+</section>
+<section id="31" class="paragraf">
+
+### 31 §
+
+Rådet för dansarutbildning ansvarar för sina beslut.
+
+Rådet ansvarar för sin verksamhet inför myndighetens ledning.
+
+</section>
+<section id="32" class="paragraf">
+
+### 32 §
+
+Myndighetens ledning ansvarar inför regeringen för att Rådet för dansarutbildning tilldelas medel och resurser i övrigt för sin verksamhet och för att verksamheten bedrivs författningsenligt och effektivt och redovisas på ett tillförlitligt sätt.
+
+</section>
+
+</section>
+<section id="rådgivande-organ">
+
+## Rådgivande organ
+
+</section>
+<section id="rådet-för-professioner-i-skolv">
+
+## Rådet för professioner i skolväsendet
+
+<section id="32a" class="paragraf">
+
+### 32 a §
+
+Inom myndigheten finns ett rådgivande organ som benämns Rådet för professioner i skolväsendet.
+
+Rådet ska bistå myndigheten i arbetet med det nationella professionsprogrammet för rektorer, lärare och förskollärare. Förordning ([2025:758](https://selex.se/eli/sfs/2025/758)).
+
+</section>
+<section id="32b" class="paragraf">
+
+### 32 b §
+
+Rådet för professioner i skolväsendet består av en ordförande, en vice ordförande och 19 andra ledamöter.
+
+Av ledamöterna ska
+
+- elva företräda förskollärare, lärare och rektorer,
+
+- tre företräda huvudmän inom skolväsendet,
+
+- fem företräda universitet och högskolor, och
+
+- två företräda myndigheten.
+
+Gruppen företrädare för förskollärare, lärare och rektorer ska innehålla företrädare som är verksamma hos såväl offentliga som enskilda huvudmän.
+
+De fem företrädarna för universitet och högskolor ska tillsammans ha en bred kompetens som är relevant för skolväsendet. Av dessa ska minst en ha kognitionsvetenskaplig kompetens. Förordning ([2023:31](https://selex.se/eli/sfs/2023/31)).
+
+</section>
+<section id="32c" class="paragraf">
+
+### 32 c §
+
+Ledamöterna i Rådet för professioner i skolväsendet utses av regeringen för tre år. Förslag till ledamöter lämnas av myndigheten efter samråd med
+
+- Sveriges Lärare och Sveriges Skolledare i fråga om företrädare för förskollärare, lärare och rektorer,
+
+- Sveriges Kommuner och Regioner, Friskolornas riksförbund och Idéburna skolors riksförbund i fråga om företrädare för huvudmän inom skolväsendet, och
+
+- Sveriges universitets- och högskoleförbund i fråga om företrädare för universitet och högskolor. Förordning ([2023:31](https://selex.se/eli/sfs/2023/31)).
+
+</section>
+<section id="32d" class="paragraf">
+
+### 32 d §
+
+Ordföranden leder rådets arbete. Ordföranden ska vara en företrädare för myndigheten.
+
+Vice ordföranden leder rådets arbete när ordföranden inte är närvarande. Vice ordföranden ska vara en av företrädarna för förskollärare, lärare eller rektorer. Förordning ([2022:797](https://selex.se/eli/sfs/2022/797)).
+
+</section>
+
+</section>
+<section id="vetenskapliga-rådet">
+
+## Vetenskapliga rådet
+
+<section id="32e" class="paragraf">
+
+### 32 e §
+
+Inom myndigheten finns ett rådgivande organ som benämns Vetenskapliga rådet.
+
+Rådet ska bistå myndigheten med råd och vägledning inom ramen för myndighetens verksamhetsområde och verka för att myndighetens arbete vilar på vetenskaplig grund och beprövad erfarenhet. Förordning ([2024:1029](https://selex.se/eli/sfs/2024/1029)).
+
+</section>
+<section id="32f" class="paragraf">
+
+### 32 f §
+
+Vetenskapliga rådet består av ledamöter som tillsammans ska ha en bred vetenskaplig kompetens som är relevant för myndighetens verksamhet.
+
+Ledamöterna i rådet utses av myndighetschefen för en bestämd tid.
+
+Myndighetschefen, eller den som myndighetschefen utser, är ordförande i rådet och leder rådets arbete. Förordning ([2024:1029](https://selex.se/eli/sfs/2024/1029)).
+
+</section>
+
+</section>
+<section id="anställningar-och-uppdrag">
+
+## Anställningar och uppdrag
+
+<section id="33" class="paragraf">
+
+### 33 §
+
+Generaldirektören är myndighetschef.
+
+</section>
+<section id="34" class="paragraf">
+
+### 34 §
+
+Vid myndigheten finns en överdirektör. Förordning ([2024:1029](https://selex.se/eli/sfs/2024/1029)).
+
+</section>
+
+</section>
+<section id="personalansvarsnämnd">
+
+## Personalansvarsnämnd
+
+<section id="35" class="paragraf">
+
+### 35 §
+
+Vid myndigheten finns en personalansvarsnämnd.
+
+</section>
+
+</section>
+<section id="tillämpligheten-av-vissa-föror">
+
+## Tillämpligheten av vissa förordningar
+
+<section id="36" class="paragraf">
+
+### 36 §
+
+Myndigheten ska tillämpa internrevisionsförordningen ([2006:1228](https://selex.se/eli/sfs/2006/1228)) och personalföreträdarförordningen ([1987:1101](https://selex.se/eli/sfs/1987/1101)).
+
+</section>
+
+</section>
+<section id="avgifter">
+
+## Avgifter
+
+<section id="37" class="paragraf">
+
+### 37 §
+
+Myndigheten får ta ut avgifter för sådana varor och tjänster som avses i [4 §](#4) första stycket 1–6 och 8 avgiftsförordningen ([1992:191](https://selex.se/eli/sfs/1992/191)) utan den begränsning som föreskrivs i andra stycket samma paragraf.
+
+</section>
+
+</section>
+
+</article>

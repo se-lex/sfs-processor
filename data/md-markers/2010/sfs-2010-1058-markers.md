@@ -1,0 +1,274 @@
+---
+beteckning: "2010:1058"
+rubrik: "Förordning om statsbidrag till litteratur, kulturtidskrifter och läsfrämjande insatser"
+departement: Kulturdepartementet
+utfardad_datum: 2010-07-01
+ikraft_datum: 2010-08-15
+publicerad_datum: 2026-01-02
+forarbeten: - "BET 2009/10:KrU5"
+  - "RSKR 2009/10:145"
+pdf_url: https://rkrattsdb.gov.se/SFSdoc/10/101058.pdf
+andringsforfattningar:
+  - beteckning: "2012:70"
+    rubrik: "Förordning om ändring i förordningen om statsbidrag till litteratur, kulturtidskrifter och läsfrämjande insatser"
+    ikraft_datum: 2012-03-15
+    anteckningar: "ändr. 6, 7 §§"
+  - beteckning: "2016:619"
+    rubrik: "Förordning om ändring i förordningen om statsbidrag till litteratur, kulturtidskrifter och läsfrämjande insatser"
+    ikraft_datum: 2016-07-01
+    anteckningar: ändr. 11 §
+  - beteckning: "2016:872"
+    rubrik: "Förordning om ändring i förordningen om statsbidrag till litteratur, kulturtidskrifter och läsfrämjande insatser"
+    ikraft_datum: 2017-01-01
+    anteckningar: ändr. 10 §
+  - beteckning: "2018:1055"
+    rubrik: "Förordning om ändring i förordningen om statsbidrag till litteratur, kulturtidskrifter och läsfrämjande insatser"
+    ikraft_datum: 2018-07-01
+    anteckningar: ändr. 17 §
+  - beteckning: "2024:295"
+    rubrik: "Förordning om ändring i förordningen om statsbidrag till litteratur, kulturtidskrifter och läsfrämjande insatser"
+    ikraft_datum: 2024-07-01
+    anteckningar: "ändr. 11 §; ny 16 a §, rubr. närmast före 16 a §"
+  - beteckning: "2025:1058"
+    rubrik: "Förordning om ändring i förordningen om statsbidrag till litteratur, kulturtidskrifter och läsfrämjande insatser"
+    ikraft_datum: 2026-01-01
+    anteckningar: "upph. 16 a §, rubr. närmast före 16 a §; ändr. 7, 10 §§"
+---
+<article selex:utfardad_datum="2010-07-01" selex:ikraft_datum="2010-08-15">
+
+# Förordning om statsbidrag till litteratur, kulturtidskrifter och läsfrämjande insatser
+
+<section id="inledande-bestämmelser">
+
+## Inledande bestämmelser
+
+<section id="1" class="paragraf">
+
+### 1 §
+
+Denna förordning innehåller bestämmelser om statsbidrag till utgivning och spridning av litteratur och kulturtidskrifter och till läsfrämjande insatser.
+
+Statsbidrag lämnas i mån av tillgång på medel.
+
+</section>
+<section id="2" class="paragraf">
+
+### 2 §
+
+Efter ansökan prövas frågor om statsbidrag enligt denna förordning av Statens kulturråd.
+
+</section>
+
+</section>
+<section id="ändamålet-med-statsbidraget">
+
+## Ändamålet med statsbidraget
+
+<section id="3" class="paragraf">
+
+### 3 §
+
+Ändamålet med statsbidraget är dels att främja mångfald, kvalitet och fördjupning i utgivningen av litteratur och kulturtidskrifter, dels att främja spridning och läsning av litteratur och kulturtidskrifter.
+
+</section>
+
+</section>
+<section id="definitioner">
+
+## Definitioner
+
+<section id="4" class="paragraf">
+
+### 4 §
+
+I denna förordning avses med
+
+litteratur: litteratur på originalspråk eller i översättning till svenska språket eller något av de nationella minoritetsspråken som företrädesvis ges ut i Sverige och vänder sig till en allmän publik,
+
+kulturtidskrift: en tidskrift som med sitt huvudsakliga innehåll vänder sig till en allmän publik med kulturdebatt i vid mening eller som huvudsakligen ger utrymme för analys och presentation inom kultur och konstarter.
+
+</section>
+
+</section>
+<section id="villkor-för-statsbidrag">
+
+## Villkor för statsbidrag
+
+<section id="5" class="paragraf">
+
+### 5 §
+
+Statsbidrag får ges till
+
+1. den som bedriver utgivningsverksamhet av professionell art i Sverige av litteratur eller kulturtidskrifter,
+
+2. den som anordnar evenemang eller bedriver annan verksamhet för att sprida litteratur eller kulturtidskrifter i Sverige, och
+
+3. den som anordnar läsfrämjande insatser, exempelvis kommuner, förskolor, skolor, bibliotek, bokhandlar, ideella föreningar och andra sammanslutningar med verksamhet i Sverige.
+
+Vid fördelning av statsbidrag enligt första stycket 2 och 3 ska det särskilt beaktas att stödet får en god spridning över landet.
+
+Enligt [1 §](#1) förordningen ([1984:326](https://selex.se/eli/sfs/1984/326)) om statsbidrag till kulturella ändamål får Statens kulturråd även lämna bidrag till en i Sverige verksam samisk organisation i ett annat nordiskt land.
+
+</section>
+<section id="6" class="paragraf">
+
+### 6 §
+
+Statsbidrag får ges för litteratur och kulturtidskrifter i såväl tryckt som elektronisk form. Förordning ([2012:70](https://selex.se/eli/sfs/2012/70)).
+
+</section>
+<section id="7" class="paragraf">
+
+### 7 §
+
+Statsbidrag till utgivning av litteratur lämnas till enskilda titlar i efterhand. Statsbidrag får även lämnas i förhand till planerad utgivning. När bidrag lämnas i efterhand ska hänsyn tas till skäliga kostnader för utgivningen. Bidrag i förhand lämnas för produktionskostnader.
+
+Statens kulturråd får meddela föreskrifter om beräkningsgrunderna för sådana bidrag som lämnas i efterhand.
+
+Som villkor för stöd får Statens kulturråd ange att en boktitel ska ges ut i en upplaga som inte över- eller understiger ett visst antal exemplar.
+
+Bidrag får endast ges till första upplagan av en boktitel, om det inte rör sig om
+
+1. återutgivning av titlar som är att betrakta som klassisk litteratur,
+
+2. återutgivning i elektronisk form av titlar som utgivits i tryckt men inte i elektronisk form före den 1 januari 2011, eller
+
+3. återutgivning av titlar som ingår i listor över litteratur för skolväsendet som tagits fram av Statens skolverk eller Statens kulturråd om bidraget behövs för att titlarna ska finnas tillgängliga. Förordning ([2025:1058](https://selex.se/eli/sfs/2025/1058)).
+
+</section>
+<section id="8" class="paragraf">
+
+### 8 §
+
+Statsbidrag till utgivning av kulturtidskrifter lämnas som bidrag till produktionskostnader och utvecklingsinsatser.
+
+Som villkor för stöd får Statens kulturråd ange att kulturtidskriften ska komma ut med ett visst antal nummer eller motsvarande per år.
+
+Statsbidrag för utvecklingsinsatser är avsett för insatser för att marknadsföra och sprida kulturtidskrifter och för andra insatser som kommer flera kulturtidskrifter till del.
+
+</section>
+<section id="9" class="paragraf">
+
+### 9 §
+
+Om en boktitel eller kulturtidskrift fått statligt stöd på annat sätt får statsbidrag enligt denna förordning endast lämnas om det finns särskilda skäl.
+
+</section>
+<section id="10" class="paragraf">
+
+### 10 §
+
+Den som får statsbidrag till utgivning av litteratur enligt [5 §](#5) första stycket 1 ska tillhandahålla det antal exemplar som Statens kulturråd bestämmer av de titlar för vilka stöd beviljats för distribution till folkbibliotek, till Nordens hus på Island och Färöarna, till Nordens institut på Grönland och Åland och till Kulturkontakt Nord i Finland. Skyldigheten att tillhandahålla exemplar omfattar inte sådana titlar som avses i [7 §](#7) fjärde stycket 3.
+
+Ersättning ska betalas för de exemplar som tillhandahålls. Ersättningens storlek bestäms av Statens kulturråd. Förordning ([2025:1058](https://selex.se/eli/sfs/2025/1058)).
+
+</section>
+<section id="11" class="paragraf">
+
+### 11 §
+
+Statsbidrag till läsfrämjande insatser enligt denna förordning får endast lämnas i enlighet med kommissionens förordning [(EU) 2023/2831](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32831R2023) av den 13 december 2023 om tillämpningen av artiklarna 107 och 108 i fördraget om Europeiska unionens funktionssätt på stöd av mindre betydelse. De uppgifter som en medlemsstat har enligt artiklarna 6.4 och 7.4 i kommissionens förordning ska utföras av Statens kulturråd. Förordning ([2024:295](https://selex.se/eli/sfs/2024/295)).
+
+</section>
+
+</section>
+<section id="redovisning">
+
+## Redovisning
+
+<section id="12" class="paragraf">
+
+### 12 §
+
+Mottagare av statsbidrag är skyldiga att redovisa för Statens kulturråd hur medlen har använts och att lämna de övriga uppgifter som Statens kulturråd behöver för uppföljning och utvärdering.
+
+</section>
+
+</section>
+<section id="återbetalning-och-återkrav">
+
+## Återbetalning och återkrav
+
+<section id="13" class="paragraf">
+
+### 13 §
+
+Statens kulturråd får besluta att ett beviljat bidrag inte ska betalas ut om det kan antas att bidraget har beviljats på grund av felaktiga uppgifter.
+
+</section>
+<section id="14" class="paragraf">
+
+### 14 §
+
+Mottagaren av ett bidrag enligt denna förordning är återbetalningsskyldig om
+
+1. mottagaren av bidraget genom att lämna oriktiga uppgifter eller på annat sätt har förorsakat att bidraget har lämnats felaktigt eller med för högt belopp,
+
+2. bidraget av något annat skäl än vad som sägs i 1 har lämnats felaktigt eller med för högt belopp och mottagaren borde ha insett detta,
+
+3. bidraget inte används för det ändamål det har beviljats,
+
+4. den verksamhet för vilken bidrag har lämnats inte slutförs eller om bidraget av någon annan anledning inte förbrukats,
+
+5. den som har mottagit bidraget inte lämnar sådan redovisning som avses i [12 §](#12), eller
+
+6. villkor i beslutet inte har följts.
+
+</section>
+<section id="15" class="paragraf">
+
+### 15 §
+
+Om en bidragsmottagare är återbetalningsskyldig enligt [14 §](#14), ska Statens kulturråd besluta att helt eller delvis kräva tillbaka bidraget. Om det finns särskilda skäl för det, får Statens kulturråd besluta att efterge kravet helt eller delvis.
+
+</section>
+
+</section>
+<section id="bemyndigande">
+
+## Bemyndigande
+
+<section id="16" class="paragraf">
+
+### 16 §
+
+Statens kulturråd får meddela de föreskrifter som behövs för verkställigheten av denna förordning.
+
+</section>
+<section id="16a" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+### 16 a §
+
+Har upphävts genom förordning ([2025:1058](https://selex.se/eli/sfs/2025/1058)).
+
+</section>
+
+</section>
+<section id="överklagande">
+
+## Överklagande
+
+<section id="17" class="paragraf">
+
+### 17 §
+
+I [40 §](#40) förvaltningslagen ([2017:900](https://selex.se/eli/sfs/2017/900)) finns bestämmelser om överklagande till allmän förvaltningsdomstol. Andra beslut än beslut enligt [13 §](#13) får dock inte överklagas. Förordning ([2018:1055](https://selex.se/eli/sfs/2018/1055)).
+
+
+</section>
+
+</section>
+<section id="övergångsbestämmelser" selex:status="upphavd" selex:upphavd="true">
+
+## Övergångsbestämmelser
+
+[2025:1058](https://selex.se/eli/sfs/2025/1058)
+
+1. Denna förordning träder i kraft den 1 januari 2026.
+
+2. Den upphävda [16 a §](#16a) gäller dock för uppgifter som registrerats före ikraftträdandet.
+
+</section>
+
+</article>

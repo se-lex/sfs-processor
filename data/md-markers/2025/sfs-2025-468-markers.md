@@ -1,0 +1,1800 @@
+---
+beteckning: "2025:468"
+rubrik: Socialtjänstförordning
+departement: Socialdepartementet
+utfardad_datum: 2025-05-22
+ikraft_datum: 2025-07-01
+publicerad_datum: 2026-01-02
+pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/2025-05/SFS2025-468.pdf
+andringsforfattningar:
+  - beteckning: "2025:1046"
+    rubrik: Förordning om ändring i socialtjänstförordningen
+    ikraft_datum: 2026-01-01
+    anteckningar: ändr. 12 kap. 2 §
+---
+<article selex:utfardad_datum="2025-05-22" selex:ikraft_datum="2025-07-01">
+
+# Socialtjänstförordning
+
+<section id="kap1" class="kapitel">
+
+## 1 kap. Inledande bestämmelser
+
+<section id="kap1.förordningens-tillämpningsområ">
+
+### Förordningens tillämpningsområde och innehåll
+
+<section id="kap1.1" class="paragraf">
+
+#### 1 §
+
+Denna förordning innehåller bestämmelser som kompletterar
+
+- socialtjänstlagen ([2025:400](https://selex.se/eli/sfs/2025/400)),
+
+- lagen ([1988:870](https://selex.se/eli/sfs/1988/870)) om vård av missbrukare i vissa fall,
+
+- lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga, och
+
+- lagen ([2024:79](https://selex.se/eli/sfs/2024/79)) om placering av barn i skyddat boende.
+
+</section>
+<section id="kap1.2" class="paragraf">
+
+#### 2 §
+
+Förordningen är meddelad med stöd av
+
+- [33 §](#kap1.33) lagen ([1988:870](https://selex.se/eli/sfs/1988/870)) om vård av missbrukare i vissa fall och [18 §](#kap1.18) lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga i fråga om 7 kap. [7 §](#kap7.7),
+
+- [15 f §](#kap1.15f) tredje stycket lagen med särskilda bestämmelser om vård av unga i fråga om 18 kap. [7 §](#kap18.7),
+
+- [31 kap. 1 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap31.1) ([2025:400](https://selex.se/eli/sfs/2025/400)) i fråga om 2 kap. 1 och [2 §](#kap1.2)§, 3 kap. 1 och [3 §](#kap1.3)§, 4 kap. 2-[5 §](#kap1.5)§, 5 kap. 2-[9 §](#kap1.9)§, 6 kap. 2-[7 §](#kap1.7)§, 7 kap. [2 §](#kap7.2), 8 kap. 3 och [4 §](#kap1.4)§, 9 kap. [8 §](#kap9.8) och 18 kap. 1 och [2 §](#kap1.2)§,
+
+- [31 kap. 2 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap31.2) i fråga om 15 kap. 4-[7 §](#kap1.7)§ och 17 kap [1 §](#kap1.1),
+
+- [31 kap. 3 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap31.3) i fråga om 17 kap. 2-[4 §](#kap1.4)§,
+
+- [8 kap. 11 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.11) i fråga om 18 kap. 1-[10 §](#kap1.10)§, och
+
+- [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) i fråga om övriga bestämmelser.
+
+</section>
+<section id="kap1.3" class="paragraf">
+
+#### 3 §
+
+Förordningen är indelad i följande kapitel:
+
+- 1 kap. Inledande bestämmelser
+
+- 2 kap. Särskilda boendeformer för äldre personer
+
+- 3 kap. Familjehem och jourhem
+
+- 4 kap. Stödboende
+
+- 5 kap. Hem för vård eller boende
+
+- 6 kap. Skyddat boende
+
+- 7 kap. Särskilda ungdomshem och LVM-hem
+
+- 8 kap. Vissa yrkesmässigt bedrivna enskilda verksamheter
+
+- 9 kap. Inskrivning och utskrivning från olika boenden
+
+- 10 kap. Innehåll i vissa ansökningar och planer som socialnämnden ska upprätta
+
+- 11 kap. Socialnämndens ansvar att vidta vissa åtgärder
+
+- 12 kap. Beräkning av försörjningsstöd
+
+- 13 kap. Gallring
+
+- 14 kap. Behörighetskrav för den som har utländsk utbildning
+
+- 15 kap. Tillstånds- och anmälningspliktig verksamhet
+
+- 16 kap. Tillsyn av boenden för barn och unga
+
+- 17 kap. Avgifter och ersättningar
+
+- 18 kap. Rätt att meddela föreskrifter
+
+</section>
+
+</section>
+<section id="kap1.ord-och-uttryck">
+
+### Ord och uttryck
+
+<section id="kap1.4" class="paragraf">
+
+#### 4 §
+
+Ord och uttryck som används i socialtjänstlagen ([2025:400](https://selex.se/eli/sfs/2025/400)), lagen ([1988:870](https://selex.se/eli/sfs/1988/870)) om vård av missbrukare i vissa fall, lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga och lagen ([2024:79](https://selex.se/eli/sfs/2024/79)) om placering av barn i skyddat boende har samma betydelse när de används i denna förordning.
+
+</section>
+<section id="kap1.5" class="paragraf">
+
+#### 5 §
+
+Med hem för vård eller boende enligt [9 kap. 4 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap9.4) ([2025:400](https://selex.se/eli/sfs/2025/400)) avses även sådana hem som avses i 22 och [23 §](#kap1.23)§ lagen ([1988:870](https://selex.se/eli/sfs/1988/870)) om vård av missbrukare i vissa fall (LVM-hem) och sådana hem som avses i [12 §](#kap1.12) lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga (särskilda ungdomshem) som drivs av Statens institutionsstyrelse.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap2" class="kapitel">
+
+## 2 kap. Särskilda boendeformer för äldre personer
+
+<section id="kap2.rätt-att-bo-på-samma-boende">
+
+### Rätt att bo på samma boende
+
+<section id="kap2.1" class="paragraf">
+
+#### 1 §
+
+För att anses ha skäliga levnadsförhållanden ska makar, sambor och registrerade partner, som båda beviljats boende i en sådan särskild boendeform som avses i [8 kap. 4 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap8.4) ([2025:400](https://selex.se/eli/sfs/2025/400)), få bo på samma boende om de begär det.
+
+</section>
+
+</section>
+<section id="kap2.bemanning">
+
+### Bemanning
+
+<section id="kap2.2" class="paragraf">
+
+#### 2 §
+
+Det ska, utifrån den enskildes aktuella behov, finnas tillgång till personal dygnet runt i en sådan särskild boendeform som avses i [8 kap. 4 § första stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap8.4) ([2025:400](https://selex.se/eli/sfs/2025/400)). Personalen ska genast kunna uppmärksamma om den enskilde behöver stöd och hjälp. Den enskilde ska ges det stöd och den hjälp som behövs till skydd för liv, personlig säkerhet eller hälsa.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap3" class="kapitel">
+
+## 3 kap. Familjehem och jourhem
+
+<section id="kap3.möjlighet-till-undervisning-ut">
+
+### Möjlighet till undervisning, utbildning och arbetsträning
+
+<section id="kap3.1" class="paragraf">
+
+#### 1 §
+
+Socialnämnden ska arbeta för att den som är placerad i ett familjehem och vars skolplikt har upphört får möjlighet till gymnasieutbildning eller annan utbildning som den enskilde har behov av. Om det i ett enskilt fall är lämpligare ska socialnämnden arbeta för att han eller hon får möjlighet till sådan arbetsträning som ökar möjligheterna att komma in på arbetsmarknaden eller på en yrkesutbildning.
+
+</section>
+
+</section>
+<section id="kap3.vuxna-placerade-i-familjehem">
+
+### Vuxna placerade i familjehem
+
+<section id="kap3.2" class="paragraf">
+
+#### 2 §
+
+Socialnämnden bör följa situationen för vuxna som är placerade i familjehem genom att fortlöpande hålla sig väl uppdaterad om förhållandena i hemmen. Nämnden bör ge såväl familjehemmen som de placerade behövligt stöd genom personliga besök och på annat lämpligt sätt.
+
+</section>
+
+</section>
+<section id="kap3.inhämtande-av-uppgifter-ur-mis">
+
+### Inhämtande av uppgifter ur misstanke- och brottsregister
+
+<section id="kap3.3" class="paragraf">
+
+#### 3 §
+
+Innan socialnämnden beslutar att placera ett barn i ett familjehem eller jourhem ska uppgifter inhämtas från belastningsregistret som förs enligt förordningen ([1999:1134](https://selex.se/eli/sfs/1999/1134)) om belastningsregister och uppgifter från misstankeregistret som förs enligt förordningen ([1999:1135](https://selex.se/eli/sfs/1999/1135)) om misstankeregister. Uppgifterna ska avse den eller dem som nämnden avser att anlita för sådan vård.
+
+</section>
+
+</section>
+<section id="kap3.förteckning-över-barn-i-familj">
+
+### Förteckning över barn i familjehem eller i annat enskilt hem
+
+<section id="kap3.4" class="paragraf">
+
+#### 4 §
+
+Socialnämnden ska föra en förteckning över de barn som enligt nämndens beslut vistas i familjehem eller efter nämndens medgivande i något annat enskilt hem.
+
+Socialnämnden ska senast den 31 januari varje år lämna in en kopia av förteckningen till Inspektionen för vård och omsorg.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap4" class="kapitel">
+
+## 4 kap. Stödboende
+
+<section id="kap4.verksamhetens-inriktning">
+
+### Verksamhetens inriktning
+
+<section id="kap4.1" class="paragraf">
+
+#### 1 §
+
+Verksamheten på ett stödboende ska bygga på förtroende och samarbete med den enskilde samt utformas så att vistelsen i boendet upplevs som meningsfull för den enskilde. Den enskildes integritet ska respekteras. De insatser som görs ska anpassas till den enskildes individuella behov och förutsättningar.
+
+</section>
+
+</section>
+<section id="kap4.föreståndare-och-personal">
+
+### Föreståndare och personal
+
+<section id="kap4.2" class="paragraf">
+
+#### 2 §
+
+På ett stödboende ska det finnas en föreståndare för verksamheten. Det ska också finnas sådan personal som i övrigt behövs för att bedriva en ändamålsenlig verksamhet.
+
+</section>
+<section id="kap4.3" class="paragraf">
+
+#### 3 §
+
+En föreståndare vid ett stödboende ska ha den sammantagna kompetens som behövs för att kunna leda, utveckla och följa upp verksamheten.
+
+Föreståndaren ska ha
+
+1. minst eftergymnasial utbildning vars innehåll är relevant för den verksamhet som bedrivs vid stödboendet,
+
+2. erfarenhet av liknande verksamhet, och
+
+3. personlig lämplighet.
+
+</section>
+<section id="kap4.4" class="paragraf">
+
+#### 4 §
+
+Den övriga personalen vid ett stödboende ska ha den utbildning, den erfarenhet och den personliga lämplighet som behövs för att kunna utföra sina arbetsuppgifter.
+
+Underrättelse vid sjukdom och olycksfall
+
+</section>
+<section id="kap4.5" class="paragraf">
+
+#### 5 §
+
+Om den som vårdas i ett stödboende drabbas av allvarlig sjukdom eller allvarligt olycksfall ska en närstående och socialnämnden underrättas så snart det är möjligt.
+
+</section>
+
+</section>
+<section id="kap4.möjlighet-till-undervisning-ut">
+
+### Möjlighet till undervisning, utbildning och arbetsträning
+
+<section id="kap4.6" class="paragraf">
+
+#### 6 §
+
+Socialnämnden ska arbeta för att den som vårdas i ett stödboende och vars skolplikt har upphört får möjlighet till gymnasieutbildning eller annan utbildning som den enskilde har behov av. Om det i ett enskilt fall är lämpligare ska socialnämnden arbeta för att han eller hon får möjlighet till sådan arbetsträning som ökar möjligheterna att komma in på arbetsmarknaden eller på en yrkesutbildning.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap5" class="kapitel">
+
+## 5 kap. Hem för vård eller boende
+
+<section id="kap5.verksamhetens-inriktning">
+
+### Verksamhetens inriktning
+
+<section id="kap5.1" class="paragraf">
+
+#### 1 §
+
+Verksamheten på ett hem för vård eller boende ska bygga på förtroende och samarbete med den enskilde samt utformas så att vistelsen i hemmet upplevs som meningsfull för den enskilde. Den enskildes integritet ska respekteras. De insatser som görs ska anpassas till den enskildes individuella behov och förutsättningar.
+
+</section>
+
+</section>
+<section id="kap5.föreståndare-och-personal">
+
+### Föreståndare och personal
+
+<section id="kap5.2" class="paragraf">
+
+#### 2 §
+
+På ett hem för vård eller boende ska det finnas en föreståndare för verksamheten. Det ska också finnas sådan personal som i övrigt behövs för att bedriva en ändamålsenlig verksamhet.
+
+</section>
+<section id="kap5.3" class="paragraf">
+
+#### 3 §
+
+All personal i hem för vård eller boende ska ha personlig lämplighet för anställningen.
+
+</section>
+<section id="kap5.4" class="paragraf">
+
+#### 4 §
+
+Den som är anställd för att ge vård, omsorg och uppfostran eller behandling i ett hem för vård eller boende ska ha minst en tvåårig eftergymnasial utbildning, eller en utbildning som motsvarar detta, om det inte finns särskilda skäl. Utbildningen ska vara inriktad mot socialt arbete, socialpedagogik, beteendevetenskap eller annat relevant ämnesområde.
+
+För föreståndare gäller i stället de kompetenskrav som framgår av [5 §](#kap5.5).
+
+</section>
+<section id="kap5.5" class="paragraf">
+
+#### 5 §
+
+Föreståndaren vid ett hem för vård eller boende ska ha den sammantagna kompetens som behövs för att kunna leda, utveckla och följa upp verksamheten.
+
+Föreståndaren ska ha erfarenhet av liknande verksamhet och en högskoleutbildning vars innehåll är relevant för verksamheten.
+
+</section>
+
+</section>
+<section id="kap5.tillgång-till-läkare-och-psyko">
+
+### Tillgång till läkare och psykologisk expertis
+
+<section id="kap5.6" class="paragraf">
+
+#### 6 §
+
+Sådana hem för vård eller boende där vård och behandling ges åt personer som har ett skadligt bruk eller beroende av alkohol, narkotika eller andra beroendeframkallande medel bör ha tillgång till läkare med särskilda kunskaper som är lämpade för denna verksamhet samt till psykologisk expertis.
+
+</section>
+
+</section>
+<section id="kap5.ordningsregler">
+
+### Ordningsregler
+
+<section id="kap5.7" class="paragraf">
+
+#### 7 §
+
+Föreståndaren på ett hem för vård eller boende ansvarar för att det finns ordningsregler för de dagliga rutinerna på hemmet. Reglerna ska syfta till att skapa trygghet och säkerhet för alla som vistas där.
+
+När ordningsreglerna utarbetas ska företrädare för dem som bor i hemmet medverka. Ordningsreglerna ska följas upp regelbundet.
+
+Ordningsreglerna ska vara tillgängliga och välkända för dem som bor i hemmet och för personalen.
+
+Underrättelse vid sjukdom och olycksfall
+
+</section>
+<section id="kap5.8" class="paragraf">
+
+#### 8 §
+
+Om den som vårdas i ett hem för vård eller boende drabbas av allvarlig sjukdom eller allvarligt olycksfall ska en närstående och socialnämnden underrättas så snart det är möjligt.
+
+</section>
+
+</section>
+<section id="kap5.möjlighet-till-undervisning-ut">
+
+### Möjlighet till undervisning, utbildning och arbetsträning
+
+<section id="kap5.9" class="paragraf">
+
+#### 9 §
+
+Socialnämnden ska arbeta för att den som vårdas i ett hem för vård eller boende och vars skolplikt har upphört får möjlighet till gymnasieutbildning eller annan utbildning som den enskilde har behov av. Om det i ett enskilt fall är lämpligare ska socialnämnden arbeta för att han eller hon får möjlighet till sådan arbetsträning som ökar möjligheterna att komma in på arbetsmarknaden eller på en yrkesutbildning.
+
+</section>
+
+</section>
+<section id="kap5.inställelse-till-domstol-eller">
+
+### Inställelse till domstol eller annan myndighet
+
+<section id="kap5.10" class="paragraf">
+
+#### 10 §
+
+Om en domstol eller en annan myndighet begär att den som vårdas i ett hem för vård eller boende ska inställa sig till myndigheten, ska han eller hon ges möjlighet att göra det. Om inställelsen är uppenbart olämplig ur vårdsynpunkt eller av något annat skäl inte är möjlig, ska detta genast anmälas till myndigheten.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap6" class="kapitel">
+
+## 6 kap. Skyddat boende
+
+<section id="kap6.verksamhetens-inriktning">
+
+### Verksamhetens inriktning
+
+<section id="kap6.1" class="paragraf">
+
+#### 1 §
+
+Verksamheten på ett skyddat boende ska bygga på förtroende och samarbete med den enskilde samt utformas så att vistelsen i boendet eller hemmet upplevs som meningsfull för den enskilde. Den enskildes integritet ska respekteras. De insatser som görs ska anpassas till den enskildes individuella behov och förutsättningar.
+
+</section>
+
+</section>
+<section id="kap6.föreståndare-och-personal">
+
+### Föreståndare och personal
+
+<section id="kap6.2" class="paragraf">
+
+#### 2 §
+
+På ett skyddat boende ska det finnas en föreståndare för verksamheten. Det ska också finnas sådan personal som i övrigt behövs för att bedriva en ändamålsenlig verksamhet.
+
+</section>
+<section id="kap6.3" class="paragraf">
+
+#### 3 §
+
+En föreståndare vid ett skyddat boende ska ha den sammantagna kompetens som behövs för att kunna leda, utveckla och följa upp verksamheten.
+
+Föreståndaren ska ha
+
+1. en högskoleutbildning vars innehåll är relevant för den verksamhet som bedrivs vid skyddat boende,
+
+2. erfarenhet av arbete vid skyddat boende eller liknande verksamhet, och
+
+3. personlig lämplighet.
+
+</section>
+<section id="kap6.4" class="paragraf">
+
+#### 4 §
+
+Den övriga personalen vid ett skyddat boende ska ha den utbildning, erfarenhet och personliga lämplighet som behövs för att kunna utföra sina arbetsuppgifter.
+
+</section>
+
+</section>
+<section id="kap6.bemanning-och-skyddsanordninga">
+
+### Bemanning och skyddsanordningar
+
+<section id="kap6.5" class="paragraf">
+
+#### 5 §
+
+Ett skyddat boende ska ha tillräcklig bemanning och tillräckliga skyddsanordningar för att kunna ge skydd mot hot, våld och andra övergrepp.
+
+</section>
+
+</section>
+<section id="kap6.skyddade-boenden-som-tar-emot">
+
+### Skyddade boenden som tar emot barn
+
+<section id="kap6.6" class="paragraf">
+
+#### 6 §
+
+Ett skyddat boende som tar emot barn ska vara lämpligt för barn, oavsett ålder och kön. På boendet ska det finnas personal med kunskaper om barns behov och rättigheter. Det ska dessutom finnas en särskilt utsedd person som har i uppgift att ge information till barnet, genomföra säkerhetsplanering för barnet, ansvara för kontakterna med socialtjänsten i fråga om barnet och följa upp barnets utveckling under tiden i det skyddade boendet.
+
+</section>
+
+</section>
+<section id="kap6.ordningsregler">
+
+### Ordningsregler
+
+<section id="kap6.7" class="paragraf">
+
+#### 7 §
+
+Föreståndaren på ett skyddat boende ansvarar för att det finns ordningsregler för de dagliga rutinerna på boendet. Reglerna ska syfta till att skapa trygghet och säkerhet för alla som vistas där.
+
+När ordningsreglerna utarbetas ska företrädare för dem som bor på boendet medverka. Ordningsreglerna ska följas upp regelbundet.
+
+Ordningsreglerna ska vara tillgängliga och välkända för dem som bor i boendet och för personalen.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap7" class="kapitel">
+
+## 7 kap. Särskilda ungdomshem och LVM-hem
+
+<section id="kap7.hem-för-särskilt-noggrann-till">
+
+### Hem för särskilt noggrann tillsyn
+
+<section id="kap7.1" class="paragraf">
+
+#### 1 §
+
+Statens institutionsstyrelse anger vilka av de särskilda ungdomshem och LVM-hem som myndigheten driver, som utgör hem för särskilt noggrann tillsyn.
+
+</section>
+
+</section>
+<section id="kap7.tillgång-till-läkare-och-psyko">
+
+### Tillgång till läkare och psykologisk expertis
+
+<section id="kap7.2" class="paragraf">
+
+#### 2 §
+
+Särskilda ungdomshem ska ha tillgång till läkare. En sådan läkare bör ha specialistkompetens inom barn- och ungdomspsykiatri eller allmän psykiatri.
+
+Sådana hem där vård och behandling ges åt personer som har ett skadligt bruk eller beroende av alkohol, narkotika eller andra beroendeframkallande medel bör ha tillgång till läkare med särskilda kunskaper som är lämpade för denna verksamhet.
+
+Dessutom bör hem som avses i första och andra styckena ha tillgång till psykologisk expertis.
+
+</section>
+
+</section>
+<section id="kap7.vad-som-ska-antecknas-i-en-jou">
+
+### Vad som ska antecknas i en journal
+
+<section id="kap7.3" class="paragraf">
+
+#### 3 §
+
+Beslut som fattas av Statens institutionsstyrelse enligt följande bestämmelser i lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga ska antecknas i journalen för den som vårdas i ett särskilt ungdomshem:
+
+- tillfällig vistelse i ett annat särskilt ungdomshem i samband med transport enligt [11 §](#kap7.11) första stycket,
+
+- vistelse utanför det särskilda ungdomshemmet enligt [15 a §](#kap7.15a),
+
+- vård vid låsbar enhet enligt [15 b §](#kap7.15b),
+
+- avskiljning enligt [15 c §](#kap7.15c),
+
+- vård i enskildhet enligt [15 d §](#kap7.15d),
+
+- förbud att använda elektroniska kommunikationstjänster enligt [15 g §](#kap7.15g),
+
+- begränsningar, avlyssning eller annan kontroll av den unges användning av elektroniska kommunikationstjänster enligt [15 h §](#kap7.15h),
+
+- omhändertagande av utrustning för elektroniska kommunikationstjänster enligt [15 j §](#kap7.15j),
+
+- förbud, begränsningar, övervakning och kontroll av besök enligt 15 m och [15 n §](#kap7.15n)§,
+
+- kroppsvisitation av besökare enligt [15 p §](#kap7.15p),
+
+- omhändertagande av egendom enligt [16 §](#kap7.16),
+
+- kroppsvisitering eller ytlig kroppsbesiktning enligt [17 §](#kap7.17),
+
+- lämnande av blod-, urin-, utandnings-, saliv- eller svettprov enligt [17 a §](#kap7.17a),
+
+- övervakning av brev och andra försändelser enligt [19 §](#kap7.19),
+
+- förstörande, förverkande eller försäljning av egendom enligt [20 §](#kap7.20), och
+
+- begäran om handräckning enligt [43 §](#kap7.43) 3.
+
+</section>
+<section id="kap7.4" class="paragraf">
+
+#### 4 §
+
+För den som vårdas på ett särskilt ungdomshem ska den bakgrundskontroll som görs enligt [15 q §](#kap7.15q) lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga antecknas i journalen.
+
+</section>
+<section id="kap7.5" class="paragraf">
+
+#### 5 §
+
+Beslut som fattas av Statens institutionsstyrelse enligt följande bestämmelser i lagen ([1988:870](https://selex.se/eli/sfs/1988/870)) om vård av missbrukare i vissa fall ska antecknas i journalen för den som vårdas på ett LVM-hem:
+
+- omhändertagande av egendom enligt [31 §](#kap7.31),
+
+- kroppsvisitation och ytlig kroppsbesiktning enligt [32 §](#kap7.32),
+
+- lämnande av blod-, urin-, utandnings-, saliv- eller svettprov enligt [32 a §](#kap7.32a),
+
+- begränsningar i att använda elektroniska kommunikationstjänster och ta emot besök enligt [33 a §](#kap7.33a),
+
+- begränsningar i rörelsefriheten enligt [34 §](#kap7.34),
+
+- kontroll av försändelser enligt [35 §](#kap7.35),
+
+- förstörande, förverkande eller försäljning av egendom enligt [36 §](#kap7.36), och
+
+- begäran om handräckning enligt [45 §](#kap7.45) 4.
+
+</section>
+
+</section>
+<section id="kap7.förstörelse-av-upptagningar-oc">
+
+### Förstörelse av upptagningar och uppteckningar
+
+<section id="kap7.6" class="paragraf">
+
+#### 6 §
+
+Upptagningar och uppteckningar som har tillkommit vid Statens institutionsstyrelses kontroll av elektronisk kommunikation på de särskilda ungdomshemmen ska förstöras så snart de inte längre behövs.
+
+</section>
+
+</section>
+<section id="kap7.medgivande-om-att-vissa-särski">
+
+### Medgivande om att vissa särskilda befogenheter får användas på ett särskilt ungdomshem eller LVM-hem
+
+<section id="kap7.7" class="paragraf">
+
+#### 7 §
+
+Statens institutionsstyrelse får medge att de särskilda befogenheter som anges i [18 §](#kap7.18) lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga och [33 §](#kap7.33) lagen ([1988:870](https://selex.se/eli/sfs/1988/870)) om vård av missbrukare i vissa fall får användas för alla som vårdas på ett särskilt ungdomshem eller LVM-hem om det är nödvändigt för att genomföra vården och upprätthålla ordningen på hemmet.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap8" class="kapitel">
+
+## 8 kap. Vissa yrkesmässigt bedrivna enskilda verksamheter
+
+<section id="kap8.verksamheter-som-omfattas">
+
+### Verksamheter som omfattas
+
+<section id="kap8.1" class="paragraf">
+
+#### 1 §
+
+Bestämmelserna i detta kapitel gäller för verksamhet i form av
+
+1. boende för äldre personer och för personer med funktionsnedsättning som motsvarar dem som avses i 8 kap. [4 §](#kap8.4) första stycket eller [8 kap. 11 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap8.11) ([2025:400](https://selex.se/eli/sfs/2025/400)) och som det hänvisas till i 26 kap. [1 §](#kap26.1) första stycket 2 den lagen,
+
+2. hem för viss annan heldygnsvård som avses i [26 kap. 1 § första stycket 3 socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap26.1), eller
+
+3. hem eller öppen verksamhet för vård under en begränsad del av dygnet som avses [26 kap. 1 § första stycket 4 socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap26.1).
+
+</section>
+
+</section>
+<section id="kap8.verksamhetens-inriktning">
+
+### Verksamhetens inriktning
+
+<section id="kap8.2" class="paragraf">
+
+#### 2 §
+
+Verksamhet som bedrivs enligt [1 §](#kap8.1) ska bygga på förtroende och samarbete med den enskilde samt utformas så att vistelsen i boendet eller hemmet upplevs som meningsfull för den enskilde. Den enskildes integritet ska respekteras. De insatser som görs ska anpassas till den enskildes individuella behov och förutsättningar.
+
+</section>
+
+</section>
+<section id="kap8.föreståndare-och-personal">
+
+### Föreståndare och personal
+
+<section id="kap8.3" class="paragraf">
+
+#### 3 §
+
+Vid en sådan verksamhet som avses i [1 §](#kap8.1) ska det finnas en föreståndare med lämplig utbildning. Det ska också finnas sådan personal som i övrigt behövs för att bedriva en ändamålsenlig verksamhet.
+
+Underrättelse vid sjukdom och olycksfall
+
+</section>
+<section id="kap8.4" class="paragraf">
+
+#### 4 §
+
+Om den som vårdas i en sådan verksamhet som avses i [1 §](#kap8.1) drabbas av allvarlig sjukdom eller allvarligt olycksfall ska en närstående och socialnämnden underrättas så snart det är möjligt.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap9" class="kapitel">
+
+## 9 kap. Inskrivning och utskrivning från olika boenden
+
+<section id="kap9.inskrivning">
+
+### Inskrivning
+
+</section>
+<section id="kap9.inskrivning-i-boenden-sker-eft">
+
+### Inskrivning i boenden sker efter ansökan
+
+<section id="kap9.1" class="paragraf">
+
+#### 1 §
+
+Inskrivning i ett stödboende eller i ett skyddat boende görs efter en ansökan av socialnämnden. Detsamma gäller för inskrivning i ett hem för vård eller boende som inte bedrivs av Statens institutionsstyrelse.
+
+När en enskild tar del av en insats i form av vistelse i ett skyddat boende eller vård i ett hem för vård eller boende utan individuell behovsprövning enligt [11 kap. 5 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap11.5) ([2025:400](https://selex.se/eli/sfs/2025/400)) gör han eller hon det utan en ansökan från socialnämnden.
+
+</section>
+
+</section>
+<section id="kap9.ansökans-innehåll">
+
+### Ansökans innehåll
+
+<section id="kap9.2" class="paragraf">
+
+#### 2 §
+
+När socialnämnden ansöker om inskrivning för en person ska nämndens utredning lämnas in samtidigt med ansökan. Om ansökan görs av någon annan än socialnämnden ska den som beslutar om inskrivning höra socialnämnden, om det behövs.
+
+Första stycket andra meningen gäller inte när en enskild tar del av en insats utan individuell behovsprövning enligt [11 kap. 5 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap11.5) ([2025:400](https://selex.se/eli/sfs/2025/400)).
+
+När nämnden ansöker om inskrivning av någon som är under 21 år ska nämnden lämna uppgifter om behov, ålder, utveckling, utbildning och personliga förhållanden i övrigt som är relevanta för att kontrollera att hemmet eller boendet är lämpligt enligt [8 §](#kap9.8).
+
+</section>
+
+</section>
+<section id="kap9.kopia-av-verkställbart-beslut">
+
+### Kopia av verkställbart beslut
+
+<section id="kap9.3" class="paragraf">
+
+#### 3 §
+
+Om det för den som ansökan avser finns ett beslut om omedelbart omhändertagande eller om vård enligt lagen ([1988:870](https://selex.se/eli/sfs/1988/870)) om vård av missbrukare i vissa fall eller lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga, ska en kopia av eller en annan underrättelse om det verkställbara beslutet lämnas in samtidigt med ansökan.
+
+Detsamma gäller beslut om skyddat boende eller en omedelbar sådan insats enligt lagen ([2024:79](https://selex.se/eli/sfs/2024/79)) om placering av barn i skyddat boende.
+
+</section>
+
+</section>
+<section id="kap9.vem-som-beslutar-om-inskrivnin">
+
+### Vem som beslutar om inskrivning
+
+<section id="kap9.4" class="paragraf">
+
+#### 4 §
+
+Inskrivning i ett stödboende eller i ett skyddat boende beslutas av föreståndaren på boendet, om inte kommunen eller den privata utföraren har bestämt en annan ordning. Detsamma gäller för inskrivning i ett hem för vård eller boende, som inte bedrivs av Statens institutionsstyrelse. Har kommunen eller den privata utföraren bestämt en annan ordning för inskrivning ska denne meddela Inspektionen för vård och omsorg vad som gäller.
+
+</section>
+<section id="kap9.5" class="paragraf">
+
+#### 5 §
+
+Statens institutionsstyrelse beslutar om inskrivning i de särskilda ungdomshem och LVM-hem som myndigheten bedriver.
+
+</section>
+
+</section>
+<section id="kap9.inskrivning-på-lvm-hem">
+
+### Inskrivning på LVM-hem
+
+<section id="kap9.6" class="paragraf">
+
+#### 6 §
+
+För beslut om inskrivning av den som vårdas med stöd av lagen ([1988:870](https://selex.se/eli/sfs/1988/870)) om vård av missbrukare i vissa fall krävs även ett särskilt intagningsbeslut enligt [25 §](#kap9.25) andra stycket den lagen.
+
+</section>
+
+</section>
+<section id="kap9.intagning-av-dem-som-ska-avtjä">
+
+### Intagning av dem som ska avtjäna sluten ungdomsvård på särskilda ungdomshem
+
+<section id="kap9.7" class="paragraf">
+
+#### 7 §
+
+För dömda som avtjänar sluten ungdomsvård enligt lagen ([1998:603](https://selex.se/eli/sfs/1998/603)) om verkställighet av sluten ungdomsvård finns särskilda bestämmelser om intagning på särskilt ungdomshem i den lagen.
+
+</section>
+
+</section>
+<section id="kap9.lämplighetsbedömning-av-boende">
+
+### Lämplighetsbedömning av boendet före inskrivning
+
+<section id="kap9.8" class="paragraf">
+
+#### 8 §
+
+Den som beslutar om inskrivning i ett stödboende eller i ett skyddat boende ska särskilt kontrollera att boendet är lämpligt med hänsyn till den enskildes behov, ålder, utveckling, utbildning och personliga förhållanden i övrigt. Detsamma gäller hem för vård eller boende som inte bedrivs av Statens institutionsstyrelse.
+
+Första stycket gäller inte när en enskild tar del av en insats i form av vistelse i ett skyddat boende eller vård i ett hem för vård eller boende utan individuell behovsprövning enligt [11 kap. 5 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap11.5) ([2025:400](https://selex.se/eli/sfs/2025/400)).
+
+</section>
+
+</section>
+<section id="kap9.överensstämmelse-med-socialnäm">
+
+### Överensstämmelse med socialnämndens villkor
+
+<section id="kap9.9" class="paragraf">
+
+#### 9 §
+
+När en enskild tar del av en insats utan individuell behovsprövning enligt [11 kap. 5 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap11.5) ([2025:400](https://selex.se/eli/sfs/2025/400)) ska den som beslutar om inskrivning särskilt kontrollera att inskrivningen sker i enlighet med de villkor som socialnämnden har beslutat om.
+
+</section>
+
+</section>
+<section id="kap9.utskrivning">
+
+### Utskrivning
+
+</section>
+<section id="kap9.vem-som-beslutar-om-utskrivnin">
+
+### Vem som beslutar om utskrivning
+
+<section id="kap9.10" class="paragraf">
+
+#### 10 §
+
+Utskrivning från ett stödboende eller från ett skyddat boende beslutas av föreståndaren, om inte kommunen eller den privata utföraren har bestämt en annan ordning.
+
+Detsamma gäller för utskrivning från ett hem för vård eller boende, som inte bedrivs av Statens institutionsstyrelse.
+
+</section>
+<section id="kap9.11" class="paragraf">
+
+#### 11 §
+
+Statens institutionsstyrelse beslutar om utskrivning från de särskilda ungdomshem och LVM-hem som myndigheten bedriver.
+
+När utskrivning från boenden ska ske
+
+</section>
+<section id="kap9.12" class="paragraf">
+
+#### 12 §
+
+När behovet av vård i hemmet eller boendet har upphört ska den som vårdas skrivas ut. Ytterligare bestämmelser om utskrivning från olika vårdformer finns i 13-[18 §](#kap9.18)§.
+
+</section>
+
+</section>
+<section id="kap9.utskrivning-från-vård-enligt-s">
+
+### Utskrivning från vård enligt socialtjänstlagen
+
+<section id="kap9.13" class="paragraf">
+
+#### 13 §
+
+Den som vårdas med stöd av socialtjänstlagen ([2025:400](https://selex.se/eli/sfs/2025/400)) ska genast skrivas ut om han eller hon, eller hans eller hennes vårdnadshavare, begär det.
+
+Om den som vårdas enligt socialtjänstlagen har en förvaltare enligt [11 kap. 7 § föräldrabalken](https://selex.se/eli/sfs/1949/381#kap11.7) och angelägenheten omfattas av förvaltarens uppdrag, ska utskrivning ske genast om förvaltaren begär det.
+
+</section>
+<section id="kap9.14" class="paragraf">
+
+#### 14 §
+
+Den som tar del av en insats utan individuell behovsprövning enligt [11 kap. 5 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap11.5) ([2025:400](https://selex.se/eli/sfs/2025/400)) i form av placering i ett skyddat boende eller i ett hem för vård eller boende, ska skrivas ut senast när insatsen har slutförts i enlighet med socialnämndens beslutade villkor.
+
+</section>
+
+</section>
+<section id="kap9.utskrivning-från-vård-enligt-l">
+
+### Utskrivning från vård enligt lagen med särskilda bestämmelser om vård av unga
+
+<section id="kap9.15" class="paragraf">
+
+#### 15 §
+
+Den som vårdas med stöd av lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga får skrivas ut bara om socialnämnden har begärt eller medgett det.
+
+Om Statens institutionsstyrelse enligt [11 §](#kap9.11) första stycket lagen med särskilda bestämmelser om vård av unga beslutar att den unge tillfälligt ska vistas på ett annat särskilt ungdomshem får dock han eller hon skrivas ut utan att socialnämnden har begärt eller medgett det.
+
+</section>
+
+</section>
+<section id="kap9.utskrivning-från-vård-enligt-l">
+
+### Utskrivning från vård enligt lagen om vård av missbrukare i vissa fall
+
+<section id="kap9.16" class="paragraf">
+
+#### 16 §
+
+För den som vårdas med stöd av lagen ([1988:870](https://selex.se/eli/sfs/1988/870)) om vård av missbrukare i vissa fall finns särskilda bestämmelser om utskrivning i den lagen.
+
+</section>
+
+</section>
+<section id="kap9.utskrivning-från-placering-enl">
+
+### Utskrivning från placering enligt lagen om placering av barn i skyddat boende
+
+<section id="kap9.17" class="paragraf">
+
+#### 17 §
+
+Om ett barn är placerat i ett skyddat boende med stöd av lagen ([2024:79](https://selex.se/eli/sfs/2024/79)) om placering av barn i skyddat boende, får han eller hon skrivas ut bara om socialnämnden har begärt eller medgett det.
+
+Om den vårdnadshavare som barnet är placerat tillsammans med begär det, får dock barnet skrivas ut utan att socialnämnden har begärt eller medgett det.
+
+</section>
+
+</section>
+<section id="kap9.utskrivning-från-verkställighe">
+
+### Utskrivning från verkställighet av sluten ungdomsvård
+
+<section id="kap9.18" class="paragraf">
+
+#### 18 §
+
+För den som avtjänar sluten ungdomsvård finns särskilda bestämmelser om fastställande av slutdag för verkställigheten i lagen ([1998:603](https://selex.se/eli/sfs/1998/603)) om verkställighet av sluten ungdomsvård.
+
+Underrättelser till socialnämnden
+
+Underrättelse till socialnämnden om försvårande av vård eller behov av annan vård
+
+</section>
+<section id="kap9.19" class="paragraf">
+
+#### 19 §
+
+Föreståndaren ska genast underrätta socialnämnden om den som vårdas i ett stödboende, ett skyddat boende eller ett hem för vård eller boende med stöd av socialtjänstlagen ([2025:400](https://selex.se/eli/sfs/2025/400)), lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga eller lagen ([2024:79](https://selex.se/eli/sfs/2024/79)) om placering av barn i skyddat boende
+
+- omöjliggör eller allvarligt försvårar meningsfulla vård- eller hjälpinsatser för sig själv eller andra som vistas på hemmet eller boendet, eller
+
+- behöver annan vård än den som hemmet eller boendet kan erbjuda.
+
+</section>
+
+</section>
+<section id="kap9.statens-institutionsstyrelse-s">
+
+### Statens institutionsstyrelse ska underrätta socialnämnden om utskrivning
+
+<section id="kap9.20" class="paragraf">
+
+#### 20 §
+
+Statens institutionsstyrelse ska genast underrätta socialnämnden när en person bedöms kunna skrivas ut. Nämnden ska underrättas i sådan tid att det finns möjlighet att genomföra eller förbereda andra insatser som behövs.
+
+</section>
+
+</section>
+<section id="kap9.statens-institutionsstyrelse-s">
+
+### Statens institutionsstyrelse ska underrätta socialnämnden om tillfälligt byte av ungdomshem
+
+<section id="kap9.21" class="paragraf">
+
+#### 21 §
+
+Statens institutionsstyrelse ska genast underrätta socialnämnden om ett beslut om att den unge tillfälligt ska vistas på ett annat särskilt ungdomshem enligt [11 §](#kap9.11) första stycket lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap10" class="kapitel">
+
+## 10 kap. Innehåll i vissa ansökningar och planer som socialnämnden ska upprätta
+
+<section id="kap10.ansökan-enligt-lagen-med-särsk">
+
+### Ansökan enligt lagen med särskilda bestämmelser om vård av unga
+
+<section id="kap10.1" class="paragraf">
+
+#### 1 §
+
+Socialnämnden ska i en ansökan enligt [4 §](#kap10.4) lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga, utöver det som anges i [4 §](#kap10.4) den lagen, om det inte finns särskilda skäl mot det, redogöra för
+
+1. barnets eller den unges hälsa, utveckling, sociala beteende och skolgång,
+
+2. barnets eller den unges relationer till närstående personer,
+
+3. socialnämndens bedömning av barnets eller den unges behov av vård och hans eller hennes vårdnadshavares förmåga att tillgodose detta behov, och
+
+4. barnets eller den unges och, i fråga om barn, även hans eller hennes vårdnadshavares syn på behovet av vård och förhållandena i övrigt.
+
+En ansökan enligt första stycket ska även innehålla en vårdplan.
+
+</section>
+
+</section>
+<section id="kap10.vård--och-genomförandeplan">
+
+### Vård- och genomförandeplan
+
+<section id="kap10.2" class="paragraf">
+
+#### 2 §
+
+En vårdplan enligt [9 kap. 12 § första stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap9.12) ([2025:400](https://selex.se/eli/sfs/2025/400)) ska, om det inte finns särskilda skäl mot det, innehålla en redogörelse för
+
+1. de särskilda insatser som behövs,
+
+2. det sätt på vilket barnets eller den unges umgänge med föräldrar, vårdnadshavare, syskon och andra närstående ska ordnas,
+
+3. målet med vården, och
+
+4. den vårdbehövandes och, i fråga om barn, även hans eller hennes vårdnadshavares syn på den planerade vården.
+
+</section>
+<section id="kap10.3" class="paragraf">
+
+#### 3 §
+
+En genomförandeplan enligt [9 kap. 12 § andra stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap9.12) ([2025:400](https://selex.se/eli/sfs/2025/400)) ska, om det inte finns särskilda skäl mot det, innehålla en redogörelse för
+
+1. målet med de särskilda insatser som behövs,
+
+2. när och hur de särskilda insatserna ska genomföras,
+
+3. när och hur genomförandeplanen ska följas upp,
+
+4. när och hur barnet eller den unge ska kunna tillgodogöra sig åtgärder och insatser som andra huvudmän än socialnämnden ansvarar för,
+
+5. när och hur barnets eller den unges umgänge med föräldrar, vårdnadshavare, syskon och andra närstående ska ordnas,
+
+6. när och hur barnet eller den unge ska ha kontakt med socialnämnden, och
+
+7. barnets eller den unges och, i fråga om barn, även hans eller hennes vårdnadshavares syn på genomförandet av den planerade vården.
+
+</section>
+
+</section>
+<section id="kap10.arbetsplan-för-ungdomstjänst">
+
+### Arbetsplan för ungdomstjänst
+
+<section id="kap10.4" class="paragraf">
+
+#### 4 §
+
+En arbetsplan för ungdomstjänst enligt [18 kap. 8 § andra stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap18.8) ([2025:400](https://selex.se/eli/sfs/2025/400)) ska innehålla uppgifter om
+
+1. var arbetet ska utföras,
+
+2. vilka arbetstider som ska gälla,
+
+3. det lägsta och högsta antalet arbetstimmar som den dömde har att fullgöra per vecka eller månad, och
+
+3. de övriga villkor som är nödvändiga för verksamheten.
+
+Arbetsplanen ska också innehålla uppgifter om innehållet i och omfattningen av annan särskilt anordnad verksamhet.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap11" class="kapitel">
+
+## 11 kap. Socialnämndens ansvar att vidta vissa åtgärder
+
+<section id="kap11.ansökan-om-åtgärd-i-fråga-om-v">
+
+### Ansökan om åtgärd i fråga om vårdnad, umgänge eller förmyndarskap för ett barn
+
+<section id="kap11.1" class="paragraf">
+
+#### 1 §
+
+Om socialnämnden får veta att någon åtgärd behöver vidtas i fråga om vårdnad, umgänge eller förmynderskap för ett barn, ska nämnden göra en framställning eller ansökan om det hos den domstol som ärendet hör till. Detsamma gäller om nämnden bedömer att ett barn är i behov av ett målsägandebiträde.
+
+Framställningen eller ansökan ska göras av socialnämnden i den kommun som enligt [29 kap. socialtjänstlagen](https://selex.se/eli/sfs/2001/453) ([2025:400](https://selex.se/eli/sfs/2025/400)) ansvarar för att tillgodose barnets behov av insatser.
+
+I fråga om särskilt förordnad vårdnadshavare enligt lagen ([2005:429](https://selex.se/eli/sfs/2005/429)) om god man för ensamkommande barn, gäller bestämmelserna i den lagen i stället för första och andra styckena.
+
+</section>
+
+</section>
+<section id="kap11.anmälan-till-överförmyndaren">
+
+### Anmälan till överförmyndaren
+
+<section id="kap11.2" class="paragraf">
+
+#### 2 §
+
+Socialnämnden ska anmäla till överförmyndaren om nämnden bedömer att
+
+1. god man eller förvaltare enligt föräldrabalken bör förordnas för någon,
+
+2. någon inte längre bör ha förvaltare, eller
+
+3. förhållandena talar för att en förälder inte kommer att förvalta sitt barns egendom på ett betryggande sätt.
+
+</section>
+
+</section>
+<section id="kap11.åtgärd-vid-avhysning-eller-avl">
+
+### Åtgärd vid avhysning eller avlägsnande
+
+<section id="kap11.3" class="paragraf">
+
+#### 3 §
+
+När socialnämnden får en underrättelse om tiden för en avhysning eller ett avlägsnande enligt 16 kap. 2 eller [7 a §](#kap11.7a) utsökningsförordningen ([1981:981](https://selex.se/eli/sfs/1981/981)), ska nämnden samma dag skicka en bekräftelse till Kronofogdemyndigheten om att underrättelsen har tagits emot. I bekräftelsen ska det anges vem som är ansvarig handläggare vid socialnämnden.
+
+Vid avhysning ska en kopia av bekräftelsen skickas till den som avhysningen gäller.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap12" class="kapitel">
+
+## 12 kap. Beräkning av försörjningsstöd
+
+<section id="kap12.1" class="paragraf">
+
+#### 1 §
+
+Riksnormen för beräkning av skäliga kostnader enligt [12 kap. 7 § första stycket 1 socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap12.7) ([2025:400](https://selex.se/eli/sfs/2025/400)) grundar sig på Konsumentverkets senaste pris- och konsumtionsundersökningar och delas upp på olika hushållstyper och åldersintervaller.
+
+</section>
+<section id="kap12.2" class="paragraf">
+
+#### 2 §
+
+Riksnormen för ett hushåll under 2026 utgör summan av de personliga kostnaderna för samtliga medlemmar i hushållet och de gemensamma hushållskostnaderna beräknade enligt följande tabeller.
+
+</section>
+<section id="kap12.personliga-kostnader-per-hemma">
+
+### Personliga kostnader per hemmavarande barn och skolungdom, kronor per månad
+
+Ålder	        Summa personliga 	Utan lunch fem dagar kostnader               per vecka
+
+0 år            2 740                   2 560
+
+1-2 år	        3 060	                2 800
+
+3 år	        2 720	                2 500
+
+4-6 år	        3 060	                2 720
+
+7-10 år	        3 820
+
+11-14 år	4 390
+
+15-18 år	4 960
+
+19-20 år	5 000
+
+</section>
+<section id="kap12.personliga-kostnader-vuxna-kro">
+
+### Personliga kostnader vuxna, kronor per månad
+
+Hushållstyp	Summa personliga kostnader
+
+Ensamstående	3 940
+
+Sambo	        7 100
+
+</section>
+<section id="kap12.gemensamma-hushållskostnader-k">
+
+### Gemensamma hushållskostnader, kronor per månad
+
+Antal personer  Summa gemensamma i hushållet	kostnader
+
+1	        1 280
+
+2	        1 410
+
+3	        1 790
+
+4	        2 030
+
+5	        2 330
+
+6	        2 640
+
+7	        2 830 Förordning ([2025:1046](https://selex.se/eli/sfs/2025/1046)).
+
+<section id="kap12.3" class="paragraf">
+
+#### 3 §
+
+För hushåll med fler än sju personer beräknas kostnaden för varje ytterligare hushållsmedlem som skillnaden mellan hushåll med sex respektive sju personer.
+
+För en vuxen person som inte är att anse som sambo, men som ingår i hushållsgemenskap med flera personer, beräknas normen såsom personliga kostnader för ensamstående plus kvoten av de gemensamma kostnaderna för hushållet och antalet medlemmar i hushållet.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap13" class="kapitel">
+
+## 13 kap. Gallring
+
+<section id="kap13.1" class="paragraf">
+
+#### 1 §
+
+Handlingar som avses i 16 kap. [4 §](#kap16.4) och [17 kap. 5 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap17.5) ([2025:400](https://selex.se/eli/sfs/2025/400)) ska av hänsyn till forskningens behov undantas från gallring i de kommuner som ingår i Östergötlands, Gotlands och Västernorrlands län samt i Göteborgs kommun. I landets övriga kommuner ska sådana handlingar undantas från gallring när det gäller personer födda den femte, femtonde och tjugofemte i varje månad.
+
+</section>
+
+</section>
+<section id="kap14" class="kapitel">
+
+## 14 kap. Behörighetskrav för den som har utländsk utbildning
+
+<section id="kap14.1" class="paragraf">
+
+#### 1 §
+
+För den som har en utländsk utbildning prövar Socialstyrelsen ansökningar enligt [25 kap. 3 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap25.3) ([2025:400](https://selex.se/eli/sfs/2025/400)) om bevis om behörighet att utföra sådana uppgifter inom socialtjänsten som gäller barn och unga som avses i 25 kap. [1 §](#kap25.1) första stycket den lagen.
+
+</section>
+<section id="kap14.2" class="paragraf">
+
+#### 2 §
+
+Den som har en annan utländsk utbildning än en sådan som avses i [25 kap. 2 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap25.2) ([2025:400](https://selex.se/eli/sfs/2025/400)) ska få bevis om behörighet enligt [1 §](#kap14.1) om
+
+1. utbildningen
+
+a) till sin längd, nivå och till sitt innehåll motsvarar svensk socionomexamen eller annan relevant examen enligt föreskrifter som har meddelats med stöd av 18 kap. [3 §](#kap18.3), eller
+
+b) tillsammans med yrkeslivserfarenhet motsvarar svensk socionomexamen eller annan relevant examen enligt föreskrifter som har meddelats med stöd av 18 kap. [3 §](#kap18.3), och
+
+2. han eller hon har de kunskaper i svenska, danska eller norska språket och om svenska författningar som är nödvändiga för yrket.
+
+</section>
+
+</section>
+<section id="kap15" class="kapitel">
+
+## 15 kap. Tillstånds- och anmälningspliktig verksamhet
+
+<section id="kap15.ansökan-om-tillstånd-för-att-b">
+
+### Ansökan om tillstånd för att bedriva viss verksamhet
+
+</section>
+<section id="kap15.innehållet-i-ansökan">
+
+### Innehållet i ansökan
+
+<section id="kap15.1" class="paragraf">
+
+#### 1 §
+
+En ansökan till Inspektionen för vård och omsorg om tillstånd enligt [26 kap. 1 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap26.1) ([2025:400](https://selex.se/eli/sfs/2025/400)) att yrkesmässigt bedriva verksamhet ska vara skriftlig och ange
+
+1. vilken verksamhet som ska bedrivas,
+
+2. vem som ska bedriva verksamheten,
+
+3. hur verksamheten ska bedrivas och dess omfattning,
+
+4. för vilka målgrupper verksamheten är avsedd,
+
+5. hur verksamheten ska finansieras,
+
+6. vem som ska vara föreståndare för verksamheten, och
+
+7. uppgifter om personalen samt dess utbildning och erfarenhet.
+
+Första stycket 4, 6 och 7 gäller inte för en ansökan om tillstånd att bedriva yrkesmässig verksamhet i form av sådana särskilda boendeformer för äldre personer som avses i [8 kap. 4 § andra stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap8.4) och som det hänvisas till i 26 kap. [1 §](#kap26.1) första stycket 2 den lagen.
+
+När sökanden är en juridisk person
+
+</section>
+<section id="kap15.2" class="paragraf">
+
+#### 2 §
+
+När en juridisk person ansöker om tillstånd enligt [26 kap. 1 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap26.1) ([2025:400](https://selex.se/eli/sfs/2025/400)) ska ansökan, utöver vad som följer av [1 §](#kap15.1), innehålla följande handlingar:
+
+1. handling som visar vem som är den verkställande direktören,
+
+2. handling som visar vilka som är styrelseledamöter och styrelsesuppleanter,
+
+3. handling som visar samtliga bolagsmän i kommanditbolag eller annat handelsbolag,
+
+4. handling som visar andra personer som har ett bestämmande inflytande över verksamheten,
+
+5. handling som visar personer som genom ett direkt eller indirekt ägande har ett väsentligt inflytande över verksamheten, och
+
+6. årsredovisning, årsbokslut eller motsvarande sammanställning av den juridiska personens räkenskaper samt verksamhetsberättelse och revisionsberättelse för de närmast föregående räkenskapsåren, om verksamhet tidigare har bedrivits i den juridiska personen.
+
+</section>
+<section id="kap15.3" class="paragraf">
+
+#### 3 §
+
+Om sökanden är ett bolag, en förening, en samfällighet eller en stiftelse ska sökanden också lämna in bolagsordningen eller stadgarna och uppge vem som har behörighet att företräda bolaget, föreningen, samfälligheten eller stiftelsen.
+
+</section>
+
+</section>
+<section id="kap15.ritningar-och-brandskydd">
+
+### Ritningar och brandskydd
+
+<section id="kap15.4" class="paragraf">
+
+#### 4 §
+
+Ritningar över verksamhetens lokaler och uppgifter om hur brandskyddet är ordnat ska lämnas in samtidigt med ansökan.
+
+Första stycket gäller inte för verksamheter i form av hemtjänst eller för verksamheter som har till uppgift att till socialnämnden föreslå familjehem och jourhem till barn samt som lämnar stöd och handledning till sådana hem som tar emot barn enligt [26 kap. 1 § första stycket 5 och 6 socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap26.1) ([2025:400](https://selex.se/eli/sfs/2025/400)).
+
+Kravet i första stycket på att ritningar över verksamhetens lokaler ska lämnas in samtidigt med ansökan gäller inte heller för verksamheter i form av sådana särskilda boendeformer för äldre personer som avses i [8 kap. 4 § andra stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap8.4) och som det hänvisas till i 26 kap. [1 §](#kap26.1) första stycket 2 den lagen.
+
+</section>
+
+</section>
+<section id="kap15.förteckning-över-lägenheter-el">
+
+### Förteckning över lägenheter eller motsvarande
+
+<section id="kap15.5" class="paragraf">
+
+#### 5 §
+
+När en ansökan gäller ett tillstånd att yrkesmässigt bedriva verksamhet i form av stödboende eller skyddat boende ska även en förteckning över de lägenheter eller motsvarande som ska ingå i verksamheten lämnas in samtidigt med ansökan.
+
+</section>
+
+</section>
+<section id="kap15.beslut-och-bevis-om-tillstånd">
+
+### Beslut och bevis om tillstånd
+
+<section id="kap15.6" class="paragraf">
+
+#### 6 §
+
+Inspektionen för vård och omsorg ska utfärda ett bevis när tillstånd har beslutats. Beviset ska innehålla uppgifter om
+
+1. den juridiska eller fysiska person som ska bedriva verksamheten,
+
+2. för vilken målgrupp verksamheten är godkänd,
+
+3. det högsta antal personer som samtidigt får vårdas i eller omfattas av verksamheten,
+
+4. vem som ska vara föreståndare för verksamheten, och
+
+5. övriga villkor för tillståndet.
+
+Första stycket 2-4 gäller inte för yrkesmässig verksamhet i form av sådana särskilda boendeformer för äldre personer som avses i [8 kap. 4 § andra stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap8.4) ([2025:400](https://selex.se/eli/sfs/2025/400)) och som det hänvisas till i 26 kap. [1 §](#kap26.1) första stycket 2 den lagen.
+
+</section>
+<section id="kap15.7" class="paragraf">
+
+#### 7 §
+
+Ett tillstånd gäller tills vidare. Tidsbegränsade tillstånd får beslutas för verksamhet som kommunen genom avtal enligt [4 kap. 3 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap4.3) ([2025:400](https://selex.se/eli/sfs/2025/400)) har överlämnat till ett privaträttsligt organ eller en fysisk person om att utföra.
+
+Ett tillstånd får inte överlåtas.
+
+</section>
+
+</section>
+<section id="kap15.anmälan-för-kommuner-och-regio">
+
+### Anmälan för kommuner och regioner
+
+</section>
+<section id="kap15.innehållet-i-anmälan">
+
+### Innehållet i anmälan
+
+<section id="kap15.8" class="paragraf">
+
+#### 8 §
+
+En anmälan till Inspektionen för vård och omsorg enligt [26 kap. 2 § andra stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap26.2) ([2025:400](https://selex.se/eli/sfs/2025/400)) ska vara skriftlig och ange
+
+1. vem som bedriver verksamheten,
+
+2. hur verksamheten bedrivs och dess omfattning,
+
+3. för vilka målgrupper verksamheten är avsedd,
+
+4. vem som är föreståndare för verksamheten, och
+
+5. uppgifter om personalen samt dess utbildning och erfarenhet.
+
+Första stycket 3-5 gäller inte för en anmälan om att bedriva verksamhet i form av sådana särskilda boendeformer för äldre personer som avses i [8 kap. 4 § andra stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap8.4) och som det hänvisas till i 26 kap. [1 §](#kap26.1) första stycket 2 den lagen.
+
+</section>
+
+</section>
+<section id="kap15.ritningar-och-brandskydd">
+
+### Ritningar och brandskydd
+
+<section id="kap15.9" class="paragraf">
+
+#### 9 §
+
+Ritningar över verksamhetens lokaler och uppgifter om hur brandskyddet är ordnat ska lämnas in samtidigt med anmälan.
+
+Första stycket gäller inte för verksamheter i form av sådana särskilda boendeformer för äldre personer som avses i [8 kap. 4 § andra stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap8.4) ([2025:400](https://selex.se/eli/sfs/2025/400)) och som det hänvisas till i 26 kap. [1 §](#kap26.1) första stycket 2 den lagen.
+
+</section>
+
+</section>
+<section id="kap15.förteckning-över-lägenheter-el">
+
+### Förteckning över lägenheter eller motsvarande
+
+<section id="kap15.10" class="paragraf">
+
+#### 10 §
+
+När en anmälan gäller att bedriva verksamhet i form av stödboende eller skyddat boende ska även en förteckning över de lägenheter eller motsvarande som ingår i verksamheten lämnas in samtidigt med anmälan.
+
+</section>
+
+</section>
+<section id="kap15.register-över-tillstånd">
+
+### Register över tillstånd
+
+</section>
+<section id="kap15.skyldighet-att-föra-register">
+
+### Skyldighet att föra register
+
+<section id="kap15.11" class="paragraf">
+
+#### 11 §
+
+Inspektionen för vård och omsorg ska föra ett register över
+
+1. dem som har tillstånd att bedriva verksamhet enligt [26 kap. 1 § första stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap26.1) ([2025:400](https://selex.se/eli/sfs/2025/400)), och
+
+2. dem som har anmält verksamhet enligt 26 kap. [2 §](#kap26.2) den lagen.
+
+Registret ska utgöra underlag för tillsynsverksamheten.
+
+</section>
+
+</section>
+<section id="kap15.direktåtkomst">
+
+### Direktåtkomst
+
+<section id="kap15.12" class="paragraf">
+
+#### 12 §
+
+Socialstyrelsen får ha direktåtkomst till uppgifter i det register som förs enligt [11 §](#kap15.11) om uppgifterna behövs hos Socialstyrelsen för kunskapsutveckling, statistikframställning, uppföljning, utvärdering eller epidemiologiska studier.
+
+Vid sådan direktåtkomst har Socialstyrelsen rätt att ta del av de uppgifter som omfattas av åtkomsten.
+
+</section>
+
+</section>
+<section id="kap15.uppgiftsskyldighet">
+
+### Uppgiftsskyldighet
+
+<section id="kap15.13" class="paragraf">
+
+#### 13 §
+
+Inspektionen för vård och omsorg ska på begäran av Socialstyrelsen lämna ut uppgifter ur det register som förs enligt [11 §](#kap15.11) om uppgifterna behövs hos Socialstyrelsen för kunskapsutveckling, statistikframställning, uppföljning, utvärdering eller epidemiologiska studier.
+
+Första stycket gäller inte uppgifter om adresser till skyddade boenden och till hem för vård eller boende som bedriver verksamhet som motsvarar skyddat boende eller uppgifter om beteckning på fastigheter och tomträtt till fastigheter där sådana verksamheter bedrivs.
+
+</section>
+
+</section>
+<section id="kap15.anmälan-om-nedlagd-verksamhet">
+
+### Anmälan om nedlagd verksamhet
+
+<section id="kap15.14" class="paragraf">
+
+#### 14 §
+
+Om den som bedriver sådan enskild verksamhet som avses i [28 kap. 1 § andra stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap28.1) ([2025:400](https://selex.se/eli/sfs/2025/400)) lägger ner verksamheten, ska denne genast anmäla detta till Inspektionen för vård och omsorg.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap16" class="kapitel">
+
+## 16 kap. Tillsyn av boenden för barn och unga
+
+<section id="kap16.1" class="paragraf">
+
+#### 1 §
+
+Inspektionen för vård och omsorgs tillsyn över stödboenden, skyddade boenden och hem för vård eller boende som tar emot barn eller unga ska omfatta regelbundna inspektioner. Inspektioner ska göras minst en gång per år. Inspektionen för vård och omsorg ska i anslutning till en inspektion samtala med de barn och unga som samtycker till det.
+
+I [28 kap. 6 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap28.6) ([2025:400](https://selex.se/eli/sfs/2025/400)) finns bestämmelser om att de boendes samtycke krävs för tillträde till bostäder vid tillsyn.
+
+</section>
+<section id="kap16.2" class="paragraf">
+
+#### 2 §
+
+Socialnämnden ska till Inspektionen för vård och omsorg anmäla beslut om att placera barn eller unga i ett familjehem eller jourhem om beslutet innebär att fler än tre barn eller unga kommer att vara placerade i familjehemmet eller jourhemmet.
+
+</section>
+<section id="kap16.3" class="paragraf">
+
+#### 3 §
+
+Inspektionen för vård och omsorg ska ta fram information som riktar sig till barn och unga som stadigvarande vistas i familjehem, hem för vård eller boende, stödboenden, särskilda ungdomshem eller LVM-hem och till deras vårdnadshavare. Informationen ska kunna distribueras på lämpligt sätt och innehålla uppgifter om
+
+1. barns och ungas rättigheter,
+
+2. myndighetens tillsyn,
+
+3. barns och ungas möjligheter att kontakta myndigheten samt hur de når rätt person inom myndigheten, och
+
+4. myndighetens möjligheter att samtala med barn utan att vårdnadshavaren har samtyckt till det eller är närvarande.
+
+Inspektionen för vård och omsorg ska även ta fram sådan information till barn och unga som vistas i skyddat boende och till deras vårdnadshavare.
+
+</section>
+
+</section>
+<section id="kap17" class="kapitel">
+
+## 17 kap. Avgifter och ersättningar
+
+<section id="kap17.avgift-för-att-bedriva-yrkesmä">
+
+### Avgift för att bedriva yrkesmässig verksamhet
+
+<section id="kap17.1" class="paragraf">
+
+#### 1 §
+
+Avgift för ansökan om tillstånd att bedriva yrkesmässig verksamhet ska betalas till Inspektionen för vård och omsorg med följande belopp.
+
+Ärendeslag	Avgift kronor
+
+Ansökan om att bedriva en ny verksamhet	77 500
+
+Ansökan om ändring av ett tillstånd	21 000
+
+</section>
+
+</section>
+<section id="kap17.ersättning-vid-insatser-av-beh">
+
+### Ersättning vid insatser av behandlingskaraktär
+
+<section id="kap17.2" class="paragraf">
+
+#### 2 §
+
+Den ersättning för uppehälle som kommunen får ta ut vid insatser av behandlingskaraktär enligt [32 kap. 2 § första stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap32.2) ([2025:400](https://selex.se/eli/sfs/2025/400)) får uppgå till högst 130 kronor per dag.
+
+</section>
+
+</section>
+<section id="kap17.ersättning-när-barn-vårdas-i-e">
+
+### Ersättning när barn vårdas i ett annat hem än det egna
+
+<section id="kap17.3" class="paragraf">
+
+#### 3 §
+
+Föräldrarnas skyldighet enligt [32 kap. 3 § första stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap32.3) ([2025:400](https://selex.se/eli/sfs/2025/400)) att bidra till kommunens utgifter för barnets vård i ett annat hem än det egna, bestäms efter samma grunder som om det gällde att bestämma betalningsskyldighet för var och en av dem enligt [19 kap. socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110).
+
+Det belopp som var och en av föräldrarna ska bidra med får dock inte överstiga vad som varje månad motsvarar underhållsstödsbeloppet enligt [18 kap. 20 § socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap18.20).
+
+Skatteverket ska på begäran lämna de inkomst- och förmögenhetsuppgifter till kommunen som behövs för att fastställa en förälders del i kommunens kostnader enligt första stycket.
+
+</section>
+<section id="kap17.4" class="paragraf">
+
+#### 4 §
+
+Om en förälder har fullgjort en fastställd underhållsskyldighet mot ett barn genom att betala ett engångsbelopp eller annat underhållsbidrag till en behörig ställföreträdare för barnet för den tid då barnet vårdas i ett annat hem än det egna, är föräldern i motsvarande mån fri från skyldighet att ersätta kommunen för dess kostnad under samma tid.
+
+</section>
+<section id="kap17.5" class="paragraf">
+
+#### 5 §
+
+Om socialnämnden tagit emot underhållsbidrag enligt [32 kap. 3 § första stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap32.3) ([2025:400](https://selex.se/eli/sfs/2025/400)) ska nämnden redovisa den del av bidraget som överstiger vad kommunen får tillgodoräkna sig till den som annars har rätt till bidraget.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap18" class="kapitel">
+
+## 18 kap. Rätt att meddela föreskrifter
+
+<section id="kap18.bemyndiganden-för-socialstyrel">
+
+### Bemyndiganden för Socialstyrelsen
+
+<section id="kap18.1" class="paragraf">
+
+#### 1 §
+
+Socialstyrelsen får meddela sådana föreskrifter inom socialtjänsten som behövs till skydd för enskildas liv, personliga säkerhet eller hälsa i verksamhet som avser
+
+1. barn och unga,
+
+2. äldre personer,
+
+3. personer med funktionsnedsättning,
+
+4. personer som har ett skadligt bruk eller beroende,
+
+5. personer som har utsatts för brott och deras närstående, och
+
+6. personer som utsätter eller har utsatt närstående för våld eller andra övergrepp.
+
+</section>
+<section id="kap18.2" class="paragraf">
+
+#### 2 §
+
+Socialstyrelsen får meddela sådana föreskrifter som behövs till skydd för enskildas liv, personliga säkerhet eller hälsa i verksamhet vid särskilda ungdomshem och LVM-hem som bedrivs av Statens institutionsstyrelse.
+
+</section>
+<section id="kap18.3" class="paragraf">
+
+#### 3 §
+
+Socialstyrelsen får meddela föreskrifter om kraven för att en annan examen än socionomexamen ska anses relevant för utförande av uppgifter enligt [25 kap. 1 § första stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap25.1) ([2025:400](https://selex.se/eli/sfs/2025/400)).
+
+</section>
+<section id="kap18.4" class="paragraf">
+
+#### 4 §
+
+Socialstyrelsen får meddela ytterligare föreskrifter om behörighet enligt 14 kap. samt föreskrifter om i vilken form ett bevis om erkännande av utländsk utbildning ska lämnas.
+
+</section>
+<section id="kap18.5" class="paragraf">
+
+#### 5 §
+
+Socialstyrelsen får meddela föreskrifter om verkställigheten av
+
+1. socialtjänstlagen ([2025:400](https://selex.se/eli/sfs/2025/400)),
+
+2. lagen ([1988:870](https://selex.se/eli/sfs/1988/870)) om vård av missbrukare i vissa fall,
+
+3. lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga, i den utsträckning inte Statens institutionsstyrelse har en sådan rätt enligt [6 §](#kap18.6), och
+
+4. lagen ([2024:79](https://selex.se/eli/sfs/2024/79)) om placering av barn i skyddat boende.
+
+Socialstyrelsen får även meddela föreskrifter om verkställigheten av denna förordning.
+
+</section>
+
+</section>
+<section id="kap18.bemyndiganden-för-statens-inst">
+
+### Bemyndiganden för Statens institutionsstyrelse
+
+<section id="kap18.6" class="paragraf">
+
+#### 6 §
+
+Statens institutionsstyrelse får meddela föreskrifter om verkställigheten av [12 §](#kap18.12) andra och tredje styckena, 15-20 a och [20 c §](#kap18.20c)§ lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga.
+
+</section>
+<section id="kap18.7" class="paragraf">
+
+#### 7 §
+
+Statens institutionsstyrelse får även meddela föreskrifter om att det får göras undantag från begränsningen av användningen av elektroniska kommunikationstjänster enligt [15 f §](#kap18.15f) första stycket lagen ([1990:52](https://selex.se/eli/sfs/1990/52)) med särskilda bestämmelser om vård av unga för viss verksamhet eller i vissa situationer, under förutsättning att användningen är särskilt angelägen och inte äventyrar säkerheten eller ordningen på hemmet.
+
+</section>
+
+</section>
+<section id="kap18.bemyndiganden-för-inspektionen">
+
+### Bemyndiganden för Inspektionen för vård och omsorg
+
+<section id="kap18.8" class="paragraf">
+
+#### 8 §
+
+Inspektionen för vård och omsorg får meddela föreskrifter om förfarandet vid
+
+1. ansökningar om överflyttning av ärende till en annan kommun enligt [29 kap. 11 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap29.11) ([2025:400](https://selex.se/eli/sfs/2025/400)),
+
+2. anmälningar om allvarliga missförhållanden enligt [27 kap. 6 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap27.6),
+
+3. anmälningar och rapporteringar om beslut som inte verkställs i tid enligt [34 kap. 1-4 §§ socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap34.1), och
+
+4. anmälningar om att en enskild verksamhet läggs ner enligt 15 kap. [14 §](#kap15.14) denna förordning.
+
+Inspektionen för vård och omsorg får även meddela ytterligare föreskrifter om förfarandet vid ansökningar och anmälningar enligt [26 kap. 1 och 2 §§ socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap26.1) samt vid betalning av avgift vid sådana ansökningar.
+
+</section>
+<section id="kap18.9" class="paragraf">
+
+#### 9 §
+
+Inspektionen för vård och omsorg får meddela föreskrifter om vilka uppgifter som ska finnas med i den förteckning som socialnämnden enligt 3 kap. [4 §](#kap3.4) ska föra över de barn som efter nämndens beslut eller medgivande vistas i ett familjehem eller i ett annat enskilt hem.
+
+</section>
+
+</section>
+<section id="kap18.bemyndiganden-för-myndigheten">
+
+### Bemyndiganden för Myndigheten för familjerätt och föräldraskapsstöd
+
+<section id="kap18.10" class="paragraf">
+
+#### 10 §
+
+Myndigheten för familjerätt och föräldraskapsstöd får meddela föreskrifter om handläggning och dokumentation av ärenden som rör internationella adoptioner vid tillämpningen av
+
+1. [5 kap. 3 § socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap5.3) ([2025:400](https://selex.se/eli/sfs/2025/400)),
+
+2. [18 kap. 1-3, 5 och 10 §§ socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap18.1),
+
+3. 22 kap. 2, 4, 8 och [10 §](#kap18.10)§ och [24 kap. 1-6 §§ socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap24.1), och
+
+4. [14 kap. 2, 3 och 7 §§ socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap14.2) i samband med en utredares redovisning av en utredning och ett förslag till beslut till tingsrätten i enlighet med [4 kap. 15 § föräldrabalken](https://selex.se/eli/sfs/1949/381#kap4.15).
+
+
+</section>
+
+</section>
+<section id="kap18.övergångsbestämmelser" selex:status="upphavd" selex:upphavd="true">
+
+### Övergångsbestämmelser
+
+[2025:468](https://selex.se/eli/sfs/2025/468)
+
+1. Denna förordning träder i kraft den 1 juli 2025.
+
+2. Genom förordningen upphävs socialtjänstförordningen ([2001:973](https://selex.se/eli/sfs/2001/973)).
+
+3. Tillstånd och beslut som har meddelats enligt den upphävda förordningen gäller som ett tillstånd eller beslut enligt denna förordning.
+
+4. Den som före den 1 juli 2025 har anställts för att ge vård, omsorg och uppfostran eller behandling i hem för vård eller boende får fortsätta att utföra sådant arbete till och med den 1 juli 2031, trots att han eller hon inte har sådan utbildning som krävs i 5 kap. [4 §](#kap5.4).
+
+</section>
+
+</section>
+
+</article>

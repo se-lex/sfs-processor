@@ -1,0 +1,2867 @@
+---
+beteckning: "2016:1108"
+rubrik: Lag om ersättning till riksdagens ledamöter
+departement: Justitiedepartementet
+utfardad_datum: 2016-11-24
+ikraft_datum: 2017-01-01
+publicerad_datum: 2026-01-02
+forarbeten: - "FRAMST 2015/16:RS7"
+  - "BET 2016/17:KU3"
+  - "RSKR 2016/17:36"
+pdf_url: https://rkrattsdb.gov.se/SFSdoc/16/161108.pdf
+andringsforfattningar:
+  - beteckning: "2020:962"
+    rubrik: Lag om ändring i lagen om ersättning till riksdagens ledamöter
+    ikraft_datum: 2021-01-01
+    anteckningar: ändr. 9 kap. 12 §
+  - beteckning: "2021:1123"
+    rubrik: Lag om ändring i lagen om ersättning till riksdagens ledamöter
+    ikraft_datum: 2022-01-01
+    anteckningar: "ändr. 9 kap. 4 §, 12 kap. 5, 8, 12 §§, 13 kap. 7 §, 15 kap. 2 §; nya 3 kap. 11, 12, 13, 14, 15, 16, 17 §§, rubr. närmast före 3 kap. 11 §"
+  - beteckning: "2022:346"
+    rubrik: Lag om ändring i lagen om ersättning till riksdagens ledamöter
+    ikraft_datum: 2022-07-01
+    anteckningar: "upph. 2, 3, 5, 6, 7 kap., 10 kap. 8 §, rubr. närmast före 1 kap. 9 §, 10 kap. 8 §; ändr. 1 kap. 1, 2, 5, 6, 7, 8, 9, 10 §§, 4 kap. 1, 4, 5, 6, 8, 9 §§, 9 kap. 4, 17, 21 §§, 10 kap. 9 §, 11 kap. 7, 15 §§, 12 kap. 3, 7, 9, 11, 26, 27, 29, 35, 36 §§, 13 kap. 3, 5, 9, 22, 23, 25, 31, 32 §§, 14 kap. 1, 2 §§, 15 kap. 1, 2 §§, rubr. närmast före 1 kap. 7 §, 4 kap. 1, 9 §§; nya 3, 5, 6, 7, 14 a kap., 1 kap. 3 a §, 4 kap. 2 a, 5 a, 6 a §§, 8 kap. 3 §, 12 kap. 6 a, 36 a §§, 13 kap. 7 a, 32 a §§, rubr. närmast före 1 kap. 3 a, 8 §§"
+  - beteckning: "2022:1563"
+    rubrik: Lag om ändring i lagen om ersättning till riksdagens ledamöter
+    ikraft_datum: 2023-01-01
+    anteckningar: "ändr. 9 kap. 9, 11, 12, 20 §§, 10 kap. 2 §, 11 kap. 1 §, 12 kap. 2, 3, 5, 7, 8, 12 §§, 13 kap. 3, 7, 8 §§"
+  - beteckning: "2024:557"
+    rubrik: Lag om ändring i lagen om ersättning till riksdagens ledamöter
+    ikraft_datum: 2024-08-01
+    anteckningar: ändr. 9 kap. 5 §
+  - beteckning: "2022:1564"
+    rubrik: Lag om ändring i lagen om ersättning till riksdagens ledamöter
+    ikraft_datum: 2026-01-01
+    anteckningar: "ändr. 1 kap. 2 §, 9 kap. 9, 11, 12 §§, 10 kap. 2 §, 11 kap. 1 §, 12 kap. 3, 5, 7, 8 §§, 13 kap. 3, 8 §§"
+---
+<article selex:utfardad_datum="2016-11-24" selex:ikraft_datum="2017-01-01">
+
+# Lag om ersättning till riksdagens ledamöter
+
+<section id="kap1" class="kapitel">
+
+## 1 kap. Inledande bestämmelser
+
+<section id="kap1.lagens-innehåll">
+
+### Lagens innehåll
+
+<section id="kap1.1" class="paragraf">
+
+#### 1 §
+
+Denna lag innehåller bestämmelser om ersättning till talmannen, riksdagens ledamöter och ersättare. Bestämmelserna avser
+
+- arvode (3 kap.),
+
+- resekostnadsersättning (4 kap.),
+
+- traktamente (5 kap.),
+
+- övernattningsbostad och logiersättning (6 kap.),
+
+- arbetsrum samt teknisk och elektronisk utrustning (7 kap.),
+
+- barnverksamhet (8 kap.),
+
+- ålderspension (9 kap.),
+
+- sjukpension (10 kap.),
+
+- efterlevandepension (11 kap.),
+
+- inkomstgaranti (12 kap.),
+
+- omställningsstöd (13 kap.),
+
+- försäkring, rehabilitering och företagshälsovård (14 kap.),
+
+- återkrav (14 a kap.), och
+
+- överklagande (15 kap.). Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap1.definitioner">
+
+### Definitioner
+
+<section id="kap1.2" class="paragraf">
+
+#### 2 §
+
+I lagen avses med
+
+1. prisbasbelopp: prisbasbeloppet enligt [2 kap. 6 och 7 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap2.6),
+
+2. förhöjt prisbasbelopp: det förhöjda prisbasbeloppet enligt [2 kap. 6 och 8 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap2.6),
+
+3. inkomstbasbelopp: inkomstbasbeloppet enligt [58 kap. 26 och 27 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap58.26),
+
+4. inkomstindex: inkomstindex enligt [58 kap. 10-12 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap58.10),
+
+5. balansindex: balansindex enligt [58 kap. 22-24 §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap58.22),
+
+6. Europaparlamentets ledamotsstadga: Europaparlamentets beslut av den 28 september 2005 om antagande av Europaparlamentets ledamotsstadga (2[005/684/EG](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A3005L0684), Euratom),
+
+7. tjänsteresa: en resa som en ledamot gör som ett led i utövningen av sitt uppdrag som riksdagsledamot och som påbörjas på tjänstestället, under en pågående tjänsteresa eller på en förrättningsort samt avslutas på tjänstestället eller på en förrättningsort, och
+
+8. riktålder för pension: den enligt [2 kap. 10 a-d §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap2.10a) årligt beräknade och fastställda riktåldern för pension. Lag ([2022:1564](https://selex.se/eli/sfs/2022/1564)).
+
+</section>
+<section id="kap1.3" class="paragraf">
+
+#### 3 §
+
+Med ett helt år avses i lagen 365 dagar. Om viss tid inte kan tillgodoräknas som ett helt år vid beräkningen av antalet hela år ska den tiden ändå anses som ett helt år, om tiden uppgår till minst 270 dagar.
+
+</section>
+
+</section>
+<section id="kap1.tjänsteställe">
+
+### Tjänsteställe
+
+<section id="kap1.3a" class="paragraf">
+
+#### 3 a §
+
+En riksdagsledamot har sitt tjänsteställe där han eller hon är folkbokförd enligt folkbokföringslagen ([1991:481](https://selex.se/eli/sfs/1991/481)) under förutsättning att det där finns en bostad som är inrättad för permanent boende för ledamoten och hans eller hennes familj och som även disponeras av ledamoten.
+
+Om bostaden inte uppfyller dessa krav utgör riksdagen ledamotens tjänsteställe. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap1.rätt-till-ersättning">
+
+### Rätt till ersättning
+
+<section id="kap1.4" class="paragraf">
+
+#### 4 §
+
+En ledamot har rätt till ersättning enligt denna lag.
+
+</section>
+<section id="kap1.5" class="paragraf">
+
+#### 5 §
+
+Vad som sägs i denna lag om en ledamot gäller även talmannen och en ersättare som utövar uppdrag som ledamot (ersättare), om det inte anges något annat i lagen. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap1.6" class="paragraf">
+
+#### 6 §
+
+En ledamot som fullgör uppdrag som statsråd har under den tiden inte rätt till ersättning enligt denna lag. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap1.ersättning-under-ledighet">
+
+### Ersättning under ledighet
+
+<section id="kap1.7" class="paragraf">
+
+#### 7 §
+
+En ledamot som har beviljats ledighet för att tjänstgöra som statssekreterare har under den tiden inte rätt till ersättning enligt denna lag.
+
+En ledamot som har beviljats ledighet av något annat skäl har bara rätt till ersättning under ledigheten om det anges i lagen. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap1.tid-som-ersätts">
+
+### Tid som ersätts
+
+<section id="kap1.8" class="paragraf">
+
+#### 8 §
+
+En ledamot har rätt till ersättning enligt denna lag från och med den dag då han eller hon tillträder uppdraget till och med 30 dagar efter det att uppdraget upphörde, om det inte anges något annat i lagen. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap1.9" class="paragraf">
+
+#### 9 §
+
+En ersättare för någon annan än talmannen eller en ledamot som tjänstgör som statsråd eller statssekreterare, har rätt till ersättning under den tid som anges i det bevis som utfärdas av Riksdagsförvaltningen då ersättaren kallas att utöva uppdrag som ledamot. Om uppdraget upphör tidigare än vad som anges i beviset, har ersättaren rätt till ersättning under 30 dagar från det att uppdraget upphörde, dock längst till den dag som anges i beviset. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap1.bemyndigande">
+
+### Bemyndigande
+
+<section id="kap1.10" class="paragraf">
+
+#### 10 §
+
+Riksdagsförvaltningen får meddela föreskrifter till lagen. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap1.allmänna-råd">
+
+### Allmänna råd
+
+<section id="kap1.11" class="paragraf">
+
+#### 11 §
+
+Riksdagsförvaltningen meddelar allmänna råd till lagen.
+
+
+</section>
+
+</section>
+
+</section>
+<section id="kap2" class="kapitel" selex:status="upphavd" selex:upphavd="true">
+
+## 2 kap. Kapitlet har upphävts genom lag (2022:346).
+
+</section>
+<section id="kap3" class="kapitel">
+
+## 3 kap. Arvode
+
+<section id="kap3.talmansarvode">
+
+### Talmansarvode
+
+<section id="kap3.1" class="paragraf">
+
+#### 1 §
+
+Talmannen har rätt till ett månatligt arvode som motsvarar arvodet till statsministern. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap3.ledamotsarvode">
+
+### Ledamotsarvode
+
+<section id="kap3.2" class="paragraf">
+
+#### 2 §
+
+En ledamot har rätt till ett månatligt arvode som bestäms av Riksdagens arvodesnämnd. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap3.tilläggsarvode">
+
+### Tilläggsarvode
+
+<section id="kap3.3" class="paragraf">
+
+#### 3 §
+
+En vice talman har rätt till ett månatligt tilläggsarvode som uppgår till 30 procent av ledamotsarvodet. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap3.4" class="paragraf">
+
+#### 4 §
+
+En ordförande i ett utskott eller i EU-nämnden har rätt till ett månatligt tilläggsarvode som uppgår till 20 procent av ledamotsarvodet. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap3.5" class="paragraf">
+
+#### 5 §
+
+En vice ordförande i ett utskott eller i EU-nämnden har rätt till ett månatligt tilläggsarvode som uppgår till 15 procent av ledamotsarvodet. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap3.sammanträdesarvode-i-eu-nämnde">
+
+### Sammanträdesarvode i EU-nämnden
+
+<section id="kap3.6" class="paragraf">
+
+#### 6 §
+
+En ledamot, suppleant eller tillfällig ersättare i EU- nämnden har rätt till sammanträdesarvode för sammanträden som infaller på en måndag, en fredag och under tid då kammaren inte sammanträder. Detta gäller dock inte ordföranden och en vice ordförande i nämnden.
+
+En suppleant i EU-nämnden som närvarar vid ett sammanträde utan att delta i de beslut som fattas under sammanträdet har rätt till sammanträdesarvode bara om nämnden beslutar om det.
+
+Riksdagsförvaltningen bestämmer arvodets storlek. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap3.arvode-som-inkomst-av-anställn">
+
+### Arvode som inkomst av anställning
+
+<section id="kap3.7" class="paragraf">
+
+#### 7 §
+
+Talmansarvode, ledamotsarvode och tilläggsarvode ska anses som inkomst av anställning enligt socialförsäkringsbalken och lagen ([1991:1047](https://selex.se/eli/sfs/1991/1047)) om sjuklön. Ledamoten ska i det sammanhanget anses som arbetstagare. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap3.arvode-vid-ledighet">
+
+### Arvode vid ledighet
+
+<section id="kap3.8" class="paragraf">
+
+#### 8 §
+
+En ledamot har rätt till ledamotsarvode och tilläggsarvode vid ledighet som understiger en månad. Om ledigheten uppgår till minst en månad har ledamoten rätt till arvode under ledigheten bara om ledigheten beror på offentligt uppdrag, sjukdom, föräldraledighet, vård av närstående eller fullgörande av totalförsvarsplikt.
+
+Med ett offentligt uppdrag avses ett uppdrag som ges av riksdagen eller regeringen eller av någon annan efter bemyndigande av riksdagen eller regeringen. En anställning utgör inte ett offentligt uppdrag. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap3.arvodesavdrag-och-ersättning-v">
+
+### Arvodesavdrag och ersättning vid sjukfrånvaro och föräldraledighet
+
+<section id="kap3.9" class="paragraf">
+
+#### 9 §
+
+Vid sjukfrånvaro och föräldraledighet ska det för samma tid göras avdrag på talmansarvode, ledamotsarvode, tilläggsarvode och arvode enligt [1 §](#kap3.1) 2 och 4 lagen ([1989:185](https://selex.se/eli/sfs/1989/185)) om arvoden m.m. för uppdrag inom riksdagen,
+
+dess myndigheter och organ i enlighet med vad Riksdagsförvaltningen bestämmer. För ledamöter kan endast helt kalenderdagsavdrag göras. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap3.10" class="paragraf">
+
+#### 10 §
+
+Vid sjukfrånvaro och föräldraledighet har en ledamot rätt till ersättning i enlighet med vad Riksdagsförvaltningen bestämmer. För ledamöter kan sådan ersättning endast avse hela kalenderdagar. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap3.arvodesavdrag-på-ledamotens-eg">
+
+### Arvodesavdrag på ledamotens egen begäran
+
+<section id="kap3.11" class="paragraf">
+
+#### 11 §
+
+Om en ledamot av något annat skäl än som anges i 9 och [10 §](#kap3.10)§ har beviljats ledighet kortare tid än en månad under tid då arbetsplenum pågår, ska det på ledamotens begäran göras kalenderdagsavdrag för den tiden på ledamotsarvode, tilläggsarvode och arvoden enligt [1 §](#kap3.1) 2 och 4 lagen ([1989:185](https://selex.se/eli/sfs/1989/185)) om arvoden m.m. för uppdrag inom riksdagen, dess myndigheter och organ. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap3.ersättning-för-förlorad-semest">
+
+### Ersättning för förlorad semester
+
+<section id="kap3.12" class="paragraf">
+
+#### 12 §
+
+En ersättare har rätt till ersättning för förlorad semester. Sådan ersättning lämnas endast för den tid som understiger tolv månader per tolvmånadersperiod. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap3.återbetalning-av-arvode">
+
+### Återbetalning av arvode
+
+<section id="kap3.13" class="paragraf">
+
+#### 13 §
+
+En ledamot som har varit frånvarande vid minst 60 procent av voteringstillfällena i kammaren under ett kvartal ska betala tillbaka ledamotsarvode som avses i 3 kap. 2-[5 §](#kap3.5)§ för den tiden, om
+
+1. ledamoten har varit frånvarande vid minst 60 procent av voteringstillfällena i kammaren även under ett föregående kvartal under valperioden, och
+
+2. talmannen efter det kvartal som avses i punkt 1 har erinrat ledamoten om ledamotens frånvaro och återbetalningsplikt. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap3.14" class="paragraf">
+
+#### 14 §
+
+Vid tillämpningen av [13 §](#kap3.13) ska perioden juli-september inte beaktas. Frånvaro vid voteringar som beror på sjukdom, föräldraledighet, familjeskäl, internationella uppdrag eller liknande omständighet ska inte heller beaktas. Om det finns synnerliga skäl ska inte heller annan frånvaro beaktas. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap3.15" class="paragraf">
+
+#### 15 §
+
+Bestämmelserna i [13 §](#kap3.13) gäller inte partiledare och språkrör för partier som valts in i riksdagen. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap3.16" class="paragraf">
+
+#### 16 §
+
+Riksdagens arvodesnämnd fattar beslut om återbetalning av arvode efter anmälan av talmannen. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap3.17" class="paragraf">
+
+#### 17 §
+
+Talmannens erinran om frånvaro och återbetalningsskyldighet enligt [13 §](#kap3.13) 2 ska lämnas inom sex månader efter utgången av det kvartal som erinran avser. Har inte talmannens erinran lämnats inom den tiden ska inte någon erinran lämnas.
+
+Talmannens anmälan till Riksdagens arvodesnämnd enligt [16 §](#kap3.16) ska göras inom sex månader efter utgången av det kvartal för vilket återbetalning föreslås. Har inte talmannens anmälan gjorts inom den tiden ska inte någon anmälan göras. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap3.18" class="paragraf">
+
+#### 18 §
+
+Riksdagsförvaltningen ska på begäran av Riksdagens arvodesnämnd överlämna uppgifter om en ledamots närvaro vid voteringstillfällen och andra uppgifter som nämnden behöver för sin prövning.
+
+Innan ett beslut om återbetalning fattas ska Riksdagens arvodesnämnd ge den ledamot som anmälan avser tillfälle att yttra sig. Nämnden ska även inhämta yttrande från den partigrupp som ledamoten tillhör eller har tillhört. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap3.19" class="paragraf">
+
+#### 19 §
+
+Riksdagsförvaltningen framställer krav på återbetalning i enlighet med Riksdagens arvodesnämnds beslut. Ett belopp som återkrävs får i stället avräknas mot kommande utbetalningar av arvodet.
+
+Om återbetalning inte har skett inom en månad från det att ett krav på återbetalning framställts ska den återbetalningsskyldige betala ränta enligt [6 §](#kap3.6) räntelagen ([1975:635](https://selex.se/eli/sfs/1975/635)) på det obetalda beloppet till dess betalning sker.
+
+Riksdagens arvodesnämnd får efter skriftlig ansökan från ledamoten besluta att återkravet och kravet på ränta ska efterges helt eller delvis, om det finns särskilda skäl. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+
+</section>
+<section id="kap4" class="kapitel">
+
+## 4 kap. Resekostnadsersättning
+
+<section id="kap4.ersättning-för-kostnader-för-t">
+
+### Ersättning för kostnader för tjänsteresa
+
+<section id="kap4.1" class="paragraf">
+
+#### 1 §
+
+En ledamot har rätt till ersättning för sina kostnader för en tjänsteresa. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap4.ersättning-för-resa-före-tillt">
+
+### Ersättning för resa före tillträdet av uppdraget
+
+<section id="kap4.2" class="paragraf">
+
+#### 2 §
+
+Innan en nyvald ledamot har tillträtt sitt uppdrag har han eller hon rätt till ersättning för sina kostnader för
+
+– resor för att delta i möten som ledamotens partigrupp kallar till,
+
+– resor för att delta i Riksdagsförvaltningens introduktion till uppdraget, och
+
+– en resa till riksdagen för att tillträda uppdraget.
+
+</section>
+<section id="kap4.2a" class="paragraf">
+
+#### 2 a §
+
+Rätten till ersättning enligt [2 §](#kap4.2) gäller för
+
+1. en ledamot som tillträder sitt uppdrag vid ett riksdagsval från och med den dag då Valmyndigheten fastställt valresultatet,
+
+2. en ledamot som tillträder sitt uppdrag under en pågående valperiod från och med den dag då Valmyndigheten utsett honom eller henne till ledamot, och
+
+3. en ersättare från och med den dag då Riksdagsförvaltningen utfärdar bevis om att ersättaren ska utöva uppdrag som riksdagsledamot. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap4.ersättning-för-resa-vid-extrao">
+
+### Ersättning för resa vid extraordinär händelse eller av annan icke förutsedd orsak
+
+<section id="kap4.3" class="paragraf">
+
+#### 3 §
+
+En ledamot har, även i fall som inte omfattas av [1 §](#kap4.1), rätt till ersättning för sina kostnader för en resa som ledamoten gör för att han eller hon måste inställa sig i riksdagen på grund av en extraordinär händelse eller av någon annan orsak som inte har kunnat förutses, under förutsättning att ledamoten inte kan använda sin biljett för resan tillbaka.
+
+Riksdagsförvaltningen eller den som Riksdagsförvaltningen bestämmer får besluta att ersättningen även omfattar resekostnader enligt första stycket för en medföljande person som av särskilda skäl måste resa tillsammans med ledamoten.
+
+</section>
+
+</section>
+<section id="kap4.enskild-utrikes-tjänsteresa">
+
+### Enskild utrikes tjänsteresa
+
+<section id="kap4.4" class="paragraf">
+
+#### 4 §
+
+En enskild utrikes tjänsteresa ska vara av värde för fullgörandet av riksdagsuppdraget.
+
+Riksdagsförvaltningen fastställer för varje valperiod ett belopp som en ledamot får använda för sådana resor.
+
+En ersättare som under en valperiod har tjänstgjort eller ska tjänstgöra under sammanlagt minst ett år har rätt att använda de medel som den ordinarie ledamoten disponerar för enskilda utrikes tjänsteresor. En ersättare får dock under valperioden inte använda ett högre belopp än det som är fastställt för en ordinarie ledamot enligt andra stycket, oavsett om ersättaren under valperioden ersätter fler än en ledamot. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap4.resebeslut">
+
+### Resebeslut
+
+<section id="kap4.5" class="paragraf">
+
+#### 5 §
+
+Talmannen beslutar om sina tjänsteresor.
+
+En ledamot beslutar om sina
+
+1. inrikes tjänsteresor,
+
+2. enskilda utrikes tjänsteresor till länder som ingår i Europeiska ekonomiska samarbetsområdet, kandidatländer och potentiella kandidatländer för medlemskap i Europeiska unionen, samt
+
+3. enskilda utrikes tjänsteresor till andra länder och områden som Riksdagsförvaltningen bestämmer.
+
+Riksdagsförvaltningen, eller den som förvaltningen bestämmer, beslutar efter ansökan om enskilda utrikes tjänsteresor som inte omfattas av andra stycket. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap4.5a" class="paragraf">
+
+#### 5 a §
+
+En ansökan om att få genomföra en enskild utrikes tjänsteresa ska avslås
+
+1. om resan inte är av värde för fullgörandet av riksdagsuppdraget, eller
+
+2. om samråd som Riksdagsförvaltningen bestämmer inte har skett.
+
+En ansökan ska vidare avslås om Utrikesdepartementet avråder från alla resor till landet eller området, om det inte finns särskilda skäl som motiverar att resan ändå genomförs. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap4.ersättningens-storlek">
+
+### Ersättningens storlek
+
+<section id="kap4.6" class="paragraf">
+
+#### 6 §
+
+Resekostnader ersätts med den faktiska kostnaden för resan. Tjänsteresa med eget fordon ersätts dock i enlighet med vad Riksdagsförvaltningen bestämmer.
+
+Kostnader för övernattning ersätts inte vid tjänsteresa inom 50 kilometer från tjänstestället, om inte övernattningen sker vid konferens med utskott, delegation, kommitté eller liknande inom riksdagen eller konferens inom en partigrupp i riksdagen. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap4.6a" class="paragraf">
+
+#### 6 a §
+
+Om ledamoten inte kan visa vilka utgifter han eller hon har haft för övernattning, betalas ersättning med halva maximibeloppet enligt [12 kap. 11 § inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap12.11) ([1999:1229](https://selex.se/eli/sfs/1999/1229)). Sådan ersättning lämnas dock inte om ledamoten har övernattat på tåg, fartyg eller flygplan eller om annan myndighet, trafikföretag eller motsvarande har tillhandahållit ledamoten fri övernattning. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap4.7" class="paragraf">
+
+#### 7 §
+
+Det finns bestämmelser om utrikes tjänsteresa på uppdrag av partigrupp i riksdagen i lagen ([2016:1109](https://selex.se/eli/sfs/2016/1109)) om stöd till partigrupperna för riksdagsledamöternas arbete i riksdagen.
+
+</section>
+
+</section>
+<section id="kap4.val-av-färdmedel">
+
+### Val av färdmedel
+
+<section id="kap4.8" class="paragraf">
+
+#### 8 §
+
+Färdmedel ska väljas med hänsyn till kostnads-, tids-, miljö- och säkerhetsaspekter. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap4.begäran-om-ersättning-för-rese">
+
+### Begäran om ersättning för resekostnader
+
+<section id="kap4.9" class="paragraf">
+
+#### 9 §
+
+En begäran om ersättning för resekostnader ska ges in skriftligen till Riksdagsförvaltningen snarast efter det att resan avslutats, dock senast inom sex månader. Därefter upphör rätten till ersättning. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap4.parkeringsplats">
+
+### Parkeringsplats
+
+<section id="kap4.10" class="paragraf">
+
+#### 10 §
+
+En ledamot har i mån av tillgång rätt att använda Riksdagsförvaltningens parkeringsplatser.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap5" class="kapitel">
+
+## 5 kap. Traktamente
+
+<section id="kap5.dagtraktamente-vid-inrikes-tjä">
+
+### Dagtraktamente vid inrikes tjänsteresa till en annan ort än Stockholm
+
+<section id="kap5.1" class="paragraf">
+
+#### 1 §
+
+En ledamot har rätt till traktamente vid en inrikes tjänsteresa till en annan ort än Stockholm om orten är belägen mer än 50 kilometer från ledamotens tjänsteställe och innefattar övernattning (dagtraktamente).
+
+Traktamente betalas för varje hel dag som tas i anspråk för tjänsteresan. Beloppet uppgår till en etthundratjugondedel av prisbasbeloppet avrundat till närmaste tiotal kronor. Om tjänsteresan har påbörjats kl. 12.00 eller senare på avresedagen eller har avslutats kl. 19.00 eller tidigare på hemresedagen har ledamoten rätt till ett halvt traktamente för varje sådan dag.
+
+Om ledamoten har fått fria måltider under tjänsteresan ska traktamentet minskas med det belopp som Riksdagsförvaltningen bestämmer (måltidsavdrag) under förutsättning att måltiden inte obligatoriskt ingår i priset för transporten på allmänna transportmedel. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap5.stockholmstraktamente">
+
+### Stockholmstraktamente
+
+<section id="kap5.2" class="paragraf">
+
+#### 2 §
+
+En ledamot har rätt till traktamente vid en tjänsteresa till Stockholm om han eller hon har sitt tjänsteställe mer än 50 kilometer från Riksdagshuset och resan innefattar övernattning i Stockholm (Stockholmstraktamente). Ledamoten har inte rätt till Stockholmstraktamente för dagar som berättigar till dagtraktamente eller utlandstraktamente enligt 1 eller [3 §](#kap5.3)§.
+
+Stockholmstraktamente betalas för varje hel och halv dag som tjänsteresan tar i anspråk och motsvarar halva maximibeloppet enligt [12 kap. 11 § inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap12.11) ([1999:1229](https://selex.se/eli/sfs/1999/1229)) avrundat till närmaste tiotal kronor. Stockholmstraktamentet ska inte reduceras med måltidsavdrag. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap5.utlandstraktamente-och-förrätt">
+
+### Utlandstraktamente och förrättningstillägg
+
+<section id="kap5.3" class="paragraf">
+
+#### 3 §
+
+En ledamot har rätt till traktamente vid en tjänsteresa till en ort utanför Sveriges gränser som är belägen mer än 50 kilometer från ledamotens tjänsteställe och innefattar övernattning (utlandstraktamente). Traktamentet motsvarar normalbeloppet enligt [12 kap. 11 § andra stycket inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap12.11) ([1999:1229](https://selex.se/eli/sfs/1999/1229)).
+
+Vad som anges i [1 §](#kap5.1) andra stycket tredje meningen och tredje stycket gäller även för utlandstraktamente.
+
+Vid en sådan tjänsteresa som anges i första stycket har en ledamot rätt till ett förrättningstillägg i enlighet med vad Riksdagsförvaltningen bestämmer. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap5.dagtillägg-vid-utrikes-tjänste">
+
+### Dagtillägg vid utrikes tjänsteresa som inte innefattar övernattning
+
+<section id="kap5.4" class="paragraf">
+
+#### 4 §
+
+En ledamot har vid en tjänsteresa till en ort utanför Sveriges gränser som är belägen mer än 50 kilometer från hans eller hennes tjänsteställe men som inte innefattar övernattning rätt till ett dagtillägg i enlighet med vad Riksdagsförvaltningen bestämmer. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap5.begäran-om-traktamente">
+
+### Begäran om traktamente
+
+<section id="kap5.5" class="paragraf">
+
+#### 5 §
+
+En begäran om traktamente ska ges in skriftligen till Riksdagsförvaltningen snarast efter det att resan avslutats, dock senast inom sex månader. Därefter upphör rätten till traktamente. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+
+</section>
+<section id="kap6" class="kapitel">
+
+## 6 kap. Övernattningsbostad och logiersättning
+
+<section id="kap6.rätt-till-övernattningsbostad">
+
+### Rätt till övernattningsbostad i Riksdagsförvaltningens bostadsbestånd
+
+<section id="kap6.1" class="paragraf">
+
+#### 1 §
+
+En ledamot som har sitt tjänsteställe mer än 50 kilometer från Riksdagshuset har rätt till en övernattningsbostad i Riksdagsförvaltningens bostadsbestånd. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap6.2" class="paragraf">
+
+#### 2 §
+
+En ledamot som har rätt till övernattningsbostad men som sällan behöver övernatta i Stockholm kan skriftligen avstå från rätten till övernattningsbostad och i stället vid ett fåtal tillfällen få ersättning för hotellövernattning, eller tillgång till motsvarande boende, i Stockholm. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap6.ersättare">
+
+### Ersättare
+
+<section id="kap6.3" class="paragraf">
+
+#### 3 §
+
+En ersättare som har rätt till övernattningsbostad ska använda den ordinarie ledamotens övernattningsbostad. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap6.rätt-till-logiersättning">
+
+### Rätt till logiersättning
+
+<section id="kap6.4" class="paragraf">
+
+#### 4 §
+
+Om Riksdagsförvaltningen inte kan tillhandahålla en ledamot som har rätt till övernattningsbostad en bostad i förvaltningens bostadsbestånd, eller om det till följd av ledamotens personliga förhållanden finns särskilda skäl, har han eller hon rätt till ersättning för eget boende inom 50 kilometer från Riksdagshuset (logiersättning).
+
+Logiersättning betalas med högst det belopp per månad som Riksdagsförvaltningen bestämmer.
+
+Logiersättning lämnas inte med anledning av avtal som har ingåtts med en juridisk eller fysisk person som är att anse som närstående till ledamoten. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap6.5" class="paragraf">
+
+#### 5 §
+
+Vid ledighet som uppgår till högst 90 dagar har ledamoten rätt till logiersättning även under ledigheten. Om ledigheten överstiger 90 dagar har ledamoten bara rätt till fortsatt logiersättning om det finns särskilda skäl. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap6.beslut-om-rätt-till-övernattni">
+
+### Beslut om rätt till övernattningsbostad eller logiersättning
+
+<section id="kap6.6" class="paragraf">
+
+#### 6 §
+
+Riksdagsförvaltningen prövar efter ansökan om en ledamot har rätt till övernattningsbostad eller logiersättning. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap6.fördelning-av-övernattningsbos">
+
+### Fördelning av övernattningsbostäder
+
+<section id="kap6.7" class="paragraf">
+
+#### 7 §
+
+Riksdagsförvaltningen beslutar om vilka övernattningsbostäder som ska ställas till respektive partigrupps förfogande. Övernattningsbostäderna fördelas i proportion till antalet ledamöter i respektive partigrupp som har rätt till övernattningsbostad. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap6.8" class="paragraf">
+
+#### 8 §
+
+Partigrupperna fördelar respektive tilldelade övernattningsbostäder bland sina ledamöter som enligt Riksdagsförvaltningens beslut har rätt till en övernattningsbostad. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap6.dispositionsrätten">
+
+### Dispositionsrätten
+
+<section id="kap6.9" class="paragraf">
+
+#### 9 §
+
+En ledamot disponerar övernattningsbostaden från och med måndagen i den vecka då riksmötet öppnas och till och med den dag då riksdagsuppdraget upphör, om inte annat följer av 10- [14 §](#kap6.14)§. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap6.10" class="paragraf">
+
+#### 10 §
+
+Under ledighet som överstiger en månad får ledamoten inte längre disponera övernattningsbostaden. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap6.utflyttning">
+
+### Utflyttning
+
+<section id="kap6.11" class="paragraf">
+
+#### 11 §
+
+En ledamot som lämnar uppdraget under en valperiod ska flytta ut ur övernattningsbostaden senast en vecka efter det att uppdraget upphörde. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap6.12" class="paragraf">
+
+#### 12 §
+
+En ledamot som inte kandiderar vid ett ordinarie riksdagsval ska flytta ut ur övernattningsbostaden senast den 31 juli valåret.
+
+En ledamot som inte kandiderar vid ett extra val ska flytta ut ur övernattningsbostaden senast en vecka efter valdagen. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap6.13" class="paragraf">
+
+#### 13 §
+
+En ledamot som inte blir återvald vid ett riksdagsval ska flytta ut ur övernattningsbostaden senast en vecka efter valdagen. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap6.14" class="paragraf">
+
+#### 14 §
+
+En ersättare ska flytta ut ur övernattningsbostaden när den ordinarie ledamoten återkommer från sin ledighet. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap6.upplåtelse">
+
+### Upplåtelse
+
+<section id="kap6.15" class="paragraf">
+
+#### 15 §
+
+En övernattningsbostad får inte upplåtas till någon annan. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap6.ersättningsskyldighet">
+
+### Ersättningsskyldighet
+
+<section id="kap6.16" class="paragraf">
+
+#### 16 §
+
+En ledamot är skyldig att ersätta skador utöver normalt slitage i en övernattningsbostad som orsakas uppsåtligen eller av oaktsamhet under den tid då han eller hon disponerar över bostaden. Detsamma gäller om inventarier i övernattningsbostaden som tillhör Riksdagsförvaltningen skadas eller går förlorade.
+
+En ledamots ersättningsansvar gäller även skador och förluster som orsakas av någon som vistas i övernattningsbostaden med ledamotens samtycke. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap6.17" class="paragraf">
+
+#### 17 §
+
+En ledamot är skyldig att ersätta kostnader som uppstår på grund av att han eller hon inte har uppfyllt sin skyldighet att städa övernattningsbostaden vid utflyttning eller inte har transporterat bort sina tillhörigheter när dispositionsrätten upphör. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+
+</section>
+<section id="kap7" class="kapitel">
+
+## 7 kap. Arbetsrum samt teknisk och elektronisk utrustning
+
+<section id="kap7.rätt-till-arbetsrum">
+
+### Rätt till arbetsrum
+
+<section id="kap7.1" class="paragraf">
+
+#### 1 §
+
+En ledamot har rätt till ett arbetsrum i riksdagens lokaler. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap7.ersättare">
+
+### Ersättare
+
+<section id="kap7.2" class="paragraf">
+
+#### 2 §
+
+En ersättare ska använda den ordinarie ledamotens arbetsrum. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap7.fördelning-av-arbetsrum">
+
+### Fördelning av arbetsrum
+
+<section id="kap7.3" class="paragraf">
+
+#### 3 §
+
+Riksdagsförvaltningen beslutar om vilka arbetsrum som ska ställas till respektive partigrupps förfogande. Partigruppen fördelar tilldelade arbetsrum mellan ledamöterna i gruppen. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap7.dispositionsrätten">
+
+### Dispositionsrätten
+
+<section id="kap7.4" class="paragraf">
+
+#### 4 §
+
+Rätten att använda ett arbetsrum gäller från och med måndagen i den vecka då riksmötet öppnas och till och med den dag då uppdraget upphör, om inte annat följer av 5-[9 §](#kap7.9)§. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap7.5" class="paragraf">
+
+#### 5 §
+
+Under ledighet som överstiger en månad får ledamoten inte längre disponera arbetsrummet. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+När ett arbetsrum senast ska lämnas
+
+</section>
+<section id="kap7.6" class="paragraf">
+
+#### 6 §
+
+En ledamot som lämnar uppdraget under en valperiod ska lämna arbetsrummet senast en vecka efter det att uppdraget upphörde. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap7.7" class="paragraf">
+
+#### 7 §
+
+En ledamot som inte kandiderar vid ett ordinarie val ska lämna arbetsrummet senast den 31 juli valåret. Ledamoten kan dock få behålla arbetsrummet efter den 31 juli så länge som det är nödvändigt för att han eller hon ska kunna utöva riksdagsuppdraget. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap7.8" class="paragraf">
+
+#### 8 §
+
+En ledamot som inte kandiderar vid ett extra val ska lämna arbetsrummet senast en vecka efter valdagen. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap7.9" class="paragraf">
+
+#### 9 §
+
+En ledamot som inte blir återvald vid ett riksdagsval ska lämna arbetsrummet senast en vecka efter valdagen. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap7.upplåtelse">
+
+### Upplåtelse
+
+<section id="kap7.10" class="paragraf">
+
+#### 10 §
+
+En ledamot får inte upplåta sitt arbetsrum till någon annan. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap7.ersättningsskyldighet">
+
+### Ersättningsskyldighet
+
+<section id="kap7.11" class="paragraf">
+
+#### 11 §
+
+En ledamot är skyldig att ersätta skador utöver normalt slitage i ett arbetsrum som orsakas uppsåtligen eller av oaktsamhet under den tid då ledamoten disponerar arbetsrummet. Detsamma gäller om inventarier eller annan utrustning i arbetsrummet som tillhör Riksdagsförvaltningen skadas eller går förlorade. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap7.teknisk-och-elektronisk-utrust">
+
+### Teknisk och elektronisk utrustning
+
+<section id="kap7.12" class="paragraf">
+
+#### 12 §
+
+En ledamot har rätt till den tekniska och elektroniska utrustning, i enlighet med vad Riksdagsförvaltningen bestämmer, som behövs för att utöva riksdagsuppdraget. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap7.13" class="paragraf">
+
+#### 13 §
+
+Vid ledighet får ledamoten behålla den tekniska och elektroniska utrustningen. Ledamoten ska dock på Riksdagsförvaltningens begäran lämna tillbaka utrustningen till Riksdagsförvaltningen under ledigheten om det finns särskilda skäl för det. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap7.14" class="paragraf">
+
+#### 14 §
+
+Riksdagsförvaltningen får ersätta en ledamots kostnader som uppkommer för att ledamoten inom riksdagsuppdraget använder någon annan teknisk och elektronisk utrustning än den som tillhandahålls av Riksdagsförvaltningen. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+
+</section>
+<section id="kap8" class="kapitel">
+
+## 8 kap. Barnverksamhet
+
+<section id="kap8.1" class="paragraf">
+
+#### 1 §
+
+En ledamot har i mån av platstillgång rätt till tillfällig barnverksamhet för barn i åldern ett till och med tolv år. Rätten gäller ledamotens egna barn; barn till ledamotens make eller maka, registrerade partner eller sambo; barn till en person som lever i ett parförhållande med ledamoten utan att de har ett gemensamt hushåll och barn som är familjehemsplacerade hos ledamoten.
+
+</section>
+<section id="kap8.2" class="paragraf">
+
+#### 2 §
+
+Barnverksamheten är avgiftsfri.
+
+</section>
+<section id="kap8.3" class="paragraf">
+
+#### 3 §
+
+Rätten till barnverksamhet gäller till och med den dag då riksdagsuppdraget upphör. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap9" class="kapitel">
+
+## 9 kap. Ålderspension
+
+<section id="kap9.rätt-till-ålderspension">
+
+### Rätt till ålderspension
+
+<section id="kap9.1" class="paragraf">
+
+#### 1 §
+
+Om pensionsrätt tillgodoräknas en ledamot enligt bestämmelserna i detta kapitel, har ledamoten rätt till ålderspension.
+
+</section>
+
+</section>
+<section id="kap9.pensionsrätt">
+
+### Pensionsrätt
+
+<section id="kap9.2" class="paragraf">
+
+#### 2 §
+
+Pensionsrätt tillgodoräknas en ledamot för varje månad som han eller hon har fått arvode eller sjukpension enligt [4 §](#kap9.4). Pensionsrätt för tid före 2010 ska dock tillgodoräknas enligt vad som anges i 5–[7 §](#kap9.7)§.
+
+</section>
+<section id="kap9.3" class="paragraf">
+
+#### 3 §
+
+Pensionsrätten för en månad utgör 0,72 procent av den del av underlaget enligt [4 §](#kap9.4) som inte överstiger 0,625 inkomstbasbelopp och 2,40 procent av den del av underlaget som överstiger 0,625 men inte 2,5 inkomstbasbelopp.
+
+Underlaget för pensionsrätten
+
+</section>
+<section id="kap9.4" class="paragraf">
+
+#### 4 §
+
+Underlaget för pensionsrätten utgörs av
+
+1. talmansarvode enligt 3 kap. [1 §](#kap3.1),
+
+2. ledamotsarvode enligt 3 kap. [2 §](#kap3.2),
+
+3. tilläggsarvode enligt 3 kap. 3-[5 §](#kap9.5)§, och
+
+4. arvode enligt [1 §](#kap9.1) 2 och 4 lagen ([1989:185](https://selex.se/eli/sfs/1989/185)) om arvoden m.m. för uppdrag inom riksdagen, dess myndigheter och organ.
+
+Vid beräkningen av underlaget ska till arvoden enligt 1-4 läggas avdrag som gjorts enligt 3 kap. [9 §](#kap3.9).
+
+Om en ledamot under en månad har fått sjukpension, och då inte har haft rätt till arvode enligt första stycket, utgörs underlaget för pensionsrätten i stället av det arvode som ligger till grund för sjukpensionen, omräknat med förändringen av inkomstindex mellan det år arvodet avser och det år pensionsrätten avser.
+
+Vid beräkningen av underlaget ska arvode som återkrävts enligt 3 kap. 13-[19 §](#kap9.19)§ inte räknas in. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap9.pensionsrätt-för-tid-före-2010">
+
+### Pensionsrätt för tid före 2010
+
+<section id="kap9.5" class="paragraf">
+
+#### 5 §
+
+Pensionsrätt för tid före 2010 utgör
+
+1. för tid som talman 2 520 kronor, multiplicerat med det antal dagar före 2010 som talmansuppdraget har fullgjorts, delat med 30,4,
+
+2. för tid som ledamot 773 kronor, multiplicerat med det antal dagar före 2010 som ledamotsuppdraget har fullgjorts, delat med 30,4, och
+
+3. 2,40 procent av tilläggsarvode enligt 3 kap. 3-[5 §](#kap9.5)§, arvode enligt [1 §](#kap9.1) 1-4 lagen ([1989:185](https://selex.se/eli/sfs/1989/185)) om arvoden m.m. för uppdrag inom riksdagen, dess myndigheter och organ som har utbetalats under åren 2001-2009 och arvode enligt [1 §](#kap9.1) 3 nämnda lag i dess lydelse före den 1 juli 2003 för uppdrag i Riksdagens revisorer under tiden 2001-juni 2003. Lag ([2024:557](https://selex.se/eli/sfs/2024/557)).
+
+</section>
+<section id="kap9.6" class="paragraf">
+
+#### 6 §
+
+Vid tillämpning av [5 §](#kap9.5) ska
+
+1. tid med sjukpension som grundas på talmansarvode jämställas med tid som talman,
+
+2. tid med sjukpension som grundas på ledamotsarvode jämställas med tid som ledamot, och
+
+3. tid som ledamot av Europaparlamentet före den 14 juli 2009 jämställas med tid som ledamot.
+
+</section>
+<section id="kap9.7" class="paragraf">
+
+#### 7 §
+
+Pensionsrätt enligt 5 och [6 §](#kap9.6)§ ska inte tillgodoräknas, i den mån ledamoten har rätt till egenpension enligt lagen ([1988:589](https://selex.se/eli/sfs/1988/589)) om ersättning m.m. till riksdagens ledamöter eller motsvarande äldre lagstiftning.
+
+Pensionsrätt enligt 5 och [6 §](#kap9.6)§ ska inte heller tillgodoräknas för tid som tillgodoräknas ledamoten som pensionsgrundande enligt artikel 28 i Europaparlamentets ledamotsstadga.
+
+</section>
+
+</section>
+<section id="kap9.ålderspensionens-storlek">
+
+### Ålderspensionens storlek
+
+<section id="kap9.8" class="paragraf">
+
+#### 8 §
+
+Ålderspension utgör för ett år summan av de pensionsrätter som tillgodoräknas multiplicerat med 1,19. Varje pensionsrätt ska räknas om med förändringen av inkomstindex mellan det år pensionsrätten avser och det år ålderspensionen börjar betalas ut. Pensionsrätt enligt 5–[7 §](#kap9.7)§ ska vid omräkningen anses avse 2009. Om balansindex har fastställts för det år ålderspensionen börjar betalas ut, ska beräkningen i stället göras med hänsyn till detta index.
+
+Om pensionsrätt tillgodoräknas för fler än 360 månader, ska ålderspensionen grundas endast på pensionsrätterna för de senaste 360 månaderna. Pensionsrätt som tillgodoräknas enligt 5–[7 §](#kap9.7)§ ska anses avse det antal månader som motsvarar antalet tjänstgöringsdagar enligt [5 §](#kap9.5) 1 och 2 delat med 30,4.
+
+</section>
+<section id="kap9.9" class="paragraf">
+
+#### 9 §
+
+Om ålderspensionen börjar tas ut före den månad då ledamoten uppnår riktåldern för pension ska pensionen minskas med 0,5 procent för varje månad som återstår till den månad då ledamoten uppnår riktåldern för pension.
+
+Om uppehåll görs i utbetalningen före den månad då ledamoten uppnår riktåldern för pension, ska ålderspensionen, när den åter betalas ut, minskas med 0,5 procent för varje månad som den tidigare har tagits ut och som vid den fortsatta utbetalningen återstår till den månad då ledamoten uppnår riktåldern för pension. Till den del ålderspensionen grundas på pensionsrätt för tid efter det tidigare uttaget ska minskningen inte avse det antal månader som ålderspensionen tidigare tagits ut. Lag ([2022:1564](https://selex.se/eli/sfs/2022/1564)).
+
+</section>
+
+</section>
+<section id="kap9.omräkning-av-ålderspension">
+
+### Omräkning av ålderspension
+
+<section id="kap9.10" class="paragraf">
+
+#### 10 §
+
+Ålderspensionen ska varje år räknas om med hänsyn till förändringen av inkomstindex för föregående år och det år som pensionsutbetalningen avser dividerat med talet 1,016. För ett år då balansindex har fastställts ska beräkningen i stället göras med hänsyn till detta index.
+
+</section>
+
+</section>
+<section id="kap9.tilläggsbelopp">
+
+### Tilläggsbelopp
+
+<section id="kap9.11" class="paragraf">
+
+#### 11 §
+
+En ledamot som vid sin avgång, dock senast vid utgången av riksmötet 2013/14, har fyllt 50 år och fullgjort minst sex hela år i riksdagen har rätt till ett tilläggsbelopp till ålderspensionen enligt vad som anges i denna paragraf och i [12 §](#kap9.12).
+
+Tilläggsbeloppet utgör skillnaden mellan jämförelsebeloppet enligt 15-[19 §](#kap9.19)§ eller [20 §](#kap9.20) och ålderspensionen för samma år. Om ålderspensionen har tagits ut före den månad då ledamoten uppnår riktåldern för pension, ska det bortses från den minskning som detta leder till.
+
+I antalet fullgjorda hela år i riksdagen enligt första stycket ska inräknas tid som ledamot av Europaparlamentet före den 14 juli 2009. I antalet fullgjorda hela år i riksdagen ska också inräknas tid då en ledamot har varit statsråd, om statsrådstiden har påbörjats före 2003 och inte gett rätt till statsrådspension. Lag ([2022:1564](https://selex.se/eli/sfs/2022/1564)).
+
+</section>
+
+</section>
+<section id="kap9.förmånstiden">
+
+### Förmånstiden
+
+<section id="kap9.12" class="paragraf">
+
+#### 12 §
+
+En ledamot har rätt till ålderspension tidigast från och med tre år före den månad då han eller hon uppnår riktåldern för pension och längst till och med den månad då ledamoten avlider.
+
+Ålderspension som understiger 0,025 inkomstbasbelopp för ett år ska inte betalas ut.
+
+Tilläggsbelopp lämnas inte för tid före den månad då ledamoten uppnår riktåldern för pension. Lag ([2022:1564](https://selex.se/eli/sfs/2022/1564)).
+
+</section>
+<section id="kap9.13" class="paragraf">
+
+#### 13 §
+
+Tilläggsbelopp ska inte betalas till en ledamot som har rätt till egen-pension enligt lagen ([1988:589](https://selex.se/eli/sfs/1988/589)) om ersättning m.m. till riksdagens ledamöter eller motsvarande äldre lagstiftning.
+
+</section>
+<section id="kap9.14" class="paragraf">
+
+#### 14 §
+
+Ålderspension ska inte betalas samtidigt med talmansarvode eller ledamotsarvode. Ålderspension ska inte heller betalas samtidigt med arvode eller övergångsersättning enligt Europaparlamentets ledamotsstadga.
+
+</section>
+
+</section>
+<section id="kap9.jämförelsebelopp">
+
+### Jämförelsebelopp
+
+<section id="kap9.15" class="paragraf">
+
+#### 15 §
+
+Jämförelsebeloppet ska beräknas som antalet fullgjorda hela år, högst tolv, i riksdagen, senast vid utgången av riksmötet 2013/14, delat med tolv och multiplicerat med
+
+1. 11,5 procent av den del av underlaget enligt [16 §](#kap9.16) som inte överstiger 7,5 förhöjda prisbasbelopp,
+
+2. 65 procent av den del av underlaget som överstiger 7,5 men inte 20 för-höjda prisbasbelopp, och
+
+3. 32,5 procent av den del av underlaget som överstiger 20 men inte 30 förhöjda prisbasbelopp.
+
+</section>
+<section id="kap9.16" class="paragraf">
+
+#### 16 §
+
+Underlaget för beräkningen av jämförelsebeloppet enligt [15 §](#kap9.15) utgörs av medeltalet av de arvoden enligt [17 §](#kap9.17) som en ledamot har haft under fem kalenderår närmast före avgångsåret. Arvodena för de fyra första kalenderåren ska därvid räknas om till nivån för det sista kalenderåret före avgångsåret med hjälp av prisbasbeloppet.
+
+Kan en ledamot inte tillgodoräknas arvoden för fem kalenderår enligt första stycket, utgörs underlaget enligt [15 §](#kap9.15) av medeltalet av beloppen för de hela kalenderår som kan tillgodoräknas.
+
+Kan endast ett helt kalenderår tillgodoräknas, utgörs underlaget av arvodet för det året.
+
+Kan inte ett helt kalenderår tillgodoräknas, utgörs underlaget av det genomsnittliga arvodet för de hela kalendermånader som kan tillgodoräknas multiplicerat med tolv.
+
+</section>
+<section id="kap9.17" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+#### 17 §
+
+Arvode som avses i [16 §](#kap9.16) är
+
+1. talmansarvode enligt 3 kap. [1 §](#kap3.1),
+
+2. ledamotsarvode enligt 3 kap. [2 §](#kap3.2),
+
+3. tilläggsarvode enligt 3 kap. 3-[5 §](#kap9.5)§,
+
+4. arvode enligt [1 §](#kap9.1) 1-4 lagen ([1989:185](https://selex.se/eli/sfs/1989/185)) om arvoden m.m. för uppdrag inom riksdagen, dess myndigheter och organ,
+
+5. arvode enligt 2 kap. [2 §](#kap2.2) den upphävda lagen ([1996:304](https://selex.se/eli/sfs/1996/304)) om arvode m.m. till Sveriges ledamöter av Europaparlamentet, och
+
+6. arvode till statsråd, om statsrådstid inräknas enligt [18 §](#kap9.18). Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap9.18" class="paragraf">
+
+#### 18 §
+
+I antalet fullgjorda hela år i riksdagen ska inräknas tid som ledamot av Europaparlamentet före den 14 juli 2009. I antalet fullgjorda hela år i riksdagen ska också inräknas tid då en ledamot har varit statsråd, om statsrådstiden har påbörjats före 2003 och inte har gett rätt till statsrådspension.
+
+</section>
+<section id="kap9.19" class="paragraf">
+
+#### 19 §
+
+Jämförelsebeloppet ska knytas an till prisbasbeloppet för året före avgångsåret och räknas om vid förändring av prisbasbeloppet.
+
+</section>
+<section id="kap9.20" class="paragraf">
+
+#### 20 §
+
+Vid beräkning av tilläggsbelopp för den som har varit talman före 2010 utgörs jämförelsebeloppet, om det blir högre än beloppet enligt 15-[19 §](#kap9.19)§, av det belopp som han eller hon skulle ha fått i talmanspension enligt de bestämmelser om talmanspension som gällde vid utgången av 2009. Lag ([2022:1563](https://selex.se/eli/sfs/2022/1563)).
+
+</section>
+
+</section>
+<section id="kap9.ansökan">
+
+### Ansökan
+
+<section id="kap9.21" class="paragraf">
+
+#### 21 §
+
+Ansökan om utbetalning av ålderspension görs hos Statens tjänstepensionsverk.
+
+Ålderspension kan tidigast betalas från och med den månad då ansökan kommer in till Statens tjänstepensionsverk. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap9.beslut">
+
+### Beslut
+
+<section id="kap9.22" class="paragraf">
+
+#### 22 §
+
+Beslut i frågor om ålderspension enligt detta kapitel fattas av Statens tjänstepensionsverk.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap10" class="kapitel">
+
+## 10 kap. Sjukpension
+
+<section id="kap10.rätt-till-sjukpension">
+
+### Rätt till sjukpension
+
+<section id="kap10.1" class="paragraf">
+
+#### 1 §
+
+En ledamot har rätt till sjukpension för tid då han eller hon får hel sjukersättning eller hel aktivitetsersättning enligt socialförsäkringsbalken.
+
+För rätt till sjukpension enligt första stycket krävs det att arbetsförmågan på grund av sjukdom eller någon annan nedsättning av den fysiska eller psykiska prestationsförmågan har blivit helt eller i det närmaste helt nedsatt under uppdragstiden och att arbetsförmågan oavbrutet är nedsatt i sådan omfattning till dess att ledamoten får hel sjukersättning eller hel aktivitetsersättning.
+
+</section>
+<section id="kap10.2" class="paragraf">
+
+#### 2 §
+
+Sjukpension lämnas längst till och med månaden före den månad då ledamoten uppnår riktåldern för pension eller, om ledamoten avlider dessförinnan, till och med den månad då dödsfallet inträffar. Lag ([2022:1564](https://selex.se/eli/sfs/2022/1564)).
+
+Underlaget för sjukpensionen
+
+</section>
+<section id="kap10.3" class="paragraf">
+
+#### 3 §
+
+Underlaget för sjukpensionen utgörs av de arvoden som anges i 9 kap. [4 §](#kap9.4) första stycket för den månad då arbetsförmågan blev helt eller i det närmaste helt nedsatt, multiplicerat med tolv. Efter de fem första åren utgörs underlaget endast av de arvoden som avses i 9 kap. [4 §](#kap9.4) första stycket 1 och 2.
+
+</section>
+
+</section>
+<section id="kap10.sjukpensionens-storlek">
+
+### Sjukpensionens storlek
+
+<section id="kap10.4" class="paragraf">
+
+#### 4 §
+
+Sjukpensionen uppgår till
+
+1. 15 procent av den del av underlaget enligt [3 §](#kap10.3) som inte överstiger 7,5 prisbasbelopp,
+
+2. 75 procent av den del av underlaget enligt [3 §](#kap10.3) som överstiger 7,5 men inte 20 prisbasbelopp, och
+
+3. 37,5 procent av den del av underlaget enligt [3 §](#kap10.3) som överstiger 20 men inte 30 prisbasbelopp.
+
+</section>
+<section id="kap10.5" class="paragraf">
+
+#### 5 §
+
+Sjukpensionen ska på ett underlag enligt [3 §](#kap10.3) upp till 7,5 prisbasbelopp minskas med sådan ersättning enligt socialförsäkringsbalken på grund av arbetsskada som avser samma inkomstbortfall som sjukpensionen.
+
+</section>
+<section id="kap10.6" class="paragraf">
+
+#### 6 §
+
+Sjukpensionen ska knytas an till prisbasbeloppet för det år då arbetsförmågan blev helt eller i det närmaste helt nedsatt och räknas om vid förändring av prisbasbeloppet.
+
+</section>
+
+</section>
+<section id="kap10.anmälningsskyldighet">
+
+### Anmälningsskyldighet
+
+<section id="kap10.7" class="paragraf">
+
+#### 7 §
+
+Den som får sjukpension är skyldig att senast inom en månad från Försäkringskassans beslut anmäla till Statens tjänstepensionsverk att sjukersättningen eller aktivitetsersättningen upphör eller att hel sådan förmån minskas till partiell förmån.
+
+</section>
+<section id="kap10.8" class="paragraf" selex:status="upphavd" selex:upphavd="true">
+
+#### 8 §
+
+Har upphävts genom lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap10.ansökan">
+
+### Ansökan
+
+<section id="kap10.9" class="paragraf">
+
+#### 9 §
+
+Ansökan om utbetalning av sjukpension görs hos Statens tjänstepensionsverk.
+
+Sjukpension lämnas inte för längre tid tillbaka än sex månader före ansökningsmånaden. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap10.beslut">
+
+### Beslut
+
+<section id="kap10.10" class="paragraf">
+
+#### 10 §
+
+Beslut i frågor om sjukpension enligt detta kapitel fattas av Statens tjänstepensionsverk.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap11" class="kapitel">
+
+## 11 kap. Efterlevandepension
+
+<section id="kap11.rätt-till-efterlevandepension">
+
+### Rätt till efterlevandepension
+
+<section id="kap11.1" class="paragraf">
+
+#### 1 §
+
+Efterlevandepension lämnas efter den som vid sin död
+
+1. var ledamot av riksdagen,
+
+2. fick sjukpension enligt denna lag, eller
+
+3. fick ålderspension enligt denna lag som för ett år överstiger 1,5 inkomstbasbelopp.
+
+Med den som avses i första stycket 3 jämställs den som har uppnått riktåldern för pension och hade haft rätt till ålderspension som överstiger 1,5 inkomstbasbelopp för ett år om pensionen hade börjat tas ut. Lag ([2022:1564](https://selex.se/eli/sfs/2022/1564)).
+
+</section>
+<section id="kap11.2" class="paragraf">
+
+#### 2 §
+
+Efterlevande maka eller make som stadigvarande sammanbodde med ledamoten när ledamoten avled har rätt till efterlevandepension.
+
+Med efterlevande maka eller make jämställs en ogift person som stadigvarande sammanbodde med en ogift ledamot när ledamoten avled. Detta gäller dock bara om personen tidigare hade varit gift med eller hade eller hade haft barn med den ledamot som avlidit eller som väntade barn med ledamoten när dödsfallet inträffade.
+
+Efterlevande barn har också rätt till efterlevandepension.
+
+</section>
+<section id="kap11.3" class="paragraf">
+
+#### 3 §
+
+Om det inte finns någon efterlevande maka eller make har det eller de barn som har rätt till efterlevandepension efter den som vid sin död var ledamot av riksdagen rätt till den pension som skulle ha tillkommit en maka eller make. Efterlevandepension som tillkommer flera barn gemensamt ska delas lika mellan dem.
+
+</section>
+
+</section>
+<section id="kap11.förmånstid">
+
+### Förmånstid
+
+<section id="kap11.4" class="paragraf">
+
+#### 4 §
+
+Efterlevandepension till maka eller make och till efterlevande barn lämnas från och med månaden efter dödsfallet.
+
+</section>
+<section id="kap11.5" class="paragraf">
+
+#### 5 §
+
+Efterlevandepension till maka eller make lämnas under sex år från och med månaden efter dödsfallet.
+
+Från och med det sjunde året efter den månad då dödsfallet ägde rum ska efterlevandepension lämnas om den ledamot som har avlidit var född 1959 eller tidigare, och ledamoten före 2010 hade fullgjort minst sex hela år i riksdagen. Detta gäller dock bara om äktenskapet ingicks eller samboförhållandet inleddes senast den 31 december 2009 och senast den dag då ledamoten fyllde 60 år. Sådan efterlevandepension lämnas längst till dess den efterlevande makan eller maken ingår äktenskap.
+
+I antalet hela år i riksdagen inräknas tid som ledamot av Europaparlamentet före den 14 juli 2009.
+
+</section>
+<section id="kap11.6" class="paragraf">
+
+#### 6 §
+
+Efterlevandepension lämnas till och med den månad då den som har rätt till pensionen avlider. Efterlevandepension till barn lämnas dock längst till och med den månad då barnet fyller 20 år.
+
+Efterlevandepensionens storlek
+
+</section>
+<section id="kap11.7" class="paragraf">
+
+#### 7 §
+
+Maka eller make har rätt till efterlevandepension efter den som vid sin död var ledamot av riksdagen med för år räknat
+
+1. ett belopp som motsvarar 1,2 prisbasbelopp,
+
+2. 45 procent av underlaget enligt [9 §](#kap11.9) till den del det överstiger 7,5 men inte 20 inkomstbasbelopp under det första året och 30 procent av denna del av underlaget under de följande fem åren, och
+
+3. 22,5 procent av underlaget enligt [9 §](#kap11.9) till den del det överstiger 20 men inte 30 inkomstbasbelopp under det första året och 15 procent av denna del av underlaget under de följande fem åren. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap11.8" class="paragraf">
+
+#### 8 §
+
+Efterlevande barn har rätt till efterlevandepension efter den som vid sin död var ledamot av riksdagen med för år räknat med
+
+1. 10 procent av underlaget enligt [9 §](#kap11.9) till den del det inte överstiger 7,5 inkomstbasbelopp,
+
+2. 25 procent av underlaget enligt [9 §](#kap11.9) till den del det överstiger 7,5 men inte 20 inkomstbasbelopp, och
+
+3. 12,5 procent av underlaget enligt [9 §](#kap11.9) till den del det överstiger 20 men inte 30 inkomstbasbelopp.
+
+Underlaget för efterlevandepensionen
+
+</section>
+<section id="kap11.9" class="paragraf">
+
+#### 9 §
+
+Underlaget för efterlevandepensionen utgörs av de arvoden som avses i 9 kap. [4 §](#kap9.4) första stycket och som betalades ut vid dödsfallet.
+
+Efterlevandepension efter den som vid sin död fick sjukpension eller ålderspension
+
+</section>
+<section id="kap11.10" class="paragraf">
+
+#### 10 §
+
+Efterlevandepension efter den som avses i [1 §](#kap11.1) första stycket 2 och 3 till maka eller make betalas under tid som avses i [5 §](#kap11.5) med 35 procent av den sjukpension eller ålderspension som betalades ut vid dödsfallet.
+
+</section>
+<section id="kap11.11" class="paragraf">
+
+#### 11 §
+
+Efterlevandepension efter den som avses i [1 §](#kap11.1) första stycket 2 och 3 till barn betalas under tid som avses i [6 §](#kap11.6) med 20 procent av den sjukpension eller ålderspension som betalades ut vid dödsfallet.
+
+</section>
+<section id="kap11.12" class="paragraf">
+
+#### 12 §
+
+Om det inte finns någon efterlevande make, ska belopp enligt [10 §](#kap11.10) tillfalla de barn som har rätt till efterlevandepension enligt [11 §](#kap11.11). Ett belopp som är gemensamt för flera barn ska delas lika mellan dem.
+
+Efterlevandepension till maka eller make i vissa fall
+
+</section>
+<section id="kap11.13" class="paragraf">
+
+#### 13 §
+
+Riksdagsförvaltningen ska betala efterlevandepension till maka eller make under tid som anges i [5 §](#kap11.5) andra stycket med ett belopp som följer av 7–[9 §](#kap11.9)§ eller 10–[12 §](#kap11.12)§, men beloppet ska enligt 7–[9 §](#kap11.9)§ multipliceras med antalet hela år i riksdagen, högst tolv, som den avlidne hade fullgjort före 2010, dividerat med talet tolv.
+
+I antalet hela år i riksdagen ska tid som ledamot av Europaparlamentet före den 14 juli 2009 räknas in.
+
+I antalet hela år ska däremot inte tid som har tillgodoräknats den som har avlidit som pensionsgrundande enligt artikel 28 i Europaparlamentets ledamotsstadga räknas in.
+
+</section>
+<section id="kap11.14" class="paragraf">
+
+#### 14 §
+
+Efterlevandepensionen ska anknytas till prisbasbeloppet för det år då dödsfallet inträffade och räknas om vid förändring av prisbasbeloppet.
+
+</section>
+
+</section>
+<section id="kap11.ansökan">
+
+### Ansökan
+
+<section id="kap11.15" class="paragraf">
+
+#### 15 §
+
+Ansökan om utbetalning av efterlevandepension görs hos Statens tjänstepensionsverk.
+
+Efterlevandepension lämnas inte för längre tid tillbaka än sex månader före ansökningsmånaden. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap11.beslut">
+
+### Beslut
+
+<section id="kap11.16" class="paragraf">
+
+#### 16 §
+
+Beslut i frågor om efterlevandepension enligt detta kapitel fattas av Statens tjänstepensionsverk.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap12" class="kapitel">
+
+## 12 kap. Inkomstgaranti och efterlevandeskydd
+
+<section id="kap12.tillämpningsområde">
+
+### Tillämpningsområde
+
+<section id="kap12.1" class="paragraf">
+
+#### 1 §
+
+I detta kapitel finns bestämmelser om stöd för övergång till förvärvsarbete, inkomstgaranti och efterlevandeskydd.
+
+Bestämmelserna gäller för de ledamöter som har valts in i riksdagen eller trätt in som ersättare före valet till riksdagen 2014.
+
+Bestämmelserna gäller också för en ledamot som har valts in i riksdagen genom valet 2014 eller inträder senare, om han eller hon tidigare har varit ledamot av riksdagen och har ett beslut om inkomstgaranti samt garantitiden vid återinträdet inte har löpt ut.
+
+Bestämmelsen i [20 §](#kap12.20) andra stycket gäller inte för en tidigare ledamot som den 1 maj 2014 har ett beslut om inkomstgaranti och garantitiden då inte har löpt ut.
+
+</section>
+
+</section>
+<section id="kap12.syfte">
+
+### Syfte
+
+<section id="kap12.2" class="paragraf">
+
+#### 2 §
+
+Syftet med inkomstgarantin är att skapa en ekonomisk trygghet för en avgången ledamot i den omställningssituation som uppstår när han eller hon lämnar riksdagsuppdraget. Garantin är inte avsedd som en varaktig försörjning. Lag ([2022:1563](https://selex.se/eli/sfs/2022/1563)).
+
+</section>
+
+</section>
+<section id="kap12.stödåtgärder-för-omställning">
+
+### Stödåtgärder för omställning
+
+<section id="kap12.3" class="paragraf">
+
+#### 3 §
+
+En ledamot som lämnar riksdagsuppdraget före uppnådd riktålder för pension har, för att kunna övergå till förvärvsarbete, rätt till stödåtgärder i enlighet med vad Riksdagsförvaltningen bestämmer. Lag ([2022:1564](https://selex.se/eli/sfs/2022/1564)).
+
+</section>
+<section id="kap12.4" class="paragraf">
+
+#### 4 §
+
+Den som har nyttjat ett erbjudande enligt [3 §](#kap12.3) ska på begäran av Riksdagsförvaltningen redovisa vilka åtgärder han eller hon har vidtagit för att övergå till förvärvsarbete.
+
+</section>
+
+</section>
+<section id="kap12.rätt-till-inkomstgaranti">
+
+### Rätt till inkomstgaranti
+
+<section id="kap12.5" class="paragraf">
+
+#### 5 §
+
+Den som har varit ledamot och som före uppnådd riktålder för pension lämnar riksdagsuppdraget efter minst tre hela års sammanhängande tid i riksdagen har rätt till inkomstgaranti från och med den tidpunkt då arvodet upphör.
+
+I den sammanhängande tiden i riksdagen inräknas tid som ledamot av Europaparlamentet före den 14 juli 2009.
+
+Den tid som en ledamot har ålagts att återbetala arvodet för enligt 3 kap. [13 §](#kap3.13) ska inte räknas in.
+
+Rätt till inkomstgaranti gäller inte för tid då ledamoten får ålderspension eller sjukpension enligt denna lag. Lag ([2022:1564](https://selex.se/eli/sfs/2022/1564)).
+
+</section>
+<section id="kap12.6" class="paragraf">
+
+#### 6 §
+
+Ledighet som har beviljats av riksdagen eller av talmannen, eller sjukfrånvaro, begränsar inte rätten till inkomstgaranti.
+
+</section>
+<section id="kap12.6a" class="paragraf">
+
+#### 6 a §
+
+En ledamot som har tjänstgjort som statsråd får tillgodoräkna sig den tiden vid beräkningen av den sammanlagda respektive sammanhängande tiden i riksdagen om han eller hon har avgått från statsrådsbefattningen innan
+
+1. rätt till inkomstgaranti enligt förordningen ([2016:1022](https://selex.se/eli/sfs/2016/1022)) om inkomstgaranti, tjänstepension och vissa försäkringsförmåner för statsråd har inträtt, eller
+
+2. rätt till inkomstgaranti eller motsvarande förmåner enligt äldre föreskrifter har inträtt. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap12.7" class="paragraf">
+
+#### 7 §
+
+Inkomstgaranti betalas ut efter ansökan från och med den dag då arvodet upphör och gäller, med de begränsningar som framgår av [8 §](#kap12.8) första stycket, [8 §](#kap12.8) andra stycket 1 och 2 och [20 §](#kap12.20), till och med månaden innan den månad då ledamoten uppnår riktåldern för pension eller, om ledamoten avlider dessförinnan, till och med den månad då dödsfallet inträffar.
+
+Om en tidigare ledamot som har ett gällande beslut om inkomstgaranti återinträder i riksdagen förskjuts inkomstgarantin med en tid som motsvarar den nya tjänstgöringstiden. Pågående utbetalning ska upphöra under den tiden.
+
+När ledamoten på nytt lämnar riksdagsuppdraget ska tidigare beslut om inkomstgaranti omprövas. Om ledamoten då har rätt till inkomstgaranti under längre tid eller med ett högre belopp än enligt tidigare beslut ska Riksdagens arvodesnämnd fatta ett nytt beslut om inkomstgarantin. I annat fall gäller tidigare beslut. Lag ([2022:1564](https://selex.se/eli/sfs/2022/1564)).
+
+</section>
+<section id="kap12.8" class="paragraf">
+
+#### 8 §
+
+För den som har varit ledamot i riksdagen kortare sammanlagd tid än sex hela år gäller inkomstgarantin under ett år.
+
+För den ledamot som lämnar riksdagsuppdraget efter en sammanlagd tid av minst sex hela år i riksdagen gäller inkomstgarantin
+
+1. i längst två år om ledamoten inte har uppnått 40 års ålder,
+
+2. i längst fem år om ledamoten har uppnått 40 men inte 50 års ålder, och
+
+3. längst till ingången av den månad då ledamoten uppnår riktåldern för pension om han eller hon har uppnått 50 års ålder.
+
+I den sammanlagda tiden i riksdagen inräknas tid som ledamot av Europaparlamentet före den 14 juli 2009.
+
+Den tid som en ledamot har ålagts att återbetala arvodet för enligt 3 kap. [13 §](#kap3.13) ska inte räknas in. Lag ([2022:1564](https://selex.se/eli/sfs/2022/1564)).
+
+</section>
+<section id="kap12.9" class="paragraf">
+
+#### 9 §
+
+Om det finns särskilda skäl får den tid under vilken inkomstgarantin gäller enligt [8 §](#kap12.8) första stycket och [8 §](#kap12.8) andra stycket 1 och 2 förlängas med högst ett år. I ett sådant beslut kan inkomstgarantin bestämmas till ett lägre belopp.
+
+Vid bedömningen av om det finns särskilda skäl ska hänsyn tas till
+
+1. om och hur ledamoten har utnyttjat de stödåtgärder som avses i [3 §](#kap12.3) eller vilka åtgärder han eller hon annars har vidtagit för att övergå till förvärvsarbete, och
+
+2. ledamotens personliga och ekonomiska förhållanden. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap12.inkomstgaranti-vid-partiell-sj">
+
+### Inkomstgaranti vid partiell sjuk- eller aktivitetsersättning
+
+<section id="kap12.10" class="paragraf">
+
+#### 10 §
+
+Inkomstgaranti får beviljas en ledamot som har lämnat sitt uppdrag och får partiell sjukersättning eller partiell aktivitetsersättning enligt socialförsäkringsbalken.
+
+Underlaget för beräkningen av inkomstgarantin
+
+</section>
+<section id="kap12.11" class="paragraf">
+
+#### 11 §
+
+Underlaget för beräkningen av inkomstgarantin de första fem garantiåren utgörs av följande arvoden som betalas ut vid avgångstillfället:
+
+1. ledamotsarvode enligt 3 kap. [2 §](#kap3.2),
+
+2. tilläggsarvode enligt 3 kap. 3-[5 §](#kap12.5)§, och
+
+3. månatliga arvoden enligt [1 §](#kap12.1) 2 och 4 lagen ([1989:185](https://selex.se/eli/sfs/1989/185)) om arvoden m.m. för uppdrag inom riksdagen, dess myndigheter och organ.
+
+Från och med det sjätte garantiåret beräknas inkomstgarantin bara på det ledamotsarvode som betalades vid avgångstillfället.
+
+Talmannens arvode vid avgångstillfället utgör underlag för beräkningen av hans eller hennes inkomstgaranti. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap12.inkomstgarantins-storlek">
+
+### Inkomstgarantins storlek
+
+<section id="kap12.12" class="paragraf">
+
+#### 12 §
+
+Under det första garantiåret lämnas inkomstgaranti med ett månatligt belopp som uppgår till 80 procent av den del av garantiunderlaget som inte överstiger 1,67 inkomstbasbelopp och med 40 procent av den del som överstiger 1,67 men inte 2,5 inkomstbasbelopp. För tiden därefter lämnas inkomstgaranti med ett månatligt belopp som motsvarar följande andelar av garantiunderlaget i förhållande till ledamotens sammanlagda tid i riksdagen:
+
+1. 66,0 procent av den del av garantiunderlaget som inte överstiger 1,67 inkomstbasbelopp och 33 procent av den del som överstiger 1,67 men inte 2,5 inkomstbasbelopp efter minst tolv år,
+
+2. 60,5 procent av den del av garantiunderlaget som inte överstiger 1,67 inkomstbasbelopp och 30,25 procent av den del som överstiger 1,67 men inte 2,5 inkomstbasbelopp efter minst elva år,
+
+3. 55,0 procent av den del av garantiunderlaget som inte överstiger 1,67 inkomstbasbelopp och 27,5 procent av den del som överstiger 1,67 men inte 2,5 inkomstbasbelopp efter minst tio år,
+
+4. 49,5 procent av den del av garantiunderlaget som inte överstiger 1,67 inkomstbasbelopp och 24,75 procent av den del som överstiger 1,67 men inte 2,5 inkomstbasbelopp efter minst nio år,
+
+5. 44,0 procent av den del av garantiunderlaget som inte överstiger 1,67 inkomstbasbelopp och 22 procent av den del som överstiger 1,67 men inte 2,5 inkomstbasbelopp efter minst åtta år,
+
+6. 38,5 procent av den del av garantiunderlaget som inte överstiger 1,67 inkomstbasbelopp och 19,25 procent av den del som överstiger 1,67 men inte 2,5 inkomstbasbelopp efter minst sju år, och
+
+7. 33,0 procent av den del av garantiunderlaget som inte överstiger 1,67 inkomstbasbelopp och 16,5 procent av den del som överstiger 1,67 men inte 2,5 inkomstbasbelopp efter minst sex år.
+
+I den sammanlagda tiden i riksdagen inräknas tid som ledamot av Europaparlamentet före den 14 juli 2009.
+
+Den tid som en ledamot har ålagts att återbetala arvodet för enligt 3 kap. [13 §](#kap3.13) ska inte räknas in. Lag ([2022:1563](https://selex.se/eli/sfs/2022/1563)).
+
+</section>
+
+</section>
+<section id="kap12.värdesäkring-av-garantibeloppe">
+
+### Värdesäkring av garantibeloppet
+
+<section id="kap12.13" class="paragraf">
+
+#### 13 §
+
+För den som har varit ledamot i riksdagen under minst sex hela år ska den fastställda inkomstgarantin knytas till det prisbasbelopp som gällde för avgångsåret och omräknas vid förändring av detta belopp.
+
+</section>
+
+</section>
+<section id="kap12.avräkning-av-annan-ersättning">
+
+### Avräkning av annan ersättning eller inkomst
+
+<section id="kap12.14" class="paragraf">
+
+#### 14 §
+
+Inkomstgarantin ska minskas med vad ledamoten får i form av sjukersättning och aktivitetsersättning enligt socialförsäkringsbalken under den tid inkomstgarantin betalas.
+
+</section>
+<section id="kap12.15" class="paragraf">
+
+#### 15 §
+
+Inkomstgarantin ska minskas med det belopp i svensk valuta som motsvarar vad ledamoten får i arvode enligt artikel 10 i Europaparlamentets ledamotsstadga.
+
+Om en ledamot som har inkomstgaranti samtidigt tar mot övergångsersättning enligt artikel 13 i Europaparlamentets ledamotsstadga, ska inkomstgarantin minskas med det belopp i svensk valuta som motsvarar vad ledamoten får i övergångsersättning.
+
+</section>
+<section id="kap12.16" class="paragraf">
+
+#### 16 §
+
+Inkomstgarantin ska minskas med följande inkomster:
+
+1. inkomst som är pensionsgrundande enligt [59 kap. socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110),
+
+2. inkomst av anställning eller uppdrag utomlands som inte beskattas i Sverige,
+
+3. delpension enligt kollektivavtal,
+
+4. pension och livränta i andra fall än som avses i [14 §](#kap12.14),
+
+5. andra kontanta förmåner på grund av anställning eller uppdrag än dem som avses i 1–4.
+
+Minskningen ska motsvara den procentandel som anges för varje särskilt fall i [12 §](#kap12.12) av den sammanlagda inkomst enligt denna paragraf som per år överstiger ett prisbasbelopp.
+
+</section>
+<section id="kap12.17" class="paragraf">
+
+#### 17 §
+
+Om den som har inkomstgaranti samtidigt även tar emot avgångsförmåner på grund av uppdrag som statsråd, statlig chefsanställning eller kommunalt förtroendeuppdrag, och avgångsförmånerna ska minskas med hänsyn till andra inkomster, får minskningen justeras om det behövs med hänsyn till de sammanlagda effekterna av de olika regelsystemen. Statens tjänstepensionsverk beslutar efter samråd med berörda utbetalare om en sådan justering.
+
+</section>
+<section id="kap12.18" class="paragraf">
+
+#### 18 §
+
+Om det inte föreligger rätt till inkomstgaranti under ett helt kalenderår, ska endast inkomster som hänför sig till den tid då rätt till inkomstgaranti föreligger räknas med vid minskningen.
+
+Minskningen ska fördelas på det antal kalenderdagar som garantin betalas.
+
+</section>
+
+</section>
+<section id="kap12.pensionsgrundande-inkomst-och">
+
+### Pensionsgrundande inkomst och beskattning
+
+<section id="kap12.19" class="paragraf">
+
+#### 19 §
+
+Under de första fem åren ska inkomstgarantin jämställas med inkomst av anställning. För tiden därefter ska inkomstgarantin jämställas med inkomstgrundad ålderspension enligt socialförsäkringsbalken.
+
+Av [67 kap. 6 § inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap67.6) ([1999:1229](https://selex.se/eli/sfs/1999/1229)) följer att inkomstgaranti inte utgör arbetsinkomst.
+
+</section>
+
+</section>
+<section id="kap12.jämkning-av-inkomstgaranti">
+
+### Jämkning av inkomstgaranti
+
+<section id="kap12.20" class="paragraf">
+
+#### 20 §
+
+Om det är skäligt får en inkomstgaranti dras in helt eller delvis (jämkning) om garantitagaren
+
+1. förvärvsarbetar i väsentlig omfattning åt någon annan och inte tar ut skälig ersättning för detta arbete,
+
+2. redovisar inkomst av aktiv näringsverksamhet och denna har reducerats på grund av avdrag för
+
+– avsättning till periodiseringsfond,
+
+– avsättning till upphovsmannakonto,
+
+– avsättning till expansionsfond,
+
+– eget pensionssparande,
+
+– underskott av annan verksamhetsgren,
+
+3. redovisar inkomst av passiv näringsverksamhet där det ingår arbetsinkomster, eller
+
+4. har dömts för brott som har medfört att garantitagaren skilts från uppdraget som riksdagsledamot eller har dömts för brott av sådan allvarlig art att det framstår som sannolikt att garantitagaren skulle ha skilts från uppdraget som riksdagsledamot om han eller hon hade varit kvar i riksdagen.
+
+Utöver vad som följer av första stycket får inkomstgaranti som gäller i mer än ett år jämkas om garantitagaren inte har vidtagit tillräckliga åtgärder för att övergå till förvärvsarbete. Vid bedömningen av jämkningsfrågan ska särskilt beaktas om och hur den som tar emot förmånen har tagit del av det omställningsstöd som avses i [3 §](#kap12.3).
+
+</section>
+<section id="kap12.21" class="paragraf">
+
+#### 21 §
+
+Ett beslut om jämkning gäller omedelbart, om inte något annat beslutas.
+
+</section>
+
+</section>
+<section id="kap12.rätt-till-efterlevandeskydd">
+
+### Rätt till efterlevandeskydd
+
+<section id="kap12.22" class="paragraf">
+
+#### 22 §
+
+Ett arvsberättigat barn, som inte fyllt 20 år, till den som vid sin död var berättigad till inkomstgaranti enligt [8 §](#kap12.8) andra stycket har rätt till efterlevandeskydd. Med ett arvsberättigat barn jämställs ett barn som har mottagits i adoptionssyfte.
+
+</section>
+<section id="kap12.23" class="paragraf">
+
+#### 23 §
+
+Om det finns särskilda skäl får efterlevandeskydd beviljas en efterlevande maka eller make eller den som enligt 11 kap. [2 §](#kap11.2) jämställs med efterlevande maka eller make. Ett sådant beslut kan omprövas.
+
+</section>
+
+</section>
+<section id="kap12.utbetalningstid-för-efterlevan">
+
+### Utbetalningstid för efterlevandeskyddet
+
+<section id="kap12.24" class="paragraf">
+
+#### 24 §
+
+Efterlevandeskydd till barn betalas till utgången av den månad då barnet fyller 20 år. Efterlevandeskydd till make eller därmed jämställd betalas under högst fem år. Efterlevandeskyddet upphör vid utgången av den månad då den berättigade avlider.
+
+Efterlevandeskyddets storlek
+
+</section>
+<section id="kap12.25" class="paragraf">
+
+#### 25 §
+
+Efterlevandeskyddet lämnas per kalenderår med ett belopp som för varje berättigad motsvarar ett prisbasbelopp.
+
+</section>
+
+</section>
+<section id="kap12.beslut-i-frågor-om-inkomstgara">
+
+### Beslut i frågor om inkomstgaranti och efterlevandeskydd
+
+<section id="kap12.26" class="paragraf">
+
+#### 26 §
+
+Riksdagens arvodesnämnd ska besluta om en ledamots rätt till inkomstgaranti i samband med att ledamoten lämnar riksdagsuppdraget. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap12.27" class="paragraf">
+
+#### 27 §
+
+Riksdagens arvodesnämnd beslutar efter skriftlig ansökan om
+
+1. förlängning av inkomstgaranti enligt [9 §](#kap12.9),
+
+2. inkomstgaranti vid partiell sjuk- eller aktivitetsersättning enligt [10 §](#kap12.10),
+
+3. efterlevandeskydd enligt 22 och [23 §](#kap12.23)§, och
+
+4. eftergift av återkrav och ränta till följd av beslut om jämkning.
+
+Riksdagens arvodesnämnd beslutar även i frågor om jämkning av inkomstgaranti enligt [20 §](#kap12.20).
+
+Beslut om förmåner enligt första stycket 1-3 kan inte beviljas för längre tid tillbaka än sex månader före ansökningsmånaden. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap12.utbetalning-av-inkomstgaranti">
+
+### Utbetalning av inkomstgaranti och efterlevandeskydd
+
+<section id="kap12.28" class="paragraf">
+
+#### 28 §
+
+Den som vill att inkomstgaranti eller efterlevandeskydd ska betalas ut ska skriftligen ansöka om det hos Statens tjänstepensionsverk. Utbetalning får inte ske för längre tid tillbaka än sex månader före ansökan om utbetalning.
+
+</section>
+
+</section>
+<section id="kap12.lämnande-av-uppgift">
+
+### Lämnande av uppgift
+
+<section id="kap12.29" class="paragraf">
+
+#### 29 §
+
+I samband med att en ledamot lämnar riksdagsuppdraget ska Riksdagsförvaltningen till Riksdagens arvodesnämnd lämna de uppgifter som nämnden behöver för att kunna fastställa ledamotens rätt till inkomstgaranti enligt bestämmelserna i detta kapitel.
+
+Riksdagsförvaltningen ska på begäran till Riksdagens arvodesnämnd överlämna de uppgifter som en tidigare ledamot har lämnat till förvaltningen enligt [4 §](#kap12.4). Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap12.30" class="paragraf">
+
+#### 30 §
+
+Den som ansöker om eller tar emot inkomstgaranti ska på begäran lämna sådana uppgifter till Riksdagens arvodesnämnd som nämnden behöver för sin prövning av ett ärende enligt bestämmelserna i detta kapitel.
+
+</section>
+<section id="kap12.31" class="paragraf">
+
+#### 31 §
+
+Den som ansöker om utbetalning enligt [28 §](#kap12.28) ska skriftligen lämna sådana uppgifter som Statens tjänstepensionsverk behöver för att kunna bedöma sökandens rätt till utbetalning av inkomstgaranti eller efterlevandeskydd. Uppgifterna ska lämnas på heder och samvete.
+
+Om begärda uppgifter inte lämnas får Statens tjänstepensionsverk hålla inne vidare utbetalningar.
+
+Om den som har beviljats utbetalning av inkomstgaranti får väsentligt ändrade inkomstförhållanden och dessa kan antas påverka rätten till utbetalning ska han eller hon utan särskild begäran lämna uppgift om detta till Statens tjänstepensionsverk.
+
+</section>
+<section id="kap12.32" class="paragraf">
+
+#### 32 §
+
+Arbetsgivare och andra som har betalat ut ersättning eller förmån ska på begäran av Statens tjänstepensionsverk lämna de uppgifter om en namngiven person som är av betydelse för tillämpningen av bestämmelserna i detta kapitel.
+
+Den som inte fullgör sin skyldighet enligt första stycket får föreläggas att fullgöra skyldigheten. Föreläggandet får förenas med vite.
+
+</section>
+<section id="kap12.33" class="paragraf">
+
+#### 33 §
+
+Skatteverket ska till Statens tjänstepensionsverk lämna uppgifter om inkomst som är pensionsgrundande enligt [59 kap. socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110), om uppgifterna har betydelse i ett ärende om inkomstgaranti enligt bestämmelserna i detta kapitel.
+
+</section>
+<section id="kap12.34" class="paragraf">
+
+#### 34 §
+
+Skatteverket ska på begäran lämna Riksdagens arvodesnämnd sådana uppgifter om en namngiven person som har betydelse i ett ärende om jämkning av inkomstgaranti enligt [20 §](#kap12.20) 1–3. Detsamma gäller uppgifter som har betydelse för frågan om inkomstgaranti enligt [37 §](#kap12.37).
+
+</section>
+
+</section>
+<section id="kap12.återkrav">
+
+### Återkrav
+
+<section id="kap12.35" class="paragraf">
+
+#### 35 §
+
+Om inkomstgaranti har betalats ut med ett för högt belopp ska garantitagaren betala tillbaka mellanskillnaden. Detsamma gäller om garantin har jämkats. Ett belopp som ska betalas tillbaka ska, när det är lämpligt, i stället avräknas mot kommande utbetalningar av inkomstgarantin.
+
+Avräkning enligt första stycket får inte ske förrän beslutet har vunnit laga kraft.
+
+Om det finns särskilda skäl får återkravet efterges helt eller delvis.
+
+Statens tjänstepensionsverk beslutar om återkrav och eftergift av ett sådant krav. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap12.36" class="paragraf">
+
+#### 36 §
+
+Om inkomstgaranti har betalats ut med ett för högt belopp och mellanskillnaden inte har betalats tillbaka inom en månad efter det att ett krav på återbetalning har framställts, ska garantitagaren betala ränta enligt [6 §](#kap12.6) räntelagen ([1975:635](https://selex.se/eli/sfs/1975/635)) för tid därefter till dess betalning sker. Detsamma ska gälla även om garantin har jämkats. Om det finns särskilda skäl får kravet på ränta efterges helt eller delvis.
+
+Bestämmelserna i första stycket gäller också om garantitagaren försummat att lämna uppgifter som behövs för att kunna bestämma det belopp som ska betalas tillbaka. I ett sådant fall ska dock ränta enligt [5 §](#kap12.5) räntelagen tas ut från den dag då uppgifterna senast skulle ha lämnats in. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap12.36a" class="paragraf">
+
+#### 36 a §
+
+Den som är återbetalningsskyldig enligt 35 och [36 §](#kap12.36)§ ska betala ränta enligt [5 §](#kap12.5) räntelagen ([1975:635](https://selex.se/eli/sfs/1975/635)) på det återkrävda beloppet om det
+
+1. har träffats ett avtal om avbetalningsplan med den återbetalningsskyldige, eller
+
+2. om den återbetalningsskyldige har medgetts anstånd med betalningen.
+
+Ränta ska beräknas från den dag då avtalet om avbetalningsplan träffades eller anståndet medgavs. Ränta ska dock inte betalas för tid innan återkravet har förfallit till betalning. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap12.inkomstgaranti-efter-jämknings">
+
+### Inkomstgaranti efter jämkningsbeslut
+
+<section id="kap12.37" class="paragraf">
+
+#### 37 §
+
+Om inkomstgaranti har jämkats enligt [20 §](#kap12.20) får garantitagaren, när nya förhållanden har inträtt, på nytt ansöka om inkomstgaranti med åberopande av de nya förhållandena.
+
+Om ett beslut om jämkning enligt första stycket har grundat sig på att garantitagaren gjort avsättning till periodiseringsfond, upphovsmannakonto eller expansionsfond och beloppet därefter helt eller delvis har återförts till beskattning, ska frågan om inkomstgaranti för det år då återförandet skedde prövas på yrkande av garantitagaren.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap13" class="kapitel">
+
+## 13 kap. Omställningsstöd och efterlevandeskydd
+
+<section id="kap13.tillämpningsområde">
+
+### Tillämpningsområde
+
+<section id="kap13.1" class="paragraf">
+
+#### 1 §
+
+I detta kapitel finns bestämmelser om omställningsstöd och efterlevandeskydd.
+
+Omställningsstödet består av
+
+1. stödåtgärder som erbjuds vid avgången från riksdagen, och
+
+2. ekonomiska förmåner under en omställningstid (ekonomiskt omställningsstöd).
+
+Detta kapitel gäller för de ledamöter som inte omfattas av bestämmelserna i 12 kapitlet.
+
+</section>
+
+</section>
+<section id="kap13.syfte">
+
+### Syfte
+
+<section id="kap13.2" class="paragraf">
+
+#### 2 §
+
+Syftet med omställningsstödet är att underlätta för den som har varit riksdagsledamot att övergå till förvärvsarbete.
+
+</section>
+
+</section>
+<section id="kap13.stödåtgärder-för-omställning">
+
+### Stödåtgärder för omställning
+
+<section id="kap13.3" class="paragraf">
+
+#### 3 §
+
+En ledamot som lämnar riksdagsuppdraget före uppnådd riktålder för pension har, för att kunna övergå till förvärvsarbete, rätt till stödåtgärder i enlighet med vad Riksdagsförvaltningen bestämmer. Lag ([2022:1564](https://selex.se/eli/sfs/2022/1564)).
+
+</section>
+<section id="kap13.4" class="paragraf">
+
+#### 4 §
+
+Den som har nyttjat ett erbjudande enligt [3 §](#kap13.3) ska på begäran av Riksdagsförvaltningen redovisa vilka åtgärder han eller hon har vidtagit för att övergå till förvärvsarbete.
+
+</section>
+
+</section>
+<section id="kap13.ekonomiskt-omställningsstöd">
+
+### Ekonomiskt omställningsstöd
+
+<section id="kap13.5" class="paragraf">
+
+#### 5 §
+
+Den som har varit ledamot av riksdagen har rätt till ekonomiskt omställningsstöd
+
+1. i tre månader, om ledamoten har tillhört riksdagen under en sammanhängande tid om minst ett år,
+
+2. i sex månader, om ledamoten har tillhört riksdagen under en sammanlagd tid om minst två år,
+
+3. i ett år, om ledamoten har tillhört riksdagen under en sammanlagd tid om minst fyra år, eller
+
+4. i två år, om ledamoten har tillhört riksdagen under en sammanlagd tid om minst åtta år.
+
+Det ekonomiska omställningsstödet uppgår för den som är talman när han eller hon lämnar riksdagsuppdraget till 85 procent av talmansarvodet enligt 3 kap. [1 §](#kap3.1) vid avgångstillfället. För den som är ledamot uppgår stödet till 85 procent av ledamotsarvodet enligt 3 kap. [2 §](#kap3.2) vid avgångstillfället.
+
+Ekonomiskt omställningsstöd ska jämställas med inkomst av anställning enligt [59 kap. 8 § socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap59.8). Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap13.6" class="paragraf">
+
+#### 6 §
+
+När ett stöd enligt [5 §](#kap13.5) har upphört får ytterligare ekonomiskt omställ-ningsstöd beviljas för högst ett år i taget om
+
+1. ledamoten under avgångsåret hade fyllt minst 55 år,
+
+2. ledamoten vid avgången hade tillhört riksdagen under en sammanlagd tid om minst åtta år, och
+
+3. det finns särskilda skäl.
+
+Vid bedömningen av om det finns särskilda skäl ska avseende fästas vid
+
+1. om och hur ledamoten har nyttjat de stödåtgärder som avses i [3 §](#kap13.3) eller vilka åtgärder han eller hon annars har vidtagit för att söka övergå till förvärvsarbete, och
+
+2. ledamotens personliga och ekonomiska förhållanden.
+
+Stöd enligt första stycket får beviljas om det finns särskilda skäl, även om förutsättningarna i 1 och 2 inte är uppfyllda. I sådana fall får stödet beviljas i högst ett år.
+
+Stöd som avses i första och tredje styckena får uppgå till högst 45 procent av det arvode som avses i 3 kap. [1 §](#kap3.1). Stödet ska jämställas med inkomstgrundad ålderspension enligt socialförsäkringsbalken.
+
+</section>
+<section id="kap13.7" class="paragraf">
+
+#### 7 §
+
+Vid beräkning av tider enligt 5 och [6 §](#kap13.6)§ ska hänsyn inte tas till tid då ledamoten har fått ålderspension eller sjukpension enligt bestämmelser i denna lag.
+
+Ledighet som har beviljats av riksdagen eller av talmannen begränsar inte rätten till förmåner enligt detta kapitel. Detsamma gäller vid sjukfrånvaro.
+
+Den tid som en ledamot har ålagts att återbetala arvodet för enligt 3 kap. [13 §](#kap3.13) ska inte räknas in som grund för förmåner enligt detta kapitel. Lag ([2022:1563](https://selex.se/eli/sfs/2022/1563)).
+
+</section>
+<section id="kap13.7a" class="paragraf">
+
+#### 7 a §
+
+§ En ledamot som har tjänstgjort som statsråd får tillgodoräkna sig den tiden vid beräkningen av den sammanlagda respektive sammanhängande tiden i riksdagen om han eller hon har avgått från statsrådsbefattningen innan
+
+1. rätt till inkomstgaranti enligt förordningen ([2016:1022](https://selex.se/eli/sfs/2016/1022)) om inkomstgaranti, tjänstepension och vissa försäkringsförmåner för statsråd har inträtt, eller
+
+2. rätt till inkomstgaranti eller motsvarande förmåner enligt äldre föreskrifter har inträtt. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap13.8" class="paragraf">
+
+#### 8 §
+
+Rätten till ekonomiskt omställningsstöd gäller längst till och med månaden innan den månad då ledamoten uppnår riktåldern för pension eller, om ledamoten avlider dessförinnan, till och med den månad då dödsfallet inträffar.
+
+Stödet ska betalas månadsvis. Lag ([2022:1564](https://selex.se/eli/sfs/2022/1564)).
+
+</section>
+<section id="kap13.9" class="paragraf">
+
+#### 9 §
+
+Om en tidigare ledamot som har ett gällande beslut om ekonomiskt omställningsstöd återinträder i riksdagen förskjuts det ekonomiska omställningsstödet med en tid som motsvarar den nya tjänstgöringstiden. Pågående utbetalning ska upphöra under den tiden.
+
+När ledamoten på nytt lämnar riksdagsuppdraget ska tidigare beslut om ekonomiskt omställningsstöd omprövas. Om ledamoten då har rätt till ekonomiskt omställningsstöd under längre tid eller med högre belopp än enligt tidigare beslut ska Riksdagens arvodesnämnd fatta ett nytt beslut om det ekonomiska omställningsstödet. I annat fall gäller tidigare beslut. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap13.10" class="paragraf">
+
+#### 10 §
+
+Ekonomiskt omställningsstöd enligt [6 §](#kap13.6) ska knytas an till det prisbasbelopp som gällde för avgångsåret och omräknas vid förändring av detta belopp.
+
+</section>
+<section id="kap13.11" class="paragraf">
+
+#### 11 §
+
+Av [67 kap. 6 § inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap67.6) ([1999:1229](https://selex.se/eli/sfs/1999/1229)) följer att ekonomiskt omställningsstöd enligt 5 och [6 §](#kap13.6)§ inte utgör arbetsinkomst.
+
+</section>
+
+</section>
+<section id="kap13.avräkning-av-annan-ersättning">
+
+### Avräkning av annan ersättning eller inkomst
+
+<section id="kap13.12" class="paragraf">
+
+#### 12 §
+
+Ekonomiskt omställningsstöd ska minskas med vad ledamoten får i form av sjukersättning och aktivitetsersättning enligt socialförsäkringsbalken under den tid stödet betalas.
+
+Ekonomiskt omställningsstöd ska minskas med det belopp i svensk valuta som motsvarar vad ledamoten får i form av arvode enligt artikel 10 i Europaparlamentets ledamotsstadga.
+
+Om en ledamot som har ekonomiskt omställningsstöd samtidigt tar emot övergångsersättning enligt artikel 13 i Europaparlamentets ledamotsstadga minskas stödet med det belopp i svensk valuta som motsvarar vad ledamoten får i övergångsersättning.
+
+</section>
+<section id="kap13.13" class="paragraf">
+
+#### 13 §
+
+Ekonomiskt omställningsstöd ska minskas med följande inkomster:
+
+1. inkomst som är pensionsgrundande enligt [59 kap. socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110),
+
+2. inkomst av anställning eller uppdrag utomlands som inte beskattas i Sverige,
+
+3. delpension enligt kollektivavtal,
+
+4. pension och livränta i andra fall än som avses i [12 §](#kap13.12), och
+
+5. andra kontanta förmåner på grund av anställning eller uppdrag än dem som avses i 1–4.
+
+Minskningen ska ske med den sammanlagda inkomsten enligt denna paragraf som per år överstiger ett prisbasbelopp.
+
+</section>
+<section id="kap13.14" class="paragraf">
+
+#### 14 §
+
+Om den som har ekonomiskt omställningsstöd samtidigt även tar emot avgångsförmåner på grund av uppdrag som statsråd, statlig chefsanställning eller kommunalt förtroendeuppdrag, och avgångsförmånerna ska minskas med hänsyn till andra inkomster, får minskningen justeras om det behövs med hänsyn till de sammanlagda effekterna av de olika regelsystemen. Statens tjänstepensionsverk ska efter samråd med berörda utbetalare besluta om en sådan justering.
+
+</section>
+<section id="kap13.15" class="paragraf">
+
+#### 15 §
+
+Föreligger inte rätt till ekonomiskt omställningsstöd under ett helt kalenderår, ska endast inkomster som hänför sig till den tid då rätt till stödet föreligger medräknas vid minskningen.
+
+Minskningen ska fördelas på det antal kalenderdagar som det ekonomiska omställningsstödet betalas.
+
+</section>
+
+</section>
+<section id="kap13.jämkning-av-ekonomiskt-omställ">
+
+### Jämkning av ekonomiskt omställningsstöd
+
+<section id="kap13.16" class="paragraf">
+
+#### 16 §
+
+Om det är skäligt får ett ekonomiskt omställningsstöd dras in helt eller delvis (jämkning) om stödmottagaren
+
+1. förvärvsarbetar i väsentlig omfattning åt någon annan och inte tar ut skälig ersättning för detta arbete,
+
+2. redovisar inkomst av aktiv näringsverksamhet och denna har reducerats på grund av avdrag för
+
+– avsättning till periodiseringsfond,
+
+– avsättning till upphovsmannakonto,
+
+– avsättning till expansionsfond,
+
+– eget pensionssparande,
+
+– underskott av annan verksamhetsgren,
+
+3. redovisar inkomst av passiv näringsverksamhet där det ingår arbetsinkomster, eller
+
+4. har dömts för brott som har medfört att stödmottagaren har skilts från uppdraget som riksdagsledamot eller har dömts för brott av sådan allvarlig art att det framstår som sannolikt att stödmottagaren skulle ha skilts från uppdraget som riksdagsledamot om han eller hon hade varit kvar i riksdagen.
+
+Utöver vad som följer av första stycket får ekonomiskt omställningsstöd enligt [5 §](#kap13.5) och som gäller i mer än ett år jämkas om stödmottagaren inte har vidtagit tillräckliga åtgärder för att övergå till förvärvsarbete. Vid bedömningen av jämkningsfrågan ska särskilt beaktas om och hur den som tar emot stödet har tagit del av det omställningsstöd som avses i [3 §](#kap13.3).
+
+</section>
+<section id="kap13.17" class="paragraf">
+
+#### 17 §
+
+Ett beslut om jämkning gäller omedelbart, om inte något annat beslutas.
+
+</section>
+
+</section>
+<section id="kap13.rätt-till-efterlevandeskydd">
+
+### Rätt till efterlevandeskydd
+
+<section id="kap13.18" class="paragraf">
+
+#### 18 §
+
+Ett arvsberättigat barn, som inte har fyllt 20 år, till den som vid sin död var berättigad till ekonomiskt omställningsstöd enligt [5 §](#kap13.5) första stycket 4 har rätt till efterlevandeskydd. Med arvsberättigat barn ska jämställas barn som har mottagits i adoptionssyfte.
+
+</section>
+<section id="kap13.19" class="paragraf">
+
+#### 19 §
+
+Om det finns särskilda skäl får efterlevandeskydd beviljas en efterlevande maka eller make eller den som enligt 11 kap. [2 §](#kap11.2) jämställs med efterlevande maka eller make. Ett sådant beslut kan omprövas.
+
+</section>
+
+</section>
+<section id="kap13.utbetalningstid-för-efterlevan">
+
+### Utbetalningstid för efterlevandeskyddet
+
+<section id="kap13.20" class="paragraf">
+
+#### 20 §
+
+Efterlevandeskydd betalas under högst två år.
+
+Efterlevandeskyddet upphör vid utgången av den månad då den berättigade avlider.
+
+Efterlevandeskyddets storlek
+
+</section>
+<section id="kap13.21" class="paragraf">
+
+#### 21 §
+
+Efterlevandeskyddet betalas per kalenderår med ett belopp som för varje berättigad motsvarar ett prisbasbelopp.
+
+</section>
+
+</section>
+<section id="kap13.beslut-i-frågor-om-ekonomiskt">
+
+### Beslut i frågor om ekonomiskt omställningsstöd och efterlevandeskydd
+
+<section id="kap13.22" class="paragraf">
+
+#### 22 §
+
+Riksdagens arvodesnämnd ska besluta om en ledamots rätt till ekonomiskt omställningsstöd i samband med att ledamoten lämnar riksdagsuppdraget. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap13.23" class="paragraf">
+
+#### 23 §
+
+Riksdagens arvodesnämnd beslutar efter skriftlig ansökan om
+
+1. förlängt ekonomiskt omställningsstöd enligt [6 §](#kap13.6),
+
+2. efterlevandeskydd enligt 18 och [19 §](#kap13.19)§, och
+
+3. eftergift av återkrav och ränta till följd av beslut om jämkning.
+
+Riksdagens arvodesnämnd beslutar även i frågor om jämkning av ekonomiskt omställningsstöd enligt [15 §](#kap13.15).
+
+Beslut om förmåner enligt första stycket 1 och 2 kan inte beviljas för längre tid tillbaka än sex månader före ansökningsmånaden. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap13.utbetalning-av-ekonomiskt-omst">
+
+### Utbetalning av ekonomiskt omställningsskydd och efterlevandeskydd
+
+<section id="kap13.24" class="paragraf">
+
+#### 24 §
+
+Den som vill att ekonomiskt omställningsstöd eller efterlevandeskydd ska betalas ut ska skriftligen ansöka om det hos Statens tjänstepensionsverk. Utbetalning får inte ske för längre tid tillbaka än sex månader före ansökan om utbetalning.
+
+</section>
+
+</section>
+<section id="kap13.uppgiftslämnande">
+
+### Uppgiftslämnande
+
+<section id="kap13.25" class="paragraf">
+
+#### 25 §
+
+I samband med att en ledamot lämnar riksdagsuppdraget ska Riksdagsförvaltningen till Riksdagens arvodesnämnd lämna de uppgifter som nämnden behöver för att kunna fastställa ledamotens rätt till ekonomiskt
+
+omställningsstöd. Riksdagsförvaltningen ska på begäran till Riksdagens arvodesnämnd överlämna de uppgifter som en tidigare ledamot har lämnat enligt [4 §](#kap13.4). Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap13.26" class="paragraf">
+
+#### 26 §
+
+Den som ansöker om eller tar emot ekonomiskt omställningsstöd ska på begäran lämna Riksdagens arvodesnämnd sådana uppgifter som nämnden behöver för sin prövning av ett ärende enligt bestämmelserna i detta kapitel.
+
+</section>
+<section id="kap13.27" class="paragraf">
+
+#### 27 §
+
+Den som har ansökt om utbetalning enligt [24 §](#kap13.24) ska skriftligen lämna sådana uppgifter som Statens tjänstepensionsverk behöver för att bedöma sökandens rätt till utbetalning. Uppgifterna ska lämnas på heder och samvete.
+
+Om den som har ansökt om utbetalning inte lämnar begärda uppgifter, får Statens tjänstepensionsverk hålla inne vidare utbetalningar.
+
+Om den som har beviljats utbetalning av ekonomiskt omställningsstöd får väsentligt ändrade inkomstförhållanden och dessa kan antas påverka rätten till utbetalning, ska han eller hon utan särskild begäran lämna uppgift om detta till Statens tjänstepensionsverk.
+
+</section>
+<section id="kap13.28" class="paragraf">
+
+#### 28 §
+
+Arbetsgivare och andra som har betalat ut ersättning eller stöd ska på begäran av Statens tjänstepensionsverk lämna sådana uppgifter om en namngiven person om sådana förhållanden som är av betydelse för tillämpningen av bestämmelserna i detta kapitel.
+
+Den som inte fullgör sin skyldighet enligt första stycket får föreläggas att fullgöra skyldigheten. Föreläggandet får förenas med vite.
+
+</section>
+<section id="kap13.29" class="paragraf">
+
+#### 29 §
+
+Skatteverket ska på begäran lämna Riksdagens arvodesnämnd sådana uppgifter om en namngiven person som har betydelse i ett ärende om jämkning av ekonomiskt omställningsstöd enligt [16 §](#kap13.16) första stycket 1–3. Detsamma gäller uppgifter som har betydelse för frågan om ekonomiskt omställningsstöd enligt [33 §](#kap13.33).
+
+</section>
+<section id="kap13.30" class="paragraf">
+
+#### 30 §
+
+Skatteverket ska till Statens tjänstepensionsverk lämna uppgifter om inkomst som är pensionsgrundande enligt [59 kap. socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110), om uppgifterna har betydelse i ett ärende om ekonomiskt omställningsstöd enligt bestämmelserna i detta kapitel.
+
+</section>
+
+</section>
+<section id="kap13.återkrav">
+
+### Återkrav
+
+<section id="kap13.31" class="paragraf">
+
+#### 31 §
+
+Om ekonomiskt omställningsstöd har betalats ut med ett för högt belopp ska stödmottagaren betala tillbaka mellanskillnaden. Detsamma gäller om stödet har jämkats. Ett belopp som ska betalas tillbaka ska, när det är lämpligt, i stället avräknas mot kommande utbetalningar av ekonomiskt omställningsstöd.
+
+Avräkning enligt första stycket får inte ske förrän beslutet har vunnit laga kraft.
+
+Om det finns särskilda skäl får återkravet efterges helt eller delvis.
+
+Statens tjänstepensionsverk beslutar om återkrav och eftergift av ett sådant krav. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap13.32" class="paragraf">
+
+#### 32 §
+
+Om ekonomiskt omställningsstöd har betalats ut med ett för högt belopp och mellanskillnaden inte har betalats tillbaka inom en månad efter det att krav på återbetalning har framställts, ska stödmottagaren betala ränta enligt [6 §](#kap13.6) räntelagen ([1975:635](https://selex.se/eli/sfs/1975/635)) för tid därefter till dess betalning sker. Detsamma gäller om stödet har jämkats. Om det finns särskilda skäl får kravet på ränta efterges helt eller delvis.
+
+Bestämmelserna i första stycket ska också gälla om stödmottagaren har försummat att lämna de uppgifter som behövs för bestämmande av det belopp som ska betalas tillbaka. I ett sådant fall ska dock ränta enligt [5 §](#kap13.5) räntelagen tas ut från den dag då uppgifterna senast skulle ha lämnats in. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap13.32a" class="paragraf">
+
+#### 32 a §
+
+Den som är återbetalningsskyldig enligt 31 och [32 §](#kap13.32)§ ska betala ränta enligt [5 §](#kap13.5) räntelagen ([1975:635](https://selex.se/eli/sfs/1975/635)) på det återkrävda beloppet om det
+
+1. har träffats ett avtal om avbetalningsplan med den återbetalningsskyldige, eller
+
+2. om den återbetalningsskyldige har medgetts anstånd med betalningen.
+
+Ränta ska beräknas från den dag då avtalet om avbetalningsplan träffades eller anståndet medgavs. Ränta ska dock inte betalas för tid innan återkravet har förfallit till betalning. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap13.ansökan-om-ekonomiskt-omställn">
+
+### Ansökan om ekonomiskt omställningsstöd efter jämkningsbeslut
+
+<section id="kap13.33" class="paragraf">
+
+#### 33 §
+
+Om ett ekonomiskt omställningsstöd har jämkats enligt [16 §](#kap13.16), får stödmottagaren när nya förhållanden har inträtt på nytt ansöka om ekonomiskt omställningsstöd.
+
+Om ett beslut som har fattats med tillämpning av [16 §](#kap13.16) har grundats på att stödmottagaren har gjort avsättning till periodiseringsfond, upphovsmannakonto eller expansionsfond och beloppet därefter helt eller delvis har återförts till beskattning, ska frågan om stöd för det år då återförandet skedde prövas på yrkande av stödmottagaren.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap14" class="kapitel">
+
+## 14 kap. Försäkring, företagshälsovård och rehabilitering
+
+<section id="kap14.försäkring">
+
+### Försäkring
+
+<section id="kap14.1" class="paragraf">
+
+#### 1 §
+
+En ledamot har rätt till försäkringsförmåner i form av grupplivförsäkring, tjänstereseförsäkring och arbetsskadeförsäkring i enlighet med vad Riksdagsförvaltningen bestämmer. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap14.företagshälsovård">
+
+### Företagshälsovård
+
+<section id="kap14.2" class="paragraf">
+
+#### 2 §
+
+En ledamot har rätt till företagshälsovård i enlighet med vad Riksdagsförvaltningen bestämmer. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap14.ersättning-för-rehabilitering">
+
+### Ersättning för rehabilitering
+
+<section id="kap14.3" class="paragraf">
+
+#### 3 §
+
+Om det finns särskilda skäl kan en riksdagsledamot efter prövning av Riksdagsförvaltningen få ersättning för kostnader för insatser i rehabiliteringssyfte.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap14a" class="kapitel">
+
+## 14 a kap. Återkrav
+
+<section id="kap14a.1" class="paragraf">
+
+#### 1 §
+
+En ledamot är skyldig att betala tillbaka utbetalning av arvode, resekostnadsersättning, traktamente, logiersättning eller pension enligt denna lag, som har lämnats felaktigt eller med ett för högt belopp, om han eller hon har orsakat utbetalningen genom att
+
+1. lämna oriktiga uppgifter, eller
+
+2. inte fullgöra en uppgifts- eller anmälningsskyldighet.
+
+Detsamma gäller om en sådan utbetalning i annat fall har lämnats felaktigt eller med ett för högt belopp och ledamoten insett eller skäligen borde ha insett detta.
+
+Vad som sägs i första och andra styckena gäller även tidigare ledamöter samt efterlevande som tagit emot förmåner enligt 11-13 kap. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap14a.2" class="paragraf">
+
+#### 2 §
+
+Den som är återbetalningsskyldig enligt [1 §](#kap14a.1) ska betala ränta enligt [5 §](#kap14a.5) räntelagen ([1975:635](https://selex.se/eli/sfs/1975/635)) på det återkrävda beloppet om det
+
+1. har träffats ett avtal om avbetalningsplan med den återbetalningsskyldige, eller
+
+2. om den återbetalningsskyldige har medgetts anstånd med betalningen.
+
+Ränta ska beräknas från den dag då avtalet om avbetalningsplanen träffades eller anståndet medgavs. Ränta ska dock inte betalas för tid innan återkravet har förfallit till betalning. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap14a.3" class="paragraf">
+
+#### 3 §
+
+Om återbetalning inte har skett inom en månad från det att ett krav på återbetalning framställts ska den återbetalningsskyldige betala ränta enligt [6 §](#kap14a.6) räntelagen ([1975:635](https://selex.se/eli/sfs/1975/635)) på det obetalda beloppet till dess betalning sker. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap14a.4" class="paragraf">
+
+#### 4 §
+
+Om det finns särskilda skäl får ett återkrav och ränta efterges helt eller delvis. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap14a.5" class="paragraf">
+
+#### 5 §
+
+Statens tjänstepensionsverk beslutar om återkrav av pension och om eftergift av ett sådant krav. Detsamma gäller krav på ränta. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+<section id="kap14a.6" class="paragraf">
+
+#### 6 §
+
+Bestämmelser om återkrav av inkomstgaranti och ekonomiskt omställningsstöd finns i 12 kap. 35 och [36 §](#kap14a.36)§ och 13 kap. 31 och [32 §](#kap14a.32)§. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap15" class="kapitel">
+
+## 15 kap. Överklagande
+
+<section id="kap15.beslut-av-riksdagsförvaltninge">
+
+### Beslut av Riksdagsförvaltningen
+
+<section id="kap15.1" class="paragraf">
+
+#### 1 §
+
+Beslut av Riksdagsförvaltningen om tillhandahållande av barnverksamhet får inte överklagas.
+
+Övriga beslut av Riksdagsförvaltningen enligt denna lag får överklagas till Riksdagens överklagandenämnd. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap15.beslut-av-riksdagens-arvodesnä">
+
+### Beslut av Riksdagens arvodesnämnd
+
+<section id="kap15.2" class="paragraf">
+
+#### 2 §
+
+Beslut av Riksdagens arvodesnämnd enligt 3 kap. [16 §](#kap3.16) och [19 §](#kap15.19) tredje stycket, 12 kap. eller 13 kap. får överklagas hos allmän förvaltningsdomstol. Vid överklagande till kammarrätten krävs prövningstillstånd.
+
+Ett beslut enligt 3 kap. [2 §](#kap3.2) får inte överklagas. Lag ([2022:346](https://selex.se/eli/sfs/2022/346)).
+
+</section>
+
+</section>
+<section id="kap15.beslut-av-statens-tjänstepensi">
+
+### Beslut av Statens tjänstepensionsverk
+
+<section id="kap15.3" class="paragraf">
+
+#### 3 §
+
+Beslut av Statens tjänstepensionsverk enligt denna lag får överklagas hos allmän förvaltningsdomstol. Vid överklagande till kammarrätten krävs prövningstillstånd.
+
+</section>
+
+</section>
+<section id="kap15.allmänna-bestämmelser-om-överk">
+
+### Allmänna bestämmelser om överklagande
+
+<section id="kap15.4" class="paragraf">
+
+#### 4 §
+
+Ett beslut överklagas skriftligt. Klaganden ska i överklagandet ange vilket beslut som överklagas och den ändring i beslutet som han eller hon vill ha.
+
+Överklagandet ska lämnas in till den myndighet som har meddelat beslutet. Det ska ha kommit in dit inom tre veckor från den dag då klaganden fick del av beslutet.
+
+
+</section>
+
+</section>
+<section id="kap15.övergångsbestämmelser">
+
+### Övergångsbestämmelser
+
+[2016:1108](https://selex.se/eli/sfs/2016/1108)
+
+1. Denna lag träder i kraft den 1 januari 2017 då lagen ([1994:1065](https://selex.se/eli/sfs/1994/1065)) om ekonomiska villkor för riksdagens ledamöter ska upphöra att gälla.
+
+2. Övergångsbestämmelserna till lagen ([1994:1065](https://selex.se/eli/sfs/1994/1065)) om ekonomiska villkor för riksdagens ledamöter och ändringar i den lagen ska fortfarande gälla.
+
+[2020:962](https://selex.se/eli/sfs/2020/962)
+
+1. Denna lag träder i kraft den 1 januari 2021.
+
+2. Äldre föreskrifter gäller fortfarande för den som uppnår 61 års ålder före den 1 januari 2021.
+
+[2021:1123](https://selex.se/eli/sfs/2021/1123)
+
+1. Denna lag träder i kraft den 1 januari 2022.
+
+2. Äldre föreskrifter gäller fortfarande för arvode som avser tid före ikraftträdandet.
+
+[2022:346](https://selex.se/eli/sfs/2022/346)
+
+1. Denna lag träder i kraft den 1 juli 2022.
+
+2. Äldre föreskrifter gäller fortfarande i fråga om ledamöter som har beviljats logiersättning före ikraftträdandet.
+
+3. De nya bestämmelserna i 4 kap. [9 §](#kap4.9) och 5 kap. [5 §](#kap5.5) tillämpas på tjänsteresor som genomförs efter ikraftträdandet.
+
+[2022:1563](https://selex.se/eli/sfs/2022/1563)
+
+1. Denna lag träder i kraft den 1 januari 2023.
+
+2. Äldre föreskrifter gäller fortfarande för den som uppnår respektive åldersgräns före den 1 januari 2023.
+
+[2022:1564](https://selex.se/eli/sfs/2022/1564)
+
+1. Denna lag träder i kraft den 1 januari 2026.
+
+2. Äldre föreskrifter gäller fortfarande för den som uppnår respektive åldersgräns före den 1 januari 2026.
+
+</section>
+
+</section>
+
+</article>

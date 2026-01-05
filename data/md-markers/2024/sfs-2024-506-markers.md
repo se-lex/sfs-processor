@@ -1,0 +1,1700 @@
+---
+beteckning: "2024:506"
+rubrik: Lag om arbetslöshetsförsäkring
+departement: Arbetsmarknadsdepartementet
+utfardad_datum: 2024-06-20
+ikraft_datum: 2025-10-01
+publicerad_datum: 2025-12-22
+forarbeten: - "PROP 2023/24:128"
+  - "BET 2023/24:AU9"
+  - "RSKR 2023/24:267"
+pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/2024-06/SFS2024-506.pdf
+andringsforfattningar:
+  - beteckning: "2025:891"
+    rubrik: Lag om ändring i lagen om arbetslöshetsförsäkring
+    ikraft_datum: 2025-11-18
+    anteckningar: "ändr. 2 kap. 16 §, 5 kap. 5 §, 6 kap. 8 §; ny p 5 ikrafttr.- och övergångsbest."
+  - beteckning: "2024:507"
+    rubrik: Lag om ändring i lagen om arbetslöshetsförsäkring
+    ikraft_datum: 2026-01-01
+    anteckningar: ändr. 2 kap. 2 §
+  - beteckning: "2025:1549"
+    rubrik: Lag om ändring i lagen om arbetslöshetsförsäkring
+    ikraft_datum: 2026-01-01
+    anteckningar: "ändr. 2 kap. 13, 14, 15 §§"
+  - beteckning: "2025:465"
+    rubrik: Lag om ändring i lagen om arbetslöshetsförsäkring
+    anteckningar: ändr. 3 kap. 15 §
+---
+<article selex:utfardad_datum="2024-06-20" selex:ikraft_datum="2025-10-01">
+
+# Lag om arbetslöshetsförsäkring
+
+<section id="kap1" class="kapitel">
+
+## 1 kap. Inledande bestämmelser
+
+<section id="kap1.lagens-innehåll">
+
+### Lagens innehåll
+
+<section id="kap1.1" class="paragraf">
+
+#### 1 §
+
+Innehållet i denna lag är uppdelat enligt följande:
+
+- inledande bestämmelser (1 kap.),
+
+- grundläggande förutsättningar för rätt till arbetslöshetsersättning (2 kap.),
+
+- krav på tidigare inkomster för rätt till arbetslöshetsersättning (3 kap.),
+
+- tid med arbetslöshetsersättning (4 kap.),
+
+- beräkning av arbetslöshetsersättning (5 kap.),
+
+- minskning av arbetslöshetsersättning (6 kap.),
+
+- sanktioner (7 kap.),
+
+- återbetalningsskyldighet och återkrav (8 kap.),
+
+- uppgiftsskyldighet (9 kap.),
+
+- handläggning av ärenden (10 kap.), och
+
+- omprövning och överklagande (11 kap.).
+
+</section>
+
+</section>
+<section id="kap1.arbetslöshetsförsäkringens-syf">
+
+### Arbetslöshetsförsäkringens syfte och funktion
+
+<section id="kap1.2" class="paragraf">
+
+#### 2 §
+
+Arbetslöshetsförsäkringen är en inkomstbortfallsförsäkring som handhas av arbetslöshetskassorna och som syftar till att ge arbetslösa ekonomiskt stöd under omställning mellan arbeten.
+
+</section>
+
+</section>
+<section id="kap1.intyg-för-personer-som-söker-a">
+
+### Intyg för personer som söker arbete utanför Sverige
+
+<section id="kap1.3" class="paragraf">
+
+#### /2004 av den 29 april 2004 om samordning av de sociala trygghetssystemen och Europaparlamentets och rådets förordning (EG) nr 987/ 3 §
+
+I Europaparlamentets och rådets förordning (EG) nr 8832009 av den 16 september 2009 om tillämpningsbestämmelser till förordning (EG) nr 883/2004 finns bestämmelser om utfärdande av intyg för personer som uppfyller villkoren för rätt att med bibehållen arbetslöshetsersättning söka arbete i något annat land.
+
+I 11 kap. [12 §](#kap11.12) finns bestämmelser om överklagandetiden för beslut om sådana intyg.
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om utfärdande av och beslut om intyg och om vilken myndighet som utfärdar intygen.
+
+</section>
+
+</section>
+<section id="kap1.särskilda-bestämmelser-vid-arb">
+
+### Särskilda bestämmelser vid arbetskonflikt
+
+<section id="kap1.4" class="paragraf">
+
+#### 4 §
+
+Lagen ([1969:93](https://selex.se/eli/sfs/1969/93)) om begränsning av samhällsstöd vid arbetskonflikt ska tillämpas på arbetslöshetsersättning enligt denna lag.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap2" class="kapitel">
+
+## 2 kap. Grundläggande förutsättningar för rätt till arbetslöshetsersättning
+
+<section id="kap2.allmänna-villkor">
+
+### Allmänna villkor
+
+<section id="kap2.1" class="paragraf">
+
+#### 1 §
+
+För att ha rätt till arbetslöshetsersättning vid arbetslöshet krävs att sökanden
+
+1. är arbetsför och oförhindrad att ta ett arbete,
+
+2. är anmäld som arbetssökande hos Arbetsförmedlingen, och
+
+3. i övrigt står till arbetsmarknadens förfogande.
+
+</section>
+<section id="kap2.2" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-01-01">
+
+#### 2 §
+
+För att ha rätt till arbetslöshetsersättning krävs att sökanden har fyllt 20 år. Rätten till ersättning upphör vid månadsskiftet före den månad då sökanden fyller 66 år.
+
+</section>
+<section id="kap2.2" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-01-01">
+
+#### 2 §
+
+För att ha rätt till arbetslöshetsersättning krävs att sökanden har fyllt 20 år. Rätten till ersättning upphör vid månadsskiftet före den månad då sökanden uppnår riktåldern för pension enligt [2 kap. 10 a-10 d §§ socialförsäkringsbalken](https://selex.se/eli/sfs/2010/110#kap2.10a). Lag ([2024:507](https://selex.se/eli/sfs/2024/507)).
+
+</section>
+
+</section>
+<section id="kap2.särskilda-bestämmelser-för-vis">
+
+### Särskilda bestämmelser för vissa sökande
+
+</section>
+<section id="kap2.sökande-som-är-tjänstlediga">
+
+### Sökande som är tjänstlediga
+
+<section id="kap2.3" class="paragraf">
+
+#### 3 §
+
+En sökande kan få arbetslöshetsersättning trots att sökanden är tjänstledig utan lön, om sökanden av hälsoskäl inte kan återgå till sitt tidigare arbete eller till annat arbete hos sin arbetsgivare men av Försäkringskassan har bedömts ha arbetsförmåga i förhållande till arbetsmarknaden i övrigt.
+
+Sökanden kan få ersättning enligt första stycket även om arbetsgivaren har en kvarvarande rehabiliteringsskyldighet, under förutsättning att arbetsgivaren har vidtagit de rehabiliteringsåtgärder som har varit möjliga.
+
+</section>
+<section id="kap2.4" class="paragraf">
+
+#### 4 §
+
+En sökande kan få arbetslöshetsersättning trots att sökanden är tjänstledig utan lön från en deltidsanställning för att arbeta i en annan deltidsanställning med lika eller högre tjänstgöringsgrad, under förutsättning att anställningarna inte går att kombinera.
+
+</section>
+
+</section>
+<section id="kap2.sökande-som-är-företagare">
+
+### Sökande som är företagare
+
+<section id="kap2.5" class="paragraf">
+
+#### 5 §
+
+En sökande som är företagare har inte rätt till arbetslöshetsersättning, utom i det fall som avses i [11 §](#kap2.11).
+
+</section>
+<section id="kap2.6" class="paragraf">
+
+#### 6 §
+
+En sökande ska anses vara företagare om sökanden
+
+1. bedriver sådan näringsverksamhet som avses i [13 kap. 1 § inkomstskattelagen](https://selex.se/eli/sfs/1999/1229#kap13.1) ([1999:1229](https://selex.se/eli/sfs/1999/1229)), och
+
+2. personligen utför arbete i och har ett väsentligt inflytande över den näringsverksamheten.
+
+Vid bedömningen av om en sökande ska anses vara företagare enligt första stycket ska det bortses från
+
+1. nödvändiga åtgärder som har vidtagits i verksamheten på grund av oförutsedda händelser, och
+
+2. arbete av ideell karaktär i verksamheten.
+
+</section>
+<section id="kap2.7" class="paragraf">
+
+#### 7 §
+
+En sökande som är företagare och som överlåter näringsverksamheten men fortsätter att utföra arbete i eller ha ett väsentligt inflytande över verksamheten ska även efter överlåtelsen anses vara företagare. Detsamma gäller när företagandet utgörs av medlemskap i en ekonomisk förening och medlemskapet i föreningen har upphört.
+
+</section>
+<section id="kap2.8" class="paragraf">
+
+#### 8 §
+
+En sökande ska inte längre anses vara företagare när näringsverksamheten har upphört genom att det inte vidtas några åtgärder i verksamheten.
+
+Vid bedömningen av om näringsverksamheten har upphört enligt första stycket ska det bortses från
+
+1. nödvändiga åtgärder som har vidtagits på grund av oförutsedda händelser,
+
+2. åtgärder som har vidtagits på grund av en skyldighet enligt lag eller annan författning,
+
+3. avvecklingsåtgärder som inte har varit möjliga att vidta innan verksamheten upphörde, och
+
+4. att en lokal eller mark som har nyttjats eller brukats i verksamheten hyrs ut eller arrenderas ut, under förutsättning att dessa inte tidigare har hyrts ut eller arrenderats ut i verksamheten.
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om vad som ska utgöra åtgärder enligt andra stycket.
+
+</section>
+<section id="kap2.9" class="paragraf">
+
+#### 9 §
+
+Om näringsverksamheten har upphört enligt [8 §](#kap2.8) och därefter återupptas av den sökande eller av en närstående till sökanden, får en ny bedömning av om verksamheten har upphört genom att det inte vidtas några åtgärder i den göras tidigast tre år från det att verksamheten återupptogs.
+
+</section>
+<section id="kap2.10" class="paragraf">
+
+#### 10 §
+
+En sökande ska inte anses vara företagare när näringsverksamheten vid en bedömning av samtliga omständigheter har upphört definitivt.
+
+Vid bedömningen av om näringsverksamheten har upphört definitivt enligt första stycket ska det bortses från sådana åtgärder som avses i [8 §](#kap2.8) andra stycket.
+
+</section>
+<section id="kap2.11" class="paragraf">
+
+#### 11 §
+
+En sökande som är företagare kan få arbetslöshetsersättning om
+
+1. näringsverksamheten har bedrivits under minst sex månader vid sidan av ett arbete som motsvarar minst 50 procent av heltid inom den ramtid som följer av 3 kap. 11-[14 §](#kap2.14)§,
+
+2. inkomsten av förvärvsarbete från verksamheten inom ramtiden i genomsnitt per månad inte har överstigit en tolftedel av den sammanlagda inkomst av förvärvsarbete som enligt 3 kap. [2 §](#kap3.2) första stycket 1 krävs för att uppfylla ett inkomstvillkor, och
+
+3. tiden i och inkomsterna från verksamheten inte utökas under arbetslösheten.
+
+</section>
+
+</section>
+<section id="kap2.sökande-som-deltar-i-utbildnin">
+
+### Sökande som deltar i utbildning
+
+<section id="kap2.12" class="paragraf">
+
+#### 12 §
+
+En sökande som deltar i utbildning har inte rätt till arbetslöshetsersättning, utom i de fall som anges i 13-[15 §](#kap2.15)§.
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om undantag från första stycket i fråga om rätt till arbetslöshetsersättning under uppehåll i utbildning.
+
+</section>
+<section id="kap2.13" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-01-01">
+
+#### 13 §
+
+En sökande kan få arbetslöshetsersättning för högst 20 veckor inom samma ersättningsperiod samtidigt som sökanden deltar i en utbildning om högst 50 procent av heltid, om
+
+1. det tidigare arbetet inte har upphört på grund av utbildningen,
+
+2. utbildningen inte finansieras eller har finansierats med studiestöd enligt studiestödslagen ([1999:1395](https://selex.se/eli/sfs/1999/1395)) eller studiestartsstöd enligt lagen ([2017:527](https://selex.se/eli/sfs/2017/527)) om studiestartsstöd, och
+
+3. utbildningen inte finansieras med omställningsstudiestöd enligt lagen ([2022:856](https://selex.se/eli/sfs/2022/856)) om omställningsstudiestöd.
+
+Kravet i första stycket 2 gäller inte om utbildningen har bedrivits under minst 15 veckor vid sidan av ett arbete inom den ramtid som följer av 3 kap. 11-[14 §](#kap2.14)§.
+
+</section>
+<section id="kap2.13" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-01-01">
+
+#### 13 §
+
+En sökande kan få arbetslöshetsersättning för högst 20 veckor inom samma ersättningsperiod samtidigt som sökanden deltar i en utbildning om högst 50 procent av heltid, om
+
+1. det tidigare arbetet inte har upphört på grund av utbildningen,
+
+2. utbildningen inte finansieras eller har finansierats med studiestöd enligt studiestödslagen ([1999:1395](https://selex.se/eli/sfs/1999/1395)), och
+
+3. utbildningen inte finansieras med omställningsstudiestöd enligt lagen ([2022:856](https://selex.se/eli/sfs/2022/856)) om omställningsstudiestöd.
+
+Kravet i första stycket 2 gäller inte om utbildningen har bedrivits under minst 15 veckor vid sidan av ett arbete inom den ramtid som följer av 3 kap. 11-[14 §](#kap2.14)§. Lag ([2025:1549](https://selex.se/eli/sfs/2025/1549)).
+
+</section>
+<section id="kap2.14" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-01-01">
+
+#### 14 §
+
+En sökande kan få arbetslöshetsersättning för högst 20 veckor inom samma ersättningsperiod samtidigt som sökanden fortsätter att delta i en utbildning om mer än 50 procent upp till heltid, om
+
+1. det tidigare arbetet inte har upphört på grund av utbildningen,
+
+2. utbildningen inte finansieras eller har finansierats med studiestöd enligt studiestödslagen ([1999:1395](https://selex.se/eli/sfs/1999/1395)), studiestartsstöd enligt lagen ([2017:527](https://selex.se/eli/sfs/2017/527)) om studiestartsstöd eller omställningsstudiestöd enligt lagen ([2022:856](https://selex.se/eli/sfs/2022/856)) om omställningsstudiestöd,
+
+3. utbildningen har bedrivits under minst 15 veckor vid sidan av ett heltidsarbete inom den ramtid som följer av 3 kap. 11- [14 §](#kap2.14)§, och
+
+4. utbildningens omfattning inte utökas under arbetslösheten.
+
+</section>
+<section id="kap2.14" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-01-01">
+
+#### 14 §
+
+En sökande kan få arbetslöshetsersättning för högst 20 veckor inom samma ersättningsperiod samtidigt som sökanden fortsätter att delta i en utbildning om mer än 50 procent upp till heltid, om
+
+1. det tidigare arbetet inte har upphört på grund av utbildningen,
+
+2. utbildningen inte finansieras eller har finansierats med studiestöd enligt studiestödslagen ([1999:1395](https://selex.se/eli/sfs/1999/1395)) eller omställningsstudiestöd enligt lagen ([2022:856](https://selex.se/eli/sfs/2022/856)) om omställningsstudiestöd,
+
+3. utbildningen har bedrivits under minst 15 veckor vid sidan av ett heltidsarbete inom den ramtid som följer av 3 kap. 11- [14 §](#kap2.14)§, och
+
+4. utbildningens omfattning inte utökas under arbetslösheten. Lag ([2025:1549](https://selex.se/eli/sfs/2025/1549)).
+
+</section>
+<section id="kap2.15" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-01-01">
+
+#### 15 §
+
+En sökande kan få arbetslöshetsersättning för högst 15 ersättningsdagar inom samma ersättningsperiod samtidigt som sökanden deltar i en kortare utbildning eller annan kortare aktivitet som syftar till att
+
+1. ge en orientering om olika yrken och utbildningsvägar, eller
+
+2. underlätta omställning från ett arbete till ett annat.
+
+Utbildningen eller aktiviteten får inte finansieras eller ha finansierats med studiestöd enligt studiestödslagen ([1999:1395](https://selex.se/eli/sfs/1999/1395)), studiestartsstöd enligt lagen ([2017:527](https://selex.se/eli/sfs/2017/527)) om studiestartsstöd eller omställningsstudiestöd enligt lagen ([2022:856](https://selex.se/eli/sfs/2022/856)) om omställningsstudiestöd.
+
+</section>
+<section id="kap2.15" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-02-01">
+
+#### 15 §
+
+En sökande kan få arbetslöshetsersättning för högst 15 ersättningsdagar inom samma ersättningsperiod samtidigt som sökanden deltar i en kortare utbildning eller annan kortare aktivitet som syftar till att
+
+1. ge en orientering om olika yrken och utbildningsvägar, eller
+
+2. underlätta omställning från ett arbete till ett annat.
+
+Utbildningen eller aktiviteten får inte finansieras eller ha finansierats med studiestöd enligt studiestödslagen ([1999:1395](https://selex.se/eli/sfs/1999/1395)) eller omställningsstudiestöd enligt lagen ([2022:856](https://selex.se/eli/sfs/2022/856)) om omställningsstudiestöd. Lag ([2025:1549](https://selex.se/eli/sfs/2025/1549)).
+
+</section>
+
+</section>
+<section id="kap2.sökande-som-deltar-i-arbetsmar">
+
+### Sökande som deltar i arbetsmarknadspolitiska program
+
+<section id="kap2.16" class="paragraf">
+
+#### 16 §
+
+En sökande som deltar i ett arbetsmarknadspolitiskt program har inte rätt till arbetslöshetsersättning, utom i det fall som avses i andra stycket.
+
+En sökande kan få arbetslöshetsersättning om sökanden deltar i ett arbetsmarknadspolitiskt program som avser särskilda insatser för personer med funktionsnedsättning som medför nedsatt arbetsförmåga. Lag ([2025:891](https://selex.se/eli/sfs/2025/891)).
+
+</section>
+
+</section>
+<section id="kap2.sökande-som-får-avgångsvederla">
+
+### Sökande som får avgångsvederlag eller ekonomiskt skadestånd
+
+<section id="kap2.17" class="paragraf">
+
+#### 17 §
+
+En sökande som på grund av att anställningen har upphört får ett avgångsvederlag eller ekonomiskt skadestånd som motsvarar lön har inte rätt till arbetslöshetsersättning för den tid som avgångsvederlaget eller skadeståndet avser.
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om hur tiden enligt första stycket ska beräknas.
+
+</section>
+
+</section>
+<section id="kap2.sökande-som-får-lönegaranti">
+
+### Sökande som får lönegaranti
+
+<section id="kap2.18" class="paragraf">
+
+#### 18 §
+
+En sökande som på grund av arbetsgivarens konkurs får betalning för en fordran på uppsägningslön enligt lönegarantilagen ([1992:497](https://selex.se/eli/sfs/1992/497)) kan få arbetslöshetsersättning under uppsägningstiden, dock inte för den tid som betalningen avser.
+
+</section>
+
+</section>
+<section id="kap2.sökande-som-har-uteslutits-ur">
+
+### Sökande som har uteslutits ur en arbetslöshetskassa
+
+<section id="kap2.19" class="paragraf">
+
+#### 19 §
+
+En sökande som har uteslutits ur en arbetslöshetskassa enligt [37 §](#kap2.37) första stycket lagen ([1997:239](https://selex.se/eli/sfs/1997/239)) om arbetslöshetskassor har inte rätt till arbetslöshetsersättning under ett år från uteslutningen.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap3" class="kapitel">
+
+## 3 kap. Krav på tidigare inkomster för rätt till arbetslöshetsersättning
+
+<section id="kap3.krav-på-inkomster-av-förvärvsa">
+
+### Krav på inkomster av förvärvsarbete
+
+</section>
+<section id="kap3.inkomstvillkor">
+
+### Inkomstvillkor
+
+<section id="kap3.1" class="paragraf">
+
+#### 1 §
+
+För att ha rätt till arbetslöshetsersättning krävs att sökanden har uppfyllt ett inkomstvillkor som avses i 2 eller [3 §](#kap3.3).
+
+När ett inkomstvillkor har uppfyllts ska en ersättningsperiod enligt 4 kap. och en ersättningsgrundande inkomst enligt 5 kap. fastställas.
+
+</section>
+<section id="kap3.2" class="paragraf">
+
+#### 2 §
+
+Ett inkomstvillkor är uppfyllt om sökanden inom den ramtid som följer av 11-[14 §](#kap3.14)§ har haft
+
+1. en viss minsta sammanlagd inkomst av förvärvsarbete, och
+
+2. en viss minsta inkomst av förvärvsarbete per månad under minst fyra månader.
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om storleken på inkomsterna enligt första stycket.
+
+</section>
+<section id="kap3.3" class="paragraf">
+
+#### 3 §
+
+Om en sökande inte uppfyller kravet på en minsta sammanlagd inkomst av förvärvsarbete enligt [2 §](#kap3.2) första stycket 1, är ett inkomstvillkor ändå uppfyllt om sökanden under minst fyra sammanhängande månader inom ramtiden har haft den inkomst av förvärvsarbete per månad som krävs enligt [2 §](#kap3.2) första stycket 2.
+
+En sökande kan få arbetslöshetsersättning med stöd av första stycket under två ersättningsperioder. Därefter måste sökanden uppfylla ett inkomstvillkor enligt [2 §](#kap3.2) för att på nytt få rätt till ersättning.
+
+</section>
+
+</section>
+<section id="kap3.beräkning-för-den-som-har-vari">
+
+### Beräkning för den som har varit företagare
+
+<section id="kap3.4" class="paragraf">
+
+#### 4 §
+
+I stället för inkomsten av förvärvsarbete från näringsverksamheten under de månader som en sökande har varit verksam som företagare inom ramtiden, får beräkningen grundas på någon av följande inkomster för de månaderna när ett inkomstvillkor prövas:
+
+1. inkomsten av förvärvsarbete från verksamheten som framgår av det senaste beslutet om slutlig skatt, eller
+
+2. den genomsnittliga årsinkomsten av förvärvsarbete från verksamheten under de två år som har föregått det beskattningsår som beslutet i 1 avser.
+
+Storleken på sökandens inkomst av förvärvsarbete per månad från verksamheten ska beräknas till en tolftedel av den inkomst som följer av första stycket 1 eller 2.
+
+Det alternativ som är mest förmånligt för sökanden ska tillämpas.
+
+</section>
+
+</section>
+<section id="kap3.inkomster-av-förvärvsarbete">
+
+### Inkomster av förvärvsarbete
+
+<section id="kap3.5" class="paragraf">
+
+#### 5 §
+
+Med inkomster av förvärvsarbete avses sådana ersättningar som en utbetalare är skyldig att betala arbetsgivaravgifter för och sådana inkomster som en fysisk person är skyldig att betala egenavgifter för enligt socialavgiftslagen ([2000:980](https://selex.se/eli/sfs/2000/980)).
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om att även andra ersättningar och inkomster ska anses som inkomster av förvärvsarbete.
+
+</section>
+<section id="kap3.6" class="paragraf">
+
+#### 6 §
+
+Inkomster av förvärvsarbete ska hänföras till den månad då de betalas ut.
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om undantag från första stycket för utbetalningar som avser mer än en månad.
+
+</section>
+
+</section>
+<section id="kap3.ersättningar-som-ska-jämställa">
+
+### Ersättningar som ska jämställas med inkomster av förvärvsarbete
+
+<section id="kap3.7" class="paragraf">
+
+#### 7 §
+
+När sökandens sammanlagda inkomst av förvärvsarbete enligt [2 §](#kap3.2) första stycket 1 beräknas ska följande ersättningar jämställas med inkomster av förvärvsarbete:
+
+1. graviditetspenning, föräldrapenningsförmåner, sjukpenning, rehabiliteringspenning, smittbärarpenning och närståendepenning enligt socialförsäkringsbalken, och
+
+2. ersättning enligt [20 §](#kap3.20) lagen ([1991:1047](https://selex.se/eli/sfs/1991/1047)) om sjuklön.
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om att även andra ersättningar ska jämställas med inkomster av förvärvsarbete.
+
+</section>
+<section id="kap3.8" class="paragraf">
+
+#### 8 §
+
+Ersättningar som jämställs med inkomster av förvärvsarbete ska hänföras till den månad som de avser.
+
+</section>
+
+</section>
+<section id="kap3.inkomster-och-ersättningar-som">
+
+### Inkomster och ersättningar som inte får beaktas när ett inkomstvillkor prövas
+
+<section id="kap3.9" class="paragraf">
+
+#### 9 §
+
+När ett inkomstvillkor prövas ska det bortses från inkomster av förvärvsarbete som hänför sig till
+
+1. näringsverksamhet enligt 2 kap. [11 §](#kap2.11),
+
+2. bisyssla enligt 6 kap. [5 §](#kap6.5), och
+
+3. arbete inom ramen för andra arbetsmarknadspolitiska program än sådana som avser särskilda insatser för personer med funktionsnedsättning som medför nedsatt arbetsförmåga.
+
+</section>
+<section id="kap3.10" class="paragraf">
+
+#### 10 §
+
+När ett inkomstvillkor prövas ska det bortses från inkomster av förvärvsarbete och ersättningar som ska jämställas med inkomster av förvärvsarbete som har legat till grund för tidigare utbetalad arbetslöshetsersättning.
+
+</section>
+
+</section>
+<section id="kap3.ramtid-för-prövningen-av-ett-i">
+
+### Ramtid för prövningen av ett inkomstvillkor
+
+</section>
+<section id="kap3.ramtid">
+
+### Ramtid
+
+<section id="kap3.11" class="paragraf">
+
+#### 11 §
+
+För prövningen av ett inkomstvillkor ska en ramtid fastställas enligt 12-[14 §](#kap3.14)§. När ramtiden fastställs ska det bortses från tid som anges i 15 och [16 §](#kap3.16)§ (överhoppningsbar tid).
+
+</section>
+<section id="kap3.12" class="paragraf">
+
+#### 12 §
+
+Med ramtid avses de tolv månader som närmast föregår den månad som sökanden ansöker om arbetslöshetsersättning för.
+
+</section>
+<section id="kap3.13" class="paragraf">
+
+#### 13 §
+
+Om en sökande har förbrukat alla ersättningsdagar i en ersättningsperiod och har haft inkomster av förvärvsarbete under ersättningsperioden, ska ramtiden avse de tolv månader som räknas bakåt från och med den senaste månad under ersättningsperioden då sökanden har haft den minsta inkomst av förvärvsarbete per månad som krävs för att uppfylla ett inkomstvillkor. Det gäller om det är mer förmånligt för sökanden än att fastställa ramtiden enligt [12 §](#kap3.12).
+
+Om sökanden inte uppfyller ett inkomstvillkor med tillämpning av den ramtid som följer av första stycket, ska den tidpunkt som ramtiden ska räknas från förskjutas bakåt inom ersättningsperioden till dess att ett inkomstvillkor är uppfyllt.
+
+</section>
+<section id="kap3.14" class="paragraf">
+
+#### 14 §
+
+Om en sökande har deltagit i ett arbetsmarknadspolitiskt program som en deltagare i programmet kan få aktivitetsstöd för utan att deltagandet har föregåtts av tid med arbetslöshetsersättning, ska ramtiden avse de tolv månader som närmast har föregått den månad då programmet påbörjades. Det gäller om det är mer förmånligt för sökanden än att fastställa ramtiden enligt [12 §](#kap3.12).
+
+Första stycket gäller endast om det räknat från den månad som ansökan om arbetslöshetsersättning avser har gått mindre än tolv månader sedan sökanden avslutade sitt deltagande i programmet. När den tiden beräknas ska det bortses från månader som utgör överhoppningsbar tid enligt 15 och [16 §](#kap3.16)§.
+
+</section>
+
+</section>
+<section id="kap3.överhoppningsbar-tid">
+
+### Överhoppningsbar tid
+
+<section id="kap3.15" class="paragraf">
+
+#### 15 §
+
+En månad ska räknas som överhoppningsbar tid om sökanden under månaden inte har haft den minsta inkomst av förvärvsarbete per månad som krävs för att uppfylla ett inkomstvillkor och månaden till övervägande del innehåller tid då sökanden har
+
+1. varit förhindrad att arbeta på grund av styrkt sjukdom,
+
+2. vårdat eget barn som inte har fyllt två år eller vårdat adoptivbarn i två år efter barnets ankomst i familjen,
+
+3. fått graviditetspenning enligt socialförsäkringsbalken,
+
+4. fått föräldrapenningsförmån enligt socialförsäkringsbalken,
+
+5. fått närståendepenning enligt socialförsäkringsbalken,
+
+6. genomgått militär utbildning som rekryt inom Försvarsmakten,
+
+7. tjänstgjort enligt lagen ([1994:1809](https://selex.se/eli/sfs/1994/1809)) om totalförsvarsplikt,
+
+8. haft uppdrag av socialnämnden att ta emot barn i ett sådant hem som avses i [22 kap. 2 § första stycket och 4 § första stycket socialtjänstlagen](https://selex.se/eli/sfs/2001/453#kap22.2) ([2025:400](https://selex.se/eli/sfs/2025/400)) samt [9 §](#kap3.9) lagen ([1993:387](https://selex.se/eli/sfs/1993/387)) om stöd och service till vissa funktionshindrade, om uppdraget, på socialnämndens begäran, har varit av sådan omfattning att sökanden har varit tvungen att helt avstå från arbete och mottagandet inte har bedrivits yrkesmässigt,
+
+9. haft biståndsarbete utomlands som Styrelsen för internationellt utvecklingssamarbete (Sida) eller någon annan statlig myndighet har stått för lönekostnaderna för,
+
+10. haft arbete som arbetsgivaren har finansierat med särskilt anställningsstöd,
+
+11. varit förhindrad att arbeta på grund av ett beslut enligt smittskyddslagen ([2004:168](https://selex.se/eli/sfs/2004/168)) eller livsmedelslagen ([2006:804](https://selex.se/eli/sfs/2006/804)) eller föreskrifter som har meddelats med stöd av livsmedelslagen, dock inte när det är fråga om hälsokontroll vid inresa enligt [3 kap. 8 § smittskyddslagen](https://selex.se/eli/sfs/2004/168#kap3.8) eller avspärrning enligt [3 kap. 10 § smittskyddslagen](https://selex.se/eli/sfs/2004/168#kap3.10),
+
+12. tvångsvårdats enligt lagen ([1988:870](https://selex.se/eli/sfs/1988/870)) om vård av missbrukare i vissa fall,
+
+13. varit förhindrad att arbeta på grund av frihetsberövande inom kriminalvårdens område, eller
+
+14. vistats utomlands när sökanden har följt med sin make, maka eller sambo vid dennes arbete i utlandet, under förutsättning att makens, makans eller sambons arbetsgivare har sitt säte i Sverige och att lönen betalas ut från Sverige. Lag ([2025:465](https://selex.se/eli/sfs/2025/465)).
+
+</section>
+<section id="kap3.16" class="paragraf">
+
+#### 16 §
+
+Om det är mer förmånligt för sökanden ska som överhoppningsbar tid även räknas en månad då sökanden har
+
+1. deltagit i heltidsutbildning som är avslutad,
+
+2. varit företagare, om näringsverksamheten har upphört inom 60 månader från det att den startades,
+
+3. deltagit i korttidsarbete som preliminärt stöd har lämnats för enligt lagen ([2013:948](https://selex.se/eli/sfs/2013/948)) om stöd vid korttidsarbete,
+
+4. deltagit i korttidsarbete som preliminärt stöd kan lämnas för enligt lagen om stöd vid korttidsarbete, om sökanden har deltagit i korttidsarbete under en sammanhängande period och preliminärt stöd har lämnats för någon del av den perioden, eller
+
+5. beviljats del av helt omställningsstudiestöd enligt lagen ([2022:856](https://selex.se/eli/sfs/2022/856)) om omställningsstudiestöd.
+
+</section>
+<section id="kap3.17" class="paragraf">
+
+#### 17 §
+
+Den överhoppningsbara tiden enligt [15 §](#kap3.15) 1-13 och [16 §](#kap3.16) får sammanlagt vara längst 60 månader.
+
+Vid vistelse utomlands som medföljare enligt [15 §](#kap3.15) 14 får den överhoppningsbara tiden vara längst 120 månader.
+
+Den överhoppningsbara tiden enligt första och andra styckena får sammanlagt inte vara längre än 120 månader.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap4" class="kapitel">
+
+## 4 kap. Tid med arbetslöshetsersättning
+
+<section id="kap4.ersättningsperiod">
+
+### Ersättningsperiod
+
+<section id="kap4.1" class="paragraf">
+
+#### 1 §
+
+Med ersättningsperiod avses det antal dagar som en sökande som mest kan få arbetslöshetsersättning för utan att på nytt uppfylla ett inkomstvillkor.
+
+</section>
+<section id="kap4.2" class="paragraf">
+
+#### 2 §
+
+En pågående ersättningsperiod måste förbrukas innan en ny ersättningsperiod kan påbörjas.
+
+En ersättningsperiod är pågående om det återstår ersättningsdagar i perioden och sökanden har fått arbetslöshetsersättning eller aktivitetsstöd någon gång under de tolv månader som närmast har föregått den månad som ansökan om arbetslöshetsersättning avser. När tiden beräknas ska det bortses från månader som enligt 3 kap. 15 och [16 §](#kap4.16)§ utgör överhoppningsbar tid.
+
+</section>
+
+</section>
+<section id="kap4.karenstid">
+
+### Karenstid
+
+<section id="kap4.3" class="paragraf">
+
+#### 3 §
+
+En ersättningsperiod får inte påbörjas innan en karenstid om två dagar med arbetslöshet har förflutit. I karenstiden räknas endast de dagar in som sökanden skulle ha fått arbetslöshetsersättning för. Karenstiden ska fullgöras inom tolv månader från och med den månad då karenstiden inleddes.
+
+</section>
+
+</section>
+<section id="kap4.ersättningsperiodens-längd">
+
+### Ersättningsperiodens längd
+
+<section id="kap4.4" class="paragraf">
+
+#### 4 §
+
+Ersättningsperioden för en sökande som har uppfyllt ett inkomstvillkor enligt 3 kap. [2 §](#kap3.2) är
+
+1. 300 ersättningsdagar om sökanden under minst elva månader inom ramtiden har haft den minsta inkomst av förvärvsarbete per månad som krävs för att uppfylla inkomstvillkoret,
+
+2. 200 ersättningsdagar om sökanden under minst åtta men mindre än elva månader inom ramtiden har haft den minsta inkomst av förvärvsarbete per månad som krävs för att uppfylla inkomstvillkoret, och
+
+3. 100 ersättningsdagar om sökanden under minst fyra men mindre än åtta månader inom ramtiden har haft den minsta inkomst av förvärvsarbete per månad som krävs för att uppfylla inkomstvillkoret.
+
+</section>
+<section id="kap4.5" class="paragraf">
+
+#### 5 §
+
+Ersättningsperioden för en sökande som har uppfyllt ett inkomstvillkor enligt 3 kap. [3 §](#kap3.3) är 66 ersättningsdagar.
+
+</section>
+<section id="kap4.6" class="paragraf">
+
+#### 6 §
+
+En månad med hel arbetslöshetsersättning motsvarar 22 ersättningsdagar.
+
+En dag som en sökande har fått ersättning för ska räknas som en förbrukad ersättningsdag.
+
+</section>
+<section id="kap4.7" class="paragraf">
+
+#### 7 §
+
+En dag som en sökande har fått aktivitetsstöd för ska, från och med månaden som följer på den ramtid som har fastställts för prövningen av ett inkomstvillkor, räknas som en förbrukad ersättningsdag.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap5" class="kapitel">
+
+## 5 kap. Beräkning av arbetslöshetsersättning
+
+<section id="kap5.hur-arbetslöshetsersättning-be">
+
+### Hur arbetslöshetsersättning beräknas
+
+<section id="kap5.1" class="paragraf">
+
+#### 1 §
+
+Sökandens arbetslöshetsersättning ska beräknas per månad utifrån sökandens ersättningsgrundande inkomst och ersättningsnivå enligt bestämmelserna i detta kapitel. I 6 kap. finns bestämmelser om minskning av ersättningen.
+
+</section>
+
+</section>
+<section id="kap5.ersättningsgrundande-inkomst">
+
+### Ersättningsgrundande inkomst
+
+<section id="kap5.2" class="paragraf">
+
+#### 2 §
+
+Den ersättningsgrundande inkomsten ska motsvara en tolftedel av sökandens sammanlagda inkomst av förvärvsarbete inom ramtiden.
+
+Om en sökande har uppfyllt ett inkomstvillkor enligt 3 kap. [3 §](#kap3.3), ska den minsta sammanlagda inkomst av förvärvsarbete som krävs för att uppfylla ett inkomstvillkor enligt 3 kap. [2 §](#kap3.2) räknas som sökandens sammanlagda inkomst av förvärvsarbete inom ramtiden.
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om att den högsta ersättningsgrundande inkomsten ska vara lägre än vad som följer av första stycket.
+
+</section>
+<section id="kap5.3" class="paragraf">
+
+#### 3 §
+
+Om en sökande har förbrukat alla ersättningsdagar i en ersättningsperiod och på nytt har uppfyllt ett inkomstvillkor, ska den senast fastställda ersättningsgrundande inkomsten användas för den nya ersättningsperioden. Det gäller om det är mer förmånligt för sökanden än att fastställa en ny ersättningsgrundande inkomst enligt [2 §](#kap5.2) och sökanden
+
+1. har uppfyllt inkomstvillkoret med tillämpning av den ramtid som anges i 3 kap. [13 §](#kap3.13), eller
+
+2. har haft de inkomster av förvärvsarbete som krävs för att uppfylla inkomstvillkoret inom tolv månader från den månad då sökanden avslutade sitt deltagande i ett arbetsmarknadspolitiskt program.
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om att endast vissa arbetsmarknadspolitiska program ska omfattas av första stycket 2.
+
+</section>
+
+</section>
+<section id="kap5.ersättningsnivå">
+
+### Ersättningsnivå
+
+</section>
+<section id="kap5.fastställande-av-ersättningsni">
+
+### Fastställande av ersättningsnivå
+
+<section id="kap5.4" class="paragraf">
+
+#### 4 §
+
+Ersättningsnivån ska vara 80 procent av den ersättningsgrundande inkomsten om
+
+1. sökanden har varit medlem i eller ansluten till en arbetslöshetskassa under hela ramtiden,
+
+2. medlemskapet eller anslutningen har bestått under en sammanhängande tid av minst tolv månader, och
+
+3. sökanden fortfarande är medlem eller ansluten under den månad som sökanden ansöker om arbetslöshetsersättning för.
+
+</section>
+<section id="kap5.5" class="paragraf">
+
+#### 5 §
+
+Ersättningsnivån ska vara 60 procent av den ersättningsgrundande inkomsten om
+
+1. sökanden har varit medlem i eller ansluten till en arbetslöshetskassa under minst de sista sex månaderna av ramtiden,
+
+2. medlemskapet eller anslutningen har bestått under en sammanhängande tid av minst sex månader,
+
+3. sökanden har haft den minsta inkomst av förvärvsarbete per månad som krävs för att uppfylla ett inkomstvillkor under minst fyra av månaderna med medlemskap eller anslutning inom ramtiden, och
+
+4. sökanden fortfarande är medlem eller ansluten under den månad som sökanden ansöker om arbetslöshetsersättning för. Lag ([2025:891](https://selex.se/eli/sfs/2025/891)).
+
+</section>
+<section id="kap5.6" class="paragraf">
+
+#### 6 §
+
+Ersättningsnivån ska vara 50 procent av den ersättningsgrundande inkomsten om sökanden inte uppfyller kravet på medlemskap eller anslutning enligt 4 eller [5 §](#kap5.5).
+
+</section>
+<section id="kap5.7" class="paragraf">
+
+#### 7 §
+
+När en tidigare fastställd ersättningsgrundande inkomst används för en ny ersättningsperiod enligt [3 §](#kap5.3) ska ersättningsnivån vara 5 procentenheter lägre än den senast fastställda ersättningsnivån.
+
+Om sökandens tidigare ersättningsnivå har fastställts enligt 4 eller [5 §](#kap5.5) krävs det, för att sökanden ska få den ersättningsnivå som följer av första stycket, att sökanden fortfarande är medlem i eller ansluten till en arbetslöshetskassa under den månad som sökanden ansöker om arbetslöshetsersättning för.
+
+</section>
+
+</section>
+<section id="kap5.beräkning-av-tid-med-medlemska">
+
+### Beräkning av tid med medlemskap eller anslutning i vissa fall
+
+<section id="kap5.8" class="paragraf">
+
+#### 8 §
+
+När tiden med medlemskap eller anslutning beräknas enligt 4 eller [5 §](#kap5.5) ska det bortses från avbrott i medlemskapet eller anslutningen som understiger en månad, om den sammanlagda avbrottstiden inte överstiger åtta veckor. Det gäller dock inte avbrott till följd av ett beslut om uteslutning enligt [37 §](#kap5.37) lagen ([1997:239](https://selex.se/eli/sfs/1997/239)) om arbetslöshetskassor.
+
+</section>
+<section id="kap5.9" class="paragraf">
+
+#### 9 §
+
+När tiden med medlemskap eller anslutning beräknas enligt 4 eller [5 §](#kap5.5) ska det bortses från medlemskap i eller anslutning till en arbetslöshetskassa under tid då en sökande har omfattats av en annan stats lagstiftning enligt Europaparlamentets och rådets förordning (EG) nr 883/2004 av den 29 april 2004 om samordning av de sociala trygghetssystemen.
+
+</section>
+
+</section>
+<section id="kap5.nedtrappning-av-ersättningsniv">
+
+### Nedtrappning av ersättningsnivåer
+
+<section id="kap5.10" class="paragraf">
+
+#### 10 §
+
+Ersättningsnivåerna i 4-[7 §](#kap5.7)§ ska trappas ner med 10 procentenheter efter 100 ersättningsdagar i ersättningsperioden och med ytterligare 5 procentenheter efter 200 ersättningsdagar.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap6" class="kapitel">
+
+## 6 kap. Minskning av arbetslöshetsersättning
+
+När arbetslöshetsersättningen ska minskas för en del av en månad
+
+<section id="kap6.1" class="paragraf">
+
+#### /22 för en dag som sökanden inte har rätt till ersättning för. Om sökanden inte har rätt till ersättning för en del av en dag ska ersättningen minskas proportionellt. Ersättningen får dock inte minskas med mer än 5/ 1 §
+
+Om en sökande för en del av en månad inte har rätt till arbetslöshetsersättning ska ersättningen minskas. Ersättningen ska minskas med 122 per vecka.
+
+Ersättningen ska inte minskas enligt första stycket för
+
+1. tid med sjukersättning eller aktivitetsersättning enligt socialförsäkringsbalken i den omfattning som sökanden i genomsnitt har haft sådan ersättning under ramtiden, eller
+
+2. tid med arbete som sökanden har haft inkomst av förvärvsarbete för.
+
+När arbetslöshetsersättningen ska minskas på grund av inkomst av förvärvsarbete
+
+</section>
+<section id="kap6.2" class="paragraf">
+
+#### 2 §
+
+Om en sökande har haft inkomst av förvärvsarbete som avser arbete under en del av den månad som ansökan avser, ska arbetslöshetsersättningen minskas. Ersättningen ska minskas med en lika stor andel av ersättningen som inkomstens andel av en tolftedel av sökandens sammanlagda inkomst av förvärvsarbete inom ramtiden.
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om till vilken månad som inkomst av förvärvsarbete ska hänföras om inkomsten avser arbete under mer än en månad.
+
+</section>
+<section id="kap6.3" class="paragraf">
+
+#### 3 §
+
+Arbetslöshetsersättningen ska inte minskas på grund av inkomst av förvärvsarbete som hänför sig till en näringsverksamhet enligt 2 kap. [11 §](#kap2.11).
+
+</section>
+<section id="kap6.4" class="paragraf">
+
+#### 4 §
+
+Vid inkomst av förvärvsarbete som hänför sig till en bisyssla enligt [5 §](#kap6.5) ska arbetslöshetsersättningen endast minskas till den del den inkomsten överstiger en tolftedel av den sammanlagda inkomst av förvärvsarbete som krävs för att uppfylla ett inkomstvillkor enligt 3 kap. [2 §](#kap3.2).
+
+</section>
+<section id="kap6.5" class="paragraf">
+
+#### 5 §
+
+För att ett arbete ska anses som en bisyssla krävs att
+
+1. arbetet har utförts under minst sex månader vid sidan av ett annat arbete på heltid inom ramtiden,
+
+2. inkomsten av förvärvsarbete från bisysslan inom ramtiden i genomsnitt per månad inte har överstigit en tolftedel av den sammanlagda inkomst av förvärvsarbete som enligt 3 kap. [2 §](#kap3.2) första stycket 1 krävs för att uppfylla ett inkomstvillkor, och
+
+3. tiden i arbetet inte utökas under arbetslösheten.
+
+När det prövas om ett arbete ska anses som en bisyssla enligt första stycket ska det bortses från arbete som har utförts i en näringsverksamhet.
+
+</section>
+<section id="kap6.6" class="paragraf">
+
+#### 6 §
+
+En sökande kan få arbetslöshetsersättning vid sidan av sådana inkomster av förvärvsarbete som minskar ersättningen enligt 2-[4 §](#kap6.4)§ för högst 14 månader inom en ersättningsperiod.
+
+När arbetslöshetsersättningen ska minskas med andra ersättningar
+
+</section>
+<section id="kap6.7" class="paragraf">
+
+#### 7 §
+
+Om en sökande har fått allmän pension eller annan pension som lämnas på grund av arbete under samma månad som sökanden ansöker om arbetslöshetsersättning för, ska ersättningen minskas med pensionen.
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om hur pension som avser annan tid än en månad ska räknas om till ett månadsbelopp.
+
+</section>
+<section id="kap6.8" class="paragraf">
+
+#### 8 §
+
+Om en sökande har fått ersättning på grund av arbetslöshet från någon annan än arbetslöshetskassan för samma månad som sökanden ansöker om arbetslöshetsersättning för, ska arbetslöshetsersättningen minskas. Ersättningen ska minskas endast om summan av den arbetslöshetsersättning som sökanden har rätt till och den ersättning som har betalats ut från någon annan än arbetslöshetskassan överstiger det belopp som sökanden skulle ha kunnat få i arbetslöshetsersättning om de föreskrifter som regeringen kan meddela enligt 5 kap. [2 §](#kap5.2) tredje stycket inte beaktas. Ersättningen ska minskas med det belopp som överstiger den arbetslöshetsersättning som sökanden hade kunnat få. Lag ([2025:891](https://selex.se/eli/sfs/2025/891)).
+
+</section>
+<section id="kap6.hur-ersättningsdagar-förbrukas">
+
+### Hur ersättningsdagar förbrukas när arbetslöshetsersättningen har minskats
+
+<section id="kap6.9" class="paragraf">
+
+#### 9 §
+
+Om en sökandes arbetslöshetsersättning har minskats förbrukas ersättningsdagar i ersättningsperioden med en lika stor andel av 22 ersättningsdagar som den andel av sökandens hela arbetslöshetsersättning som sökanden har rätt till efter minskningen. Antalet förbrukade ersättningsdagar ska avrundas till närmaste hel dag. En halv dag avrundas uppåt.
+
+Första stycket gäller inte till den del arbetslöshetsersättningen har minskats med andra ersättningar enligt 7 eller [8 §](#kap6.8) eller minskats på grund av att sökanden har frånkänts rätt till arbetslöshetsersättning enligt 7 kap. [12 §](#kap7.12).
+
+</section>
+
+</section>
+
+</section>
+<section id="kap7" class="kapitel">
+
+## 7 kap. Sanktioner
+
+<section id="kap7.de-olika-sanktionerna-i-lagen">
+
+### De olika sanktionerna i lagen
+
+<section id="kap7.1" class="paragraf">
+
+#### 1 §
+
+I denna lag finns sanktionerna varning, avstängning från rätt till arbetslöshetsersättning och frånkännande av rätt till arbetslöshetsersättning.
+
+Ett beslut om avstängning från rätt till arbetslöshetsersättning och frånkännande av rätt till arbetslöshetsersättning innebär att sökanden inte har rätt till ersättning under ett visst antal dagar. Vid frånkännande förbrukas dessa dagar i en pågående eller efterföljande ersättningsperiod.
+
+</section>
+
+</section>
+<section id="kap7.varning-och-avstängning-från-r">
+
+### Varning och avstängning från rätt till arbetslöshetsersättning
+
+När sökande missköter arbetssökandet
+
+<section id="kap7.2" class="paragraf">
+
+#### 2 §
+
+En sökande ska varnas om sökanden inte aktivt har sökt lämpliga arbeten.
+
+En sökande ska också varnas om sökanden utan godtagbart skäl
+
+1. inte har medverkat till att upprätta en individuell handlingsplan hos Arbetsförmedlingen,
+
+2. inte har lämnat en aktivitetsrapport till Arbetsförmedlingen inom utsatt tid,
+
+3. inte har besökt eller tagit kontakt med Arbetsförmedlingen, eller en leverantör som utför arbetsmarknadspolitiska insatser på uppdrag av Arbetsförmedlingen, vid en bestämd tidpunkt, eller
+
+4. inte har sökt ett lämpligt arbete som har anvisats av Arbetsförmedlingen.
+
+Om sökanden missköter arbetssökandet enligt första eller andra stycket vid upprepade tillfällen inom samma ersättningsperiod, ska sökanden stängas av från rätt till arbetslöshetsersättning i 1 ersättningsdag vid det andra tillfället, i 5 ersättningsdagar vid det tredje tillfället och i 10 ersättningsdagar vid det fjärde tillfället. Om det upprepas en femte gång inom samma ersättningsperiod, upphör rätten till arbetslöshetsersättning för återstående ersättningsdagar i den ersättningsperioden.
+
+När sökande förlänger tiden i arbetslöshet
+
+</section>
+<section id="kap7.3" class="paragraf">
+
+#### 3 §
+
+En sökande ska stängas av från rätt till arbetslöshetsersättning i 5 ersättningsdagar, om sökanden utan godtagbart skäl
+
+1. har avvisat ett erbjudet lämpligt arbete,
+
+2. genom sitt uppträdande uppenbarligen har orsakat att en anställning inte har kommit till stånd, eller
+
+3. har avvisat en anvisning till ett arbetsmarknadspolitiskt program som en deltagare i programmet kan få aktivitetsstöd för.
+
+Om sökanden förlänger tiden i arbetslöshet enligt första stycket i anslutning till eller inom samma ersättningsperiod, ska sökanden stängas av från rätt till arbetslöshetsersättning i 10 ersättningsdagar vid det andra tillfället och i 45 ersättningsdagar vid det tredje tillfället. Om det upprepas en fjärde gång inom samma ersättningsperiod, upphör rätten till arbetslöshetsersättning för återstående ersättningsdagar i den ersättningsperioden.
+
+När sökande orsakar sin arbetslöshet
+
+</section>
+<section id="kap7.4" class="paragraf">
+
+#### 4 §
+
+En sökande ska stängas av från rätt till arbetslöshetsersättning i 45 ersättningsdagar, om sökanden
+
+1. utan giltig anledning har lämnat sitt arbete,
+
+2. på grund av otillbörligt uppförande har skilts från sitt arbete,
+
+3. utan giltig anledning har lämnat ett arbetsmarknadspolitiskt program som en deltagare i programmet kan få aktivitetsstöd för, eller
+
+4. har uppträtt på ett sådant sätt att Arbetsförmedlingen har återkallat en anvisning till ett arbetsmarknadspolitiskt program som en deltagare i programmet kan få aktivitetsstöd för.
+
+Sökanden ska i stället stängas av i 20 ersättningsdagar om högst 10 dagar kvarstår av arbetet eller om det kan antas att arbetet skulle ha varat högst 10 dagar. Detsamma ska gälla om det kvarstår högst 10 dagar av ett arbetsmarknadspolitiskt program eller om programmet skulle ha pågått i högst 10 dagar.
+
+Om sökanden orsakar sin arbetslöshet enligt första stycket en andra gång i anslutning till eller inom samma ersättningsperiod, ska sökanden på nytt stängas av från rätt till arbetslöshetsersättning enligt vad som sägs i första och andra styckena. Om det upprepas en tredje gång inom samma ersättningsperiod, upphör rätten till arbetslöshetsersättning för återstående ersättningsdagar i den ersättningsperioden.
+
+</section>
+<section id="kap7.5" class="paragraf">
+
+#### 5 §
+
+Bestämmelserna om avstängning i [4 §](#kap7.4) första stycket 1 och 2 ska inte tillämpas om arbetet har upphört
+
+1. enligt en överenskommelse som har träffats sedan arbetsgivaren har tagit initiativ till att skilja sökanden från arbetet, eller
+
+2. genom en uppsägning från arbetsgivarens sida och uppsägningens giltighet är föremål för prövning i domstol eller en förhandling enligt lagen ([1976:580](https://selex.se/eli/sfs/1976/580)) om medbestämmande i arbetslivet eller enligt kollektivavtal.
+
+</section>
+
+</section>
+<section id="kap7.lämpligt-arbete">
+
+### Lämpligt arbete
+
+<section id="kap7.6" class="paragraf">
+
+#### 6 §
+
+Ett arbete ska anses lämpligt om
+
+1. det inom ramen för tillgången på arbetstillfällen har tagits skälig hänsyn till sökandens förutsättningar för arbetet och andra personliga förhållanden,
+
+2. anställningsförmånerna är förenliga med de förmåner som arbetstagare som omfattas av kollektivavtal får eller, om något kollektivavtal inte finns, är skäliga i förhållande till de förmåner som arbetstagare med likvärdiga arbetsuppgifter och kvalifikationer får i jämförliga företag,
+
+3. arbetet inte hänför sig till en arbetsplats där arbetskonflikt råder till följd av stridsåtgärder som är lovliga enligt lag och kollektivavtal, och
+
+4. förhållandena på arbetsplatsen motsvarar det som anges i författning eller myndighetsföreskrifter om åtgärder till förebyggande av ohälsa eller olycksfall.
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela ytterligare föreskrifter om lämpligt arbete.
+
+</section>
+
+</section>
+<section id="kap7.förtroendeuppdrag">
+
+### Förtroendeuppdrag
+
+<section id="kap7.7" class="paragraf">
+
+#### 7 §
+
+Med lämpligt arbete i 2 och [3 §](#kap7.3)§ och med anställning i [3 §](#kap7.3) avses inte förtroendeuppdrag som enligt lag ger rätt till ledighet från anställning.
+
+</section>
+
+</section>
+<section id="kap7.godtagbart-skäl-och-giltig-anl">
+
+### Godtagbart skäl och giltig anledning
+
+<section id="kap7.8" class="paragraf">
+
+#### 8 §
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om vad som ska anses utgöra godtagbart skäl i 2 och [3 §](#kap7.3)§ och giltig anledning i [4 §](#kap7.4).
+
+</section>
+
+</section>
+<section id="kap7.sammanläggning-av-sanktionsgru">
+
+### Sammanläggning av sanktionsgrunder
+
+<section id="kap7.9" class="paragraf">
+
+#### 9 §
+
+När det prövas om en sökande ska varnas eller stängas av från rätt till arbetslöshetsersättning får upprepade fall av misskötsamhet med arbetssökandet enligt [2 §](#kap7.2), förlängning av tid i arbetslöshet enligt [3 §](#kap7.3) eller orsakande av arbetslöshet enligt [4 §](#kap7.4) läggas samman till grund för en sanktion.
+
+En sammanläggning får endast göras av sanktionsgrundande förhållanden som omfattas av samma paragraf och som har inträffat innan en sökande har informerats av Arbetsförmedlingen eller arbetslöshetskassan om att sökanden kan komma att varnas eller stängas av från rätt till arbetslöshetsersättning.
+
+Om det finns särskilda skäl får sanktionsgrundande förhållanden läggas samman även efter att sökanden har informerats av Arbetsförmedlingen eller arbetslöshetskassan.
+
+</section>
+
+</section>
+<section id="kap7.avstängningstiden">
+
+### Avstängningstiden
+
+<section id="kap7.10" class="paragraf">
+
+#### 10 §
+
+Avstängningstiden ska räknas från och med den dag då det som ligger till grund för avstängningen inträffade. Om något som medför avstängning inträffar under en pågående avstängningstid, ska den nya avstängningstiden räknas från utgången av den föregående avstängningstiden.
+
+I avstängningstiden ingår dagar som
+
+1. skulle ha utgjort karenstid enligt 4 kap. [3 §](#kap4.3),
+
+2. sökanden skulle ha fått arbetslöshetsersättning för om avstängning inte hade skett, och
+
+3. sökanden har arbetat.
+
+Antalet avstängningsdagar enligt andra stycket får vara högst fem per vecka.
+
+</section>
+<section id="kap7.11" class="paragraf">
+
+#### 11 §
+
+En avstängning får inte pågå längre än 112 kalenderdagar räknat från och med den dag då det som ligger till grund för avstängningen inträffade.
+
+Om något som medför avstängning inträffar under en pågående avstängningstid, får den nya avstängningen inte pågå längre än 112 kalenderdagar räknat från utgången av den föregående avstängningstiden.
+
+Frånkännande av rätt till arbetslöshetsersättning
+
+</section>
+<section id="kap7.12" class="paragraf">
+
+#### 12 §
+
+En sökande ska frånkännas rätt till arbetslöshetsersättning om sökanden medvetet eller av grov vårdslöshet har
+
+1. lämnat oriktiga eller vilseledande uppgifter, eller
+
+2. låtit bli att anmäla ändrade förhållanden till arbetslöshetskassan om något som är av betydelse för sökandens rätt till eller storleken på arbetslöshetsersättningen.
+
+Om sökanden är medlem i eller ansluten till en arbetslöshetskassa får sökanden frånkännas rätt till arbetslöshetsersättning endast om arbetslöshetskassan vid prövning enligt [37 §](#kap7.37) första stycket lagen ([1997:239](https://selex.se/eli/sfs/1997/239)) om arbetslöshetskassor har bedömt att sökanden inte ska uteslutas ur arbetslöshetskassan.
+
+</section>
+<section id="kap7.13" class="paragraf">
+
+#### 13 §
+
+Ett beslut om frånkännande ska avse 130 ersättningsdagar. Om det finns särskilda skäl får beslutet avse färre eller fler dagar, dock lägst 45 och högst 195 ersättningsdagar.
+
+</section>
+<section id="kap7.14" class="paragraf">
+
+#### 14 §
+
+Ett beslut om frånkännande ska gälla från och med den dag då arbetslöshetskassan inledde utredningen av det som ligger till grund för beslutet och längst fem år från den dagen.
+
+Ett beslut om frånkännande får inte grundas på något som ligger längre bakåt i tiden än fem år, räknat från och med den dag då arbetslöshetskassan inledde utredningen.
+
+I beslutet ska det anges vilken dag arbetslöshetskassan inledde utredningen.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap8" class="kapitel">
+
+## 8 kap. Återbetalningsskyldighet och återkrav
+
+<section id="kap8.förutsättningar-för-återbetaln">
+
+### Förutsättningar för återbetalningsskyldighet
+
+<section id="kap8.1" class="paragraf">
+
+#### 1 §
+
+En mottagare av arbetslöshetsersättning är återbetalningsskyldig om
+
+1. mottagaren genom att lämna oriktiga uppgifter eller inte lämna de uppgifter och göra de anmälningar som mottagaren är skyldig att göra eller på något annat sätt har orsakat att ersättning har lämnats felaktigt eller med ett för högt belopp,
+
+2. ersättning i annat fall har lämnats felaktigt eller med ett för högt belopp och mottagaren har insett eller skäligen borde ha insett detta, eller
+
+3. mottagaren senare har fått lön eller ekonomiskt skadestånd som motsvarar lön för samma tid som den utbetalda ersättningen.
+
+</section>
+
+</section>
+<section id="kap8.återkrav">
+
+### Återkrav
+
+<section id="kap8.2" class="paragraf">
+
+#### 2 §
+
+Om en mottagare av arbetslöshetsersättning är återbetalningsskyldig, ska arbetslöshetskassan besluta att återkräva det felaktigt utbetalda beloppet. Ett beslut om återkrav ska innehålla uppgifter om det belopp som ska betalas tillbaka och när beloppet senast ska betalas.
+
+</section>
+
+</section>
+<section id="kap8.avbetalning-och-anstånd">
+
+### Avbetalning och anstånd
+
+<section id="kap8.3" class="paragraf">
+
+#### 3 §
+
+Arbetslöshetskassan får träffa avtal med den återbetalningsskyldige om avbetalning av ett återkrav av arbetslöshetsersättning eller bevilja den återbetalningsskyldige anstånd med betalningen.
+
+Ränta ska tas ut på det obetalda beloppet från den dag då avtalet om avbetalningsplan träffades eller anståndet beviljades, dock inte för tid innan det återkrävda beloppet har förfallit till betalning. Ränta ska tas ut efter en räntesats som vid varje tidpunkt överstiger statens utlåningsränta med två procentenheter.
+
+</section>
+
+</section>
+<section id="kap8.dröjsmålsränta">
+
+### Dröjsmålsränta
+
+<section id="kap8.4" class="paragraf">
+
+#### 4 §
+
+Om ett belopp som har återkrävts inte har betalats i rätt tid, ska dröjsmålsränta enligt räntelagen ([1975:635](https://selex.se/eli/sfs/1975/635)) tas ut på det obetalda beloppet. Detsamma gäller när den återbetalningsskyldige har träffat avtal om en avbetalningsplan eller har beviljats anstånd med betalningen och betalning inte sker inom den tid som följer av avtalet eller beslutet om anstånd.
+
+</section>
+
+</section>
+<section id="kap8.avstående-från-återkrav">
+
+### Avstående från återkrav
+
+<section id="kap8.5" class="paragraf">
+
+#### 5 §
+
+Om det med hänsyn till den återbetalningsskyldiges personliga eller ekonomiska förhållanden eller andra omständigheter finns särskilda skäl för det, får arbetslöshetskassan besluta om att helt eller delvis avstå från ett krav på återbetalning eller ränta.
+
+</section>
+
+</section>
+<section id="kap8.avdrag-på-arbetslöshetsersättn">
+
+### Avdrag på arbetslöshetsersättning
+
+<section id="kap8.6" class="paragraf">
+
+#### 6 §
+
+Vid återkrav får arbetslöshetskassan, vid en senare utbetalning av arbetslöshetsersättning till den som är återbetalningsskyldig, dra av ett skäligt belopp i avräkning mot det krävda beloppet. Avdrag får även göras för ränta som den återbetalningsskyldige ska betala.
+
+</section>
+
+</section>
+<section id="kap8.exekutionstitel">
+
+### Exekutionstitel
+
+<section id="kap8.7" class="paragraf">
+
+#### 7 §
+
+Arbetslöshetskassans beslut om återkrav av arbetslöshetsersättning, ränta och dröjsmålsränta ska anses som ett sådant beslut av en förvaltningsmyndighet som utgör en exekutionstitel enligt [3 kap. 1 § första stycket 6 a utsökningsbalken](https://selex.se/eli/sfs/1981/774#kap3.1).
+
+</section>
+
+</section>
+
+</section>
+<section id="kap9" class="kapitel">
+
+## 9 kap. Uppgiftsskyldighet
+
+<section id="kap9.uppgiftsskyldighet-för-myndigh">
+
+### Uppgiftsskyldighet för myndigheter
+
+<section id="kap9.1" class="paragraf">
+
+#### 1 §
+
+Arbetsförmedlingen, Centrala studiestödsnämnden, Försäkringskassan och Pensionsmyndigheten ska till en arbetslöshetskassa lämna de uppgifter om en enskild som behövs för ett ärende hos arbetslöshetskassan enligt denna lag.
+
+</section>
+
+</section>
+<section id="kap9.uppgiftsskyldighet-för-arbetsl">
+
+### Uppgiftsskyldighet för arbetslöshetskassor
+
+<section id="kap9.2" class="paragraf">
+
+#### 2 §
+
+En arbetslöshetskassa ska till Arbetsförmedlingen, Försäkringskassan och Pensionsmyndigheten lämna de uppgifter om en enskild som behövs för ett ärende hos den mottagande myndigheten.
+
+</section>
+<section id="kap9.3" class="paragraf">
+
+#### 3 §
+
+En arbetslöshetskassa ska till en annan arbetslöshetskassa lämna de uppgifter om en enskild som behövs för ett ärende hos den mottagande arbetslöshetskassan enligt denna lag.
+
+</section>
+
+</section>
+<section id="kap9.uppgiftsskyldighet-för-arbetsg">
+
+### Uppgiftsskyldighet för arbetsgivare och uppdragsgivare
+
+<section id="kap9.4" class="paragraf">
+
+#### 4 §
+
+En arbetsgivare eller uppdragsgivare ska på begäran till en arbetslöshetskassa lämna de uppgifter om en enskilds anställnings- och uppdragsförhållanden som behövs för ett ärende hos arbetslöshetskassan enligt denna lag.
+
+</section>
+
+</section>
+<section id="kap9.föreskrifter-om-uppgiftsskyldi">
+
+### Föreskrifter om uppgiftsskyldighet
+
+<section id="kap9.5" class="paragraf">
+
+#### 5 §
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela föreskrifter om vilka uppgifter som enligt 1-[4 §](#kap9.4)§ ska lämnas av eller till en arbetslöshetskassa.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap10" class="kapitel">
+
+## 10 kap. Handläggning av ärenden
+
+<section id="kap10.förvaltningslagens-tillämpning">
+
+### Förvaltningslagens tillämpning
+
+<section id="kap10.1" class="paragraf">
+
+#### 1 §
+
+Förvaltningslagen ([2017:900](https://selex.se/eli/sfs/2017/900)) ska tillämpas när arbetslöshetskassan handlägger ärenden enligt denna lag, om inte något annat följer av bestämmelserna i detta kapitel eller av bestämmelserna om omprövning och överklagande i [11 kap. När förvaltningslagen](https://selex.se/eli/sfs/2017/900) tillämpas ska arbetslöshetskassan jämställas med en myndighet.
+
+</section>
+
+</section>
+<section id="kap10.ansökan-om-arbetslöshetsersätt">
+
+### Ansökan om arbetslöshetsersättning
+
+<section id="kap10.2" class="paragraf">
+
+#### 2 §
+
+En ansökan om arbetslöshetsersättning ska göras hos arbetslöshetskassan.
+
+Ansökan ska innehålla de uppgifter som behövs i ärendet. Sökanden ska på heder och samvete intyga att lämnade uppgifter om faktiska förhållanden är riktiga.
+
+Regeringen eller den myndighet som regeringen bestämmer kan med stöd av [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) meddela ytterligare föreskrifter om ansökan.
+
+</section>
+<section id="kap10.3" class="paragraf">
+
+#### 3 §
+
+En ansökan om arbetslöshetsersättning ska avse en månad och göras senast tre månader efter utgången av den månad som ansökan avser. En ansökan som görs efter den tiden ska avvisas, om det inte finns särskilda skäl.
+
+</section>
+<section id="kap10.4" class="paragraf">
+
+#### 4 §
+
+Om arbetslöshetskassan förelägger en sökande att avhjälpa en brist i en ansökan får det ske genom delgivning.
+
+</section>
+
+</section>
+<section id="kap10.skyldighet-att-medverka-i-utre">
+
+### Skyldighet att medverka i utredningen och att anmäla ändrade förhållanden
+
+<section id="kap10.5" class="paragraf">
+
+#### 5 §
+
+Den enskilde är skyldig att
+
+1. medverka till att ett ärende blir utrett genom att lämna de uppgifter som är av betydelse för ett ärendes avgörande, och
+
+2. anmäla ändrade förhållanden som påverkar rätten till eller storleken på arbetslöshetsersättningen.
+
+En anmälan enligt första stycket 2 ska göras så snart som möjligt och senast 14 dagar efter det att den enskilde fick kännedom om förändringen.
+
+Om arbetslöshetskassan begär det, ska den enskilde lämna uppgifter om faktiska förhållanden på heder och samvete.
+
+</section>
+
+</section>
+<section id="kap10.interimistiska-beslut">
+
+### Interimistiska beslut
+
+<section id="kap10.6" class="paragraf">
+
+#### 6 §
+
+Arbetslöshetskassan får besluta i fråga om arbetslöshetsersättning för tid fram till dess att ett ärende har avgjorts slutligt, om det
+
+1. inte utan betydande dröjsmål kan avgöras om sökanden har rätt till arbetslöshetsersättning,
+
+2. är sannolikt att sökanden har sådan rätt, och
+
+3. är av väsentlig betydelse för sökanden.
+
+Ett beslut enligt första stycket får meddelas även när det står klart att sökanden har rätt till arbetslöshetsersättning men ersättningens storlek inte kan bestämmas utan betydande dröjsmål.
+
+När beslut gäller
+
+</section>
+<section id="kap10.7" class="paragraf">
+
+#### 7 §
+
+Ett beslut gäller omedelbart, om inte något annat har angetts i beslutet eller bestämts av den instans som ska ompröva beslutet eller pröva överklagandet.
+
+När beslut senast får rättas eller ändras
+
+</section>
+<section id="kap10.8" class="paragraf">
+
+#### 8 §
+
+En rättelse eller ändring av ett beslut får inte göras senare än två år från den dag då beslutet meddelades.
+
+Ett beslut får rättas eller ändras även efter två år, om det först därefter har kommit fram att beslutet har fattats på uppenbart felaktigt eller ofullständigt underlag eller om det finns andra synnerliga skäl.
+
+</section>
+
+</section>
+
+</section>
+<section id="kap11" class="kapitel">
+
+## 11 kap. Omprövning och överklagande
+
+<section id="kap11.omprövning-av-beslut">
+
+### Omprövning av beslut
+
+<section id="kap11.1" class="paragraf">
+
+#### 1 §
+
+Arbetslöshetskassan ska ompröva sitt beslut om det begärs av den enskilde som beslutet angår. Det gäller inte om arbetslöshetskassan redan har ändrat beslutet enligt 37 eller [38 §](#kap11.38) förvaltningslagen ([2017:900](https://selex.se/eli/sfs/2017/900)).
+
+Vid omprövning får beslutet inte ändras till den enskildes nackdel.
+
+</section>
+<section id="kap11.2" class="paragraf">
+
+#### 2 §
+
+En begäran om omprövning ska vara skriftlig och ha kommit in till arbetslöshetskassan inom två månader från den dag då den som begär omprövning fick del av beslutet genom arbetslöshetskassan. I begäran om omprövning ska den enskilde ange vilket beslut som avses och på vilket sätt som den enskilde vill att beslutet ska ändras.
+
+</section>
+<section id="kap11.3" class="paragraf">
+
+#### 3 §
+
+Arbetslöshetskassan ska underrätta den enskilde om hur den enskilde kan begära omprövning av ett beslut. En sådan underrättelse ska innehålla information om vilka krav som ställs på form och innehåll, vad som gäller i fråga om ingivande och inom vilken tid en begäran om omprövning ska ha kommit in till arbetslöshetskassan. Underrättelse får ske genom delgivning.
+
+</section>
+<section id="kap11.4" class="paragraf">
+
+#### 4 §
+
+Arbetslöshetskassan prövar om begäran om omprövning har kommit in i rätt tid. Om begäran har kommit in för sent ska den avvisas.
+
+En begäran ska dock inte avvisas om
+
+1. förseningen beror på att arbetslöshetskassan inte har lämnat den enskilde en korrekt underrättelse om hur man begär omprövning, eller
+
+2. begäran har kommit in inom tidsfristen till den domstol som ska pröva ett överklagande av arbetslöshetskassans omprövningsbeslut.
+
+</section>
+
+</section>
+<section id="kap11.överklagande-av-beslut">
+
+### Överklagande av beslut
+
+Till vilken domstol överklagas beslut?
+
+<section id="kap11.5" class="paragraf">
+
+#### 5 §
+
+En arbetslöshetskassas beslut i ärenden om arbetslöshetsersättning enligt denna lag får överklagas till allmän förvaltningsdomstol, om inte något annat följer av lagen ([1969:93](https://selex.se/eli/sfs/1969/93)) om begränsning av samhällsstöd vid arbetskonflikt.
+
+Prövningstillstånd krävs vid överklagande till kammarrätten.
+
+</section>
+<section id="kap11.6" class="paragraf">
+
+#### 6 §
+
+Arbetslöshetskassans beslut överklagas till den förvaltningsrätt inom vars domkrets den enskilde var folkbokförd vid tidpunkten för beslutet. Om det inte finns någon sådan behörig förvaltningsrätt överklagas beslutet till den förvaltningsrätt inom vars domkrets det första beslutet i saken fattades.
+
+</section>
+
+</section>
+<section id="kap11.omprövning-före-överklagande">
+
+### Omprövning före överklagande
+
+<section id="kap11.7" class="paragraf">
+
+#### 7 §
+
+Arbetslöshetskassans beslut får inte överklagas av den enskilde innan det har omprövats av arbetslöshetskassan. Om ett beslut överklagas innan det har omprövats, ska överklagandet anses som en begäran om omprövning.
+
+Första stycket gäller inte beslut som har ändrats med stöd av 37 eller [38 §](#kap11.38) förvaltningslagen ([2017:900](https://selex.se/eli/sfs/2017/900)). Den enskildes begäran om omprövning av ett sådant beslut ska anses som ett överklagande.
+
+</section>
+
+</section>
+<section id="kap11.inspektionen-för-arbetslöshets">
+
+### Inspektionen för arbetslöshetsförsäkringens rätt att överklaga
+
+<section id="kap11.8" class="paragraf">
+
+#### 8 §
+
+Inspektionen för arbetslöshetsförsäkringen får överklaga en arbetslöshetskassas och en domstols beslut enligt denna lag.
+
+</section>
+
+</section>
+<section id="kap11.motpart-i-överinstans">
+
+### Motpart i överinstans
+
+<section id="kap11.9" class="paragraf">
+
+#### 9 §
+
+I ett mål där en enskild har överklagat en arbetslöshetskassas beslut är arbetslöshetskassan den enskildes motpart, om inte annat följer av [10 §](#kap11.10).
+
+</section>
+<section id="kap11.10" class="paragraf">
+
+#### 10 §
+
+Inspektionen för arbetslöshetsförsäkringen får överta en arbetslöshetskassas uppgift att i förvaltningsrätten och kammarrätten föra det allmännas talan.
+
+I Högsta förvaltningsdomstolen är det Inspektionen för arbetslöshetsförsäkringen som för det allmännas talan.
+
+</section>
+
+</section>
+<section id="kap11.överklagandetiden">
+
+### Överklagandetiden
+
+<section id="kap11.11" class="paragraf">
+
+#### 11 §
+
+Ett överklagande av ett beslut enligt denna lag ska ha kommit in till den arbetslöshetskassa eller domstol som har meddelat beslutet inom två månader från den dag då den som överklagar fick del av beslutet genom arbetslöshetskassan eller domstolen.
+
+Ett överklagande från Inspektionen för arbetslöshetsförsäkringen eller arbetslöshetskassan ska dock ha kommit in inom två månader från den dag då beslutet meddelades.
+
+</section>
+<section id="kap11.12" class="paragraf">
+
+#### 12 §
+
+Ett överklagande av ett beslut om ett sådant intyg som avses i 1 kap. [3 §](#kap1.3) ska ha kommit in till den myndighet eller domstol som har meddelat beslutet inom två månader från den dag då den som överklagar fick del av beslutet genom myndigheten eller domstolen.
+
+Ett överklagande från den myndighet som har beslutat om intyget ska dock ha kommit in inom två månader från den dag då beslutet meddelades.
+
+
+</section>
+
+</section>
+<section id="kap11.övergångsbestämmelser" selex:status="upphavd" selex:upphavd="true">
+
+### Övergångsbestämmelser
+
+[2024:506](https://selex.se/eli/sfs/2024/506)
+
+1. Denna lag träder i kraft den 1 oktober 2025.
+
+2. Genom lagen upphävs lagen ([1997:238](https://selex.se/eli/sfs/1997/238)) om arbetslöshetsförsäkring.
+
+3. Den upphävda lagen gäller dock fortfarande för den som har en pågående ersättningsperiod vid ikraftträdandet.
+
+4. Bestämmelserna i 35-[36 §](#kap11.36)§ i den upphävda lagen gäller dessutom fortfarande till och med den 30 september 2026 för företagare som omfattas av [6 §](#kap11.6) förordningen ([1997:835](https://selex.se/eli/sfs/1997/835)) om arbetslöshetsförsäkring i dess lydelse enligt förordningen ([2011:9](https://selex.se/eli/sfs/2011/9)) om ändring i förordningen ([1997:835](https://selex.se/eli/sfs/1997/835)) om arbetslöshetsförsäkring.
+
+5. Vid tillämpningen av 5 kap. [3 §](#kap5.3) och [7 §](#kap11.7) första stycket ska en sökande, som har förbrukat alla ersättningsdagar i en ersättningsperiod enligt den upphävda lagen, under den ersättningsperioden anses ha haft
+
+- en ersättningsgrundande inkomst som motsvarar sökandens dagsförtjänst multiplicerad med 22, och
+
+- en senast fastställd ersättningsnivå om 65 procent, under förutsättning att sökanden fortfarande är medlem i eller ansluten till en arbetslöshetskassa under den månad som sökanden ansöker om arbetslöshetsersättning för. Lag ([2025:891](https://selex.se/eli/sfs/2025/891)).
+
+[2024:507](https://selex.se/eli/sfs/2024/507)
+
+1. Denna lag träder i kraft den 1 januari 2026.
+
+2. Äldre bestämmelser gäller fortfarande för den som har fyllt 66 år före ikraftträdandet.
+
+[2025:891](https://selex.se/eli/sfs/2025/891)
+
+1. Denna lag träder i kraft den 18 november 2025.
+
+2. Lagen ska dock tillämpas för tid från och med den 1 oktober 2025.
+
+[2025:1549](https://selex.se/eli/sfs/2025/1549)
+
+1. Denna lag träder i kraft den 1 januari 2026.
+
+2. Äldre bestämmelser gäller fortfarande för förhållanden som hänför sig till tid före ikraftträdandet.
+
+</section>
+
+</section>
+
+</article>
