@@ -1,0 +1,233 @@
+name: Exportera SFS-data till Git Repository
+
+on:
+  schedule:
+    # Kör varje söndag kl 03:00 UTC (veckovis export)
+    - cron: '0 3 * * 0'
+  workflow_dispatch:  # Tillåter manuell körning
+    inputs:
+      export_mode:
+        description: 'Export-läge: "all" = alla filer, "changed" = bara nya/ändrade sedan senaste veckan'
+        required: false
+        default: 'changed'
+        type: choice
+        options:
+          - changed
+          - all
+      years:
+        description: 'År-intervall att exportera (t.ex. "2024-2026" eller "2024"). Används bara i "all"-läge.'
+        required: false
+        type: string
+      branch_name:
+        description: 'Git branch namn (lämna tom för auto-genererad med datum)'
+        required: false
+        type: string
+      batch_size:
+        description: 'Antal filer per batch'
+        required: false
+        default: '100'
+        type: string
+      skip_initial:
+        description: 'Hoppa över initial commits (bara temporal)'
+        required: false
+        default: false
+        type: boolean
+      skip_temporal:
+        description: 'Hoppa över temporal commits (bara initial)'
+        required: false
+        default: false
+        type: boolean
+
+permissions:
+  contents: read
+
+jobs:
+  export-to-git:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout workflow-artifact-data branch
+      uses: actions/checkout@v4
+      with:
+        ref: workflow-artifact-data
+        fetch-depth: 0  # Hämta full historik för git operationer
+        token: ${{ secrets.GITHUB_TOKEN }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Verify data directories exist
+      run: |
+        if [ ! -d "data/sfs_json" ]; then
+          echo "❌ Fel: data/sfs_json katalog finns inte"
+          exit 1
+        fi
+        if [ ! -d "data/md-markers" ]; then
+          echo "❌ Fel: data/md-markers katalog finns inte"
+          exit 1
+        fi
+
+        JSON_COUNT=$(find data/sfs_json -name "*.json" | wc -l)
+        MD_COUNT=$(find data/md-markers -name "*.md" | wc -l)
+
+        echo "✅ Hittade $JSON_COUNT JSON-filer"
+        echo "✅ Hittade $MD_COUNT Markdown-filer"
+
+        if [ "$JSON_COUNT" -eq 0 ]; then
+          echo "❌ Inga JSON-filer att exportera"
+          exit 1
+        fi
+
+    - name: Determine export filter
+      id: export_filter
+      run: |
+        EXPORT_MODE="${{ inputs.export_mode || 'changed' }}"
+        echo "📋 Export-läge: $EXPORT_MODE"
+
+        if [ "$EXPORT_MODE" = "all" ]; then
+          # Exportera alla filer (eller filtrera på år om specificerat)
+          if [ -n "${{ inputs.years }}" ]; then
+            echo "📅 Exporterar alla filer för år: ${{ inputs.years }}"
+            echo "filter=${{ inputs.years }}" >> $GITHUB_OUTPUT
+            echo "filter_type=years" >> $GITHUB_OUTPUT
+          else
+            echo "📚 Exporterar ALLA filer (ingen filtrering)"
+            echo "filter=" >> $GITHUB_OUTPUT
+            echo "filter_type=none" >> $GITHUB_OUTPUT
+          fi
+        else
+          # Exportera bara nya/ändrade filer sedan senaste veckan
+          SINCE_DATE=$(date -u -d '7 days ago' +'%Y-%m-%d')
+          echo "🔍 Letar efter filer ändrade sedan: $SINCE_DATE"
+
+          # Hämta lista på ändrade JSON-filer från git log
+          CHANGED_FILES=$(git log --since="$SINCE_DATE" --name-only --pretty=format: --diff-filter=AM -- data/sfs_json/ | grep -E '\.json$' | sort -u || true)
+
+          if [ -z "$CHANGED_FILES" ]; then
+            echo "⚠️  Inga nya/ändrade filer hittades sedan $SINCE_DATE"
+            echo "changed_count=0" >> $GITHUB_OUTPUT
+            echo "filter=" >> $GITHUB_OUTPUT
+            echo "filter_type=none" >> $GITHUB_OUTPUT
+            exit 0
+          else
+            # Räkna antal ändrade filer
+            CHANGED_COUNT=$(echo "$CHANGED_FILES" | wc -l | tr -d ' ')
+            echo "✅ Hittade $CHANGED_COUNT nya/ändrade filer"
+
+            # Extrahera beteckningar från filnamn (sfs-YYYY-NNN.json -> YYYY:NNN)
+            BETECKNINGAR=""
+            while IFS= read -r file; do
+              if [[ $file =~ sfs-([0-9]{4})-([0-9]+)\.json ]]; then
+                BETECKNING="${BASH_REMATCH[1]}:${BASH_REMATCH[2]}"
+                if [ -z "$BETECKNINGAR" ]; then
+                  BETECKNINGAR="$BETECKNING"
+                else
+                  BETECKNINGAR="$BETECKNINGAR,$BETECKNING"
+                fi
+              fi
+            done <<< "$CHANGED_FILES"
+
+            echo "📋 Filter för ändrade dokument: $BETECKNINGAR"
+            echo "changed_count=$CHANGED_COUNT" >> $GITHUB_OUTPUT
+            echo "filter=$BETECKNINGAR" >> $GITHUB_OUTPUT
+            echo "filter_type=beteckningar" >> $GITHUB_OUTPUT
+
+            # Spara lista för debugging
+            echo ""
+            echo "Ändrade filer:"
+            echo "$CHANGED_FILES"
+          fi
+        fi
+
+    - name: Determine branch name
+      id: branch
+      run: |
+        if [ -n "${{ inputs.branch_name }}" ]; then
+          BRANCH_NAME="${{ inputs.branch_name }}"
+        else
+          # Auto-generera branch namn med datum
+          BRANCH_NAME="export-$(date +'%Y-%m-%d')"
+        fi
+        echo "branch_name=${BRANCH_NAME}" >> $GITHUB_OUTPUT
+        echo "📋 Använder branch: ${BRANCH_NAME}"
+
+    - name: Export to Git repository
+      # Skippa om inga ändrade filer i "changed" mode
+      if: steps.export_filter.outputs.filter_type != 'none' || steps.export_filter.outputs.changed_count != '0'
+      env:
+        GIT_GITHUB_PAT: ${{ secrets.GIT_GITHUB_PAT }}
+        PYTHONPATH: ${{ github.workspace }}
+      run: |
+        # Bygg kommando med parametrar
+        CMD="python exporters/git/batch_export_to_git.py"
+        CMD="$CMD --input data/sfs_json"
+        CMD="$CMD --markers-dir data/md-markers"
+        CMD="$CMD --branch ${{ steps.branch.outputs.branch_name }}"
+        CMD="$CMD --batch-size ${{ inputs.batch_size || '100' }}"
+        CMD="$CMD --verbose"
+
+        # Lägg till filter baserat på export-läge
+        FILTER="${{ steps.export_filter.outputs.filter }}"
+        FILTER_TYPE="${{ steps.export_filter.outputs.filter_type }}"
+
+        if [ -n "$FILTER" ]; then
+          if [ "$FILTER_TYPE" = "years" ]; then
+            CMD="$CMD --years $FILTER"
+            echo "📅 Filtrerar för år: $FILTER"
+          elif [ "$FILTER_TYPE" = "beteckningar" ]; then
+            CMD="$CMD --filter $FILTER"
+            echo "📋 Filtrerar för beteckningar: $FILTER"
+          fi
+        fi
+
+        # Lägg till skip flags om specificerade
+        if [ "${{ inputs.skip_initial }}" = "true" ]; then
+          CMD="$CMD --skip-initial"
+          echo "⏭️  Hoppar över initial commits"
+        fi
+
+        if [ "${{ inputs.skip_temporal }}" = "true" ]; then
+          CMD="$CMD --skip-temporal"
+          echo "⏭️  Hoppar över temporal commits"
+        fi
+
+        echo "Kör: $CMD"
+        echo ""
+
+        # Kör export
+        eval $CMD
+
+    - name: No files to export
+      if: steps.export_filter.outputs.changed_count == '0' && inputs.export_mode == 'changed'
+      run: |
+        echo "ℹ️  Inga nya/ändrade filer att exportera sedan senaste veckan"
+        echo "Körningen avslutas utan fel"
+
+    - name: Export summary
+      if: success()
+      run: |
+        echo "✅ Git export slutförd!"
+        echo "Branch: ${{ steps.branch.outputs.branch_name }}"
+        echo "Target repo: se-lex/sfs (konfigurerat via GIT_TARGET_REPO env var)"
+        echo ""
+        echo "Nästa steg:"
+        echo "1. Gå till se-lex/sfs repository"
+        echo "2. Skapa Pull Request från branch '${{ steps.branch.outputs.branch_name }}'"
+        echo "3. Granska och merga till main"
+
+    - name: Export failed
+      if: failure()
+      run: |
+        echo "❌ Git export misslyckades!"
+        echo "Kontrollera:"
+        echo "1. GIT_GITHUB_PAT secret är korrekt konfigurerad"
+        echo "2. PAT har skrivrättigheter till target repository"
+        echo "3. Data finns i workflow-artifact-data branch"
+        echo "4. Loggar ovan för feldetaljer"
