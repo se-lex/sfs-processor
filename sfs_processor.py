@@ -505,12 +505,7 @@ def ignore_rules(innehall_text: str) -> tuple[bool, str]:
                - should_ignore: True om dokumentet ska ignoreras
                - reason: Förklaring till varför dokumentet ignorerades
     """
-    # Regel 1: Kontrollera om texten innehåller "AVDELNING" i versaler
-    # (inte "avdelning" eller "Avdelning" med gemener)
-    if "AVDELNING" in innehall_text:
-        return True, "Dokumentet innehåller AVDELNING-struktur som inte stöds för automatisk konvertering."
-
-    # Lägg till fler regler här vid behov
+    # Lägg till regler här vid behov
 
     return False, ""
 
