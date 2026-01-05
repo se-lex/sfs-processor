@@ -54,13 +54,28 @@ jobs:
 
     - name: Commit and push kommande.yaml updates
       run: |
-        # Lägg till den uppdaterade kommande.yaml filen
+        # Checkout the same fixed branch as fetch-sfs uses
+        WORKFLOW_BRANCH="workflow-artifact-data"  # Match default from fetch-sfs
+
+        # Fetch and checkout the fixed branch
+        echo "📥 Checking out fixed branch '$WORKFLOW_BRANCH'..."
+        git fetch origin "$WORKFLOW_BRANCH" 2>/dev/null || echo "Branch doesn't exist yet"
+
+        if git ls-remote --heads origin "$WORKFLOW_BRANCH" | grep -q "$WORKFLOW_BRANCH"; then
+          git checkout "$WORKFLOW_BRANCH"
+          echo "✅ Checked out existing branch '$WORKFLOW_BRANCH'"
+        else
+          git checkout -b "$WORKFLOW_BRANCH"
+          echo "🆕 Created new branch '$WORKFLOW_BRANCH'"
+        fi
+
+        # Make changes
         git add output/kommande.yaml
 
         if git diff --staged --quiet; then
           echo "Inga ändringar i kommande.yaml"
         else
           git commit -m "Uppdatera kommande ändringar - $(date +'%Y-%m-%d')"
-          git push
-          echo "✅ Kommande.yaml har uppdaterats och pushats"
+          git push origin "$WORKFLOW_BRANCH"
+          echo "✅ Kommande.yaml uppdaterat på branch $WORKFLOW_BRANCH"
         fi

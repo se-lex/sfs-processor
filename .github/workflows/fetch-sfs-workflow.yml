@@ -93,12 +93,22 @@ jobs:
           echo "Inga nya filer att committa"
           echo "has_changes=false" >> $GITHUB_OUTPUT
         else
-          # Create a unique branch name for the commits
-          TIMESTAMP=$(date +'%Y%m%d_%H%M%S')
-          COMMIT_BRANCH="sfs_updates_${TIMESTAMP}"
-          
-          # Create and switch to the new branch
-          git checkout -b "$COMMIT_BRANCH"
+          # Use fixed branch name from input (default: workflow-artifact-data)
+          COMMIT_BRANCH="${{ inputs.branch_name }}"
+
+          # Check if branch exists remotely
+          if git ls-remote --heads origin "$COMMIT_BRANCH" | grep -q "$COMMIT_BRANCH"; then
+            echo "📥 Branch '$COMMIT_BRANCH' exists, checking out and merging with main..."
+            # Branch exists - fetch and checkout
+            git fetch origin "$COMMIT_BRANCH"
+            git checkout "$COMMIT_BRANCH"
+            # Merge latest main into fixed branch to keep it updated
+            git merge origin/main --no-edit --strategy-option theirs || echo "Merge completed (conflicts auto-resolved)"
+          else
+            echo "🆕 Branch '$COMMIT_BRANCH' doesn't exist, creating new..."
+            # Branch doesn't exist - create new
+            git checkout -b "$COMMIT_BRANCH"
+          fi
 
           # Commit with multi-line message
           git commit -m "Automatisk uppdatering av SFS-författningar $(date +'%Y-%m-%d')" \
@@ -139,11 +149,28 @@ jobs:
             echo "::error::Git push misslyckades: ${PUSH_ERROR}"
             exit 1
           fi
-          
+
+          # Manage PR lifecycle: close old, create new
+          echo "🔄 Hanterar PR för branch '$COMMIT_BRANCH'..."
+
+          # Close existing PR for this branch if it exists
+          EXISTING_PR=$(gh pr list --head "$COMMIT_BRANCH" --json number --jq '.[0].number' 2>/dev/null || echo "")
+          if [ -n "$EXISTING_PR" ]; then
+            echo "Stänger befintlig PR #$EXISTING_PR"
+            gh pr close "$EXISTING_PR" --comment "🔄 Stänger för att öppna ny PR med uppdaterad data från $(date +'%Y-%m-%d %H:%M')"
+          fi
+
+          # Create new PR
+          echo "📝 Skapar ny PR..."
+          gh pr create --base main --head "$COMMIT_BRANCH" \
+            --title "SFS Data Update - $(date +'%Y-%m-%d %H:%M')" \
+            --body "Automatisk uppdatering av SFS-data. Inkluderar Käll-JSON, Markdown med selex-taggar och backup till R2. Workflow: fetch-sfs-workflow, Branch: $COMMIT_BRANCH, Run: ${{ github.run_id }}" \
+            || echo "⚠️ PR may already exist"
+
           # Switch back to original branch
           git checkout "$CURRENT_BRANCH"
-          
-          echo "Commits gjorda i branch '${COMMIT_BRANCH}' istället för '${CURRENT_BRANCH}'"
+
+          echo "✅ Commits gjorda i branch '${COMMIT_BRANCH}'"
         fi
 
     - name: Trigger HTML export workflow
@@ -152,10 +179,8 @@ jobs:
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
-          const enableGitCommit = '${{ inputs.enable_git_commit }}' !== 'false';
-          const sourceRef = enableGitCommit
-            ? '${{ steps.commit_changes.outputs.commit_branch }}'
-            : '${{ inputs.branch_name }}';
+          // Always use the fixed branch name
+          const sourceRef = '${{ inputs.branch_name }}';
 
           github.rest.actions.createWorkflowDispatch({
             owner: context.repo.owner,
