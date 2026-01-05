@@ -29,7 +29,8 @@ permissions:
 jobs:
   fetch-documents:
     runs-on: ubuntu-latest
-    
+    environment: Test  # Använd Test environment för R2 secrets
+
     steps:
     - name: Checkout repository
       uses: actions/checkout@v4
