@@ -11,6 +11,16 @@ on:
         required: false
         default: '30'
         type: string
+      enable_git_commit:
+        description: 'Aktivera git commits av markdown-filer'
+        required: false
+        default: true
+        type: boolean
+      branch_name:
+        description: 'Branch namn att använda (krävs om enable_git_commit är true)'
+        required: false
+        default: 'workflow-artifact-data'
+        type: string
 
 permissions:
   contents: write
@@ -38,29 +48,47 @@ jobs:
 
     - name: Fetch JSON from beta.rkrattsbaser.gov.se
       run: |
-        python downloaders/fetch_new_sfs_docs.py --days ${{ inputs.days || '1' }} --output sfs_json
+        python downloaders/fetch_new_sfs_docs.py --days ${{ inputs.days || '1' }} --output data/sfs_json
       env:
         PYTHONPATH: ${{ github.workspace }}
 
     - name: Process JSON files to Markdown files with Selex tags
       run: |
-        python sfs_processor.py --input sfs_json --output output/md --formats md-markers
+        python sfs_processor.py --input data/sfs_json --output data/md-markers --formats md-markers
       env:
         PYTHONPATH: ${{ github.workspace }}
 
+    - name: Upload JSON source files to Cloudflare R2 for permanent storage
+      run: |
+        aws configure set aws_access_key_id ${{ secrets.CLOUDFLARE_R2_ACCESS_KEY_ID }}
+        aws configure set aws_secret_access_key ${{ secrets.CLOUDFLARE_R2_SECRET_ACCESS_KEY }}
+        aws configure set region us-east-1
+        aws configure set output json
+
+        # Upload all JSON files to R2 for backup
+        aws s3 sync data/sfs_json/ s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs_json/ \
+          --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+          --content-type "application/json" \
+          --exclude "*.md" \
+          --include "*.json"
+      env:
+        AWS_DEFAULT_REGION: us-east-1
+
     - name: Configure Git
+      if: inputs.enable_git_commit != 'false'
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
 
     - name: Commit and push changes
+      if: inputs.enable_git_commit != 'false'
       id: commit_changes
       run: |
         # Get current branch
         CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
-        
+
         # Create a new branch for commits if we have changes
-        git add output/md/ sfs_json/
+        git add data/md-markers/ data/sfs_json/
         if git diff --staged --quiet; then
           echo "Inga nya filer att committa"
           echo "has_changes=false" >> $GITHUB_OUTPUT
@@ -71,8 +99,14 @@ jobs:
           
           # Create and switch to the new branch
           git checkout -b "$COMMIT_BRANCH"
-          
-          git commit -m "Automatisk uppdatering av SFS-författningar $(date +'%Y-%m-%d')"
+
+          # Commit with multi-line message
+          git commit -m "Automatisk uppdatering av SFS-författningar $(date +'%Y-%m-%d')" \
+                     -m "" \
+                     -m "Inkluderar:" \
+                     -m "- Käll-JSON (data/sfs_json/)" \
+                     -m "- Markdown med selex-taggar (data/md-markers/)" \
+                     -m "- Backup till Cloudflare R2"
           echo "has_changes=true" >> $GITHUB_OUTPUT
           echo "commit_branch=${COMMIT_BRANCH}" >> $GITHUB_OUTPUT
           
@@ -113,16 +147,24 @@ jobs:
         fi
 
     - name: Trigger HTML export workflow
-      if: steps.commit_changes.outputs.has_changes == 'true' && steps.commit_changes.outputs.push_success == 'true'
+      if: (inputs.enable_git_commit != 'false' && steps.commit_changes.outputs.has_changes == 'true' && steps.commit_changes.outputs.push_success == 'true') || (inputs.enable_git_commit == 'false')
       uses: actions/github-script@v6
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
+          const enableGitCommit = '${{ inputs.enable_git_commit }}' !== 'false';
+          const sourceRef = enableGitCommit
+            ? '${{ steps.commit_changes.outputs.commit_branch }}'
+            : '${{ inputs.branch_name }}';
+
           github.rest.actions.createWorkflowDispatch({
             owner: context.repo.owner,
             repo: context.repo.repo,
             workflow_id: 'html-export-workflow.yml',
-            ref: context.ref
+            ref: sourceRef || context.ref,
+            inputs: {
+              source_ref: sourceRef || 'main'
+            }
           })
 
     - name: Report push failure

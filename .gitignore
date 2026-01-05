@@ -12,6 +12,11 @@ ___pycache__
 htmlcov/
 .pytest_cache/
 
-# Ignore output files
+# Ignore output files (generated, not committed)
 logs/
 output/
+
+# Data directory contains source files committed to git:
+# - data/sfs_json/     = Käll-JSON från API
+# - data/md-markers/   = Markdown med selex-taggar
+# (nothing to ignore here, committed to git + backed up to R2)

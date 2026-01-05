@@ -45,20 +45,52 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Get JSON source files (from git or R2)
+      run: |
+        # Try to use JSON files from git first
+        if [ -d "data/sfs_json" ] && [ -n "$(ls -A data/sfs_json 2>/dev/null)" ]; then
+          echo "✅ Found $(find data/sfs_json -name '*.json' | wc -l) JSON files in git"
+          echo "Using JSON files from git checkout"
+        else
+          echo "⚠️  No JSON files in git, downloading from Cloudflare R2..."
+
+          # Configure AWS CLI for R2
+          aws configure set aws_access_key_id ${{ secrets.CLOUDFLARE_R2_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.CLOUDFLARE_R2_SECRET_ACCESS_KEY }}
+          aws configure set region us-east-1
+          aws configure set output json
+
+          # Download all JSON files from R2
+          mkdir -p data/sfs_json
+          aws s3 sync s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs_json/ data/sfs_json/ \
+            --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+            --exclude "*" \
+            --include "*.json"
+
+          # Verify download
+          if [ ! -d "data/sfs_json" ] || [ -z "$(ls -A data/sfs_json)" ]; then
+            echo "::error::Failed to download JSON files from R2"
+            exit 1
+          fi
+          echo "✅ Downloaded $(find data/sfs_json -name '*.json' | wc -l) JSON files from R2"
+        fi
+      env:
+        AWS_DEFAULT_REGION: us-east-1
+
     - name: Generate HTML export
       run: |
         if [ -n "${{ inputs.filter }}" ]; then
-          python sfs_processor.py --input sfs_json --output output/html --formats html --filter "${{ inputs.filter }}"
+          python sfs_processor.py --input data/sfs_json --output output/html --formats html --filter "${{ inputs.filter }}"
         else
-          python sfs_processor.py --input sfs_json --output output/html --formats html
+          python sfs_processor.py --input data/sfs_json --output output/html --formats html
         fi
       env:
         PYTHONPATH: ${{ github.workspace }}
 
     - name: Regenerate index pages for HTML export
       run: |
-        python exporters/html/populate_index_pages.py --input sfs_json --output index.html --limit 30
-        python exporters/html/populate_index_pages.py --input sfs_json --output latest.html --limit 10
+        python exporters/html/populate_index_pages.py --input data/sfs_json --output index.html --limit 30
+        python exporters/html/populate_index_pages.py --input data/sfs_json --output latest.html --limit 10
       env:
         PYTHONPATH: ${{ github.workspace }}
 
