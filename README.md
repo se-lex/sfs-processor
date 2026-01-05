@@ -31,7 +31,7 @@ Verktyget kan generera författningar i flera olika format, beroende på använd
 ### Markdown-format
 
 - **`md-markers`** (förvalt): Markdown med semantiska `<section>`-taggar och selex-attribut för juridisk status och temporal hantering
-- **`md`**: Rena Markdown-filer med normaliserade rubriknivåer, lämpliga för visning och läsning
+- **`md`**: Rena Markdown-filer med normaliserade rubriknivåer, lämpliga för visning och läsning. Utgår från ett target-date (förvalt: dagens datum) för att visa hur lagen ser ut vid den tidpunkten
 
 ### Git-format
 
@@ -90,7 +90,7 @@ Markdown-filer med bevarad semantisk struktur genom `<article>` och `<section>`-
 - **`<section class="paragraf">`**: Omsluter varje paragraf (§) som en avgränsad juridisk bestämmelse
 
 ```html
-<article selex:status="ikraft" selex:ikraft_datum="2024-01-01">
+<article selex:status="ikraft" selex:ikraft_datum="2025-01-01">
 
   # Lag (2024:123) om exempel
 
@@ -141,7 +141,7 @@ Detta format är lämpligt för enkel visning och läsning, utan metadata eller 
 Förutom CSS-klasser använder `<section>`-taggarna även `selex:`-attribut för att hantera juridisk status och datum. Dessa attribut möjliggör filtrering av innehåll baserat på ikraftträdande- och upphörandedatum:
 
 - **`selex:status`**: Anger sektionens juridiska status
-  - `ikraft`: Sektionen innehåller ikraftträdanderegler (konverterat från t.ex. "/Träder i kraft I:2024-01-01")
+  - `ikraft`: Sektionen innehåller ikraftträdanderegler (konverterat från t.ex. "/Träder i kraft I:2025-01-01")
   - `upphavd`: Sektionen är upphävd (konverterad från ifall rubrik innehåller "upphävd" eller "/Upphör att gälla")
 
 - **`selex:ikraft_datum`**: Datum då sektionen träder ikraft (format: YYYY-MM-DD)
@@ -151,7 +151,7 @@ Förutom CSS-klasser använder `<section>`-taggarna även `selex:`-attribut för
 Exempel på selex-attribut:
 
 ```html
-<section class="kapitel" selex:status="ikraft" selex:ikraft_datum="2024-01-01">
+<section class="kapitel" selex:status="ikraft" selex:ikraft_datum="2025-01-01">
 ### 1 § En paragraf
 ...
 </section>
