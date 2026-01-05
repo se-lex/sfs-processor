@@ -1,5 +1,5 @@
 .env
-___pycache__
+__pycache__/
 *.pyc
 *.egg-info/
 .DS_Store
@@ -11,6 +11,10 @@ ___pycache__
 .coverage
 htmlcov/
 .pytest_cache/
+.ruff_cache/
+
+# Ignore input files
+sfs_docs
 
 # Ignore output files
 logs/
