@@ -286,7 +286,7 @@ Varje vektor-chunk innehåller:
 - `chapter`: Kapitelreferens (t.ex. "1 kap.")
 - `paragraph`: Paragrafreferens (t.ex. "1 §")
 - `departement`: Ansvarigt departement
-- `ikraft_datum`: Ikraftträdandedatum
+- `effective_date`: Ikraftträdande-datum
 
 ## Bidra
 

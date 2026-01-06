@@ -46,6 +46,10 @@ The tool can generate legislation in several different formats, depending on use
 - **`html`**: Generates HTML files in ELI structure (`/eli/sfs/{year}/{number}/index.html`) for web publishing
 - **`htmldiff`**: Like HTML but also includes separate versions for each amending law
 
+### Vector Format (for semantic search)
+
+- **`vector`**: Converts legislation to vector embeddings for semantic search and RAG applications. Uses OpenAI's text-embedding-3-large model (3072 dimensions) and supports storage in PostgreSQL (pgvector), Elasticsearch, or JSON file.
+
 Example of combining multiple formats:
 
 ```bash
@@ -190,6 +194,8 @@ The system handles temporal processing (time-based filtering) differently depend
 
 - **`html`** and **`htmldiff`**: Apply temporal processing with today's date before HTML generation, similar to `md` format.
 
+- **`vector`**: Applies temporal processing with today's date (or specified `--target-date`) before vector generation. This ensures only current regulations are included in the vector database.
+
 #### Example with target-date
 
 To see how a law appeared at a specific date:
@@ -211,16 +217,76 @@ python sfs_processor.py [--input INPUT] [--output OUTPUT] [--formats FORMATS] [-
 
 - `--input`: Input directory with JSON files (default: "sfs_json")
 - `--output`: Output directory for converted files (default: "SFS")
-- `--formats`: Output formats to generate, comma-separated. Supports: md-markers, md, git, html, htmldiff (default: "md-markers")
+- `--formats`: Output formats to generate, comma-separated. Supports: md-markers, md, git, html, htmldiff, vector (default: "md-markers")
   - `md-markers`: Generate markdown files with section tags preserved
   - `md`: Generate clean markdown files without section tags
   - `git`: Enable Git commits with historical dates
   - `html`: Generate HTML files in ELI structure (basic documents only)
   - `htmldiff`: Generate HTML files in ELI structure with amendment versions
+  - `vector`: Generate vector embeddings for semantic search
 - `--filter`: Filter files by year (YYYY) or specific reference (YYYY:NNN). Can be comma-separated list.
-- `--target-date`: Date (YYYY-MM-DD) for temporal filtering, based on selex tags. Used with `md`, `html` and `htmldiff` formats to filter content based on validity dates. If not specified, today's date is used for `md` format. Example: `--target-date 2023-01-01`
+- `--target-date`: Date (YYYY-MM-DD) for temporal filtering, based on selex tags. Used with `md`, `html`, `htmldiff` and `vector` formats to filter content based on validity dates. If not specified, today's date is used. Example: `--target-date 2023-01-01`
 - `--no-year-folder`: Don't create year-based subfolders for documents
 - `--verbose`: Display detailed information about processing
+
+### Vector-specific Parameters
+
+- `--vector-backend`: Backend for vector storage (default: "json")
+  - `json`: Save to JSON file (for testing/development)
+  - `postgresql`: PostgreSQL with pgvector extension
+  - `elasticsearch`: Elasticsearch with dense_vector
+- `--vector-chunking`: Strategy for document chunking (default: "paragraph")
+  - `paragraph`: Split by paragraph (§) - preserves legal structure
+  - `chapter`: Split by chapter - larger context
+  - `section`: Split by selex section
+  - `semantic`: Semantic boundaries with overlap
+  - `fixed_size`: Fixed token count with overlap
+- `--embedding-model`: Embedding model (default: "text-embedding-3-large")
+- `--vector-mock`: Use mock embeddings for testing without OpenAI API key
+
+## Vector Export for Semantic Search
+
+The vector format (`--formats vector`) converts legislation to vector embeddings that can be used for semantic search, RAG applications (Retrieval-Augmented Generation), and AI assistants.
+
+### How It Works
+
+1. **Temporal filtering**: Only current regulations are included (same as `md`/`html` mode)
+2. **Intelligent chunking**: Documents are split in a way that preserves legal structure
+3. **Embedding generation**: Text is converted to vectors using OpenAI text-embedding-3-large
+4. **Storage**: Vectors are saved to selected backend with complete metadata
+
+### Examples
+
+```bash
+# Test with mock embeddings (without API key)
+python sfs_processor.py --formats vector --vector-mock --filter 2024:100
+
+# Production with OpenAI (requires OPENAI_API_KEY environment variable)
+python sfs_processor.py --formats vector --filter 2024
+
+# With PostgreSQL/pgvector backend
+python sfs_processor.py --formats vector --vector-backend postgresql
+
+# With chapter chunking for larger context
+python sfs_processor.py --formats vector --vector-chunking chapter
+```
+
+### Backends
+
+| Backend | Use Case | Requirements |
+|---------|----------|--------------|
+| `json` | Testing/development | None |
+| `postgresql` | Production | PostgreSQL 12+ with pgvector |
+| `elasticsearch` | Production | Elasticsearch 8.0+ |
+
+### Metadata Saved
+
+Each vector chunk includes:
+- `document_id`: Reference number (e.g., "2024:100")
+- `chapter`: Chapter reference (e.g., "1 kap.")
+- `paragraph`: Paragraph reference (e.g., "1 §")
+- `departement`: Responsible ministry
+- `effective_date`: Entry-into-force date
 
 ---
 
