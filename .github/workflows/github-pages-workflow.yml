@@ -1,0 +1,136 @@
+name: Exportera till HTML-format och publicera till GitHub Pages
+
+on:
+  workflow_dispatch:  # Tillåter manuell körning
+    inputs:
+      source_ref:
+        description: 'Git ref att bygga från'
+        required: false
+        default: 'main'
+      filter:
+        description: 'Filtrera filer efter år (YYYY) eller specifik beteckning (YYYY:NNN). Kommaseparerad lista.'
+        required: false
+        type: string
+  workflow_call:  # Tillåter anrop från andra workflows
+    inputs:
+      source_ref:
+        required: false
+        type: string
+        default: 'main'
+      filter:
+        required: false
+        type: string
+
+# Behörigheter för GitHub Pages deployment
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Tillåt endast en deployment åt gången
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    environment: Test
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        ref: ${{ inputs.source_ref || 'main' }}
+
+    - name: Set up Python
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.11'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: Get JSON source files (from git or R2)
+      run: |
+        # Try to use JSON files from git first
+        if [ -d "data/sfs_json" ] && [ -n "$(ls -A data/sfs_json 2>/dev/null)" ]; then
+          echo "✅ Found $(find data/sfs_json -name '*.json' | wc -l) JSON files in git"
+          echo "Using JSON files from git checkout"
+        else
+          echo "⚠️  No JSON files in git, downloading from Cloudflare R2..."
+
+          # Configure AWS CLI for R2
+          aws configure set aws_access_key_id ${{ secrets.CLOUDFLARE_R2_ACCESS_KEY_ID }}
+          aws configure set aws_secret_access_key ${{ secrets.CLOUDFLARE_R2_SECRET_ACCESS_KEY }}
+          aws configure set region us-east-1
+          aws configure set output json
+
+          # Download all JSON files from R2
+          mkdir -p data/sfs_json
+          aws s3 sync s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs_json/ data/sfs_json/ \
+            --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+            --exclude "*" \
+            --include "*.json"
+
+          # Verify download
+          if [ ! -d "data/sfs_json" ] || [ -z "$(ls -A data/sfs_json)" ]; then
+            echo "::error::Failed to download JSON files from R2"
+            exit 1
+          fi
+          echo "✅ Downloaded $(find data/sfs_json -name '*.json' | wc -l) JSON files from R2"
+        fi
+      env:
+        AWS_DEFAULT_REGION: us-east-1
+
+    - name: Generate HTML export
+      run: |
+        # Skapa output-katalog för GitHub Pages
+        mkdir -p _site
+
+        if [ -n "${{ inputs.filter }}" ]; then
+          python sfs_processor.py --input data/sfs_json --output _site --formats html --filter "${{ inputs.filter }}"
+        else
+          python sfs_processor.py --input data/sfs_json --output _site --formats html
+        fi
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+
+    - name: Generate index pages for HTML export
+      run: |
+        python exporters/html/populate_index_pages.py --input data/sfs_json --output _site/index.html --limit 30
+        python exporters/html/populate_index_pages.py --input data/sfs_json --output _site/latest.html --limit 10
+      env:
+        PYTHONPATH: ${{ github.workspace }}
+
+    - name: Add .nojekyll file
+      run: |
+        # Förhindra Jekyll-processing som kan störa ELI-URL:er
+        touch _site/.nojekyll
+
+    - name: Create deployment summary
+      run: |
+        echo "HTML export completed at $(date)" > _site/last-update.txt
+        echo "Published to GitHub Pages" >> _site/last-update.txt
+        echo "Index pages: index.html (30 senaste), latest.html (10 senaste)" >> _site/last-update.txt
+
+    - name: Setup Pages
+      uses: actions/configure-pages@v5
+
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v3
+      with:
+        path: '_site'
+
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+    - name: Deploy to GitHub Pages
+      id: deployment
+      uses: actions/deploy-pages@v4

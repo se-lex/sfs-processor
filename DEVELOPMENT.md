@@ -344,6 +344,13 @@ python -m pytest test/ --cov=. --cov-report=html
 - Laddar upp till Cloudflare R2
 - Kräver R2-credentials i GitHub Secrets
 
+**`github-pages-workflow.yml`**:
+- Genererar HTML från Markdown
+- Publicerar till GitHub Pages istället för Cloudflare R2
+- Kräver att GitHub Pages är aktiverat i repository-inställningar
+- Använder `actions/deploy-pages` för deployment
+- Alternativ till R2-uppladdning för de som inte har Cloudflare-konto
+
 **`upcoming-changes-workflow.yml`**:
 - Processar kommande ändringar
 - Temporal förhandsvisning
