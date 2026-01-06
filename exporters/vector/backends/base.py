@@ -41,8 +41,10 @@ class VectorRecord:
 
     # Document metadata
     departement: Optional[str] = None
-    ikraft_datum: Optional[str] = None
-    utfardad_datum: Optional[str] = None
+    effective_date: Optional[str] = None    # ikraft_datum - when regulation takes effect
+    issued_date: Optional[str] = None       # utfardad_datum - when regulation was issued
+    repealed: bool = False                  # upphavd - if regulation is repealed
+    expiration_date: Optional[str] = None   # upphor_datum - when regulation expires
 
     # Technical metadata
     embedding_model: Optional[str] = None
@@ -66,8 +68,10 @@ class VectorRecord:
             'paragraph': self.paragraph,
             'section_type': self.section_type,
             'departement': self.departement,
-            'ikraft_datum': self.ikraft_datum,
-            'utfardad_datum': self.utfardad_datum,
+            'effective_date': self.effective_date,
+            'issued_date': self.issued_date,
+            'repealed': self.repealed,
+            'expiration_date': self.expiration_date,
             'embedding_model': self.embedding_model,
             'dimensions': self.dimensions,
             'created_at': self.created_at.isoformat() if self.created_at else None,
@@ -93,8 +97,10 @@ class VectorRecord:
             paragraph=data.get('paragraph'),
             section_type=data.get('section_type'),
             departement=data.get('departement'),
-            ikraft_datum=data.get('ikraft_datum'),
-            utfardad_datum=data.get('utfardad_datum'),
+            effective_date=data.get('effective_date'),
+            issued_date=data.get('issued_date'),
+            repealed=data.get('repealed', False),
+            expiration_date=data.get('expiration_date'),
             embedding_model=data.get('embedding_model'),
             dimensions=data.get('dimensions', 0),
             created_at=created_at,

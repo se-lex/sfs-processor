@@ -45,7 +45,10 @@ class DocumentChunk:
     # Document metadata
     rubrik: Optional[str] = None          # Document title
     departement: Optional[str] = None     # Responsible department
-    ikraft_datum: Optional[str] = None    # Entry into force date
+    effective_date: Optional[str] = None  # Entry into force date (ikraft_datum)
+    issued_date: Optional[str] = None     # Issued date (utfardad_datum)
+    repealed: bool = False                # If regulation is repealed (upphavd)
+    expiration_date: Optional[str] = None # Expiration date (upphor_datum)
 
     # Chunk-specific metadata
     char_count: int = 0                   # Character count
@@ -67,7 +70,10 @@ class DocumentChunk:
             'section_type': self.section_type,
             'rubrik': self.rubrik,
             'departement': self.departement,
-            'ikraft_datum': self.ikraft_datum,
+            'effective_date': self.effective_date,
+            'issued_date': self.issued_date,
+            'repealed': self.repealed,
+            'expiration_date': self.expiration_date,
             'char_count': self.char_count,
             'estimated_tokens': self.estimated_tokens,
             'metadata': self.metadata,
@@ -90,6 +96,36 @@ def estimate_tokens(text: str) -> int:
     # Swedish text averages about 4-5 characters per token
     # Using 4 to be conservative (better to overestimate)
     return len(text) // 4
+
+
+def _normalize_metadata_fields(metadata: Dict[str, Any]) -> Dict[str, Any]:
+    """
+    Normalize metadata field names from Swedish to English.
+
+    Maps Swedish field names to English equivalents for consistency
+    in vector export artifacts (JSON, SQL tables, etc.).
+
+    Args:
+        metadata: Dictionary with Swedish field names
+
+    Returns:
+        Dictionary with normalized English field names
+    """
+    normalized = metadata.copy()
+
+    # Map Swedish to English field names
+    field_mapping = {
+        'ikraft_datum': 'effective_date',
+        'utfardad_datum': 'issued_date',
+        'upphor_datum': 'expiration_date',
+        'upphavd': 'repealed',
+    }
+
+    for swedish, english in field_mapping.items():
+        if swedish in normalized:
+            normalized[english] = normalized.pop(swedish)
+
+    return normalized
 
 
 def chunk_document(
@@ -120,6 +156,8 @@ def chunk_document(
     # Extract document-level metadata from frontmatter
     doc_metadata = _extract_frontmatter_metadata(content)
     doc_metadata.update(metadata)
+    # Normalize field names from Swedish to English
+    doc_metadata = _normalize_metadata_fields(doc_metadata)
 
     # Remove frontmatter for chunking
     content_body = _remove_frontmatter(content)
@@ -149,7 +187,7 @@ def chunk_document(
 
 
 def _extract_frontmatter_metadata(content: str) -> Dict[str, Any]:
-    """Extract metadata from YAML frontmatter."""
+    """Extract metadata from YAML frontmatter and selex attributes."""
     metadata = {}
 
     # Find frontmatter between --- markers
@@ -159,8 +197,8 @@ def _extract_frontmatter_metadata(content: str) -> Dict[str, Any]:
 
     frontmatter_text = frontmatter_match.group(1)
 
-    # Extract key fields
-    for field in ['rubrik', 'departement', 'ikraft_datum', 'utfardad_datum', 'beteckning']:
+    # Extract key fields from frontmatter
+    for field in ['rubrik', 'departement', 'ikraft_datum', 'utfardad_datum', 'upphor_datum', 'beteckning']:
         match = re.search(rf'^{field}:\s*(.+)$', frontmatter_text, re.MULTILINE)
         if match:
             value = match.group(1).strip()
@@ -170,6 +208,33 @@ def _extract_frontmatter_metadata(content: str) -> Dict[str, Any]:
             elif value.startswith("'") and value.endswith("'"):
                 value = value[1:-1]
             metadata[field] = value
+
+    # Also extract from selex attributes in article tag if not in frontmatter
+    article_match = re.search(r'<article([^>]*)>', content)
+    if article_match:
+        article_attrs = article_match.group(1)
+
+        # Extract ikraft_datum from selex:ikraft_datum if not in frontmatter
+        if 'ikraft_datum' not in metadata:
+            ikraft_match = re.search(r'selex:ikraft_datum="([^"]+)"', article_attrs)
+            if ikraft_match:
+                metadata['ikraft_datum'] = ikraft_match.group(1)
+
+        # Extract utfardad_datum from selex:utfardad_datum if not in frontmatter
+        if 'utfardad_datum' not in metadata:
+            utfardad_match = re.search(r'selex:utfardad_datum="([^"]+)"', article_attrs)
+            if utfardad_match:
+                metadata['utfardad_datum'] = utfardad_match.group(1)
+
+        # Extract upphor_datum from selex:upphor_datum if not in frontmatter
+        if 'upphor_datum' not in metadata:
+            upphor_match = re.search(r'selex:upphor_datum="([^"]+)"', article_attrs)
+            if upphor_match:
+                metadata['upphor_datum'] = upphor_match.group(1)
+
+        # Check if upphavd flag is present
+        if 'selex:upphavd="true"' in article_attrs:
+            metadata['upphavd'] = True
 
     return metadata
 
@@ -246,7 +311,10 @@ def _chunk_by_paragraph(content: str, document_id: str, metadata: Dict[str, Any]
                 section_type="paragraf",
                 rubrik=metadata.get('rubrik'),
                 departement=metadata.get('departement'),
-                ikraft_datum=metadata.get('ikraft_datum'),
+                effective_date=metadata.get('effective_date'),
+                issued_date=metadata.get('issued_date'),
+                repealed=metadata.get('repealed', False),
+                expiration_date=metadata.get('expiration_date'),
                 char_count=len(clean_content),
                 estimated_tokens=estimate_tokens(clean_content),
                 metadata=metadata.copy()
@@ -286,7 +354,10 @@ def _chunk_by_paragraph_headings(content: str, document_id: str, metadata: Dict[
                         section_type="paragraf",
                         rubrik=metadata.get('rubrik'),
                         departement=metadata.get('departement'),
-                        ikraft_datum=metadata.get('ikraft_datum'),
+                        effective_date=metadata.get('effective_date'),
+                issued_date=metadata.get('issued_date'),
+                repealed=metadata.get('repealed', False),
+                expiration_date=metadata.get('expiration_date'),
                         char_count=len(clean_content),
                         estimated_tokens=estimate_tokens(clean_content),
                         metadata=metadata.copy()
@@ -318,7 +389,10 @@ def _chunk_by_paragraph_headings(content: str, document_id: str, metadata: Dict[
                 section_type="paragraf",
                 rubrik=metadata.get('rubrik'),
                 departement=metadata.get('departement'),
-                ikraft_datum=metadata.get('ikraft_datum'),
+                effective_date=metadata.get('effective_date'),
+                issued_date=metadata.get('issued_date'),
+                repealed=metadata.get('repealed', False),
+                expiration_date=metadata.get('expiration_date'),
                 char_count=len(clean_content),
                 estimated_tokens=estimate_tokens(clean_content),
                 metadata=metadata.copy()
@@ -370,7 +444,10 @@ def _chunk_by_chapter(content: str, document_id: str, metadata: Dict[str, Any]) 
                 section_type="kapitel",
                 rubrik=metadata.get('rubrik'),
                 departement=metadata.get('departement'),
-                ikraft_datum=metadata.get('ikraft_datum'),
+                effective_date=metadata.get('effective_date'),
+                issued_date=metadata.get('issued_date'),
+                repealed=metadata.get('repealed', False),
+                expiration_date=metadata.get('expiration_date'),
                 char_count=len(clean_content),
                 estimated_tokens=estimate_tokens(clean_content),
                 metadata=metadata.copy()
@@ -409,7 +486,10 @@ def _chunk_by_chapter_headings(content: str, document_id: str, metadata: Dict[st
                         section_type="kapitel",
                         rubrik=metadata.get('rubrik'),
                         departement=metadata.get('departement'),
-                        ikraft_datum=metadata.get('ikraft_datum'),
+                        effective_date=metadata.get('effective_date'),
+                issued_date=metadata.get('issued_date'),
+                repealed=metadata.get('repealed', False),
+                expiration_date=metadata.get('expiration_date'),
                         char_count=len(clean_content),
                         estimated_tokens=estimate_tokens(clean_content),
                         metadata=metadata.copy()
@@ -437,7 +517,10 @@ def _chunk_by_chapter_headings(content: str, document_id: str, metadata: Dict[st
                 section_type="kapitel",
                 rubrik=metadata.get('rubrik'),
                 departement=metadata.get('departement'),
-                ikraft_datum=metadata.get('ikraft_datum'),
+                effective_date=metadata.get('effective_date'),
+                issued_date=metadata.get('issued_date'),
+                repealed=metadata.get('repealed', False),
+                expiration_date=metadata.get('expiration_date'),
                 char_count=len(clean_content),
                 estimated_tokens=estimate_tokens(clean_content),
                 metadata=metadata.copy()
@@ -459,7 +542,10 @@ def _chunk_by_chapter_headings(content: str, document_id: str, metadata: Dict[st
                 section_type="document",
                 rubrik=metadata.get('rubrik'),
                 departement=metadata.get('departement'),
-                ikraft_datum=metadata.get('ikraft_datum'),
+                effective_date=metadata.get('effective_date'),
+                issued_date=metadata.get('issued_date'),
+                repealed=metadata.get('repealed', False),
+                expiration_date=metadata.get('expiration_date'),
                 char_count=len(clean_content),
                 estimated_tokens=estimate_tokens(clean_content),
                 metadata=metadata.copy()
@@ -521,7 +607,10 @@ def _chunk_by_section(content: str, document_id: str, metadata: Dict[str, Any]) 
                 section_type=section_class,
                 rubrik=metadata.get('rubrik'),
                 departement=metadata.get('departement'),
-                ikraft_datum=metadata.get('ikraft_datum'),
+                effective_date=metadata.get('effective_date'),
+                issued_date=metadata.get('issued_date'),
+                repealed=metadata.get('repealed', False),
+                expiration_date=metadata.get('expiration_date'),
                 char_count=len(clean_content),
                 estimated_tokens=estimate_tokens(clean_content),
                 metadata=metadata.copy()
@@ -571,7 +660,10 @@ def _chunk_semantic(
                 section_type="semantic",
                 rubrik=metadata.get('rubrik'),
                 departement=metadata.get('departement'),
-                ikraft_datum=metadata.get('ikraft_datum'),
+                effective_date=metadata.get('effective_date'),
+                issued_date=metadata.get('issued_date'),
+                repealed=metadata.get('repealed', False),
+                expiration_date=metadata.get('expiration_date'),
                 char_count=len(chunk_text),
                 estimated_tokens=estimate_tokens(chunk_text),
                 metadata=metadata.copy()
@@ -610,7 +702,10 @@ def _chunk_semantic(
             section_type="semantic",
             rubrik=metadata.get('rubrik'),
             departement=metadata.get('departement'),
-            ikraft_datum=metadata.get('ikraft_datum'),
+            effective_date=metadata.get('effective_date'),
+                issued_date=metadata.get('issued_date'),
+                repealed=metadata.get('repealed', False),
+                expiration_date=metadata.get('expiration_date'),
             char_count=len(chunk_text),
             estimated_tokens=estimate_tokens(chunk_text),
             metadata=metadata.copy()
@@ -677,7 +772,10 @@ def _chunk_fixed_size(
                 section_type="fixed",
                 rubrik=metadata.get('rubrik'),
                 departement=metadata.get('departement'),
-                ikraft_datum=metadata.get('ikraft_datum'),
+                effective_date=metadata.get('effective_date'),
+                issued_date=metadata.get('issued_date'),
+                repealed=metadata.get('repealed', False),
+                expiration_date=metadata.get('expiration_date'),
                 char_count=len(chunk_text),
                 estimated_tokens=estimate_tokens(chunk_text),
                 metadata=metadata.copy()

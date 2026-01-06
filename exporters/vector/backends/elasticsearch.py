@@ -150,8 +150,10 @@ class ElasticsearchBackend(VectorStoreBackend):
                 "paragraph": {"type": "keyword"},
                 "section_type": {"type": "keyword"},
                 "departement": {"type": "keyword"},
-                "ikraft_datum": {"type": "date", "format": "yyyy-MM-dd||strict_date"},
-                "utfardad_datum": {"type": "date", "format": "yyyy-MM-dd||strict_date"},
+                "effective_date": {"type": "date", "format": "yyyy-MM-dd||strict_date"},
+                "issued_date": {"type": "date", "format": "yyyy-MM-dd||strict_date"},
+                "repealed": {"type": "boolean"},
+                "expiration_date": {"type": "date", "format": "yyyy-MM-dd||strict_date"},
                 "embedding_model": {"type": "keyword"},
                 "dimensions": {"type": "integer"},
                 "created_at": {"type": "date"},
@@ -189,10 +191,15 @@ class ElasticsearchBackend(VectorStoreBackend):
         }
 
         # Handle date fields (Elasticsearch expects proper format or null)
-        if record.ikraft_datum:
-            doc["ikraft_datum"] = record.ikraft_datum
-        if record.utfardad_datum:
-            doc["utfardad_datum"] = record.utfardad_datum
+        if record.effective_date:
+            doc["effective_date"] = record.effective_date
+        if record.issued_date:
+            doc["issued_date"] = record.issued_date
+        if record.expiration_date:
+            doc["expiration_date"] = record.expiration_date
+
+        # Handle boolean field
+        doc["repealed"] = record.repealed
 
         return doc
 
@@ -219,8 +226,10 @@ class ElasticsearchBackend(VectorStoreBackend):
             paragraph=source.get('paragraph'),
             section_type=source.get('section_type'),
             departement=source.get('departement'),
-            ikraft_datum=source.get('ikraft_datum'),
-            utfardad_datum=source.get('utfardad_datum'),
+            effective_date=source.get('effective_date'),
+            issued_date=source.get('issued_date'),
+            repealed=source.get('repealed', False),
+            expiration_date=source.get('expiration_date'),
             embedding_model=source.get('embedding_model'),
             dimensions=source.get('dimensions', 0),
             created_at=created_at,

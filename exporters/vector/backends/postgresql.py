@@ -147,8 +147,10 @@ class PostgreSQLBackend(VectorStoreBackend):
                     paragraph TEXT,
                     section_type TEXT,
                     departement TEXT,
-                    ikraft_datum TEXT,
-                    utfardad_datum TEXT,
+                    effective_date TEXT,
+                    issued_date TEXT,
+                    repealed BOOLEAN DEFAULT FALSE,
+                    expiration_date TEXT,
                     embedding_model TEXT,
                     dimensions INTEGER DEFAULT {dimensions},
                     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
@@ -217,12 +219,14 @@ class PostgreSQLBackend(VectorStoreBackend):
                         INSERT INTO {self.table_name} (
                             id, vector, content, document_id, document_title,
                             chunk_index, total_chunks, chapter, paragraph,
-                            section_type, departement, ikraft_datum, utfardad_datum,
+                            section_type, departement, effective_date, issued_date,
+                            repealed, expiration_date,
                             embedding_model, dimensions, created_at, metadata
                         ) VALUES (
                             %s, %s::vector, %s, %s, %s,
                             %s, %s, %s, %s,
                             %s, %s, %s, %s,
+                            %s, %s,
                             %s, %s, %s, %s
                         )
                         ON CONFLICT (id) DO UPDATE SET
@@ -235,8 +239,10 @@ class PostgreSQLBackend(VectorStoreBackend):
                             paragraph = EXCLUDED.paragraph,
                             section_type = EXCLUDED.section_type,
                             departement = EXCLUDED.departement,
-                            ikraft_datum = EXCLUDED.ikraft_datum,
-                            utfardad_datum = EXCLUDED.utfardad_datum,
+                            effective_date = EXCLUDED.effective_date,
+                            issued_date = EXCLUDED.issued_date,
+                            repealed = EXCLUDED.repealed,
+                            expiration_date = EXCLUDED.expiration_date,
                             embedding_model = EXCLUDED.embedding_model,
                             created_at = EXCLUDED.created_at,
                             metadata = EXCLUDED.metadata
@@ -252,8 +258,10 @@ class PostgreSQLBackend(VectorStoreBackend):
                         record.paragraph,
                         record.section_type,
                         record.departement,
-                        record.ikraft_datum,
-                        record.utfardad_datum,
+                        record.effective_date,
+                        record.issued_date,
+                        record.repealed,
+                        record.expiration_date,
                         record.embedding_model,
                         record.dimensions,
                         record.created_at or datetime.now(),
@@ -302,7 +310,8 @@ class PostgreSQLBackend(VectorStoreBackend):
                 SELECT
                     id, vector, content, document_id, document_title,
                     chunk_index, total_chunks, chapter, paragraph,
-                    section_type, departement, ikraft_datum, utfardad_datum,
+                    section_type, departement, effective_date, issued_date,
+                    repealed, expiration_date,
                     embedding_model, dimensions, created_at, metadata,
                     vector {operator} %s::vector AS distance
                 FROM {self.table_name}
@@ -324,14 +333,16 @@ class PostgreSQLBackend(VectorStoreBackend):
                     paragraph=row[8],
                     section_type=row[9],
                     departement=row[10],
-                    ikraft_datum=row[11],
-                    utfardad_datum=row[12],
-                    embedding_model=row[13],
-                    dimensions=row[14],
-                    created_at=row[15],
-                    metadata=row[16] or {}
+                    effective_date=row[11],
+                    issued_date=row[12],
+                    repealed=row[13],
+                    expiration_date=row[14],
+                    embedding_model=row[15],
+                    dimensions=row[16],
+                    created_at=row[17],
+                    metadata=row[18] or {}
                 )
-                distance = float(row[17])
+                distance = float(row[19])
 
                 # Convert distance to similarity score
                 if self.distance_metric == "cosine":
@@ -372,7 +383,8 @@ class PostgreSQLBackend(VectorStoreBackend):
                 SELECT
                     id, vector, content, document_id, document_title,
                     chunk_index, total_chunks, chapter, paragraph,
-                    section_type, departement, ikraft_datum, utfardad_datum,
+                    section_type, departement, effective_date, issued_date,
+                    repealed, expiration_date,
                     embedding_model, dimensions, created_at, metadata
                 FROM {self.table_name}
                 WHERE id = %s
@@ -394,12 +406,14 @@ class PostgreSQLBackend(VectorStoreBackend):
                 paragraph=row[8],
                 section_type=row[9],
                 departement=row[10],
-                ikraft_datum=row[11],
-                utfardad_datum=row[12],
-                embedding_model=row[13],
-                dimensions=row[14],
-                created_at=row[15],
-                metadata=row[16] or {}
+                effective_date=row[11],
+                issued_date=row[12],
+                repealed=row[13],
+                expiration_date=row[14],
+                embedding_model=row[15],
+                dimensions=row[16],
+                created_at=row[17],
+                metadata=row[18] or {}
             )
 
     def count(self, filters: Optional[Dict[str, Any]] = None) -> int:
