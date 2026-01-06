@@ -95,7 +95,7 @@ jobs:
           echo "has_changes=false" >> $GITHUB_OUTPUT
         else
           # Use fixed branch name from input (default: workflow-artifact-data)
-          COMMIT_BRANCH="${{ inputs.branch_name }}"
+          COMMIT_BRANCH="${{ inputs.branch_name || 'workflow-artifact-data' }}"
 
           # Check if branch exists remotely
           if git ls-remote --heads origin "$COMMIT_BRANCH" | grep -q "$COMMIT_BRANCH"; then
@@ -181,7 +181,7 @@ jobs:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         script: |
           // Always use the fixed branch name
-          const sourceRef = '${{ inputs.branch_name }}';
+          const sourceRef = '${{ inputs.branch_name || 'workflow-artifact-data' }}';
 
           github.rest.actions.createWorkflowDispatch({
             owner: context.repo.owner,
@@ -189,7 +189,7 @@ jobs:
             workflow_id: 'html-export-workflow.yml',
             ref: sourceRef || context.ref,
             inputs: {
-              source_ref: sourceRef || 'main'
+              source_ref: sourceRef || 'workflow-artifact-data'
             }
           })
 
