@@ -1,5 +1,9 @@
 # sfs-processor - Verktyg för konvertering av Svensk författningssamling
 
+🇬🇧 [Switch to English](README_EN.md)
+
+---
+
 Detta repository innehåller Python-script för att konvertera SFS-författningar (Svensk författningssamling) från JSON-format till Markdown med temporala taggar, HTML, Git och andra format.
 
 > [!NOTE]
@@ -282,7 +286,7 @@ Varje vektor-chunk innehåller:
 - `chapter`: Kapitelreferens (t.ex. "1 kap.")
 - `paragraph`: Paragrafreferens (t.ex. "1 §")
 - `departement`: Ansvarigt departement
-- `ikraft_datum`: Ikraftträdandedatum
+- `effective_date`: Ikraftträdande-datum
 
 ## Bidra
 
