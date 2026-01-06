@@ -22,6 +22,8 @@ Vi använder [MADR](https://adr.github.io/madr/) (Markdown Any Decision Records)
 |-----|-------|--------|
 | [ADR-001](001-semantiska-temporal-taggar.md) | Semantiskt val av taggar för temporal data | Accepterad |
 | [ADR-002](002-import-fran-regeringskansliet.md) | Import från Regeringskansliet istället för PDF-crawling | Accepterad |
+| [ADR-003](003-git-commits-historiska-datum.md) | Git-commits med historiska datum för versionshistorik | Accepterad |
+| [ADR-004](004-markdown-som-mellanformat.md) | Markdown som mellanformat | Accepterad |
 
 ## Skapa en ny ADR
 
