@@ -46,6 +46,10 @@ The tool can generate legislation in several different formats, depending on use
 - **`html`**: Generates HTML files in ELI structure (`/eli/sfs/{year}/{number}/index.html`) for web publishing
 - **`htmldiff`**: Like HTML but also includes separate versions for each amending law
 
+HTML files can be published via:
+- **Cloudflare R2**: Using `html-export-workflow.yml` (requires R2 credentials)
+- **GitHub Pages**: Using `github-pages-workflow.yml` (simpler setup, requires GitHub Pages enabled)
+
 ### Vector Format (for semantic search)
 
 - **`vector`**: Converts legislation to vector embeddings for semantic search and RAG applications. Uses OpenAI's text-embedding-3-large model (3072 dimensions) and supports storage in PostgreSQL (pgvector), Elasticsearch, or JSON file.

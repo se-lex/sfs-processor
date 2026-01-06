@@ -46,6 +46,10 @@ Verktyget kan generera författningar i flera olika format, beroende på använd
 - **`html`**: Genererar HTML-filer i ELI-struktur (`/eli/sfs/{år}/{nummer}/index.html`) för webbpublicering
 - **`htmldiff`**: Som HTML men inkluderar även separata versioner för varje ändringsförfattning
 
+HTML-filer kan publiceras via:
+- **Cloudflare R2**: Med `html-export-workflow.yml` (kräver R2-credentials)
+- **GitHub Pages**: Med `github-pages-workflow.yml` (enklare setup, kräver aktiverad GitHub Pages)
+
 ### Vektor-format (för semantisk sökning)
 
 - **`vector`**: Konverterar författningar till vektorembeddings för semantisk sökning och RAG-applikationer. Använder OpenAI:s text-embedding-3-large modell (3072 dimensioner) och stödjer lagring i PostgreSQL (pgvector), Elasticsearch eller JSON-fil.
