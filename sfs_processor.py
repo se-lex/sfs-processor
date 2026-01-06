@@ -652,10 +652,16 @@ def main():
         from exporters.vector.vector_export import batch_create_vector_documents
 
         # Build vector config
+        backend_config = {}
+        if args.vector_backend == "json":
+            # Set JSON file path to output directory
+            backend_config["file_path"] = str(output_dir / "sfs_vectors.json")
+
         vector_config = VectorExportConfig(
             embedding_provider="mock" if args.vector_mock else "openai",
             embedding_model=args.embedding_model,
             backend_type=args.vector_backend,
+            backend_config=backend_config,
             chunking_strategy=ChunkingStrategy(args.vector_chunking),
             verbose=args.verbose
         )
