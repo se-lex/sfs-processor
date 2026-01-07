@@ -67,7 +67,7 @@ jobs:
         aws configure set output json
 
         # Upload all JSON files to R2 for backup
-        aws s3 sync data/sfs_json/ s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs_json/ \
+        aws s3 sync data/sfs_json/ s3://${{ vars.CLOUDFLARE_R2_RAWDATA_BUCKET_NAME }}/ \
           --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
           --content-type "application/json" \
           --exclude "*.md" \

@@ -62,7 +62,7 @@ jobs:
 
           # Download all JSON files from R2
           mkdir -p data/sfs_json
-          aws s3 sync s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs_json/ data/sfs_json/ \
+          aws s3 sync s3://${{ vars.CLOUDFLARE_R2_RAWDATA_BUCKET_NAME }}/ data/sfs_json/ \
             --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
             --exclude "*" \
             --include "*.json"
@@ -104,10 +104,6 @@ jobs:
           echo "Error: CLOUDFLARE_R2_SECRET_ACCESS_KEY secret is not set"
           exit 1
         fi
-        if [ -z "${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}" ]; then
-          echo "Error: CLOUDFLARE_R2_BUCKET_NAME secret is not set"
-          exit 1
-        fi
         if [ -z "${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}" ]; then
           echo "Error: CLOUDFLARE_R2_ACCOUNT_ID secret is not set"
           exit 1
@@ -123,7 +119,7 @@ jobs:
 
     - name: Upload HTML folder to Cloudflare R2
       run: |
-        aws s3 sync output/html/ s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs/ \
+        aws s3 sync output/html/ s3://${{ vars.CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME }}/sfs/ \
           --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
           --delete \
           --cache-control "public, max-age=3600" \
@@ -135,11 +131,11 @@ jobs:
 
     - name: Upload index pages to Cloudflare R2
       run: |
-        aws s3 cp index.html s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/index.html \
+        aws s3 cp index.html s3://${{ vars.CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME }}/index.html \
           --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
           --cache-control "public, max-age=1800" \
           --content-type "text/html"
-        aws s3 cp latest.html s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/latest.html \
+        aws s3 cp latest.html s3://${{ vars.CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME }}/latest.html \
           --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
           --cache-control "public, max-age=1800" \
           --content-type "text/html"
@@ -149,7 +145,7 @@ jobs:
     - name: Upload summary
       run: |
         echo "HTML export completed at $(date)" > upload-summary.txt
-        echo "Files uploaded to Cloudflare R2 bucket: ${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs/" >> upload-summary.txt
+        echo "Files uploaded to Cloudflare R2 bucket: ${{ vars.CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME }}/sfs/" >> upload-summary.txt
         echo "Index pages uploaded: index.html (30 senaste), latest.html (10 senaste)" >> upload-summary.txt
-        aws s3 cp upload-summary.txt s3://${{ secrets.CLOUDFLARE_R2_BUCKET_NAME }}/sfs/last-update.txt \
+        aws s3 cp upload-summary.txt s3://${{ vars.CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME }}/sfs/last-update.txt \
           --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com
