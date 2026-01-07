@@ -253,7 +253,7 @@ def generate_index_html(output_path: Path, num_recent: int = 10) -> None:
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SE-Lex</title>
-    <link rel="stylesheet" href="/styles.css">
+    <link rel="stylesheet" href="styles.css">
     <style>
         header {
             text-align: center;
@@ -279,10 +279,6 @@ def generate_index_html(output_path: Path, num_recent: int = 10) -> None:
             text-decoration: none;
             border-radius: 5px;
             transition: background-color 0.3s;
-        }
-
-        .github-link:hover {
-            background-color: var(--selex-light-blue);
         }
 
         .document-list {
@@ -323,7 +319,7 @@ def generate_index_html(output_path: Path, num_recent: int = 10) -> None:
 <body>
     <header>
         <h1><span class="logo">SE-Lex</span></h1>
-        <a href="https://github.com/se-lex" class="github-link">→ GitHub: se-lex</a>
+        <a href="https://github.com/se-lex" class="github-link">Mer information & källkod på GitHub-repo</a>
     </header>
 
     <main>
