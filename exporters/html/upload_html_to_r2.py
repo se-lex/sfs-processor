@@ -19,16 +19,16 @@ def check_required_env_vars():
     """Kontrollera att alla nödvändiga miljövariabler är satta"""
     required_vars = [
         'CLOUDFLARE_R2_ACCESS_KEY_ID',
-        'CLOUDFLARE_R2_SECRET_ACCESS_KEY', 
-        'CLOUDFLARE_R2_BUCKET_NAME',
+        'CLOUDFLARE_R2_SECRET_ACCESS_KEY',
+        'CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME',
         'CLOUDFLARE_R2_ACCOUNT_ID'
     ]
-    
+
     missing_vars = []
     for var in required_vars:
         if not os.getenv(var):
             missing_vars.append(var)
-    
+
     if missing_vars:
         print("Error: Följande miljövariabler saknas:")
         for var in missing_vars:
@@ -36,10 +36,10 @@ def check_required_env_vars():
         print("\nExempel på hur du sätter dem:")
         print("export CLOUDFLARE_R2_ACCESS_KEY_ID='your_access_key'")
         print("export CLOUDFLARE_R2_SECRET_ACCESS_KEY='your_secret_key'")
-        print("export CLOUDFLARE_R2_BUCKET_NAME='your_bucket_name'")
+        print("export CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME='your_bucket_name'")
         print("export CLOUDFLARE_R2_ACCOUNT_ID='your_account_id'")
         return False
-    
+
     print("✓ Alla nödvändiga miljövariabler är konfigurerade")
     return True
 
@@ -66,7 +66,7 @@ def configure_aws_cli():
 
 def upload_html_site(output_base_dir=""):
     """Ladda upp hela HTML-siten (eli/ + index-sidor) till Cloudflare R2"""
-    bucket_name = os.getenv('CLOUDFLARE_R2_BUCKET_NAME')
+    bucket_name = os.getenv('CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME')
     account_id = os.getenv('CLOUDFLARE_R2_ACCOUNT_ID')
     endpoint_url = f"https://{account_id}.r2.cloudflarestorage.com"
 
@@ -121,7 +121,7 @@ def upload_html_site(output_base_dir=""):
 
 def upload_index_pages(output_base_dir="", json_input_dir=None):
     """Ladda upp index-sidor till Cloudflare R2"""
-    bucket_name = os.getenv('CLOUDFLARE_R2_BUCKET_NAME')
+    bucket_name = os.getenv('CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME')
     account_id = os.getenv('CLOUDFLARE_R2_ACCOUNT_ID')
     endpoint_url = f"https://{account_id}.r2.cloudflarestorage.com"
 
@@ -247,7 +247,7 @@ def upload_summary():
     """Skapa och ladda upp sammanfattning"""
     print("Skapar och laddar upp sammanfattning...")
     
-    bucket_name = os.getenv('CLOUDFLARE_R2_BUCKET_NAME')
+    bucket_name = os.getenv('CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME')
     account_id = os.getenv('CLOUDFLARE_R2_ACCOUNT_ID')
     endpoint_url = f"https://{account_id}.r2.cloudflarestorage.com"
     
@@ -255,7 +255,7 @@ def upload_summary():
     summary_content = f"""HTML export completed at {datetime.datetime.now().isoformat()}
 Files uploaded to Cloudflare R2 bucket: {bucket_name}/
 Index pages uploaded: index.html (30 senaste), latest.html (10 senaste)
-Upload performed locally via upload_to_r2.py script
+Upload performed locally via upload_html_to_r2.py script
 """
     
     # Skriv till fil
@@ -303,8 +303,8 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Exempel:
-  python upload_to_r2.py --output-base-dir output/html_site  # Ladda upp från output/html_site
-  python upload_to_r2.py --output-base-dir output/html_site --json-dir ../sfs-jsondata  # Med JSON-mapp
+  python upload_html_to_r2.py --output-base-dir output/html_site  # Ladda upp från output/html_site
+  python upload_html_to_r2.py --output-base-dir output/html_site --json-dir ../sfs-jsondata  # Med JSON-mapp
         """
     )
     parser.add_argument(
@@ -359,7 +359,7 @@ Exempel:
     print()
     if success:
         print("✓ Alla filer har laddats upp till Cloudflare R2!")
-        print(f"Bucket: {os.getenv('CLOUDFLARE_R2_BUCKET_NAME')}")
+        print(f"Bucket: {os.getenv('CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME')}")
         print(f"Källa: {args.output_base_dir}")
     else:
         print("✗ Något gick fel under uppladdningen")
