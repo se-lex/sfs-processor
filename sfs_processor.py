@@ -44,22 +44,38 @@ from util.doctype_utils import determine_doctype
 from formatters.predocs_parser import parse_predocs_string
 
 
-def create_safe_filename(beteckning: str, preserve_selex_tags: bool = False) -> str:
+def create_id_slug(beteckning_sortable: str) -> str:
     """
-    Create a safe filename from beteckning.
+    Create an ID slug from beteckningSortable.
+
+    Converts beteckningSortable (e.g., "2024:1000") to a slug format
+    with "sfs-" prefix by replacing colons and other special characters with hyphens.
 
     Args:
-        beteckning: Document beteckning (e.g., "2024:1000")
+        beteckning_sortable: Document beteckning in sortable format (e.g., "2024:1000")
+
+    Returns:
+        str: ID slug with sfs- prefix (e.g., "sfs-2024-1000")
+    """
+    clean_slug = re.sub(r'[^\w\-]', '-', beteckning_sortable)
+    return f"sfs-{clean_slug}"
+
+
+def create_safe_filename(id_slug: str, preserve_selex_tags: bool = False) -> str:
+    """
+    Create a safe filename from ID slug.
+
+    Args:
+        id_slug: Document ID slug (e.g., "sfs-2024-1000")
         preserve_selex_tags: Whether this is for md-markers mode
 
     Returns:
         str: Safe filename (e.g., "sfs-2024-1000.md" or "sfs-2024-1000-markers.md")
     """
-    safe_beteckning = re.sub(r'[^\w\-]', '-', beteckning)
     if preserve_selex_tags:
-        return f"sfs-{safe_beteckning}-markers.md"
+        return f"{id_slug}-markers.md"
     else:
-        return f"sfs-{safe_beteckning}.md"
+        return f"{id_slug}.md"
 
 
 def determine_output_path(data: Dict[str, Any], output_dir: Path, year_as_folder: bool = True) -> Path:
@@ -207,8 +223,12 @@ def _create_markdown_document(data: Dict[str, Any], output_path: Path, git_mode:
     beteckning = data.get('beteckning')
     if not beteckning:
         raise ValueError("Beteckning saknas i dokumentdata")
-    
-    safe_filename = create_safe_filename(beteckning, preserve_selex_tags)
+
+    # Get beteckningSortable and create ID slug for filename
+    beteckning_sortable = data.get('beteckningSortable', beteckning)
+    id_slug = create_id_slug(beteckning_sortable)
+
+    safe_filename = create_safe_filename(id_slug, preserve_selex_tags)
     output_file = output_path / safe_filename
 
     # Get basic markdown content
@@ -348,8 +368,13 @@ rubrik: {rubrik_original}
     # Extract amendments
     amendments = extract_amendments(data.get('andringsforfattningar', []))
 
-    # Create YAML front matter
+    # Get beteckningSortable and create ID slug
+    beteckning_sortable = data.get('beteckningSortable', beteckning)
+    id_slug = create_id_slug(beteckning_sortable)
+
+    # Create YAML front matter with id at the top
     yaml_front_matter = f"""---
+id: {format_yaml_value(id_slug)}
 beteckning: {format_yaml_value(beteckning)}
 rubrik: {format_yaml_value(rubrik)}
 departement: {format_yaml_value(organisation)}
