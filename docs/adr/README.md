@@ -19,11 +19,12 @@ Vi använder [MADR](https://adr.github.io/madr/) (Markdown Any Decision Records)
 ## Index över ADR:er
 
 | ADR | Titel | Status |
-|-----|-------|--------|
+| --- | ----- | ------ |
 | [ADR-001](001-markdown-som-mellanformat.md) | Markdown som mellanformat | Accepterad |
 | [ADR-002](002-import-fran-regeringskansliet.md) | Import från Regeringskansliet istället för PDF-crawling | Accepterad |
 | [ADR-003](003-git-commits-historiska-datum.md) | Git-commits med historiska datum för versionshistorik | Accepterad |
 | [ADR-004](004-semantiska-temporal-taggar.md) | Semantiskt val av taggar för temporal data | Accepterad |
+| [ADR-005](005-github-pages-hosting.md) | GitHub Pages som hosting för webbplatsen | Accepterad |
 
 ## Skapa en ny ADR
 
