@@ -178,7 +178,7 @@ branches: 2010-100, 2010-101, 2010-102, ...
 
 ## Relaterade beslut
 
-- [ADR-001](001-semantiska-temporal-taggar.md) - Temporal metadata som driver commit-genereringen
+- [ADR-004](004-semantiska-temporal-taggar.md) - Temporal metadata som driver commit-genereringen
 - [ADR-002](002-import-fran-regeringskansliet.md) - Källdata för utfärdande- och ikraftträdandedatum
 
 ## Noteringar

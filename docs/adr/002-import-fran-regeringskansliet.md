@@ -116,7 +116,7 @@ Vi använder **Regeringskansliets Elasticsearch API** (`beta.rkrattsbaser.gov.se
 
 ## Relaterade beslut
 
-- [ADR-001](001-semantiska-temporal-taggar.md) - Temporal metadata kommer från Regeringskansliets API
+- [ADR-004](004-semantiska-temporal-taggar.md) - Temporal metadata kommer från Regeringskansliets API
 
 ## Noteringar
 

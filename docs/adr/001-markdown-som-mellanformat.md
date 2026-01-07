@@ -1,4 +1,4 @@
-# ADR-004: Markdown som mellanformat
+# ADR-001: Markdown som mellanformat
 
 ## Status
 
@@ -102,7 +102,7 @@ Denna lag gäller för...
   - Mitigering: Vi använder beprövade bibliotek (`markdown` för Python)
 
 - **Temporal metadata i HTML-attribut**: Okonventionellt för Markdown
-  - Mitigering: Dokumenterat i ADR-001, fungerar i praktiken
+  - Mitigering: Dokumenterat i ADR-004, fungerar i praktiken
 
 - **Två Markdown-varianter**: `md-markers` (med taggar) vs `md` (rent)
   - Mitigering: Tydlig separation, olika användningsfall
@@ -184,7 +184,7 @@ Denna lag gäller för...
 
 ## Relaterade beslut
 
-- [ADR-001](001-semantiska-temporal-taggar.md) - Selex-attribut i Markdown
+- [ADR-004](004-semantiska-temporal-taggar.md) - Selex-attribut i Markdown
 - [ADR-003](003-git-commits-historiska-datum.md) - Markdown-filer committas till Git
 
 ## Noteringar
