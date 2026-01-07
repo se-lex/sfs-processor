@@ -3,6 +3,14 @@ name: Exportera till HTML och publicera till GitHub Pages
 on:
   workflow_dispatch:  # Tillåter manuell körning
     inputs:
+      html_source:
+        description: 'HTML-källan: generera från JSON eller ladda från R2'
+        required: false
+        type: choice
+        options:
+          - generate
+          - download
+        default: 'generate'
       source_ref:
         description: 'Git ref att bygga från'
         required: false
@@ -13,6 +21,10 @@ on:
         type: string
   workflow_call:  # Tillåter anrop från andra workflows
     inputs:
+      html_source:
+        required: false
+        type: string
+        default: 'generate'
       source_ref:
         required: false
         type: string
@@ -43,17 +55,52 @@ jobs:
       with:
         ref: ${{ inputs.source_ref || 'main' }}
 
+    - name: Download pre-built HTML from Cloudflare R2
+      if: inputs.html_source == 'download'
+      run: |
+        echo "📥 Laddar ner färdiga HTML-filer från Cloudflare R2..."
+
+        # Configure AWS CLI for R2
+        aws configure set aws_access_key_id ${{ secrets.CLOUDFLARE_R2_ACCESS_KEY_ID }}
+        aws configure set aws_secret_access_key ${{ secrets.CLOUDFLARE_R2_SECRET_ACCESS_KEY }}
+        aws configure set region us-east-1
+        aws configure set output json
+
+        # Create output directory
+        mkdir -p _site
+
+        # Download all HTML files from R2 HTMLEXPORT bucket
+        echo "Syncing from bucket: ${{ vars.CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME }}"
+        aws s3 sync s3://${{ vars.CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME }}/ _site/ \
+          --endpoint-url https://${{ secrets.CLOUDFLARE_R2_ACCOUNT_ID }}.r2.cloudflarestorage.com \
+          --delete
+
+        # Verify download
+        if [ ! -d "_site" ] || [ -z "$(ls -A _site)" ]; then
+          echo "::error::Failed to download HTML files from R2"
+          exit 1
+        fi
+
+        echo "✅ Downloaded HTML files from R2 HTMLEXPORT bucket"
+        echo "Total files: $(find _site -type f | wc -l)"
+        echo "Total size: $(du -sh _site | cut -f1)"
+      env:
+        AWS_DEFAULT_REGION: us-east-1
+
     - name: Set up Python
+      if: inputs.html_source == 'generate' || inputs.html_source == ''
       uses: actions/setup-python@v4
       with:
         python-version: '3.11'
 
     - name: Install dependencies
+      if: inputs.html_source == 'generate' || inputs.html_source == ''
       run: |
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
     - name: Get JSON source files (from git or R2)
+      if: inputs.html_source == 'generate' || inputs.html_source == ''
       run: |
         # Try to use JSON files from git first
         if [ -d "data/sfs_json" ] && [ -n "$(ls -A data/sfs_json 2>/dev/null)" ]; then
@@ -86,6 +133,7 @@ jobs:
         AWS_DEFAULT_REGION: us-east-1
 
     - name: Generate HTML export
+      if: inputs.html_source == 'generate' || inputs.html_source == ''
       run: |
         # Skapa output-katalog för GitHub Pages
         mkdir -p _site
@@ -99,6 +147,7 @@ jobs:
         PYTHONPATH: ${{ github.workspace }}
 
     - name: Generate index pages for HTML export
+      if: inputs.html_source == 'generate' || inputs.html_source == ''
       run: |
         python exporters/html/populate_index_pages.py --input data/sfs_json --output _site/index.html --limit 30
         python exporters/html/populate_index_pages.py --input data/sfs_json --output _site/latest.html --limit 10
@@ -114,7 +163,14 @@ jobs:
       run: |
         echo "HTML export completed at $(date)" > _site/last-update.txt
         echo "Published to GitHub Pages" >> _site/last-update.txt
-        echo "Index pages: index.html (30 senaste), latest.html (10 senaste)" >> _site/last-update.txt
+
+        if [ "${{ inputs.html_source }}" = "download" ]; then
+          echo "Source: Pre-built HTML from Cloudflare R2" >> _site/last-update.txt
+          echo "Bucket: ${{ vars.CLOUDFLARE_R2_HTMLEXPORT_BUCKET_NAME }}" >> _site/last-update.txt
+        else
+          echo "Source: Generated from JSON" >> _site/last-update.txt
+          echo "Index pages: index.html (30 senaste), latest.html (10 senaste)" >> _site/last-update.txt
+        fi
 
     - name: Setup Pages
       uses: actions/configure-pages@v5
