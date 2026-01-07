@@ -8,7 +8,7 @@ Accepterad
 
 Författningar i SFS förändras över tid - paragrafer träder i kraft vid olika datum, upphävs, eller ändras. För att korrekt kunna:
 
-- Visa hur en lag såg ut vid ett specifikt datum
+- Visa hur en författning såg ut vid ett specifikt datum
 - Filtrera bort upphävda bestämmelser
 - Hantera ikraftträdanderegler
 - Skapa historiska versioner i Git

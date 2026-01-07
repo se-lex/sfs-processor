@@ -48,7 +48,7 @@ Markdown med <section>-taggar och selex:-attribut
 ## 1 kap. Inledande bestämmelser
 
 ### 1 §
-Denna lag gäller för...
+Denna författning gäller för...
 ```
 
 **Semantisk struktur** (behålls via HTML i Markdown):
@@ -140,7 +140,7 @@ Denna lag gäller för...
   <chapter number="1">
     <heading>Inledande bestämmelser</heading>
     <paragraph number="1">
-      <text>Denna lag gäller...</text>
+      <text>Denna författning gäller...</text>
     </paragraph>
   </chapter>
 </law>
@@ -206,7 +206,7 @@ Denna lag gäller för...
   ```yaml
   ---
   beteckning: "2024:100"
-  rubrik: "Lag om exempel"
+  rubrik: "Författning om exempel"
   ikraft_datum: "2025-01-01"
   ---
   ```

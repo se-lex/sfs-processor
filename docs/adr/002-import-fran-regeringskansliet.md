@@ -110,7 +110,6 @@ Vi använder **Regeringskansliets Elasticsearch API** (`beta.rkrattsbaser.gov.se
 
 **Varför inte valt**:
 
-- Lagrummet.se aggregerar data från andra källor (sekundärkälla)
 - Inget officiellt API
 - Scraping kan bryta när webbplatsen uppdateras
 

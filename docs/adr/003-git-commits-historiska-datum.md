@@ -6,11 +6,11 @@ Accepterad
 
 ## Kontext och problembeskrivning
 
-Lagstiftning har en inneboende temporal dimension - lagar stiftas, ändras och upphävs vid specifika datum. För att göra denna historik tillgänglig och navigerbar behövde vi ett sätt att representera hur en lag såg ut vid olika tidpunkter genom historien.
+Lagstiftning har en inneboende temporal dimension - författningar stiftas, ändras och upphävs vid specifika datum. För att göra denna historik tillgänglig och navigerbar behövde vi ett sätt att representera hur en författning såg ut vid olika tidpunkter genom historien.
 
 Utmaningarna var:
 
-1. **Historisk representation**: Hur visar vi hur en lag såg ut 2010 vs 2024?
+1. **Historisk representation**: Hur visar vi hur en författning såg ut 2010 vs 2024?
 2. **Navigerbarhet**: Användare ska kunna "scrolla" bakåt i tiden
 3. **Versionshantering**: Varje ändring ska vara spårbar med exakt datum
 4. **Teknisk enkelhet**: Systemet ska vara lätt att förstå och använda
@@ -46,10 +46,10 @@ subprocess.run(['git', 'commit', '-m', message], env=env)
 
 2. **Ändrings-commits**: Skapas med respektive `ikraft_datum`
    - Varje ändring får en separat commit
-   - Commiten visar hur lagen ser ut efter ändringen trätt i kraft
+   - Commiten visar hur författningen ser ut efter ändringen trätt i kraft
 
 3. **Upphävande-commits**: Skapas när en författning upphävs
-   - Markerar när en lag slutar gälla
+   - Markerar när en författning slutar gälla
 
 **Branch-struktur**:
 - Commits skapas på en dedikerad branch (t.ex. `git-export-YYYYMMDD`)
@@ -58,12 +58,12 @@ subprocess.run(['git', 'commit', '-m', message], env=env)
 ### Exempel på commit-historik
 
 ```
-2024-07-01  ✏️ Ändra Lag (2010:100) - SFS 2024:500
-2023-01-01  ✏️ Ändra Lag (2010:100) - SFS 2023:50
-2010-01-15  📜 Lag (2010:100) om exempel
+2024-07-01  ✏️ Ändra SFS 2010:100 - SFS 2024:500
+2023-01-01  ✏️ Ändra SFS 2010:100 - SFS 2023:50
+2010-01-15  📜 SFS 2010:100 om exempel
 ```
 
-När man gör `git checkout <commit>` får man exakt hur lagen såg ut vid det datumet.
+När man gör `git checkout <commit>` får man exakt hur författningen såg ut vid det datumet.
 
 ## Konsekvenser
 
