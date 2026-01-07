@@ -10,7 +10,8 @@ from util.text_utils import clean_text
 def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Extract and format amendment information, sorted chronologically by ikraft_datum."""
     from util.datetime_utils import format_datetime  # Import to avoid circular imports
-    
+    import re
+
     amendments = []
 
     for amendment in andringsforfattningar:
@@ -21,10 +22,21 @@ def extract_amendments(andringsforfattningar: List[Dict[str, Any]]) -> List[Dict
             'anteckningar': clean_text(amendment.get('anteckningar'))
         }
 
+        # Handle CELEX numbers (can be comma-separated or space-separated)
+        celex_nummer = amendment.get('celexnummer')
+        if celex_nummer:
+            # Parse CELEX numbers - split by comma and/or whitespace
+            celex_list = [celex.strip() for celex in re.split(r'[,\s]+', celex_nummer) if celex.strip()]
+
+            if len(celex_list) == 1:
+                amendment_data['celex'] = celex_list[0]
+            elif len(celex_list) > 1:
+                amendment_data['celex'] = celex_list
+
         # Only include non-empty amendments
         if amendment_data['beteckning']:
             amendments.append(amendment_data)
-    
+
     # Sort amendments chronologically by ikraft_datum
     # Amendments without ikraft_datum will be sorted to the end
     amendments.sort(key=lambda x: x['ikraft_datum'] or '9999-12-31')

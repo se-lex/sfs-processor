@@ -44,6 +44,27 @@ from util.doctype_utils import determine_doctype
 from formatters.predocs_parser import parse_predocs_string
 
 
+def parse_celex_numbers(celex_string: str) -> List[str]:
+    """
+    Parse CELEX numbers from a string into a list.
+
+    Handles multiple CELEX numbers separated by commas or spaces.
+
+    Args:
+        celex_string (str): One or more CELEX numbers (e.g., "32001L0083, 32004L0027")
+
+    Returns:
+        List[str]: List of individual CELEX numbers
+    """
+    if not celex_string or not celex_string.strip():
+        return []
+
+    # Split by comma and/or whitespace, filter out empty strings
+    celex_list = [celex.strip() for celex in re.split(r'[,\s]+', celex_string) if celex.strip()]
+
+    return celex_list
+
+
 def create_safe_filename(beteckning: str, preserve_selex_tags: bool = False) -> str:
     """
     Create a safe filename from beteckning.
@@ -399,7 +420,17 @@ normtyp: {format_yaml_value(doctype)}
             # Fallback to original string
             yaml_front_matter += f"forarbeten: {format_yaml_value(predocs)}\n"
     if celex_nummer:
-        yaml_front_matter += f"celex: {format_yaml_value(celex_nummer)}\n"
+        # Parse CELEX numbers (can be comma-separated or space-separated)
+        celex_list = parse_celex_numbers(celex_nummer)
+
+        if len(celex_list) == 1:
+            # Single CELEX number - write as string
+            yaml_front_matter += f"celex: {format_yaml_value(celex_list[0])}\n"
+        elif len(celex_list) > 1:
+            # Multiple CELEX numbers - write as list
+            yaml_front_matter += "celex:\n"
+            for celex in celex_list:
+                yaml_front_matter += f"  - {format_yaml_value(celex)}\n"
 
     # Add eu_direktiv only if it's true
     if eu_direktiv:
@@ -415,6 +446,16 @@ normtyp: {format_yaml_value(doctype)}
                 yaml_front_matter += f"    rubrik: {format_yaml_value(amendment['rubrik'])}\n"
             if amendment['ikraft_datum']:
                 yaml_front_matter += f"    ikraft_datum: {format_yaml_value(amendment['ikraft_datum'])}\n"
+            if amendment.get('celex'):
+                celex = amendment['celex']
+                if isinstance(celex, list):
+                    # Multiple CELEX numbers
+                    yaml_front_matter += "    celex:\n"
+                    for celex_num in celex:
+                        yaml_front_matter += f"      - {format_yaml_value(celex_num)}\n"
+                else:
+                    # Single CELEX number
+                    yaml_front_matter += f"    celex: {format_yaml_value(celex)}\n"
             if amendment['anteckningar']:
                 yaml_front_matter += f"    anteckningar: {format_yaml_value(amendment['anteckningar'])}\n"
 
