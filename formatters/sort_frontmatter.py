@@ -123,7 +123,8 @@ def sort_frontmatter_properties(frontmatter_content: str) -> str:
     # Definiera den önskade ordningen för properties
     PROPERTY_ORDER = [
         'beteckning',
-        'rubrik', 
+        'rubrik',
+        'normtyp',
         'departement',
         'utfardad_datum',
         'ikraft_datum',
