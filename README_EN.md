@@ -50,6 +50,12 @@ HTML files can be published via:
 - **Cloudflare R2**: Using `html-export-workflow.yml` (requires R2 credentials)
 - **GitHub Pages**: Using `github-pages-workflow.yml` (simpler setup, requires GitHub Pages enabled)
 
+To test the HTML site locally:
+```bash
+python scripts/serve_html.py
+```
+This starts a local HTTP server on `http://localhost:8000`. You can specify a different port with `python scripts/serve_html.py 3000`.
+
 ### Vector Format (for semantic search)
 
 - **`vector`**: Converts legislation to vector embeddings for semantic search and RAG applications. Uses OpenAI's text-embedding-3-large model (3072 dimensions) and supports storage in PostgreSQL (pgvector), Elasticsearch, or JSON file.
