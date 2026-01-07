@@ -23,7 +23,7 @@ Utmaningarna var:
 - **Enkelhet**: Lösningen ska vara enkel att sätta upp och underhålla
 - **Integration**: Bör fungera smidigt med befintlig GitHub-baserad workflow
 - **Suveränitet**: Beroende av externa tjänster
-- **URL-hantering**: Behov av att `example.com/folder/` automatiskt servar `index.html`
+- **URL-hantering**: Behov av att `selex.se/folder/` automatiskt servar `index.html`
 - **Migrering**: Möjlighet att flytta till annan lösning om behov uppstår
 
 ## Beslut
@@ -35,13 +35,13 @@ Vi använder **GitHub Pages** som primär hosting-lösning för den genererade H
 ```text
 GitHub Actions Workflow
     ↓
-Genererar HTML-filer
+Genererar HTML-filer (alt. ladda ner från R2)
     ↓
-Publicerar till gh-pages branch
+Skapar Pages artifact
     ↓
-GitHub Pages
+Deploy till GitHub Pages
     ↓
-Publik webbplats (https://[org].github.io/[repo])
+Publik webbplats (https://selex.se)
 ```
 
 ### Backup-lösning
@@ -64,9 +64,9 @@ Cloudflare R2 används som backup och alternativ hosting:
 - **Ingen infrastruktur**: Ingen server att underhålla eller uppdatera
 - **Inbyggd CDN**: GitHub Pages använder CDN för snabb leverans globalt
 - **HTTPS automatiskt**: SSL/TLS-certifikat hanteras automatiskt
-- **URL-rewrites fungerar**: `example.com/1999/1/` servar automatiskt `index.html`
+- **URL-rewrites fungerar**: `selex.se/1999/1/` servar automatiskt `index.html`
 - **Custom domain-stöd**: Möjlighet att använda egen domän
-- **Versionshistorik**: All publicerad content finns i `gh-pages` branch
+- **Artifact-baserad deployment**: Använder GitHub Actions artifacts för deployment
 - **Enkel att förstå**: Lågtröskel för bidragsgivare att förstå deployment
 
 ### Negativa
@@ -88,7 +88,7 @@ Cloudflare R2 används som backup och alternativ hosting:
 
 Eftersom vi bara publicerar statiska HTML-filer är migrering trivial:
 
-- Kopiera alla filer från `gh-pages` branch
+- Generera HTML-filer via workflow eller lokalt
 - Ladda upp till ny hosting-lösning
 - Uppdatera DNS (om custom domain används)
 - Cloudflare R2 backup finns redan som färdig alternativ lösning
@@ -110,7 +110,7 @@ Migreringstid: < 1 timme
 
 - **URL-rewrites fungerar inte**: `/folder/` servar inte automatiskt `index.html`
   - Problem: Användare måste besöka `/folder/index.html` explicit
-  - Problemet gäller även för root: `example.com/` fungerar inte
+  - Problemet gäller även för root: `selex.se/` fungerar inte
 - Kräver manuell upload-process eller separat CI/CD
 - Mer komplext att sätta upp än GitHub Pages
 - Kräver hantering av Cloudflare-credentials
@@ -215,16 +215,13 @@ Migreringstid: < 1 timme
 - **Deployment-process**:
 
   ```yaml
-  # GitHub Actions workflow
+  # GitHub Actions workflow (.github/workflows/github-pages-workflow.yml)
   1. Checkout code
-  2. Generera HTML-filer (exporters/html/)
-  3. Publicera till gh-pages branch
-  4. GitHub Pages servar automatiskt från gh-pages
+  2. Generera HTML-filer till _site/ katalog (eller ladda från R2)
+  3. Skapa Pages artifact via actions/upload-pages-artifact
+  4. Deploy artifact via actions/deploy-pages
+  5. GitHub Pages servar automatiskt från artifact
   ```
-
-- **URL-struktur**:
-  - Format: `https://[org].github.io/[repo]/[path]/`
-  - Custom domain möjlig: `https://custom-domain.se/[path]/`
 
 - **Cloudflare R2 backup**:
   - Filer synkas till R2 parallellt
