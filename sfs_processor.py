@@ -672,10 +672,9 @@ def main():
     # Generate CSS and JS files once for HTML/HTMLDIFF formats
     if "html" in output_modes or "htmldiff" in output_modes:
         from exporters.html.html_export import generate_css_file, generate_js_file
-        css_js_dir = output_dir / "eli" / "sfs"
-        css_js_dir.mkdir(parents=True, exist_ok=True)
-        generate_css_file(css_js_dir)
-        generate_js_file(css_js_dir)
+        # Place CSS and JS in root for easier access
+        generate_css_file(output_dir)
+        generate_js_file(output_dir)
 
     # Handle vector mode with batch processing
     if "vector" in output_modes:
@@ -731,7 +730,12 @@ def main():
 
             # Use make_document to create documents in specified formats
             make_document(data, output_dir, output_modes, args.year_folder, args.verbose, False, args.predocs_fetch, args.apply_links, args.target_date)
-    
+
+    # Generate index.html after all documents have been processed
+    if "html" in output_modes or "htmldiff" in output_modes:
+        from exporters.html.html_export import generate_index_html
+        generate_index_html(output_dir, num_recent=10)
+
     print(f"\nBearbetning klar! {len(json_files)} filer sparade i {output_dir} i format: {', '.join(output_modes)}")
 
 
