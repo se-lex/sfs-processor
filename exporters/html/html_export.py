@@ -146,34 +146,208 @@ def generate_css_file(css_dir: Path) -> None:
 
 def generate_js_file(js_dir: Path) -> None:
     """Generate the shared JavaScript file for HTML documents.
-    
+
     Creates a selex-init.js file in the specified directory by copying
     the source JavaScript file from the html exporter directory.
-    
+
     Args:
         js_dir: Directory where the JS file should be created
     """
     import shutil
-    
+
     js_file_path = js_dir / "selex-init.js"
-    
+
     # Only generate if it doesn't exist to avoid regenerating on every document
     if js_file_path.exists():
         return
-    
+
     # Get the source JS file path (same directory as this module)
     source_js_path = Path(__file__).parent / "selex-init.js"
-    
+
     if not source_js_path.exists():
         print(f"Warning: Source JS file not found: {source_js_path}")
         return
-    
+
     # Copy the JS file
     try:
         shutil.copy2(source_js_path, js_file_path)
         print(f"Generated JS file: {js_file_path}")
     except Exception as e:
         print(f"Error copying JS file: {e}")
+
+
+def generate_index_html(output_path: Path, num_recent: int = 10) -> None:
+    """Generate an index.html file in the root directory with links to recent documents.
+
+    Creates a minimalist index page with:
+    - Link to https://github.com/se-lex
+    - Links to the most recently added SFS documents
+
+    Args:
+        output_path: Base output path (where eli/sfs structure exists)
+        num_recent: Number of recent documents to include (default: 10)
+    """
+    from sfs_processor import save_to_disk
+
+    # Find all SFS documents in the ELI structure
+    eli_sfs_dir = output_path / "eli" / "sfs"
+    if not eli_sfs_dir.exists():
+        print("Warning: No ELI/SFS directory found, skipping index.html generation")
+        return
+
+    # Collect all documents with their metadata
+    documents = []
+    for year_dir in eli_sfs_dir.iterdir():
+        if not year_dir.is_dir() or not year_dir.name.isdigit():
+            continue
+
+        for doc_dir in year_dir.iterdir():
+            if not doc_dir.is_dir():
+                continue
+
+            index_file = doc_dir / "index.html"
+            if not index_file.exists():
+                continue
+
+            # Extract beteckning from directory structure
+            year = year_dir.name
+            lopnummer = doc_dir.name
+            beteckning = f"{year}:{lopnummer}"
+
+            # Try to extract title from the HTML file
+            try:
+                with open(index_file, 'r', encoding='utf-8') as f:
+                    content = f.read(5000)  # Read first 5000 chars to find title
+                    title_match = re.search(r'<h1[^>]*>([^<]+)</h1>', content)
+                    title = title_match.group(1) if title_match else beteckning
+            except Exception:
+                title = beteckning
+
+            # Extract numeric part from lopnummer for sorting (handle cases like "82 s.1")
+            lopnummer_numeric = lopnummer
+            numeric_match = re.match(r'(\d+)', lopnummer)
+            if numeric_match:
+                lopnummer_numeric = int(numeric_match.group(1))
+            else:
+                lopnummer_numeric = 0
+
+            documents.append({
+                'beteckning': beteckning,
+                'title': title,
+                'year': int(year),
+                'lopnummer': lopnummer,
+                'lopnummer_numeric': lopnummer_numeric,
+                'path': f"eli/sfs/{year}/{lopnummer}"
+            })
+
+    # Sort by year and lopnummer_numeric (descending) to get most recent
+    documents.sort(key=lambda x: (x['year'], x['lopnummer_numeric']), reverse=True)
+
+    # Take the most recent documents
+    recent_docs = documents[:num_recent]
+
+    # Generate HTML content
+    html_content = """<!DOCTYPE html>
+<html lang="sv">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SE-Lex</title>
+    <link rel="stylesheet" href="/styles.css">
+    <style>
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+        }
+
+        .logo {
+            color: var(--selex-yellow);
+            font-weight: bold;
+        }
+
+        .github-link {
+            display: inline-block;
+            margin: 20px 0 40px;
+            padding: 12px 24px;
+            background-color: var(--selex-dark-blue);
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        .github-link:hover {
+            background-color: var(--selex-light-blue);
+        }
+
+        .document-list {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .document-item {
+            padding: 12px 0;
+            border-bottom: 1px solid #eee;
+        }
+
+        .document-item:last-child {
+            border-bottom: none;
+        }
+
+        .document-link {
+            color: var(--selex-light-blue);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .document-link:hover {
+            text-decoration: underline;
+        }
+
+        .beteckning {
+            display: inline-block;
+            min-width: 100px;
+            font-family: 'Courier New', monospace;
+            color: #666;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1><span class="logo">SE-Lex</span></h1>
+        <a href="https://github.com/se-lex" class="github-link">→ GitHub: se-lex</a>
+    </header>
+
+    <main>
+        <h2>Nyligen tillagda författningar</h2>
+        <div class="document-list">
+"""
+
+    # Add links to recent documents
+    for doc in recent_docs:
+        html_content += f"""            <div class="document-item">
+                <span class="beteckning">{html.escape(doc['beteckning'])}</span>
+                <a href="{doc['path']}" class="document-link">{html.escape(doc['title'])}</a>
+            </div>
+"""
+
+    html_content += """        </div>
+    </main>
+</body>
+</html>"""
+
+    # Save the index.html file
+    index_path = output_path / "index.html"
+    save_to_disk(index_path, html_content)
+    print(f"Generated index.html: {index_path}")
 
 
 
@@ -514,7 +688,7 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
             drawerEnabled: false,
         }};
     </script>
-    <script src="../../selex-init.js" defer></script>
+    <script src="/selex-init.js" defer></script>
     <style>{get_common_styles()}
         {get_amendment_styles()}
     </style>
@@ -569,7 +743,7 @@ def create_amendment_html_with_diff(base_html: str, amendment_html: str, amendme
     return combined_html
 
 
-def create_html_head(title: str, beteckning: str, additional_styles: str = "", additional_scripts: str = "", use_external_css: bool = True, css_relative_path: str = "../../styles.css", js_relative_path: str = "../../selex-init.js") -> str:
+def create_html_head(title: str, beteckning: str, additional_styles: str = "", additional_scripts: str = "", use_external_css: bool = True, css_relative_path: str = "/styles.css", js_relative_path: str = "/selex-init.js") -> str:
     """Create HTML head section with navbar integration.
 
     Args:
@@ -578,8 +752,8 @@ def create_html_head(title: str, beteckning: str, additional_styles: str = "", a
         additional_styles: Additional CSS styles to include inline
         additional_scripts: Additional JavaScript to include
         use_external_css: Whether to use external CSS file (default: True)
-        css_relative_path: Relative path to CSS file from HTML document (default: "../../styles.css")
-        js_relative_path: Relative path to JS file from HTML document (default: "../../selex-init.js")
+        css_relative_path: Path to CSS file from HTML document (default: "/styles.css")
+        js_relative_path: Path to JS file from HTML document (default: "/selex-init.js")
 
     Returns:
         str: Complete HTML head section
