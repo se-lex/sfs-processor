@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 """
-Script för att ta bort alla filer under web/ i Cloudflare R2
+Script för att ta bort alla filer i Cloudflare R2 bucket
 """
 
 import os
@@ -58,15 +58,15 @@ def configure_aws_cli():
     return True
 
 def delete_web_folder():
-    """Ta bort alla filer under web/ i Cloudflare R2"""
+    """Ta bort alla filer i Cloudflare R2 bucket"""
     bucket_name = os.getenv('CLOUDFLARE_R2_BUCKET_NAME')
     account_id = os.getenv('CLOUDFLARE_R2_ACCOUNT_ID')
     endpoint_url = f"https://{account_id}.r2.cloudflarestorage.com"
 
-    print(f"Tar bort alla filer under web/ i bucket {bucket_name}...")
+    print(f"Tar bort alla filer i bucket {bucket_name}...")
 
     cmd = [
-        'aws', 's3', 'rm', f's3://{bucket_name}/web/',
+        'aws', 's3', 'rm', f's3://{bucket_name}/',
         '--endpoint-url', endpoint_url,
         '--recursive'
     ]
@@ -77,7 +77,7 @@ def delete_web_folder():
     try:
         print(f"Kör kommando: {' '.join(cmd)}")
         result = subprocess.run(cmd, env=env, check=True, capture_output=True, text=True)
-        print("✓ Alla filer under web/ har tagits bort")
+        print("✓ Alla filer har tagits bort från bucketen")
 
         # Visa AWS CLI output om det finns
         if result.stdout.strip():
@@ -100,7 +100,7 @@ def delete_web_folder():
 def main():
     """Huvudfunktion"""
     parser = argparse.ArgumentParser(
-        description='Ta bort alla filer under web/ i Cloudflare R2'
+        description='Ta bort alla filer i Cloudflare R2 bucket'
     )
     parser.add_argument(
         '--force',
@@ -109,12 +109,12 @@ def main():
     )
     args = parser.parse_args()
 
-    print("=== Ta bort web/ från Cloudflare R2 ===")
+    print("=== Ta bort alla filer från Cloudflare R2 ===")
     print()
 
     # Bekräfta med användaren om inte --force används
     if not args.force:
-        print("VARNING: Detta kommer att ta bort alla filer under web/ i R2 bucketen.")
+        print("VARNING: Detta kommer att ta bort ALLA filer i R2 bucketen.")
         print("Detta kan inte ångras!")
         response = input("Är du säker på att du vill fortsätta? (ja/nej): ")
 
