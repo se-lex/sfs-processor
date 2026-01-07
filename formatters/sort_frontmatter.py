@@ -14,14 +14,14 @@ from typing import Dict
 def sort_amendments_list(amendment_lines: list) -> str:
     """
     Sorterar innehållet i en andringsforfattningar-lista.
-    
+
     Args:
         amendment_lines: Lista med rader som representerar andringsforfattningar
-        
+
     Returns:
         str: Sorterad YAML-representation av andringsforfattningar
     """
-    AMENDMENT_ORDER = ['beteckning', 'rubrik', 'ikraft_datum', 'anteckningar']
+    AMENDMENT_ORDER = ['beteckning', 'rubrik', 'ikraft_datum', 'celex', 'anteckningar']
     
     # Hantera det felaktiga formatet där första raden börjar direkt efter kolon
     processed_lines = []
@@ -35,33 +35,51 @@ def sort_amendments_list(amendment_lines: list) -> str:
     # Parsa amendment items
     amendments = []
     current_amendment = {}
-    
+    current_list_key = None  # Track if we're parsing a nested list
+
     for line in processed_lines:
         stripped = line.strip()
-        
+
         # Ny amendment item (börjar med -)
         if stripped.startswith('-'):
-            # Spara föregående amendment om den finns
-            if current_amendment:
-                amendments.append(current_amendment)
-            
-            # Starta ny amendment
-            current_amendment = {}
-            
-            # Kolla om det finns data på samma rad som -
-            if ':' in stripped:
-                parts = stripped[1:].split(':', 1)  # Ta bort - först
-                key = parts[0].strip()
-                value = parts[1].strip() if len(parts) > 1 else ''
-                current_amendment[key] = value
-        
+            # Check if this is a list item within a nested list (indented with 6 spaces)
+            if line.startswith('      -'):
+                # This is a nested list item (e.g., for celex)
+                if current_list_key:
+                    list_value = stripped[1:].strip()  # Remove the '-' and trim
+                    if current_list_key not in current_amendment:
+                        current_amendment[current_list_key] = []
+                    current_amendment[current_list_key].append(list_value)
+            else:
+                # This is a new amendment item
+                # Spara föregående amendment om den finns
+                if current_amendment:
+                    amendments.append(current_amendment)
+
+                # Starta ny amendment
+                current_amendment = {}
+                current_list_key = None
+
+                # Kolla om det finns data på samma rad som -
+                if ':' in stripped:
+                    parts = stripped[1:].split(':', 1)  # Ta bort - först
+                    key = parts[0].strip()
+                    value = parts[1].strip() if len(parts) > 1 else ''
+                    current_amendment[key] = value
+
         # Property inom amendment item
         elif ':' in line and (line.startswith('    ') or line.startswith('  ')):
             parts = line.strip().split(':', 1)
             key = parts[0].strip()
             value = parts[1].strip() if len(parts) > 1 else ''
             if key:
-                current_amendment[key] = value
+                if value:
+                    # Simple key-value pair
+                    current_amendment[key] = value
+                    current_list_key = None
+                else:
+                    # Empty value, might be start of a nested list
+                    current_list_key = key
     
     # Spara sista amendment
     if current_amendment:
@@ -70,7 +88,7 @@ def sort_amendments_list(amendment_lines: list) -> str:
     # Bygg sorterad YAML med korrekt indentation
     if not amendments:
         return ''
-    
+
     result_lines = []
     for i, amendment in enumerate(amendments):
         # Lägg till första property med - prefix
@@ -78,31 +96,62 @@ def sort_amendments_list(amendment_lines: list) -> str:
         for prop in AMENDMENT_ORDER:
             if prop in amendment:
                 value = amendment[prop]
-                # Lägg till citattecken runt värden som innehåller kolon eller speciella tecken
-                if ':' in value or value.startswith('"') or '"' in value:
-                    if not (value.startswith('"') and value.endswith('"')):
-                        value = f'"{value}"'
-                
-                if first_prop:
-                    result_lines.append(f"  - {prop}: {value}")
-                    first_prop = False
+
+                # Handle lists (e.g., celex with multiple values)
+                if isinstance(value, list):
+                    if first_prop:
+                        result_lines.append(f"  - {prop}:")
+                        first_prop = False
+                    else:
+                        result_lines.append(f"    {prop}:")
+
+                    for item in value:
+                        # Add quotes if needed
+                        if ':' in str(item) or (isinstance(item, str) and (item.startswith('"') or '"' in item)):
+                            if not (str(item).startswith('"') and str(item).endswith('"')):
+                                item = f'"{item}"'
+                        result_lines.append(f"      - {item}")
                 else:
-                    result_lines.append(f"    {prop}: {value}")
+                    # Lägg till citattecken runt värden som innehåller kolon eller speciella tecken
+                    if ':' in str(value) or (isinstance(value, str) and (value.startswith('"') or '"' in value)):
+                        if not (str(value).startswith('"') and str(value).endswith('"')):
+                            value = f'"{value}"'
+
+                    if first_prop:
+                        result_lines.append(f"  - {prop}: {value}")
+                        first_prop = False
+                    else:
+                        result_lines.append(f"    {prop}: {value}")
         
         # Lägg till okända properties sist
         unknown_props = [k for k in amendment.keys() if k not in AMENDMENT_ORDER]
         for prop in unknown_props:
             value = amendment[prop]
-            # Lägg till citattecken runt värden som innehåller kolon eller speciella tecken
-            if ':' in value or value.startswith('"') or '"' in value:
-                if not (value.startswith('"') and value.endswith('"')):
-                    value = f'"{value}"'
-            
-            if first_prop:
-                result_lines.append(f"  - {prop}: {value}")
-                first_prop = False
+
+            # Handle lists
+            if isinstance(value, list):
+                if first_prop:
+                    result_lines.append(f"  - {prop}:")
+                    first_prop = False
+                else:
+                    result_lines.append(f"    {prop}:")
+
+                for item in value:
+                    if ':' in str(item) or (isinstance(item, str) and (item.startswith('"') or '"' in item)):
+                        if not (str(item).startswith('"') and str(item).endswith('"')):
+                            item = f'"{item}"'
+                    result_lines.append(f"      - {item}")
             else:
-                result_lines.append(f"    {prop}: {value}")
+                # Lägg till citattecken runt värden som innehåller kolon eller speciella tecken
+                if ':' in str(value) or (isinstance(value, str) and (value.startswith('"') or '"' in value)):
+                    if not (str(value).startswith('"') and str(value).endswith('"')):
+                        value = f'"{value}"'
+
+                if first_prop:
+                    result_lines.append(f"  - {prop}: {value}")
+                    first_prop = False
+                else:
+                    result_lines.append(f"    {prop}: {value}")
     
     return '\n' + '\n'.join(result_lines)
 
