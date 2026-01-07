@@ -1,4 +1,4 @@
-name: Exportera till HTML-format och publicera till GitHub Pages
+name: Exportera till HTML och publicera till GitHub Pages
 
 on:
   workflow_dispatch:  # Tillåter manuell körning
