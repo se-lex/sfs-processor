@@ -24,3 +24,6 @@ output/
 # - data/sfs_json/     = Käll-JSON från API
 # - data/md-markers/   = Markdown med selex-taggar
 # (nothing to ignore here, committed to git + backed up to R2)
+
+# Ignore downloaded agencies data (fetched at runtime)
+data/agencies.json

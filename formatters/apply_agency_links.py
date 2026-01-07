@@ -39,6 +39,7 @@ Usage:
 
 import json
 import re
+import urllib.request
 from pathlib import Path
 from typing import Optional
 
@@ -46,10 +47,94 @@ from typing import Optional
 # Cache for loaded agency data
 _agency_data_cache: Optional[dict] = None
 
+# URL to download agency data from (using handlingar.json for simpler structure)
+AGENCY_DATA_URL = "https://raw.githubusercontent.com/civictechsweden/myndighetsdata/master/data/handlingar.json"
+
+
+def _download_agency_data(agencies_file: Path, fallback_file: Path) -> bool:
+    """
+    Download agency data from GitHub, use fallback if download fails.
+
+    Always attempts to download fresh data. If download fails, uses the
+    committed fallback file if available.
+
+    Args:
+        agencies_file: Path to save the downloaded data (not in git)
+        fallback_file: Path to fallback file (committed to git)
+
+    Returns:
+        True if file exists (downloaded or fallback), False otherwise
+    """
+    # Always try to download fresh data
+    try:
+        print(f"Laddar ner myndighetsdata från {AGENCY_DATA_URL}...")
+        agencies_file.parent.mkdir(parents=True, exist_ok=True)
+
+        with urllib.request.urlopen(AGENCY_DATA_URL, timeout=10) as response:
+            data = response.read()
+
+        with open(agencies_file, 'wb') as f:
+            f.write(data)
+
+        print(f"✓ Myndighetsdata nedladdad till {agencies_file}")
+        return True
+
+    except Exception as e:
+        print(f"⚠ Varning: Kunde inte ladda ner myndighetsdata från {AGENCY_DATA_URL}: {e}")
+
+        # Try to use fallback file
+        if fallback_file.exists():
+            print(f"  Använder fallback-fil: {fallback_file}")
+            return True
+        else:
+            print("  Ingen fallback-fil hittades. Myndighetslänkar kommer inte att skapas.")
+            return False
+
+
+def _convert_handlingar_format(handlingar_data: dict) -> list:
+    """
+    Convert handlingar.json format to the expected agencies format.
+
+    Input format (handlingar.json):
+    {
+        "Myndighet": {
+            "short_name": "XX",
+            "website": "https://...",
+            ...
+        }
+    }
+
+    Output format:
+    [
+        {
+            "name": "Myndighet",
+            "website": "https://...",
+            "shortName": "XX",
+            "alternativeNames": []
+        }
+    ]
+    """
+    agencies = []
+    for name, data in handlingar_data.items():
+        website = data.get('website', '')
+        short_name = data.get('short_name', '')
+
+        if not website:  # Skip agencies without websites
+            continue
+
+        agencies.append({
+            'name': name,
+            'website': website,
+            'shortName': short_name,
+            'alternativeNames': []
+        })
+
+    return agencies
+
 
 def _load_agency_data() -> dict:
     """
-    Load agency data from data/agencies.json.
+    Load agency data from downloaded file or fallback.
 
     Returns a dictionary with:
     - 'by_name': dict mapping lowercase names to agency info
@@ -64,13 +149,23 @@ def _load_agency_data() -> dict:
         current_file = Path(__file__)
         project_root = current_file.parent.parent
         agencies_file = project_root / "data" / "agencies.json"
+        fallback_file = project_root / "data" / "myndighetsdata_fallback.json"
 
-        if not agencies_file.exists():
-            print(f"Varning: Kunde inte hitta {agencies_file}")
+        # Try to download, fall back to committed file if needed
+        if not _download_agency_data(agencies_file, fallback_file):
             return {'by_name': {}, 'patterns': []}
 
-        with open(agencies_file, 'r', encoding='utf-8') as f:
-            agencies = json.load(f)
+        # Use downloaded file if it exists, otherwise use fallback
+        file_to_load = agencies_file if agencies_file.exists() else fallback_file
+
+        with open(file_to_load, 'r', encoding='utf-8') as f:
+            raw_data = json.load(f)
+
+        # Convert from handlingar.json format if needed
+        if isinstance(raw_data, dict) and not isinstance(raw_data, list):
+            agencies = _convert_handlingar_format(raw_data)
+        else:
+            agencies = raw_data
 
         # Build lookup structures
         by_name = {}
@@ -266,11 +361,22 @@ def get_all_agencies() -> list:
         current_file = Path(__file__)
         project_root = current_file.parent.parent
         agencies_file = project_root / "data" / "agencies.json"
+        fallback_file = project_root / "data" / "myndighetsdata_fallback.json"
 
-        if not agencies_file.exists():
+        # Try to download, fall back to committed file if needed
+        if not _download_agency_data(agencies_file, fallback_file):
             return []
 
-        with open(agencies_file, 'r', encoding='utf-8') as f:
-            return json.load(f)
+        # Use downloaded file if it exists, otherwise use fallback
+        file_to_load = agencies_file if agencies_file.exists() else fallback_file
+
+        with open(file_to_load, 'r', encoding='utf-8') as f:
+            raw_data = json.load(f)
+
+        # Convert from handlingar.json format if needed
+        if isinstance(raw_data, dict) and not isinstance(raw_data, list):
+            return _convert_handlingar_format(raw_data)
+        else:
+            return raw_data
     except Exception:
         return []
