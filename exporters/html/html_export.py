@@ -212,6 +212,11 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     organisation_data = data.get('organisation', {})
     organisation = organisation_data.get('namn', '') if organisation_data else ''
 
+    # Determine normtyp (grundlag, lag, or förordning)
+    from util.normtyp_utils import determine_normtyp
+    forfattningstyp_namn = data.get('forfattningstypNamn')
+    normtyp = determine_normtyp(beteckning, forfattningstyp_namn)
+
     # Generate PDF URL
     pdf_url = generate_pdf_url(beteckning, utfardad_datum, check_exists=False)
 
@@ -264,11 +269,16 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     column1_items.append(f"""
             <dt>Beteckning:</dt>
             <dd property="eli:id_local" datatype="xsd:string">{html.escape(beteckning)}</dd>""")
-    
+
     if organisation:
         column1_items.append(f"""
             <dt>Departement:</dt>
             <dd property="eli:passed_by" datatype="xsd:string">{html.escape(organisation)}</dd>""")
+
+    if normtyp:
+        column1_items.append(f"""
+            <dt>Normtyp:</dt>
+            <dd property="eli:type_document" datatype="xsd:string">{html.escape(normtyp)}</dd>""")
     
     if pdf_url:
         column1_items.append(f"""
