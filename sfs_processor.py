@@ -353,7 +353,7 @@ rubrik: {rubrik_original}
 beteckning: {format_yaml_value(beteckning)}
 rubrik: {format_yaml_value(rubrik)}
 departement: {format_yaml_value(organisation)}
-doctype: {format_yaml_value(doctype)}
+normtyp: {format_yaml_value(doctype)}
 """
 
     # Add dates if they exist (ikraft_datum will be added separately if needed)

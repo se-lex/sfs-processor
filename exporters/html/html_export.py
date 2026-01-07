@@ -277,7 +277,7 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
 
     if doctype:
         column1_items.append(f"""
-            <dt>Doctype:</dt>
+            <dt>Normtyp:</dt>
             <dd property="eli:type_document" datatype="xsd:string">{html.escape(doctype)}</dd>""")
     
     if pdf_url:
