@@ -125,7 +125,7 @@ def sort_frontmatter_properties(frontmatter_content: str) -> str:
         'beteckning',
         'rubrik',
         'departement',
-        'normtyp',
+        'doctype',
         'utfardad_datum',
         'ikraft_datum',
         'publicerad_datum',

@@ -1,5 +1,5 @@
 """
-Utility functions for determining normtyp (legal document type) for SFS documents.
+Utility functions for determining doctype (legal document type) for SFS documents.
 
 This module provides functions to classify Swedish legal documents into their
 appropriate categories: grundlag (fundamental law), lag (law), or förordning (regulation).
@@ -14,9 +14,9 @@ GRUNDLAGAR = {
 }
 
 
-def determine_normtyp(beteckning: str, forfattningstyp_namn: str = None) -> str:
+def determine_doctype(beteckning: str, forfattningstyp_namn: str = None) -> str:
     """
-    Determine the normtyp (legal document type) for an SFS document.
+    Determine the doctype (legal document type) for an SFS document.
 
     The function classifies documents into three categories:
     - 'Grundlag': One of Sweden's four fundamental laws
@@ -31,11 +31,11 @@ def determine_normtyp(beteckning: str, forfattningstyp_namn: str = None) -> str:
         str: One of "Grundlag", "Lag", or "Förordning" (with capital first letter)
 
     Examples:
-        >>> determine_normtyp("1974:152", "Lag")
+        >>> determine_doctype("1974:152", "Lag")
         'Grundlag'
-        >>> determine_normtyp("2024:1274", "Förordning")
+        >>> determine_doctype("2024:1274", "Förordning")
         'Förordning'
-        >>> determine_normtyp("2010:800", "Lag")
+        >>> determine_doctype("2010:800", "Lag")
         'Lag'
     """
     # First check if it's one of the fundamental laws

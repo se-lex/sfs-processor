@@ -40,7 +40,7 @@ from exporters.git import create_init_git_commit
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime
 from util.file_utils import filter_json_files, save_to_disk
-from util.normtyp_utils import determine_normtyp
+from util.doctype_utils import determine_doctype
 from formatters.predocs_parser import parse_predocs_string
 
 
@@ -312,9 +312,9 @@ def convert_to_markdown(data: Dict[str, Any], fetch_predocs_from_api: bool = Fal
     organisation_data = data.get('organisation', {})
     organisation = organisation_data.get('namn', '') if organisation_data else ''
 
-    # Determine normtyp (grundlag, lag, or förordning)
+    # Determine doctype (grundlag, lag, or förordning)
     forfattningstyp_namn = data.get('forfattningstypNamn')
-    normtyp = determine_normtyp(beteckning, forfattningstyp_namn)
+    doctype = determine_doctype(beteckning, forfattningstyp_namn)
 
     # Extract the main text content from nested structure
     innehall_text = fulltext_data.get('forfattningstext')
@@ -353,7 +353,7 @@ rubrik: {rubrik_original}
 beteckning: {format_yaml_value(beteckning)}
 rubrik: {format_yaml_value(rubrik)}
 departement: {format_yaml_value(organisation)}
-normtyp: {format_yaml_value(normtyp)}
+doctype: {format_yaml_value(doctype)}
 """
 
     # Add dates if they exist (ikraft_datum will be added separately if needed)
