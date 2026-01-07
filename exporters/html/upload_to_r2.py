@@ -10,6 +10,10 @@ import subprocess
 import datetime
 import argparse
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Ladda miljövariabler från .env-fil
+load_dotenv()
 
 def check_required_env_vars():
     """Kontrollera att alla nödvändiga miljövariabler är satta"""
@@ -60,42 +64,42 @@ def configure_aws_cli():
     print("✓ AWS CLI konfigurerad")
     return True
 
-def upload_sfs_folder(output_base_dir=""):
-    """Ladda upp SFS-mappen till Cloudflare R2"""
+def upload_html_site(output_base_dir=""):
+    """Ladda upp hela HTML-siten (eli/ + index-sidor) till Cloudflare R2"""
     bucket_name = os.getenv('CLOUDFLARE_R2_BUCKET_NAME')
     account_id = os.getenv('CLOUDFLARE_R2_ACCOUNT_ID')
     endpoint_url = f"https://{account_id}.r2.cloudflarestorage.com"
-    
+
     # Kontrollera att mappen finns
     if not Path(output_base_dir).exists():
         print(f"Error: Mappen {output_base_dir} finns inte. Kör först HTML-export.")
         return False
-    
-    # Räkna HTML-filer som ska laddas upp
+
+    # Räkna filer som ska laddas upp
     html_files = list(Path(output_base_dir).rglob('*.html'))
-    file_count = len(html_files)
-    print(f"Laddar upp {output_base_dir}-mappen ({file_count} HTML-filer)...")
-    
+    css_files = list(Path(output_base_dir).rglob('*.css'))
+    js_files = list(Path(output_base_dir).rglob('*.js'))
+    file_count = len(html_files) + len(css_files) + len(js_files)
+    print(f"Laddar upp HTML-siten från {output_base_dir} ({len(html_files)} HTML, {len(css_files)} CSS, {len(js_files)} JS-filer)...")
+
     cmd = [
-        'aws', 's3', 'sync', f'{output_base_dir}/', f's3://{bucket_name}/sfs/',
+        'aws', 's3', 'sync', f'{output_base_dir}/', f's3://{bucket_name}/',
         '--endpoint-url', endpoint_url,
         '--delete',
         '--cache-control', 'public, max-age=3600',
-        '--content-type', 'text/html',
         '--exclude', '*.md',
         '--exclude', '.DS_Store',
-        '--include', '*.html',
         '--cli-read-timeout', '0',
         '--cli-connect-timeout', '60'
     ]
 
     env = os.environ.copy()
     env['AWS_DEFAULT_REGION'] = 'us-east-1'
-    
+
     try:
         print(f"Kör kommando: {' '.join(cmd)}")
         result = subprocess.run(cmd, env=env, check=True, capture_output=True, text=True)
-        print(f"✓ {output_base_dir}-mappen uppladdad ({file_count} HTML-filer)")
+        print(f"✓ HTML-siten uppladdad ({file_count} filer)")
 
         # Visa AWS CLI output om det finns
         if result.stdout.strip():
@@ -108,54 +112,82 @@ def upload_sfs_folder(output_base_dir=""):
 
         return True
     except subprocess.CalledProcessError as e:
-        print(f"Error vid uppladdning av {output_base_dir}-mappen: {e}")
+        print(f"Error vid uppladdning av HTML-siten: {e}")
         if e.stderr:
             print(f"Stderr: {e.stderr}")
         if e.stdout:
             print(f"Stdout: {e.stdout}")
         return False
 
-def upload_index_pages(output_base_dir=""):
+def upload_index_pages(output_base_dir="", json_input_dir=None):
     """Ladda upp index-sidor till Cloudflare R2"""
     bucket_name = os.getenv('CLOUDFLARE_R2_BUCKET_NAME')
     account_id = os.getenv('CLOUDFLARE_R2_ACCOUNT_ID')
     endpoint_url = f"https://{account_id}.r2.cloudflarestorage.com"
-    
+
     # Hitta JSON-filerna för att generera index-sidor
-    json_input_dir = "sfs_json"  # Standard JSON-mapp
+    if json_input_dir is None:
+        # Försök hitta JSON-mappen automatiskt
+        possible_paths = ["../sfs-jsondata", "sfs_json", "data/sfs_json"]
+        json_input_dir = None
+        for path in possible_paths:
+            if Path(path).exists():
+                json_input_dir = path
+                break
+
+        if json_input_dir is None:
+            print(f"Varning: Kunde inte hitta JSON-mappen. Hoppar över index-sidor.")
+            print(f"Prövade sökvägarna: {', '.join(possible_paths)}")
+            return True  # Inte ett kritiskt fel
+
     if not Path(json_input_dir).exists():
-        print(f"Error: JSON-mappen {json_input_dir} finns inte.")
-        return False
+        print(f"Varning: JSON-mappen {json_input_dir} finns inte. Hoppar över index-sidor.")
+        return True  # Inte ett kritiskt fel
 
     # Generera index-sidor i output_base_dir
     print(f"Genererar index-sidor i {output_base_dir}...")
+    print(f"Använder JSON-katalog: {json_input_dir}")
+
+    # Konvertera till absoluta sökvägar
+    json_input_abs = str(Path(json_input_dir).resolve())
+    output_base_abs = str(Path(output_base_dir).resolve())
 
     # Skapa index.html (30 senaste)
-    index_file = Path(output_base_dir) / "index.html"
-    latest_file = Path(output_base_dir) / "latest.html"
+    index_file = Path(output_base_abs) / "index.html"
+    latest_file = Path(output_base_abs) / "latest.html"
 
     try:
         # Kör populate_index_pages.py för att skapa index-sidor
-        subprocess.run([
+        result1 = subprocess.run([
             'python', 'exporters/html/populate_index_pages.py',
-            '--input', json_input_dir,
+            '--input', json_input_abs,
             '--output', str(index_file),
             '--limit', '30'
         ], check=True, capture_output=True, text=True)
 
-        subprocess.run([
+        result2 = subprocess.run([
             'python', 'exporters/html/populate_index_pages.py',
-            '--input', json_input_dir,
+            '--input', json_input_abs,
             '--output', str(latest_file),
             '--limit', '10'
         ], check=True, capture_output=True, text=True)
 
         print(f"✓ Index-sidor genererade: {index_file}, {latest_file}")
 
+        # Visa output från populate_index_pages.py om det finns
+        if result1.stdout.strip():
+            print("Output från index.html-generering:")
+            print(result1.stdout.strip())
+        if result2.stdout.strip():
+            print("Output från latest.html-generering:")
+            print(result2.stdout.strip())
+
     except subprocess.CalledProcessError as e:
         print(f"Error vid generering av index-sidor: {e}")
         if e.stderr:
             print(f"Stderr: {e.stderr}")
+        if e.stdout:
+            print(f"Stdout: {e.stdout}")
         return False
 
     # Kontrollera att index-filerna nu finns
@@ -271,13 +303,19 @@ def main():
         formatter_class=argparse.RawDescriptionHelpFormatter,
         epilog="""
 Exempel:
-  python upload_to_r2.py --output-base-dir /path/to/export  # Ladda upp från specifik mapp
+  python upload_to_r2.py --output-base-dir output/html_site  # Ladda upp från output/html_site
+  python upload_to_r2.py --output-base-dir output/html_site --json-dir ../sfs-jsondata  # Med JSON-mapp
         """
     )
     parser.add_argument(
         '--output-base-dir',
-        default='',
-        help='Baskatalog som innehåller HTML-filerna att ladda upp'
+        default='output/html_site',
+        help='Baskatalog som innehåller HTML-filerna (eli/, index.html, etc.)'
+    )
+    parser.add_argument(
+        '--json-dir',
+        default=None,
+        help='Sökväg till JSON-mappen (för att generera index-sidor)'
     )
 
     args = parser.parse_args()
@@ -305,19 +343,19 @@ Exempel:
     # Utför uppladdningar
     print()
     success = True
-    
-    # Skapa korrekt sökväg till sfs-mappen
-    sfs_path = str(Path(args.output_base_dir) / "sfs") if args.output_base_dir else "sfs"
 
-    if not upload_sfs_folder(sfs_path):
+    # Generera och ladda upp index-sidor först
+    if not upload_index_pages(args.output_base_dir, args.json_dir):
         success = False
-    
-    if not upload_index_pages(args.output_base_dir):
+
+    # Ladda upp hela HTML-siten (eli/ + index-sidor)
+    if not upload_html_site(args.output_base_dir):
         success = False
-    
+
+    # Ladda upp sammanfattning
     if not upload_summary():
         success = False
-    
+
     print()
     if success:
         print("✓ Alla filer har laddats upp till Cloudflare R2!")
