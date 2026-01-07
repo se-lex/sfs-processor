@@ -3,7 +3,7 @@ Government Agency Linking for Swedish Legal Documents.
 
 MIT License
 
-Copyright (c) 2025 se-lex
+Copyright (c) 2025 Martin Rimskog
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
