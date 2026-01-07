@@ -50,12 +50,14 @@
             const bodyElement = document.body;
             const beteckning = bodyElement.getAttribute('data-beteckning');
 
-            // Configure navbar
+            // Configure navbar with setHeader(parentText, parentUrl, childText)
+            const parentText = "SFS";
+            const parentUrl = "/";  // Root page for now
+
             if (beteckning) {
-                SweNavbar.setHeader("SFS");
-                SweNavbar.setHeaderChild(beteckning);
+                SweNavbar.setHeader(parentText, parentUrl, beteckning);
             } else {
-                SweNavbar.setHeader("SFS");
+                SweNavbar.setHeader(parentText, parentUrl);
             }
         }).catch((error) => {
             console.warn('Failed to load navbar script:', error);
