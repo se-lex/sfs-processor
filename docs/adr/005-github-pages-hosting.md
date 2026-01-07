@@ -14,7 +14,8 @@ Huvudalternativen var:
 2. **Cloudflare R2**: Object storage med HTTP-access
 3. **Cloudflare R2 + Workers**: Object storage med serverless rewrites
 4. **Docker Container**: Containeriserad webserver (nginx/Apache)
-5. **Traditionell hosting**: VPS eller shared hosting
+5. **Amazon CloudFront + S3**: CDN med S3 object storage
+6. **Traditionell hosting**: VPS eller shared hosting
 
 Utmaningarna var:
 
@@ -172,6 +173,37 @@ Migreringstid: < 1 timme
 - Ingen fördel för vårt användningsfall (bara statiska filer)
 - Ytterligare extern tjänst att hantera
 - GitHub Pages är enklare när allt redan finns på GitHub
+
+### 6. Amazon CloudFront + S3
+
+**Fördelar**:
+
+- Kraftfull CDN med global presence (AWS edge locations)
+- Billig storage i S3 (~$0.023/GB/månad)
+- Bra om projektet redan använder AWS-ekosystemet
+- Professionell lösning med SLA:er
+- CloudFront free tier: 1 TB utgående data/månad första 12 månaderna
+
+**Varför inte valt**:
+
+- **URL-rewrites fungerar inte automatiskt**: Samma problem som Cloudflare R2
+  - `/folder/` servar inte automatiskt `index.html`
+  - CloudFront stödjer bara default root object för root, inte subdirectorier
+  - Kräver CloudFront Functions eller Lambda@Edge för rewrites
+- **Kostnad**:
+  - CloudFront Functions: ~$0.10 per miljon requests
+  - Lambda@Edge: Dyrare än CloudFront Functions
+  - Efter free tier: Data transfer kostar (~$0.085/GB för första 10 TB)
+- **Komplexitet**:
+  - Kräver AWS-konto och hantering av credentials
+  - CloudFront Functions eller Lambda@Edge kod måste skrivas och deployas
+  - Mer komplext än GitHub Pages
+- **AWS-specifikt**: Vendor lock-in till AWS-ekosystemet
+- **Overkill**: Projektet har ingen budget och använder inte AWS för övrigt
+
+**Alternativa S3 lösningar**:
+
+- S3 Static Website Endpoint fungerar med automatiska rewrites, men kräver publik bucket (fungerar inte med CloudFront OAI/OAC för säker access)
 
 ## Relaterade beslut
 
