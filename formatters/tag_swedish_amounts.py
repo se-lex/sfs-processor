@@ -160,6 +160,97 @@ def resolve_id(positional_id: str) -> str:
     return ref_table.get(positional_id, positional_id)
 
 
+def extract_unmapped_ids(text: str, sfs_id: Optional[str] = None) -> list[dict]:
+    """
+    Extract all amounts/percentages from text and return unmapped positional ids.
+
+    Useful for finding which data points need slugs in the reference table.
+
+    Args:
+        text: The text to scan
+        sfs_id: Optional SFS designation
+
+    Returns:
+        List of dicts with positional_id, type, value, and context for unmapped items
+    """
+    unmapped = []
+    ref_table = load_reference_table()
+
+    lines = text.split('\n')
+    current_sfs = sfs_id
+    current_section = None
+    amount_counter = 0
+    percentage_counter = 0
+
+    for line in lines:
+        # Extract SFS from article tag
+        article_match = re.match(r'^\s*<article[^>]*\bselex:id=["\']([^"\']+)["\']', line)
+        if article_match:
+            selex_id = article_match.group(1)
+            sfs_match = re.search(r'(\d{4})-(\d+)', selex_id)
+            if sfs_match:
+                current_sfs = f"{sfs_match.group(1)}:{sfs_match.group(2)}"
+            continue
+
+        # Extract section id
+        section_match = re.match(r'^\s*<section[^>]*\bid=["\']([^"\']+)["\']', line)
+        if section_match:
+            current_section = section_match.group(1)
+            amount_counter = 0
+            percentage_counter = 0
+            continue
+
+        # Skip headers and tags
+        if line.strip().startswith('#'):
+            continue
+        if re.match(r'^\s*</?(?:section|article)[^>]*>\s*$', line):
+            continue
+
+        # Find amounts with multipliers
+        for match in AMOUNT_WITH_MULTIPLIER_PATTERN.finditer(line):
+            amount_counter += 1
+            pos_id = generate_positional_id(current_sfs, current_section, "belopp", amount_counter)
+            if pos_id not in ref_table:
+                unmapped.append({
+                    'positional_id': pos_id,
+                    'type': 'amount',
+                    'value': normalize_number(match.group(1)),
+                    'matched_text': match.group(0),
+                    'context': line.strip()[:100]
+                })
+
+        # Find simple amounts
+        for match in AMOUNT_SIMPLE_PATTERN.finditer(line):
+            # Skip if already matched by multiplier pattern
+            if any(match.group(0) in m.group(0) for m in AMOUNT_WITH_MULTIPLIER_PATTERN.finditer(line)):
+                continue
+            amount_counter += 1
+            pos_id = generate_positional_id(current_sfs, current_section, "belopp", amount_counter)
+            if pos_id not in ref_table:
+                unmapped.append({
+                    'positional_id': pos_id,
+                    'type': 'amount',
+                    'value': normalize_number(match.group(1)),
+                    'matched_text': match.group(0),
+                    'context': line.strip()[:100]
+                })
+
+        # Find percentages
+        for match in PERCENTAGE_PATTERN.finditer(line):
+            percentage_counter += 1
+            pos_id = generate_positional_id(current_sfs, current_section, "procent", percentage_counter)
+            if pos_id not in ref_table:
+                unmapped.append({
+                    'positional_id': pos_id,
+                    'type': 'percentage',
+                    'value': normalize_number(match.group(1)),
+                    'matched_text': match.group(0),
+                    'context': line.strip()[:100]
+                })
+
+    return unmapped
+
+
 def _slugify(text: str) -> str:
     """
     Convert text to a URL-safe slug.
