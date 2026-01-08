@@ -90,12 +90,12 @@ class TestGeneratePositionalId:
     def test_with_sfs_and_section(self):
         """Test generating positional id with SFS and section."""
         result = generate_positional_id("2024:123", "kap5.2", "belopp", 1)
-        assert result == "sfs-2024-123-kap5.2-belopp-1"
+        assert result == "sfs-2024-123/kap5.2-belopp-1"
 
     def test_with_sfs_only(self):
         """Test generating positional id with only SFS."""
         result = generate_positional_id("2024:123", None, "belopp", 1)
-        assert result == "sfs-2024-123-belopp-1"
+        assert result == "sfs-2024-123/belopp-1"
 
     def test_with_section_only(self):
         """Test generating positional id with only section."""
@@ -110,12 +110,12 @@ class TestGeneratePositionalId:
     def test_percentage_type(self):
         """Test generating positional id for percentage."""
         result = generate_positional_id("2020:100", "kap1.5", "procent", 2)
-        assert result == "sfs-2020-100-kap1.5-procent-2"
+        assert result == "sfs-2020-100/kap1.5-procent-2"
 
     def test_multiple_positions(self):
         """Test generating positional id with higher position."""
         result = generate_positional_id("2024:123", "kap5.2", "belopp", 3)
-        assert result == "sfs-2024-123-kap5.2-belopp-3"
+        assert result == "sfs-2024-123/kap5.2-belopp-3"
 
 
 # ===========================================================================
@@ -338,18 +338,19 @@ class TestTagSwedishAmountsPositionalIds:
     def test_with_sfs_id(self):
         """Test positional id with sfs_id parameter."""
         result = tag_swedish_amounts("Avgiften är 500 kronor.", sfs_id="2024:123")
-        assert 'id="sfs-2024-123-belopp-1"' in result
+        assert 'id="sfs-2024-123/belopp-1"' in result
 
     def test_with_sfs_and_section(self):
         """Test positional id with both sfs_id and section_id."""
-        result = tag_swedish_amounts("Avgiften är 500 kronor.", sfs_id="2024:123", section_id="kap5.2")
-        assert 'id="sfs-2024-123-kap5.2-belopp-1"' in result
+        # Use SFS id not in reference table to test positional id format
+        result = tag_swedish_amounts("Avgiften är 500 kronor.", sfs_id="2099:999", section_id="kap9.9")
+        assert 'id="sfs-2099-999/kap9.9-belopp-1"' in result
 
     def test_multiple_amounts_incrementing(self):
         """Test that multiple amounts get incrementing positions."""
         result = tag_swedish_amounts("Första 500 kr och andra 1000 kr.", sfs_id="2024:123", section_id="kap1.1")
-        assert 'id="sfs-2024-123-kap1.1-belopp-1"' in result
-        assert 'id="sfs-2024-123-kap1.1-belopp-2"' in result
+        assert 'id="sfs-2024-123/kap1.1-belopp-1"' in result
+        assert 'id="sfs-2024-123/kap1.1-belopp-2"' in result
 
     def test_section_tag_resets_counter(self):
         """Test that section tags reset the counter."""
@@ -360,8 +361,8 @@ Belopp 100 kronor.
 Belopp 200 kronor.
 </section>'''
         result = tag_swedish_amounts(text, sfs_id="2024:123")
-        assert 'id="sfs-2024-123-kap1.1-belopp-1"' in result
-        assert 'id="sfs-2024-123-kap1.2-belopp-1"' in result
+        assert 'id="sfs-2024-123/kap1.1-belopp-1"' in result
+        assert 'id="sfs-2024-123/kap1.2-belopp-1"' in result
 
     def test_article_tag_extracts_sfs(self):
         """Test that article tags extract SFS id from selex:id."""
@@ -369,23 +370,39 @@ Belopp 200 kronor.
 Avgiften är 500 kronor.
 </article>'''
         result = tag_swedish_amounts(text)
-        assert 'id="sfs-2024-123-belopp-1"' in result
+        assert 'id="sfs-2024-123/belopp-1"' in result
 
     def test_percentage_positional_id(self):
         """Test positional id for percentages."""
         result = tag_swedish_amounts("Räntan är 5 procent.", sfs_id="2024:123", section_id="kap2.3")
-        assert 'id="sfs-2024-123-kap2.3-procent-1"' in result
+        assert 'id="sfs-2024-123/kap2.3-procent-1"' in result
 
     def test_same_slug_different_sfs(self):
         """Test that same position in different SFS gives different positional ids."""
-        result1 = tag_swedish_amounts("Avgiften är 500 kronor.", sfs_id="2020:100", section_id="kap5.2")
-        result2 = tag_swedish_amounts("Avgiften är 1000 kronor.", sfs_id="2024:123", section_id="kap5.2")
+        # Use SFS ids not in reference table
+        result1 = tag_swedish_amounts("Avgiften är 500 kronor.", sfs_id="2098:100", section_id="kap9.9")
+        result2 = tag_swedish_amounts("Avgiften är 1000 kronor.", sfs_id="2099:123", section_id="kap9.9")
         # Different SFS gives different positional ids
-        assert 'id="sfs-2020-100-kap5.2-belopp-1"' in result1
-        assert 'id="sfs-2024-123-kap5.2-belopp-1"' in result2
+        assert 'id="sfs-2098-100/kap9.9-belopp-1"' in result1
+        assert 'id="sfs-2099-123/kap9.9-belopp-1"' in result2
         # But values are different
         assert 'value="500"' in result1
         assert 'value="1000"' in result2
+
+    def test_reference_table_resolves_slug(self):
+        """Test that reference table resolves positional id to slug."""
+        # These SFS ids ARE in the reference table
+        import formatters.tag_swedish_amounts as module
+        module._reference_table = None  # Reset cache
+
+        result1 = tag_swedish_amounts("Avgiften är 500 kronor.", sfs_id="2020:100", section_id="kap5.2")
+        result2 = tag_swedish_amounts("Avgiften är 750 kronor.", sfs_id="2024:123", section_id="kap5.2")
+        # Both resolve to same slug
+        assert 'id="tillstandsavgift"' in result1
+        assert 'id="tillstandsavgift"' in result2
+        # But values are different - tracking the change!
+        assert 'value="500"' in result1
+        assert 'value="750"' in result2
 
 
 # ===========================================================================

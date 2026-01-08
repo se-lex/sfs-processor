@@ -126,21 +126,22 @@ def generate_positional_id(sfs_id: Optional[str], section_id: Optional[str], dat
         position: 1-based position within the section for this type
 
     Returns:
-        A positional id like "sfs-2024-123-kap5.2-belopp-1"
+        A positional id like "sfs-2024-123/kap5.2-belopp-1"
+        Uses "/" to separate SFS designation from document position.
     """
-    parts = []
+    # Build the document position part
+    position_parts = []
+    if section_id:
+        position_parts.append(section_id)
+    position_parts.append(f"{data_type}-{position}")
+    position_str = "-".join(position_parts)
 
     if sfs_id:
         # Normalize SFS id: "2024:123" -> "sfs-2024-123"
         normalized_sfs = "sfs-" + sfs_id.replace(":", "-")
-        parts.append(normalized_sfs)
-
-    if section_id:
-        parts.append(section_id)
-
-    parts.append(f"{data_type}-{position}")
-
-    return "-".join(parts)
+        return f"{normalized_sfs}/{position_str}"
+    else:
+        return position_str
 
 
 def resolve_id(positional_id: str) -> str:
