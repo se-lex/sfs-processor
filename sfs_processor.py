@@ -36,6 +36,7 @@ from formatters.frontmatter_manager import add_ikraft_datum_to_frontmatter
 from temporal.title_temporal import title_temporal
 from temporal.amendments import extract_amendments
 from temporal.apply_temporal import apply_temporal, is_document_content_empty, add_empty_document_message
+from temporal.parse_anteckningar import parse_anteckningar
 from exporters.git import create_init_git_commit
 from util.yaml_utils import format_yaml_value
 from util.datetime_utils import format_datetime
@@ -465,11 +466,24 @@ normtyp: {format_yaml_value(doctype)}
         # Use the ignored content body (already includes heading)
         markdown_body = ignored_body
     else:
+        # Build repeal map from amendments to track which ändringsförfattning repealed each paragraph
+        repeal_map = {}
+        if data.get('andringsforfattningar'):
+            for amendment in data['andringsforfattningar']:
+                beteckning = amendment.get('beteckning')
+                anteckningar = amendment.get('anteckningar', '')
+
+                if beteckning and anteckningar:
+                    parsed = parse_anteckningar(anteckningar)
+                    # Map each repealed paragraph to this amendment
+                    for repealed_ref in parsed.get('repealed', []):
+                        repeal_map[repealed_ref] = beteckning
+
         # Format the content text to markdown
-        formatted_text = format_sfs_text_as_markdown(innehall_text, apply_links=apply_links)
+        formatted_text = format_sfs_text_as_markdown(innehall_text, apply_links=apply_links, repeal_map=repeal_map)
 
         # Apply section tags
-        formatted_text = parse_logical_sections(formatted_text)
+        formatted_text = parse_logical_sections(formatted_text, repeal_map=repeal_map)
 
         # Debug: Check if formatting resulted in empty text
         if not formatted_text.strip():
