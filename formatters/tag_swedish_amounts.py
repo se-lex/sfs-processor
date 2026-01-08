@@ -73,60 +73,41 @@ def normalize_number(num_str: str) -> str:
     return normalized
 
 
-def generate_amount_slug(value: str, multiplier: Optional[str], currency: str, context: str) -> str:
+def generate_amount_slug(context: str) -> str:
     """
     Generate a descriptive slug for an amount based on context.
 
+    The slug identifies what the amount represents, not its value.
+    This allows tracking changes across law amendments.
+
     Args:
-        value: The numeric value (normalized)
-        multiplier: Optional multiplier like "miljoner", "miljarder", "tusen"
-        currency: The currency unit used
         context: Surrounding text for context extraction
 
     Returns:
-        A slug like "belopp-1000000-kr" or "avgift-500-kr"
+        A slug like "avgift" or "bidrag" that identifies the amount
     """
-    # Try to extract a descriptive word from context
+    # Extract a descriptive word from context
     prefix = _extract_context_word(context)
 
-    # Format the value with multiplier
-    if multiplier:
-        multiplier_lower = multiplier.lower()
-        if 'miljard' in multiplier_lower:
-            suffix = 'mdkr'
-        elif 'miljon' in multiplier_lower:
-            suffix = 'mkr'
-        elif 'tusen' in multiplier_lower:
-            suffix = 'tkr'
-        else:
-            suffix = 'kr'
-    else:
-        suffix = 'kr'
-
-    # Create slug
-    slug_parts = [prefix, value, suffix]
-    slug = '-'.join(filter(None, slug_parts))
-
-    return _slugify(slug)
+    return _slugify(prefix)
 
 
-def generate_percentage_slug(value: str, context: str) -> str:
+def generate_percentage_slug(context: str) -> str:
     """
     Generate a descriptive slug for a percentage based on context.
 
+    The slug identifies what the percentage represents, not its value.
+    This allows tracking changes across law amendments.
+
     Args:
-        value: The numeric value (normalized)
         context: Surrounding text for context extraction
 
     Returns:
-        A slug like "ranta-5-procent" or "andel-25-procent"
+        A slug like "ranta" or "moms" that identifies the percentage
     """
     prefix = _extract_context_word(context)
 
-    slug_parts = [prefix, value, 'procent']
-    slug = '-'.join(filter(None, slug_parts))
-
-    return _slugify(slug)
+    return _slugify(prefix)
 
 
 def _extract_context_word(context: str) -> str:
@@ -316,15 +297,13 @@ def _tag_amounts_in_line(line: str) -> str:
     def replace_amount_with_multiplier(match):
         full_match = match.group(0)
         number = match.group(1)
-        multiplier = match.group(3)
-        currency = match.group(4)
 
         # Get context (text before match)
         start_pos = match.start()
         context = line[:start_pos]
 
         normalized_value = normalize_number(number)
-        slug = generate_amount_slug(normalized_value, multiplier, currency, context)
+        slug = generate_amount_slug(context)
 
         return f'<data id="{slug}" type="amount" value="{normalized_value}">{full_match}</data>'
 
@@ -338,12 +317,11 @@ def _tag_amounts_in_line(line: str) -> str:
             return full_match
 
         number = match.group(1)
-        currency = match.group(3)
 
         context = line[:start_pos]
 
         normalized_value = normalize_number(number)
-        slug = generate_amount_slug(normalized_value, None, currency, context)
+        slug = generate_amount_slug(context)
 
         return f'<data id="{slug}" type="amount" value="{normalized_value}">{full_match}</data>'
 
@@ -377,7 +355,7 @@ def _tag_percentages_in_line(line: str) -> str:
         context = line[:start_pos]
 
         normalized_value = normalize_number(number)
-        slug = generate_percentage_slug(normalized_value, context)
+        slug = generate_percentage_slug(context)
 
         return f'<data id="{slug}" type="percentage" value="{normalized_value}">{full_match}</data>'
 

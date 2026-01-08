@@ -121,27 +121,23 @@ class TestGenerateAmountSlug:
 
     def test_simple_amount(self):
         """Test generating slug for simple amount."""
-        slug = generate_amount_slug("1000", None, "kronor", "En avgift på ")
-        assert "1000" in slug
-        assert "kr" in slug
+        slug = generate_amount_slug("En avgift på ")
+        assert slug == "avgift"
 
-    def test_amount_with_miljoner(self):
-        """Test generating slug for amount with 'miljoner'."""
-        slug = generate_amount_slug("5", "miljoner", "kronor", "Kapitalet är ")
-        assert "5" in slug
-        assert "mkr" in slug
+    def test_amount_with_context(self):
+        """Test generating slug extracts context word."""
+        slug = generate_amount_slug("Kapitalet är ")
+        assert slug == "kapital"
 
-    def test_amount_with_miljarder(self):
-        """Test generating slug for amount with 'miljarder'."""
-        slug = generate_amount_slug("2", "miljarder", "kronor", "Omsättningen är ")
-        assert "2" in slug
-        assert "mdkr" in slug
+    def test_amount_with_omsattning(self):
+        """Test generating slug for 'omsättning'."""
+        slug = generate_amount_slug("Omsättningen är ")
+        assert slug == "omsattning"
 
-    def test_amount_with_tusen(self):
-        """Test generating slug for amount with 'tusen'."""
-        slug = generate_amount_slug("50", "tusen", "kronor", "Priset är ")
-        assert "50" in slug
-        assert "tkr" in slug
+    def test_amount_with_pris(self):
+        """Test generating slug for 'pris'."""
+        slug = generate_amount_slug("Priset är ")
+        assert slug == "pris"
 
 
 # ===========================================================================
@@ -154,15 +150,13 @@ class TestGeneratePercentageSlug:
 
     def test_simple_percentage(self):
         """Test generating slug for simple percentage."""
-        slug = generate_percentage_slug("5", "Räntan är ")
-        assert "5" in slug
-        assert "procent" in slug
+        slug = generate_percentage_slug("Räntan är ")
+        assert slug == "ranta"
 
     def test_percentage_with_context(self):
         """Test generating slug with context extraction."""
-        slug = generate_percentage_slug("25", "Momsen är ")
-        assert "25" in slug
-        assert "procent" in slug
+        slug = generate_percentage_slug("Momsen är ")
+        assert slug == "moms"
 
 
 # ===========================================================================
@@ -361,14 +355,22 @@ class TestTagSwedishAmountsContextSlugs:
     def test_avgift_context(self):
         """Test slug generation with 'avgift' context."""
         result = tag_swedish_amounts("Avgiften är 500 kronor.")
-        assert 'id="avgift-500-kr"' in result
+        assert 'id="avgift"' in result
 
     def test_ranta_context_percentage(self):
         """Test slug generation with 'ränta' context for percentage."""
         result = tag_swedish_amounts("Räntan är 5 procent.")
-        # Ränta should be extracted and slugified
-        assert 'id="' in result
-        assert 'procent"' in result
+        assert 'id="ranta"' in result
+
+    def test_same_id_different_values(self):
+        """Test that same context gives same id regardless of value."""
+        result1 = tag_swedish_amounts("Avgiften är 500 kronor.")
+        result2 = tag_swedish_amounts("Avgiften är 1000 kronor.")
+        # Both should have id="avgift" but different values
+        assert 'id="avgift"' in result1
+        assert 'id="avgift"' in result2
+        assert 'value="500"' in result1
+        assert 'value="1000"' in result2
 
 
 # ===========================================================================
