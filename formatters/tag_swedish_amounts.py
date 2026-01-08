@@ -8,12 +8,21 @@ This module contains functions to identify and tag:
 Each match is wrapped in a <data> element with:
 - type: "amount" or "percentage"
 - value: normalized numeric value
-- id: a descriptive slug based on context
+- id: a reference id based on section + position, or a custom slug from reference table
+
+The reference table (data/amount-references.json) maps positional ids to
+descriptive slugs like "riksbankens-referensranta".
 """
 
 import re
-from typing import Optional, Tuple
+import json
+from pathlib import Path
+from typing import Optional, Dict
 import unicodedata
+
+
+# Cache for reference table
+_reference_table: Optional[Dict[str, str]] = None
 
 
 # ============================================================================
@@ -73,142 +82,71 @@ def normalize_number(num_str: str) -> str:
     return normalized
 
 
-def generate_amount_slug(context: str) -> str:
+def load_reference_table() -> Dict[str, str]:
     """
-    Generate a descriptive slug for an amount based on context.
+    Load the amount reference table from data/amount-references.json.
 
-    The slug identifies what the amount represents, not its value.
-    This allows tracking changes across law amendments.
-
-    Args:
-        context: Surrounding text for context extraction
+    The reference table maps positional ids (e.g., "kap5.2-belopp-1") to
+    descriptive slugs (e.g., "riksbankens-referensranta").
 
     Returns:
-        A slug like "avgift" or "bidrag" that identifies the amount
+        Dictionary mapping positional ids to descriptive slugs
     """
-    # Extract a descriptive word from context
-    prefix = _extract_context_word(context)
+    global _reference_table
 
-    return _slugify(prefix)
+    if _reference_table is not None:
+        return _reference_table
+
+    try:
+        current_file = Path(__file__)
+        project_root = current_file.parent.parent
+        ref_file = project_root / "data" / "amount-references.json"
+
+        if ref_file.exists():
+            with open(ref_file, 'r', encoding='utf-8') as f:
+                _reference_table = json.load(f)
+        else:
+            _reference_table = {}
+
+    except Exception as e:
+        print(f"Warning: Could not load amount references: {e}")
+        _reference_table = {}
+
+    return _reference_table
 
 
-def generate_percentage_slug(context: str) -> str:
+def generate_positional_id(section_id: Optional[str], data_type: str, position: int) -> str:
     """
-    Generate a descriptive slug for a percentage based on context.
-
-    The slug identifies what the percentage represents, not its value.
-    This allows tracking changes across law amendments.
+    Generate a positional id for a data element.
 
     Args:
-        context: Surrounding text for context extraction
+        section_id: The section id (e.g., "kap5.2") or None
+        data_type: "belopp" for amounts, "procent" for percentages
+        position: 1-based position within the section for this type
 
     Returns:
-        A slug like "ranta" or "moms" that identifies the percentage
+        A positional id like "kap5.2-belopp-1" or "procent-1" if no section
     """
-    prefix = _extract_context_word(context)
+    if section_id:
+        return f"{section_id}-{data_type}-{position}"
+    else:
+        return f"{data_type}-{position}"
 
-    return _slugify(prefix)
 
-
-def _extract_context_word(context: str) -> str:
+def resolve_id(positional_id: str) -> str:
     """
-    Extract a descriptive word from the context preceding the amount/percentage.
+    Resolve a positional id to a descriptive slug using the reference table.
 
-    Looks for Swedish financial/legal terms that describe what the amount represents.
+    If no mapping exists, returns the positional id as-is.
 
     Args:
-        context: Text preceding the amount
+        positional_id: The positional id (e.g., "kap5.2-belopp-1")
 
     Returns:
-        A descriptive word or "belopp"/"andel" as default
+        The descriptive slug if found, otherwise the positional id
     """
-    # Common Swedish terms that describe amounts
-    amount_descriptors = [
-        # Fees and charges
-        r'(avgift(?:en)?)',
-        r'(kostnad(?:en)?)',
-        r'(pris(?:et)?)',
-        r'(taxa(?:n)?)',
-        r'(ers[äa]ttning(?:en)?)',
-        r'(bidrag(?:et)?)',
-        r'(understöd(?:et)?)',
-        r'(arvode(?:t)?)',
-        r'(lön(?:en)?)',
-        # Limits and thresholds
-        r'(gräns(?:en)?)',
-        r'(tak(?:et)?)',
-        r'(golv(?:et)?)',
-        r'(minst)',
-        r'(högst)',
-        r'(max(?:imum)?)',
-        r'(min(?:imum)?)',
-        # Financial terms
-        r'(kapital(?:et)?)',
-        r'(belopp(?:et)?)',
-        r'(summa(?:n)?)',
-        r'(värde(?:t)?)',
-        r'(inkomst(?:en)?)',
-        r'(utgift(?:en)?)',
-        r'(skatt(?:en)?)',
-        r'(moms(?:en)?)',
-        r'(böter(?:na)?)',
-        r'(vite(?:t)?)',
-        r'(skuld(?:en)?)',
-        r'(fordran)',
-        r'(tillgång(?:ar)?)',
-        r'(omsättning(?:en)?)',
-        # Insurance/pension
-        r'(pension(?:en)?)',
-        r'(försäkring(?:en)?)',
-        r'(premie(?:n)?)',
-        # Interest
-        r'(ränt(?:a|an)?)',
-        r'(avkastning(?:en)?)',
-    ]
-
-    # Percentage-specific descriptors
-    percentage_descriptors = [
-        r'(ränt(?:a|an|esats)?)',
-        r'(andel(?:en)?)',
-        r'(procentsats(?:en)?)',
-        r'(moms(?:en)?)',
-        r'(skatt(?:esats)?(?:en)?)',
-        r'(avgift(?:ssats)?(?:en)?)',
-        r'(avdrag(?:et)?)',
-        r'(påslag(?:et)?)',
-        r'(rabatt(?:en)?)',
-        r'(höjning(?:en)?)',
-        r'(sänkning(?:en)?)',
-        r'(ökning(?:en)?)',
-        r'(minskning(?:en)?)',
-    ]
-
-    all_descriptors = amount_descriptors + percentage_descriptors
-
-    # Search backwards in context for descriptive words
-    context_lower = context.lower()
-
-    for pattern in all_descriptors:
-        match = re.search(pattern, context_lower)
-        if match:
-            word = match.group(1)
-            # Remove definite article suffixes for cleaner slugs
-            # Only remove common Swedish article endings, being careful not to
-            # remove parts of the base word (e.g., 't' in 'avgift')
-            if word.endswith('erna'):
-                word = word[:-4]
-            elif word.endswith('arna'):
-                word = word[:-4]
-            elif word.endswith('en') and len(word) > 3:
-                word = word[:-2]
-            elif word.endswith('et') and len(word) > 3:
-                word = word[:-2]
-            elif word.endswith('na') and len(word) > 3:
-                word = word[:-2]
-            if word:
-                return word
-
-    return 'belopp'
+    ref_table = load_reference_table()
+    return ref_table.get(positional_id, positional_id)
 
 
 def _slugify(text: str) -> str:
@@ -240,32 +178,50 @@ def _slugify(text: str) -> str:
     return text
 
 
-def tag_swedish_amounts(text: str) -> str:
+def tag_swedish_amounts(text: str, section_id: Optional[str] = None) -> str:
     """
     Tag Swedish monetary amounts and percentages in text with <data> elements.
 
     Processes text line by line, skipping markdown headers.
     Each amount/percentage is wrapped with a <data> tag containing:
-    - id: descriptive slug
+    - id: positional id (e.g., "kap5.2-belopp-1") or resolved slug from reference table
     - type: "amount" or "percentage"
     - value: normalized numeric value
 
     Args:
         text: The text to process
+        section_id: Optional section id for generating positional ids (e.g., "kap5.2")
 
     Returns:
         Text with amounts and percentages wrapped in <data> tags
 
     Example:
-        Input: "Avgiften är 1 000 kronor per år."
-        Output: 'Avgiften är <data id="avgift-1000-kr" type="amount" value="1000">1 000 kronor</data> per år.'
+        Input: "Avgiften är 1 000 kronor per år." with section_id="kap5.2"
+        Output: '<data id="kap5.2-belopp-1" type="amount" value="1000">1 000 kronor</data>'
+
+        With reference table {"kap5.2-belopp-1": "tillstandsavgift"}:
+        Output: '<data id="tillstandsavgift" type="amount" value="1000">1 000 kronor</data>'
     """
     lines = text.split('\n')
     processed_lines = []
 
+    # Track current section and counters
+    current_section = section_id
+    amount_counter = 0
+    percentage_counter = 0
+
     for line in lines:
         # Skip headers (lines starting with #)
         if line.strip().startswith('#'):
+            processed_lines.append(line)
+            continue
+
+        # Check for section tags to extract section id
+        section_match = re.match(r'^\s*<section[^>]*\bid=["\']([^"\']+)["\']', line)
+        if section_match:
+            current_section = section_match.group(1)
+            amount_counter = 0  # Reset counters for new section
+            percentage_counter = 0
             processed_lines.append(line)
             continue
 
@@ -274,41 +230,57 @@ def tag_swedish_amounts(text: str) -> str:
             processed_lines.append(line)
             continue
 
-        # Process amounts and percentages
-        processed_line = _tag_amounts_in_line(line)
-        processed_line = _tag_percentages_in_line(processed_line)
+        # Process amounts and percentages with counters
+        processed_line, new_amount_count = _tag_amounts_in_line(
+            line, current_section, amount_counter
+        )
+        amount_counter = new_amount_count
+
+        processed_line, new_percentage_count = _tag_percentages_in_line(
+            processed_line, current_section, percentage_counter
+        )
+        percentage_counter = new_percentage_count
 
         processed_lines.append(processed_line)
 
     return '\n'.join(processed_lines)
 
 
-def _tag_amounts_in_line(line: str) -> str:
+def _tag_amounts_in_line(
+    line: str,
+    section_id: Optional[str],
+    counter: int
+) -> tuple[str, int]:
     """
     Tag monetary amounts in a single line.
 
     Args:
         line: A single line of text
+        section_id: Current section id for positional ids
+        counter: Current count of amounts in this section
 
     Returns:
-        Line with amounts tagged
+        Tuple of (processed line, updated counter)
     """
+    current_counter = counter
+
     # First, try to match amounts with multipliers (miljoner, miljarder, tusen)
     def replace_amount_with_multiplier(match):
+        nonlocal current_counter
         full_match = match.group(0)
         number = match.group(1)
 
-        # Get context (text before match)
-        start_pos = match.start()
-        context = line[:start_pos]
+        current_counter += 1
+        positional_id = generate_positional_id(section_id, "belopp", current_counter)
+        resolved_id = resolve_id(positional_id)
 
         normalized_value = normalize_number(number)
-        slug = generate_amount_slug(context)
 
-        return f'<data id="{slug}" type="amount" value="{normalized_value}">{full_match}</data>'
+        return f'<data id="{resolved_id}" type="amount" value="{normalized_value}">{full_match}</data>'
 
     # Then, match simple amounts (without multipliers)
     def replace_simple_amount(match):
+        nonlocal current_counter
         full_match = match.group(0)
 
         # Skip if already inside a <data> tag
@@ -318,31 +290,41 @@ def _tag_amounts_in_line(line: str) -> str:
 
         number = match.group(1)
 
-        context = line[:start_pos]
+        current_counter += 1
+        positional_id = generate_positional_id(section_id, "belopp", current_counter)
+        resolved_id = resolve_id(positional_id)
 
         normalized_value = normalize_number(number)
-        slug = generate_amount_slug(context)
 
-        return f'<data id="{slug}" type="amount" value="{normalized_value}">{full_match}</data>'
+        return f'<data id="{resolved_id}" type="amount" value="{normalized_value}">{full_match}</data>'
 
     # Apply patterns
     result = AMOUNT_WITH_MULTIPLIER_PATTERN.sub(replace_amount_with_multiplier, line)
     result = AMOUNT_SIMPLE_PATTERN.sub(replace_simple_amount, result)
 
-    return result
+    return result, current_counter
 
 
-def _tag_percentages_in_line(line: str) -> str:
+def _tag_percentages_in_line(
+    line: str,
+    section_id: Optional[str],
+    counter: int
+) -> tuple[str, int]:
     """
     Tag percentages in a single line.
 
     Args:
         line: A single line of text
+        section_id: Current section id for positional ids
+        counter: Current count of percentages in this section
 
     Returns:
-        Line with percentages tagged
+        Tuple of (processed line, updated counter)
     """
+    current_counter = counter
+
     def replace_percentage(match):
+        nonlocal current_counter
         full_match = match.group(0)
 
         # Skip if already inside a <data> tag
@@ -352,11 +334,13 @@ def _tag_percentages_in_line(line: str) -> str:
 
         number = match.group(1)
 
-        context = line[:start_pos]
+        current_counter += 1
+        positional_id = generate_positional_id(section_id, "procent", current_counter)
+        resolved_id = resolve_id(positional_id)
 
         normalized_value = normalize_number(number)
-        slug = generate_percentage_slug(context)
 
-        return f'<data id="{slug}" type="percentage" value="{normalized_value}">{full_match}</data>'
+        return f'<data id="{resolved_id}" type="percentage" value="{normalized_value}">{full_match}</data>'
 
-    return PERCENTAGE_PATTERN.sub(replace_percentage, line)
+    result = PERCENTAGE_PATTERN.sub(replace_percentage, line)
+    return result, current_counter

@@ -7,10 +7,10 @@ import pytest
 from formatters.tag_swedish_amounts import (
     tag_swedish_amounts,
     normalize_number,
-    generate_amount_slug,
-    generate_percentage_slug,
+    generate_positional_id,
+    resolve_id,
+    load_reference_table,
     _slugify,
-    _extract_context_word,
 )
 
 
@@ -80,83 +80,51 @@ class TestSlugify:
 
 
 # ===========================================================================
-# _extract_context_word Tests
+# generate_positional_id Tests
 # ===========================================================================
 
 @pytest.mark.unit
-class TestExtractContextWord:
-    """Test the _extract_context_word function."""
+class TestGeneratePositionalId:
+    """Test the generate_positional_id function."""
 
-    def test_avgift(self):
-        """Test extracting 'avgift' from context."""
-        assert _extract_context_word("En avgift på ") == "avgift"
+    def test_with_section_id(self):
+        """Test generating positional id with section."""
+        result = generate_positional_id("kap5.2", "belopp", 1)
+        assert result == "kap5.2-belopp-1"
 
-    def test_avgiften(self):
-        """Test extracting base word from definite form."""
-        result = _extract_context_word("Avgiften är ")
-        assert result in ["avgift", "avgift"]
+    def test_with_section_id_multiple(self):
+        """Test generating positional id with higher position."""
+        result = generate_positional_id("kap5.2", "belopp", 3)
+        assert result == "kap5.2-belopp-3"
 
-    def test_ranta(self):
-        """Test extracting 'ränt' from context."""
-        result = _extract_context_word("med en ränta på ")
-        assert "rant" in _slugify(result) or result == "belopp"
+    def test_without_section_id(self):
+        """Test generating positional id without section."""
+        result = generate_positional_id(None, "belopp", 1)
+        assert result == "belopp-1"
 
-    def test_no_descriptor(self):
-        """Test default when no descriptor found."""
-        assert _extract_context_word("xyz ") == "belopp"
-
-    def test_skatt(self):
-        """Test extracting 'skatt' from context."""
-        result = _extract_context_word("Den kommunala skatten är ")
-        assert result in ["skatt", "skatt", "belopp"]
+    def test_percentage_type(self):
+        """Test generating positional id for percentage."""
+        result = generate_positional_id("kap1.5", "procent", 2)
+        assert result == "kap1.5-procent-2"
 
 
 # ===========================================================================
-# generate_amount_slug Tests
+# resolve_id Tests
 # ===========================================================================
 
 @pytest.mark.unit
-class TestGenerateAmountSlug:
-    """Test the generate_amount_slug function."""
+class TestResolveId:
+    """Test the resolve_id function."""
 
-    def test_simple_amount(self):
-        """Test generating slug for simple amount."""
-        slug = generate_amount_slug("En avgift på ")
-        assert slug == "avgift"
+    def test_no_mapping_returns_original(self):
+        """Test that unmapped ids are returned as-is."""
+        result = resolve_id("kap99.99-belopp-99")
+        assert result == "kap99.99-belopp-99"
 
-    def test_amount_with_context(self):
-        """Test generating slug extracts context word."""
-        slug = generate_amount_slug("Kapitalet är ")
-        assert slug == "kapital"
-
-    def test_amount_with_omsattning(self):
-        """Test generating slug for 'omsättning'."""
-        slug = generate_amount_slug("Omsättningen är ")
-        assert slug == "omsattning"
-
-    def test_amount_with_pris(self):
-        """Test generating slug for 'pris'."""
-        slug = generate_amount_slug("Priset är ")
-        assert slug == "pris"
-
-
-# ===========================================================================
-# generate_percentage_slug Tests
-# ===========================================================================
-
-@pytest.mark.unit
-class TestGeneratePercentageSlug:
-    """Test the generate_percentage_slug function."""
-
-    def test_simple_percentage(self):
-        """Test generating slug for simple percentage."""
-        slug = generate_percentage_slug("Räntan är ")
-        assert slug == "ranta"
-
-    def test_percentage_with_context(self):
-        """Test generating slug with context extraction."""
-        slug = generate_percentage_slug("Momsen är ")
-        assert slug == "moms"
+    def test_returns_positional_when_no_table(self):
+        """Test fallback when no reference table exists."""
+        result = resolve_id("nonexistent-id")
+        assert result == "nonexistent-id"
 
 
 # ===========================================================================
@@ -345,30 +313,53 @@ class TestTagSwedishAmountsMultiple:
 
 
 # ===========================================================================
-# tag_swedish_amounts Tests - Context-based slugs
+# tag_swedish_amounts Tests - Positional ids
 # ===========================================================================
 
 @pytest.mark.unit
-class TestTagSwedishAmountsContextSlugs:
-    """Test that slugs are generated based on context."""
+class TestTagSwedishAmountsPositionalIds:
+    """Test that positional ids are generated correctly."""
 
-    def test_avgift_context(self):
-        """Test slug generation with 'avgift' context."""
+    def test_simple_positional_id(self):
+        """Test positional id without section."""
         result = tag_swedish_amounts("Avgiften är 500 kronor.")
-        assert 'id="avgift"' in result
+        assert 'id="belopp-1"' in result
 
-    def test_ranta_context_percentage(self):
-        """Test slug generation with 'ränta' context for percentage."""
-        result = tag_swedish_amounts("Räntan är 5 procent.")
-        assert 'id="ranta"' in result
+    def test_with_section_id(self):
+        """Test positional id with section_id parameter."""
+        result = tag_swedish_amounts("Avgiften är 500 kronor.", section_id="kap5.2")
+        assert 'id="kap5.2-belopp-1"' in result
 
-    def test_same_id_different_values(self):
-        """Test that same context gives same id regardless of value."""
-        result1 = tag_swedish_amounts("Avgiften är 500 kronor.")
-        result2 = tag_swedish_amounts("Avgiften är 1000 kronor.")
-        # Both should have id="avgift" but different values
-        assert 'id="avgift"' in result1
-        assert 'id="avgift"' in result2
+    def test_multiple_amounts_incrementing(self):
+        """Test that multiple amounts get incrementing positions."""
+        result = tag_swedish_amounts("Första 500 kr och andra 1000 kr.", section_id="kap1.1")
+        assert 'id="kap1.1-belopp-1"' in result
+        assert 'id="kap1.1-belopp-2"' in result
+
+    def test_section_tag_resets_counter(self):
+        """Test that section tags reset the counter."""
+        text = '''<section id="kap1.1">
+Belopp 100 kronor.
+</section>
+<section id="kap1.2">
+Belopp 200 kronor.
+</section>'''
+        result = tag_swedish_amounts(text)
+        assert 'id="kap1.1-belopp-1"' in result
+        assert 'id="kap1.2-belopp-1"' in result
+
+    def test_percentage_positional_id(self):
+        """Test positional id for percentages."""
+        result = tag_swedish_amounts("Räntan är 5 procent.", section_id="kap2.3")
+        assert 'id="kap2.3-procent-1"' in result
+
+    def test_same_id_across_amendments(self):
+        """Test that same position gives same id with different values."""
+        result1 = tag_swedish_amounts("Avgiften är 500 kronor.", section_id="kap5.2")
+        result2 = tag_swedish_amounts("Avgiften är 1000 kronor.", section_id="kap5.2")
+        # Both should have same positional id but different values
+        assert 'id="kap5.2-belopp-1"' in result1
+        assert 'id="kap5.2-belopp-1"' in result2
         assert 'value="500"' in result1
         assert 'value="1000"' in result2
 

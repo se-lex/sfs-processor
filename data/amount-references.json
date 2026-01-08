@@ -1,0 +1,7 @@
+{
+  "_comment": "Reference table mapping positional ids to descriptive slugs. Keys starting with _ are ignored.",
+  "_format": "{ 'section-id-type-position': 'descriptive-slug' }",
+
+  "kap5.2-belopp-1": "tillstandsavgift",
+  "kap5.2-procent-1": "riksbankens-referensranta"
+}
