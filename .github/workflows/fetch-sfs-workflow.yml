@@ -88,9 +88,9 @@ jobs:
         # Get current branch
         CURRENT_BRANCH=$(git rev-parse --abbrev-ref HEAD)
 
-        # Create a new branch for commits if we have changes
-        git add data/md-markers/ data/sfs_json/
-        if git diff --staged --quiet; then
+        # Check if we have changes (without staging yet)
+        if git diff --quiet data/md-markers/ data/sfs_json/ && \
+           ! git ls-files --others --exclude-standard data/md-markers/ data/sfs_json/ | grep -q .; then
           echo "Inga nya filer att committa"
           echo "has_changes=false" >> $GITHUB_OUTPUT
         else
@@ -110,6 +110,9 @@ jobs:
             # Branch doesn't exist - create new
             git checkout -b "$COMMIT_BRANCH"
           fi
+
+          # Now add files after we're on the correct branch
+          git add data/md-markers/ data/sfs_json/
 
           # Commit with multi-line message
           git commit -m "Automatisk uppdatering av SFS-författningar $(date +'%Y-%m-%d')" \
