@@ -87,25 +87,35 @@ class TestSlugify:
 class TestGeneratePositionalId:
     """Test the generate_positional_id function."""
 
-    def test_with_section_id(self):
-        """Test generating positional id with section."""
-        result = generate_positional_id("kap5.2", "belopp", 1)
+    def test_with_sfs_and_section(self):
+        """Test generating positional id with SFS and section."""
+        result = generate_positional_id("2024:123", "kap5.2", "belopp", 1)
+        assert result == "sfs-2024-123-kap5.2-belopp-1"
+
+    def test_with_sfs_only(self):
+        """Test generating positional id with only SFS."""
+        result = generate_positional_id("2024:123", None, "belopp", 1)
+        assert result == "sfs-2024-123-belopp-1"
+
+    def test_with_section_only(self):
+        """Test generating positional id with only section."""
+        result = generate_positional_id(None, "kap5.2", "belopp", 1)
         assert result == "kap5.2-belopp-1"
 
-    def test_with_section_id_multiple(self):
-        """Test generating positional id with higher position."""
-        result = generate_positional_id("kap5.2", "belopp", 3)
-        assert result == "kap5.2-belopp-3"
-
-    def test_without_section_id(self):
-        """Test generating positional id without section."""
-        result = generate_positional_id(None, "belopp", 1)
+    def test_without_sfs_or_section(self):
+        """Test generating positional id without SFS or section."""
+        result = generate_positional_id(None, None, "belopp", 1)
         assert result == "belopp-1"
 
     def test_percentage_type(self):
         """Test generating positional id for percentage."""
-        result = generate_positional_id("kap1.5", "procent", 2)
-        assert result == "kap1.5-procent-2"
+        result = generate_positional_id("2020:100", "kap1.5", "procent", 2)
+        assert result == "sfs-2020-100-kap1.5-procent-2"
+
+    def test_multiple_positions(self):
+        """Test generating positional id with higher position."""
+        result = generate_positional_id("2024:123", "kap5.2", "belopp", 3)
+        assert result == "sfs-2024-123-kap5.2-belopp-3"
 
 
 # ===========================================================================
@@ -321,20 +331,25 @@ class TestTagSwedishAmountsPositionalIds:
     """Test that positional ids are generated correctly."""
 
     def test_simple_positional_id(self):
-        """Test positional id without section."""
+        """Test positional id without SFS or section."""
         result = tag_swedish_amounts("Avgiften är 500 kronor.")
         assert 'id="belopp-1"' in result
 
-    def test_with_section_id(self):
-        """Test positional id with section_id parameter."""
-        result = tag_swedish_amounts("Avgiften är 500 kronor.", section_id="kap5.2")
-        assert 'id="kap5.2-belopp-1"' in result
+    def test_with_sfs_id(self):
+        """Test positional id with sfs_id parameter."""
+        result = tag_swedish_amounts("Avgiften är 500 kronor.", sfs_id="2024:123")
+        assert 'id="sfs-2024-123-belopp-1"' in result
+
+    def test_with_sfs_and_section(self):
+        """Test positional id with both sfs_id and section_id."""
+        result = tag_swedish_amounts("Avgiften är 500 kronor.", sfs_id="2024:123", section_id="kap5.2")
+        assert 'id="sfs-2024-123-kap5.2-belopp-1"' in result
 
     def test_multiple_amounts_incrementing(self):
         """Test that multiple amounts get incrementing positions."""
-        result = tag_swedish_amounts("Första 500 kr och andra 1000 kr.", section_id="kap1.1")
-        assert 'id="kap1.1-belopp-1"' in result
-        assert 'id="kap1.1-belopp-2"' in result
+        result = tag_swedish_amounts("Första 500 kr och andra 1000 kr.", sfs_id="2024:123", section_id="kap1.1")
+        assert 'id="sfs-2024-123-kap1.1-belopp-1"' in result
+        assert 'id="sfs-2024-123-kap1.1-belopp-2"' in result
 
     def test_section_tag_resets_counter(self):
         """Test that section tags reset the counter."""
@@ -344,22 +359,31 @@ Belopp 100 kronor.
 <section id="kap1.2">
 Belopp 200 kronor.
 </section>'''
+        result = tag_swedish_amounts(text, sfs_id="2024:123")
+        assert 'id="sfs-2024-123-kap1.1-belopp-1"' in result
+        assert 'id="sfs-2024-123-kap1.2-belopp-1"' in result
+
+    def test_article_tag_extracts_sfs(self):
+        """Test that article tags extract SFS id from selex:id."""
+        text = '''<article selex:id="lag-2024-123">
+Avgiften är 500 kronor.
+</article>'''
         result = tag_swedish_amounts(text)
-        assert 'id="kap1.1-belopp-1"' in result
-        assert 'id="kap1.2-belopp-1"' in result
+        assert 'id="sfs-2024-123-belopp-1"' in result
 
     def test_percentage_positional_id(self):
         """Test positional id for percentages."""
-        result = tag_swedish_amounts("Räntan är 5 procent.", section_id="kap2.3")
-        assert 'id="kap2.3-procent-1"' in result
+        result = tag_swedish_amounts("Räntan är 5 procent.", sfs_id="2024:123", section_id="kap2.3")
+        assert 'id="sfs-2024-123-kap2.3-procent-1"' in result
 
-    def test_same_id_across_amendments(self):
-        """Test that same position gives same id with different values."""
-        result1 = tag_swedish_amounts("Avgiften är 500 kronor.", section_id="kap5.2")
-        result2 = tag_swedish_amounts("Avgiften är 1000 kronor.", section_id="kap5.2")
-        # Both should have same positional id but different values
-        assert 'id="kap5.2-belopp-1"' in result1
-        assert 'id="kap5.2-belopp-1"' in result2
+    def test_same_slug_different_sfs(self):
+        """Test that same position in different SFS gives different positional ids."""
+        result1 = tag_swedish_amounts("Avgiften är 500 kronor.", sfs_id="2020:100", section_id="kap5.2")
+        result2 = tag_swedish_amounts("Avgiften är 1000 kronor.", sfs_id="2024:123", section_id="kap5.2")
+        # Different SFS gives different positional ids
+        assert 'id="sfs-2020-100-kap5.2-belopp-1"' in result1
+        assert 'id="sfs-2024-123-kap5.2-belopp-1"' in result2
+        # But values are different
         assert 'value="500"' in result1
         assert 'value="1000"' in result2
 

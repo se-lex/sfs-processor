@@ -115,22 +115,32 @@ def load_reference_table() -> Dict[str, str]:
     return _reference_table
 
 
-def generate_positional_id(section_id: Optional[str], data_type: str, position: int) -> str:
+def generate_positional_id(sfs_id: Optional[str], section_id: Optional[str], data_type: str, position: int) -> str:
     """
     Generate a positional id for a data element.
 
     Args:
+        sfs_id: The SFS designation (e.g., "2024:123") or None
         section_id: The section id (e.g., "kap5.2") or None
         data_type: "belopp" for amounts, "procent" for percentages
         position: 1-based position within the section for this type
 
     Returns:
-        A positional id like "kap5.2-belopp-1" or "procent-1" if no section
+        A positional id like "sfs-2024-123-kap5.2-belopp-1"
     """
+    parts = []
+
+    if sfs_id:
+        # Normalize SFS id: "2024:123" -> "sfs-2024-123"
+        normalized_sfs = "sfs-" + sfs_id.replace(":", "-")
+        parts.append(normalized_sfs)
+
     if section_id:
-        return f"{section_id}-{data_type}-{position}"
-    else:
-        return f"{data_type}-{position}"
+        parts.append(section_id)
+
+    parts.append(f"{data_type}-{position}")
+
+    return "-".join(parts)
 
 
 def resolve_id(positional_id: str) -> str:
@@ -178,34 +188,40 @@ def _slugify(text: str) -> str:
     return text
 
 
-def tag_swedish_amounts(text: str, section_id: Optional[str] = None) -> str:
+def tag_swedish_amounts(text: str, sfs_id: Optional[str] = None, section_id: Optional[str] = None) -> str:
     """
     Tag Swedish monetary amounts and percentages in text with <data> elements.
 
     Processes text line by line, skipping markdown headers.
     Each amount/percentage is wrapped with a <data> tag containing:
-    - id: positional id (e.g., "kap5.2-belopp-1") or resolved slug from reference table
+    - id: positional id or resolved slug from reference table
     - type: "amount" or "percentage"
     - value: normalized numeric value
 
     Args:
         text: The text to process
+        sfs_id: Optional SFS designation (e.g., "2024:123") for generating positional ids
         section_id: Optional section id for generating positional ids (e.g., "kap5.2")
 
     Returns:
         Text with amounts and percentages wrapped in <data> tags
 
     Example:
-        Input: "Avgiften är 1 000 kronor per år." with section_id="kap5.2"
-        Output: '<data id="kap5.2-belopp-1" type="amount" value="1000">1 000 kronor</data>'
+        Input: "Avgiften är 1 000 kronor." with sfs_id="2024:123", section_id="kap5.2"
+        Output: '<data id="sfs-2024-123-kap5.2-belopp-1" type="amount" value="1000">...</data>'
 
-        With reference table {"kap5.2-belopp-1": "tillstandsavgift"}:
-        Output: '<data id="tillstandsavgift" type="amount" value="1000">1 000 kronor</data>'
+        With reference table {"sfs-2024-123-kap5.2-belopp-1": "tillstandsavgift"}:
+        Output: '<data id="tillstandsavgift" type="amount" value="1000">...</data>'
+
+    Multiple SFS entries can map to the same slug to track changes over time:
+        {"sfs-2020-100-kap5.2-belopp-1": "tillstandsavgift",
+         "sfs-2024-123-kap5.2-belopp-1": "tillstandsavgift"}
     """
     lines = text.split('\n')
     processed_lines = []
 
-    # Track current section and counters
+    # Track current SFS, section and counters
+    current_sfs = sfs_id
     current_section = section_id
     amount_counter = 0
     percentage_counter = 0
@@ -213,6 +229,17 @@ def tag_swedish_amounts(text: str, section_id: Optional[str] = None) -> str:
     for line in lines:
         # Skip headers (lines starting with #)
         if line.strip().startswith('#'):
+            processed_lines.append(line)
+            continue
+
+        # Check for article tags to extract SFS id
+        article_match = re.match(r'^\s*<article[^>]*\bselex:id=["\']([^"\']+)["\']', line)
+        if article_match:
+            # Extract SFS id from selex:id like "lag-2024-123" -> "2024:123"
+            selex_id = article_match.group(1)
+            sfs_match = re.search(r'(\d{4})-(\d+)', selex_id)
+            if sfs_match:
+                current_sfs = f"{sfs_match.group(1)}:{sfs_match.group(2)}"
             processed_lines.append(line)
             continue
 
@@ -232,12 +259,12 @@ def tag_swedish_amounts(text: str, section_id: Optional[str] = None) -> str:
 
         # Process amounts and percentages with counters
         processed_line, new_amount_count = _tag_amounts_in_line(
-            line, current_section, amount_counter
+            line, current_sfs, current_section, amount_counter
         )
         amount_counter = new_amount_count
 
         processed_line, new_percentage_count = _tag_percentages_in_line(
-            processed_line, current_section, percentage_counter
+            processed_line, current_sfs, current_section, percentage_counter
         )
         percentage_counter = new_percentage_count
 
@@ -248,6 +275,7 @@ def tag_swedish_amounts(text: str, section_id: Optional[str] = None) -> str:
 
 def _tag_amounts_in_line(
     line: str,
+    sfs_id: Optional[str],
     section_id: Optional[str],
     counter: int
 ) -> tuple[str, int]:
@@ -256,6 +284,7 @@ def _tag_amounts_in_line(
 
     Args:
         line: A single line of text
+        sfs_id: Current SFS designation for positional ids
         section_id: Current section id for positional ids
         counter: Current count of amounts in this section
 
@@ -271,7 +300,7 @@ def _tag_amounts_in_line(
         number = match.group(1)
 
         current_counter += 1
-        positional_id = generate_positional_id(section_id, "belopp", current_counter)
+        positional_id = generate_positional_id(sfs_id, section_id, "belopp", current_counter)
         resolved_id = resolve_id(positional_id)
 
         normalized_value = normalize_number(number)
@@ -291,7 +320,7 @@ def _tag_amounts_in_line(
         number = match.group(1)
 
         current_counter += 1
-        positional_id = generate_positional_id(section_id, "belopp", current_counter)
+        positional_id = generate_positional_id(sfs_id, section_id, "belopp", current_counter)
         resolved_id = resolve_id(positional_id)
 
         normalized_value = normalize_number(number)
@@ -307,6 +336,7 @@ def _tag_amounts_in_line(
 
 def _tag_percentages_in_line(
     line: str,
+    sfs_id: Optional[str],
     section_id: Optional[str],
     counter: int
 ) -> tuple[str, int]:
@@ -315,6 +345,7 @@ def _tag_percentages_in_line(
 
     Args:
         line: A single line of text
+        sfs_id: Current SFS designation for positional ids
         section_id: Current section id for positional ids
         counter: Current count of percentages in this section
 
@@ -335,7 +366,7 @@ def _tag_percentages_in_line(
         number = match.group(1)
 
         current_counter += 1
-        positional_id = generate_positional_id(section_id, "procent", current_counter)
+        positional_id = generate_positional_id(sfs_id, section_id, "procent", current_counter)
         resolved_id = resolve_id(positional_id)
 
         normalized_value = normalize_number(number)

@@ -1,7 +1,13 @@
 {
   "_comment": "Reference table mapping positional ids to descriptive slugs. Keys starting with _ are ignored.",
-  "_format": "{ 'section-id-type-position': 'descriptive-slug' }",
+  "_format": "{ 'sfs-YYYY-NNN-section-type-position': 'descriptive-slug' }",
 
-  "kap5.2-belopp-1": "tillstandsavgift",
-  "kap5.2-procent-1": "riksbankens-referensranta"
+  "_example_tracking_changes": "Multiple SFS entries can map to same slug to track value changes over time",
+
+  "sfs-2020-100-kap5.2-belopp-1": "tillstandsavgift",
+  "sfs-2022-456-kap5.2-belopp-1": "tillstandsavgift",
+  "sfs-2024-123-kap5.2-belopp-1": "tillstandsavgift",
+
+  "sfs-2020-100-kap6.1-procent-1": "riksbankens-referensranta",
+  "sfs-2024-123-kap6.1-procent-1": "riksbankens-referensranta"
 }
