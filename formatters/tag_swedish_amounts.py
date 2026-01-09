@@ -10,15 +10,15 @@ Each match is wrapped in a <data> element with:
 - value: normalized numeric value
 - id: a reference id based on section + position, or a custom slug from reference table
 
-The reference table (data/amount-references.json) maps positional ids to
+The reference table (data/amount-references.yaml) maps positional ids to
 descriptive slugs like "riksbankens-referensranta".
 """
 
 import re
-import json
 from pathlib import Path
 from typing import Optional, Dict
 import unicodedata
+import yaml
 
 
 # Cache for reference table
@@ -84,7 +84,7 @@ def normalize_number(num_str: str) -> str:
 
 def load_reference_table() -> Dict[str, str]:
     """
-    Load the amount reference table from data/amount-references.json.
+    Load the amount reference table from data/amount-references.yaml.
 
     The reference table maps positional ids (e.g., "kap5.2-belopp-1") to
     descriptive slugs (e.g., "riksbankens-referensranta").
@@ -100,11 +100,11 @@ def load_reference_table() -> Dict[str, str]:
     try:
         current_file = Path(__file__)
         project_root = current_file.parent.parent
-        ref_file = project_root / "data" / "amount-references.json"
+        ref_file = project_root / "data" / "amount-references.yaml"
 
         if ref_file.exists():
             with open(ref_file, 'r', encoding='utf-8') as f:
-                _reference_table = json.load(f)
+                _reference_table = yaml.safe_load(f) or {}
         else:
             _reference_table = {}
 
