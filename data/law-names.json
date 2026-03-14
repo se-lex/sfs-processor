@@ -211,7 +211,9 @@
     "id": "1967:837",
     "name": "patentlagen",
     "type": "law",
-    "alternativeNames": [],
+    "alternativeNames": [
+      "PatL"
+    ],
     "category": "Immaterialrätt"
   },
   {
@@ -510,7 +512,9 @@
     "id": "1975:635",
     "name": "räntelagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [
+      "RänteL"
+    ]
   },
   {
     "id": "1976:19",
@@ -542,7 +546,9 @@
     "id": "1977:1160",
     "name": "arbetsmiljölagen",
     "type": "law",
-    "alternativeNames": [],
+    "alternativeNames": [
+      "AML"
+    ],
     "category": "Arbetsrätt"
   },
   {
@@ -659,7 +665,9 @@
     "id": "1981:130",
     "name": "preskriptionslagen",
     "type": "law",
-    "alternativeNames": [],
+    "alternativeNames": [
+      "PreskL"
+    ],
     "category": "Fordringsrätt"
   },
   {
@@ -689,7 +697,9 @@
     "id": "1982:673",
     "name": "arbetstidslagen",
     "type": "law",
-    "alternativeNames": [],
+    "alternativeNames": [
+      "ATL"
+    ],
     "category": "Arbetsrätt"
   },
   {
@@ -834,7 +844,9 @@
     "id": "1988:534",
     "name": "djurskyddslagen",
     "type": "law",
-    "alternativeNames": [],
+    "alternativeNames": [
+      "DjurskL"
+    ],
     "category": "Speciell förvaltningsrätt"
   },
   {
@@ -1193,13 +1205,17 @@
     "id": "1996:627",
     "name": "säkerhetsskyddslagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [
+      "SäkL"
+    ]
   },
   {
     "id": "1996:67",
     "name": "vapenlagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [
+      "VapenL"
+    ]
   },
   {
     "id": "1996:799",
@@ -1603,7 +1619,9 @@
     "id": "2008:567",
     "name": "diskrimineringslagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [
+      "DL"
+    ]
   },
   {
     "id": "2008:579",
