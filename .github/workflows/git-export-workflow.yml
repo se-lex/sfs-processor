@@ -87,6 +87,8 @@ jobs:
 
     - name: Determine export filter
       id: export_filter
+      env:
+        GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       run: |
         EXPORT_MODE="${{ inputs.export_mode || 'changed' }}"
         echo "📋 Export-läge: $EXPORT_MODE"
@@ -103,23 +105,56 @@ jobs:
             echo "filter_type=none" >> $GITHUB_OUTPUT
           fi
         else
-          # Exportera bara nya/ändrade filer sedan senaste veckan
+          # Exportera nya/ändrade filer sedan senaste veckan
           SINCE_DATE=$(date -u -d '7 days ago' +'%Y-%m-%d')
           echo "🔍 Letar efter filer ändrade sedan: $SINCE_DATE"
 
           # Hämta lista på ändrade JSON-filer från git log
           CHANGED_FILES=$(git log --since="$SINCE_DATE" --name-only --pretty=format: --diff-filter=AM -- data/sfs_json/ | grep -E '\.json$' | sort -u || true)
 
+          # Hitta också filer som saknas i senaste export-branch i se-lex/sfs
+          echo "🔍 Söker efter filer som saknas i senaste export-branch..."
+          LATEST_EXPORT=$(gh api "repos/se-lex/sfs/branches?per_page=100" \
+            --jq '[.[] | select(.name | startswith("export-")) | .name] | sort | last' 2>/dev/null || echo "")
+
+          if [ -n "$LATEST_EXPORT" ]; then
+            echo "📌 Senaste export-branch: $LATEST_EXPORT"
+            # Hämta alla exporterade filnamn (utan år-prefix och .md-ändelse)
+            EXPORTED_STEMS=$(gh api "repos/se-lex/sfs/git/trees/${LATEST_EXPORT}?recursive=1" \
+              --jq '[.tree[] | select(.type=="blob") | .path | split("/") | last | gsub("\\.md$"; "")] | sort | .[]' \
+              2>/dev/null || echo "")
+
+            # Alla lokala JSON-filer som stammar
+            LOCAL_STEMS=$(find data/sfs_json -name "*.json" -printf "%f\n" | sed 's/\.json$//' | sort)
+
+            # Filer som finns lokalt men saknas i export-branch
+            MISSING_FILES=$(comm -23 \
+              <(echo "$LOCAL_STEMS") \
+              <(echo "$EXPORTED_STEMS") \
+              | grep -v '^$' \
+              | sed 's|^|data/sfs_json/|; s/$/.json/' || true)
+
+            if [ -n "$MISSING_FILES" ]; then
+              MISSING_COUNT=$(echo "$MISSING_FILES" | wc -l | tr -d ' ')
+              echo "📦 Hittade $MISSING_COUNT filer som saknas i ${LATEST_EXPORT}"
+              CHANGED_FILES=$(printf "%s\n%s" "$CHANGED_FILES" "$MISSING_FILES" | grep -v '^$' | sort -u)
+            else
+              echo "✅ Alla lokala filer finns redan i ${LATEST_EXPORT}"
+            fi
+          else
+            echo "ℹ️  Ingen export-branch hittades i se-lex/sfs, exporterar bara ändrade filer"
+          fi
+
           if [ -z "$CHANGED_FILES" ]; then
-            echo "⚠️  Inga nya/ändrade filer hittades sedan $SINCE_DATE"
+            echo "⚠️  Inga filer att exportera"
             echo "changed_count=0" >> $GITHUB_OUTPUT
             echo "filter=" >> $GITHUB_OUTPUT
             echo "filter_type=none" >> $GITHUB_OUTPUT
             exit 0
           else
-            # Räkna antal ändrade filer
+            # Räkna antal filer
             CHANGED_COUNT=$(echo "$CHANGED_FILES" | wc -l | tr -d ' ')
-            echo "✅ Hittade $CHANGED_COUNT nya/ändrade filer"
+            echo "✅ Totalt $CHANGED_COUNT filer att exportera"
 
             # Extrahera beteckningar från filnamn (sfs-YYYY-NNN.json -> YYYY:NNN)
             BETECKNINGAR=""
@@ -134,14 +169,14 @@ jobs:
               fi
             done <<< "$CHANGED_FILES"
 
-            echo "📋 Filter för ändrade dokument: $BETECKNINGAR"
+            echo "📋 Filter för dokument: $BETECKNINGAR"
             echo "changed_count=$CHANGED_COUNT" >> $GITHUB_OUTPUT
             echo "filter=$BETECKNINGAR" >> $GITHUB_OUTPUT
             echo "filter_type=beteckningar" >> $GITHUB_OUTPUT
 
             # Spara lista för debugging
             echo ""
-            echo "Ändrade filer:"
+            echo "Filer att exportera:"
             echo "$CHANGED_FILES"
           fi
         fi
