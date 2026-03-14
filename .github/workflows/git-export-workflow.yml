@@ -195,8 +195,8 @@ jobs:
 
     - name: Configure Git identity
       run: |
-        git config --global user.email "action@github.com"
-        git config --global user.name "GitHub Action"
+        git config --global user.email "martin@marca.se"
+        git config --global user.name "Martin Rimskog"
 
     - name: Export to Git repository
       # Skippa om inga ändrade filer i "changed" mode
