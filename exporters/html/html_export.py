@@ -434,12 +434,8 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
     # Build metadata in two columns
     column1_items = []
     column2_items = []
-    
-    # Column 1: Basic document info
-    column1_items.append(f"""
-            <dt>Beteckning:</dt>
-            <dd property="eli:id_local" datatype="xsd:string">{html.escape(beteckning)}</dd>""")
 
+    # Column 1: Basic document info
     if organisation:
         column1_items.append(f"""
             <dt>Departement:</dt>
@@ -472,15 +468,15 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
             <dd property="eli:type_document" resource="http://data.europa.eu/eli/ontology#directive" datatype="xsd:boolean">Ja</dd>""")
     
     # Column 2: Dates and links
-    if publicerad_datum:
-        column2_items.append(f"""
-            <dt>Publicerad:</dt>
-            <dd property="eli:date_publication" datatype="xsd:date">{html.escape(publicerad_datum)}</dd>""")
-    
     if utfardad_datum:
         column2_items.append(f"""
             <dt>Utfärdad:</dt>
             <dd property="eli:date_document" datatype="xsd:date">{html.escape(utfardad_datum)}</dd>""")
+
+    if publicerad_datum:
+        column2_items.append(f"""
+            <dt>Publicerad:</dt>
+            <dd property="eli:date_publication" datatype="xsd:date">{html.escape(publicerad_datum)}</dd>""")
     
     if ikraft_datum:
         column2_items.append(f"""
