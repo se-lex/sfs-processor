@@ -1,13 +1,12 @@
 ---
-id: sfs-2026-226
 beteckning: "2026:226"
 rubrik: Lag om begränsning av bostadskrediter
-normtyp: Lag
 departement: Finansdepartementet
 utfardad_datum: 2026-03-05
 ikraft_datum: 2026-04-01
 publicerad_datum: 2026-03-10
-forarbeten: - "PROP 2025/26:119"
+forarbeten:
+  - "PROP 2025/26:119"
   - "BET 2025/26:FiU36"
   - "RSKR 2025/26:171"
 pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/2026-03/SFS2026-226.pdf
