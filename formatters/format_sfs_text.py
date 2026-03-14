@@ -32,6 +32,7 @@ Regler som inte utvecklats än:
 import re
 from typing import Optional
 from .apply_links import apply_sfs_links, apply_internal_links, apply_eu_links, apply_law_name_links
+from .apply_agency_links import apply_agency_links
 from util.text_utils import WHITESPACE_PATTERN
 
 # Regex patterns as constants
@@ -370,11 +371,12 @@ def format_sfs_text_as_markdown(text: str, apply_links: bool = False) -> str:
     # Returnera den formaterade texten
     final_text = '\n'.join(formatted)
     
-    # Tillämpa externa länkar först (lagnamn, SFS, EU), sedan interna paragraf-länkar
+    # Tillämpa externa länkar först (lagnamn, SFS, EU, myndigheter), sedan interna paragraf-länkar
     if apply_links:
         final_text = apply_law_name_links(final_text)
         final_text = apply_sfs_links(final_text)
         final_text = apply_eu_links(final_text)
+        final_text = apply_agency_links(final_text)
         final_text = apply_internal_links(final_text)
 
     return final_text.strip()  # Ta bort eventuella inledande eller avslutande tomma rader
