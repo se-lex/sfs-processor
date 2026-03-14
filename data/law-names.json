@@ -469,7 +469,7 @@
   },
   {
     "id": "1974:371",
-    "name": "",
+    "name": "lagen om rättegången i arbetstvister",
     "type": "law",
     "alternativeNames": [
       "LRA"
@@ -526,7 +526,7 @@
   },
   {
     "id": "1976:580",
-    "name": "",
+    "name": "medbestämmandelagen",
     "type": "law",
     "alternativeNames": [
       "MBL"
@@ -635,7 +635,7 @@
   },
   {
     "id": "1980:100",
-    "name": "",
+    "name": "sekretesslagen",
     "type": "law",
     "alternativeNames": [
       "SekrL"
@@ -649,7 +649,7 @@
   },
   {
     "id": "1980:657",
-    "name": "",
+    "name": "sekretessförordningen",
     "type": "law",
     "alternativeNames": [
       "SekrF"
@@ -673,7 +673,7 @@
   },
   {
     "id": "1981:981",
-    "name": "",
+    "name": "utsökningsförordningen",
     "type": "law",
     "alternativeNames": [
       "UF"
@@ -755,7 +755,7 @@
   },
   {
     "id": "1985:206",
-    "name": "",
+    "name": "viteslagen",
     "type": "law",
     "alternativeNames": [
       "VitesL"
@@ -811,7 +811,7 @@
   },
   {
     "id": "1987:822",
-    "name": "",
+    "name": "lagen om internationella köp",
     "type": "law",
     "alternativeNames": [
       "CISG"
@@ -839,7 +839,7 @@
   },
   {
     "id": "1988:870",
-    "name": "",
+    "name": "lagen om vård av missbrukare i vissa fall",
     "type": "law",
     "alternativeNames": [
       "LVM"
@@ -867,7 +867,7 @@
   },
   {
     "id": "1990:52",
-    "name": "",
+    "name": "lagen med särskilda bestämmelser om vård av unga",
     "type": "law",
     "alternativeNames": [
       "LVU"
@@ -875,7 +875,7 @@
   },
   {
     "id": "1990:746",
-    "name": "",
+    "name": "lagen om betalningsföreläggande och handräckning",
     "type": "law",
     "alternativeNames": [
       "LBH"
@@ -909,7 +909,7 @@
   },
   {
     "id": "1991:1128",
-    "name": "",
+    "name": "lagen om psykiatrisk tvångsvård",
     "type": "law",
     "alternativeNames": [
       "LPT"
@@ -917,7 +917,7 @@
   },
   {
     "id": "1991:1129",
-    "name": "",
+    "name": "lagen om rättspsykiatrisk vård",
     "type": "law",
     "alternativeNames": [
       "LRV"
@@ -947,7 +947,7 @@
   },
   {
     "id": "1991:586",
-    "name": "",
+    "name": "lagen om särskild inkomstskatt för utomlands bosatta",
     "type": "law",
     "alternativeNames": [
       "SINK"
@@ -1000,7 +1000,7 @@
   },
   {
     "id": "1992:1685",
-    "name": "",
+    "name": "kulturmiljölagen",
     "type": "law",
     "alternativeNames": [
       "KML"
@@ -1044,7 +1044,7 @@
   },
   {
     "id": "1993:387",
-    "name": "",
+    "name": "lagen om stöd och service till vissa funktionshindrade",
     "type": "law",
     "alternativeNames": [
       "LSS"
@@ -1102,7 +1102,7 @@
   },
   {
     "id": "1994:260",
-    "name": "",
+    "name": "lagen om offentlig anställning",
     "type": "law",
     "alternativeNames": [
       "LOA"
@@ -1392,7 +1392,7 @@
   },
   {
     "id": "2001:1227",
-    "name": "",
+    "name": "lagen om självdeklarationer och kontrolluppgifter",
     "type": "law",
     "alternativeNames": [
       "LSK"
@@ -1450,7 +1450,7 @@
   },
   {
     "id": "2003:389",
-    "name": "",
+    "name": "lagen om elektronisk kommunikation",
     "type": "law",
     "alternativeNames": [
       "LEK"
@@ -1458,7 +1458,7 @@
   },
   {
     "id": "2003:778",
-    "name": "",
+    "name": "lagen om skydd mot olyckor",
     "type": "law",
     "alternativeNames": [
       "LSO"
@@ -1715,7 +1715,7 @@
   },
   {
     "id": "2013:561",
-    "name": "",
+    "name": "lagen om förvaltare av alternativa investeringsfonder",
     "type": "law",
     "alternativeNames": [
       "LAIF"
@@ -1730,7 +1730,7 @@
   },
   {
     "id": "2016:1145",
-    "name": "",
+    "name": "lagen om offentlig upphandling",
     "type": "law",
     "alternativeNames": [
       "LOU"
@@ -1738,7 +1738,7 @@
   },
   {
     "id": "2017:30",
-    "name": "",
+    "name": "hälso- och sjukvårdslagen",
     "type": "law",
     "alternativeNames": [
       "HSL"
