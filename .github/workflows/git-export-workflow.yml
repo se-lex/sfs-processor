@@ -193,6 +193,11 @@ jobs:
         echo "branch_name=${BRANCH_NAME}" >> $GITHUB_OUTPUT
         echo "📋 Använder branch: ${BRANCH_NAME}"
 
+    - name: Configure Git identity
+      run: |
+        git config --global user.email "action@github.com"
+        git config --global user.name "GitHub Action"
+
     - name: Export to Git repository
       # Skippa om inga ändrade filer i "changed" mode
       if: steps.export_filter.outputs.filter_type != 'none' || steps.export_filter.outputs.changed_count != '0'
