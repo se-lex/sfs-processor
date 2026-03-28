@@ -1,0 +1,821 @@
+---
+id: sfs-2023-676
+beteckning: "2023:676"
+rubrik: Förordning om vissa produkters och tjänsters tillgänglighet
+normtyp: Förordning
+departement: Socialdepartementet
+utfardad_datum: 2023-11-16
+ikraft_datum: 2025-06-28
+publicerad_datum: 2026-03-27
+forarbeten: direktiv (EU) 2019/882
+pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/2023-11/SFS2023-676.pdf
+andringsforfattningar:
+  - beteckning: "2025:335"
+    rubrik: Förordning om ändring i förordningen om vissa produkters och tjänsters tillgänglighet
+    ikraft_datum: 2025-06-28
+    anteckningar: "ändr. 7, 29 §§"
+  - beteckning: "2026:290"
+    rubrik: Förordning om ändring i förordningen om vissa produkters och tjänsters tillgänglighet
+    ikraft_datum: 2026-05-01
+    anteckningar: "ändr. 2 §; ny 7 a §, rubr. närmast före 7 a §, bil. 3"
+---
+<article selex:utfardad_datum="2023-11-16" selex:ikraft_datum="2025-06-28">
+
+# Förordning om vissa produkters och tjänsters tillgänglighet
+
+<section id="förordningens-tillämpningsområ">
+
+### Förordningens tillämpningsområde och innehåll
+
+<section id="1" class="paragraf">
+
+#### 1 §
+
+Denna förordning gäller sådana produkter och tjänster som omfattas av lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet. Förordningen innehåller kompletterande bestämmelser till lagen.
+
+Förordningen innehåller också bestämmelser om marknadskontroll som kompletterar Europaparlamentets och rådets förordning [(EU) 2019/1020](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A31020R2019) av den 20 juni 2019 om marknadskontroll och överensstämmelse för produkter och om ändring av direktiv 2[004/42/EG](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A3004L0042) och förordningarna (EG) nr 765/2008 och [(EU) nr 305/2011](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32011R0305).
+
+</section>
+<section id="2" class="paragraf" selex:status="upphord" selex:upphor_datum="2026-05-01">
+
+#### 2 §
+
+Denna förordning är meddelad med stöd av
+
+- [6 §](#6) lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet i fråga om 4-[7 §](#7)§,
+
+- [8 §](#8) samma lag i fråga om 8-[11 §](#11)§,
+
+- [11 §](#11) samma lag i fråga om [12 §](#12),
+
+- [12 §](#12) samma lag i fråga om 13 och [15 §](#15)§,
+
+- [13 §](#13) samma lag i fråga om [16 §](#16),
+
+- [14 §](#14) samma lag i fråga om 17 och [18 §](#18)§,
+
+- 15 och [16 §](#16)§ samma lag i fråga om [19 §](#19),
+
+- [15 §](#15) samma lag i fråga om [21 §](#21),
+
+- [22 §](#22) samma lag i fråga om 14, 20 och [22 §](#22)§,
+
+- [23 §](#23) samma lag i fråga om [23 §](#23),
+
+- [25 §](#25) samma lag i fråga om [24 §](#24),
+
+- [28 §](#28) samma lag i fråga om [25 §](#25),
+
+- [30 §](#30) samma lag i fråga om 28-[31 §](#31)§,
+
+- [31 §](#31) samma lag i fråga om [32 §](#32),
+
+- [8 kap. 11 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.11) i fråga om [34 §](#34), och
+
+- [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) i fråga om övriga bestämmelser.
+
+</section>
+<section id="2" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-05-01">
+
+#### 2 §
+
+Denna förordning är meddelad med stöd av
+
+- [6 §](#6) lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet i fråga om 4-[7 a §](#7a)§,
+
+- [8 §](#8) samma lag i fråga om 8-[11 §](#11)§,
+
+- [11 §](#11) samma lag i fråga om [12 §](#12),
+
+- [12 §](#12) samma lag i fråga om 13 och [15 §](#15)§,
+
+- [13 §](#13) samma lag i fråga om [16 §](#16),
+
+- [14 §](#14) samma lag i fråga om 17 och [18 §](#18)§,
+
+- 15 och [16 §](#16)§ samma lag i fråga om [19 §](#19),
+
+- [15 §](#15) samma lag i fråga om [21 §](#21),
+
+- [22 §](#22) samma lag i fråga om 14, 20 och [22 §](#22)§,
+
+- [23 §](#23) samma lag i fråga om [23 §](#23),
+
+- [25 §](#25) samma lag i fråga om [24 §](#24),
+
+- [28 §](#28) samma lag i fråga om [25 §](#25),
+
+- [30 §](#30) samma lag i fråga om 28-[31 §](#31)§,
+
+- [31 §](#31) samma lag i fråga om [32 §](#32),
+
+- [8 kap. 11 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.11) i fråga om [34 §](#34), och
+
+- [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) i fråga om övriga bestämmelser. Förordning ([2026:290](https://selex.se/eli/sfs/2026/290)).
+
+</section>
+
+</section>
+<section id="ord-och-uttryck">
+
+### Ord och uttryck
+
+<section id="3" class="paragraf">
+
+#### 3 §
+
+Ord och uttryck som används i denna förordning har samma betydelse som i lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet.
+
+</section>
+
+</section>
+<section id="tillgänglighetskrav">
+
+### Tillgänglighetskrav
+
+</section>
+<section id="tillgänglighetskrav-för-produk">
+
+### Tillgänglighetskrav för produkter
+
+<section id="4" class="paragraf">
+
+#### 4 §
+
+Produkter som omfattas av lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet ska uppfylla de tillgänglighetskrav som anges i bilaga 1 till denna förordning.
+
+</section>
+<section id="5" class="paragraf">
+
+#### 5 §
+
+Post- och telestyrelsen får meddela ytterligare föreskrifter om tillgänglighetskrav för produkter som omfattas av lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet.
+
+</section>
+
+</section>
+<section id="tillgänglighetskrav-för-tjänst">
+
+### Tillgänglighetskrav för tjänster
+
+<section id="6" class="paragraf">
+
+#### 6 §
+
+Tjänster som omfattas av lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet ska uppfylla de tillgänglighetskrav som anges i bilaga 2 till denna förordning.
+
+</section>
+<section id="7" class="paragraf">
+
+#### 7 §
+
+Följande myndigheter får meddela ytterligare föreskrifter om tillgänglighetskrav för tjänster:
+
+1. Post- och telestyrelsen i fråga om tjänster enligt [4 §](#4) första stycket 1, 5 och 7 lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet.
+
+2. Mediemyndigheten i fråga om tjänster enligt [4 §](#4) första stycket 2 lagen om vissa produkters och tjänsters tillgänglighet.
+
+3. Konsumentverket i fråga om tjänster enligt [4 §](#4) första stycket 3 a-c lagen om vissa produkters och tjänsters tillgänglighet.
+
+4. Transportstyrelsen i fråga om tjänster enligt [4 §](#4) första stycket 3 d, 3 e och 4 lagen om vissa produkters och tjänsters tillgänglighet.
+
+5. Myndigheten för tillgängliga medier i fråga om tjänster enligt [4 §](#4) första stycket 6 lagen om vissa produkters och tjänsters tillgänglighet.
+
+Föreskrifter som berör en annan myndighets ansvarsområde än den som meddelar föreskrifterna får meddelas först efter att den myndigheten har getts tillfälle att yttra sig. Förordning ([2025:335](https://selex.se/eli/sfs/2025/335)).
+
+</section>
+
+</section>
+<section id="kriterier-för-funktionsprestan" selex:status="ikraft" selex:ikraft_datum="2026-05-01">
+
+### Kriterier för funktionsprestanda
+
+<section id="7a" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-05-01">
+
+#### 7 a §
+
+De kriterier för funktionsprestanda som anges i bilaga 3 till denna förordning ska användas när de tillgänglighetskrav som avses i 4 och [6 §](#6)§ inte omfattar en eller flera funktioner avseende utformningen och tillverkningen av produkter eller tillhandahållandet av tjänster.
+
+Kriterierna får också användas som ett alternativ till ett eller flera särskilda tekniska krav om tillämpningen av kriterierna för funktionsprestanda uppfyller tillgänglighetskraven som avses i 4 och [6 §](#6)§ och om utformningen och tillverkningen av produkterna och tillhandahållandet av tjänsterna resul-
+
+terar i likvärdig eller ökad tillgänglighet för den förutsebara användningen bland personer med funktionsnedsättning. Förordning ([2026:290](https://selex.se/eli/sfs/2026/290)).
+
+</section>
+
+</section>
+<section id="bedömning-av-att-ett-tillgängl">
+
+### Bedömning av att ett tillgänglighetskrav inte ska gälla
+
+<section id="8" class="paragraf">
+
+#### 8 §
+
+Vid bedömningen av om ett tillgänglighetskrav medför en oproportionerligt stor börda för den berörda ekonomiska aktören enligt [7 §](#7) första stycket 2 lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet ska den ekonomiska aktören utgå från
+
+1. förhållandet mellan nettokostnaderna för efterlevnad av tillgänglighetskraven och de ekonomiska aktörernas totala kostnader för tillverkning, distribution eller import av produkten eller tillhandahållandet av tjänsten,
+
+2. förhållandet mellan nettokostnaderna för efterlevnad av tillgänglighetskraven och den ekonomiska aktörens nettoomsättning, och
+
+3. uppskattade kostnader och fördelar för de ekonomiska aktörerna, inklusive tillverkningsprocesser och investeringar, i förhållande till den uppskattade fördelen för personer med funktionsnedsättning, med hänsyn tagen till antalet specifika produkter eller tjänster och hur ofta de används.
+
+</section>
+<section id="9" class="paragraf">
+
+#### 9 §
+
+Post- och telestyrelsen får meddela ytterligare föreskrifter om kriterier för den ekonomiska aktörens bedömning när det gäller större förändring av grundläggande karaktär och oproportionerligt stor börda enligt [7 §](#7) lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet.
+
+</section>
+<section id="10" class="paragraf">
+
+#### 10 §
+
+En tjänsteleverantör som åberopar att ett tillgänglighetskrav inte gäller eftersom det medför en oproportionerligt stor börda för den berörda ekonomiska aktören enligt [7 §](#7) första stycket 2 lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet ska göra en ny bedömning av om ett sådant undantag är tillämpligt inom fem år räknat från det att den senaste bedömningen gjordes.
+
+Om den berörda tjänsten ändras eller om en tillsynsmyndighet begär det, ska en ny bedömning göras även om kortare tid än fem år har förflutit sedan den senaste bedömningen gjordes.
+
+</section>
+<section id="11" class="paragraf">
+
+#### 11 §
+
+Den ekonomiska aktören ska spara dokumentation enligt [8 §](#8) första stycket lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet i minst fem år räknat från det att en produkt senast tillhandahållits på marknaden eller från det att en tjänst senast tillhandahållits.
+
+</section>
+
+</section>
+<section id="tillverkarens-skyldigheter">
+
+### Tillverkarens skyldigheter
+
+</section>
+<section id="bedömning-av-överensstämmelse">
+
+### Bedömning av överensstämmelse och teknisk dokumentation
+
+<section id="12" class="paragraf">
+
+#### 12 §
+
+Den tekniska dokumentation som tillverkaren ska utarbeta enligt [11 §](#11) första stycket lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet ska innehålla tillämpliga tillgänglighetskrav och, i den mån det är nödvändigt för bedömning av överensstämmelse, en beskrivning av produktens utformning, tillverkning och funktion.
+
+Post- och telestyrelsen får meddela ytterligare föreskrifter om förfarandet för bedömning av överensstämmelse och förfarandet vid utarbetandet av den tekniska dokumentationen.
+
+Post- och telestyrelsen får även meddela föreskrifter om de rutiner som krävs enligt [11 §](#11) andra stycket lagen om vissa produkters och tjänsters tillgänglighet.
+
+</section>
+
+</section>
+<section id="eu-försäkran">
+
+### EU-försäkran
+
+<section id="13" class="paragraf">
+
+#### /2008/ /465/ 13 §
+
+En EU-försäkran om överensstämmelse enligt [12 §](#12) lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet ska vara utformad enligt förlagan i bilaga III till Europaparlamentets och rådets beslut nr 768EG av den 9 juli 2008 om en gemensam ram för saluföring av produkter och upphävande av rådets beslut 93EEG. Genom att EU-försäkran om överensstämmelse upprättas ansvarar tillverkaren för att produkten överensstämmer med tillgänglighetskraven.
+
+Det ska upprättas en EU-försäkran om överensstämmelse för varje produktmodell. Om en produkt omfattas av mer än en unionsrättsakt där det ställs krav på EU-försäkran om överensstämmelse, ska en gemensam EU-försäkran om överensstämmelse upprättas för samtliga unionsrättsakter.
+
+Post- och telestyrelsen får meddela ytterligare föreskrifter om tillverkarens skyldigheter och ansvar i samband med att en EU-försäkran om överensstämmelse upprättas.
+
+</section>
+
+</section>
+<section id="bevarande-av-teknisk-dokumenta">
+
+### Bevarande av teknisk dokumentation och EU-försäkran
+
+<section id="14" class="paragraf">
+
+#### 14 §
+
+Tillverkaren ska bevara den tekniska dokumentationen och EU-försäkran om överensstämmelse i fem år räknat från det att produkten släpptes ut på marknaden.
+
+</section>
+
+</section>
+<section id="placering-av-ce-märkning">
+
+### Placering av CE-märkning
+
+<section id="15" class="paragraf">
+
+#### 15 §
+
+CE-märkningen ska placeras på produkten eller dess märkskylt så att den är synlig, läsbar och outplånlig. Om detta inte är möjligt eller lämpligt på grund av produktens art, ska märket placeras på förpackningen och i de medföljande dokumenten.
+
+</section>
+
+</section>
+<section id="ytterligare-föreskrifter-om-in">
+
+### Ytterligare föreskrifter om information
+
+<section id="16" class="paragraf">
+
+#### 16 §
+
+Post- och telestyrelsen får meddela föreskrifter om innehållet i den informationstext som tillverkaren ska förse produkten med enligt [13 §](#13) lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet samt om placeringen och utformningen i övrigt av informationstexten.
+
+</section>
+
+</section>
+<section id="fullmakt-till-tillverkarens-re">
+
+### Fullmakt till tillverkarens representant
+
+</section>
+<section id="representantens-uppgifter">
+
+### Representantens uppgifter
+
+<section id="17" class="paragraf">
+
+#### 17 §
+
+Om tillverkaren har utsett en representant enligt [14 §](#14) lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet, ska representanten utföra de uppgifter som anges i fullmakten från tillverkaren.
+
+Fullmakten ska ge representanten rätt att åtminstone
+
+1. uppvisa den tekniska dokumentationen och EU-försäkran om överensstämmelse enligt 11 och [12 §](#12)§ lagen om vissa produkters och tjänsters tillgänglighet för en marknadskontrollmyndighet under en period på fem år,
+
+2. på begäran av behörig marknadskontrollmyndighet ge myndigheten all information och dokumentation som behövs för att visa att produkten överensstämmer med tillgänglighetskraven, och
+
+3. på begäran samarbeta med behörig marknadskontrollmyndighet om de åtgärder som vidtas för att undanröja bristande överensstämmelse med de tillämpliga tillgänglighetskraven hos de produkter som omfattas av fullmakten.
+
+</section>
+
+</section>
+<section id="uppgifter-som-tillverkaren-int">
+
+### Uppgifter som tillverkaren inte får överlåta till representanten
+
+<section id="18" class="paragraf">
+
+#### 18 §
+
+Tillverkarens skyldighet att konstruera och tillverka produkter som överensstämmer med tillämpliga tillgänglighetskrav samt att upprätta den tekniska dokumentationen enligt [11 §](#11) lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet får inte delegeras till representanten.
+
+</section>
+
+</section>
+<section id="importörens-och-distributörens">
+
+### Importörens och distributörens skyldigheter
+
+</section>
+<section id="skyldighet-att-informera-om-at">
+
+### Skyldighet att informera om att en produkt inte uppfyller tillgänglighetskraven
+
+<section id="19" class="paragraf">
+
+#### 19 §
+
+En importör eller distributör som anser, eller har anledning att anta, att en produkt som de avser att släppa ut eller tillhandahålla på marknaden inte överensstämmer med tillgänglighetskraven, ska informera tillverkaren och Post- och telestyrelsen om detta. I stället för att informera tillverkaren kan distributören informera importören om produktens bristande överensstämmelse med tillgänglighetskraven.
+
+</section>
+
+</section>
+<section id="importörens-skyldighet-att-upp">
+
+### Importörens skyldighet att uppvisa EU-försäkran
+
+<section id="20" class="paragraf">
+
+#### 20 §
+
+Importören ska kunna visa upp en sådan EU-försäkran om överensstämmelse som ska upprättas enligt [12 §](#12) lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet till marknadskontrollmyndigheten under en period om fem år räknat från det att produkten släpptes ut på marknaden.
+
+</section>
+
+</section>
+<section id="ytterligare-föreskrifter-om-im">
+
+### Ytterligare föreskrifter om importörens skyldigheter
+
+<section id="21" class="paragraf">
+
+#### 21 §
+
+Post- och telestyrelsen får meddela ytterligare föreskrifter om importörens skyldigheter enligt [15 §](#15) lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet.
+
+</section>
+
+</section>
+<section id="informationens-språk">
+
+### Informationens språk
+
+<section id="22" class="paragraf">
+
+#### 22 §
+
+Post- och telestyrelsen får meddela föreskrifter om vilket språk som ska användas i den information som tillverkare, representanter, importörer och distributörer ska lämna till myndigheten enligt [22 §](#22) första stycket lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet.
+
+</section>
+
+</section>
+<section id="uppgifter-om-leverans">
+
+### Uppgifter om leverans
+
+<section id="23" class="paragraf">
+
+#### 23 §
+
+Post- och telestyrelsen får meddela föreskrifter om hur länge en tillverkare, representant, importör eller distributör som har levererat en produkt eller tagit emot en produkt ska kunna lämna uppgifter om detta till myndigheten enligt [23 §](#23) första stycket lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet.
+
+</section>
+
+</section>
+<section id="tjänsteleverantörens-skyldighe">
+
+### Tjänsteleverantörens skyldigheter att ta fram information
+
+<section id="24" class="paragraf">
+
+#### 24 §
+
+Information om hur en tjänst uppfyller de tillgänglighetskrav som tjänsteleverantören tar fram enligt [25 §](#25) lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet ska innehålla en redogörelse för de krav på tillgänglighet som är tillämpliga på tjänsten. I den mån det är nödvändigt för bedömningen av överensstämmelse ska informationen även innehålla en beskrivning av tjänstens utformning och funktion.
+
+Tjänsteleverantören ska ge allmänheten tillgång till informationen i skriftlig och muntlig form samt på ett sätt som är tillgängligt för personer med funktionsnedsättning. Tjänsteleverantören ska spara informationen så länge som tjänsten tillhandahålls.
+
+Post- och telestyrelsen får meddela ytterligare föreskrifter om innehållet i den information som tjänsteleverantören ska ta fram och på vilket sätt informationen ska lämnas.
+
+</section>
+
+</section>
+<section id="marknadskontroll">
+
+### Marknadskontroll
+
+</section>
+<section id="marknadskontrollmyndighet">
+
+### Marknadskontrollmyndighet
+
+<section id="25" class="paragraf">
+
+#### 25 §
+
+Post- och telestyrelsen är marknadskontrollmyndighet enligt [28 §](#28) lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet.
+
+Bestämmelser om marknadskontrollmyndighetens befogenhet att besluta om åtgärder enligt Europaparlamentets och rådets förordning [(EU) 2019/1020](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A31020R2019) finns i lagen om vissa produkters och tjänsters tillgänglighet.
+
+</section>
+
+</section>
+<section id="information-till-andra-medlems">
+
+### Information till andra medlemsstater och Europeiska kommissionen
+
+<section id="26" class="paragraf">
+
+#### 26 §
+
+Om Post- och telestyrelsen konstaterar att en produkt inte överensstämmer med tillgänglighetskraven och produkten även tillhandahålls på marknaden i en annan medlemsstat, ska Post- och telestyrelsen informera marknadskontrollmyndigheten i den andra medlemsstaten och Europeiska kommissionen om detta samt om de åtgärder som myndigheten har beslutat om med anledning av den bristande överensstämmelsen.
+
+När Post- och telestyrelsen informerar marknadskontrollmyndigheten i den andra medlemsstaten och Europeiska kommissionen, ska myndigheten lämna de uppgifter som anges i artikel 20.5 i Europaparlamentets och rådets direktiv [(EU) 2019/882](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A32019R0882) av den 17 april 2019 om tillgänglighetskrav för produkter och tjänster, i den ursprungliga lydelsen.
+
+</section>
+<section id="27" class="paragraf">
+
+#### 27 §
+
+När en marknadskontrollmyndighet i en annan medlemsstat lämnar information om en produkts bristande överensstämmelse till Post- och telestyrelsen, ska Post- och telestyrelsen så snart som möjligt informera Europeiska kommissionen och marknadskontrollmyndigheterna i de andra medlemsstaterna om de åtgärder som myndigheten har vidtagit avseende produkten, om andra relevanta uppgifter samt om eventuella invändningar mot den åtgärd som marknadskontrollmyndigheten i den andra medlemsstaten har vidtagit.
+
+</section>
+
+</section>
+<section id="tillsyn">
+
+### Tillsyn
+
+</section>
+<section id="tillsynsmyndighet-med-ansvar-f">
+
+### Tillsynsmyndighet med ansvar för samordning
+
+<section id="28" class="paragraf">
+
+#### 28 §
+
+Post- och telestyrelsen utövar tillsyn över elektroniska kommunikationstjänster, banktjänster och e-handelstjänster som omfattas av [4 §](#4) första stycket 1, 5 och 7 lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet.
+
+Post- och telestyrelsen ska samordna ett tillsynsuppdrag om ett enskilt tillsynsärende kan komma att beröra flera tillsynsmyndigheters ansvarsområden.
+
+När en tillsynsmyndighet inleder ett tillsynsärende ska uppgift om det samt uppgift om vad ärendet rör lämnas till Post- och telestyrelsen. Uppgift ska även lämnas till Post- och telestyrelsen när tillsynsärendet avslutas.
+
+</section>
+
+</section>
+<section id="tillsynsmyndighet-avseende-tjä">
+
+### Tillsynsmyndighet avseende tjänster som ger åtkomst till audiovisuella medietjänster
+
+<section id="29" class="paragraf">
+
+#### 29 §
+
+Mediemyndigheten utövar tillsyn över tjänster som ger åtkomst till audiovisuella medietjänster som omfattas av [4 §](#4) första stycket 2 lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet. Förordning ([2025:335](https://selex.se/eli/sfs/2025/335)).
+
+</section>
+
+</section>
+<section id="tillsynsmyndighet-avseende-til">
+
+### Tillsynsmyndighet avseende tillhandahållande av e-böcker
+
+<section id="30" class="paragraf">
+
+#### 30 §
+
+Myndigheten för tillgängliga medier utövar tillsyn över tjänster som utgör tillhandahållande av e-böcker och som omfattas av [4 §](#4) första stycket 6 lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet.
+
+</section>
+
+</section>
+<section id="tillsynsmyndighet-avseende-ins">
+
+### Tillsynsmyndighet avseende inslag i passagerartransporttjänster
+
+<section id="31" class="paragraf">
+
+#### 31 §
+
+Konsumentverket utövar tillsyn över inslag i passagerartransporttjänster som omfattas av [4 §](#4) första stycket 3 a-c lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet.
+
+Transportstyrelsen utövar tillsyn över inslag i passagerartransporttjänster som omfattas av [4 §](#4) första stycket 3 d, 3 e och 4 lagen om vissa produkters och tjänsters tillgänglighet.
+
+</section>
+
+</section>
+<section id="avgifter-för-tillsyn">
+
+### Avgifter för tillsyn
+
+<section id="32" class="paragraf">
+
+#### 32 §
+
+Transportstyrelsen får meddela föreskrifter om avgifter för sin tillsyn enligt lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet och enligt föreskrifter som har meddelats med stöd av lagen.
+
+</section>
+
+</section>
+<section id="sanktionsavgifter">
+
+### Sanktionsavgifter
+
+<section id="33" class="paragraf">
+
+#### 33 §
+
+Sanktionsavgift som beslutas enligt [37 §](#37) lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet ska betalas till Kammarkollegiet.
+
+</section>
+
+</section>
+<section id="verkställighetsföreskrifter">
+
+### Verkställighetsföreskrifter
+
+<section id="34" class="paragraf">
+
+#### 34 §
+
+Post- och telestyrelsen får meddela föreskrifter om verkställigheten av lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet och denna förordning.
+
+</section>
+
+</section>
+<section id="bilaga-1" class="kapitel">
+
+## Bilaga 1
+
+Följande krav på tillgänglighet gäller för samtliga produkter som omfattas av lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet
+
+1. Produkter ska åtföljas, om möjligt i eller på produkterna, av lättillgänglig information om deras funktion och tillgänglighetsfunktioner.
+
+<section id="krav-på-tillhandahållande-av-i">
+
+### Krav på tillhandahållande av information
+
+2. Den information om användningen av produkten som tillhandahålls på själva produkten (märkning, bruksanvisning och varning) ska
+
+a) kunna uppfattas med mer än ett sinne,
+
+b) presenteras på ett begripligt sätt,
+
+c) presenteras för användarna på sätt som de kan uppfatta,
+
+d) presenteras i ett typsnitt med lämplig storlek och form, med beaktande av förutsebara användningsförhållanden, och med tillräcklig kontrast samt justerbart avstånd mellan bokstäver, rader och stycken.
+
+3. Produktbruksanvisningar som inte tillhandahålls på själva produkten utan som görs tillgängliga genom användning av produkten eller på annat sätt, till exempel på en webbplats, inklusive information om produktens tillgänglighetsfunktioner samt hur de aktiveras och deras interoperabilitet med hjälplösningar, ska vara offentligt tillgängliga när produkten släpps ut på marknaden och ska
+
+a) kunna uppfattas med mer än ett sinne,
+
+b) presenteras på ett begripligt sätt,
+
+c) presenteras för användarna på sätt som de kan uppfatta,
+
+d) presenteras i ett typsnitt med lämplig storlek och form, med beaktande av förutsebara användningsförhållanden, och med tillräcklig kontrast samt justerbart avstånd mellan bokstäver, rader och stycken,
+
+e) när det gäller innehåll, göras tillgängliga i textformat som kan användas för att skapa alternativa stödjande format som kan presenteras på olika sätt och kunna uppfattas med mer än ett sinne,
+
+f) åtföljas av en alternativ presentation av eventuella delar som inte består av text,
+
+g) inbegripa den beskrivning av produktens användargränssnitt (hantering, kontroll och återkoppling, input och output) som tillhandahålls i enlighet med punkt 4; i beskrivningen ska man för vart och ett av leden i punkt 4 ange om produkten har dessa egenskaper,
+
+h) inbegripa en beskrivning av produktens funktionalitet, som tillhandahålls genom funktioner som syftar till att tillgodose behoven hos personer med funktionsnedsättning, i enlighet med punkt 4; i beskrivningen ska man för vart och ett av leden i punkt 4 ange om produkten har dessa egenskaper,
+
+i) inbegripa en beskrivning av produktens programvaru- och maskinvarugränssnitt med hjälpmedel; beskrivningen ska innehålla en förteckning över de hjälpmedel som har testats tillsammans med produkten.
+
+</section>
+<section id="användargränssnitt-och-funktio">
+
+### Användargränssnitt och funktionell utformning
+
+4. Produkten, inklusive dess användargränssnitt, ska ha egenskaper, delar och funktioner som gör att personer med funktionsnedsättning kan få tillgång till, uppfatta, hantera, begripa och kontrollera produkten genom att man säkerställer följande:
+
+a) Att när produkten tillhandahåller kommunikation, däribland interpersonell kommunikation, hantering, information, kontroll och orientering, gör den det via mer än ett sinne. Detta ska inbegripa tillhandahållande av alternativ till syn, hörsel, tal och känsel.
+
+b) Att när produkten använder tal ger den alternativ till tal och talkommandon för kommunikation, hantering, kontroll och orientering.
+
+c) Att när produkten använder visuella element tillhandahåller den flexibel förstoring, ljusstyrka och kontrast för kommunikation, information och hantering samt säkerställer interoperabilitet med programvara och hjälpmedel för navigering i gränssnittet.
+
+d) Att när produkten använder färg för att förmedla information, ange en åtgärd, kräva ett svar eller identifiera delar, tillhandahåller den ett alternativ till färger.
+
+e) Att när produkten använder ljudsignaler för att förmedla information, ange en åtgärd, kräva ett svar eller identifiera delar, tillhandahåller den ett alternativ till ljudsignaler.
+
+f) Att när produkten använder visuella element sörjer den för flexibla sätt att förbättra synskärpan.
+
+g) Att när produkten använder ljud ser den till att användaren kan ställa in volymen och hastigheten och att det finns en funktion för förstärkt ljud, däribland för minskning av störningar från ljudsignaler från produkter i omgivningen och ljudskärpa.
+
+h) Att när produkten kräver manuell hantering och kontroll sörjer den för sekventiell styrning och ger alternativ till finmotorisk styrning, så att det inte krävs samtidiga kontroller för manipulering, och använder delar som kan förnimmas med känseln.
+
+i) Att produkten undviker driftslägen som kräver betydande räckvidd och styrka.
+
+j) Att produkten inte utlöser anfall på grund av ljuskänslighet.
+
+k) Att produkten skyddar användarens privatliv när han eller hon använder tillgänglighetsfunktionerna.
+
+l) Att produkten tillhandahåller ett alternativ till biometrisk identifiering och kontroll.
+
+m) Att produkten säkerställer konsekvent funktionalitet och ger tillräcklig och flexibel tidsperiod för interaktion.
+
+n) Att produkten tillhandahåller programvaru- och maskinvarugränssnitt för tekniska hjälpmedel.
+
+</section>
+<section id="stödtjänster">
+
+### Stödtjänster
+
+5. Om stödtjänster (helpdeskar, teletjänstcentraler, teknisk support, samtalsförmedlande tjänster och utbildningstjänster) finns att tillgå ska de, via tillgängliga kommunikationssätt, tillhandahålla information om produktens tillgänglighet och dess kompatibilitet med tekniska hjälpmedel.
+
+</section>
+<section id="förpackningar-och-anvisningar">
+
+### Förpackningar och anvisningar
+
+6. Med undantag för självbetjäningsterminaler ska, utöver de krav som anges i punkterna 1-5, förpackningar och anvisningar för produkter göras lättillgängliga. Detta innebär följande:
+
+a) Produktens förpackning och den information som ges på den (t.ex. om hur den ska öppnas, tillslutas, användas och bortskaffas), inklusive, i förekommande fall, information om produktens egenskaper när det gäller tillgänglighet, ska göras tillgänglig och, om så är möjligt, ska den lättillgängliga informationen tillhandahållas på förpackningen.
+
+b) Anvisningar för installation, underhåll, förvaring och bortskaffande av produkten som inte tillhandahålls på själva produkten men som görs tillgängliga på annat sätt, till exempel genom en webbplats, ska vara offentligt tillgängliga när produkten släpps ut på marknaden och ska uppfylla följande krav:
+
+- De ska kunna uppfattas med mer än ett sinne.
+
+- De ska presenteras på ett begripligt sätt.
+
+- De ska presenteras för användarna på sätt som de kan uppfatta.
+
+- De ska presenteras i ett typsnitt med lämplig storlek och form, med beaktande av förutsebara användningsförhållanden, och med tillräcklig kontrast samt justerbart avstånd mellan bokstäver, rader och stycken.
+
+- Innehållet i anvisningarna ska göras tillgängligt i textformat som kan användas för att skapa alternativa stödjande format som kan presenteras på olika sätt och uppfattas med mer än ett sinne.
+
+- Anvisningar som innehåller eventuella delar som inte består av text ska åtföljas av en alternativ presentation av detta innehåll.
+
+</section>
+
+</section>
+<section id="bilaga-2" class="kapitel">
+
+## Bilaga 2
+
+Följande krav på tillgänglighet gäller för samtliga tjänster som omfattas av lagen ([2023:254](https://selex.se/eli/sfs/2023/254)) om vissa produkters och tjänsters tillgänglighet
+
+1. Tillgängligheten för de produkter som används vid tillhandahållandet av tjänsten ska säkerställas i enlighet med vad som anges i bilaga 1.
+
+2. Information ska tillhandahållas om hur tjänsten fungerar och, om produkter används vid tillhandahållandet av tjänsten, om dess koppling till dessa produkter samt om deras egenskaper när det gäller tillgänglighet och interoperabilitet med hjälpmedel. Denna information ska
+
+a) kunna uppfattas med mer än ett sinne,
+
+b) presenteras på ett begripligt sätt,
+
+c) presenteras för användarna på sätt som de kan uppfatta,
+
+d) göra informationsinnehållet tillgängligt i textformat som kan användas för att skapa alternativa stödjande format som användarna ska kunna presentera på olika sätt och uppfatta med mer än ett sinne,
+
+e) presenteras i ett typsnitt med lämplig storlek och form, med beaktande av förutsebara användningsförhållanden, och med tillräcklig kontrast samt justerbart avstånd mellan bokstäver, rader och stycken,
+
+f) komplettera eventuella delar som inte består av text med en alternativ presentation av detta innehåll,
+
+g) ge den elektroniska information som krävs vid tillhandahållandet av tjänsten, på ett enhetligt och ändamålsenligt sätt genom att göra den uppfattningsbar, hanterbar, begriplig och robust.
+
+3. Webbplatser, inklusive tillhörande nätapplikationer, och tjänster för mobila enheter, inklusive mobilapplikationer, ska göras tillgängliga på ett enhetligt och ändamålsenligt sätt genom att de görs uppfattningsbara, hanterbara, begripliga och robusta.
+
+4. Om stödtjänster (helpdeskar, teletjänstcentraler, teknisk support, samtalsförmedlande tjänster och utbildningstjänster) finns att tillgå ska de, via tillgängliga kommunikationssätt, tillhandahålla information om tjänstens tillgänglighet och kompatibilitet med tekniska hjälpmedel.
+
+</section>
+<section id="bilaga-3" class="kapitel" selex:status="ikraft" selex:ikraft_datum="2026-05-01">
+
+## Bilaga 3
+
+<section id="kriterier-för-funktionsprestan">
+
+### Kriterier för funktionsprestanda
+
+Användning utan syn
+
+1. Om produkten eller tjänsten har visuella driftslägen ska den ha minst ett driftsläge som inte kräver syn.
+
+</section>
+<section id="användning-med-begränsad-syn">
+
+### Användning med begränsad syn
+
+2. Om produkten eller tjänsten har visuella driftslägen ska den ha minst ett driftsläge som innebär att användarna kan hantera produkten med begränsad syn.
+
+</section>
+<section id="användning-utan-färguppfattnin">
+
+### Användning utan färguppfattning
+
+3. Om produkten eller tjänsten har visuella driftslägen ska den ha minst ett driftsläge som inte kräver att användaren kan uppfatta färger.
+
+</section>
+<section id="användning-utan-hörsel">
+
+### Användning utan hörsel
+
+4. Om produkten eller tjänsten har auditiva driftslägen ska den ha minst ett driftsläge som inte kräver hörsel.
+
+</section>
+<section id="användning-med-begränsad-hörse">
+
+### Användning med begränsad hörsel
+
+5. Om produkten eller tjänsten har auditiva driftslägen ska den ha minst ett driftsläge som innebär att användarna kan hantera produkten med begränsad hörsel.
+
+</section>
+<section id="användning-utan-talförmåga">
+
+### Användning utan talförmåga
+
+6. Om produkten eller tjänsten kräver talkommandon från användaren ska den ha minst ett driftsläge som inte kräver talkommandon. Talkommandon inbegriper alla muntliga ljud som tal, visslingar eller klickljud.
+
+</section>
+<section id="användning-med-begränsad-manip">
+
+### Användning med begränsad manipuleringsförmåga eller styrka
+
+7. Om produkten eller tjänsten kräver manuella åtgärder ska den ha minst ett driftsläge som innebär att användarna kan hantera produkten genom alternativa åtgärder som inte kräver finmotorisk styrning, manipulering eller handstyrka och inte heller kräver att fler än en styrning används samtidigt.
+
+</section>
+<section id="användning-med-begränsad-räckv">
+
+### Användning med begränsad räckvidd
+
+8. Produktens driftsfunktioner måste finnas inom räckhåll för alla användare. Om produkten eller tjänsten har manuella driftslägen ska den ha minst ett driftsläge med begränsad räckvidd och styrka.
+
+</section>
+<section id="minimering-av-risken-för-anfal">
+
+### Minimering av risken för anfall på grund av ljuskänslighet
+
+9. Om produkten har visuella driftslägen ska den undvika driftslägen som utlöser anfall på grund av ljuskänslighet.
+
+</section>
+<section id="användning-med-begränsad-kogni">
+
+### Användning med begränsad kognitiv förmåga
+
+10. Produkten eller tjänsten ska ha minst ett driftsläge som omfattar funktioner som gör den enklare och lättare att använda.
+
+</section>
+<section id="privatliv">
+
+### Privatliv
+
+11. Om produkten eller tjänsten innehåller funktioner som tillhandahålls för tillgänglighet, ska den ha minst ett driftsläge som skyddar användarens privatliv vid användning av de funktioner som tillhandahåller tillgänglighet. Förordning ([2026:290](https://selex.se/eli/sfs/2026/290)).
+
+</section>
+
+</section>
+
+</article>
