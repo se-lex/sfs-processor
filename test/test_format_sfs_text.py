@@ -569,3 +569,154 @@ Content here."""
 
         # Verify the AVDELNING header is still present
         assert "AVDELNING I" in result
+
+
+# ===========================================================================
+# Repeal Map Integration Tests
+# ===========================================================================
+
+@pytest.mark.unit
+class TestRepealMapIntegration:
+    """Test the repeal_map functionality for tracking ändringsförfattningar."""
+
+    def test_section_with_repeal_map_gets_upphavd_av_attribute(self):
+        """Test that a repealed section gets the upphavd_av attribute when repeal_map is provided."""
+        text = """#### 15 §
+
+Denna paragraf har upphävts."""
+
+        # Create a repeal map indicating that paragraph 15 was repealed by 2024:796
+        repeal_map = {'15§': '2024:796'}
+
+        result = parse_logical_sections(text, repeal_map=repeal_map)
+
+        # Should have upphavd status
+        assert 'selex:upphavd="true"' in result
+
+        # Should have upphavd_av attribute
+        assert 'selex:upphavd_av="2024:796"' in result
+
+    def test_section_with_chapter_repeal_map(self):
+        """Test that a repealed section with chapter reference gets the upphavd_av attribute."""
+        text = """## 29 kap.
+
+#### 15 §
+
+Denna paragraf har upphävts."""
+
+        # Create a repeal map with chapter reference
+        repeal_map = {'29kap15§': '2024:796'}
+
+        result = parse_logical_sections(text, repeal_map=repeal_map)
+
+        # Should have upphavd status
+        assert 'selex:upphavd="true"' in result
+
+        # Should have upphavd_av attribute
+        assert 'selex:upphavd_av="2024:796"' in result
+
+    def test_section_without_match_no_upphavd_av(self):
+        """Test that a section without a match in repeal_map doesn't get upphavd_av attribute."""
+        text = """#### 15 §
+
+Normal content."""
+
+        # Create a repeal map that doesn't include paragraph 15
+        repeal_map = {'16§': '2024:796'}
+
+        result = parse_logical_sections(text, repeal_map=repeal_map)
+
+        # Should not have upphavd status (no "upphävd" in content)
+        assert 'selex:upphavd="true"' not in result
+
+        # Should not have upphavd_av attribute
+        assert 'selex:upphavd_av' not in result
+
+    def test_backward_compatibility_no_repeal_map(self):
+        """Test that parse_logical_sections works without repeal_map (backward compatibility)."""
+        text = """#### 15 §
+
+Denna paragraf har upphävts."""
+
+        # Call without repeal_map
+        result = parse_logical_sections(text)
+
+        # Should have upphavd status (from content)
+        assert 'selex:upphavd="true"' in result
+
+        # Should not have upphavd_av attribute
+        assert 'selex:upphavd_av' not in result
+
+    def test_multiple_repealed_sections(self):
+        """Test handling multiple repealed sections with different ändringsförfattningar."""
+        text = """## 29 kap.
+
+#### 15 §
+
+Denna paragraf har upphävts.
+
+#### 16 §
+
+Denna paragraf har upphävts."""
+
+        # Different amendments repealed different paragraphs
+        repeal_map = {
+            '29kap15§': '2024:796',
+            '29kap16§': '2023:123'
+        }
+
+        result = parse_logical_sections(text, repeal_map=repeal_map)
+
+        # Both should have upphavd_av attributes
+        assert 'selex:upphavd_av="2024:796"' in result
+        assert 'selex:upphavd_av="2023:123"' in result
+
+    def test_format_sfs_text_with_repeal_map(self):
+        """Test that format_sfs_text_as_markdown accepts and passes repeal_map."""
+        text = """29 kap.
+
+15 §
+
+Denna paragraf har upphävts."""
+
+        repeal_map = {'29kap15§': '2024:796'}
+
+        # format_sfs_text_as_markdown should accept repeal_map
+        formatted = format_sfs_text_as_markdown(text, repeal_map=repeal_map)
+
+        # Then parse_logical_sections should be called with it
+        result = parse_logical_sections(formatted, repeal_map=repeal_map)
+
+        # Should have the upphavd_av attribute
+        assert 'selex:upphavd_av="2024:796"' in result
+
+    def test_repeal_map_with_paragraph_letter(self):
+        """Test repeal map with paragraph letters (e.g., 15a§)."""
+        text = """## 2 kap.
+
+#### 33 a §
+
+Denna paragraf har upphävts."""
+
+        repeal_map = {'2kap33a§': '2024:500'}
+
+        result = parse_logical_sections(text, repeal_map=repeal_map)
+
+        # Should have upphavd_av attribute
+        assert 'selex:upphavd_av="2024:500"' in result
+
+    def test_repeal_map_normalization(self):
+        """Test that section ID normalization works for matching."""
+        text = """## 10 kap.
+
+#### 37 §
+
+Denna paragraf har upphävts."""
+
+        # Repeal map uses different notation
+        repeal_map = {'10kap37§': '2020:100'}
+
+        result = parse_logical_sections(text, repeal_map=repeal_map)
+
+        # Should match despite different notation
+        assert 'selex:upphavd_av="2020:100"' in result
