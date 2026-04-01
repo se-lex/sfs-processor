@@ -100,11 +100,14 @@ jobs:
           # Check if branch exists remotely
           if git ls-remote --heads origin "$COMMIT_BRANCH" | grep -q "$COMMIT_BRANCH"; then
             echo "📥 Branch '$COMMIT_BRANCH' exists, checking out and merging with main..."
-            # Branch exists - fetch and checkout
+            # Branch exists - stash new untracked files to avoid checkout conflict
             git fetch origin "$COMMIT_BRANCH"
+            git stash push --include-untracked -m "temp: new sfs files before branch switch"
             git checkout "$COMMIT_BRANCH"
             # Merge latest main into fixed branch to keep it updated
             git merge origin/main --no-edit --strategy-option theirs || echo "Merge completed (conflicts auto-resolved)"
+            # Restore the newly generated files
+            git stash pop
           else
             echo "🆕 Branch '$COMMIT_BRANCH' doesn't exist, creating new..."
             # Branch doesn't exist - create new
