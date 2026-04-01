@@ -518,19 +518,25 @@ def convert_to_html(data: Dict[str, Any], apply_amendments: bool = False, up_to_
 def make_links_relative(html_content: str) -> str:
     """
     Strip base URL from links to make them relative for HTML export.
-    
-    Removes https://selex.se/eli from links to make them relative.
-    
+
+    Removes base domain (e.g., https://selex.se/eli) from links to make them relative.
+    This works with <base href="/eli/"> to resolve paths correctly.
+
     Args:
         html_content (str): HTML content with potentially absolute links
-        
+
     Returns:
         str: HTML content with relative links
     """
-    # Pattern to match https://selex.se/eli in href attributes
-    pattern = r'href="https://selex\.se/eli(/[^"]*)"'
+    # Get base URL from environment (with /eli/)
+    base_url = os.getenv('INTERNAL_LINKS_BASE_URL', 'https://selex.se/eli')
+
+    # Pattern to match base_url in href attributes
+    # Escape special regex characters in base_url
+    escaped_base = re.escape(base_url)
+    pattern = rf'href="{escaped_base}(/[^"]*)"'
     replacement = r'href="\1"'
-    
+
     return re.sub(pattern, replacement, html_content)
 
 
@@ -821,6 +827,7 @@ def create_html_head(title: str, beteckning: str, additional_styles: str = "", a
     head = f"""<head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <base href="/eli/">
     <title>{html.escape(title)}</title>{eli_metadata}
 {navbar_script}
 {base_styles}

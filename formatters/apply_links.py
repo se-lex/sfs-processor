@@ -53,7 +53,7 @@ def apply_sfs_links(text: str) -> str:
     # Matchar mönster som "2002:43", "1970:485", etc.
     sfs_pattern = SFS_PATTERN
 
-    # Använd alltid https://selex.se/eli som default om env variabel inte finns
+    # Använd base URL med /eli/ prefix (default: https://selex.se/eli)
     base_url = os.getenv('INTERNAL_LINKS_BASE_URL', 'https://selex.se/eli')
 
     # TODO: Slå upp SFS-beteckning mot JSON-fil för att verifiera giltighet
@@ -238,9 +238,9 @@ def apply_law_name_links(text: str) -> str:
     if not law_names_data:
         return text
 
-    # Hämta bas-URL från miljövariabler - använd alltid https://selex.se/eli som default
+    # Hämta bas-URL från miljövariabler (med /eli/ prefix)
     base_url = os.getenv('INTERNAL_LINKS_BASE_URL', 'https://selex.se/eli')
-    
+
     # Processar texten rad för rad för att undvika att länka rubriker
     lines = text.split('\n')
     processed_lines = []
@@ -257,22 +257,22 @@ def apply_law_name_links(text: str) -> str:
             paragraph_part = match.group(2).strip()
             law_name = match.group(3).lower()
             full_match = match.group(0)
-            
+
             # Leta upp lagnamnet i data
             sfs_id = _lookup_law_name(law_name, law_names_data)
-            
+
             if not sfs_id:
                 print(f"Varning: Okänt lagnamn '{law_name}' i referens '{full_match}'")
                 return full_match  # Returnera oförändrat om lagnamnet inte hittas
-            
+
             # Extrahera år och nummer från SFS-ID (format: "YYYY:NNN")
             id_parts = sfs_id.split(':')
             if len(id_parts) != 2:
                 print(f"Varning: Ogiltigt SFS-ID format '{sfs_id}' för lagnamn '{law_name}'")
                 return full_match
-            
+
             year, number = id_parts
-            
+
             # Skapa bas-URL
             url = f"{base_url}/sfs/{year}/{number}"
             

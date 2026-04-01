@@ -50,6 +50,12 @@ HTML-filer kan publiceras via:
 - **Cloudflare R2**: Med `html-export-workflow.yml` (kräver R2-credentials)
 - **GitHub Pages**: Med `github-pages-workflow.yml` (enklare setup, kräver aktiverad GitHub Pages)
 
+För att testa HTML-sajten lokalt:
+```bash
+python scripts/serve_html.py
+```
+Detta startar en lokal HTTP-server på `http://localhost:8000`. Du kan ange en annan port med `python scripts/serve_html.py 3000`.
+
 ### Vektor-format (för semantisk sökning)
 
 - **`vector`**: Konverterar författningar till vektorembeddings för semantisk sökning och RAG-applikationer. Använder OpenAI:s text-embedding-3-large modell (3072 dimensioner) och stödjer lagring i PostgreSQL (pgvector), Elasticsearch eller JSON-fil.
