@@ -211,7 +211,9 @@
     "id": "1967:837",
     "name": "patentlagen",
     "type": "law",
-    "alternativeNames": [],
+    "alternativeNames": [
+      "PatL"
+    ],
     "category": "Immaterialrätt"
   },
   {
@@ -459,7 +461,8 @@
     "id": "1974:182",
     "name": "inkassolagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Fordringsrätt"
   },
   {
     "id": "1974:211",
@@ -469,11 +472,12 @@
   },
   {
     "id": "1974:371",
-    "name": "",
+    "name": "lagen om rättegången i arbetstvister",
     "type": "law",
     "alternativeNames": [
       "LRA"
-    ]
+    ],
+    "category": "Arbetsrätt"
   },
   {
     "id": "1974:595",
@@ -510,7 +514,10 @@
     "id": "1975:635",
     "name": "räntelagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [
+      "RänteL"
+    ],
+    "category": "Fordringsrätt"
   },
   {
     "id": "1976:19",
@@ -526,11 +533,12 @@
   },
   {
     "id": "1976:580",
-    "name": "",
+    "name": "medbestämmandelagen",
     "type": "law",
     "alternativeNames": [
       "MBL"
-    ]
+    ],
+    "category": "Arbetsrätt"
   },
   {
     "id": "1976:633",
@@ -542,7 +550,9 @@
     "id": "1977:1160",
     "name": "arbetsmiljölagen",
     "type": "law",
-    "alternativeNames": [],
+    "alternativeNames": [
+      "AML"
+    ],
     "category": "Arbetsrätt"
   },
   {
@@ -575,7 +585,8 @@
     "id": "1978:302",
     "name": "passlagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "1978:304",
@@ -635,7 +646,7 @@
   },
   {
     "id": "1980:100",
-    "name": "",
+    "name": "sekretesslagen",
     "type": "law",
     "alternativeNames": [
       "SekrL"
@@ -649,7 +660,7 @@
   },
   {
     "id": "1980:657",
-    "name": "",
+    "name": "sekretessförordningen",
     "type": "law",
     "alternativeNames": [
       "SekrF"
@@ -659,7 +670,9 @@
     "id": "1981:130",
     "name": "preskriptionslagen",
     "type": "law",
-    "alternativeNames": [],
+    "alternativeNames": [
+      "PreskL"
+    ],
     "category": "Fordringsrätt"
   },
   {
@@ -673,7 +686,7 @@
   },
   {
     "id": "1981:981",
-    "name": "",
+    "name": "utsökningsförordningen",
     "type": "law",
     "alternativeNames": [
       "UF"
@@ -683,13 +696,16 @@
     "id": "1982:670",
     "name": "namnlagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Familjerätt"
   },
   {
     "id": "1982:673",
     "name": "arbetstidslagen",
     "type": "law",
-    "alternativeNames": [],
+    "alternativeNames": [
+      "ATL"
+    ],
     "category": "Arbetsrätt"
   },
   {
@@ -755,7 +771,7 @@
   },
   {
     "id": "1985:206",
-    "name": "",
+    "name": "viteslagen",
     "type": "law",
     "alternativeNames": [
       "VitesL"
@@ -791,7 +807,8 @@
     "id": "1987:259",
     "name": "jaktlagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "1987:619",
@@ -811,7 +828,7 @@
   },
   {
     "id": "1987:822",
-    "name": "",
+    "name": "lagen om internationella köp",
     "type": "law",
     "alternativeNames": [
       "CISG"
@@ -828,18 +845,21 @@
     "id": "1988:254",
     "name": "knivlagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Straffrätt"
   },
   {
     "id": "1988:534",
     "name": "djurskyddslagen",
     "type": "law",
-    "alternativeNames": [],
+    "alternativeNames": [
+      "DjurskL"
+    ],
     "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "1988:870",
-    "name": "",
+    "name": "lagen om vård av missbrukare i vissa fall",
     "type": "law",
     "alternativeNames": [
       "LVM"
@@ -855,7 +875,8 @@
     "id": "1990:1144",
     "name": "begravningslagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "1990:324",
@@ -863,11 +884,12 @@
     "type": "law",
     "alternativeNames": [
       "TaxL"
-    ]
+    ],
+    "category": "Skatterätt"
   },
   {
     "id": "1990:52",
-    "name": "",
+    "name": "lagen med särskilda bestämmelser om vård av unga",
     "type": "law",
     "alternativeNames": [
       "LVU"
@@ -875,7 +897,7 @@
   },
   {
     "id": "1990:746",
-    "name": "",
+    "name": "lagen om betalningsföreläggande och handräckning",
     "type": "law",
     "alternativeNames": [
       "LBH"
@@ -887,7 +909,8 @@
     "type": "law",
     "alternativeNames": [
       "ArkivL"
-    ]
+    ],
+    "category": "Allmän förvaltningsrätt"
   },
   {
     "id": "1990:931",
@@ -909,7 +932,7 @@
   },
   {
     "id": "1991:1128",
-    "name": "",
+    "name": "lagen om psykiatrisk tvångsvård",
     "type": "law",
     "alternativeNames": [
       "LPT"
@@ -917,7 +940,7 @@
   },
   {
     "id": "1991:1129",
-    "name": "",
+    "name": "lagen om rättspsykiatrisk vård",
     "type": "law",
     "alternativeNames": [
       "LRV"
@@ -936,7 +959,8 @@
     "id": "1991:45",
     "name": "minerallagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "1991:481",
@@ -947,7 +971,7 @@
   },
   {
     "id": "1991:586",
-    "name": "",
+    "name": "lagen om särskild inkomstskatt för utomlands bosatta",
     "type": "law",
     "alternativeNames": [
       "SINK"
@@ -982,7 +1006,8 @@
     "id": "1992:1433",
     "name": "sametingslagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Statsrätt"
   },
   {
     "id": "1992:1434",
@@ -1000,7 +1025,7 @@
   },
   {
     "id": "1992:1685",
-    "name": "",
+    "name": "kulturmiljölagen",
     "type": "law",
     "alternativeNames": [
       "KML"
@@ -1044,7 +1069,7 @@
   },
   {
     "id": "1993:387",
-    "name": "",
+    "name": "lagen om stöd och service till vissa funktionshindrade",
     "type": "law",
     "alternativeNames": [
       "LSS"
@@ -1054,13 +1079,15 @@
     "id": "1993:581",
     "name": "tobakslagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "1993:787",
     "name": "fiskelagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "1994:1000",
@@ -1074,7 +1101,8 @@
     "type": "law",
     "alternativeNames": [
       "SjöL"
-    ]
+    ],
+    "category": "Speciell avtalsrätt"
   },
   {
     "id": "1994:1220",
@@ -1102,7 +1130,7 @@
   },
   {
     "id": "1994:260",
-    "name": "",
+    "name": "lagen om offentlig anställning",
     "type": "law",
     "alternativeNames": [
       "LOA"
@@ -1181,25 +1209,33 @@
     "id": "1996:1596",
     "name": "bibliotekslagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "1996:1619",
     "name": "rättshjälpslagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Processrätt"
   },
   {
     "id": "1996:627",
     "name": "säkerhetsskyddslagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [
+      "SäkL"
+    ],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "1996:67",
     "name": "vapenlagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [
+      "VapenL"
+    ],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "1996:799",
@@ -1319,7 +1355,8 @@
     "id": "1999:1079",
     "name": "revisionslagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Associationsrätt"
   },
   {
     "id": "1999:1229",
@@ -1341,7 +1378,8 @@
     "id": "1999:355",
     "name": "kasinolagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "1999:381",
@@ -1379,7 +1417,8 @@
     "id": "2000:1281",
     "name": "tullagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Skatterätt"
   },
   {
     "id": "2000:980",
@@ -1392,7 +1431,7 @@
   },
   {
     "id": "2001:1227",
-    "name": "",
+    "name": "lagen om självdeklarationer och kontrolluppgifter",
     "type": "law",
     "alternativeNames": [
       "LSK"
@@ -1418,7 +1457,8 @@
     "id": "2001:883",
     "name": "revisorslagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Associationsrätt"
   },
   {
     "id": "2002:574",
@@ -1439,7 +1479,8 @@
     "id": "2003:364",
     "name": "fartygssäkerhetslagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "2003:376",
@@ -1450,7 +1491,7 @@
   },
   {
     "id": "2003:389",
-    "name": "",
+    "name": "lagen om elektronisk kommunikation",
     "type": "law",
     "alternativeNames": [
       "LEK"
@@ -1458,7 +1499,7 @@
   },
   {
     "id": "2003:778",
-    "name": "",
+    "name": "lagen om skydd mot olyckor",
     "type": "law",
     "alternativeNames": [
       "LSO"
@@ -1538,7 +1579,8 @@
     "id": "2005:837",
     "name": "vallagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Statsrätt"
   },
   {
     "id": "2006:227",
@@ -1568,7 +1610,8 @@
     "id": "2006:804",
     "name": "livsmedelslagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "2007:612",
@@ -1581,7 +1624,8 @@
     "id": "2008:263",
     "name": "fjärrvärmelagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "2008:355",
@@ -1603,7 +1647,10 @@
     "id": "2008:567",
     "name": "diskrimineringslagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [
+      "DL"
+    ],
+    "category": "Arbetsrätt"
   },
   {
     "id": "2008:579",
@@ -1616,7 +1663,8 @@
     "id": "2008:717",
     "name": "FRA-lagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Statsrätt"
   },
   {
     "id": "2009:287",
@@ -1642,19 +1690,11 @@
     "category": "Allmän förvaltningsrätt"
   },
   {
-    "id": "2009:400",
-    "name": "sekretesslagen",
-    "type": "law",
-    "alternativeNames": [
-      "OSL"
-    ],
-    "category": "Statsrätt"
-  },
-  {
     "id": "2009:600",
     "name": "språklagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Statsrätt"
   },
   {
     "id": "2009:865",
@@ -1693,7 +1733,8 @@
     "id": "2010:1622",
     "name": "alkohollagen",
     "type": "law",
-    "alternativeNames": []
+    "alternativeNames": [],
+    "category": "Speciell förvaltningsrätt"
   },
   {
     "id": "2010:1846",
@@ -1715,7 +1756,7 @@
   },
   {
     "id": "2013:561",
-    "name": "",
+    "name": "lagen om förvaltare av alternativa investeringsfonder",
     "type": "law",
     "alternativeNames": [
       "LAIF"
@@ -1730,7 +1771,7 @@
   },
   {
     "id": "2016:1145",
-    "name": "",
+    "name": "lagen om offentlig upphandling",
     "type": "law",
     "alternativeNames": [
       "LOU"
@@ -1738,7 +1779,7 @@
   },
   {
     "id": "2017:30",
-    "name": "",
+    "name": "hälso- och sjukvårdslagen",
     "type": "law",
     "alternativeNames": [
       "HSL"
