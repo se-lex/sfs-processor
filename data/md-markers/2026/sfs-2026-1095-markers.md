@@ -1,0 +1,74 @@
+---
+id: sfs-2026-1095
+beteckning: "2026:1095"
+rubrik: Förordning om utsedda verksamhetsställen och rättsliga ombud för inhämtning av elektroniska bevis
+normtyp: Förordning
+departement: Justitiedepartementet
+utfardad_datum: 2026-06-04
+ikraft_datum: 2026-07-01
+publicerad_datum: 2026-06-12
+pdf_url: https://svenskforfattningssamling.se/sites/default/files/sfs/2026-06/SFS2026-1095.pdf
+---
+<article selex:utfardad_datum="2026-06-04" selex:ikraft_datum="2026-07-01">
+
+# Förordning om utsedda verksamhetsställen och rättsliga ombud för inhämtning av elektroniska bevis
+
+<section id="1" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-07-01">
+
+### 1 §
+
+Denna förordning innehåller kompletterande bestämmelser till lagen ([2026:966](https://selex.se/eli/sfs/2026/966)) om utsedda verksamhetsställen och rättsliga ombud för inhämtning av elektroniska bevis.
+
+</section>
+<section id="förordningen-är-meddelad-med-s">
+
+## Förordningen är meddelad med stöd av
+
+- 3 kap. [1 §](#kap3.1) lagen om utsedda verksamhetsställen och rättsliga ombud för inhämtning av elektroniska bevis i fråga om [2 §](#2),
+
+- 2 kap. [5 §](#kap2.5) samma lag i fråga om [3 §](#3),
+
+- [8 kap. 7 § regeringsformen](https://selex.se/eli/sfs/1974/152#kap8.7) i fråga om övriga bestämmelser.
+
+<section id="2" class="paragraf">
+
+### 2 §
+
+Post- och telestyrelsen är centralmyndighet enligt Europaparlamentets och rådets direktiv [(EU) 2023/1544](https://eur-lex.europa.eu/legal-content/SV/ALL/?uri=celex%3A31544R2023) av den 12 juli 2023 om fastställande av harmoniserade regler för att utse utsedda verksamhetsställen och rättsliga ombud för insamling av elektroniska bevis i straffrättsliga förfaranden, i den ursprungliga lydelsen.
+
+</section>
+<section id="3" class="paragraf">
+
+### 3 §
+
+Post- och telestyrelsen får meddela ytterligare föreskrifter om innehållet i en underrättelse enligt 2 kap. [5 §](#kap2.5) lagen ([2026:966](https://selex.se/eli/sfs/2026/966)) om utsedda verksamhetsställen och rättsliga ombud för inhämtning av elektroniska bevis.
+
+</section>
+<section id="4" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-08-18">
+
+### 4 §
+
+Post- och telestyrelsen ska i sin tillsyn enligt 3 kap. lagen ([2026:966](https://selex.se/eli/sfs/2026/966)) om utsedda verksamhetsställen och rättsliga ombud för inhämtning av elektroniska bevis vid behov ge centralmyndigheter i andra medlemsstater tillfälle att yttra sig.
+
+</section>
+<section id="5" class="paragraf" selex:status="ikraft" selex:ikraft_datum="2026-08-18">
+
+### 5 §
+
+Post- och telestyrelsen ska underrätta Åklagarmyndigheten om förhållanden som kan ha betydelse för beslut om sanktionsavgifter enligt 4 kap. lagen ([2026:1094](https://selex.se/eli/sfs/2026/1094)) med kompletterande bestämmelser till EU:s förordning om europeiska utlämnande- och bevarandeorder för elektroniska bevis.
+
+
+</section>
+
+</section>
+<section id="övergångsbestämmelser">
+
+## Övergångsbestämmelser
+
+[2026:1095](https://selex.se/eli/sfs/2026/1095)
+
+Denna förordning träder i kraft den 19 augusti 2026 i fråga om 4 och [5 §](#5)§ och i övrigt den 1 juli 2026.
+
+</section>
+
+</article>
