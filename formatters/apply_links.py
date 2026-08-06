@@ -295,7 +295,18 @@ def apply_law_name_links(text: str) -> str:
 def _load_law_names():
     """
     Laddar lagnamn från data/law-names.json.
-    
+
+    Ett lagnamn kan över tid ha burits av flera författningar i följd
+    (t.ex. "patentlagen" = 1967:837 fram till 2025-01-01, därefter 2024:945),
+    så varje post har en kronologiskt sorterad lista `ids`. Utan ett
+    referensdatum att slå upp mot väljer vi den senaste (nuvarande) lagen i
+    listan.
+
+    TODO: när ids > 1, slå istället upp mot respektive lags egna
+    upphavdDateTime/ikraftDateTime (källdata som redan laddas ner) för att
+    välja rätt id för det datum referensen faktiskt gäller, istället för att
+    alltid anta att den senaste är rätt.
+
     Returns:
         dict: Dictionary med lagnamn som nycklar och SFS-ID som värden, eller None om fel
     """
@@ -304,22 +315,22 @@ def _load_law_names():
         current_file = Path(__file__)
         project_root = current_file.parent.parent  # från formatters/ till projektrot
         law_names_file = project_root / "data" / "law-names.json"
-        
+
         if not law_names_file.exists():
             print(f"Varning: Kunde inte hitta {law_names_file}")
             return None
-            
+
         with open(law_names_file, 'r', encoding='utf-8') as f:
             law_data = json.load(f)
-        
-        # Skapa lookup-dictionary: lagnamn -> SFS-ID
+
+        # Skapa lookup-dictionary: lagnamn -> SFS-ID (senaste av eventuellt flera)
         law_lookup = {}
         for entry in law_data:
-            if entry.get('name'):
-                law_lookup[entry['name'].lower()] = entry['id']
-        
+            if entry.get('name') and entry.get('ids'):
+                law_lookup[entry['name'].lower()] = entry['ids'][-1]
+
         return law_lookup
-        
+
     except Exception as e:
         print(f"Fel vid laddning av lagnamn: {e}")
         return None

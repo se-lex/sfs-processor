@@ -21,11 +21,11 @@ def load_law_names(json_file_path):
         with open(json_file_path, 'r', encoding='utf-8') as f:
             law_data = json.load(f)
         
-        # Create lookup dictionary: lagnamn -> SFS-ID
+        # Create lookup dictionary: lagnamn -> SFS-ID (senaste av eventuellt flera ids)
         law_lookup = {}
         for entry in law_data:
-            if entry.get('name'):
-                law_lookup[entry['name'].lower()] = entry['id']
+            if entry.get('name') and entry.get('ids'):
+                law_lookup[entry['name'].lower()] = entry['ids'][-1]
         
         return law_lookup, law_data
         
