@@ -4,7 +4,11 @@ Tests for temporal filtering functionality.
 """
 
 import pytest
-from temporal.apply_temporal import apply_temporal
+from temporal.apply_temporal import (
+    apply_temporal,
+    find_unrecoverable_amendments,
+    add_unreliable_history_warning,
+)
 
 
 # ===========================================================================
@@ -519,3 +523,84 @@ Content
 
         # Should be removed (not yet in force)
         assert "## Far future section" not in result
+
+
+# ===========================================================================
+# find_unrecoverable_amendments / add_unreliable_history_warning Tests
+# ===========================================================================
+
+@pytest.mark.unit
+class TestFindUnrecoverableAmendments:
+    """Test detection of amendments not covered by any surviving temporal marker."""
+
+    def test_no_andringsforfattningar_returns_empty(self):
+        """No amendment list at all means nothing to check."""
+        assert find_unrecoverable_amendments("<article></article>", "1990-01-01", []) == []
+
+    def test_amendment_before_target_date_is_ignored(self):
+        """An amendment that happened before the target date is not a gap."""
+        markdown = "<article><section></section></article>"
+        amendments = [{"beteckning": "1980:1", "ikraftDateTime": "1980-01-01T00:00:00"}]
+        result = find_unrecoverable_amendments(markdown, "1990-01-01", amendments)
+        assert result == []
+
+    def test_amendment_after_target_with_no_marker_is_uncovered(self):
+        """An amendment after target_date with no matching selex marker in the
+        current text is exactly the case that produced silently wrong history."""
+        markdown = "<article><section></section></article>"
+        amendments = [{"beteckning": "2024:945", "ikraftDateTime": "2024-01-01T00:00:00",
+                       "anteckningar": "ändr. 5 §"}]
+        result = find_unrecoverable_amendments(markdown, "1990-01-01", amendments)
+        assert len(result) == 1
+        assert result[0]["beteckning"] == "2024:945"
+
+    def test_amendment_covered_by_marker_is_not_uncovered(self):
+        """When the current text still carries the marker for that exact
+        transition, apply_temporal can handle it correctly -- no warning needed."""
+        markdown = '<article><section selex:ikraft_datum="2024-01-01"></section></article>'
+        amendments = [{"beteckning": "2024:945", "ikraftDateTime": "2024-01-01T00:00:00"}]
+        result = find_unrecoverable_amendments(markdown, "1990-01-01", amendments)
+        assert result == []
+
+    def test_amendment_with_no_ikraft_date_is_skipped(self):
+        """An amendment with no known ikraftDateTime (e.g. conditional entry
+        into force) can't be placed relative to target_date, so it's excluded
+        rather than guessed at."""
+        markdown = "<article><section></section></article>"
+        amendments = [{"beteckning": "2024:1", "ikraftDateTime": None}]
+        result = find_unrecoverable_amendments(markdown, "1990-01-01", amendments)
+        assert result == []
+
+    def test_results_sorted_chronologically(self):
+        """Uncovered amendments come back oldest first."""
+        markdown = "<article><section></section></article>"
+        amendments = [
+            {"beteckning": "2020:2", "ikraftDateTime": "2020-06-01T00:00:00"},
+            {"beteckning": "2010:1", "ikraftDateTime": "2010-01-01T00:00:00"},
+        ]
+        result = find_unrecoverable_amendments(markdown, "1990-01-01", amendments)
+        assert [a["beteckning"] for a in result] == ["2010:1", "2020:2"]
+
+
+@pytest.mark.unit
+class TestAddUnreliableHistoryWarning:
+    """Test the warning banner insertion for unreliable historical reconstructions."""
+
+    def test_no_uncovered_amendments_returns_unchanged(self):
+        content = "<article>\n\n# Title\n\nBody\n\n</article>"
+        result = add_unreliable_history_warning(content, [], "1990-01-01")
+        assert result == content
+
+    def test_warning_inserted_after_h1(self):
+        content = "<article>\n\n# Patentlag\n\nBody text\n\n</article>"
+        amendments = [{"beteckning": "2024:945", "ikraftDateTime": "2024-01-01T00:00:00",
+                       "anteckningar": "ändr. 5 §"}]
+        result = add_unreliable_history_warning(content, amendments, "1967-12-01")
+
+        assert "1967-12-01" in result
+        assert "2024:945" in result
+        assert "ändr. 5 §" in result
+        # original body content is preserved, not replaced
+        assert "Body text" in result
+        # warning appears before the original body
+        assert result.index("2024:945") < result.index("Body text")

@@ -289,6 +289,116 @@ def apply_temporal_to_file(file_path: str, target_date: str, output_path: Option
         print(f"Temporal filtrering tillämpad och sparad till: {output_file}")
 
 
+# Matchar selex:ikraft_datum="..." och selex:upphor_datum="..." i markdown,
+# dvs. de attribut format_sfs_text_as_markdown genererar från källtextens
+# /Träder i kraft I:.../ och /Upphör att gälla U:.../-markörer.
+_SELEX_DATE_PATTERN = re.compile(r'selex:(?:ikraft_datum|upphor_datum)="(\d{4}-\d{2}-\d{2})"')
+
+
+def find_unrecoverable_amendments(markdown_content: str, target_date: str, andringsforfattningar: list) -> list:
+    """
+    Identifierar ändringsförfattningar som trätt i kraft efter target_date men
+    vars övergång inte täcks av någon kvarvarande selex-markör i markdown_content.
+
+    Källtextens temporal-markörer bevaras normalt bara i ungefär ett år efter att
+    en övergång skett -- äldre ändringar lämnar inget spår i den nuvarande
+    konsoliderade texten. Om apply_temporal då anropas med ett äldre target_date
+    (t.ex. en gammal lags utfärdandedatum) har den inget att filtrera bort för de
+    ändringarna, och den nuvarande lydelsen läcker igenom omärkt som historisk
+    text. Den här funktionen upptäcker exakt de fallen, så anroparen kan varna
+    istället för att tyst producera fel innehåll.
+
+    Args:
+        markdown_content: Markdown-innehållet FÖRE apply_temporal (måste
+            innehålla de ursprungliga selex:-attributen för att markörerna ska
+            kunna hittas)
+        target_date: Datum i format YYYY-MM-DD som rekonstruktionen gäller
+        andringsforfattningar: Rå lista från källdatans `andringsforfattningar`
+            (dicts med bl.a. `ikraftDateTime`, `beteckning`, `anteckningar`)
+
+    Returns:
+        list: de ändringsförfattningar (samma dict-form som i indata) vars
+        ikraftDateTime > target_date och inte representeras av någon markör i
+        markdown_content, kronologiskt sorterade
+    """
+    if not andringsforfattningar:
+        return []
+    try:
+        target_dt = datetime.strptime(target_date, '%Y-%m-%d')
+    except (ValueError, TypeError):
+        return []
+
+    marker_dates = set(_SELEX_DATE_PATTERN.findall(markdown_content))
+
+    uncovered = []
+    for amendment in andringsforfattningar:
+        ikraft = amendment.get('ikraftDateTime')
+        if not ikraft or not isinstance(ikraft, str):
+            continue
+        ikraft_date = ikraft[:10]
+        try:
+            ikraft_dt = datetime.strptime(ikraft_date, '%Y-%m-%d')
+        except ValueError:
+            continue
+        if ikraft_dt <= target_dt:
+            continue  # skedde inte efter måldatumet, inte relevant för rekonstruktionen
+        if ikraft_date in marker_dates:
+            continue  # täcks av en kvarvarande markör -- apply_temporal hanterade den korrekt
+        uncovered.append(amendment)
+
+    uncovered.sort(key=lambda a: a.get('ikraftDateTime') or '')
+    return uncovered
+
+
+def add_unreliable_history_warning(markdown_content: str, uncovered_amendments: list, target_date: str) -> str:
+    """
+    Sätter in en tydlig varningsbanner direkt efter H1-rubriken, som förklarar
+    att den exakta lydelsen vid target_date inte kunnat återskapas och listar
+    de kända ändringarna (datum + vad som ändrades) som saknar täckning.
+    Kroppen i övrigt lämnas orörd -- större delen av en gammal lags text är
+    oftast oförändrad mellan ändringar, så den bevaras med en tydlig
+    reservation snarare än att tas bort helt.
+
+    Args:
+        markdown_content: Markdown-innehåll (efter apply_temporal)
+        uncovered_amendments: Resultatet från find_unrecoverable_amendments
+        target_date: Datum i format YYYY-MM-DD som rekonstruktionen gäller
+
+    Returns:
+        str: markdown_content med varningsbanner inklistrad, eller oförändrat
+        om uncovered_amendments är tom
+    """
+    if not uncovered_amendments:
+        return markdown_content
+
+    lines = [
+        f"*OBS: Den exakta lydelsen vid {target_date} kunde inte återskapas exakt -- "
+        f"källan bevarar bara markörer för nyligen skedda ändringar. Texten nedan är "
+        f"den senast kända konsoliderade lydelsen. {len(uncovered_amendments)} kända "
+        f"ändring{'ar' if len(uncovered_amendments) != 1 else ''} har skett sedan "
+        f"{target_date} enligt ändringsregistret:*",
+        "",
+    ]
+    for amendment in uncovered_amendments:
+        beteckning = amendment.get('beteckning', '?')
+        ikraft_date = (amendment.get('ikraftDateTime') or '')[:10]
+        anteckningar = amendment.get('anteckningar')
+        suffix = f": {anteckningar}" if anteckningar else ""
+        lines.append(f"- {beteckning} ({ikraft_date}){suffix}")
+    warning = "\n".join(lines)
+
+    article_match = re.search(r'(<article[^>]*>)\s*\n\s*(#\s+[^\n]+)\s*\n', markdown_content, re.DOTALL)
+    if not article_match:
+        return markdown_content
+
+    insertion_point = article_match.end()
+    return (
+        markdown_content[:insertion_point] +
+        "\n" + warning + "\n" +
+        markdown_content[insertion_point:]
+    )
+
+
 def is_document_content_empty(markdown_content: str) -> bool:
     """
     Kontrollera om dokumentinnehållet är tomt efter temporal processing.

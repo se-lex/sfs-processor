@@ -12,7 +12,13 @@ from pathlib import Path
 from typing import List, Dict, Optional
 
 from temporal.upcoming_changes import identify_upcoming_changes
-from temporal.apply_temporal import apply_temporal, is_document_content_empty, add_empty_document_message
+from temporal.apply_temporal import (
+    apply_temporal,
+    is_document_content_empty,
+    add_empty_document_message,
+    find_unrecoverable_amendments,
+    add_unreliable_history_warning,
+)
 from temporal.title_temporal import title_temporal
 from exporters.git.git_utils import is_file_tracked, has_staged_changes, stage_file, create_commit_with_date
 from util.datetime_utils import format_datetime, format_datetime_for_git
@@ -64,6 +70,20 @@ def create_init_git_commit(
         temporal_content = add_empty_document_message(temporal_content, data, utfardad_datum)
         if verbose:
             print(f"Info: Tomt dokument efter temporal processing för {beteckning} vid {utfardad_datum}, lade till förklarande meddelande")
+    else:
+        # Källans temporal-markörer bevaras normalt bara ett år eller så efter
+        # att en ändring skett. Om det finns kända ändringar (andringsforfattningar)
+        # efter utfardad_datum som inte täcks av någon markör i markdown_content,
+        # har apply_temporal inget att filtrera bort för dem -- resultatet vore då
+        # tyst den nuvarande lydelsen omärkt som historisk text. Varna istället.
+        uncovered = find_unrecoverable_amendments(
+            markdown_content, utfardad_datum, data.get('andringsforfattningar', [])
+        )
+        if uncovered:
+            temporal_content = add_unreliable_history_warning(temporal_content, uncovered, utfardad_datum)
+            if verbose:
+                print(f"Varning: Historisk lydelse för {beteckning} vid {utfardad_datum} kan inte återskapas "
+                      f"exakt ({len(uncovered)} ändringar utan kvarvarande markör), lade till varningsbanner")
 
     # Apply temporal title processing for frontmatter rubrik
     temporal_rubrik = title_temporal(rubrik, utfardad_datum)
