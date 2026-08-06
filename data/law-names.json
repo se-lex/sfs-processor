@@ -1809,5 +1809,659 @@
     "type": "law",
     "alternativeNames": [],
     "category": "IT-rätt"
+  },
+  {
+    "id": "1891:35 s.1",
+    "name": "sjölagen",
+    "type": "law",
+    "alternativeNames": [
+      "SjöL"
+    ]
+  },
+  {
+    "id": "1904:48 s.1",
+    "name": "samäganderättslagen",
+    "type": "law",
+    "alternativeNames": [
+      "SamägL"
+    ]
+  },
+  {
+    "id": "1921:225",
+    "name": "konkurslagen",
+    "type": "law",
+    "alternativeNames": [
+      "KonkL"
+    ]
+  },
+  {
+    "id": "1956:623",
+    "name": "taxeringslagen",
+    "type": "law",
+    "alternativeNames": [
+      "TaxL"
+    ]
+  },
+  {
+    "id": "1958:110",
+    "name": "strålskyddslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1967:198",
+    "name": "folkbokföringslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1968:231",
+    "name": "smittskyddslagen",
+    "type": "law",
+    "alternativeNames": [
+      "SmittskL"
+    ]
+  },
+  {
+    "id": "1971:392",
+    "name": "växtförädlarrättslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1971:479",
+    "name": "bostadsrättslagen",
+    "type": "law",
+    "alternativeNames": [
+      "BRL"
+    ]
+  },
+  {
+    "id": "1971:511",
+    "name": "livsmedelslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1972:429",
+    "name": "rättshjälpslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1972:620",
+    "name": "vallagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1973:349",
+    "name": "studiestödslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1973:877",
+    "name": "konsumentköplagen",
+    "type": "law",
+    "alternativeNames": [
+      "KKöpL"
+    ]
+  },
+  {
+    "id": "1973:1176",
+    "name": "vapenlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1974:358",
+    "name": "förtroendemannalagen",
+    "type": "law",
+    "alternativeNames": [
+      "FML"
+    ]
+  },
+  {
+    "id": "1975:1385",
+    "name": "aktiebolagslagen",
+    "type": "law",
+    "alternativeNames": [
+      "ABL"
+    ]
+  },
+  {
+    "id": "1975:1418",
+    "name": "marknadsföringslagen",
+    "type": "law",
+    "alternativeNames": [
+      "MFL"
+    ]
+  },
+  {
+    "id": "1976:125",
+    "name": "bokföringslagen",
+    "type": "law",
+    "alternativeNames": [
+      "BFL"
+    ]
+  },
+  {
+    "id": "1976:511",
+    "name": "",
+    "type": "law",
+    "alternativeNames": [
+      "LOB"
+    ]
+  },
+  {
+    "id": "1977:179",
+    "name": "kommunallagen",
+    "type": "law",
+    "alternativeNames": [
+      "KL",
+      "KomL"
+    ]
+  },
+  {
+    "id": "1977:218",
+    "name": "högskolelagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1977:477",
+    "name": "körkortslagen",
+    "type": "law",
+    "alternativeNames": [
+      "KörkL"
+    ]
+  },
+  {
+    "id": "1977:722",
+    "name": "körkortsförordningen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1977:981",
+    "name": "konsumentkreditlagen",
+    "type": "law",
+    "alternativeNames": [
+      "KKrL"
+    ]
+  },
+  {
+    "id": "1979:559",
+    "name": "yrkestrafiklagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1980:369",
+    "name": "epizootilagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1980:376",
+    "name": "utlänningslagen",
+    "type": "law",
+    "alternativeNames": [
+      "UtlL"
+    ]
+  },
+  {
+    "id": "1980:620",
+    "name": "socialtjänstlagen",
+    "type": "law",
+    "alternativeNames": [
+      "SoL"
+    ]
+  },
+  {
+    "id": "1982:729",
+    "name": "konkurrenslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1982:763",
+    "name": "hälso- och sjukvårdslagen",
+    "type": "law",
+    "alternativeNames": [
+      "HSL"
+    ]
+  },
+  {
+    "id": "1982:1011",
+    "name": "lotterilagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1986:223",
+    "name": "förvaltningslagen",
+    "type": "law",
+    "alternativeNames": [
+      "FL"
+    ]
+  },
+  {
+    "id": "1987:10",
+    "name": "plan- och bygglagen",
+    "type": "law",
+    "alternativeNames": [
+      "PBL"
+    ]
+  },
+  {
+    "id": "1987:1065",
+    "name": "tullagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1988:49",
+    "name": "fartygssäkerhetslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1988:263",
+    "name": "yrkestrafiklagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1988:360",
+    "name": "",
+    "type": "law",
+    "alternativeNames": [
+      "LBH"
+    ]
+  },
+  {
+    "id": "1988:1472",
+    "name": "smittskyddslagen",
+    "type": "law",
+    "alternativeNames": [
+      "SmittskL"
+    ]
+  },
+  {
+    "id": "1988:1604",
+    "name": "produktsäkerhetslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1989:529",
+    "name": "utlänningslagen",
+    "type": "law",
+    "alternativeNames": [
+      "UtlL"
+    ]
+  },
+  {
+    "id": "1991:601",
+    "name": "prisinformationslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1992:830",
+    "name": "konsumentkreditlagen",
+    "type": "law",
+    "alternativeNames": [
+      "KKrL"
+    ]
+  },
+  {
+    "id": "1992:859",
+    "name": "läkemedelslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1993:20",
+    "name": "konkurrenslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1994:334",
+    "name": "skuldsaneringslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1994:1219",
+    "name": "europakonventionen",
+    "type": "law",
+    "alternativeNames": [
+      "EKMR"
+    ]
+  },
+  {
+    "id": "1994:1550",
+    "name": "tullagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1994:1738",
+    "name": "alkohollagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "1995:450",
+    "name": "marknadsföringslagen",
+    "type": "law",
+    "alternativeNames": [
+      "MFL"
+    ]
+  },
+  {
+    "id": "1997:157",
+    "name": "vallagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2000:599",
+    "name": "naturgaslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2002:562",
+    "name": "e-handelslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2010:361",
+    "name": "polisdatalagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2010:500",
+    "name": "luftfartslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2010:800",
+    "name": "skollagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2010:1045",
+    "name": "postlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2010:1877",
+    "name": "varumärkeslagen",
+    "type": "law",
+    "alternativeNames": [
+      "VML"
+    ]
+  },
+  {
+    "id": "2010:1932",
+    "name": "delgivningslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2010:2043",
+    "name": "försäkringsrörelselagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2011:666",
+    "name": "fastighetsmäklarlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2011:1029",
+    "name": "",
+    "type": "law",
+    "alternativeNames": [
+      "LUFS"
+    ]
+  },
+  {
+    "id": "2012:210",
+    "name": "yrkestrafiklagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2013:801",
+    "name": "bibliotekslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2014:322",
+    "name": "brottsskadelagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2014:801",
+    "name": "riksdagsordningen",
+    "type": "law",
+    "alternativeNames": [
+      "RO"
+    ]
+  },
+  {
+    "id": "2016:253",
+    "name": "tullagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2016:675",
+    "name": "skuldsaneringslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2016:1013",
+    "name": "namnlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2016:1146",
+    "name": "",
+    "type": "law",
+    "alternativeNames": [
+      "LUF"
+    ]
+  },
+  {
+    "id": "2016:1147",
+    "name": "",
+    "type": "law",
+    "alternativeNames": [
+      "LUK"
+    ]
+  },
+  {
+    "id": "2017:630",
+    "name": "penningtvättslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2017:725",
+    "name": "kommunallagen",
+    "type": "law",
+    "alternativeNames": [
+      "KL",
+      "KomL"
+    ]
+  },
+  {
+    "id": "2018:181",
+    "name": "järnvägstrafiklagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:396",
+    "name": "strålskyddslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:558",
+    "name": "företagshemlighetslagen",
+    "type": "law",
+    "alternativeNames": [
+      "FHL"
+    ]
+  },
+  {
+    "id": "2018:585",
+    "name": "säkerhetsskyddslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:1138",
+    "name": "spellagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:1192",
+    "name": "djurskyddslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:1197",
+    "name": "barnkonventionen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:1200",
+    "name": "kamerabevakningslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:1217",
+    "name": "paketreselagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:1218",
+    "name": "resegarantilagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:1653",
+    "name": "företagsnamnslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2018:2088",
+    "name": "tobakslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2021:516",
+    "name": "fastighetsmäklarlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2021:890",
+    "name": "visselblåsarlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2022:260",
+    "name": "konsumentköplagen",
+    "type": "law",
+    "alternativeNames": [
+      "KKöpL"
+    ]
+  },
+  {
+    "id": "2022:482",
+    "name": "",
+    "type": "law",
+    "alternativeNames": [
+      "LEK"
+    ]
+  },
+  {
+    "id": "2022:666",
+    "name": "terroristbrottslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2022:725",
+    "name": "växtskyddslagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2023:200",
+    "name": "mervärdesskattelagen",
+    "type": "law",
+    "alternativeNames": [
+      "ML"
+    ]
+  },
+  {
+    "id": "2024:945",
+    "name": "patentlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2025:400",
+    "name": "socialtjänstlagen",
+    "type": "law",
+    "alternativeNames": [
+      "SoL"
+    ]
+  },
+  {
+    "id": "2026:408",
+    "name": "vapenlagen",
+    "type": "law",
+    "alternativeNames": []
+  },
+  {
+    "id": "2026:1011",
+    "name": "konsumentkreditlagen",
+    "type": "law",
+    "alternativeNames": [
+      "KKrL"
+    ]
   }
 ]
