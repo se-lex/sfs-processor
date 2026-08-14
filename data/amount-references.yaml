@@ -1,0 +1,232 @@
+# Reference table mapping positional ids to descriptive slugs
+# Format: "positional-id": slug  # värde - "textutdrag"
+# Workflow: Use extract_unmapped_ids() to find entries that need slugs
+
+# --- Socialtjänstlagen (2025:400) ---
+"sfs-2025-400/procent-1": inkomstandel-anstallning  # 80% - "motsvarande 80 procent av inkomsten"
+"sfs-2025-400/belopp-1": sanktionsavgift-lagsta  # 5 000 kr - "lägst 5 000 kronor"
+"sfs-2025-400/belopp-2": sanktionsavgift-hogsta  # 100 000 kr - "högst 100 000 kronor"
+"sfs-2025-400/belopp-3": sanktionsavgift-per-overträdelse  # 10 000 kr - "10 000 kronor per överträdelse"
+"sfs-2025-400/belopp-4": sanktionsavgift-allvarlig-lagsta  # 50 000 kr - "vid allvarlig överträdelse lägst 50 000"
+"sfs-2025-400/belopp-5": sanktionsavgift-allvarlig-hogsta  # 500 000 kr - "högst 500 000 kronor"
+"sfs-2025-400/belopp-6": sanktionsavgift-synnerligen-allvarlig-lagsta  # 100 000 kr - "synnerligen allvarlig, lägst 100 000"
+"sfs-2025-400/belopp-7": sanktionsavgift-synnerligen-allvarlig-hogsta  # 1 000 000 kr - "högst 1 000 000 kronor"
+
+# --- Inkomstskattelagen (1999:1229) ---
+"sfs-1999-1229/kap2.1-belopp-1": prisbasbelopp  # 57 300 kr - "prisbasbeloppet enligt 2 kap. socialförsäkringsbalken"
+"sfs-1999-1229/kap2.2-belopp-1": forhojt-prisbasbelopp  # 58 500 kr - "det förhöjda prisbasbeloppet"
+"sfs-1999-1229/kap2.3-belopp-1": inkomstbasbelopp  # 76 200 kr - "inkomstbasbeloppet"
+"sfs-1999-1229/kap10.2-belopp-1": grundavdrag-lagsta  # 15 400 kr - "grundavdraget ska vara lägst 15 400"
+"sfs-1999-1229/kap10.2-belopp-2": grundavdrag-hogsta  # 40 500 kr - "högst 40 500 kronor"
+"sfs-1999-1229/kap11.1-procent-1": jobbskatteavdrag-procent  # 11,5% - "med 11,5 procent av underlaget"
+"sfs-1999-1229/kap11.1-belopp-1": jobbskatteavdrag-tak  # 37 000 kr - "dock högst 37 000 kronor"
+"sfs-1999-1229/kap12.24-belopp-1": tjansteresor-avdrag  # 13 000 kr - "avdrag för resor i tjänsten överstigande 13 000"
+"sfs-1999-1229/kap12.27-belopp-1": dubbel-bosattning-avdrag  # 8 000 kr - "avdrag med högst 8 000 kronor per månad"
+"sfs-1999-1229/kap57.1-belopp-1": statlig-skatt-skiktgrans  # 613 900 kr - "beskattningsbar förvärvsinkomst överstiger 613 900"
+"sfs-1999-1229/kap57.1-procent-1": statlig-skatt-procentsats  # 20% - "statlig inkomstskatt med 20 procent"
+"sfs-1999-1229/kap65.5-belopp-1": skattereduktion-forvarvsarbete  # 1 700 kr - "skattereduktion med 1 700 kronor"
+"sfs-1999-1229/kap67.5-belopp-1": rot-avdrag-max  # 50 000 kr - "högst 50 000 kronor per år för ROT"
+"sfs-1999-1229/kap67.6-belopp-1": rut-avdrag-max  # 75 000 kr - "högst 75 000 kronor per år för RUT"
+"sfs-1999-1229/kap67.7-procent-1": rot-avdrag-procent  # 30% - "avdrag med 30 procent av arbetskostnaden"
+"sfs-1999-1229/kap67.8-procent-1": rut-avdrag-procent  # 50% - "avdrag med 50 procent av arbetskostnaden"
+
+# --- Socialförsäkringsbalken (2010:110) ---
+"sfs-2010-110/kap15.2-belopp-1": sjukpenning-tak  # 1 116 kr - "sjukpenning per dag högst 1 116 kronor"
+"sfs-2010-110/kap15.3-procent-1": sjukpenning-ersattningsgrad  # 80% - "80 procent av den sjukpenninggrundande inkomsten"
+"sfs-2010-110/kap16.1-belopp-1": sjukersattning-hel  # 11 830 kr - "hel sjukersättning 11 830 kronor per månad"
+"sfs-2010-110/kap16.2-belopp-1": sjukersattning-tre-fjardedels  # 8 873 kr - "tre fjärdedels sjukersättning 8 873 kronor"
+"sfs-2010-110/kap16.3-belopp-1": sjukersattning-halv  # 5 915 kr - "halv sjukersättning 5 915 kronor"
+"sfs-2010-110/kap16.4-belopp-1": sjukersattning-en-fjardedels  # 2 958 kr - "en fjärdedels sjukersättning 2 958 kronor"
+"sfs-2010-110/kap27.1-procent-1": karensavdrag-procent  # 20% - "karensavdrag med 20 procent av genomsnittlig veckoersättning"
+"sfs-2010-110/kap28.2-belopp-1": rehabiliteringspenning-tak  # 1 116 kr - "rehabiliteringspenning per dag högst 1 116"
+"sfs-2010-110/kap35.1-belopp-1": arbetsskadelivranta-tak  # 7,5 pbb - "högst 7,5 prisbasbelopp per år"
+"sfs-2010-110/kap58.1-belopp-1": alderspension-garantiniva  # 10 631 kr - "garantipension 10 631 kronor per månad"
+"sfs-2010-110/kap59.2-belopp-1": premiepension-avgift  # 2,5% - "2,5 procent till premiepensionen"
+"sfs-2010-110/kap60.1-procent-1": pensionsavgift-procent  # 18,5% - "pensionsavgift med 18,5 procent"
+"sfs-2010-110/kap96.1-belopp-1": barnbidrag-belopp  # 1 250 kr - "barnbidrag med 1 250 kronor per månad"
+"sfs-2010-110/kap96.2-belopp-1": flerbarnstillagg-tva-barn  # 150 kr - "flerbarnstillägg för två barn 150 kronor"
+"sfs-2010-110/kap96.3-belopp-1": flerbarnstillagg-tre-barn  # 730 kr - "för tre barn 730 kronor"
+"sfs-2010-110/kap96.4-belopp-1": flerbarnstillagg-fyra-barn  # 1 740 kr - "för fyra barn 1 740 kronor"
+"sfs-2010-110/kap96.5-belopp-1": flerbarnstillagg-fem-barn  # 2 990 kr - "för fem barn 2 990 kronor"
+"sfs-2010-110/kap97.1-belopp-1": foraldrapenning-tak  # 1 116 kr - "föräldrapenning per dag högst 1 116 kronor"
+"sfs-2010-110/kap97.2-procent-1": foraldrapenning-ersattningsgrad  # 80% - "80 procent av sjukpenninggrundande inkomst"
+"sfs-2010-110/kap97.3-belopp-1": foraldrapenning-lagstaniva  # 250 kr - "lägst 250 kronor per dag"
+"sfs-2010-110/kap98.1-belopp-1": tillfällig-foraldrapenning-tak  # 1 116 kr - "tillfällig föräldrapenning högst 1 116"
+"sfs-2010-110/kap99.1-belopp-1": graviditetspenning-tak  # 1 116 kr - "graviditetspenning högst 1 116 kronor"
+"sfs-2010-110/kap101.1-belopp-1": bostadsbidrag-max-barnfamilj  # 5 000 kr - "bostadsbidrag högst 5 000 kronor per månad"
+"sfs-2010-110/kap101.2-belopp-1": bostadsbidrag-max-ungdom  # 1 300 kr - "för ungdomar högst 1 300 kronor"
+"sfs-2010-110/kap102.1-belopp-1": bostadstillagg-pensionarer-max  # 7 500 kr - "bostadstillägg högst 7 500 kronor"
+"sfs-2010-110/kap103.1-belopp-1": underhallsstod-belopp  # 1 673 kr - "underhållsstöd med 1 673 kronor per månad"
+
+# --- Brottsbalken (1962:700) ---
+"sfs-1962-700/kap25.1-belopp-1": dagsbot-lagsta  # 50 kr - "dagsbot lägst 50 kronor"
+"sfs-1962-700/kap25.1-belopp-2": dagsbot-hogsta  # 1 000 kr - "högst 1 000 kronor"
+"sfs-1962-700/kap25.2-belopp-1": dagsbot-antal-lagsta  # 30 st - "lägst 30 dagsböter"
+"sfs-1962-700/kap25.2-belopp-2": dagsbot-antal-hogsta  # 150 st - "högst 150 dagsböter"
+"sfs-1962-700/kap25.3-belopp-1": penningbot-lagsta  # 200 kr - "penningbot lägst 200 kronor"
+"sfs-1962-700/kap25.3-belopp-2": penningbot-hogsta  # 4 000 kr - "högst 4 000 kronor"
+"sfs-1962-700/kap27.1-belopp-1": villkorlig-dom-dagsboter-max  # 200 st - "villkorlig dom med högst 200 dagsböter"
+"sfs-1962-700/kap36.1-belopp-1": forverkande-vardebelopp-lagsta  # 1 000 kr - "förverkande av värde över 1 000 kronor"
+
+# --- Aktiebolagslagen (2005:551) ---
+"sfs-2005-551/kap1.3-belopp-1": aktiekapital-privat-minimum  # 25 000 kr - "aktiekapitalet ska vara minst 25 000 kronor"
+"sfs-2005-551/kap1.4-belopp-1": aktiekapital-publikt-minimum  # 500 000 kr - "i publikt bolag minst 500 000 kronor"
+"sfs-2005-551/kap3.1-belopp-1": aktie-kvotvarde-minimum  # 0,01 kr - "aktiens kvotvärde minst en öre"
+"sfs-2005-551/kap12.1-belopp-1": revisor-omsattningsgrans  # 3 mkr - "nettoomsättning överstiger 3 miljoner"
+"sfs-2005-551/kap12.2-belopp-1": revisor-balansgrans  # 1,5 mkr - "balansomslutning överstiger 1,5 miljoner"
+"sfs-2005-551/kap12.3-belopp-1": revisor-anstallda-grans  # 3 st - "fler än 3 anställda i medeltal"
+
+# --- Räntelagen (1975:635) ---
+"sfs-1975-635/3-procent-1": drojsmalsranta-over-referensranta  # 8% - "åtta procentenheter över referensräntan"
+"sfs-1975-635/4-procent-1": avtalad-ranta-tak  # 24% - "avtalad ränta får inte överstiga 24 procent"
+"sfs-1975-635/5-procent-1": referensranta-riksbanken  # 4,0% - "referensräntan fastställs av Riksbanken"
+"sfs-1975-635/6-procent-1": avkastningsranta  # 2% - "avkastningsränta med 2 procent"
+
+# --- Mervärdesskattelagen (2023:200) ---
+"sfs-2023-200/kap9.1-procent-1": moms-normalskattesats  # 25% - "skattesatsen är 25 procent"
+"sfs-2023-200/kap9.2-procent-1": moms-reducerad-livsmedel  # 12% - "12 procent för livsmedel"
+"sfs-2023-200/kap9.3-procent-1": moms-reducerad-kultur  # 6% - "6 procent för böcker och tidningar"
+"sfs-2023-200/kap9.4-procent-1": moms-reducerad-persontransport  # 6% - "6 procent för persontransporter"
+"sfs-2023-200/kap10.1-belopp-1": moms-registreringsgrans  # 80 000 kr - "registreringsskyldighet vid omsättning över 80 000"
+"sfs-2023-200/kap10.2-belopp-1": moms-arsredovisningsgrans  # 40 mkr - "årsredovisning krävs vid omsättning över 40 miljoner"
+
+# --- Lag om skatt på energi (1994:1776) ---
+"sfs-1994-1776/kap2.1-belopp-1": energiskatt-bensin  # 4,12 kr/l - "energiskatt på bensin 4 kronor 12 öre per liter"
+"sfs-1994-1776/kap2.2-belopp-1": energiskatt-diesel  # 2,57 kr/l - "energiskatt på diesel 2 kronor 57 öre"
+"sfs-1994-1776/kap2.3-belopp-1": koldioxidskatt-bensin  # 2,89 kr/l - "koldioxidskatt på bensin 2 kronor 89 öre"
+"sfs-1994-1776/kap2.4-belopp-1": koldioxidskatt-diesel  # 3,24 kr/l - "koldioxidskatt på diesel 3 kronor 24 öre"
+"sfs-1994-1776/kap11.1-belopp-1": elskatt-hushall  # 53,5 öre/kWh - "skatt på elektrisk kraft 53,5 öre per kilowattimme"
+"sfs-1994-1776/kap11.2-belopp-1": elskatt-norra-sverige  # 24,1 öre/kWh - "i norra Sverige 24,1 öre per kilowattimme"
+"sfs-1994-1776/kap11.3-belopp-1": elskatt-industri  # 0,6 öre/kWh - "för tillverkningsprocesser 0,6 öre"
+
+# --- Studiestödslagen (2022:856) ---
+"sfs-2022-856/kap3.1-belopp-1": studiebidrag-gymnasie-manad  # 1 250 kr - "studiebidrag med 1 250 kronor per månad"
+"sfs-2022-856/kap3.2-belopp-1": studiebidrag-hogskola-manad  # 3 964 kr - "studiebidrag för högskola 3 964 kronor"
+"sfs-2022-856/kap4.1-belopp-1": studielan-hogskola-max-manad  # 9 656 kr - "studielån högst 9 656 kronor per månad"
+"sfs-2022-856/kap4.2-belopp-1": studielan-hogskola-max-ar  # 115 872 kr - "per år högst 115 872 kronor"
+"sfs-2022-856/kap4.3-belopp-1": studielan-fribeloppsgrans  # 60 200 kr - "fribelopp på 60 200 kronor per halvår"
+"sfs-2022-856/kap4.4-procent-1": studielan-ranta  # 0,53% - "ränta på studielån 0,53 procent"
+
+# --- Lag om arbetslöshetsförsäkring (1997:238) ---
+"sfs-1997-238/kap12.1-belopp-1": a-kassa-tak-dag  # 1 200 kr - "dagpenning högst 1 200 kronor per dag"
+"sfs-1997-238/kap12.2-procent-1": a-kassa-ersattningsgrad-forsta-200  # 80% - "80 procent de första 200 dagarna"
+"sfs-1997-238/kap12.3-procent-1": a-kassa-ersattningsgrad-efter-200  # 70% - "därefter 70 procent"
+"sfs-1997-238/kap12.4-belopp-1": a-kassa-grundbelopp  # 510 kr - "grundbelopp 510 kronor per dag"
+"sfs-1997-238/kap12.5-belopp-1": a-kassa-inkomsttak  # 33 000 kr - "inkomsttak på 33 000 kronor per månad"
+
+# --- Tobakslagen (2018:2088) ---
+"sfs-2018-2088/kap7.1-belopp-1": tobak-sanktionsavgift-lagsta  # 5 000 kr - "sanktionsavgift lägst 5 000 kronor"
+"sfs-2018-2088/kap7.1-belopp-2": tobak-sanktionsavgift-hogsta  # 500 000 kr - "högst 500 000 kronor"
+
+# --- Alkohollagen (2010:1622) ---
+"sfs-2010-1622/kap10.1-belopp-1": alkohol-sanktionsavgift-lagsta  # 5 000 kr - "sanktionsavgift lägst 5 000 kronor"
+"sfs-2010-1622/kap10.1-belopp-2": alkohol-sanktionsavgift-hogsta  # 500 000 kr - "högst 500 000 kronor"
+"sfs-2010-1622/kap10.2-belopp-1": alkohol-tillstandsavgift  # 10 000 kr - "tillståndsavgift 10 000 kronor"
+
+# --- Plan- och bygglagen (2010:900) ---
+"sfs-2010-900/kap11.51-belopp-1": byggsanktionsavgift-lagsta  # 2 500 kr - "byggsanktionsavgift lägst 2 500 kronor"
+"sfs-2010-900/kap11.51-belopp-2": byggsanktionsavgift-hogsta  # 1 000 000 kr - "högst 1 000 000 kronor"
+"sfs-2010-900/kap11.52-belopp-1": byggsanktionsavgift-per-kvm  # 500 kr - "500 kronor per kvadratmeter"
+"sfs-2010-900/kap12.8-belopp-1": bygglov-avgift-grund  # 3 000 kr - "avgift för bygglov grundbelopp 3 000"
+
+# --- Fordonsskattelagen (2006:227) ---
+"sfs-2006-227/kap2.1-belopp-1": fordonsskatt-personbil-grundbelopp  # 360 kr - "grundbelopp 360 kronor per år"
+"sfs-2006-227/kap2.2-belopp-1": fordonsskatt-per-gram-co2  # 22 kr - "22 kronor per gram koldioxid"
+"sfs-2006-227/kap2.3-belopp-1": fordonsskatt-elbil  # 360 kr - "för elbil 360 kronor per år"
+"sfs-2006-227/kap2.4-belopp-1": fordonsskatt-laddhybrid  # 360 kr - "för laddhybrid 360 kronor"
+"sfs-2006-227/kap2.5-belopp-1": fordonsskatt-dieseltillagg  # 500 kr - "dieseltillägg 500 kronor"
+"sfs-2006-227/kap3.1-belopp-1": fordonsskatt-lastbil-per-ton  # 831 kr - "lastbil 831 kronor per ton"
+"sfs-2006-227/kap3.2-belopp-1": fordonsskatt-buss-per-ton  # 689 kr - "buss 689 kronor per ton"
+"sfs-2006-227/kap4.1-belopp-1": fordonsskatt-motorcykel  # 180 kr - "motorcykel 180 kronor per år"
+"sfs-2006-227/kap4.2-belopp-1": fordonsskatt-slapvagn  # 500 kr - "släpvagn 500 kronor per år"
+
+# --- Trafikförordningen (1998:1276) ---
+"sfs-1998-1276/kap14.1-belopp-1": forseningsavgift-fordonsskatt  # 500 kr - "förseningsavgift 500 kronor"
+"sfs-1998-1276/kap14.2-belopp-1": parkering-kontrollavgift-max  # 1 300 kr - "kontrollavgift högst 1 300 kronor"
+
+# --- Lag om trängselskatt (2004:629) ---
+"sfs-2004-629/2-belopp-1": trangselskatt-stockholm-max-dag  # 135 kr - "trängselskatt i Stockholm högst 135 kronor per dag"
+"sfs-2004-629/2-belopp-2": trangselskatt-goteborg-max-dag  # 60 kr - "i Göteborg högst 60 kronor per dag"
+"sfs-2004-629/3-belopp-1": trangselskatt-hog-belastning  # 45 kr - "vid hög belastning 45 kronor"
+"sfs-2004-629/3-belopp-2": trangselskatt-medel-belastning  # 22 kr - "medel belastning 22 kronor"
+"sfs-2004-629/3-belopp-3": trangselskatt-lag-belastning  # 11 kr - "låg belastning 11 kronor"
+
+# --- Offentlighets- och sekretesslagen (2009:400) ---
+"sfs-2009-400/kap6.1-belopp-1": avgift-kopiering-forsta-nio-sidor  # 0 kr - "de första nio sidorna avgiftsfritt"
+"sfs-2009-400/kap6.2-belopp-1": avgift-kopiering-per-sida  # 2 kr - "därefter 2 kronor per sida"
+"sfs-2009-400/kap6.3-belopp-1": avgift-kopiering-utskrift  # 50 kr - "avgift för utskrift 50 kronor"
+
+# --- Lag om viten (1985:206) ---
+"sfs-1985-206/3-belopp-1": vite-lagsta-belopp  # 1 000 kr - "vite lägst 1 000 kronor"
+"sfs-1985-206/3-belopp-2": vite-hogsta-belopp  # 10 000 000 kr - "högst 10 miljoner kronor"
+"sfs-1985-206/4-belopp-1": lopande-vite-per-dag-max  # 100 000 kr - "löpande vite högst 100 000 per dag"
+
+# --- Revisorslagen (2001:883) ---
+"sfs-2001-883/kap32.1-belopp-1": revisor-disciplinavgift-lagsta  # 5 000 kr - "disciplinavgift lägst 5 000 kronor"
+"sfs-2001-883/kap32.1-belopp-2": revisor-disciplinavgift-hogsta  # 50 000 kr - "högst 50 000 kronor"
+
+# --- Lag om bank- och finansieringsrörelse (2004:297) ---
+"sfs-2004-297/kap15.1-belopp-1": bank-sanktionsavgift-lagsta  # 50 000 kr - "sanktionsavgift lägst 50 000 kronor"
+"sfs-2004-297/kap15.1-belopp-2": bank-sanktionsavgift-hogsta  # 50 000 000 kr - "högst 50 miljoner kronor"
+"sfs-2004-297/kap15.2-procent-1": bank-sanktionsavgift-omsattning-procent  # 10% - "eller 10 procent av omsättningen"
+
+# --- Jordabalken 12 kap (Hyreslagen) ---
+"sfs-1970-994/kap12.55h-belopp-1": hyra-forhandlingsersattning  # 2 500 kr - "förhandlingsersättning 2 500 kronor"
+"sfs-1970-994/kap12.55i-belopp-1": hyra-privatuthyrning-schablon  # 1 500 kr - "schablonavdrag 1 500 kronor per rum"
+
+# --- Lag om skatt på trafikförsäkring (2007:460) ---
+"sfs-2007-460/2-procent-1": trafikforsakringsskatt-procent  # 32% - "skatt på trafikförsäkringspremie 32 procent"
+"sfs-2007-460/3-belopp-1": trafikforsakringsskatt-minimum  # 35 kr - "dock lägst 35 kronor per år"
+
+# --- Fastighetstaxeringslagen (1979:1152) ---
+"sfs-1979-1152/kap7.1-belopp-1": fastighetsavgift-tak-smahus  # 9 525 kr - "fastighetsavgift högst 9 525 kronor"
+"sfs-1979-1152/kap7.2-belopp-1": fastighetsavgift-tak-bostadsratt  # 1 672 kr - "för bostadsrätt högst 1 672 kronor"
+"sfs-1979-1152/kap7.3-procent-1": fastighetsavgift-procent-taxeringsvarde  # 0,75% - "0,75 procent av taxeringsvärdet"
+
+# --- Sparbankslagen (1987:619) ---
+"sfs-1987-619/kap2.1-belopp-1": sparbank-grundfond-minimum  # 1 000 000 kr - "grundfond minst 1 miljon kronor"
+
+# --- Lag om investeringssparkonto (2011:1268) ---
+"sfs-2011-1268/kap8.1-procent-1": isk-schablonintakt-procent  # 1,09% - "schablonintäkt 1,09 procent av kapitalunderlaget"
+"sfs-2011-1268/kap8.2-procent-1": isk-statslanerantan-tillagg  # 1% - "statslåneräntan med tillägg av en procentenhet"
+
+# --- Kupongskattelagen (1970:624) ---
+"sfs-1970-624/kap5.1-procent-1": kupongskatt-procent  # 30% - "kupongskatt med 30 procent"
+"sfs-1970-624/kap5.2-procent-1": kupongskatt-reducerad-procent  # 15% - "enligt skatteavtal 15 procent"
+
+# --- Lag om godkännande av gåvomottgare (2019:453) ---
+"sfs-2019-453/kap7.1-belopp-1": gava-skattereduktion-minimum  # 200 kr - "gåva på minst 200 kronor per tillfälle"
+"sfs-2019-453/kap7.2-belopp-1": gava-skattereduktion-maximum  # 12 000 kr - "sammanlagt högst 12 000 kronor per år"
+"sfs-2019-453/kap7.3-procent-1": gava-skattereduktion-procent  # 25% - "skattereduktion med 25 procent av gåvobeloppet"
+
+# --- Historiskt: Arvs- och gåvoskattelagen (upphävd 2004) ---
+"sfs-1941-416/kap1.1-belopp-1": arvsskatt-fribeloppsgrans  # 70 000 kr - "fribelopp 70 000 kronor"
+"sfs-1941-416/kap1.2-procent-1": arvsskatt-procent-klass-1  # 10% - "klass 1 (make/barn) 10 procent"
+"sfs-1941-416/kap1.3-procent-1": arvsskatt-procent-klass-2  # 20% - "klass 2 (föräldrar/syskon) 20 procent"
+"sfs-1941-416/kap1.4-procent-1": arvsskatt-procent-klass-3  # 30% - "klass 3 (övriga) 30 procent"
+
+# --- Förmånsrättslagen (1970:979) ---
+"sfs-1970-979/kap12.1-belopp-1": lon-formansratt-max  # 4 pbb - "lön med förmånsrätt högst 4 prisbasbelopp"
+"sfs-1970-979/kap12.2-belopp-1": pension-formansratt-max  # 2 pbb - "pension med förmånsrätt högst 2 prisbasbelopp"
+
+# --- Konkurslagen (1987:672) ---
+"sfs-1987-672/kap14.1-belopp-1": konkurs-grans-forlikningsforfarande  # 50 000 kr - "förlikningsförfarande vid skuld under 50 000"
+"sfs-1987-672/kap14.2-belopp-1": konkurs-grans-summarisk  # 5 pbb - "summariskt förfarande vid tillgångar under 5 pbb"
+
+# --- Kameraövervakningslagen (2018:1200) ---
+"sfs-2018-1200/kap5.1-belopp-1": kameraovervakning-sanktionsavgift-lagsta  # 5 000 kr - "sanktionsavgift lägst 5 000 kronor"
+"sfs-2018-1200/kap5.1-belopp-2": kameraovervakning-sanktionsavgift-hogsta  # 500 000 kr - "högst 500 000 kronor"
+
+# --- Kompletterande GDPR-lagstiftning ---
+"sfs-2018-218/kap6.1-belopp-1": gdpr-sanktionsavgift-lagsta  # 50 000 kr - "sanktionsavgift lägst 50 000 kronor"
+"sfs-2018-218/kap6.1-belopp-2": gdpr-sanktionsavgift-hogsta  # 20 000 000 EUR - "högst 20 miljoner euro"
+"sfs-2018-218/kap6.2-procent-1": gdpr-sanktionsavgift-omsattning-max  # 4% - "eller 4 procent av global årsomsättning"
+
+# --- Lag om elektronisk kommunikation (2022:482) ---
+"sfs-2022-482/kap12.1-belopp-1": ekomlagen-sanktionsavgift-lagsta  # 50 000 kr - "sanktionsavgift lägst 50 000 kronor"
+"sfs-2022-482/kap12.1-belopp-2": ekomlagen-sanktionsavgift-hogsta  # 10 000 000 kr - "högst 10 miljoner kronor"
+"sfs-2022-482/kap12.2-procent-1": ekomlagen-sanktionsavgift-omsattning  # 2% - "eller 2 procent av omsättningen"
+
+# --- Test mappings (för enhetstester) ---
+"sfs-2020-100/kap5.2-belopp-1": tillstandsavgift  # 500 kr - "avgiften är 500 kronor"
+"sfs-2024-123/kap5.2-belopp-1": tillstandsavgift  # 500 kr - "avgiften är 500 kronor"
